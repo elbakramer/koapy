@@ -1,0 +1,33 @@
+language: shell
+os: windows
+python:
+- '3.8'
+- '3.7'
+- '3.6'
+before_install:
+- choco install python --version 3.8.5
+- cp /c/Python38/python.exe /c/Python38/python3.8.exe
+- python3.8 -m pip install --upgrade pip
+- choco install python --version 3.7.9 --side-by-side
+- cp /c/Python37/python.exe /c/Python37/python3.7.exe
+- python3.7 -m pip install --upgrade pip
+- choco install python --version 3.6.8 --side-by-side
+- cp /c/Python36/python.exe /c/Python36/python3.6.exe
+- python3.6 -m pip install --upgrade pip
+env:
+  global:
+  - PATH=/c/Python38:/c/Python38/Scripts:/c/Python37:/c/Python37/Scripts:/c/Python36:/c/Python36/Scripts:$PATH
+  - TWINE_USERNAME=__token__
+  - secure: gti49ff2+xgDTVYQvHdJM253KL3rhU8WSAcDEmPr8xClIkBZWuW4u8j8oXL+HF29eUmwxovQor3aoRpNBBTZL4jshI2erpZ6eBxkogrln0Uc9gN7nB/PbwuyMdJdCi3wzSbm6NbT2J1D/IQhE7fbqGyxIDXHCG74xUbfReif7S+L1OD3ysD4465InSZGyom7Y0o4Se1UGAPtWP3hBXjBhq4lCATUi5exHXUtJqkMptQ/EjmWM5NMB+VRFzNytxw9bCSWnazyJw7NlWZ5aWUWIWyY9Dk5JX4GMsqmjbSBoGGyx/ucjpNC6gZdiVahEoPYjl2zHllMjcHxhIsG4J4kescH2KXDk2CiJnc9VZqO5ym2McANlsDjR/PLC++Vxu72muykee+hdoLTWrl4YSPdh7Z1/DeGfpjYeo3EP8CFJ/FuIqcrA7iaH+kmne2jzJMNx6yUxoE77xK9U7hccKqPQbeorCEqzmtUvipCfjmeur8GR5Ndphke6aV5HGLpbgY8lsNLYtsZ5ECrUY+12SNY51PeeRSX+9JOwk3TR6D0UFPOOrqB3je1Mbmwi66xZPX43uf0aLSLoAoF8IOq4r6shH7hJE2Aw8yo/2W+w8RcSCBOew+JXE74/jIGPDDr+2NoYX7DguciPY4qSCvOCRfKoQPdXS/WohcW5iqRq7AxJsk=
+install:
+- pip install --upgrade tox-travis
+script:
+- tox --showconfig
+- tox --travis-after --verbose
+deploy:
+- privider: script
+  skip_cleanup: true
+  script: bash .travis/deploy.sh
+  on:
+    tags: true
+    repo: elbakramer/koapy

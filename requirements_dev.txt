@@ -1,0 +1,12 @@
+pip==20.2.3
+bump2version==1.0.0
+wheel==0.35.1
+watchdog==0.10.3
+flake8==3.8.3
+tox==3.20.0
+coverage==5.3
+Sphinx==3.2.1
+twine==3.2.0
+Click==7.1.2
+pytest==6.0.2
+pytest-runner==5.2
