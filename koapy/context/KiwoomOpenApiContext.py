@@ -27,7 +27,7 @@ class KiwoomOpenApiContext:
     def __enter__(self):
         return self
 
-    def __exit__(self, type, value, traceback): # pylint: disable=redefined-builtin
+    def __exit__(self, exc_type, exc_value, traceback):
         self.close()
 
     def get_stub(self):

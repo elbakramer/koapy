@@ -12,7 +12,7 @@ from koapy.utils.notimplemented import isimplemented
 
 class KiwoomOpenApiLoggingEventHandler(BaseKiwoomOpenApiEventHandler):
 
-    def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg): # pylint: disable=unused-argument
+    def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, _datalength, _errorcode, _message, _splmmsg):
         logging.debug('OnReceiveTrData(%r, %r, %r, %r, %r)', scrnno, rqname, trcode, recordname, prevnext)
 
     def OnReceiveRealData(self, code, realtype, realdata):
@@ -71,18 +71,18 @@ class KiwoomOpenApiLoggingEventHandler(BaseKiwoomOpenApiEventHandler):
     def OnEventConnect(self, errcode):
         logging.debug('OnEventConnect(%r)', errcode)
 
-    def OnReceiveRealCondition(self, code, type, condition_name, condition_index): # pylint: disable=redefined-builtin
-        logging.debug('OnReceiveRealCondition(%r, %r, %r, %r)', code, type, condition_name, condition_index)
+    def OnReceiveRealCondition(self, code, condition_type, condition_name, condition_index):
+        logging.debug('OnReceiveRealCondition(%r, %r, %r, %r)', code, condition_type, condition_name, condition_index)
 
-    def OnReceiveTrCondition(self, scrnno, codelist, condition_name, index, next): # pylint: disable=redefined-builtin
-        logging.debug('OnReceiveTrCondition(%r, %r, %r, %r, %r)', scrnno, codelist, condition_name, index, next)
+    def OnReceiveTrCondition(self, scrnno, codelist, condition_name, index, prevnext):
+        logging.debug('OnReceiveTrCondition(%r, %r, %r, %r, %r)', scrnno, codelist, condition_name, index, prevnext)
 
     def OnReceiveConditionVer(self, ret, msg):
         logging.debug('OnReceiveConditionVer(%r, %r)', ret, msg)
 
 class KiwoomOpenApiAllEventHandler(BaseKiwoomOpenApiEventHandler):
 
-    def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg): # pylint: disable=unused-argument
+    def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, _datalength, _errorcode, _message, _splmmsg):
         response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
         response.listen_response.name = 'OnReceiveTrData' # pylint: disable=no-member
         argument = response.listen_response.arguments.add() # pylint: disable=no-member
@@ -139,20 +139,20 @@ class KiwoomOpenApiAllEventHandler(BaseKiwoomOpenApiEventHandler):
         argument.long_value = errcode
         self.observer.on_next(response.listen_response) # pylint: disable=no-member
 
-    def OnReceiveRealCondition(self, code, type, condition_name, condition_index): # pylint: disable=redefined-builtin
+    def OnReceiveRealCondition(self, code, condition_type, condition_name, condition_index):
         response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
         response.listen_response.name = 'OnReceiveRealCondition' # pylint: disable=no-member
         argument = response.listen_response.arguments.add() # pylint: disable=no-member
         argument.string_value = code
         argument = response.listen_response.arguments.add() # pylint: disable=no-member
-        argument.string_value = type
+        argument.string_value = condition_type
         argument = response.listen_response.arguments.add() # pylint: disable=no-member
         argument.string_value = condition_name
         argument = response.listen_response.arguments.add() # pylint: disable=no-member
         argument.string_value = condition_index
         self.observer.on_next(response.listen_response) # pylint: disable=no-member
 
-    def OnReceiveTrCondition(self, scrnno, codelist, condition_name, index, next): # pylint: disable=redefined-builtin
+    def OnReceiveTrCondition(self, scrnno, codelist, condition_name, index, prevnext):
         response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
         response.listen_response.name = 'OnReceiveTrCondition' # pylint: disable=no-member
         argument = response.listen_response.arguments.add() # pylint: disable=no-member
@@ -164,7 +164,7 @@ class KiwoomOpenApiAllEventHandler(BaseKiwoomOpenApiEventHandler):
         argument = response.listen_response.arguments.add() # pylint: disable=no-member
         argument.long_value = index
         argument = response.listen_response.arguments.add() # pylint: disable=no-member
-        argument.long_value = next
+        argument.long_value = prevnext
         self.observer.on_next(response.listen_response) # pylint: disable=no-member
 
     def OnReceiveConditionVer(self, ret, msg):
@@ -214,7 +214,7 @@ class KiwoomOpenApiTrEventHandler(BaseKiwoomOpenApiEventHandler):
         self._trcode = request.transaction_code
         self._scrnno = request.screen_no
         self._inputs = request.inputs
-        
+
         self._trinfo = TrInfo.get_trinfo_by_code(self._trcode)
 
         if self._trinfo is None:
@@ -245,7 +245,7 @@ class KiwoomOpenApiTrEventHandler(BaseKiwoomOpenApiEventHandler):
             def is_stop_condition(row):
                 return comparator(row[column_index_to_check], stop_condition.value)
         else:
-            def is_stop_condition(row): # pylint: disable=unused-argument
+            def is_stop_condition(_):
                 return False
 
         self._is_stop_condition = is_stop_condition
@@ -327,7 +327,7 @@ class KiwoomOpenApiOrderEventHandler(BaseKiwoomOpenApiEventHandler):
         self._is_stop_condition = lambda row: False
         self._inputs = {}
 
-    def OnReceiveMsg(self, scrnno, rqname, trcode, msg): # pylint: disable=unused-argument
+    def OnReceiveMsg(self, scrnno, rqname, trcode, msg):
         if (rqname, scrnno) == (self._rqname, self._scrnno):
             response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
             response.listen_response.name = 'OnReceiveMsg' # pylint: disable=no-member
@@ -340,7 +340,8 @@ class KiwoomOpenApiOrderEventHandler(BaseKiwoomOpenApiEventHandler):
 
             self.observer.on_next(response)
 
-            if trcode == 'KOA_NORMAL_BUY_KP_ORD': # pylint: disable=unreachable
+            # 아래는 개발과정에서 확인용도
+            if trcode == 'KOA_NORMAL_BUY_KP_ORD':
                 if msg == '[00Z218] 모의투자 장종료 상태입니다': # 메시지의 코드로 판단하는건 위험함 (게다가 모의투자만 해당)
                     logging.warning('Market is closed')
                 elif msg == '[00Z217] 모의투자 장시작전입니다':
@@ -352,7 +353,7 @@ class KiwoomOpenApiOrderEventHandler(BaseKiwoomOpenApiEventHandler):
             elif trcode == 'KOA_NORMAL_KP_CANCEL':
                 if msg == '[00Z924] 모의투자 취소수량이 취소가능수량을 초과합니다':
                     logging.warning('Not enough amount to cancel')
-    
+
     def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg):
         if (rqname, scrnno) == (self._rqname, self._scrnno):
             response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()

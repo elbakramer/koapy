@@ -4,13 +4,14 @@ import json
 import zipfile
 import contextlib
 
+from koapy.utils.serialization import JsonSerializable
 
-class TrInfo:
+class TrInfo(JsonSerializable):
 
     _TRINFO_BY_CODE_DUMP_FILENAME = 'trinfo_by_code.json'
     _TRINFO_BY_CODE = {}
 
-    class Field:
+    class Field(JsonSerializable):
 
         __outer_class__ = None
 
@@ -28,23 +29,6 @@ class TrInfo:
                 self.start,
                 self.offset,
                 self.fid)
-
-        def to_dict(self):
-            return dict(self.__dict__)
-
-        @classmethod
-        def from_dict(cls, dic):
-            output = cls()
-            for name in output.__dict__:
-                setattr(output, name, dic.get(name))
-            return output
-
-        def to_json(self, filename=None):
-            if filename is None:
-                return json.dumps(self.to_dict())
-            else:
-                with open(filename, 'w') as f:
-                    return json.dump(self.to_dict(), f)
 
         @classmethod
         def from_json(cls, jsn):
@@ -103,13 +87,6 @@ class TrInfo:
             else:
                 setattr(output, name, value)
         return output
-
-    def to_json(self, filename=None):
-        if filename is None:
-            return json.dumps(self.to_dict())
-        else:
-            with open(filename, 'w') as f:
-                return json.dump(self.to_dict(), f)
 
     @classmethod
     def from_json(cls, jsn):
@@ -257,10 +234,13 @@ class TrInfo:
                 return result
         return {}
 
+    @classmethod
+    def load_from_dump_file(cls, dump_file=None):
+        cls._TRINFO_BY_CODE = cls.trinfo_by_name_from_dump_file(dump_file)
 
 TrInfo.Field.__outer_class__ = TrInfo
-TrInfo._TRINFO_BY_CODE = TrInfo.trinfo_by_name_from_dump_file()
 
+TrInfo.load_from_dump_file()
 
 def main():
     TrInfo.dump_trinfo_by_name()
@@ -287,7 +267,6 @@ def infer_fids_by_tr_outputs():
     import pandas as pd # pylint: disable=import-outside-toplevel
     df = pd.DataFrame.from_records(pairs)
     df.to_excel('fid.xlsx', header=False, index=False)
-
 
 if __name__ == '__main__':
     main()

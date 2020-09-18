@@ -51,16 +51,16 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
             raise TypeError('Unexpected return value type from server side dynamicCall(): %s' % type(result))
         return response
 
-    def _RegisterHandler(self, id, handler):
+    def _RegisterHandler(self, handler_id, handler):
         with self._listen_id_to_handler_lock:
-            self._UnregisterHandler(id)
-            self._listen_id_to_handler[id] = handler
+            self._UnregisterHandler(handler_id)
+            self._listen_id_to_handler[handler_id] = handler
 
-    def _UnregisterHandler(self, id):
+    def _UnregisterHandler(self, handler_id):
         with self._listen_id_to_handler_lock:
-            if id in self._listen_id_to_handler:
-                self._listen_id_to_handler[id].observer.on_completed()
-                del self._listen_id_to_handler[id]
+            if handler_id in self._listen_id_to_handler:
+                self._listen_id_to_handler[handler_id].observer.on_completed()
+                del self._listen_id_to_handler[handler_id]
                 return True
         return False
 
@@ -83,8 +83,8 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
         if code and class_name:
             g = {}
             l = {}
-            exec(code, g, l)
-            handler = eval(class_name, g, l)(self.control, request)
+            exec(code, g, l) # pylint: disable=exec-used
+            handler = eval(class_name, g, l)(self.control, request) # pylint: disable=eval-used
             assert isinstance(handler, BaseKiwoomOpenApiEventHandler)
             with handler:
                 for response in handler:
@@ -104,8 +104,8 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
         if code and class_name:
             g = {}
             l = {}
-            exec(code, g, l)
-            handler = eval(class_name, g, l)(self.control, request)
+            exec(code, g, l) # pylint: disable=exec-used
+            handler = eval(class_name, g, l)(self.control, request) # pylint: disable=eval-used
             assert isinstance(handler, BaseKiwoomOpenApiEventHandler)
         else:
             handler = KiwoomOpenApiAllEventHandler(self.control)

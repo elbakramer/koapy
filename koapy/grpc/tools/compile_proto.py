@@ -11,13 +11,13 @@ def compile_proto():
     proto_filepath = os.path.join(proto_path, 'koapy', 'grpc', proto_filename)
     python_out = proto_path
     grpc_python_out = proto_path
-    cmd = ['python',
+    cmd = [
+        'python',
         '-m', 'grpc_tools.protoc',
         '--proto_path=%s' % quote(proto_path),
         '--python_out=%s' % quote(python_out),
         '--grpc_python_out=%s' % quote(grpc_python_out),
-        proto_filepath,
-    ]
+        proto_filepath]
     print(' '.join(cmd))
     subprocess.run(cmd, cwd=project_dir, check=True)
 

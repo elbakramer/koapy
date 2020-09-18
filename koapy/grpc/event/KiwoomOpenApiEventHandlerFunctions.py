@@ -29,9 +29,9 @@ class KiwoomOpenApiEventHandlerFunctions(ABC):
         raise NotImplementedError
 
     @notimplemented
-    def OnReceiveTrCondition(self, scrnno, codelist, condition_name, index, next):
+    def OnReceiveTrCondition(self, scrnno, codelist, condition_name, index, prevnext):
         raise NotImplementedError
 
     @notimplemented
-    def OnReceiveRealCondition(self, code, type, condition_name, condition_index):
+    def OnReceiveRealCondition(self, code, condition_type, condition_name, condition_index):
         raise NotImplementedError

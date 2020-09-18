@@ -3,9 +3,11 @@ import json
 import contextlib
 import pandas as pd
 
-class RealType:
+from koapy.utils.serialization import JsonSerializable
 
-    class Fid:
+class RealType(JsonSerializable):
+
+    class Fid(JsonSerializable):
 
         __outer_class__ = None
 
@@ -33,6 +35,10 @@ class RealType:
             return result
 
         @classmethod
+        def load_from_dump_file(cls, dump_file=None):
+            cls._NAME_BY_FID = cls.name_by_fid_from_dump_file(dump_file)
+
+        @classmethod
         def get_name_by_fid(cls, fid, default=None):
             fid = int(fid)
             return cls._NAME_BY_FID.get(fid, default)
@@ -53,23 +59,6 @@ class RealType:
             self.desc,
             self.nfid,
             self.fids)
-
-    def to_dict(self):
-        return dict(self.__dict__)
-
-    @classmethod
-    def from_dict(cls, dic):
-        output = cls()
-        for name in output.__dict__:
-            setattr(output, name, dic.get(name))
-        return output
-
-    def to_json(self, filename=None):
-        if filename is None:
-            return json.dumps(self.to_dict())
-        else:
-            with open(filename, 'w') as f:
-                return json.dump(self.to_dict(), f)
 
     @classmethod
     def get_fids_by_realtype(cls, realtype):
@@ -164,16 +153,17 @@ class RealType:
                 return result
         return {}
 
+    @classmethod
+    def load_from_dump_file(cls, dump_file=None):
+        cls._REALTYPE_BY_DESC = cls.realtype_by_desc_from_dump_file(dump_file)
+        cls.Fid.load_from_dump_file()
 
 RealType.Fid.__outer_class__ = RealType
 
-RealType._REALTYPE_BY_DESC = RealType.realtype_by_desc_from_dump_file() # pylint: disable=protected-access
-RealType.Fid._NAME_BY_FID = RealType.Fid.name_by_fid_from_dump_file() # pylint: disable=protected-access
-
+RealType.load_from_dump_file()
 
 def main():
     RealType.dump_realtype_by_desc()
-
 
 if __name__ == '__main__':
     main()

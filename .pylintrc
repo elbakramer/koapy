@@ -14,7 +14,7 @@ ignore=CVS
 
 # Add files or directories matching the regex patterns to the blacklist. The
 # regex matches against base names, not paths.
-ignore-patterns=
+ignore-patterns=(.+)_pb2.py,(.+)_pb2_grpc.py
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
@@ -473,8 +473,7 @@ allow-global-unused-variables=yes
 
 # List of strings which can identify a callback function by name. A callback
 # name must start or end with one of those strings.
-callbacks=cb_,
-          _cb
+callbacks=cb_,_cb
 
 # A regular expression matching the name of dummy variables (i.e. expected to
 # not be used).

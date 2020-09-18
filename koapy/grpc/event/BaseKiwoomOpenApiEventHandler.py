@@ -72,15 +72,14 @@ class BaseKiwoomOpenApiEventHandler(KiwoomOpenApiEventHandlerFunctions, ABC):
             self._enter_count += 1
         return self
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, exc_type, exc_value, traceback):
         with self._lock:
             if self._enter_count > 0:
                 self._enter_count -= 1
             if self._enter_count == 0:
                 self.disconnect()
                 self.on_exit()
-                self._stack.__exit__(type, value, traceback)
-        return None
+                self._stack.__exit__(exc_type, exc_value, traceback)
 
     def __iter__(self):
         with self:

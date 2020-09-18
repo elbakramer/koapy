@@ -347,7 +347,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 columns = response.listen_response.multi_data.names
             for values in response.listen_response.multi_data.values:
                 records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, [12, 15]))
-        df = pd.DataFrame.from_records(records, columns=columns)
+        _df = pd.DataFrame.from_records(records, columns=columns)
         return single_output
 
     def GetStockQuotes(self, code, rqname=None, scrnno=None):
@@ -371,7 +371,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 columns = response.listen_response.multi_data.names
             for values in response.listen_response.multi_data.values:
                 records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, [12, 15]))
-        df = pd.DataFrame.from_records(records, columns=columns)
+        _df = pd.DataFrame.from_records(records, columns=columns)
         return single_output
 
     def GetOrderLogAsDataFrame1(self, account_no, order_type=None, status_type=None, code=None, rqname=None, scrnno=None):
@@ -564,7 +564,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         """
         조회구분 = 1:합산, 2:개별
 
-        [ 주의 ] 
+        [ 주의 ]
         "수익률%" 데이터는 모의투자에서는 소숫점표현, 실거래서버에서는 소숫점으로 변환 필요 합니다.
         """
         if rqname is None:
@@ -614,7 +614,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 columns = response.listen_response.multi_data.names
             for values in response.listen_response.multi_data.values:
                 records.append(values.values)
-        df = pd.DataFrame.from_records(records, columns=columns)
+        _df = pd.DataFrame.from_records(records, columns=columns)
         return single_output
 
     def ListenRealDataForCodesAsStream(self, codes=None, fids=None, scrnno=None, realtype=None):
