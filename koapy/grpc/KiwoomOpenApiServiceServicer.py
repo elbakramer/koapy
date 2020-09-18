@@ -138,6 +138,7 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
         scrnno = request.screen_no
         inputs = request.inputs
         with KiwoomOpenApiTrEventHandler(self.control, request) as handler:
+            handler.add_callback(self.control.DisconnectRealData, scrnno)
             for k, v in inputs.items():
                 self.control.SetInputValue(k, v)
             KiwoomOpenApiError.try_or_raise(
