@@ -1,16 +1,17 @@
 """Console script for koapy."""
-import sys
 import click
 
+@click.group()
+def cli():
+    pass
 
-@click.command()
-def main(args=None):
-    """Console script for koapy."""
-    click.echo("Replace this message by putting your code into "
-               "koapy.cli.main")
-    click.echo("See click documentation at https://click.palletsprojects.com/")
-    return 0
+@cli.command()
+@click.option('--port')
+@click.argument('args', nargs=-1)
+def serve(port, args):
+    args = ['--port', port] + list(args)
+    from koapy.pyqt5.KiwoomOpenApiTrayApplication import KiwoomOpenApiTrayApplication
+    KiwoomOpenApiTrayApplication.main(args)
 
-
-if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+if __name__ == '__main__':
+    cli()

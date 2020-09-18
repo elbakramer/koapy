@@ -2,6 +2,8 @@ import sys
 import logging
 import argparse
 import datetime
+import signal
+import contextlib
 
 from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QStyle
 from PyQt5.QtCore import QTimer, QObject, pyqtSignal
@@ -21,16 +23,17 @@ class KiwoomOpenApiTrayApplication(QObject):
 
         self._parser = argparse.ArgumentParser()
         self._parser.add_argument('-p', '--port')
-        self._parsed_args = self._parser.parse_args(args and args[1:])
+        self._parsed_args, remaining_args = self._parser.parse_known_args(args and args[1:])
 
         self._port = self._parsed_args.port
 
-        self._app = QApplication(args)
+        self._app = QApplication(args[:1] + remaining_args)
         self._control = KiwoomOpenApiQAxWidget()
         self._server = KiwoomOpenApiServiceServer(self._control, port=self._port)
 
         self._should_restart.connect(self._exit)
         self._startRestartNotifier()
+        self._startEventLoopProcessor()
 
         self._tray = QSystemTrayIcon()
         self._tray.activated.connect(self._activate)
@@ -158,15 +161,21 @@ class KiwoomOpenApiTrayApplication(QObject):
     def _configureAutoLogin(self):
         self._ensureConnectedAndThen(self._showAccountWindow)
 
+    def _onInterrupt(self, signum, _frame):
+        self._exit(signum + 100)
+
     def _exec(self):
-        logging.debug('Starting app')
-        logging.debug('Starting server')
-        try:
-            self._server.start()
-        except ValueError as e:
-            logging.warning('Error: %s', e)
-        logging.debug('Started server')
-        return self._app.exec_()
+        with contextlib.ExitStack() as stack:
+            orig_handler = signal.signal(signal.SIGINT, self._onInterrupt)
+            stack.callback(signal.signal, signal.SIGINT, orig_handler)
+            logging.debug('Starting app')
+            logging.debug('Starting server')
+            try:
+                self._server.start()
+            except ValueError as e:
+                logging.warning('Error: %s', e)
+            logging.debug('Started server')
+            return self._app.exec_()
 
     def _exit(self, return_code=0):
         logging.debug('Exiting app')
@@ -187,17 +196,23 @@ class KiwoomOpenApiTrayApplication(QObject):
         return target
 
     def _startRestartNotifier(self):
-        buffer_seconds = 1
         def notify_and_wait_for_next():
             self._should_restart.emit(self._should_restart_exit_code)
             now = datetime.datetime.now()
             next_restart_time = self._nextRestartTime()
             timediff = next_restart_time - now
-            QTimer.singleShot((timediff.total_seconds() + buffer_seconds) * 1000, notify_and_wait_for_next)
+            QTimer.singleShot((timediff.total_seconds() + 1) * 1000, notify_and_wait_for_next)
         now = datetime.datetime.now()
         next_restart_time = self._nextRestartTime()
         timediff = next_restart_time - now
-        QTimer.singleShot((timediff.total_seconds() + buffer_seconds) * 1000, notify_and_wait_for_next)
+        QTimer.singleShot((timediff.total_seconds() + 1) * 1000, notify_and_wait_for_next)
+
+    def _startEventLoopProcessor(self):
+        interval = 5 * 1000
+        def process_and_wait():
+            QApplication.processEvents()
+            QTimer.singleShot(interval, process_and_wait)
+        QTimer.singleShot(interval, process_and_wait)
 
     def _exitForRestart(self):
         return self._exit(self._should_restart_exit_code)

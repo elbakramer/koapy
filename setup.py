@@ -51,7 +51,7 @@ setup(
     description="Kiwoom Open Api Python",
     entry_points={
         'console_scripts': [
-            'koapy=koapy.cli:main',
+            'koapy=koapy.cli:cli',
         ],
     },
     install_requires=requirements,
