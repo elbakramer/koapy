@@ -17,7 +17,7 @@ class KiwoomOpenApiTrayApplication(QObject):
     _should_restart_exit_code = 1
 
     def __init__(self, args=()):
-        super(KiwoomOpenApiTrayApplication, self).__init__()
+        super().__init__()
 
         self._parser = argparse.ArgumentParser()
         self._parser.add_argument('-p', '--port')

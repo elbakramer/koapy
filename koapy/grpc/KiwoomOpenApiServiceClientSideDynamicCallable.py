@@ -1,6 +1,6 @@
 from koapy.grpc import KiwoomOpenApiService_pb2
 
-class KiwoomOpenApiServiceClientSideDynamicCallable(object):
+class KiwoomOpenApiServiceClientSideDynamicCallable:
 
     def __init__(self, stub, name):
         self._stub = stub

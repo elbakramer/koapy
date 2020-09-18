@@ -4,7 +4,7 @@ import tqdm
 class TqdmStream(io.RawIOBase):
 
     def __init__(self, file=None):
-        super(TqdmStream, self).__init__()
+        super().__init__()
         self._file = file
 
     def __getattr__(self, name):

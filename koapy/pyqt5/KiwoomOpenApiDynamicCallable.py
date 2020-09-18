@@ -1,6 +1,6 @@
 import logging
 
-class KiwoomOpenApiDynamicCallable(object):
+class KiwoomOpenApiDynamicCallable:
 
     def __init__(self, control, name):
         self._control = control

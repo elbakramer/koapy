@@ -3,7 +3,7 @@ import threading
 
 from functools import wraps
 
-class SimpleRateLimiter(object):
+class SimpleRateLimiter:
 
     """
     [조회횟수 제한 관련 가이드]

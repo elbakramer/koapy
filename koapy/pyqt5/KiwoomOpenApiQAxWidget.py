@@ -32,7 +32,7 @@ class KiwoomOpenApiQAxWidget(QWidget):
             super_kwargs = {k:v for k, v in kwargs if k != self.CONTROL_NAME_KWARG_KEY}
             control_name = kwargs[self.CONTROL_NAME_KWARG_KEY]
 
-        super(KiwoomOpenApiQAxWidget, self).__init__(*super_args, **super_kwargs)
+        super().__init__(*super_args, **super_kwargs)
 
         self._ax = QAxWidget(control_name, self)
         self._signals = {}

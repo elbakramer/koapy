@@ -6,7 +6,7 @@ from koapy.grpc.KiwoomOpenApiServiceClient import KiwoomOpenApiServiceClient
 from koapy.config import config
 from koapy.utils.networking import get_free_localhost_port
 
-class KiwoomOpenApiContext(object):
+class KiwoomOpenApiContext:
 
     def __init__(self, port=None):
         self._port = port or config.get('koapy.grpc.port') or get_free_localhost_port()

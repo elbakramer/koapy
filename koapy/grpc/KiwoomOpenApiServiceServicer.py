@@ -18,7 +18,7 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
     _listen_id_to_handler_lock = threading.RLock()
 
     def __init__(self, control):
-        super(KiwoomOpenApiServiceServicer, self).__init__()
+        super().__init__()
         self._control = control
 
     @property

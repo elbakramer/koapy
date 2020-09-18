@@ -8,7 +8,7 @@ from koapy.grpc.KiwoomOpenApiServiceServicer import KiwoomOpenApiServiceServicer
 from koapy.config import config
 from koapy.utils.networking import get_free_localhost_port
 
-class KiwoomOpenApiServiceServer(object):
+class KiwoomOpenApiServiceServer:
 
     def __init__(self, control, host=None, port=None, max_workers=None):
         self._control = control

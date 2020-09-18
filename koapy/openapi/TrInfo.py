@@ -5,12 +5,12 @@ import zipfile
 import contextlib
 
 
-class TrInfo(object):
+class TrInfo:
 
-    TRINFO_BY_CODE_DUMP_FILENAME = 'trinfo_by_code.json'
-    TRINFO_BY_CODE = {}
+    _TRINFO_BY_CODE_DUMP_FILENAME = 'trinfo_by_code.json'
+    _TRINFO_BY_CODE = {}
 
-    class Field(object):
+    class Field:
 
         __outer_class__ = None
 
@@ -132,7 +132,7 @@ class TrInfo(object):
 
     @classmethod
     def get_trinfo_by_code(cls, trcode):
-        return cls.TRINFO_BY_CODE.get(trcode)
+        return cls._TRINFO_BY_CODE.get(trcode)
 
     @classmethod
     def from_encfile(cls, f, tr_code=''):
@@ -236,7 +236,7 @@ class TrInfo(object):
     def dump_trinfo_by_name(cls, dump_file=None):
         with contextlib.ExitStack() as stack:
             if dump_file is None:
-                dump_file = os.path.join(os.path.dirname(__file__), 'data', cls.TRINFO_BY_CODE_DUMP_FILENAME)
+                dump_file = os.path.join(os.path.dirname(__file__), 'data', cls._TRINFO_BY_CODE_DUMP_FILENAME)
             if isinstance(dump_file, str):
                 dump_file = stack.enter_context(open(dump_file, 'w'))
             result = cls.trinfo_by_name_from_data_dir()
@@ -248,7 +248,7 @@ class TrInfo(object):
     def trinfo_by_name_from_dump_file(cls, dump_file=None):
         with contextlib.ExitStack() as stack:
             if dump_file is None:
-                dump_file = os.path.join(os.path.dirname(__file__), 'data', cls.TRINFO_BY_CODE_DUMP_FILENAME)
+                dump_file = os.path.join(os.path.dirname(__file__), 'data', cls._TRINFO_BY_CODE_DUMP_FILENAME)
             if isinstance(dump_file, str) and os.path.exists(dump_file):
                 dump_file = stack.enter_context(open(dump_file, 'r'))
                 result = json.load(dump_file)
@@ -259,7 +259,7 @@ class TrInfo(object):
 
 
 TrInfo.Field.__outer_class__ = TrInfo
-TrInfo.TRINFO_BY_CODE = TrInfo.trinfo_by_name_from_dump_file()
+TrInfo._TRINFO_BY_CODE = TrInfo.trinfo_by_name_from_dump_file()
 
 
 def main():

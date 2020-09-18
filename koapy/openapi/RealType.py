@@ -3,14 +3,14 @@ import json
 import contextlib
 import pandas as pd
 
-class RealType(object):
+class RealType:
 
-    class FID(object):
+    class Fid:
 
         __outer_class__ = None
 
-        FID_DUMP_FILENAME = 'fid.xlsx'
-        NAME_BY_FID = {}
+        _FID_DUMP_FILENAME = 'fid.xlsx'
+        _NAME_BY_FID = {}
 
         def __init__(self, fid=None, name=None):
             self.fid = int(fid)
@@ -26,7 +26,7 @@ class RealType(object):
         @classmethod
         def name_by_fid_from_dump_file(cls, dump_file=None):
             if dump_file is None:
-                dump_file = os.path.join(os.path.dirname(__file__), 'data', cls.FID_DUMP_FILENAME)
+                dump_file = os.path.join(os.path.dirname(__file__), 'data', cls._FID_DUMP_FILENAME)
             df = pd.read_excel(dump_file)
             fids = [cls(pair[0], pair[1]) for pair in zip(df['fid'], df['name'])]
             result = {fid.fid: fid.name for fid in fids}
@@ -35,10 +35,10 @@ class RealType(object):
         @classmethod
         def get_name_by_fid(cls, fid, default=None):
             fid = int(fid)
-            return cls.NAME_BY_FID.get(fid, default)
+            return cls._NAME_BY_FID.get(fid, default)
 
-    REALTYPE_BY_DESC_DUMP_FILENAME = 'realtype_by_desc.json'
-    REALTYPE_BY_DESC = {}
+    _REALTYPE_BY_DESC_DUMP_FILENAME = 'realtype_by_desc.json'
+    _REALTYPE_BY_DESC = {}
 
     def __init__(self, gidc=None, desc=None, nfid=None, fids=None):
         self.gidc = gidc
@@ -73,7 +73,7 @@ class RealType(object):
 
     @classmethod
     def get_fids_by_realtype(cls, realtype):
-        result = cls.REALTYPE_BY_DESC.get(realtype)
+        result = cls._REALTYPE_BY_DESC.get(realtype)
         if result is not None:
             return result.fids
         return None
@@ -90,7 +90,7 @@ class RealType(object):
     def get_field_names_by_realtype(cls, realtype):
         fids = cls.get_fids_by_realtype(realtype)
         if fids is not None:
-            names = [cls.FID.get_name_by_fid(fid, str(fid)) for fid in fids]
+            names = [cls.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
             return names
         return None
 
@@ -143,7 +143,7 @@ class RealType(object):
     def dump_realtype_by_desc(cls, dump_file=None):
         with contextlib.ExitStack() as stack:
             if dump_file is None:
-                dump_file = os.path.join(os.path.dirname(__file__), 'data', cls.REALTYPE_BY_DESC_DUMP_FILENAME)
+                dump_file = os.path.join(os.path.dirname(__file__), 'data', cls._REALTYPE_BY_DESC_DUMP_FILENAME)
             if isinstance(dump_file, str):
                 dump_file = stack.enter_context(open(dump_file, 'w'))
             result = cls.realtype_by_desc_from_datfile()
@@ -155,7 +155,7 @@ class RealType(object):
     def realtype_by_desc_from_dump_file(cls, dump_file=None):
         with contextlib.ExitStack() as stack:
             if dump_file is None:
-                dump_file = os.path.join(os.path.dirname(__file__), 'data', cls.REALTYPE_BY_DESC_DUMP_FILENAME)
+                dump_file = os.path.join(os.path.dirname(__file__), 'data', cls._REALTYPE_BY_DESC_DUMP_FILENAME)
             if isinstance(dump_file, str) and os.path.exists(dump_file) and os.stat(dump_file).st_size > 0:
                 dump_file = stack.enter_context(open(dump_file, 'r'))
                 result = json.load(dump_file)
@@ -165,10 +165,10 @@ class RealType(object):
         return {}
 
 
-RealType.FID.__outer_class__ = RealType
+RealType.Fid.__outer_class__ = RealType
 
-RealType.REALTYPE_BY_DESC = RealType.realtype_by_desc_from_dump_file()
-RealType.FID.NAME_BY_FID = RealType.FID.name_by_fid_from_dump_file()
+RealType._REALTYPE_BY_DESC = RealType.realtype_by_desc_from_dump_file() # pylint: disable=protected-access
+RealType.Fid._NAME_BY_FID = RealType.Fid.name_by_fid_from_dump_file() # pylint: disable=protected-access
 
 
 def main():

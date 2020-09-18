@@ -4,7 +4,7 @@ from koapy.grpc import KiwoomOpenApiService_pb2_grpc
 from koapy.grpc.KiwoomOpenApiServiceClientStubWrapper import KiwoomOpenApiServiceClientStubWrapper
 from koapy.config import config
 
-class KiwoomOpenApiServiceClient(object):
+class KiwoomOpenApiServiceClient:
 
     def __init__(self, host=None, port=None):
         self._host = host or config.get_string('koapy.grpc.host', 'localhost')
