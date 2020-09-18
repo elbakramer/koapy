@@ -1,7 +1,12 @@
 import os
 import subprocess
 
-from mslex import quote
+import sys
+
+if sys.platform == 'win32':
+    from mslex import quote
+else:
+    from shlex import quote
 
 def compile_proto():
     proto_filename = 'KiwoomOpenApiService.proto'
@@ -23,4 +28,3 @@ def compile_proto():
 
 if __name__ == '__main__':
     compile_proto()
-    

@@ -20,19 +20,49 @@
 import os
 import sys
 
-from sphinx.ext import apidoc
+# -- Directory and import setting ---
 
-sys.path.insert(0, os.path.abspath('..'))
+doc_dir = os.path.abspath(os.path.dirname(__file__))
+project_dir = os.path.abspath(os.path.join(doc_dir, '..'))
+module_dir = os.path.abspath(os.path.join(project_dir, 'koapy'))
+
+sys.path.insert(0, project_dir)
 
 import koapy
 
+# -- Apidoc hook setting ---
+
+from sphinx.ext import apidoc
+
 def run_apidoc(_):
-    cur_dir = os.path.abspath(os.path.dirname(__file__))
-    module = os.path.join(cur_dir, "..", "koapy")
-    apidoc.main(['-e', '-o', cur_dir, module, '--force', '--doc-project', 'Koapy'])
+    apidoc.main(['-e', '-o', doc_dir, module_dir, '--force', '--doc-project', 'Koapy'])
 
 def setup(app):
     app.connect('builder-inited', run_apidoc)
+
+# -- Autodoc configuration ---
+
+autodoc_mock_imports = ['PyQt5', 'sip', 'numpy', 'pandas']
+autodoc_warningiserror = True
+
+from unittest.mock import MagicMock
+
+class QClass:
+    pass
+
+PyQt5 = MagicMock()
+PyQt5.QtWidgets.QWidget = QClass
+PyQt5.QtCore.QObject = QClass
+
+sys.modules.update({
+    'PyQt5.QtWidgets': PyQt5.QtWidgets,
+    'PyQt5.QtCore': PyQt5.QtCore,
+})
+
+# -- Warnings related setting ---
+
+suppress_warnings = []
+keep_warnings = True
 
 # -- General configuration ---------------------------------------------
 
@@ -44,8 +74,13 @@ def setup(app):
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
+    'sphinx.ext.githubpages',
+    'sphinx.ext.imgconverter',
+    'sphinx.ext.todo',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -120,21 +155,12 @@ htmlhelp_basename = 'koapydoc'
 # -- Options for LaTeX output ------------------------------------------
 
 latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
-
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
-
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
+    'papersize': 'a4paper',
+    'pointsize': '10pt',
+    'preamble': r"""
+    \usepackage{kotex}
+    """,
+    'figure_align': 'htbp',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples

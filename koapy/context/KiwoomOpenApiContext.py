@@ -15,7 +15,7 @@ class KiwoomOpenApiContext:
         self._server_proc = None
         self._server_proc_terminate_timeout = config.get_int('koapy.grpc.context.server.terminate.timeout', 10)
         self._client = KiwoomOpenApiServiceClient(port=self._port)
-        logging.debug('Testing client is ready...')
+        logging.debug('Testing if client is ready...')
         if not self._client.is_ready():
             logging.debug('Client is not ready, creating a new server')
             self._server_proc = subprocess.Popen(self._server_proc_args)

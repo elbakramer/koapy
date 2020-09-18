@@ -1,5 +1,4 @@
 import logging
-import pythoncom
 
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QAxContainer import QAxWidget
@@ -15,7 +14,21 @@ from koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions import KiwoomOpenApiEve
 class KiwoomOpenApiQAxWidget(QWidget):
 
     CLSID = '{A1574A0D-6BFA-4BD7-9020-DED88711818D}'
-    PROGID = pythoncom.ProgIDFromCLSID(CLSID) or 'KHOPENAPI.KHOpenApiCtrl.1'
+    PROGID = 'KHOPENAPI.KHOpenApiCtrl.1'
+
+    try:
+        import pythoncom
+        from pywintypes import com_error as ComError
+    except ImportError:
+        pass
+    else:
+        try:
+            PROGID = pythoncom.ProgIDFromCLSID(CLSID) or PROGID
+        except ComError:
+            pass
+        finally:
+            del pythoncom
+            del ComError
 
     CONTROL_NAME_KWARG_KEY = 'c'
 

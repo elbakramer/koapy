@@ -11,18 +11,21 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'Click==7.1.2',
-    'PyQt5==5.15.0',
-    'grpcio==1.32.0',
-    'grpcio-tools==1.32.0',
-    'protobuf==3.13.0',
-    'pyhocon==0.3.55',
-    'mslex==0.1.1',
-    'discord.py==1.4.1',
-    'schedule==0.6.0',
-    'tabulate==0.8.7',
-    'pywin32==228;sys_platform=="win32"',
-    'mslex==0.1.1;sys_platform=="win32"',
+    'Click>=7.1.2',
+    'PyQt5>=5.15.1',
+    'grpcio>=1.32.0',
+    'grpcio-tools>=1.32.0',
+    'protobuf>=3.13.0',
+    'pyhocon>=0.3.55',
+    'discord.py>=1.4.1',
+    'schedule>=0.6.0',
+    'tabulate>=0.8.7',
+    'tqdm>=4.49.0',
+    'wrapt>=1.12.1',
+    'numpy>=1.19.2',
+    'pandas>=1.1.2',
+    'pywin32>=228;sys_platform=="win32"',
+    'mslex>=0.1.1;sys_platform=="win32"',
 ]
 
 setup_requirements = ['pytest-runner', ]

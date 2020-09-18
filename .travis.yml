@@ -26,8 +26,8 @@ script:
 - tox --showconfig
 - tox --travis-after --verbose
 deploy:
-- privider: script
-  skip_cleanup: true
+- provider: script
+  cleanup: false
   script: bash .travis/deploy.sh
   on:
     tags: true
