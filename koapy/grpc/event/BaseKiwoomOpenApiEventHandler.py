@@ -2,10 +2,10 @@ from abc import ABC
 from contextlib import ExitStack
 from threading import RLock
 
-from koa.grpc.event.KiwoomOpenApiEventHandlerFunctions import KiwoomOpenApiEventHandlerFunctions
-from koa.grpc.observer.QueueBasedIterableObserver import QueueBasedIterableObserver
+from koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions import KiwoomOpenApiEventHandlerFunctions
+from koapy.grpc.observer.QueueBasedIterableObserver import QueueBasedIterableObserver
 
-from koa.utils.notimplemented import isimplemented
+from koapy.utils.notimplemented import isimplemented
 
 class BaseKiwoomOpenApiEventHandler(KiwoomOpenApiEventHandlerFunctions, ABC):
 

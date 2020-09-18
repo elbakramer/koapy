@@ -22,14 +22,14 @@ import sys
 
 from sphinx.ext import apidoc
 
-import koapy
-
 sys.path.insert(0, os.path.abspath('..'))
+
+import koapy
 
 def run_apidoc(_):
     cur_dir = os.path.abspath(os.path.dirname(__file__))
     module = os.path.join(cur_dir, "..", "koapy")
-    apidoc.main(['-o', cur_dir, module, '--force', '--doc-project', 'Koapy'])
+    apidoc.main(['-e', '-o', cur_dir, module, '--force', '--doc-project', 'Koapy'])
 
 def setup(app):
     app.connect('builder-inited', run_apidoc)
@@ -171,6 +171,3 @@ texinfo_documents = [
      'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-

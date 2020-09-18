@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+SPHINXOPTS    = -vvvvv
 SPHINXBUILD   = python -msphinx
 SPHINXPROJ    = koapy
 SOURCEDIR     = .
@@ -14,7 +14,7 @@ help:
 
 clean:
 	@$(SPHINXBUILD) -M clean "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	rm -f modules.rst koapy.rst koapy.*.rst
+	@rm -f modules.rst koapy.rst koapy.*.rst
 
 .PHONY: help clean Makefile
 
