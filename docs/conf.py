@@ -20,18 +20,19 @@
 import os
 import sys
 
+from sphinx.ext import apidoc
+
+import koapy
+
 sys.path.insert(0, os.path.abspath('..'))
 
 def run_apidoc(_):
-    from sphinx.ext.apidoc import main
     cur_dir = os.path.abspath(os.path.dirname(__file__))
     module = os.path.join(cur_dir, "..", "koapy")
-    main(['-e', '-o', cur_dir, module, '--force'])
+    apidoc.main(['-o', cur_dir, module, '--force', '--doc-project', 'Koapy'])
 
 def setup(app):
     app.connect('builder-inited', run_apidoc)
-
-import koapy
 
 # -- General configuration ---------------------------------------------
 
@@ -60,7 +61,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'KOAPY'
-copyright = "2020, Yunseong Hwang"
+copyright = "2020, Yunseong Hwang" # pylint: disable=redefined-builtin
 author = "Yunseong Hwang"
 
 # The version info for the project you're documenting, acts as replacement

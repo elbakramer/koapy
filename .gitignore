@@ -64,6 +64,9 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/modules.rst
+docs/koapy.rst
+docs/koapy.*.rst
 
 # PyBuilder
 target/
