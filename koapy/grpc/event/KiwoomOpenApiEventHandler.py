@@ -408,7 +408,7 @@ class KiwoomOpenApiOrderEventHandler(BaseKiwoomOpenApiEventHandler):
 
         assert itemcnt == len(fids)
 
-        names = [RealType.FID.get_name_by_fid(fid, str(fid)) for fid in fids]
+        names = [RealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
         values = [self.control.GetChejanData(fid).strip() for fid in fids]
 
         response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
@@ -500,7 +500,7 @@ class KiwoomOpenApiRealEventHandler(BaseKiwoomOpenApiEventHandler):
                 fids = self._fid_list
 
             if self._readable_names:
-                names = [RealType.FID.get_name_by_fid(fid, str(fid)) for fid in fids]
+                names = [RealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
             else:
                 names = [str(fid) for fid in fids]
 
