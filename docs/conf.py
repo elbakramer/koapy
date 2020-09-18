@@ -19,7 +19,17 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('..'))
+
+def run_apidoc(_):
+    from sphinx.ext.apidoc import main
+    cur_dir = os.path.abspath(os.path.dirname(__file__))
+    module = os.path.join(cur_dir, "..", "koapy")
+    main(['-e', '-o', cur_dir, module, '--force'])
+
+def setup(app):
+    app.connect('builder-inited', run_apidoc)
 
 import koapy
 
@@ -31,7 +41,11 @@ import koapy
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode']
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.napoleon',
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -39,8 +53,7 @@ templates_path = ['_templates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-# source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = ['.rst', '.md']
 
 # The master toctree document.
 master_doc = 'index'
