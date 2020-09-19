@@ -157,7 +157,14 @@ html_theme = 'alabaster'
 # theme further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    'github_user': 'elbakramer',
+    'github_repo': 'koapy',
+    'description': 'Kiwoom Open Api Python Interface',
+    'fixed_sidebar': 'true',
+    'github_banner': 'true',
+    'github_button': 'true',
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
