@@ -30,7 +30,23 @@ sys.path.insert(0, project_dir)
 
 import koapy
 
+# Add any Sphinx extension module names here, as strings. They can be
+# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.githubpages',
+    'sphinx.ext.imgconverter',
+    'sphinx.ext.todo',
+]
+
+autosummary_generate = True
+
 # -- Apidoc hook setting ---
+# https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html
 
 from sphinx.ext import apidoc
 
@@ -40,10 +56,21 @@ def run_apidoc(_):
 def setup(app):
     app.connect('builder-inited', run_apidoc)
 
+# -- Autoapi setting ---
+# https://github.com/readthedocs/sphinx-autoapi
+# See also if interested, https://github.com/rdb/sphinx-autopackagesummary
+
+extensions.append('autoapi.extension')
+
+autoapi_type = 'python'
+autoapi_dirs = [module_dir]
+
 # -- Autodoc configuration ---
 
 autodoc_mock_imports = ['PyQt5', 'sip', 'numpy', 'pandas']
 autodoc_warningiserror = True
+
+# -- Autodoc mocking configuration ---
 
 from unittest.mock import MagicMock
 
@@ -64,24 +91,16 @@ sys.modules.update({
 suppress_warnings = []
 keep_warnings = True
 
+# -- Translation related configuration ---
+
+gettext_uuid = True
+gettext_compact = False
+
 # -- General configuration ---------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #
 # needs_sphinx = '1.0'
-
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.githubpages',
-    'sphinx.ext.imgconverter',
-    'sphinx.ext.todo',
-]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
