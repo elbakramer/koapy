@@ -8,7 +8,7 @@ from koapy.utils.networking import get_free_localhost_port
 
 class KiwoomOpenApiContext:
 
-    def __init__(self, port=None):
+    def __init__(self, port=None, client_check_timeout=None):
         self._port = port or config.get('koapy.grpc.port') or get_free_localhost_port()
         self._server_proc_args = [
             'python', '-m', 'koapy.pyqt5.tools.start_tray_application', '--port', str(self._port)]
@@ -16,7 +16,7 @@ class KiwoomOpenApiContext:
         self._server_proc_terminate_timeout = config.get_int('koapy.grpc.context.server.terminate.timeout', 10)
         self._client = KiwoomOpenApiServiceClient(port=self._port)
         logging.debug('Testing if client is ready...')
-        if not self._client.is_ready():
+        if not self._client.is_ready(client_check_timeout):
             logging.debug('Client is not ready, creating a new server')
             self._server_proc = subprocess.Popen(self._server_proc_args)
             assert self._client.is_ready()

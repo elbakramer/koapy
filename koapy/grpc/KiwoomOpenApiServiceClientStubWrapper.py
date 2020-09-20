@@ -148,7 +148,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
           3 : ELW
           8 : ETF
           50 : KONEX
-          4 :  뮤추얼펀드
+          4 : 뮤추얼펀드
           5 : 신주인수권
           6 : 리츠
           9 : 하이얼펀드
@@ -230,11 +230,11 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         """
         [수정주가구분] 1:유상증자, 2:무상증자, 4:배당락, 8:액면분할, 16:액면병합, 32:기업합병, 64:감자, 256:권리락
         """
-        now = datetime.datetime.now()
         if start_date is None:
+            now = datetime.datetime.now()
             start_date = now
-        if now < now.replace(hour=15, minute=30):
-            start_date -= datetime.timedelta(days=1)
+            if now < now.replace(hour=15, minute=30):
+                start_date -= datetime.timedelta(days=1)
         date_format = '%Y%m%d'
         if isinstance(start_date, datetime.datetime):
             start_date = start_date.strftime(date_format)
@@ -281,7 +281,11 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             interval = 15
         if interval is not None:
             interval = str(interval)
-        start_date = datetime.datetime.now()
+        if start_date is None:
+            now = datetime.datetime.now()
+            start_date = now
+            if now < now.replace(hour=15, minute=30):
+                start_date -= datetime.timedelta(days=1)
         date_format = '%Y%m%d%H%M%S'
         if isinstance(start_date, datetime.datetime):
             start_date = start_date.strftime(date_format)
