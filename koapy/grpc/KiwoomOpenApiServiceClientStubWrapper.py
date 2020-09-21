@@ -79,7 +79,7 @@ class KiwoomOpenApiServiceClientStubCoreWrapper:
         request.original_order_no = '' if original_order_no is None else original_order_no
         return self._stub.OrderCall(request)
 
-    def RealCall(self, scrnno, codes, fids, realtype=None):
+    def RealCall(self, scrnno, codes, fids, realtype=None, infer_fids=False, readable_names=False, fast_parse=False):
         request = KiwoomOpenApiService_pb2.RealRequest()
         fids = [int(fid) for fid in fids]
         if realtype is None:
@@ -88,6 +88,9 @@ class KiwoomOpenApiServiceClientStubCoreWrapper:
         request.code_list.extend(codes) # pylint: disable=no-member
         request.fid_list.extend(fids) # pylint: disable=no-member
         request.real_type = realtype
+        request.flags.infer_fids = infer_fids # pylint: disable=no-member
+        request.flags.readable_names = readable_names # pylint: disable=no-member
+        request.flags.fast_parse = fast_parse # pylint: disable=no-member
         return self._stub.RealCall(request)
     
     def SetLogLevel(self, level, logger=''):
@@ -628,7 +631,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         _df = pd.DataFrame.from_records(records, columns=columns)
         return single_output
 
-    def WatchRealDataForCodesAsStream(self, codes=None, fids=None, scrnno=None, realtype=None):
+    def WatchRealDataForCodesAsStream(self, codes=None, fids=None, scrnno=None, realtype=None, infer_fids=False, readable_names=False, fast_parse=False):
         if codes is None:
             codes = self.GetCommonCodeList() + self.GetKosdaqCodeList()
         if fids is None:
@@ -637,5 +640,5 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             scrnno = '0001'
         if realtype is None:
             realtype = '0'
-        for response in self.RealCall(scrnno, codes, fids, realtype):
+        for response in self.RealCall(scrnno, codes, fids, realtype, infer_fids, readable_names, fast_parse):
             yield response

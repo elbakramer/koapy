@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%koapy/grpc/KiwoomOpenApiService.proto\x12\nkoapy.grpc\"A\n\x08\x41rgument\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x42\x07\n\x05value\"D\n\x0b\x43\x61llRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\targuments\x18\x02 \x03(\x0b\x32\x14.koapy.grpc.Argument\"D\n\x0bReturnValue\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x42\x07\n\x05value\"=\n\x0c\x43\x61llResponse\x12-\n\x0creturn_value\x18\x01 \x01(\x0b\x32\x17.koapy.grpc.ReturnValue\"*\n\rListenRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05slots\x18\x02 \x03(\t\"+\n\nSingleData\x12\r\n\x05names\x18\x01 \x03(\t\x12\x0e\n\x06values\x18\x02 \x03(\t\" \n\x0eRepeatedString\x12\x0e\n\x06values\x18\x01 \x03(\t\"F\n\tMultiData\x12\r\n\x05names\x18\x01 \x03(\t\x12*\n\x06values\x18\x02 \x03(\x0b\x32\x1a.koapy.grpc.RepeatedString\"G\n\x0eListenResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\targuments\x18\x02 \x03(\x0b\x32\x14.koapy.grpc.Argument\"\x1f\n\x11StopListenRequest\x12\n\n\x02id\x18\x01 \x01(\t\"(\n\x12StopListenResponse\x12\x12\n\nsuccessful\x18\x01 \x01(\x08\"7\n\x13\x43ustomListenRequest\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x12\n\nclass_name\x18\x02 \x01(\t\"\xa5\x01\n\x14\x43ustomListenResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\targuments\x18\x02 \x03(\x0b\x32\x14.koapy.grpc.Argument\x12+\n\x0bsingle_data\x18\x03 \x01(\x0b\x32\x16.koapy.grpc.SingleData\x12)\n\nmulti_data\x18\x04 \x01(\x0b\x32\x15.koapy.grpc.MultiData\"\x84\x01\n\x1a\x43ustomCallAndListenRequest\x12-\n\x0c\x63\x61ll_request\x18\x01 \x01(\x0b\x32\x17.koapy.grpc.CallRequest\x12\x37\n\x0elisten_request\x18\x02 \x01(\x0b\x32\x1f.koapy.grpc.CustomListenRequest\"\x99\x01\n\x1b\x43ustomCallAndListenResponse\x12\x31\n\rcall_response\x18\x01 \x01(\x0b\x32\x18.koapy.grpc.CallResponseH\x00\x12;\n\x0flisten_response\x18\x02 \x01(\x0b\x32 .koapy.grpc.CustomListenResponseH\x00\x42\n\n\x08response\"\x0e\n\x0cLoginRequest\"S\n\x1dTransactionSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\"z\n\x18TransactionStopCondition\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x12\x41\n\ncomparator\x18\x03 \x01(\x0e\x32-.koapy.grpc.TransactionStopConditionCompartor\"\xbb\x02\n\x12TransactionRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x18\n\x10transaction_code\x18\x02 \x01(\t\x12\x11\n\tscreen_no\x18\x03 \x01(\t\x12:\n\x06inputs\x18\x04 \x03(\x0b\x32*.koapy.grpc.TransactionRequest.InputsEntry\x12\x39\n\x06output\x18\x05 \x01(\x0b\x32).koapy.grpc.TransactionSubscriptionTarget\x12<\n\x0estop_condition\x18\x06 \x01(\x0b\x32$.koapy.grpc.TransactionStopCondition\x1a-\n\x0bInputsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"]\n\x17OrderSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\x12\x0e\n\x06\x43HEJAN\x18\x05 \x01(\x08\"\xf2\x01\n\x0cOrderRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x11\n\tscreen_no\x18\x02 \x01(\t\x12\x12\n\naccount_no\x18\x03 \x01(\t\x12\x12\n\norder_type\x18\x04 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x05 \x01(\t\x12\x10\n\x08quantity\x18\x06 \x01(\x03\x12\r\n\x05price\x18\x07 \x01(\x03\x12\x12\n\nquote_type\x18\x08 \x01(\t\x12\x19\n\x11original_order_no\x18\t \x01(\t\x12\x33\n\x06target\x18\n \x01(\x0b\x32#.koapy.grpc.OrderSubscriptionTarget\"X\n\x0bRealRequest\x12\x11\n\tscreen_no\x18\x01 \x01(\t\x12\x11\n\tcode_list\x18\x02 \x03(\t\x12\x10\n\x08\x66id_list\x18\x03 \x03(\x05\x12\x11\n\treal_type\x18\x04 \x01(\t\"3\n\x12SetLogLevelRequest\x12\r\n\x05level\x18\x01 \x01(\x05\x12\x0e\n\x06logger\x18\x02 \x01(\t\"\x15\n\x13SetLogLevelResponse*\x9d\x01\n!TransactionStopConditionCompartor\x12\x19\n\x15LESS_THAN_OR_EQUAL_TO\x10\x00\x12\r\n\tLESS_THAN\x10\x01\x12\x1c\n\x18GREATER_THAN_OR_EQUAL_TO\x10\x02\x12\x10\n\x0cGREATER_THAN\x10\x03\x12\x0c\n\x08\x45QUAL_TO\x10\x04\x12\x10\n\x0cNOT_EQUAL_TO\x10\x05\x32\xdc\x06\n\x14KiwoomOpenApiService\x12;\n\x04\x43\x61ll\x12\x17.koapy.grpc.CallRequest\x1a\x18.koapy.grpc.CallResponse\"\x00\x12I\n\x06Listen\x12\x19.koapy.grpc.ListenRequest\x1a .koapy.grpc.CustomListenResponse\"\x00\x30\x01\x12M\n\nStopListen\x12\x1d.koapy.grpc.StopListenRequest\x1a\x1e.koapy.grpc.StopListenResponse\"\x00\x12U\n\x0c\x43ustomListen\x12\x1f.koapy.grpc.CustomListenRequest\x1a .koapy.grpc.CustomListenResponse\"\x00\x30\x01\x12j\n\x13\x43ustomCallAndListen\x12&.koapy.grpc.CustomCallAndListenRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12R\n\tLoginCall\x12\x18.koapy.grpc.LoginRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12^\n\x0fTransactionCall\x12\x1e.koapy.grpc.TransactionRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12R\n\tOrderCall\x12\x18.koapy.grpc.OrderRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12P\n\x08RealCall\x12\x17.koapy.grpc.RealRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12P\n\x0bSetLogLevel\x12\x1e.koapy.grpc.SetLogLevelRequest\x1a\x1f.koapy.grpc.SetLogLevelResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n%koapy/grpc/KiwoomOpenApiService.proto\x12\nkoapy.grpc\"A\n\x08\x41rgument\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x42\x07\n\x05value\"D\n\x0b\x43\x61llRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\targuments\x18\x02 \x03(\x0b\x32\x14.koapy.grpc.Argument\"D\n\x0bReturnValue\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x42\x07\n\x05value\"=\n\x0c\x43\x61llResponse\x12-\n\x0creturn_value\x18\x01 \x01(\x0b\x32\x17.koapy.grpc.ReturnValue\"*\n\rListenRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05slots\x18\x02 \x03(\t\"+\n\nSingleData\x12\r\n\x05names\x18\x01 \x03(\t\x12\x0e\n\x06values\x18\x02 \x03(\t\" \n\x0eRepeatedString\x12\x0e\n\x06values\x18\x01 \x03(\t\"F\n\tMultiData\x12\r\n\x05names\x18\x01 \x03(\t\x12*\n\x06values\x18\x02 \x03(\x0b\x32\x1a.koapy.grpc.RepeatedString\"G\n\x0eListenResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\targuments\x18\x02 \x03(\x0b\x32\x14.koapy.grpc.Argument\"\x1f\n\x11StopListenRequest\x12\n\n\x02id\x18\x01 \x01(\t\"(\n\x12StopListenResponse\x12\x12\n\nsuccessful\x18\x01 \x01(\x08\"7\n\x13\x43ustomListenRequest\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x12\n\nclass_name\x18\x02 \x01(\t\"\xa5\x01\n\x14\x43ustomListenResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\targuments\x18\x02 \x03(\x0b\x32\x14.koapy.grpc.Argument\x12+\n\x0bsingle_data\x18\x03 \x01(\x0b\x32\x16.koapy.grpc.SingleData\x12)\n\nmulti_data\x18\x04 \x01(\x0b\x32\x15.koapy.grpc.MultiData\"\x84\x01\n\x1a\x43ustomCallAndListenRequest\x12-\n\x0c\x63\x61ll_request\x18\x01 \x01(\x0b\x32\x17.koapy.grpc.CallRequest\x12\x37\n\x0elisten_request\x18\x02 \x01(\x0b\x32\x1f.koapy.grpc.CustomListenRequest\"\x99\x01\n\x1b\x43ustomCallAndListenResponse\x12\x31\n\rcall_response\x18\x01 \x01(\x0b\x32\x18.koapy.grpc.CallResponseH\x00\x12;\n\x0flisten_response\x18\x02 \x01(\x0b\x32 .koapy.grpc.CustomListenResponseH\x00\x42\n\n\x08response\"\x0e\n\x0cLoginRequest\"S\n\x1dTransactionSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\"z\n\x18TransactionStopCondition\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x12\x41\n\ncomparator\x18\x03 \x01(\x0e\x32-.koapy.grpc.TransactionStopConditionCompartor\"\xbb\x02\n\x12TransactionRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x18\n\x10transaction_code\x18\x02 \x01(\t\x12\x11\n\tscreen_no\x18\x03 \x01(\t\x12:\n\x06inputs\x18\x04 \x03(\x0b\x32*.koapy.grpc.TransactionRequest.InputsEntry\x12\x39\n\x06output\x18\x05 \x01(\x0b\x32).koapy.grpc.TransactionSubscriptionTarget\x12<\n\x0estop_condition\x18\x06 \x01(\x0b\x32$.koapy.grpc.TransactionStopCondition\x1a-\n\x0bInputsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"]\n\x17OrderSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\x12\x0e\n\x06\x43HEJAN\x18\x05 \x01(\x08\"\xf2\x01\n\x0cOrderRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x11\n\tscreen_no\x18\x02 \x01(\t\x12\x12\n\naccount_no\x18\x03 \x01(\t\x12\x12\n\norder_type\x18\x04 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x05 \x01(\t\x12\x10\n\x08quantity\x18\x06 \x01(\x03\x12\r\n\x05price\x18\x07 \x01(\x03\x12\x12\n\nquote_type\x18\x08 \x01(\t\x12\x19\n\x11original_order_no\x18\t \x01(\t\x12\x33\n\x06target\x18\n \x01(\x0b\x32#.koapy.grpc.OrderSubscriptionTarget\"R\n\x10RealRequestFlags\x12\x12\n\ninfer_fids\x18\x01 \x01(\x08\x12\x16\n\x0ereadable_names\x18\x02 \x01(\x08\x12\x12\n\nfast_parse\x18\x03 \x01(\x08\"\x85\x01\n\x0bRealRequest\x12\x11\n\tscreen_no\x18\x01 \x01(\t\x12\x11\n\tcode_list\x18\x02 \x03(\t\x12\x10\n\x08\x66id_list\x18\x03 \x03(\x05\x12\x11\n\treal_type\x18\x04 \x01(\t\x12+\n\x05\x66lags\x18\x05 \x01(\x0b\x32\x1c.koapy.grpc.RealRequestFlags\"3\n\x12SetLogLevelRequest\x12\r\n\x05level\x18\x01 \x01(\x05\x12\x0e\n\x06logger\x18\x02 \x01(\t\"\x15\n\x13SetLogLevelResponse*\x9d\x01\n!TransactionStopConditionCompartor\x12\x19\n\x15LESS_THAN_OR_EQUAL_TO\x10\x00\x12\r\n\tLESS_THAN\x10\x01\x12\x1c\n\x18GREATER_THAN_OR_EQUAL_TO\x10\x02\x12\x10\n\x0cGREATER_THAN\x10\x03\x12\x0c\n\x08\x45QUAL_TO\x10\x04\x12\x10\n\x0cNOT_EQUAL_TO\x10\x05\x32\xdc\x06\n\x14KiwoomOpenApiService\x12;\n\x04\x43\x61ll\x12\x17.koapy.grpc.CallRequest\x1a\x18.koapy.grpc.CallResponse\"\x00\x12I\n\x06Listen\x12\x19.koapy.grpc.ListenRequest\x1a .koapy.grpc.CustomListenResponse\"\x00\x30\x01\x12M\n\nStopListen\x12\x1d.koapy.grpc.StopListenRequest\x1a\x1e.koapy.grpc.StopListenResponse\"\x00\x12U\n\x0c\x43ustomListen\x12\x1f.koapy.grpc.CustomListenRequest\x1a .koapy.grpc.CustomListenResponse\"\x00\x30\x01\x12j\n\x13\x43ustomCallAndListen\x12&.koapy.grpc.CustomCallAndListenRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12R\n\tLoginCall\x12\x18.koapy.grpc.LoginRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12^\n\x0fTransactionCall\x12\x1e.koapy.grpc.TransactionRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12R\n\tOrderCall\x12\x18.koapy.grpc.OrderRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12P\n\x08RealCall\x12\x17.koapy.grpc.RealRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12P\n\x0bSetLogLevel\x12\x1e.koapy.grpc.SetLogLevelRequest\x1a\x1f.koapy.grpc.SetLogLevelResponse\"\x00\x62\x06proto3'
 )
 
 _TRANSACTIONSTOPCONDITIONCOMPARTOR = _descriptor.EnumDescriptor(
@@ -63,8 +63,8 @@ _TRANSACTIONSTOPCONDITIONCOMPARTOR = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2232,
-  serialized_end=2389,
+  serialized_start=2362,
+  serialized_end=2519,
 )
 _sym_db.RegisterEnumDescriptor(_TRANSACTIONSTOPCONDITIONCOMPARTOR)
 
@@ -1048,6 +1048,52 @@ _ORDERREQUEST = _descriptor.Descriptor(
 )
 
 
+_REALREQUESTFLAGS = _descriptor.Descriptor(
+  name='RealRequestFlags',
+  full_name='koapy.grpc.RealRequestFlags',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='infer_fids', full_name='koapy.grpc.RealRequestFlags.infer_fids', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='readable_names', full_name='koapy.grpc.RealRequestFlags.readable_names', index=1,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fast_parse', full_name='koapy.grpc.RealRequestFlags.fast_parse', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2065,
+  serialized_end=2147,
+)
+
+
 _REALREQUEST = _descriptor.Descriptor(
   name='RealRequest',
   full_name='koapy.grpc.RealRequest',
@@ -1084,6 +1130,13 @@ _REALREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='flags', full_name='koapy.grpc.RealRequest.flags', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1096,8 +1149,8 @@ _REALREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2065,
-  serialized_end=2153,
+  serialized_start=2150,
+  serialized_end=2283,
 )
 
 
@@ -1135,8 +1188,8 @@ _SETLOGLEVELREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2155,
-  serialized_end=2206,
+  serialized_start=2285,
+  serialized_end=2336,
 )
 
 
@@ -1160,8 +1213,8 @@ _SETLOGLEVELRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2208,
-  serialized_end=2229,
+  serialized_start=2338,
+  serialized_end=2359,
 )
 
 _ARGUMENT.oneofs_by_name['value'].fields.append(
@@ -1199,6 +1252,7 @@ _TRANSACTIONREQUEST.fields_by_name['inputs'].message_type = _TRANSACTIONREQUEST_
 _TRANSACTIONREQUEST.fields_by_name['output'].message_type = _TRANSACTIONSUBSCRIPTIONTARGET
 _TRANSACTIONREQUEST.fields_by_name['stop_condition'].message_type = _TRANSACTIONSTOPCONDITION
 _ORDERREQUEST.fields_by_name['target'].message_type = _ORDERSUBSCRIPTIONTARGET
+_REALREQUEST.fields_by_name['flags'].message_type = _REALREQUESTFLAGS
 DESCRIPTOR.message_types_by_name['Argument'] = _ARGUMENT
 DESCRIPTOR.message_types_by_name['CallRequest'] = _CALLREQUEST
 DESCRIPTOR.message_types_by_name['ReturnValue'] = _RETURNVALUE
@@ -1220,6 +1274,7 @@ DESCRIPTOR.message_types_by_name['TransactionStopCondition'] = _TRANSACTIONSTOPC
 DESCRIPTOR.message_types_by_name['TransactionRequest'] = _TRANSACTIONREQUEST
 DESCRIPTOR.message_types_by_name['OrderSubscriptionTarget'] = _ORDERSUBSCRIPTIONTARGET
 DESCRIPTOR.message_types_by_name['OrderRequest'] = _ORDERREQUEST
+DESCRIPTOR.message_types_by_name['RealRequestFlags'] = _REALREQUESTFLAGS
 DESCRIPTOR.message_types_by_name['RealRequest'] = _REALREQUEST
 DESCRIPTOR.message_types_by_name['SetLogLevelRequest'] = _SETLOGLEVELREQUEST
 DESCRIPTOR.message_types_by_name['SetLogLevelResponse'] = _SETLOGLEVELRESPONSE
@@ -1381,6 +1436,13 @@ OrderRequest = _reflection.GeneratedProtocolMessageType('OrderRequest', (_messag
   })
 _sym_db.RegisterMessage(OrderRequest)
 
+RealRequestFlags = _reflection.GeneratedProtocolMessageType('RealRequestFlags', (_message.Message,), {
+  'DESCRIPTOR' : _REALREQUESTFLAGS,
+  '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
+  # @@protoc_insertion_point(class_scope:koapy.grpc.RealRequestFlags)
+  })
+_sym_db.RegisterMessage(RealRequestFlags)
+
 RealRequest = _reflection.GeneratedProtocolMessageType('RealRequest', (_message.Message,), {
   'DESCRIPTOR' : _REALREQUEST,
   '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
@@ -1412,8 +1474,8 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2392,
-  serialized_end=3252,
+  serialized_start=2522,
+  serialized_end=3382,
   methods=[
   _descriptor.MethodDescriptor(
     name='Call',

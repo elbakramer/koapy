@@ -593,15 +593,16 @@ def watch(codes, input, fids, realtype, output, port, verbose):
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
 
-        for event in context.WatchRealDataForCodesAsStream(codes, fids):
+        for event in context.WatchRealDataForCodesAsStream(codes, fids, infer_fids=True):
             code = event.listen_response.arguments[0].string_value
+            name = event.listen_response.arguments[1].string_value
             fids = event.listen_response.single_data.names
             names = [RealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
             values = event.listen_response.single_data.values
             dic = dict((name, value) for fid, name, value in zip(fids, names, values) if name != fid)
             series = pd.Series(dic)
             click.echo('[%s]' % datetime.datetime.now(), file=output)
-            click.echo('[%s]' % code, file=output)
+            click.echo('[%s] [%s]' % (code, name), file=output)
             click.echo(series.to_markdown(), file=output)
 
 if __name__ == '__main__':

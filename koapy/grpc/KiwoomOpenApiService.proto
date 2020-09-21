@@ -159,11 +159,18 @@ message OrderRequest {
   OrderSubscriptionTarget target = 10;
 }
 
+message RealRequestFlags {
+  bool infer_fids = 1;
+  bool readable_names = 2;
+  bool fast_parse = 3;
+}
+
 message RealRequest {
   string screen_no = 1;
   repeated string code_list = 2;
   repeated int32 fid_list = 3;
   string real_type = 4;
+  RealRequestFlags flags = 5;
 }
 
 message SetLogLevelRequest {

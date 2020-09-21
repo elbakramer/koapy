@@ -480,9 +480,9 @@ class KiwoomOpenApiRealEventHandler(BaseKiwoomOpenApiEventHandler):
         self._fid_list = request.fid_list
         self._real_type = request.real_type
 
-        self._fast_parse = False
-        self._infer_fids = False
-        self._readable_names = False
+        self._infer_fids = request.flags.infer_fids
+        self._readable_names = request.flags.readable_names
+        self._fast_parse = request.flags.fast_parse
 
     def OnReceiveRealData(self, code, realtype, realdata):
         if code in self._code_list:
@@ -505,7 +505,7 @@ class KiwoomOpenApiRealEventHandler(BaseKiwoomOpenApiEventHandler):
             else:
                 names = [str(fid) for fid in fids]
 
-            if self._fast_parse:
+            if self._infer_fids and self._fast_parse:
                 values = realdata.split('\t')
             else:
                 values = [self.control.GetCommRealData(code, fid) for fid in fids]
