@@ -238,7 +238,7 @@ def info(codes, markets, input, output, port, verbose):
 @click.option('-i', '--input', metavar='FILENAME', type=click.Path(), help='Text or excel file containing codes. Alternative to --codes option.')
 @click.option('-o', '--output', metavar='FOLDER|FILENAME', type=click.Path(), help='Output foldername or filename for single code. Files inside the folder would be named as CODE.xlsx. Defaults to current directory.')
 @click.option('-s', '--start-date', metavar='YYYY-MM-DD', type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d']), help='Most recent date to get. Defaults to today or yesterday if market is open.')
-@click.option('-e', '--end-date', metavar='YYYY-MM-DD', type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d']), help='Oldest date to get (optional).')
+@click.option('-e', '--end-date', metavar='YYYY-MM-DD', type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d']), help='Stops if reached, not included (optional).')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def daily(codes, input, output, start_date, end_date, port, verbose):
@@ -295,7 +295,7 @@ def daily(codes, input, output, start_date, end_date, port, verbose):
         def filepath_for_code(code):
             if not os.path.exists(output):
                 os.mkdir(output)
-            return os.path.join(output, code + '.xlsx')
+            return os.path.relpath(os.path.join(output, code + '.xlsx'))
     else:
         if not output.endswith('.xlsx'):
             output += '.xlsx'
@@ -340,8 +340,8 @@ minute_intervals = [
 @click.option('-t', '--interval', metavar='INTERVAL', type=click.Choice(minute_intervals, case_sensitive=False), help='Minute interval. Possible values are [%s]' % '|'.join(minute_intervals))
 @click.option('-i', '--input', metavar='FILENAME', type=click.Path(), help='Text or excel file containing codes. Alternative to --codes option.')
 @click.option('-o', '--output', metavar='FOLDER|FILENAME', type=click.Path(), help='Output foldername or filename for single code. Files inside the folder would be named as CODE.xlsx. Defaults to current directory.')
-@click.option('-s', '--start-date', metavar='YYYY-MM-DD', type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d']), help='Most recent date to get. Defaults to today or yesterday if market is open.')
-@click.option('-e', '--end-date', metavar='YYYY-MM-DD', type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d']), help='Oldest date to get (optional).')
+@click.option('-s', '--start-date', metavar="YYYY-MM-DD['T'hh:mm:ss]", type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d', '%Y-%m-%dT%H:%M:%S', '%Y%m%d%H%M%S']), help='Most recent date to get. Defaults to today or yesterday if market is open.')
+@click.option('-e', '--end-date', metavar="YYYY-MM-DD['T'hh:mm:ss]", type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d', '%Y-%m-%dT%H:%M:%S', '%Y%m%d%H%M%S']), help='Stops if reached, not included (optional).')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def minute(codes, interval, input, output, start_date, end_date, port, verbose):
@@ -401,7 +401,7 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
         def filepath_for_code(code):
             if not os.path.exists(output):
                 os.mkdir(output)
-            return os.path.join(output, code + '.xlsx')
+            return os.path.relpath(os.path.join(output, code + '.xlsx'))
     else:
         if not output.endswith('.xlsx'):
             output += '.xlsx'
@@ -422,7 +422,7 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
             if os.path.exists(filepath):
                 df = pd.read_excel(filepath, dtype='object')
                 last_date = df.loc[0, '체결시간']
-                last_date = datetime.datetime.strptime(last_date, '%Y%m%d')
+                last_date = datetime.datetime.strptime(last_date, '%Y%m%d%H%M%S')
                 logging.info('Found existing file %s, prepending from %s until %s', os.path.basename(filepath), start_date, last_date)
                 df = pd.concat([context.GetMinuteStockDataAsDataFrame(code, interval, start_date, last_date), df], sort=False)
             else:
@@ -458,22 +458,21 @@ def trinfo(trcodes):
 
     for trcode in get_codes():
         trinfo = TrInfo.get_trinfo_by_code(trcode)
-        click.echo('%s : %s' % (trinfo.tr_code, trinfo.name))
-        click.echo('[INPUT]')
+        click.echo('[%s] : [%s]' % (trinfo.tr_code.upper(), trinfo.name))
+        click.echo('  [INPUT]')
         for input in trinfo.inputs:
-            click.echo('  %s' % input.name)
-        click.echo('[OUTPUT]')
+            click.echo('    %s' % input.name)
         if trinfo.single_outputs:
-            click.echo('  SINGLE DATA [%s]' % trinfo.single_outputs_name)
+            click.echo('  [OUTPUT] [SINGLE DATA] : [%s]' % trinfo.single_outputs_name)
             for output in trinfo.single_outputs:
                 click.echo('    %s' % output.name)
         if trinfo.multi_outputs:
-            click.echo('  MULTI DATA  [%s]' % trinfo.multi_outputs_name)
+            click.echo('  [OUTPUT] [MULTI DATA]  : [%s]' % trinfo.multi_outputs_name)
             for output in trinfo.multi_outputs:
                 click.echo('    %s' % output.name)
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get Real type info.')
-@click.option('-r', '--realtype', 'realtypes', metavar='REALTYPE', multiple=True, help='Real type name to get (like 주식시세).')
+@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get real type info.')
+@click.option('-t', '--realtype', 'realtypes', metavar='REALTYPE', multiple=True, help='Real type name to get (like 주식시세).')
 def realtype(realtypes):
     from koapy.openapi.RealType import RealType
 
@@ -539,7 +538,7 @@ def closing(output, verbose):
 @click.option('-c', '--code', 'codes', metavar='CODE', multiple=True, help='Stock code to get. Can set multiple times.')
 @click.option('-i', '--input', metavar='FILENAME', type=click.Path(), help='Text or excel file containing codes. Alternative to --codes option.')
 @click.option('-f', '--fid', 'fids', metavar='FID', multiple=True, help='FID to get. Can set multiple times.')
-@click.option('-r', '--realtype', metavar='REALTYPE', help='Real type name. Alternative to --fid.')
+@click.option('-t', '--realtype', metavar='REALTYPE', help='Real type name. Alternative to --fid.')
 @click.option('-o', '--output', metavar='FILENAME', type=click.File('w', lazy=True), default='-', help='Output filename (optional).')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
@@ -601,8 +600,8 @@ def watch(codes, input, fids, realtype, output, port, verbose):
             values = event.listen_response.single_data.values
             dic = dict((name, value) for fid, name, value in zip(fids, names, values) if name != fid)
             series = pd.Series(dic)
-            click.echo('[%s]' % datetime.datetime.now(), file=output)
             click.echo('[%s] [%s]' % (code, name), file=output)
+            click.echo('[%s]' % datetime.datetime.now(), file=output)
             click.echo(series.to_markdown(), file=output)
 
 if __name__ == '__main__':

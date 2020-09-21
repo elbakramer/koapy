@@ -1,6 +1,7 @@
 import logging
 
 def verbosity_to_loglevel(verbosity=0):
+    verbosity = verbosity or 0
     levels = [
         logging.WARNING,
         logging.INFO,

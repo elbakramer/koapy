@@ -275,11 +275,12 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             for values in response.listen_response.multi_data.values:
                 records.append(values.values)
             date_index = columns.index('일자')
-            from_date = response.listen_response.multi_data.values[0].values[date_index]
-            to_date = response.listen_response.multi_data.values[-1].values[date_index]
-            from_date = datetime.datetime.strptime(from_date, date_format)
-            to_date = datetime.datetime.strptime(to_date, date_format)
-            logging.debug('Received data from %s to %s for code %s', from_date, to_date, code)
+            if len(response.listen_response.multi_data.values) > 0:
+                from_date = response.listen_response.multi_data.values[0].values[date_index]
+                to_date = response.listen_response.multi_data.values[-1].values[date_index]
+                from_date = datetime.datetime.strptime(from_date, date_format)
+                to_date = datetime.datetime.strptime(to_date, date_format)
+                logging.debug('Received data from %s to %s for code %s', from_date, to_date, code)
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
@@ -326,11 +327,12 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             for values in response.listen_response.multi_data.values:
                 records.append(values.values)
             date_index = columns.index('체결시간')
-            from_date = response.listen_response.multi_data.values[0].values[date_index]
-            to_date = response.listen_response.multi_data.values[-1].values[date_index]
-            from_date = datetime.datetime.strptime(from_date, date_format)
-            to_date = datetime.datetime.strptime(to_date, date_format)
-            logging.debug('Received data from %s to %s for code %s', from_date, to_date, code)
+            if len(response.listen_response.multi_data.values) > 0:
+                from_date = response.listen_response.multi_data.values[0].values[date_index]
+                to_date = response.listen_response.multi_data.values[-1].values[date_index]
+                from_date = datetime.datetime.strptime(from_date, date_format)
+                to_date = datetime.datetime.strptime(to_date, date_format)
+                logging.debug('Received data from %s to %s for code %s', from_date, to_date, code)
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
