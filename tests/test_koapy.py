@@ -17,5 +17,5 @@ def test_command_line_interface():
     assert 'Usage' in result.output
     help_result = runner.invoke(cli.cli, ['--help'])
     assert help_result.exit_code == 0
-    assert re.search(r'-h, --help[ ]* Show this message and exit.', help_result.output) != None
+    assert re.search(r'-h, --help[ ]* Show this message and exit.', help_result.output) is not None
     assert 'serve' in help_result.output

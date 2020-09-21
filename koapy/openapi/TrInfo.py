@@ -30,16 +30,6 @@ class TrInfo(JsonSerializable):
                 self.offset,
                 self.fid)
 
-        @classmethod
-        def from_json(cls, jsn):
-            if isinstance(jsn, str):
-                dic = json.loads(jsn)
-            elif isinstance(jsn, io.TextIOBase):
-                dic = json.load(jsn)
-            else:
-                raise ValueError()
-            return cls.from_dict(dic)
-
     def __init__(self, tr_code=None, name=None, tr_name=None, tr_names_svr=None, tr_type=None, gfid=None,
                  inputs=None, single_outputs_name=None, single_outputs=None, multi_outputs_name=None, multi_outputs=None):
         self.tr_code = tr_code
@@ -88,16 +78,6 @@ class TrInfo(JsonSerializable):
             else:
                 setattr(output, name, value)
         return output
-
-    @classmethod
-    def from_json(cls, jsn):
-        if isinstance(jsn, str):
-            dic = json.loads(jsn)
-        elif isinstance(jsn, io.TextIOBase):
-            dic = json.load(jsn)
-        else:
-            raise ValueError()
-        return cls.from_dict(dic)
 
     def get_input_names(self):
         return [input_.name for input_ in self.inputs]
