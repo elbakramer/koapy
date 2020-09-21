@@ -15,6 +15,8 @@ service KiwoomOpenApiService {
   rpc TransactionCall (TransactionRequest) returns (stream CustomCallAndListenResponse) {};
   rpc OrderCall (OrderRequest) returns (stream CustomCallAndListenResponse) {};
   rpc RealCall (RealRequest) returns (stream CustomCallAndListenResponse) {};
+
+  rpc SetLogLevel (SetLogLevelRequest) returns (SetLogLevelResponse) {};
 }
 
 
@@ -162,4 +164,12 @@ message RealRequest {
   repeated string code_list = 2;
   repeated int32 fid_list = 3;
   string real_type = 4;
+}
+
+message SetLogLevelRequest {
+  int32 level = 1;
+  string logger = 2;
+}
+
+message SetLogLevelResponse {
 }

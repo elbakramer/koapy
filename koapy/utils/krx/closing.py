@@ -42,7 +42,7 @@ def get_krx_closing_dates_as_dict():
     body = response.json()
     return body
 
-def download_krx_closing_dates_as_excel(filename=None):
+def download_krx_closing_dates_as_excel(f=None):
     now = datetime.datetime.now()
     def generate_otp():
         headers = {
@@ -80,9 +80,16 @@ def download_krx_closing_dates_as_excel(filename=None):
         'code': code,
     }
     response = requests.post('http://file.krx.co.kr/download.jspx', headers=headers, data=data)
-    if filename is None:
+    if f is not None:
+        if hasattr(f, 'write'):
+            f.write(response.content)
+        elif isinstance(f, str):
+            filename = f
+            with open(filename, 'wb') as f:
+                f.write(response.content)
+    else:
         filename = re.findall("filename=(.+)", response.headers['Content-Disposition'])[0]
-    with open(filename, 'wb') as f:
-        f.write(response.content)
-    return filename
+        with open(filename, 'wb') as f:
+            f.write(response.content)
+    return response
     

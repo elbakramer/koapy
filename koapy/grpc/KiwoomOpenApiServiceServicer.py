@@ -11,6 +11,7 @@ from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiRealEventHan
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 
 from koapy.utils.itertools import chunk
+from koapy.utils.logging import set_loglevel
 
 class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiServiceServicer):
 
@@ -175,3 +176,10 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
                     self.control.SetRealReg(screen_no, code_list, fid_list, real_type))
             for response in handler:
                 yield response
+
+    def SetLogLevel(self, request, context):
+        level = request.level
+        logger = request.logger
+        set_loglevel(level, logger)
+        response = KiwoomOpenApiService_pb2.SetLogLevelResponse()
+        return response

@@ -1,5 +1,6 @@
 from concurrent import futures
 
+import atexit
 import grpc
 
 from koapy.grpc import KiwoomOpenApiService_pb2_grpc
@@ -31,7 +32,9 @@ class KiwoomOpenApiServiceServer:
         self._max_workers = max_workers
 
         self._servicer = KiwoomOpenApiServiceServicer(control)
-        self._server = grpc.server(futures.ThreadPoolExecutor(max_workers=self._max_workers))
+        self._executor = futures.ThreadPoolExecutor(max_workers=self._max_workers)
+        atexit.register(self._executor.shutdown, False)
+        self._server = grpc.server(self._executor)
         KiwoomOpenApiService_pb2_grpc.add_KiwoomOpenApiServiceServicer_to_server(self._servicer, self._server)
 
         self._target = self._host + ':' + str(self._port)

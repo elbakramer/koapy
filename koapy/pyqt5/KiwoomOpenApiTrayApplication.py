@@ -10,8 +10,9 @@ from PyQt5.QtCore import QTimer, QObject, pyqtSignal
 
 from koapy.grpc.KiwoomOpenApiServiceServer import KiwoomOpenApiServiceServer
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
-
 from koapy.pyqt5.KiwoomOpenApiQAxWidget import KiwoomOpenApiQAxWidget
+
+from koapy.utils.logging import set_verbosity
 
 class KiwoomOpenApiTrayApplication(QObject):
 
@@ -23,9 +24,13 @@ class KiwoomOpenApiTrayApplication(QObject):
 
         self._parser = argparse.ArgumentParser()
         self._parser.add_argument('-p', '--port')
+        self._parser.add_argument('--verbose', '-v', action='count', default=0)
         self._parsed_args, remaining_args = self._parser.parse_known_args(args and args[1:])
 
         self._port = self._parsed_args.port
+        self._verbose = self._parsed_args.verbose
+
+        set_verbosity(self._verbose)
 
         self._app = QApplication(args[:1] + remaining_args)
         self._control = KiwoomOpenApiQAxWidget()

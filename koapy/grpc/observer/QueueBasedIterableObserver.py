@@ -1,3 +1,5 @@
+import atexit
+
 from queue import Queue, Empty
 from koapy.grpc.observer.Observer import Observer
 
@@ -11,6 +13,8 @@ class QueueBasedIterableObserver(Observer):
 
         self._queue = queue
         self._sentinel = object()
+
+        atexit.register(self._queue.put, self._sentinel)
 
     def on_next(self, value):
         self._queue.put(value)

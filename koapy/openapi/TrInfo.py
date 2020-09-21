@@ -55,8 +55,9 @@ class TrInfo(JsonSerializable):
         self.multi_outputs = multi_outputs
 
     def __repr__(self):
-        return '%s(%r, %r, %r, %r, %r, %r, %r, %r, %r, %r)' % (
+        return '%s(%r, %r, %r, %r, %r, %r, %r, %r, %r, %r, %r)' % (
             self.__class__.__name__,
+            self.tr_code,
             self.name,
             self.tr_name,
             self.tr_names_svr,
@@ -109,7 +110,7 @@ class TrInfo(JsonSerializable):
 
     @classmethod
     def get_trinfo_by_code(cls, trcode):
-        return cls._TRINFO_BY_CODE.get(trcode)
+        return cls._TRINFO_BY_CODE.get(trcode.lower())
 
     @classmethod
     def from_encfile(cls, f, tr_code=''):

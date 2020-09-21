@@ -89,6 +89,13 @@ class KiwoomOpenApiServiceClientStubCoreWrapper:
         request.fid_list.extend(fids) # pylint: disable=no-member
         request.real_type = realtype
         return self._stub.RealCall(request)
+    
+    def SetLogLevel(self, level, logger=''):
+        request = KiwoomOpenApiService_pb2.SetLogLevelRequest()
+        request.level = level
+        request.logger = logger
+        return self._stub.SetLogLevel(request)
+
 
 class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWrapper):
 
@@ -621,7 +628,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         _df = pd.DataFrame.from_records(records, columns=columns)
         return single_output
 
-    def ListenRealDataForCodesAsStream(self, codes=None, fids=None, scrnno=None, realtype=None):
+    def WatchRealDataForCodesAsStream(self, codes=None, fids=None, scrnno=None, realtype=None):
         if codes is None:
             codes = self.GetCommonCodeList() + self.GetKosdaqCodeList()
         if fids is None:
