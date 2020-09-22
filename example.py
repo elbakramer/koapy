@@ -10,7 +10,7 @@ with KiwoomOpenApiContext() as context:
     # 기타 함수 예시
     codes = context.GetCodeListByMarketAsList('0')
     names = [context.GetMasterCodeName(code) for code in codes]
-    
+
     codes_by_name = dict(zip(names, codes))
     code = codes_by_name['삼성전자']
 

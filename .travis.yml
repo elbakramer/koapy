@@ -27,6 +27,7 @@ script:
 - tox --travis-after --verbose
 deploy:
 - provider: script
+  edge: true
   cleanup: false
   script: bash .travis/deploy.sh
   on:

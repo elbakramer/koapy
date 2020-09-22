@@ -18,6 +18,9 @@ class KiwoomOpenApiServiceClientStubCoreWrapper:
     def __getattr__(self, name):
         return KiwoomOpenApiServiceClientSideDynamicCallable(self._stub, name)
 
+    def Call(self, name, *args):
+        return KiwoomOpenApiServiceClientSideDynamicCallable(self._stub, name)(*args)
+
     def LoginCall(self):
         request = KiwoomOpenApiService_pb2.LoginRequest()
         for response in self._stub.LoginCall(request):
@@ -336,6 +339,9 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
+    def GetAccounts(self):
+        return self.GetLoginInfo('ACCLIST').rstrip(';').split(';')
+
     def GetDepositInfo(self, account_no, lookup_type=None, rqname=None, scrnno=None):
         """
         조회구분 = 1:추정조회, 2:일반조회
@@ -485,7 +491,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             '계좌번호': account_no,
             '비밀번호': '',
             '비밀번호입력매체구분': '00',
-            '조회구분': '0' if sort_type is None else sort_type,
+            '조회구분': '1' if sort_type is None else sort_type,
             '주식채권구분': '0' if asset_type is None else asset_type,
             '매도수구분': '0' if order_type is None else order_type,
             '종목코드': '' if code is None else code,
@@ -501,7 +507,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetAccaountRateOfReturnAsDataFrame(self, account_no, rqname=None, scrnno=None):
+    def GetAccountRateOfReturnAsDataFrame(self, account_no, rqname=None, scrnno=None):
         if rqname is None:
             rqname = '계좌수익률요청'
         if scrnno is None:
@@ -510,17 +516,23 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         inputs = {
             '계좌번호': account_no,
         }
+        single_output = None
         columns = []
         records = []
         for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
+            print(response)
+            if single_output is None:
+                single_output = dict(zip(
+                    response.listen_response.single_data.names,
+                    self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, [10])))
             if not columns:
                 columns = response.listen_response.multi_data.names
             for values in response.listen_response.multi_data.values:
-                records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, 10))
+                records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, [10]))
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetAccountEvaluationAsDataFrame1(self, account_no, include_delisted=True, rqname=None, scrnno=None):
+    def GetAccountEvaluationStatusAsSeriesAndDataFrame(self, account_no, include_delisted=True, rqname=None, scrnno=None):
         if rqname is None:
             rqname = '계좌평가현황요청'
         if scrnno is None:
@@ -544,10 +556,11 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 columns = response.listen_response.multi_data.names
             for values in response.listen_response.multi_data.values:
                 records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, 12))
-        df = pd.DataFrame.from_records(records, columns=columns)
-        return df
+        single = pd.Series(single_output)
+        multi = pd.DataFrame.from_records(records, columns=columns)
+        return single, multi
 
-    def GetAccountEvaluationAsDataFrame2(self, account_no, rqname=None, scrnno=None):
+    def GetAccountExecutionBalanceAsSeriesAndDataFrame(self, account_no, rqname=None, scrnno=None):
         server = self.GetLoginInfo('GetServerGubun')
         if server == '1':
             logging.warning('Not supported for simulated investment')
@@ -573,10 +586,11 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 columns = response.listen_response.multi_data.names
             for values in response.listen_response.multi_data.values:
                 records.append(self._RemoveLeadingZerosForNumbersInValues(values.values))
-        df = pd.DataFrame.from_records(records, columns=columns)
-        return df
+        single = pd.Series(single_output)
+        multi = pd.DataFrame.from_records(records, columns=columns)
+        return single, multi
 
-    def GetAccountEvaluationAsDataFrame3(self, account_no, lookup_type=None, rqname=None, scrnno=None):
+    def GetAccountEvaluationBalanceAsSeriesAndDataFrame(self, account_no, lookup_type=None, rqname=None, scrnno=None):
         """
         조회구분 = 1:합산, 2:개별
 
@@ -606,8 +620,9 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 columns = response.listen_response.multi_data.names
             for values in response.listen_response.multi_data.values:
                 records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, [12, 15]))
-        df = pd.DataFrame.from_records(records, columns=columns)
-        return df
+        single = pd.Series(single_output)
+        multi = pd.DataFrame.from_records(records, columns=columns)
+        return single, multi
 
     def GetMarketPriceInfo(self, code, rqname=None, scrnno=None):
         if rqname is None:

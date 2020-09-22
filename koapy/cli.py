@@ -34,14 +34,67 @@ def serve(port, verbose, args):
     """
     ARGS are passed to QApplication.
     """
-    args = ['--port', port]
+    app_args = []
+    if port:
+        app_args += ['--port', port]
     if verbose > 0:
-        args.append('-' + 'v' * verbose)
-    args += list(args)
+        app_args.append('-' + 'v' * verbose)
+    app_args += list(args)
     from koapy.pyqt5.KiwoomOpenApiTrayApplication import KiwoomOpenApiTrayApplication
-    KiwoomOpenApiTrayApplication.main(args)
+    KiwoomOpenApiTrayApplication.main(app_args)
 
-@cli.group(short_help='Get various types of data.')
+@cli.command(context_settings=CONTEXT_SETTINGS, short_help="Ensure it's logged in. This command is idempotent.")
+@click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
+@click.option('-v', '--verbose', count=True, default=3, help='Verbosity.')
+def login(port, verbose):
+    set_verbosity(verbose)
+    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout) as context:
+        state = context.GetConnectState()
+        if state == 0:
+            click.echo('Logging in...')
+        else:
+            click.echo('Already logged in.')
+        context.EnsureConnected()
+        gubun = context.KOA_Functions('GetServerGubun', '')
+        if gubun == '1':
+            click.echo('Logged into Simulation server.')
+        else:
+            click.echo('Logged into Real server.')
+
+@cli.group(context_settings=CONTEXT_SETTINGS, short_help='Configure many things.')
+def config():
+    pass
+
+@config.command(context_settings=CONTEXT_SETTINGS, short_help='Configure auto login.')
+@click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
+@click.option('-v', '--verbose', count=True, default=3, help='Verbosity.')
+def autologin(port, verbose):
+    set_verbosity(verbose)
+    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout) as context:
+        context.EnsureConnected()
+        context.KOA_Functions('ShowAccountWindow', '')
+
+@cli.group(context_settings=CONTEXT_SETTINGS, short_help='Update openapi metadata.')
+def update():
+    pass
+
+@update.command(context_settings=CONTEXT_SETTINGS, short_help='Update openapi metadata.')
+@click.option('-v', '--verbose', count=True, help='Verbosity.')
+def trinfo(verbose):
+    set_verbosity(verbose)
+    from koapy.openapi.TrInfo import TrInfo
+    TrInfo.dump_trinfo_by_code()
+
+@update.command(context_settings=CONTEXT_SETTINGS, short_help='Update openapi metadata.')
+@click.option('-v', '--verbose', count=True, help='Verbosity.')
+def realtype(verbose):
+    set_verbosity(verbose)
+    from koapy.openapi.RealType import RealType
+    RealType.dump_realtype_by_desc()
+
+@cli.group(context_settings=CONTEXT_SETTINGS, short_help='Get various types of data.')
 def get():
     pass
 
@@ -62,7 +115,7 @@ market_codes = [
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get stock codes.')
 @click.option('-m', '--market', 'markets', metavar='MARKET', multiple=True, type=click.Choice(market_codes, case_sensitive=False), help='Stock market code to get. Can set multiple times.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
-def code(markets, port):
+def stockcode(markets, port):
     """
     \b
     Possible market codes are:
@@ -106,7 +159,7 @@ def code(markets, port):
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get name for stock codes.')
 @click.option('-c', '--code', 'codes', metavar='CODE', multiple=True, help='Stock code to get. Can set multiple times.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
-def name(codes, port):
+def stockname(codes, port):
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout) as context:
@@ -144,7 +197,7 @@ def name(codes, port):
 @click.option('-o', '--output', metavar='FILENAME', type=click.Path(), help="Output filename. Optional for single code (prints to console).")
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def info(codes, markets, input, output, port, verbose):
+def stockinfo(codes, markets, input, output, port, verbose):
     """
     \b
     Possible market codes are:
@@ -276,6 +329,8 @@ def daily(codes, input, output, start_date, end_date, port, verbose):
             codes = [os.path.splitext(name)[0] for name in os.listdir(input) if name.endswith('.xlsx')]
             codes = [code for code in codes if re.match(r'[0-9A-Z]+', code)]
             codes_len = len(codes)
+        else:
+            fail_with_usage('Unrecognized input type.')
 
     if output is None:
         output = '.'
@@ -382,6 +437,8 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
             codes = [os.path.splitext(name)[0] for name in os.listdir(input) if name.endswith('.xlsx')]
             codes = [code for code in codes if re.match(r'[0-9A-Z]+', code)]
             codes_len = len(codes)
+        else:
+            fail_with_usage('Unrecognized input type.')
 
     if output is None:
         output = '.'
@@ -431,7 +488,7 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
             logging.info('Saved stock data for code %s to %s', code, filepath)
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get TR info.')
-@click.option('-t', '--trcode', 'trcodes', metavar='TRCODE', multiple=True, help='TR code to get (like opt100001).')
+@click.option('-t', '--trcode', 'trcodes', metavar='TRCODE', multiple=True, help='TR code to get (like opt10001).')
 def trinfo(trcodes):
     from koapy.openapi.TrInfo import TrInfo
 
@@ -457,6 +514,8 @@ def trinfo(trcodes):
                     break
 
     for trcode in get_codes():
+        if not trcode.startswith('opt'):
+            trcode = 'opt' + trcode
         trinfo = TrInfo.get_trinfo_by_code(trcode)
         click.echo('[%s] : [%s]' % (trinfo.tr_code.upper(), trinfo.name))
         click.echo('  [INPUT]')
@@ -473,7 +532,7 @@ def trinfo(trcodes):
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get real type info.')
 @click.option('-t', '--realtype', 'realtypes', metavar='REALTYPE', multiple=True, help='Real type name to get (like 주식시세).')
-def realtype(realtypes):
+def realinfo(realtypes):
     from koapy.openapi.RealType import RealType
 
     def get_realtypes():
@@ -481,7 +540,7 @@ def realtype(realtypes):
             if '-' in realtypes:
                 with click.open_file('-', 'r') as f:
                     for realtype in f:
-                        yield code.strip()
+                        yield realtype.strip()
             else:
                 for realtype in realtypes:
                     yield realtype
@@ -534,6 +593,161 @@ def closing(output, verbose):
             output += '.xls'
         download_krx_closing_dates_as_excel(output)
 
+@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get user information.')
+@click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
+@click.option('-v', '--verbose', count=True, help='Verbosity.')
+def userinfo(port, verbose):
+    set_verbosity(verbose)
+
+    import pandas as pd
+    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+
+    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
+        context.EnsureConnected()
+
+        result = {}
+        result['보유계좌수'] = context.GetLoginInfo('ACCOUNT_CNT')
+        account_numbers = context.GetLoginInfo('ACCLIST').rstrip(';').split(';')
+        for i, accno in enumerate(account_numbers):
+            result['계좌번호 (%d/%s)' % (i + 1, result['보유계좌수'])] = accno
+        result['사용자 ID'] = context.GetLoginInfo('USER_ID')
+        result['사용자 명'] = context.GetLoginInfo('USER_NAME')
+        result['키보드보안 해지 여부'] = {
+            '0': '정상',
+            '1': '해지',
+        }.get(context.GetLoginInfo('KEY_BSECGB'), '알수없음')
+        result['방화벽 설정 여부'] = {
+            '0': '미설정',
+            '1': '설정',
+            '2': '해지',
+        }.get(context.GetLoginInfo('FIREW_SECGB'), '알수없음')
+        result['접속서버 구분'] = {
+            '1': '모의투자',
+        }.get(context.GetLoginInfo('GetServerGubun'), '실서버')
+
+        click.echo(pd.Series(result).to_markdown())
+
+@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get account deposit.')
+@click.option('-a', '--account', metavar='ACCNO', help='Account number.')
+@click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
+@click.option('-v', '--verbose', count=True, help='Verbosity.')
+def deposit(account, port, verbose):
+    if account is None:
+        logging.info('Account not given. Using first account available.')
+        # fail_with_usage()
+
+    set_verbosity(verbose)
+
+    import pandas as pd
+    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+
+    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
+        context.EnsureConnected()
+
+        if account is None:
+            account = context.GetAccounts()[0]
+
+        result = context.GetDepositInfo(account)
+        click.echo(pd.Series(result).to_markdown())
+
+@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get account evaluation.')
+@click.option('-a', '--account', metavar='ACCNO', help='Account number.')
+@click.option('-d', '--include-delisted', is_flag=True, help='Include delisted.', default=True)
+@click.option('-D', '--exclude-delisted', is_flag=True, help='Exclude delisted.')
+@click.option('-e', '--for-each', is_flag=True, help='Show individual evaluation.', default=True)
+@click.option('-E', '--as-summary', is_flag=True, help='Show summarized evaluation.')
+@click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
+@click.option('-v', '--verbose', count=True, help='Verbosity.')
+def evaluation(account, include_delisted, exclude_delisted, for_each, as_summary, port, verbose):
+    if account is None:
+        logging.info('Account not given. Using first account available.')
+        # fail_with_usage()
+
+    set_verbosity(verbose)
+
+    if exclude_delisted:
+        include_delisted = False
+
+    if as_summary:
+        for_each = False
+        lookup_type = '1'
+    else:
+        lookup_type = '2'
+
+    import pandas as pd
+    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+
+    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
+        context.EnsureConnected()
+
+        if account is None:
+            account = context.GetAccounts()[0]
+
+        single, multi = context.GetAccountEvaluationStatusAsSeriesAndDataFrame(account, include_delisted)
+        click.echo('[계좌평가현황요청] : [계좌평가현황]')
+        click.echo(single.to_markdown())
+        click.echo()
+        click.echo('[계좌평가현황요청] : [종목별계좌평가현황]')
+        click.echo(multi.to_markdown())
+        click.echo()
+
+        single, multi = context.GetAccountEvaluationBalanceAsSeriesAndDataFrame(account, lookup_type)
+        click.echo('[계좌평가잔고내역요청] : [계좌평가결과]')
+        click.echo(single.to_markdown())
+        click.echo()
+        click.echo('[계좌평가잔고내역요청] : [계좌평가잔고개별합산]')
+        click.echo(multi.to_markdown())
+
+@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get order history of a date.')
+@click.option('-a', '--account', metavar='ACCNO', help='Account number.')
+@click.option('-d', '--date', metavar='DATE', help='Date to get.')
+@click.option('-r', '--reverse', is_flag=True)
+@click.option('-e', '--executed-only', is_flag=True)
+@click.option('-E', '--not-executed-only', is_flag=True)
+@click.option('-S', '--stock-only', is_flag=True)
+@click.option('-B', '--bond-only', is_flag=True)
+@click.option('-s', '--sell-only', is_flag=True)
+@click.option('-b', '--buy-only', is_flag=True)
+@click.option('-c', '--code', metavar='CODE', help='Stock code to get.')
+@click.option('-o', '--starting-order-no', metavar='ORDERNO', help='Starting order no.')
+@click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
+@click.option('-v', '--verbose', count=True, help='Verbosity.')
+def orders(account, date, reverse, executed_only, not_executed_only, stock_only, bond_only, sell_only, buy_only, code, starting_order_no, port, verbose):
+    if account is None:
+        logging.info('Account not given. Using first account available.')
+        # fail_with_usage()
+
+    set_verbosity(verbose)
+
+    import pandas as pd
+    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+
+    sort_type = '1'
+    if reverse:
+        sort_type = '2'
+    if executed_only:
+        sort_type = '3'
+    if not_executed_only:
+        sort_type = '4'
+    asset_type = '0'
+    if stock_only:
+        asset_type = '1'
+    if bond_only:
+        asset_type = '2'
+    order_type = '0'
+    if sell_only:
+        order_type = '1'
+    if buy_only:
+        order_type = '2'
+
+    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
+        context.EnsureConnected()
+
+        if account is None:
+            account = context.GetAccounts()[0]
+
+        click.echo(context.GetOrderLogAsDataFrame3(account, date, sort_type, asset_type, order_type, code, starting_order_no).to_markdown())
+
 @cli.command(context_settings=CONTEXT_SETTINGS, short_help='Watch realtime data.')
 @click.option('-c', '--code', 'codes', metavar='CODE', multiple=True, help='Stock code to get. Can set multiple times.')
 @click.option('-i', '--input', metavar='FILENAME', type=click.Path(), help='Text or excel file containing codes. Alternative to --codes option.')
@@ -572,10 +786,13 @@ def watch(codes, input, fids, realtype, output, port, verbose):
                 codes_len = len(codes)
             else:
                 fail_with_usage('Unrecognized input type.')
+        else:
+            fail_with_usage('Unrecognized input type.')
 
     if realtype is not None:
         from koapy.openapi.RealType import RealType
-        fids = list(fids) + RealType.get_fids_by_realtype(realtype)
+        fids_from_realtype = RealType.get_fids_by_realtype(realtype)
+        fids = list(set(fids).union(set(fids_from_realtype)))
 
     if not codes:
         fail_with_usage('No codes to watch. Set --code or --input.')
@@ -603,6 +820,85 @@ def watch(codes, input, fids, realtype, output, port, verbose):
             click.echo('[%s] [%s]' % (code, name), file=output)
             click.echo('[%s]' % datetime.datetime.now(), file=output)
             click.echo(series.to_markdown(), file=output)
+
+order_types = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+]
+
+quote_types = [
+    '00',
+    '03',
+    '05',
+    '06',
+    '07',
+    '10',
+    '13',
+    '16',
+    '20',
+    '23',
+    '26',
+    '61',
+    '62',
+    '81',
+]
+
+@cli.command(context_settings=CONTEXT_SETTINGS, short_help='Place an order.')
+@click.option('--request-name', metavar='NAME')
+@click.option('--screen-no', metavar='SCRNO')
+@click.option('--account-no', metavar='ACCNO')
+@click.option('--order-type', type=click.Choice(order_types))
+@click.option('--code', metavar='CODE')
+@click.option('--quantity', metavar='QTY')
+@click.option('--price', metavar='PRICE')
+@click.option('--quote-type', type=click.Choice(quote_types))
+@click.option('--original-order-no', metavar='ORDERNO')
+@click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
+@click.option('-v', '--verbose', count=True, help='Verbosity.')
+def order(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no, port, verbose):
+    """
+    \b
+    [주문유형]
+      1:신규매수, 2:신규매도 3:매수취소, 4:매도취소, 5:매수정정, 6:매도정정
+
+    \b
+    [거래구분]
+      모의투자에서는 지정가 주문과 시장가 주문만 가능합니다.
+
+    \b
+      00 : 지정가
+      03 : 시장가
+      05 : 조건부지정가
+      06 : 최유리지정가
+      07 : 최우선지정가
+      10 : 지정가IOC
+      13 : 시장가IOC
+      16 : 최유리IOC
+      20 : 지정가FOK
+      23 : 시장가FOK
+      26 : 최유리FOK
+      61 : 장전시간외종가
+      62 : 시간외단일가매매
+      81 : 장후시간외종가
+    """
+
+    if (request_name, screen_no, account_no, order_type, code, quantity) == (None, None, None, None, None, None):
+        fail_with_usage()
+
+    set_verbosity(verbose)
+
+    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from google.protobuf.json_format import MessageToDict
+
+    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
+        context.EnsureConnected()
+
+        for response in context.OrderCall(self, request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no):
+            click.echo(MessageToDict(response)) # TODO: more pretty print
 
 if __name__ == '__main__':
     cli()

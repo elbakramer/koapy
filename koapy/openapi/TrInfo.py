@@ -2,6 +2,7 @@ import os
 import io
 import json
 import zipfile
+import logging
 import contextlib
 
 from koapy.utils.serialization import JsonSerializable
@@ -171,39 +172,47 @@ class TrInfo(JsonSerializable):
     def infos_from_data_dir(cls, data_dir=None, encoding='euc-kr'):
         if data_dir is None:
             data_dir = r'C:\OpenAPI\data'
+        logging.debug('Reading files under %s', data_dir)
         enc_filenames = [filename.lower() for filename in os.listdir(data_dir)]
         enc_filenames = [filename for filename in enc_filenames if filename.startswith('o') and filename.endswith('.enc')]
         results = []
         for filename in enc_filenames:
+            logging.debug('Opening file %s', filename)
             with zipfile.ZipFile(os.path.join(data_dir, filename)) as z:
                 for info in z.infolist():
                     inner_filename = info.filename
                     tr_code = os.path.splitext(inner_filename.lower())[0]
+                    logging.debug('Reading file %s inside %s', inner_filename, filename)
                     with z.open(info) as b:
                         with io.TextIOWrapper(b, encoding=encoding) as f:
                             results.append(cls.from_encfile(f, tr_code))
         return results
 
     @classmethod
-    def trinfo_by_name_from_data_dir(cls, data_dir=None):
+    def trinfo_by_code_from_data_dir(cls, data_dir=None):
         infos = cls.infos_from_data_dir(data_dir)
         result = {info.tr_code:info for info in infos}
         return result
 
     @classmethod
-    def dump_trinfo_by_name(cls, dump_file=None):
+    def dump_trinfo_by_code(cls, dump_file=None):
         with contextlib.ExitStack() as stack:
             if dump_file is None:
                 dump_file = os.path.join(os.path.dirname(__file__), 'data', cls._TRINFO_BY_CODE_DUMP_FILENAME)
             if isinstance(dump_file, str):
+                dump_filename = dump_file
                 dump_file = stack.enter_context(open(dump_file, 'w'))
-            result = cls.trinfo_by_name_from_data_dir()
+            else:
+                dump_filename = None
+            result = cls.trinfo_by_code_from_data_dir()
             for tr_code in result:
                 result[tr_code] = result[tr_code].to_dict()
+            if dump_filename is not None:
+                logging.debug('Saving trinfo to %s', dump_filename)
             return json.dump(result, dump_file)
 
     @classmethod
-    def trinfo_by_name_from_dump_file(cls, dump_file=None):
+    def trinfo_by_code_from_dump_file(cls, dump_file=None):
         with contextlib.ExitStack() as stack:
             if dump_file is None:
                 dump_file = os.path.join(os.path.dirname(__file__), 'data', cls._TRINFO_BY_CODE_DUMP_FILENAME)
@@ -217,14 +226,14 @@ class TrInfo(JsonSerializable):
 
     @classmethod
     def load_from_dump_file(cls, dump_file=None):
-        cls._TRINFO_BY_CODE = cls.trinfo_by_name_from_dump_file(dump_file)
+        cls._TRINFO_BY_CODE = cls.trinfo_by_code_from_dump_file(dump_file)
 
 TrInfo.Field.__outer_class__ = TrInfo
 
 TrInfo.load_from_dump_file()
 
 def main():
-    TrInfo.dump_trinfo_by_name()
+    TrInfo.dump_trinfo_by_code()
 
 def infer_fids_by_tr_outputs():
     infos = TrInfo.infos_from_data_dir()

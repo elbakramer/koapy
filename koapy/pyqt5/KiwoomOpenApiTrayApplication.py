@@ -25,7 +25,7 @@ class KiwoomOpenApiTrayApplication(QObject):
         self._parser = argparse.ArgumentParser()
         self._parser.add_argument('-p', '--port')
         self._parser.add_argument('--verbose', '-v', action='count', default=0)
-        self._parsed_args, remaining_args = self._parser.parse_known_args(args and args[1:])
+        self._parsed_args, remaining_args = self._parser.parse_known_args(args)
 
         self._port = self._parsed_args.port
         self._verbose = self._parsed_args.verbose

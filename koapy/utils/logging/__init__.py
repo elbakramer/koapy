@@ -15,7 +15,7 @@ def verbosity_to_loglevel(verbosity=0):
 def set_loglevel(loglevel=logging.WARNING, logger=''):
     return logging.getLogger(logger).setLevel(loglevel)
 
-def set_verbosity(verbosity=0):
+def set_verbosity(verbosity=0, logger=''):
     loglevel = verbosity_to_loglevel(verbosity)
-    set_loglevel(loglevel)
+    set_loglevel(loglevel, logger)
     return loglevel

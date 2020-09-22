@@ -36,18 +36,18 @@ class KiwoomOpenApiQAxWidget(QWidget):
         super_args = args
         super_kwargs = kwargs
 
-        control_name = self.PROGID
+        clsid_or_progid = self.CLSID
 
         if len(args) > 0 and isinstance(args[0], str):
             super_args = args[1:]
-            control_name = args[0]
+            clsid_or_progid = args[0]
         elif self.CONTROL_NAME_KWARG_KEY in kwargs:
             super_kwargs = {k:v for k, v in kwargs if k != self.CONTROL_NAME_KWARG_KEY}
-            control_name = kwargs[self.CONTROL_NAME_KWARG_KEY]
+            clsid_or_progid = kwargs[self.CONTROL_NAME_KWARG_KEY]
 
         super().__init__(*super_args, **super_kwargs)
 
-        self._ax = QAxWidget(control_name, self)
+        self._ax = QAxWidget(clsid_or_progid, self)
         self._signals = {}
         self._event_logger = KiwoomOpenApiLoggingEventHandler(self)
 
@@ -65,6 +65,11 @@ class KiwoomOpenApiQAxWidget(QWidget):
             connector.connect(getattr(self._event_logger, event_name))
             self._signals[event_name] = connector
             """
+
+        self._ax.exception.connect(self._onException)
+
+    def _onException(self, code, source, desc, help):
+        logging.error('(%s, %s, %s, %s)', code, source, desc, help)
 
     def __getattr__(self, name):
         result = getattr(self._ax, name)

@@ -3,7 +3,7 @@ def notimplemented(func):
     return func
 
 def isnotimplemented(func):
-    return getattr(func, '__isnotimplented__', False)
+    return getattr(func, '__isnotimplemented__', False)
 
 def isimplemented(func):
     return not isnotimplemented(func)
