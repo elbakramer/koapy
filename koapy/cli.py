@@ -43,7 +43,7 @@ def serve(port, verbose, args):
     from koapy.pyqt5.KiwoomOpenApiTrayApplication import KiwoomOpenApiTrayApplication
     KiwoomOpenApiTrayApplication.main(app_args)
 
-@cli.command(context_settings=CONTEXT_SETTINGS, short_help="Ensure it's logged in. This command is idempotent.")
+@cli.command(context_settings=CONTEXT_SETTINGS, short_help='Ensure logged in when server is up.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, default=3, help='Verbosity.')
 def login(port, verbose):
@@ -563,15 +563,16 @@ def realinfo(realtypes):
             for fid, name in zip(fids, names):
                 click.echo('  [%s] = %s' % (fid, name))
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get market closing dates.')
+@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get market holidays.')
 @click.option('-o', '--output', metavar='FILENAME', type=click.Path(), help='Output filename (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def closing(output, verbose):
+def holidays(output, verbose):
     set_verbosity(verbose)
+
     if output is None:
         import pandas as pd
-        from koapy.utils.krx.closing import get_krx_closing_dates_as_dict
-        response = get_krx_closing_dates_as_dict()
+        from koapy.utils.krx.holiday import get_holidays_as_dict
+        response = get_holidays_as_dict()
         lang = locale.getdefaultlocale()[0]
         if lang == 'ko_KR':
             day_key = 'kr_dy_tp'
@@ -580,18 +581,18 @@ def closing(output, verbose):
             day_key = 'dy_tp_cd'
             columns = ['date', 'day of week', 'comment']
         data = []
-        for closing_date in response['block1']:
-            date = closing_date['calnd_dd_dy']
-            day = closing_date[day_key].strip()
-            name = closing_date['holdy_nm']
+        for holiday in response['block1']:
+            date = holiday['calnd_dd_dy']
+            day = holiday[day_key].strip()
+            name = holiday['holdy_nm']
             data.append([date, day, name])
         df = pd.DataFrame.from_records(data, columns=columns)
         click.echo(df.to_markdown())
     else:
-        from koapy.utils.krx.closing import download_krx_closing_dates_as_excel
+        from koapy.utils.krx.closing import download_holidays_as_excel
         if output and not output.endswith('.xls'):
             output += '.xls'
-        download_krx_closing_dates_as_excel(output)
+        download_holidays_as_excel(output)
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get user information.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')

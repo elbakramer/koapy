@@ -2,7 +2,7 @@ import re
 import datetime
 import requests
 
-def get_krx_closing_dates_as_dict():
+def get_holidays_as_dict():
     now = datetime.datetime.now()
     def generate_otp():
         headers = {
@@ -42,7 +42,7 @@ def get_krx_closing_dates_as_dict():
     body = response.json()
     return body
 
-def download_krx_closing_dates_as_excel(f=None):
+def download_holidays_as_excel(f=None):
     now = datetime.datetime.now()
     def generate_otp():
         headers = {
