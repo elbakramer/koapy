@@ -7,14 +7,14 @@ with KiwoomOpenApiContext() as context:
     # 로그인 예시
     context.EnsureConnected()
 
-    # 기타 함수 예시
+    # 함수 호출 예시
     codes = context.GetCodeListByMarketAsList('0')
     names = [context.GetMasterCodeName(code) for code in codes]
 
     codes_by_name = dict(zip(names, codes))
     code = codes_by_name['삼성전자']
 
-    # TR 예시
+    # TR 예시 (opt10081)
     data = context.GetDailyStockDataAsDataFrame(code)
     print(data)
 
