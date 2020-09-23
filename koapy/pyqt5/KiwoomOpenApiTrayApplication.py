@@ -6,7 +6,8 @@ import signal
 import contextlib
 
 from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QStyle
-from PyQt5.QtCore import QTimer, QObject, pyqtSignal
+from PyQt5.QtCore import QTimer, QObject, QUrl, pyqtSignal
+from PyQt5.QtGui import QDesktopServices
 
 from koapy.grpc.KiwoomOpenApiServiceServer import KiwoomOpenApiServiceServer
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
@@ -56,6 +57,13 @@ class KiwoomOpenApiTrayApplication(QObject):
         self._connectionStatusAction.setEnabled(False)
         self._serverStatusAction = menu.addAction('Server: Unknown')
         self._serverStatusAction.setEnabled(False)
+        menu.addSection('Links')
+        self._openApiUrl = "https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000"
+        self._qnaUrl = "https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do"
+        openApiAction = menu.addAction('Kiwoom OpenAPI+')
+        openApiAction.triggered.connect(self._openOpenApi)
+        qnaAction = menu.addAction('Kiwoom OpenAPI+ QNA')
+        qnaAction.triggered.connect(self._openQna)
         menu.addSection('Exit')
         exitAction = menu.addAction('Exit')
         exitAction.triggered.connect(self._exit)
@@ -165,6 +173,14 @@ class KiwoomOpenApiTrayApplication(QObject):
 
     def _configureAutoLogin(self):
         self._ensureConnectedAndThen(self._showAccountWindow)
+
+    def _openOpenApi(self):
+        url = QUrl(self._openApiUrl)
+        QDesktopServices.openUrl(url)
+
+    def _openQna(self):
+        url = QUrl(self._qnaUrl)
+        QDesktopServices.openUrl(url)
 
     def _onInterrupt(self, signum, _frame):
         self._exit(signum + 100)

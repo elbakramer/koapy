@@ -62,8 +62,8 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 .. literalinclude:: ../koapy/examples/transaction_event.py
     :language: python
 
-``KiwoomOpenApiContext`` 객체를 통해 사용 가능한 메서드는 기본적으로 개발가이드_ 에서 제공하는 모든 메서드들을 시작으로 합니다.
-이후 그런 기본 메서드를 활용하는 상위함수들을 구현한 여러 래퍼 클래스들이 단계적으로 적용되면서
+``KiwoomOpenApiContext`` 객체를 통해 사용 가능한 메서드 목록은 기본적으로 개발가이드_ 에서 제공하는 모든 메서드들에서 시작합니다.
+이후 그런 기본 메서드를 활용하는 상위함수들이 구현된 여러 래퍼 클래스들이 단계적으로 적용되면서
 최종적으로 완성이 되는 구조입니다. 따라서 해당 래퍼 클래스들의 구현을 모두 참고하시는게 좋습니다.
 
 주요 래퍼 클래스들을 고르자면 다음과 같습니다.
@@ -73,13 +73,28 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 
 여기서의 함수들 중에 ``XXXCall`` 패턴의 함수들에는 몇몇 유형화가 가능한 사용 패턴들에 대한 이벤트 처리 로직들이 미리 구현되어 있습니다.
 혹시나 추후에 이런 메서드들이 다루지 못하는 새로운 사용 패턴이 생기는 경우에
-기존 구현들을 참고해 커스텀 ``EventHandler`` 를 개발하신 후 ``CustomCallAndListen`` 을 활용하거나
+기존 구현들을 참고해 커스텀 ``EventHandler`` 를 개발 후 ``CustomCallAndListen`` 을 활용하거나
 아예 ``KiwoomOpenApiService.proto`` 파일을 수정해 신규 gRPC 메서드를 추가하는 방식으로도 확장이 가능합니다.
 
 관련해서 참고할만한 클래스/모듈들입니다.
 
 * :mod:`koapy.grpc.KiwoomOpenApiServiceServicer`
 * :mod:`koapy.grpc.event.KiwoomOpenApiEventHandler`
+
+아래는 최상단의 ``KiwoomOpenApiContext`` 부터 최하단의 ``KiwoomOpenApiQAxWidget`` 어떠한 흐름으로 이어져있는지 도식화한 것입니다.
+
+.. code-block::
+
+    KiwoomOpenApiContext
+    ->KiwoomOpenApiServiceClientStubWrapper
+    ->KiwoomOpenApiServiceClientStubCoreWrapper
+    ->KiwoomOpenApiServiceStub
+    ->KiwoomOpenApiServiceClient
+    <=>
+    ->KiwoomOpenApiServiceServer
+    ->KiwoomOpenApiServiceServicer
+    ->KiwoomOpenApiControlWrapper
+    ->KiwoomOpenApiQAxWidget
 
 .. _개발가이드: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf
 

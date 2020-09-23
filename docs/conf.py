@@ -81,12 +81,14 @@ class QClass:
 PyQt5 = MagicMock()
 PyQt5.QtWidgets.QWidget = QClass
 PyQt5.QtCore.QObject = QClass
-PyQt5.QAxContainer.QAxWidget = QClass
+PyQt5.QAxContainer.QAxWidget = MagicMock()
+PyQt5.QtGui.QDesktopServices = MagicMock()
 
 sys.modules.update({
     'PyQt5.QtWidgets': PyQt5.QtWidgets,
     'PyQt5.QtCore': PyQt5.QtCore,
     'PyQt5.QAxContainer': PyQt5.QAxContainer,
+    'PyQt5.QtGui': PyQt5.QtGui,
 })
 
 # -- Import main package after mocking
