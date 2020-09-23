@@ -11,5 +11,6 @@ tqdm==4.49.0
 wrapt==1.12.1
 numpy==1.19.2
 pandas==1.1.2
+xlrd==1.2.0
 pywin32==228;sys_platform=='win32'
 mslex==0.1.1;sys_platform=='win32'
