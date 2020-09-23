@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Noto+Serif+KR:wght@300;400&display=swap');
+
+body {
+    font-family: 'Noto Serif KR', Georgia, 'Times New Roman', Times, serif;
+}
+
+pre, tt, code {
+    font-family: 'Nanum Gothic Coding', 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    font-size: 0.9em;
+}

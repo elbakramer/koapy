@@ -15,7 +15,7 @@ class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlWrapper):
         self._stub = stub
 
     def __getattr__(self, name):
-        return KiwoomOpenApiServiceClientSideDynamicCallable(self._stub, name)
+        return getattr(self._stub, name, KiwoomOpenApiServiceClientSideDynamicCallable(self._stub, name))
 
     def Call(self, name, *args):
         return KiwoomOpenApiServiceClientSideDynamicCallable(self._stub, name)(*args)
@@ -141,6 +141,8 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         """
         if codes is None:
             codes = self.GetCommonCodeList()
+        elif isinstance(codes, str):
+            codes = [codes]
         if rqname is None:
             rqname = '주식기본정보요청'
         if scrnno is None:
@@ -261,7 +263,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
 
     def GetDepositInfo(self, account_no, lookup_type=None, rqname=None, scrnno=None):
         """
-        조회구분 = 1:추정조회, 2:일반조회
+        조회구분 = 3:추정조회, 2:일반조회
         """
         if rqname is None:
             rqname = '예수금상세현황요청'
@@ -466,14 +468,12 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         single, _multi = self._ParseTransactionCallResponses(responses)
         return single
 
-    def WatchRealDataForCodesAsStream(self, codes=None, fids=None, scrnno=None, realtype=None, infer_fids=False, readable_names=False, fast_parse=False):
-        if codes is None:
-            codes = self.GetCommonCodeList() + self.GetKosdaqCodeList()
+    def WatchRealDataForCodesAsStream(self, codes, fids=None, realtype=None, screen_no=None, infer_fids=False, readable_names=False, fast_parse=False):
+        if isinstance(codes, str):
+            codes = [codes]
         if fids is None:
             fids = RealType.get_fids_by_realtype('주식시세')
-        if scrnno is None:
-            scrnno = '0001'
         if realtype is None:
             realtype = '0'
-        for response in self.RealCall(scrnno, codes, fids, realtype, infer_fids, readable_names, fast_parse):
+        for response in self.RealCall(screen_no, codes, fids, realtype, infer_fids, readable_names, fast_parse):
             yield response

@@ -35,6 +35,7 @@ import koapy
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
+    'sphinx.ext.autosectionlabel',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
@@ -50,8 +51,12 @@ autosummary_generate = True
 
 from sphinx.ext import apidoc
 
+apidoc_exclude_patterns = [
+    'examples/*.py',
+]
+
 def run_apidoc(_):
-    apidoc.main(['-e', '-o', doc_dir, module_dir, '--force', '--doc-project', 'Koapy'])
+    apidoc.main(['-e', '--force', '--doc-project', 'Koapy', '-o', doc_dir, module_dir] + [os.path.join(module_dir, p) for p in apidoc_exclude_patterns])
 
 def setup(app):
     app.connect('builder-inited', run_apidoc)
@@ -89,7 +94,7 @@ sys.modules.update({
 # -- Warnings related setting ---
 
 suppress_warnings = []
-keep_warnings = True
+keep_warnings = False
 
 # -- Translation related configuration ---
 
@@ -170,6 +175,10 @@ html_theme_options = {
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+html_css_files = [
+    'css/style.css',
+]
 
 
 # -- Options for HTMLHelp output ---------------------------------------

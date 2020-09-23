@@ -20,7 +20,7 @@ class KiwoomOpenApiServiceClient:
 
     def is_ready(self, timeout=None):
         if timeout is None:
-            timeout = config.get_int('koapy.grpc.client.is_ready.timeout', 10)
+            timeout = config.get_int('koapy.grpc.client.is_ready.timeout', 5)
         try:
             grpc.channel_ready_future(self._channel).result(timeout=timeout)
             return True

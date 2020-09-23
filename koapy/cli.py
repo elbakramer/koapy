@@ -80,16 +80,16 @@ def autologin(port, verbose):
 def update():
     pass
 
-@update.command(context_settings=CONTEXT_SETTINGS, short_help='Update openapi metadata.')
+@update.command(context_settings=CONTEXT_SETTINGS, short_help='Update openapi TR metadata.')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def trinfo(verbose):
+def trdata(verbose):
     set_verbosity(verbose)
     from koapy.openapi.TrInfo import TrInfo
     TrInfo.dump_trinfo_by_code()
 
-@update.command(context_settings=CONTEXT_SETTINGS, short_help='Update openapi metadata.')
+@update.command(context_settings=CONTEXT_SETTINGS, short_help='Update openapi realtype metadata.')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def realtype(verbose):
+def realdata(verbose):
     set_verbosity(verbose)
     from koapy.openapi.RealType import RealType
     RealType.dump_realtype_by_desc()
@@ -489,7 +489,7 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get TR info.')
 @click.option('-t', '--trcode', 'trcodes', metavar='TRCODE', multiple=True, help='TR code to get (like opt10001).')
-def trinfo(trcodes): # pylint: disable=function-redefined
+def trinfo(trcodes):
     from koapy.openapi.TrInfo import TrInfo
 
     def get_codes():
@@ -638,7 +638,6 @@ def deposit(account, port, verbose):
     if account is None:
         logging.info('Account not given. Using first account available.')
 
-    import pandas as pd
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
@@ -716,7 +715,6 @@ def orders(account, date, reverse, executed_only, not_executed_only, stock_only,
     if account is None:
         logging.info('Account not given. Using first account available.')
 
-    import pandas as pd
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
 
     sort_type = '1'
@@ -744,6 +742,24 @@ def orders(account, date, reverse, executed_only, not_executed_only, stock_only,
             account = context.GetAccountList()[0]
 
         click.echo(context.GetOrderLogAsDataFrame3(account, date, sort_type, asset_type, order_type, code, starting_order_no).to_markdown())
+
+@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get OpenApi module installation path.')
+@click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
+@click.option('-v', '--verbose', count=True, help='Verbosity.')
+def modulepath(port, verbose):
+    set_verbosity(verbose)
+    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
+        click.echo(context.GetAPIModulePath())
+
+@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get error message for error code.')
+@click.option('-e', '--err-code', metavar='ERR', type=int, help='Error code to check.')
+@click.option('-v', '--verbose', count=True, help='Verbosity.')
+def errmsg(err_code, verbose):
+    set_verbosity(verbose)
+    from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
+    err_msg = KiwoomOpenApiError.get_error_message_by_code(err_code)
+    click.echo('[%d] %s' % (err_code, err_msg))
 
 @cli.command(context_settings=CONTEXT_SETTINGS, short_help='Watch realtime data.')
 @click.option('-c', '--code', 'codes', metavar='CODE', multiple=True, help='Stock code to get. Can set multiple times.')

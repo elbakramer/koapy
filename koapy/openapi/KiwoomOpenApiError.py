@@ -110,8 +110,8 @@ class KiwoomOpenApiError(Exception):
     ERROR_MESSAGES = list(ERROR_MESSAGE_BY_CODE.values())
 
     @classmethod
-    def get_error_message_by_code(cls, code):
-        return cls.ERROR_MESSAGE_BY_CODE.get(code)
+    def get_error_message_by_code(cls, code, default=None):
+        return cls.ERROR_MESSAGE_BY_CODE.get(code, default)
 
     @classmethod
     def try_or_raise(cls, code_or_function, *args, **kwargs):

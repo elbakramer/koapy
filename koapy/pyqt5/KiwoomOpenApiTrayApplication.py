@@ -32,7 +32,7 @@ class KiwoomOpenApiTrayApplication(QObject):
 
         set_verbosity(self._verbose)
 
-        self._app = QApplication(args[:1] + remaining_args)
+        self._app = QApplication(remaining_args)
         self._control = KiwoomOpenApiQAxWidget()
         self._server = KiwoomOpenApiServiceServer(self._control, port=self._port)
 
@@ -221,6 +221,22 @@ class KiwoomOpenApiTrayApplication(QObject):
 
     def _exitForRestart(self):
         return self._exit(self._should_restart_exit_code)
+
+    def __getattr__(self, name):
+        return self._app
+
+    @property
+    def control(self):
+        return self._control
+
+    def get_control(self):
+        return self._control
+
+    def exec_(self):
+        return self._exec()
+
+    def exit(self, return_code=0):
+        return self._exit(return_code)
 
     def execAndExit(self):
         code = self._exec()

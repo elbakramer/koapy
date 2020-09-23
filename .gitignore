@@ -67,6 +67,7 @@ docs/_build/
 docs/modules.rst
 docs/koapy.rst
 docs/koapy.*.rst
+docs/autoapi
 
 # PyBuilder
 target/

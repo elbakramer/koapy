@@ -526,6 +526,8 @@ class KiwoomOpenApiRealEventHandler(BaseKiwoomOpenApiEventHandler):
         elif len(self._screen_no) < len(self._code_lists):
             logging.warning('Given screen nos are not sufficient.')
             self._screen_nos = list(self._screen_nos) + [None for i in range(len(self._code_lists) - len(self.screen_nos))]
+        else:
+            self._screen_nos = self._screen_no
         self._fid_list_joined = ';'.join([str(fid) for fid in self._fid_list])
         self._real_type_explicit = self._real_type or self._default_real_type
 
