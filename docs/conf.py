@@ -26,10 +26,6 @@ doc_dir = os.path.abspath(os.path.dirname(__file__))
 project_dir = os.path.abspath(os.path.join(doc_dir, '..'))
 module_dir = os.path.abspath(os.path.join(project_dir, 'koapy'))
 
-sys.path.insert(0, project_dir)
-
-import koapy
-
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
@@ -85,11 +81,19 @@ class QClass:
 PyQt5 = MagicMock()
 PyQt5.QtWidgets.QWidget = QClass
 PyQt5.QtCore.QObject = QClass
+PyQt5.QAxContainer.QAxWidget = QClass
 
 sys.modules.update({
     'PyQt5.QtWidgets': PyQt5.QtWidgets,
     'PyQt5.QtCore': PyQt5.QtCore,
+    'PyQt5.QAxContainer': PyQt5.QAxContainer,
 })
+
+# -- Import main package after mocking
+
+sys.path.insert(0, project_dir)
+
+import koapy
 
 # -- Warnings related setting ---
 
