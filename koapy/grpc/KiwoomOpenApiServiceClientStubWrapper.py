@@ -1,18 +1,17 @@
-import re
 import logging
 import datetime
 
-import numpy as np
 import pandas as pd
 
 from koapy.grpc import KiwoomOpenApiService_pb2
 from koapy.grpc.KiwoomOpenApiServiceClientSideDynamicCallable import KiwoomOpenApiServiceClientSideDynamicCallable
-from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
+from koapy.pyqt5.KiwoomOpenApiControlWrapper import KiwoomOpenApiControlWrapper
 from koapy.openapi.RealType import RealType
 
-class KiwoomOpenApiServiceClientStubCoreWrapper:
+class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlWrapper):
 
     def __init__(self, stub):
+        super().__init__()
         self._stub = stub
 
     def __getattr__(self, name):
@@ -84,10 +83,16 @@ class KiwoomOpenApiServiceClientStubCoreWrapper:
 
     def RealCall(self, scrnno, codes, fids, realtype=None, infer_fids=False, readable_names=False, fast_parse=False):
         request = KiwoomOpenApiService_pb2.RealRequest()
+        if scrnno is None:
+            scrnnos = []
+        elif isinstance(scrnno, str):
+            scrnnos = [scrnno]
+        else:
+            scrnnos = scrnno
         fids = [int(fid) for fid in fids]
         if realtype is None:
             realtype = '0'
-        request.screen_no = scrnno
+        request.screen_no.extend(scrnnos) # pylint: disable=no-member
         request.code_list.extend(codes) # pylint: disable=no-member
         request.fid_list.extend(fids) # pylint: disable=no-member
         request.real_type = realtype
@@ -95,13 +100,12 @@ class KiwoomOpenApiServiceClientStubCoreWrapper:
         request.flags.readable_names = readable_names # pylint: disable=no-member
         request.flags.fast_parse = fast_parse # pylint: disable=no-member
         return self._stub.RealCall(request)
-    
+
     def SetLogLevel(self, level, logger=''):
         request = KiwoomOpenApiService_pb2.SetLogLevelRequest()
         request.level = level
         request.logger = logger
         return self._stub.SetLogLevel(request)
-
 
 class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWrapper):
 
@@ -111,106 +115,22 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             errcode = self.LoginCall()
         return errcode
 
-    def GetServerGubun(self):
-        return self.GetLoginInfo('GetServerGubun')
-
-    def ShowAccountWindow(self):
-        return self.KOA_Functions('ShowAccountWindow', '')
-
-    def GetCodeListByMarketAsList(self, market):
-        market = str(market)
-        result = self.GetCodeListByMarket(market).rstrip(';')
-        result = result.split(';') if result else []
-        return result
-
-    def GetNameListByMarketAsList(self, market):
-        codes = self.GetCodeListByMarketAsList(market)
-        names = [self.GetMasterCodeName(code) for code in codes]
-        return names
-
-    def GetAccountListAsList(self):
-        accounts = self.GetLoginInfo('ACCLIST').rstrip(';')
-        accounts = accounts.split(';') if accounts else []
-        return accounts
-
-    def GetMasterStockStateAsList(self, code):
-        states = self.GetMasterStockState(code).strip()
-        states = states.split('|') if states else []
-        return states
-
-    def _RemoveLeadingZerosForNumber(self, value, width=None):
-        remove = False
-        if width is None:
-            remove = True
-        elif isinstance(width, int) and len(value) == width:
-            remove = True
-        elif hasattr(width, '__iter__') and len(value) in width:
-            remove = True
-        if remove:
-            return re.sub(r'^\s*([+-]?)[0]+([0-9]+(.[0-9]+)?)\s*$', r'\1\2', value)
-        return value
-
-    def _RemoveLeadingZerosForNumbersInValues(self, values, width=None):
-        return [self._RemoveLeadingZerosForNumber(value, width) for value in values]
-
-    def GetCommonCodeList(self):
-        """
-        [시장구분값]
-          0 : 장내
-          10 : 코스닥
-          3 : ELW
-          8 : ETF
-          50 : KONEX
-          4 : 뮤추얼펀드
-          5 : 신주인수권
-          6 : 리츠
-          9 : 하이얼펀드
-          30 : K-OTC
-        """
-
-        # 기본 코드 리스트
-        codes = self.GetCodeListByMarketAsList('0')
-
-        # 장내 시장에서 ETN 이 섞여 있는데 시장구분값으로 뺄 수가 없어서 이름을 보고 대충 제외
-        names = [self.GetMasterCodeName(code) for code in codes]
-        etn_suffixes = ['ETN', 'ETN(H)', 'ETN B', 'ETN(H) B']
-        is_not_etn_name = [not any(name.endswith(suffix) for suffix in etn_suffixes) for name in names]
-        codes = np.array(codes)[is_not_etn_name].tolist()
-
-        # 코드값 기준 제외 준비
-        codes = set(codes)
-
-        # 우선주 구분은 기본정보에서 유통주식 수량이 확인되지 않는 주식들
-        # 그 중에 ~3호 등 배 관련 종목은 우선주가 아니고 PER 같은 값이 있음
-        # 종목코드의 마지막 자리가 숫자가 아닌 K,L 등 인 것으로 구분할 수도 있는데 모두 그런건 아님
-        # 당장은 미리  구분해놓은 값들을 참고해 제외하는 식으로
-        preferred_stock_codes = []
-        codes = codes - set(preferred_stock_codes)
-
-        # 나머지는 혹시나 겹치는 애들이 나올 수 있는 시장에서 코드기준 제외
-        codes = codes - set(self.GetCodeListByMarketAsList('10'))
-        codes = codes - set(self.GetCodeListByMarketAsList('8'))
-        codes = codes - set(self.GetCodeListByMarketAsList('4'))
-        codes = codes - set(self.GetCodeListByMarketAsList('6'))
-
-        # 정렬된 리스트 형태로 제공
-        codes = sorted(list(codes))
-
-        return codes
-
-    def GetKosdaqCodeList(self):
-        codes = self.GetCodeListByMarketAsList('10')
-        codes = sorted(codes)
-        return codes
-
-    def IsSuspended(self, code):
-        return '거래정지' in self.GetMasterStockStateAsList(code)
-
-    def IsInSupervision(self, code):
-        return '관리종목' in self.GetMasterStockStateAsList(code)
-
-    def IsInSurveillance(self, code):
-        return '감리종목' in self.GetMasterStockStateAsList(code)
+    def _ParseTransactionCallResponses(self, responses, remove_zeros_width=0):
+        single_output = None
+        columns = []
+        records = []
+        for response in responses:
+            if single_output is None:
+                single_output = dict(zip(
+                    response.listen_response.single_data.names,
+                    self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, remove_zeros_width)))
+            if not columns:
+                columns = response.listen_response.multi_data.names
+            for values in response.listen_response.multi_data.values:
+                records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, remove_zeros_width))
+        single = pd.Series(single_output)
+        multi = pd.DataFrame.from_records(records, columns=columns)
+        return single, multi
 
     def GetStockInfoAsDataFrame(self, codes=None, rqname=None, scrnno=None):
         """
@@ -339,9 +259,6 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetAccounts(self):
-        return self.GetLoginInfo('ACCLIST').rstrip(';').split(';')
-
     def GetDepositInfo(self, account_no, lookup_type=None, rqname=None, scrnno=None):
         """
         조회구분 = 1:추정조회, 2:일반조회
@@ -357,20 +274,9 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             '비밀번호입력매체구분': '00',
             '조회구분': '2' if lookup_type is None else lookup_type,
         }
-        single_output = None
-        columns = []
-        records = []
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
-            if single_output is None:
-                single_output = dict(zip(
-                    response.listen_response.single_data.names,
-                    self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, [12, 15])))
-            if not columns:
-                columns = response.listen_response.multi_data.names
-            for values in response.listen_response.multi_data.values:
-                records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, [12, 15]))
-        _df = pd.DataFrame.from_records(records, columns=columns)
-        return single_output
+        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        single, _multi = self._ParseTransactionCallResponses(responses, [12, 15])
+        return single
 
     def GetStockQuotes(self, code, rqname=None, scrnno=None):
         if rqname is None:
@@ -381,20 +287,9 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         inputs = {
             '종목코드': code,
         }
-        single_output = None
-        columns = []
-        records = []
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
-            if single_output is None:
-                single_output = dict(zip(
-                    response.listen_response.single_data.names,
-                    self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, [12, 15])))
-            if not columns:
-                columns = response.listen_response.multi_data.names
-            for values in response.listen_response.multi_data.values:
-                records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, [12, 15]))
-        _df = pd.DataFrame.from_records(records, columns=columns)
-        return single_output
+        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        single, _multi = self._ParseTransactionCallResponses(responses, [12, 15])
+        return single
 
     def GetOrderLogAsDataFrame1(self, account_no, order_type=None, status_type=None, code=None, rqname=None, scrnno=None):
         """
@@ -417,15 +312,9 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             '종목코드': '' if code is None else code,
             '체결구분': '0' if status_type is None else status_type,
         }
-        columns = []
-        records = []
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
-            if not columns:
-                columns = response.listen_response.multi_data.names
-            for values in response.listen_response.multi_data.values:
-                records.append(values.values)
-        df = pd.DataFrame.from_records(records, columns=columns)
-        return df
+        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        _single, multi = self._ParseTransactionCallResponses(responses)
+        return multi
 
     def GetOrderLogAsDataFrame2(self, account_no, order_type=None, status_type=None, code=None, order_no=None, rqname=None, scrnno=None):
         """
@@ -452,15 +341,9 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             '주문번호': '' if order_no is None else order_no,
             '체결구분': '0' if status_type is None else status_type,
         }
-        columns = []
-        records = []
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
-            if not columns:
-                columns = response.listen_response.multi_data.names
-            for values in response.listen_response.multi_data.values:
-                records.append(values.values)
-        df = pd.DataFrame.from_records(records, columns=columns)
-        return df
+        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        _single, multi = self._ParseTransactionCallResponses(responses)
+        return multi
 
     def GetOrderLogAsDataFrame3(self, account_no, date=None, sort_type=None, asset_type=None, order_type=None, code=None, starting_order_no=None, rqname=None, scrnno=None):
         """
@@ -497,15 +380,9 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             '종목코드': '' if code is None else code,
             '시작주문번호': '' if starting_order_no is None else starting_order_no,
         }
-        columns = []
-        records = []
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
-            if not columns:
-                columns = response.listen_response.multi_data.names
-            for values in response.listen_response.multi_data.values:
-                records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, 10))
-        df = pd.DataFrame.from_records(records, columns=columns)
-        return df
+        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        _single, multi = self._ParseTransactionCallResponses(responses, 10)
+        return multi
 
     def GetAccountRateOfReturnAsDataFrame(self, account_no, rqname=None, scrnno=None):
         if rqname is None:
@@ -516,21 +393,9 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         inputs = {
             '계좌번호': account_no,
         }
-        single_output = None
-        columns = []
-        records = []
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
-            print(response)
-            if single_output is None:
-                single_output = dict(zip(
-                    response.listen_response.single_data.names,
-                    self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, [10])))
-            if not columns:
-                columns = response.listen_response.multi_data.names
-            for values in response.listen_response.multi_data.values:
-                records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, [10]))
-        df = pd.DataFrame.from_records(records, columns=columns)
-        return df
+        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        _single, multi = self._ParseTransactionCallResponses(responses, 10)
+        return multi
 
     def GetAccountEvaluationStatusAsSeriesAndDataFrame(self, account_no, include_delisted=True, rqname=None, scrnno=None):
         if rqname is None:
@@ -544,20 +409,8 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             '상장폐지조회구분': '0' if include_delisted else '1',
             '비밀번호입력매체구분': '00',
         }
-        single_output = None
-        columns = []
-        records = []
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
-            if single_output is None:
-                single_output = dict(zip(
-                    response.listen_response.single_data.names,
-                    self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, 12)))
-            if not columns:
-                columns = response.listen_response.multi_data.names
-            for values in response.listen_response.multi_data.values:
-                records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, 12))
-        single = pd.Series(single_output)
-        multi = pd.DataFrame.from_records(records, columns=columns)
+        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        single, multi = self._ParseTransactionCallResponses(responses, 12)
         return single, multi
 
     def GetAccountExecutionBalanceAsSeriesAndDataFrame(self, account_no, rqname=None, scrnno=None):
@@ -574,20 +427,8 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             '비밀번호': '',
             '비밀번호입력매체구분': '00',
         }
-        single_output = None
-        columns = []
-        records = []
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
-            if single_output is None:
-                single_output = dict(zip(
-                    response.listen_response.single_data.names,
-                    self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values)))
-            if not columns:
-                columns = response.listen_response.multi_data.names
-            for values in response.listen_response.multi_data.values:
-                records.append(self._RemoveLeadingZerosForNumbersInValues(values.values))
-        single = pd.Series(single_output)
-        multi = pd.DataFrame.from_records(records, columns=columns)
+        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        single, multi = self._ParseTransactionCallResponses(responses, 0)
         return single, multi
 
     def GetAccountEvaluationBalanceAsSeriesAndDataFrame(self, account_no, lookup_type=None, rqname=None, scrnno=None):
@@ -608,20 +449,8 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             '비밀번호입력매체구분': '00',
             '조회구분': '2' if lookup_type is None else lookup_type,
         }
-        single_output = None
-        columns = []
-        records = []
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
-            if single_output is None:
-                single_output = dict(zip(
-                    response.listen_response.single_data.names,
-                    self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, [12, 15])))
-            if not columns:
-                columns = response.listen_response.multi_data.names
-            for values in response.listen_response.multi_data.values:
-                records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, [12, 15]))
-        single = pd.Series(single_output)
-        multi = pd.DataFrame.from_records(records, columns=columns)
+        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        single, multi = self._ParseTransactionCallResponses(responses, [12, 15])
         return single, multi
 
     def GetMarketPriceInfo(self, code, rqname=None, scrnno=None):
@@ -633,20 +462,9 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         inputs = {
             '종목코드': code,
         }
-        single_output = None
-        columns = []
-        records = []
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
-            if single_output is None:
-                single_output = dict(zip(
-                    response.listen_response.single_data.names,
-                    response.listen_response.single_data.values))
-            if not columns:
-                columns = response.listen_response.multi_data.names
-            for values in response.listen_response.multi_data.values:
-                records.append(values.values)
-        _df = pd.DataFrame.from_records(records, columns=columns)
-        return single_output
+        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        single, _multi = self._ParseTransactionCallResponses(responses)
+        return single
 
     def WatchRealDataForCodesAsStream(self, codes=None, fids=None, scrnno=None, realtype=None, infer_fids=False, readable_names=False, fast_parse=False):
         if codes is None:

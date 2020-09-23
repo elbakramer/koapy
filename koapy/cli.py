@@ -489,7 +489,7 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get TR info.')
 @click.option('-t', '--trcode', 'trcodes', metavar='TRCODE', multiple=True, help='TR code to get (like opt10001).')
-def trinfo(trcodes):
+def trinfo(trcodes): # pylint: disable=function-redefined
     from koapy.openapi.TrInfo import TrInfo
 
     def get_codes():
@@ -589,7 +589,7 @@ def holidays(output, verbose):
         df = pd.DataFrame.from_records(data, columns=columns)
         click.echo(df.to_markdown())
     else:
-        from koapy.utils.krx.closing import download_holidays_as_excel
+        from koapy.utils.krx.holiday import download_holidays_as_excel
         if output and not output.endswith('.xls'):
             output += '.xls'
         download_holidays_as_excel(output)
@@ -633,11 +633,10 @@ def userinfo(port, verbose):
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def deposit(account, port, verbose):
+    set_verbosity(verbose)
+
     if account is None:
         logging.info('Account not given. Using first account available.')
-        # fail_with_usage()
-
-    set_verbosity(verbose)
 
     import pandas as pd
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
@@ -646,10 +645,10 @@ def deposit(account, port, verbose):
         context.EnsureConnected()
 
         if account is None:
-            account = context.GetAccounts()[0]
+            account = context.GetAccountList()[0]
 
         result = context.GetDepositInfo(account)
-        click.echo(pd.Series(result).to_markdown())
+        click.echo(result.to_markdown())
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get account evaluation.')
 @click.option('-a', '--account', metavar='ACCNO', help='Account number.')
@@ -660,11 +659,10 @@ def deposit(account, port, verbose):
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def evaluation(account, include_delisted, exclude_delisted, for_each, as_summary, port, verbose):
+    set_verbosity(verbose)
+
     if account is None:
         logging.info('Account not given. Using first account available.')
-        # fail_with_usage()
-
-    set_verbosity(verbose)
 
     if exclude_delisted:
         include_delisted = False
@@ -672,17 +670,16 @@ def evaluation(account, include_delisted, exclude_delisted, for_each, as_summary
     if as_summary:
         for_each = False
         lookup_type = '1'
-    else:
+    elif for_each:
         lookup_type = '2'
 
-    import pandas as pd
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
 
         if account is None:
-            account = context.GetAccounts()[0]
+            account = context.GetAccountList()[0]
 
         single, multi = context.GetAccountEvaluationStatusAsSeriesAndDataFrame(account, include_delisted)
         click.echo('[계좌평가현황요청] : [계좌평가현황]')
@@ -714,11 +711,10 @@ def evaluation(account, include_delisted, exclude_delisted, for_each, as_summary
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def orders(account, date, reverse, executed_only, not_executed_only, stock_only, bond_only, sell_only, buy_only, code, starting_order_no, port, verbose):
+    set_verbosity(verbose)
+
     if account is None:
         logging.info('Account not given. Using first account available.')
-        # fail_with_usage()
-
-    set_verbosity(verbose)
 
     import pandas as pd
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
@@ -745,7 +741,7 @@ def orders(account, date, reverse, executed_only, not_executed_only, stock_only,
         context.EnsureConnected()
 
         if account is None:
-            account = context.GetAccounts()[0]
+            account = context.GetAccountList()[0]
 
         click.echo(context.GetOrderLogAsDataFrame3(account, date, sort_type, asset_type, order_type, code, starting_order_no).to_markdown())
 
@@ -892,14 +888,19 @@ def order(request_name, screen_no, account_no, order_type, code, quantity, price
 
     set_verbosity(verbose)
 
+    import pprint
+
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
     from google.protobuf.json_format import MessageToDict
+
+    pp = pprint.PrettyPrinter()
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
 
-        for response in context.OrderCall(self, request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no):
-            click.echo(MessageToDict(response)) # TODO: more pretty print
+        for response in context.OrderCall(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no):
+            dic = MessageToDict(response)
+            click.echo(pp.pformat(dic))
 
 if __name__ == '__main__':
     cli()

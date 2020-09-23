@@ -16,7 +16,7 @@ class KiwoomOpenApiServiceClient:
         self._target = self._host + ':' + str(self._port)
         self._channel = grpc.insecure_channel(self._target)
         self._stub = KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiServiceStub(self._channel)
-        self._stub_wrapper = KiwoomOpenApiServiceClientStubWrapper(self._stub)
+        self._stub_wrapped = KiwoomOpenApiServiceClientStubWrapper(self._stub)
 
     def is_ready(self, timeout=None):
         if timeout is None:
@@ -31,10 +31,10 @@ class KiwoomOpenApiServiceClient:
         return self._stub
 
     def get_stub(self):
-        return self._stub_wrapper
+        return self._stub_wrapped
 
     def close(self):
         return self._channel.close()
 
     def __getattr__(self, name):
-        return getattr(self._stub_wrapper, name)
+        return getattr(self._stub_wrapped, name)

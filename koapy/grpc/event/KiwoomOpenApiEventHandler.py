@@ -210,9 +210,10 @@ class KiwoomOpenApiLoginEventHandler(BaseKiwoomOpenApiEventHandler):
 
 class KiwoomOpenApiTrEventHandler(BaseKiwoomOpenApiEventHandler):
 
-    def __init__(self, control, request):
+    def __init__(self, control, request, screen_manager):
         super().__init__(control)
         self._request = request
+        self._screen_manager = screen_manager
 
         self._rqname = request.request_name
         self._trcode = request.transaction_code
@@ -255,6 +256,8 @@ class KiwoomOpenApiTrEventHandler(BaseKiwoomOpenApiEventHandler):
         self._is_stop_condition = is_stop_condition
 
     def on_enter(self):
+        self._scrnno = self._screen_manager.borrow_screen(self._scrnno)
+        self.add_callback(self._screen_manager.return_screen, self._scrnno)
         for k, v in self._inputs.items():
             self.control.SetInputValue(k, v)
         KiwoomOpenApiError.try_or_raise(
@@ -317,9 +320,10 @@ class KiwoomOpenApiTrEventHandler(BaseKiwoomOpenApiEventHandler):
 
 class KiwoomOpenApiOrderEventHandler(BaseKiwoomOpenApiEventHandler):
 
-    def __init__(self, control, request):
+    def __init__(self, control, request, screen_manager):
         super().__init__(control)
         self._request = request
+        self._screen_manager = screen_manager
 
         self._rqname = request.request_name
         self._scrnno = request.screen_no
@@ -341,6 +345,8 @@ class KiwoomOpenApiOrderEventHandler(BaseKiwoomOpenApiEventHandler):
         self._inputs = {}
 
     def on_enter(self):
+        self._scrnno = self._screen_manager.borrow_screen(self._scrnno)
+        self.add_callback(self._screen_manager.return_screen, self._scrnno)
         KiwoomOpenApiError.try_or_raise(
             self.control.SendOrder(
                 self._rqname,
@@ -498,12 +504,12 @@ class KiwoomOpenApiOrderEventHandler(BaseKiwoomOpenApiEventHandler):
 class KiwoomOpenApiRealEventHandler(BaseKiwoomOpenApiEventHandler):
 
     _num_codes_per_screen = 100
-    _default_screen_no = '0001'
     _default_real_type = '0'
 
-    def __init__(self, control, request):
+    def __init__(self, control, request, screen_manager):
         super().__init__(control)
         self._request = request
+        self._screen_manager = screen_manager
 
         self._screen_no = request.screen_no
         self._code_list = request.code_list
@@ -515,14 +521,21 @@ class KiwoomOpenApiRealEventHandler(BaseKiwoomOpenApiEventHandler):
         self._fast_parse = request.flags.fast_parse
 
         self._code_lists = [';'.join(codes) for codes in chunk(self._code_list, self._num_codes_per_screen)]
-        self._screen_nos = [str(int(self._screen_no or self._default_screen_no) + i).zfill(4) for i in range(len(self._code_lists))]
+        if len(self._screen_no) == 0:
+            self._screen_nos = [None for i in range(len(self._code_lists))]
+        elif len(self._screen_no) < len(self._code_lists):
+            logging.warning('Given screen nos are not sufficient.')
+            self._screen_nos = list(self._screen_nos) + [None for i in range(len(self._code_lists) - len(self.screen_nos))]
         self._fid_list_joined = ';'.join([str(fid) for fid in self._fid_list])
         self._real_type_explicit = self._real_type or self._default_real_type
 
     def on_enter(self):
         for screen_no, code_list in zip(self._screen_nos, self._code_lists):
+            screen_no = self._screen_manager.borrow_screen(screen_no)
+            self.add_callback(self._screen_manager.return_screen, screen_no)
             self.add_callback(self.control.DisconnectRealData, screen_no)
             self.add_callback(self.control.SetRealRemove, screen_no, code_list)
+
             KiwoomOpenApiError.try_or_raise(
                 self.control.SetRealReg(screen_no, code_list, self._fid_list_joined, self._real_type_explicit))
 

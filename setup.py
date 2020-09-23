@@ -62,10 +62,11 @@ setup(
     long_description=readme + '\n\n' + history,
     package_data={
         'koapy': [
-            'config.conf',
+            'grpc/KiwoomOpenApiService.proto',
             'openapi/data/fid.xlsx',
             'openapi/data/realtype_by_desc.json',
             'openapi/data/trinfo_by_code.json',
+            'config.conf',
         ]
     },
     include_package_data=True,

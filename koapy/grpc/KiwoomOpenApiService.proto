@@ -166,7 +166,7 @@ message RealRequestFlags {
 }
 
 message RealRequest {
-  string screen_no = 1;
+  repeated string screen_no = 1;
   repeated string code_list = 2;
   repeated int32 fid_list = 3;
   string real_type = 4;

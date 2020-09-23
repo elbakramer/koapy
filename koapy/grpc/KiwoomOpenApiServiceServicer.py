@@ -8,6 +8,7 @@ from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiLoginEventHa
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiTrEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiOrderEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiRealEventHandler
+from koapy.openapi.ScreenManager import ScreenManager
 
 from koapy.utils.logging import set_loglevel
 
@@ -18,11 +19,17 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
 
     def __init__(self, control):
         super().__init__()
+
         self._control = control
+        self._screen_manager = ScreenManager(self._control)
 
     @property
     def control(self):
         return self._control
+
+    @property
+    def screen_manager(self):
+        return self._screen_manager
 
     @classmethod
     def _convertArguments(cls, arguments):
@@ -129,17 +136,17 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
                 yield response
 
     def TransactionCall(self, request, context):
-        with KiwoomOpenApiTrEventHandler(self.control, request) as handler:
+        with KiwoomOpenApiTrEventHandler(self.control, request, self.screen_manager) as handler:
             for response in handler:
                 yield response
 
     def OrderCall(self, request, context):
-        with KiwoomOpenApiOrderEventHandler(self.control, request) as handler:
+        with KiwoomOpenApiOrderEventHandler(self.control, request, self.screen_manager) as handler:
             for response in handler:
                 yield response
 
     def RealCall(self, request, context):
-        with KiwoomOpenApiRealEventHandler(self.control, request) as handler:
+        with KiwoomOpenApiRealEventHandler(self.control, request, self.screen_manager) as handler:
             for response in handler:
                 yield response
 

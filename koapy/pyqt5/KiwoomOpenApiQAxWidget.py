@@ -6,6 +6,7 @@ from PyQt5.QtCore import QEvent, Qt
 
 from koapy.pyqt5.KiwoomOpenApiDynamicCallable import KiwoomOpenApiDynamicCallable
 from koapy.pyqt5.KiwoomOpenApiSignalConnector import KiwoomOpenApiSignalConnector
+from koapy.pyqt5.KiwoomOpenApiControlWrapper import KiwoomOpenApiControlWrapper
 from koapy.utils.rate_limiting.RateLimiter import SimpleRateLimiter
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiLoggingEventHandler
@@ -48,6 +49,7 @@ class KiwoomOpenApiQAxWidget(QWidget):
         super().__init__(*super_args, **super_kwargs)
 
         self._ax = QAxWidget(clsid_or_progid, self)
+        self._ax_wrapped = KiwoomOpenApiControlWrapper(self._ax)
         self._signals = {}
         self._event_logger = KiwoomOpenApiLoggingEventHandler(self)
 
@@ -69,10 +71,10 @@ class KiwoomOpenApiQAxWidget(QWidget):
         self._ax.exception.connect(self._onException)
 
     def _onException(self, code, source, desc, help):
-        logging.error('(%s, %s, %s, %s)', code, source, desc, help)
+        logging.exception('QAxBaseException(%r, %r, %r, %r)', code, source, desc, help)
 
     def __getattr__(self, name):
-        result = getattr(self._ax, name)
+        result = getattr(self._ax_wrapped, name)
 
         if type(result).__name__ == 'pyqtMethodProxy':
             return KiwoomOpenApiDynamicCallable(self._ax, name)
