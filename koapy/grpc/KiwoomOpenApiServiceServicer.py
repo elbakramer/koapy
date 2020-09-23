@@ -8,9 +8,7 @@ from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiLoginEventHa
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiTrEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiOrderEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiRealEventHandler
-from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 
-from koapy.utils.itertools import chunk
 from koapy.utils.logging import set_loglevel
 
 class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiServiceServicer):
@@ -127,53 +125,21 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
 
     def LoginCall(self, request, context):
         with KiwoomOpenApiLoginEventHandler(self.control, request) as handler:
-            KiwoomOpenApiError.try_or_raise(
-                self.control.CommConnect())
             for response in handler:
                 yield response
 
     def TransactionCall(self, request, context):
-        rqname = request.request_name
-        trcode = request.transaction_code
-        prevnext = 0
-        scrnno = request.screen_no
-        inputs = request.inputs
         with KiwoomOpenApiTrEventHandler(self.control, request) as handler:
-            handler.add_callback(self.control.DisconnectRealData, scrnno)
-            for k, v in inputs.items():
-                self.control.SetInputValue(k, v)
-            KiwoomOpenApiError.try_or_raise(
-                self.control.RateLimitedCommRqData(rqname, trcode, int(prevnext), scrnno, inputs))
             for response in handler:
                 yield response
 
     def OrderCall(self, request, context):
-        rqname = request.request_name
-        scrnno = request.screen_no
-        accno = request.account_no
-        ordertype = request.order_type
-        code = request.code
-        qty = request.quantity
-        price = request.price
-        hogagb = request.quote_type
-        orgorderno = request.original_order_no
         with KiwoomOpenApiOrderEventHandler(self.control, request) as handler:
-            KiwoomOpenApiError.try_or_raise(
-                self.control.SendOrder(rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno))
             for response in handler:
                 yield response
 
     def RealCall(self, request, context):
-        code_lists = [';'.join(codes) for codes in chunk(request.code_list, 100)]
-        screen_nos = [str(int(request.screen_no or '0001') + i).zfill(4) for i in range(len(code_lists))]
-        fid_list = ';'.join([str(fid) for fid in request.fid_list])
-        real_type = request.real_type or '0'
         with KiwoomOpenApiRealEventHandler(self.control, request) as handler:
-            for screen_no, code_list in zip(screen_nos, code_lists):
-                handler.add_callback(self.control.DisconnectRealData, screen_no)
-                handler.add_callback(self.control.SetRealRemove, screen_no, 'ALL')
-                KiwoomOpenApiError.try_or_raise(
-                    self.control.SetRealReg(screen_no, code_list, fid_list, real_type))
             for response in handler:
                 yield response
 

@@ -9,6 +9,7 @@ from koapy.openapi.TrInfo import TrInfo
 from koapy.openapi.RealType import RealType
 
 from koapy.utils.notimplemented import isimplemented
+from koapy.utils.itertools import chunk
 
 class KiwoomOpenApiLoggingEventHandler(BaseKiwoomOpenApiEventHandler):
 
@@ -194,6 +195,9 @@ class KiwoomOpenApiLoginEventHandler(BaseKiwoomOpenApiEventHandler):
         super().__init__(control)
         self._request = request
 
+    def on_enter(self):
+        KiwoomOpenApiError.try_or_raise(self.control.CommConnect())
+
     def OnEventConnect(self, errcode):
         if errcode < 0:
             error = KiwoomOpenApiError(errcode)
@@ -249,6 +253,15 @@ class KiwoomOpenApiTrEventHandler(BaseKiwoomOpenApiEventHandler):
                 return False
 
         self._is_stop_condition = is_stop_condition
+
+    def on_enter(self):
+        for k, v in self._inputs.items():
+            self.control.SetInputValue(k, v)
+        KiwoomOpenApiError.try_or_raise(
+            self.control.RateLimitedCommRqData(self._rqname, self._trcode, 0, self._scrnno, self._inputs))
+
+    def on_exit(self):
+        self.control.DisconnectRealData(self._scrnno)
 
     def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg):
         if (rqname, trcode, scrnno) == (self._rqname, self._trcode, self._scrnno):
@@ -326,6 +339,19 @@ class KiwoomOpenApiOrderEventHandler(BaseKiwoomOpenApiEventHandler):
 
         self._is_stop_condition = lambda row: False
         self._inputs = {}
+
+    def on_enter(self):
+        KiwoomOpenApiError.try_or_raise(
+            self.control.SendOrder(
+                self._rqname,
+                self._scrnno,
+                self._accno,
+                self._ordertype,
+                self._code,
+                self._qty,
+                self._price,
+                self._hogagb,
+                self._orgorderno))
 
     def OnReceiveMsg(self, scrnno, rqname, trcode, msg):
         if (rqname, scrnno) == (self._rqname, self._scrnno):
@@ -471,6 +497,10 @@ class KiwoomOpenApiOrderEventHandler(BaseKiwoomOpenApiEventHandler):
 
 class KiwoomOpenApiRealEventHandler(BaseKiwoomOpenApiEventHandler):
 
+    _num_codes_per_screen = 100
+    _default_screen_no = '0001'
+    _default_real_type = '0'
+
     def __init__(self, control, request):
         super().__init__(control)
         self._request = request
@@ -483,6 +513,18 @@ class KiwoomOpenApiRealEventHandler(BaseKiwoomOpenApiEventHandler):
         self._infer_fids = request.flags.infer_fids
         self._readable_names = request.flags.readable_names
         self._fast_parse = request.flags.fast_parse
+
+        self._code_lists = [';'.join(codes) for codes in chunk(self._code_list, self._num_codes_per_screen)]
+        self._screen_nos = [str(int(self._screen_no or self._default_screen_no) + i).zfill(4) for i in range(len(self._code_lists))]
+        self._fid_list_joined = ';'.join([str(fid) for fid in self._fid_list])
+        self._real_type_explicit = self._real_type or self._default_real_type
+
+    def on_enter(self):
+        for screen_no, code_list in zip(self._screen_nos, self._code_lists):
+            self.add_callback(self.control.DisconnectRealData, screen_no)
+            self.add_callback(self.control.SetRealRemove, screen_no, code_list)
+            KiwoomOpenApiError.try_or_raise(
+                self.control.SetRealReg(screen_no, code_list, self._fid_list_joined, self._real_type_explicit))
 
     def OnReceiveRealData(self, code, realtype, realdata):
         if code in self._code_list:

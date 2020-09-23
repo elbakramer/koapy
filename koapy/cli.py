@@ -56,7 +56,7 @@ def login(port, verbose):
         else:
             click.echo('Already logged in.')
         context.EnsureConnected()
-        gubun = context.KOA_Functions('GetServerGubun', '')
+        gubun = context.GetServerGubun()
         if gubun == '1':
             click.echo('Logged into Simulation server.')
         else:
@@ -74,7 +74,7 @@ def autologin(port, verbose):
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout) as context:
         context.EnsureConnected()
-        context.KOA_Functions('ShowAccountWindow', '')
+        context.ShowAccountWindow()
 
 @cli.group(context_settings=CONTEXT_SETTINGS, short_help='Update openapi metadata.')
 def update():
@@ -624,7 +624,7 @@ def userinfo(port, verbose):
         }.get(context.GetLoginInfo('FIREW_SECGB'), '알수없음')
         result['접속서버 구분'] = {
             '1': '모의투자',
-        }.get(context.GetLoginInfo('GetServerGubun'), '실서버')
+        }.get(context.GetServerGubun(), '실서버')
 
         click.echo(pd.Series(result).to_markdown())
 

@@ -109,7 +109,7 @@ class KiwoomOpenApiTrayApplication(QObject):
             state = self._control.GetConnectState()
             if state == 1:
                 self._connectionStatusAction.setText('Status: Connected')
-                server = self._control.GetLoginInfo('GetServerGubun')
+                server = self._control.GetServerGubun()
                 if server == '1':
                     self._serverStatusAction.setText('Server: Simulation')
                 else:
@@ -161,7 +161,7 @@ class KiwoomOpenApiTrayApplication(QObject):
         self._ensureConnectedAndThen()
 
     def _showAccountWindow(self):
-        self._control.koapy_Functions('ShowAccountWindow', '')
+        self._control.ShowAccountWindow()
 
     def _configureAutoLogin(self):
         self._ensureConnectedAndThen(self._showAccountWindow)

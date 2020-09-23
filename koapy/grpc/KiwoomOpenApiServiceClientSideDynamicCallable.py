@@ -31,4 +31,5 @@ class KiwoomOpenApiServiceClientSideDynamicCallable:
     def __call__(self, *args):
         request = self._createCallRequest(self._name, args)
         response = self._stub.Call(request)
-        return self._unpackResponse(response)
+        result = self._unpackResponse(response)
+        return result

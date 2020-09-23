@@ -5,7 +5,7 @@ class KiwoomOpenApiDynamicCallable:
     _void_method_names = [
         'SetInputValue',
         'DisconnectRealData',
-        'SetRealREmove',
+        'SetRealRemove',
         'SetCondition',
         'SetConditionStop',
     ]

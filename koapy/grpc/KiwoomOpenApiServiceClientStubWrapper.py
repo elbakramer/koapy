@@ -109,13 +109,13 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         errcode = 0
         if self.GetConnectState() == 0:
             errcode = self.LoginCall()
-        if errcode < 0:
-            message = 'Failed to connect'
-            korean_message = KiwoomOpenApiError.get_error_message_by_code(errcode)
-            if korean_message is not None:
-                message += ', Korean error message: %s' % korean_message
-            logging.warning(message)
         return errcode
+
+    def GetServerGubun(self):
+        return self.GetLoginInfo('GetServerGubun')
+
+    def ShowAccountWindow(self):
+        return self.KOA_Functions('ShowAccountWindow', '')
 
     def GetCodeListByMarketAsList(self, market):
         market = str(market)
@@ -561,7 +561,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         return single, multi
 
     def GetAccountExecutionBalanceAsSeriesAndDataFrame(self, account_no, rqname=None, scrnno=None):
-        server = self.GetLoginInfo('GetServerGubun')
+        server = self.GetServerGubun()
         if server == '1':
             logging.warning('Not supported for simulated investment')
         if rqname is None:
