@@ -5,10 +5,10 @@ import pandas as pd
 
 from koapy.grpc import KiwoomOpenApiService_pb2
 from koapy.grpc.KiwoomOpenApiServiceClientSideDynamicCallable import KiwoomOpenApiServiceClientSideDynamicCallable
-from koapy.pyqt5.KiwoomOpenApiControlWrapper import KiwoomOpenApiControlWrapper
+from koapy.pyqt5.KiwoomOpenApiControlWrapper import KiwoomOpenApiControlCommonWrapper
 from koapy.openapi.RealType import RealType
 
-class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlWrapper):
+class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlCommonWrapper):
 
     def __init__(self, stub):
         super().__init__()
@@ -114,6 +114,9 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         if self.GetConnectState() == 0:
             errcode = self.LoginCall()
         return errcode
+
+    def RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
+        return self.Call('RateLimitedCommRqData', rqname, trcode, prevnext, scrnno, inputs)
 
     def _ParseTransactionCallResponses(self, responses, remove_zeros_width=0):
         single_output = None

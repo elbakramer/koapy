@@ -7,7 +7,7 @@ import numpy as np
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 from koapy.utils.rate_limiting.RateLimiter import SimpleRateLimiter
 
-class KiwoomOpenApiControlWrapper:
+class KiwoomOpenApiControlCommonWrapper:
 
     def __init__(self, control=None):
         self._control = control
@@ -115,6 +115,9 @@ class KiwoomOpenApiControlWrapper:
 
     def _RemoveLeadingZerosForNumbersInValues(self, values, width=0):
         return [self._RemoveLeadingZerosForNumber(value, width) for value in values]
+
+
+class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
 
     def EnsureConnected(self):
         errcode = 0

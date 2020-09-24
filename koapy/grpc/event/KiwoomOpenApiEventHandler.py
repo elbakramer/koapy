@@ -189,6 +189,124 @@ class KiwoomOpenApiSomeEventHandler(KiwoomOpenApiAllEventHandler):
         names_and_slots_implemented = [(name, slot) for name, slot in zip(names, slots) if isimplemented(slot) and name in self._request.slots]
         return names_and_slots_implemented
 
+class KiwoomOpenApiSomeBidirectionalEventHandler(KiwoomOpenApiSomeEventHandler):
+
+    def __init__(self, control, request_iterator):
+        self._requests = request_iterator
+        self._request = next(self._requests)
+        super().__init__(control, self._request)
+
+    def await_handled(self):
+        request = next(self._requests)
+        if request.handled_request is not None:
+            pass
+        elif request.stop_listen_request is not None:
+            self.observer.on_completed()
+        else:
+            raise ValueError('Unexpected request')
+
+    def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, _datalength, _errorcode, _message, _splmmsg):
+        response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
+        response.listen_response.name = 'OnReceiveTrData' # pylint: disable=no-member
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = scrnno
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = rqname
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = trcode
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = recordname
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = prevnext
+        self.observer.on_next(response.listen_response) # pylint: disable=no-member
+        self.await_handled()
+
+    def OnReceiveRealData(self, code, realtype, realdata):
+        response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
+        response.listen_response.name = 'OnReceiveRealData' # pylint: disable=no-member
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = code
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = realtype
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = realdata
+        self.observer.on_next(response.listen_response) # pylint: disable=no-member
+        self.await_handled()
+
+    def OnReceiveMsg(self, scrnno, rqname, trcode, msg):
+        response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
+        response.listen_response.name = 'OnReceiveMsg' # pylint: disable=no-member
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = scrnno
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = rqname
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = trcode
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = msg
+        self.observer.on_next(response.listen_response) # pylint: disable=no-member
+        self.await_handled()
+
+    def OnReceiveChejanData(self, gubun, itemcnt, fidlist):
+        response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
+        response.listen_response.name = 'OnReceiveChejanData' # pylint: disable=no-member
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = gubun
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.long_value = itemcnt
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = fidlist
+        self.observer.on_next(response.listen_response) # pylint: disable=no-member
+        self.await_handled()
+
+    def OnEventConnect(self, errcode):
+        response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
+        response.listen_response.name = 'OnEventConnect' # pylint: disable=no-member
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.long_value = errcode
+        self.observer.on_next(response.listen_response) # pylint: disable=no-member
+        self.await_handled()
+
+    def OnReceiveRealCondition(self, code, condition_type, condition_name, condition_index):
+        response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
+        response.listen_response.name = 'OnReceiveRealCondition' # pylint: disable=no-member
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = code
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = condition_type
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = condition_name
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = condition_index
+        self.observer.on_next(response.listen_response) # pylint: disable=no-member
+        self.await_handled()
+
+    def OnReceiveTrCondition(self, scrnno, codelist, condition_name, index, prevnext):
+        response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
+        response.listen_response.name = 'OnReceiveTrCondition' # pylint: disable=no-member
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = scrnno
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = codelist
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = condition_name
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.long_value = index
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.long_value = prevnext
+        self.observer.on_next(response.listen_response) # pylint: disable=no-member
+        self.await_handled()
+
+    def OnReceiveConditionVer(self, ret, msg):
+        response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
+        response.listen_response.name = 'OnReceiveConditionVer' # pylint: disable=no-member
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.long_value = ret
+        argument = response.listen_response.arguments.add() # pylint: disable=no-member
+        argument.string_value = msg
+        self.observer.on_next(response.listen_response) # pylint: disable=no-member
+        self.await_handled()
+
 class KiwoomOpenApiLoginEventHandler(BaseKiwoomOpenApiEventHandler):
 
     def __init__(self, control, request):

@@ -8,6 +8,7 @@ from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiLoginEventHa
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiTrEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiOrderEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiRealEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiSomeBidirectionalEventHandler
 from koapy.openapi.ScreenManager import ScreenManager
 
 from koapy.utils.logging import set_loglevel
@@ -82,6 +83,12 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
         response = KiwoomOpenApiService_pb2.StopListenResponse()
         response.successful = self._UnregisterHandler(request.id)
         return response
+
+    def BidirectionalListen(self, request_iterator, context):
+        handler = KiwoomOpenApiSomeBidirectionalEventHandler(self.control, request_iterator)
+        with handler:
+            for response in handler:
+                yield response
 
     def CustomListen(self, request, context):
         code = request.code

@@ -8,6 +8,8 @@ service KiwoomOpenApiService {
   rpc Listen (ListenRequest) returns (stream CustomListenResponse) {};
   rpc StopListen (StopListenRequest) returns (StopListenResponse) {};
 
+  rpc BidirectionalListen (stream BidirectionalListenRequest) returns (stream CustomListenResponse) {};
+
   rpc CustomListen (CustomListenRequest) returns (stream CustomListenResponse) {};
   rpc CustomCallAndListen (CustomCallAndListenRequest) returns (stream CustomCallAndListenResponse) {};
 
@@ -75,6 +77,18 @@ message StopListenRequest {
 
 message StopListenResponse {
   bool successful = 1;
+}
+
+
+message HandledRequest {
+}
+
+message BidirectionalListenRequest {
+  oneof response {
+    ListenRequest listen_request = 1;
+    HandledRequest handled_request = 2;
+    StopListenRequest stop_listen_request = 3;
+  }
 }
 
 

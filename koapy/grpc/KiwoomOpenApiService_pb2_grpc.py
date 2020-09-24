@@ -29,6 +29,11 @@ class KiwoomOpenApiServiceStub(object):
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenRequest.SerializeToString,
                 response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenResponse.FromString,
                 )
+        self.BidirectionalListen = channel.stream_stream(
+                '/koapy.grpc.KiwoomOpenApiService/BidirectionalListen',
+                request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.BidirectionalListenRequest.SerializeToString,
+                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomListenResponse.FromString,
+                )
         self.CustomListen = channel.unary_stream(
                 '/koapy.grpc.KiwoomOpenApiService/CustomListen',
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomListenRequest.SerializeToString,
@@ -82,6 +87,12 @@ class KiwoomOpenApiServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StopListen(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BidirectionalListen(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -146,6 +157,11 @@ def add_KiwoomOpenApiServiceServicer_to_server(servicer, server):
                     servicer.StopListen,
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenRequest.FromString,
                     response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenResponse.SerializeToString,
+            ),
+            'BidirectionalListen': grpc.stream_stream_rpc_method_handler(
+                    servicer.BidirectionalListen,
+                    request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.BidirectionalListenRequest.FromString,
+                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomListenResponse.SerializeToString,
             ),
             'CustomListen': grpc.unary_stream_rpc_method_handler(
                     servicer.CustomListen,
@@ -240,6 +256,23 @@ class KiwoomOpenApiService(object):
         return grpc.experimental.unary_unary(request, target, '/koapy.grpc.KiwoomOpenApiService/StopListen',
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenRequest.SerializeToString,
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BidirectionalListen(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_stream(request_iterator, target, '/koapy.grpc.KiwoomOpenApiService/BidirectionalListen',
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.BidirectionalListenRequest.SerializeToString,
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

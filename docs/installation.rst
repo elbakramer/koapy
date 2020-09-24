@@ -54,7 +54,7 @@ Once you have a copy of the source, you can install it with:
 Environment
 -----------
 
-KOAPY 라이브러리 설치 이전의 환경구성과 관련해 설명합니다.
+KOAPY 라이브러리 설치 이전의 환경구성 부터 최종 라이브러리 설치까지의 전체과정에 대해 설명합니다.
 
 OS
 ==
@@ -112,8 +112,9 @@ Python 을 설치하는데 여러 방법이 있겠지만, 여기서는 Anaconda 
     $ set CONDA_FORCE_32BIT=1
     $ conda create -n x86 python=3.8 anaconda
 
-여기서 ``-n`` 뒤에 오는 ``x86`` 값은 굳이 똑같지 않아도 됩니다.
-이후에 32-Bit 환경이 필요할때마다 환경을 불러오는데에 키값으로 활용될 값입니다.
+여기서 ``-n`` 뒤에 오는 ``x86`` 값은 굳이 예시와 같지 않아도 됩니다.
+이후에 32-Bit 환경이 필요할 때마다 환경을 불러오는 데에 키값으로 활용될 값입니다.
+추후 여러 번 사용하면서 알아보기에/입력하기에 편할법한 값으로 대체하셔도 문제없습니다.
 
 동의를 구하는 단계에서는 ``y`` 를 입력해줍니다.
 
@@ -139,18 +140,36 @@ Python 을 설치하는데 여러 방법이 있겠지만, 여기서는 Anaconda 
     Type "help", "copyright", "credits" or "license" for more information.
     >>> exit()
 
-32-Bit Python 의 설치가 완료되었습니다.
-이전의 64-Bit (base) 환경으로 다시 돌아가고 싶은 경우에는 아래의 명령을 실행합니다.
+32-Bit Python 의 설치가 완료되었습니다. ``[MSC v.1916 32 bit (Intel)]`` 구문이 출력되는 것으로 32-Bit 이 맞다는 것을 다시 한번 확인 가능합니다.
+32-Bit 환경에서 다시 이전의 64-Bit ``(base)`` 환경으로 다시 돌아가고 싶은 경우에는 아래의 명령을 실행합니다.
 
 .. code-block:: console
 
     (x86) $ conda deactivate
 
-이제 다음부터는 ``Anaconda Prompt (Anaconda3)`` 실행 후 ``conda activate x86`` 을 통해서 32-Bit 환경을 불러오거나,
-아니면 시작화면에서 ``Anaconda Prompt (x86)`` 을 찾아서 실행하면 됩니다.
+그러면 다시 앞의 ``(x86)`` 이 ``(base)`` 로 바뀌면서 64-Bit 환경으로 돌아오게 됩니다.
 
-이후 KOAPY 설치는 맨 위의 :ref:`Stable release` 의 내용을 따르면 됩니다.
-OpenAPI 와의 통신을 위해서 32-Bit 환경에는 필수로 설치되어야 합니다.
-64-Bit 환경에서의 설치는 선택사항입니다.
+이제 다음부터는 ``Anaconda Prompt (Anaconda3)`` 실행 후 ``conda activate x86`` 을 통해서 32-Bit 환경을 불러오거나,
+아니면 시작화면에서 ``Anaconda Prompt (x86)`` 을 찾아서 실행하면 바로 32-Bit 환경으로 시작합니다.
 
 .. _`Anaconda Products`: https://www.anaconda.com/products/individual
+
+KOAPY
+=====
+
+이후 KOAPY 설치는 pip_ 를 통해 설치하면 됩니다.
+
+.. code-block:: console
+
+    $ pip install koapy
+
+맨 위의 :ref:`Stable release` 의 내용과 동일한 내용입니다.
+
+OpenAPI 와의 통신을 위해서 32-Bit 환경에는 필수로 설치되어야 합니다.
+OpenAPI 의 OCX 라이브러리가 32-Bit 환경만 지원하기 때문입니다.
+
+64-Bit 환경에서의 설치는 선택사항입니다.
+혹시나 64-Bit 환경에서만 지원되는 라이브러리 및 기능을 트레이딩 로직에 접목시키고자 하는 경우
+32-Bit 환경에는 서버만 띄워두고, 64Bit 환경에서 gRPC 클라이언트 API 를 통해 서버에 연결해서 OpenAPI 의 모든 기능을 활용할 수 있습니다.
+
+.. _pip: https://pip.pypa.io
