@@ -81,6 +81,7 @@ message StopListenResponse {
 
 
 message HandledRequest {
+  uint32 id = 1;
 }
 
 message BidirectionalListenRequest {

@@ -58,17 +58,19 @@ class KiwoomOpenApiTrayApplication(QObject):
         self._serverStatusAction = menu.addAction('Server: Unknown')
         self._serverStatusAction.setEnabled(False)
         menu.addSection('Links')
-        self._openApiUrl = "https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000"
-        self._qnaUrl = "https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do"
-        openApiAction = menu.addAction('Kiwoom OpenAPI+')
-        openApiAction.triggered.connect(self._openOpenApi)
-        qnaAction = menu.addAction('Kiwoom OpenAPI+ QNA')
-        qnaAction.triggered.connect(self._openQna)
+        documentationAction = menu.addAction('Documentation')
+        documentationAction.triggered.connect(self._openReadthedocs)
+        githubAction = menu.addAction('Github')
+        githubAction.triggered.connect(self._openGithub)
+        openApiAction = menu.addAction('Kiwoom OpenAPI+ Home')
+        openApiAction.triggered.connect(self._openOpenApiHome)
+        qnaAction = menu.addAction('Kiwoom OpenAPI+ Qna')
+        qnaAction.triggered.connect(self._openOpenApiQna)
         menu.addSection('Exit')
         exitAction = menu.addAction('Exit')
         exitAction.triggered.connect(self._exit)
 
-        tooltip = 'Kiwoom OpenAPI Tray Application'
+        tooltip = 'KOAPY Tray Application'
 
         self._tray.setIcon(icon)
         self._tray.setContextMenu(menu)
@@ -174,12 +176,24 @@ class KiwoomOpenApiTrayApplication(QObject):
     def _configureAutoLogin(self):
         self._ensureConnectedAndThen(self._showAccountWindow)
 
-    def _openOpenApi(self):
-        url = QUrl(self._openApiUrl)
+    def _openOpenApiHome(self):
+        openApiHomeUrl = "https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000"
+        url = QUrl(openApiHomeUrl)
         QDesktopServices.openUrl(url)
 
-    def _openQna(self):
-        url = QUrl(self._qnaUrl)
+    def _openOpenApiQna(self):
+        openApiQnaUrl = "https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do"
+        url = QUrl(openApiQnaUrl)
+        QDesktopServices.openUrl(url)
+
+    def _openGithub(self):
+        githubUrl = "https://github.com/elbakramer/koapy"
+        url = QUrl(githubUrl)
+        QDesktopServices.openUrl(url)
+
+    def _openReadthedocs(self):
+        docUrl = "https://koapy.readthedocs.io/en/latest/"
+        url = QUrl(docUrl)
         QDesktopServices.openUrl(url)
 
     def _onInterrupt(self, signum, _frame):

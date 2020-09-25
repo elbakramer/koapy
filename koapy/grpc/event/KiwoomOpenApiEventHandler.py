@@ -192,15 +192,16 @@ class KiwoomOpenApiSomeEventHandler(KiwoomOpenApiAllEventHandler):
 class KiwoomOpenApiSomeBidirectionalEventHandler(KiwoomOpenApiSomeEventHandler):
 
     def __init__(self, control, request_iterator):
-        self._requests = request_iterator
-        self._request = next(self._requests)
+        self._request_iterator = request_iterator
+        self._first_request = next(self._request_iterator)
+        self._request = self._first_request.listen_request
         super().__init__(control, self._request)
 
     def await_handled(self):
-        request = next(self._requests)
-        if request.handled_request is not None:
+        request = next(self._request_iterator)
+        if request.HasField('handled_request'):
             pass
-        elif request.stop_listen_request is not None:
+        elif request.HasField('stop_listen_request'):
             self.observer.on_completed()
         else:
             raise ValueError('Unexpected request')

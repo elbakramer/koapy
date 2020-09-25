@@ -122,12 +122,12 @@ class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
     def EnsureConnected(self):
         errcode = 0
         if self.GetConnectState() == 0:
-            errcode = KiwoomOpenApiError.try_or_raise(self.CommConnect())
             q = queue.Queue()
             def OnEventConnect(errcode):
                 q.put(errcode)
                 self.OnEventConnect.disconnect(OnEventConnect)
             self.OnEventConnect.connect(OnEventConnect)
+            errcode = KiwoomOpenApiError.try_or_raise(self.CommConnect())
             errcode = q.get()
         return errcode
 

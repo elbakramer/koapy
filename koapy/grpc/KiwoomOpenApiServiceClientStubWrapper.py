@@ -1,3 +1,4 @@
+import queue
 import logging
 import datetime
 
@@ -5,8 +6,12 @@ import pandas as pd
 
 from koapy.grpc import KiwoomOpenApiService_pb2
 from koapy.grpc.KiwoomOpenApiServiceClientSideDynamicCallable import KiwoomOpenApiServiceClientSideDynamicCallable
+from koapy.grpc.KiwoomOpenApiServiceClientSideSignalConnector import KiwoomOpenApiServiceClientSideSignalConnector
 from koapy.pyqt5.KiwoomOpenApiControlWrapper import KiwoomOpenApiControlCommonWrapper
 from koapy.openapi.RealType import RealType
+
+from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
+from koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions import KiwoomOpenApiEventHandlerFunctions
 
 class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlCommonWrapper):
 
@@ -15,7 +20,13 @@ class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlCommonWrappe
         self._stub = stub
 
     def __getattr__(self, name):
-        return getattr(self._stub, name, KiwoomOpenApiServiceClientSideDynamicCallable(self._stub, name))
+        try:
+            return getattr(self._stub, name)
+        except AttributeError:
+            if name.startswith('On') and name in dir(KiwoomOpenApiEventHandlerFunctions):
+                return KiwoomOpenApiServiceClientSideSignalConnector(self._stub, name)
+            else:
+                return KiwoomOpenApiServiceClientSideDynamicCallable(self._stub, name)
 
     def Call(self, name, *args):
         return KiwoomOpenApiServiceClientSideDynamicCallable(self._stub, name)(*args)
@@ -109,11 +120,29 @@ class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlCommonWrappe
 
 class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWrapper):
 
-    def EnsureConnected(self):
+    def _EnsureConnectedUsingSignalConnector(self):
+        errcode = 0
+        if self.GetConnectState() == 0:
+            q = queue.Queue()
+            def OnEventConnect(errcode):
+                q.put(errcode)
+                self.OnEventConnect.disconnect(OnEventConnect)
+            self.OnEventConnect.connect(OnEventConnect)
+            errcode = KiwoomOpenApiError.try_or_raise(self.CommConnect())
+            errcode = q.get()
+        return errcode
+
+    def _EnsureConnectedUsingLoginCall(self):
         errcode = 0
         if self.GetConnectState() == 0:
             errcode = self.LoginCall()
         return errcode
+
+    def _EnsureConnectedUsingCall(self):
+        return self.Call('EnsureConnected')
+
+    def EnsureConnected(self):
+        return self._EnsureConnectedUsingCall()
 
     def RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
         return self.Call('RateLimitedCommRqData', rqname, trcode, prevnext, scrnno, inputs)
