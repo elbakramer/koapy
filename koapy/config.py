@@ -19,13 +19,24 @@ default_config = read_config(default_config_filepath)
 empty_config = ConfigFactory.from_dict({})
 current_directory_config = empty_config
 
+home = os.path.expanduser('~')
 cwd = os.getcwd()
-for config_filename in config_filename_cadidates:
-    config_path = os.path.join(cwd, config_filename)
-    if os.path.exists(config_path):
-        current_directory_config = read_config(config_path)
-        break
+
+config_folder_candidates = [
+    cwd,
+    home,
+]
+
+for config_folder in config_folder_candidates:
+    for config_filename in config_filename_cadidates:
+        config_path = os.path.join(config_folder, config_filename)
+        if os.path.exists(config_path):
+            current_directory_config = read_config(config_path)
+            break
 
 config = current_directory_config.with_fallback(default_config)
 
-logging.config.dictConfig(config.get('koapy.utils.logging'))
+logging_config = config.get('koapy.utils.logging.config')
+
+if logging_config:
+    logging.config.dictConfig(logging_config)
