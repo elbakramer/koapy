@@ -13,8 +13,12 @@ class KiwoomOpenApiContext:
         self._port = port or config.get('koapy.grpc.port') or get_free_localhost_port()
         self._client_check_timeout = client_check_timeout
         self._verbosity = verbosity
-        self._log_level = log_level or verbosity_to_loglevel(self._verbosity)
-        set_loglevel(self._log_level)
+        if log_level is None:
+            if self._verbosity is not None:
+                log_level = verbosity_to_loglevel(self._verbosity)
+        self._log_level = log_level
+        if self._log_level is not None:
+            set_loglevel(self._log_level)
         self._server_proc_args = [
             'python', '-m', 'koapy.pyqt5.tools.start_tray_application',
             '--port', str(self._port)]
