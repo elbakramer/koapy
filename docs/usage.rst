@@ -12,7 +12,7 @@ To use KOAPY in a project::
 CLI
 ---
 
-To use KOAPY in a CLI:
+To use KOAPY in a command line:
 
 .. code-block:: console
 
@@ -81,6 +81,8 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 :py:class:`~.koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext` 객체를 통해 사용 가능한 메서드 목록은 기본적으로 OpenAPI 에서 제공하는 모든 메서드들을 기반으로 합니다.
 해당 메서드 목록은 `키움 OpenAPI+ 개발 가이드 문서`_ 에서 확인 가능합니다.
 
+.. _`키움 OpenAPI+ 개발 가이드 문서`: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=12
+
 이후 그런 기본 메서드들을 활용하는 상위 함수들이 구현된 여러 래퍼 클래스들이 단계적으로 적용되면서
 최종적으로 모든 메서드들이 :py:class:`~.koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext` 객체로 합쳐지는 구조입니다.
 따라서 해당 메서드들이 어떤 것들이 있는지 확인하기 위해서는 관련 래퍼 클래스들에 구현된 함수들을 참고하시는 게 좋습니다.
@@ -90,14 +92,14 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 * :py:mod:`koapy.pyqt5.KiwoomOpenApiControlWrapper`
 * :py:mod:`koapy.grpc.KiwoomOpenApiServiceClientStubWrapper`
 
-여기서의 함수들 중에 ``XXXCall`` 패턴의 함수들에는 몇몇 유형화가 가능한 사용 패턴들에 대응해
+여기서의 함수들 중에 ``XXXCall`` 패턴의 함수들은 TR/실시간 데이터 처리 등 몇몇 유형화가 가능한 사용 패턴들에 대해서
 미리 구현해놓은 이벤트 처리 로직들이 서버 사이드에서 동작하도록 구성되어 있습니다.
 혹시나 추후에 이런 메서드들이 다루지 못하는 새로운 사용 패턴이 생기는 경우에
-기존 구현들을 참고해 커스텀 :py:mod:`EventHandler<koapy.grpc.event.KiwoomOpenApiEventHandler>` 를 개발 후 :py:meth:`~.koapy.grpc.KiwoomOpenApiServiceServicer.KiwoomOpenApiServiceServicerCustomCallAndListen` 을 활용하거나
+기존 구현들을 참고해 커스텀 :py:mod:`EventHandler<koapy.grpc.event.KiwoomOpenApiEventHandler>` 를 개발 후 :py:meth:`~.koapy.grpc.KiwoomOpenApiServiceServicer.KiwoomOpenApiServiceServicer.CustomCallAndListen` 을 활용하거나
 아예 |KiwoomOpenApiService.proto|_ 파일을 수정해 신규 gRPC 메서드를 추가하는 방식으로도 확장이 가능합니다.
 
-.. |KiwoomOpanApiService.proto| replace:: ``KiwoomOpenApiService.proto``
-.. _`KiwoomOpanApiService.proto`: https://github.com/elbakramer/koapy/blob/master/koapy/grpc/KiwoomOpenApiService.proto
+.. |KiwoomOpenApiService.proto| replace:: ``KiwoomOpenApiService.proto``
+.. _`KiwoomOpenApiService.proto`: https://github.com/elbakramer/koapy/blob/master/koapy/grpc/KiwoomOpenApiService.proto
 
 서버 사이드의 이벤트 처리와 관련해서 참고할만한 모듈들입니다.
 
@@ -120,8 +122,6 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
     -> KiwoomOpenApiControlWrapper + KiwoomOpenApiControlCommonWrapper
     -> KiwoomOpenApiQAxWidget
 
-.. _`키움 OpenAPI+ 개발 가이드 문서`: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf
-
 CLI (More)
 ----------
 
@@ -136,6 +136,7 @@ CLI 는 KOAPY 설치 후 아무 옵션 없이 ``koapy`` 명령어만 실행했�
     $ koapy config autologin
 
 위의 명령어 실행시 키움 Open API 로그인 창이 뜰겁니다.
+
 입력창 아래의 ``고객 아이디 저장`` 을 체크해서 매번 아이디를 입력하지 않도록 합니다.
 그리고 실제 사용이 아닌 테스트 목적이므로 ``모의투자 접속`` 을 체크합니다.
 참고로 모의투자로 접속하려면 `상시 모의투자`_ 를 신청해놓은 상태여야 합니다.
@@ -153,7 +154,8 @@ CLI 는 KOAPY 설치 후 아무 옵션 없이 ``koapy`` 명령어만 실행했�
 마지막으로 아래의 ``AUTO`` 박스를 체크하고 창을 닫습니다.
 이제 이후부터는 로그인 단계에서 사용자 입력을 묻지 않고 자동으로 로그인이 처리됩니다.
 
-아래는 예시로 처음의 ``get`` 커멘드를 확인하고 따라가서 최종적으로 주식기본정보 확인 기능을 사용하는 시나리오입니다.
+아래는 예시로 맨 처음 커멘드 목록의 커멘드들 중에 ``get`` 커멘드를 확인하고 따라가서
+최종적으로 주식기본정보 확인 기능을 사용하는 시나리오입니다.
 
 .. code-block:: console
 

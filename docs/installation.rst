@@ -63,7 +63,7 @@ Windows 10 64bit 환경을 권장합니다.
 
 비록 라이브러리가 32bit 환경을 강제하지만 그렇다고 굳이 OS 까지 32bit 를 사용할 필요는 없습니다.
 
-Kiwoom Open Api
+Kiwoom Open API
 ===============
 
 키움증권의 계좌개설 및 HTS ID 연결까지는 진행되어 있는 것을 가정합니다.
@@ -141,6 +141,7 @@ Python 을 설치하는데 여러 방법이 있겠지만, 여기서는 Anaconda 
     >>> exit()
 
 32-Bit Python 의 설치가 완료되었습니다. ``[MSC v.1916 32 bit (Intel)]`` 구문이 출력되는 것으로 32-Bit 환경이라는 것을 다시 한번 확인 가능합니다.
+
 32-Bit 환경에서 다시 이전의 64-Bit ``(base)`` 환경으로 다시 돌아가고 싶은 경우에는 아래의 명령을 실행합니다.
 
 .. code-block:: console

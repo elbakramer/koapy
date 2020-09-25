@@ -52,7 +52,7 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
   미리 구현된 함수를 제공합니다. 함수 호출 결과 중 테이블성 정보들은 |pandas.DataFrame|_ 타입으로 제공해 이후 분석 및 처리가 유용하게끔 했습니다.
 * TR 의 입력/출력 데이터 구조, 실시간 데이터별 FID 목록, 에러코드에 대한 설명문 등,
   개발하는 과정에서 필요한 여러 메타정보들을 언어 내 라이브러리에서 바로 조회 및 활용이 가능합니다.
-  매번 매뉴얼이나 KOAStudio_ 를 열어서 참고하고 이후 일일이 하나씩 하드코딩할 필요가 없습니다.
+  매번 매뉴얼_ 이나 KOAStudio_ 를 열어서 참고하고 이후 일일이 하나씩 하드코딩할 필요가 없습니다.
 * 로컬 네트워크에서 gRPC_ 를 통한 서버-클라이언트 형태의 구성이 가능합니다.
   이를 통해 "라이브러리 호환성으로 인해 32bit 환경에서만 작업되어야 한다" 는 제약을 벗어나 클라이언트는 Python 64bit 를 사용할 수도 있습니다.
   더 나아가서는 gRPC_ 에서 지원하는 모든 다양한 언어를 클라이언트로 작성해 사용하는 방식으로도 확장 가능합니다.
@@ -126,6 +126,7 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 .. _`키움증권의 OpenAPI`: https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000
 
 .. _PyQt5: https://pypi.org/project/PyQt5/
+.. _매뉴얼: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf
 .. _KOAStudio: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=7
 .. _gRPC: https://grpc.io/
 .. _examples: https://github.com/elbakramer/koapy/tree/master/koapy/examples

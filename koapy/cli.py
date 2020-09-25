@@ -28,16 +28,17 @@ def cli():
 
 @cli.command(context_settings=CONTEXT_SETTINGS, short_help='Start grpc server with tray application.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
-@click.option('-v', '--verbose', count=True, default=3, help='Verbosity.')
+@click.option('-v', '--verbose', count=True, default=5, help='Verbosity.')
+@click.option('--no-verbose', is_flag=True)
 @click.argument('args', nargs=-1)
-def serve(port, verbose, args):
+def serve(port, verbose, no_verbose, args):
     """
     ARGS are passed to QApplication.
     """
     app_args = []
     if port:
         app_args += ['--port', port]
-    if verbose > 0:
+    if not no_verbose and verbose > 0:
         app_args.append('-' + 'v' * verbose)
     app_args += list(args)
     from koapy.pyqt5.KiwoomOpenApiTrayApplication import KiwoomOpenApiTrayApplication
@@ -45,7 +46,7 @@ def serve(port, verbose, args):
 
 @cli.command(context_settings=CONTEXT_SETTINGS, short_help='Ensure logged in when server is up.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
-@click.option('-v', '--verbose', count=True, default=3, help='Verbosity.')
+@click.option('-v', '--verbose', count=True, help='Verbosity.')
 def login(port, verbose):
     set_verbosity(verbose)
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
@@ -68,7 +69,7 @@ def config():
 
 @config.command(context_settings=CONTEXT_SETTINGS, short_help='Configure auto login.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
-@click.option('-v', '--verbose', count=True, default=3, help='Verbosity.')
+@click.option('-v', '--verbose', count=True, help='Verbosity.')
 def autologin(port, verbose):
     set_verbosity(verbose)
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
