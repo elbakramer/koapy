@@ -16,6 +16,9 @@ class QueueBasedIterableObserver(Observer):
 
         atexit.register(self._queue.put, self._sentinel)
 
+    def __del__(self):
+        atexit.unregister(self._queue.put)
+
     def on_next(self, value):
         self._queue.put(value)
 

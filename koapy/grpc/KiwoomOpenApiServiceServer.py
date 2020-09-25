@@ -33,12 +33,16 @@ class KiwoomOpenApiServiceServer:
 
         self._servicer = KiwoomOpenApiServiceServicer(control)
         self._executor = futures.ThreadPoolExecutor(max_workers=self._max_workers)
-        atexit.register(self._executor.shutdown, False)
         self._server = grpc.server(self._executor)
         KiwoomOpenApiService_pb2_grpc.add_KiwoomOpenApiServiceServicer_to_server(self._servicer, self._server)
 
         self._target = self._host + ':' + str(self._port)
         self._server.add_insecure_port(self._target)
+
+        atexit.register(self._executor.shutdown, False)
+
+    def __del__(self):
+        atexit.unregister(self._executor.shutdown)
 
     def get_host(self):
         return self._host

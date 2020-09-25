@@ -11,7 +11,7 @@ from koapy.config import config
 class KiwoomOpenApiServiceClientSideSignalConnector:
 
     _lock = threading.RLock()
-    _observers_by_name_and_callback = {}
+    _observers = {}
     _max_workers = config.get_int('koapy.grpc.client.signal_connector.max_workers', 8)
     _executor = futures.ThreadPoolExecutor(max_workers=_max_workers)
 
@@ -27,29 +27,30 @@ class KiwoomOpenApiServiceClientSideSignalConnector:
         observer.on_completed()
 
     def _get_observer(self, callback, default=None):
-        return self._observers_by_name_and_callback.setdefault(self._name, {}).get(callback, default)
+        return self._observers.setdefault(self._stub, {}).setdefault(self._name, {}).get(callback, default)
 
     def _remove_observer(self, callback):
         with self._lock:
             observer = self._get_observer(callback)
             if observer:
                 self._stop_observer(observer)
-                del self._observers_by_name_and_callback[self._name][callback]
+                del self._observers[self._stub][self._name][callback]
             return observer
 
     def _add_observer(self, callback):
         with self._lock:
             self._remove_observer(callback)
             observer = QueueBasedIterableObserver()
-            self._observers_by_name_and_callback[self._name][callback] = observer
+            self._observers[self._stub][self._name][callback] = observer
             return observer
 
     @classmethod
     def shutdown(cls):
         with cls._lock:
-            for _name, observers in cls._observers_by_name_and_callback.items():
-                for _callback, observer in observers.items():
-                    cls._stop_observer(observer)
+            for _stub, names in cls._observers.items():
+                for _name, observers in names.items():
+                    for _callback, observer in observers.items():
+                        cls._stop_observer(observer)
         cls._executor.shutdown(False)
 
     @classmethod
