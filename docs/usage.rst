@@ -45,7 +45,7 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 .. literalinclude:: ../koapy/examples/lower_access.py
     :language: python
 
-전체적인 구조에서 큰 차이는 없고, 차이점이라면 함수 호출시 `dynamicCall` 함수를 사용하지 않고
+전체적인 구조에서 큰 차이는 없고, 차이점이라면 함수 호출시 |dynamicCall|_ 함수를 사용하지 않고
 직접적으로 함수를 호출하고 있다는 점입니다.
 
 당장 이렇게 사용할 수도 있겠지만 KOAPY 에서는 이것보다 좀 더 상위의 API 를 제공하고 있기 때문에
@@ -58,21 +58,31 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
     :language: python
 
 단순 함수콜에 비해서 추가된 점들을 짚어보면,
-이벤트 처리를 위해서 ``QEventLoop`` 을 생성하여 이벤트가 들어올 구간에 맞게 실행/종료를 시켜야 하며,
-이벤트를 직접적으로 처리할 콜백 함수들도 알맞게 구현후 적절한 타이밍에 ``connect``/``disconnect`` 시켜주어야 합니다.
+이벤트 처리를 위해서 |QEventLoop|_ 를 생성하여 이벤트가 들어올 구간에 맞게 실행/종료를 시켜야 하며,
+이벤트를 직접적으로 처리할 콜백 함수들도 알맞게 구현후 적절한 타이밍에 |connect|_/|disconnect|_ 시켜주어야 합니다.
 
-반면에 KOAPY 를 사용하면 동일한 작업을 아래와 같이 미리 주어진 메서드 (``GetStockInfoAsDataFrame``) 를 사용해 간단하게 처리가 가능합니다.
-좀 더 세부적인 컨트롤이 필요할 경우에는 요청할 TR 에 대한 정보를 직접 설정하고 주어진 API (``TransactionCall``) 를 통해 호출한 뒤에
+반면에 KOAPY 를 사용하면 동일한 작업을 아래와 같이 미리 주어진 메서드 :py:meth:`~.koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetStockInfoAsDataFrame`) 를 사용해 간단하게 처리가 가능합니다.
+좀 더 세부적인 컨트롤이 필요할 경우에는 요청할 TR 에 대한 정보를 직접 설정하고 주어진 API (:py:meth:`~.koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.TransactionCall`) 를 통해 호출한 뒤에
 반환되는 스트림을 순차적으로 처리하는 식으로 구현이 가능합니다. 앞선 이벤트루프/콜백함수 기반 구현과 비교했을 때 이 방식이 좀 더 직관적입니다.
+
+.. |dynamicCall| replace:: ``dynamicCall``
+.. _dynamicCall: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qaxcontainer/qaxbase.html?highlight=dynamiccall##dynamicCall
+.. |QEventLoop| replace:: ``QEventLoop``
+.. _QEventLoop: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qeventloop.html
+
+.. |connect| replace:: ``connect``
+.. _connect: https://www.riverbankcomputing.com/static/Docs/PyQt5/signals_slots.html?highlight=connect#connect
+.. |disconnect| replace:: ``disconnect``
+.. _disconnect: https://www.riverbankcomputing.com/static/Docs/PyQt5/signals_slots.html?highlight=disconnect#disconnect
 
 .. literalinclude:: ../koapy/examples/transaction_event.py
     :language: python
 
-``KiwoomOpenApiContext`` 객체를 통해 사용 가능한 메서드 목록은 기본적으로 OpenAPI 에서 제공하는 모든 메서드들을 기반으로 합니다.
+:py:class:`~.koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext` 객체를 통해 사용 가능한 메서드 목록은 기본적으로 OpenAPI 에서 제공하는 모든 메서드들을 기반으로 합니다.
 해당 메서드 목록은 `키움 OpenAPI+ 개발 가이드 문서`_ 에서 확인 가능합니다.
 
 이후 그런 기본 메서드들을 활용하는 상위 함수들이 구현된 여러 래퍼 클래스들이 단계적으로 적용되면서
-최종적으로 모든 메서드들이 ``KiwoomOpenApiContext`` 객체로 합쳐지는 구조입니다.
+최종적으로 모든 메서드들이 :py:class:`~.koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext` 객체로 합쳐지는 구조입니다.
 따라서 해당 메서드들이 어떤 것들이 있는지 확인하기 위해서는 관련 래퍼 클래스들에 구현된 함수들을 참고하시는 게 좋습니다.
 
 주요 래퍼 클래스들을 포함하는 모듈들은 다음과 같습니다.
@@ -83,16 +93,19 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 여기서의 함수들 중에 ``XXXCall`` 패턴의 함수들에는 몇몇 유형화가 가능한 사용 패턴들에 대응해
 미리 구현해놓은 이벤트 처리 로직들이 서버 사이드에서 동작하도록 구성되어 있습니다.
 혹시나 추후에 이런 메서드들이 다루지 못하는 새로운 사용 패턴이 생기는 경우에
-기존 구현들을 참고해 커스텀 ``EventHandler`` 를 개발 후 ``CustomCallAndListen`` 을 활용하거나
-아예 ``KiwoomOpenApiService.proto`` 파일을 수정해 신규 gRPC 메서드를 추가하는 방식으로도 확장이 가능합니다.
+기존 구현들을 참고해 커스텀 :py:mod:`EventHandler<koapy.grpc.event.KiwoomOpenApiEventHandler>` 를 개발 후 :py:meth:`~.koapy.grpc.KiwoomOpenApiServiceServicer.KiwoomOpenApiServiceServicerCustomCallAndListen` 을 활용하거나
+아예 |KiwoomOpenApiService.proto|_ 파일을 수정해 신규 gRPC 메서드를 추가하는 방식으로도 확장이 가능합니다.
+
+.. |KiwoomOpanApiService.proto| replace:: ``KiwoomOpenApiService.proto``
+.. _`KiwoomOpanApiService.proto`: https://github.com/elbakramer/koapy/blob/master/koapy/grpc/KiwoomOpenApiService.proto
 
 서버 사이드의 이벤트 처리와 관련해서 참고할만한 모듈들입니다.
 
 * :py:mod:`koapy.grpc.KiwoomOpenApiServiceServicer`
 * :py:mod:`koapy.grpc.event.KiwoomOpenApiEventHandler`
 
-아래는 전체적으로 최상단의 :py:class:`KiwoomOpenApiContext<koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext>` 부터
-최하단의 :py:class:`KiwoomOpenApiQAxWidget<koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget>` 까지
+아래는 전체적으로 최상단의 :py:class:`~.koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext` 부터
+최하단의 :py:class:`~.koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget` 까지
 어떠한 흐름으로 이어져있는지 도식화한 것입니다.
 
 .. code-block::
@@ -315,7 +328,7 @@ CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는
 Tray application
 ----------------
 
-KOAPY 가 동작하는 동안 내부적으로 :py:class:`KiwoomOpenApiTrayApplication<koapy.pyqt5.KiwoomOpenApiTrayApplication.KiwoomOpenApiTrayApplication>` 이 구동되며
+KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.pyqt5.KiwoomOpenApiTrayApplication.KiwoomOpenApiTrayApplication` 이 구동되며
 이것을 직접적으로 확인할 수 있도록 구동되는 동안 우측하단에 트레이 아이콘을 표시하게끔 구현되어있습니다.
 아직 따로 마땅한 아이콘이 없어서 초록색 바탕에 ``Qt`` 가 적혀있는 디폴트 아이콘이 그것입니다.
 
@@ -334,5 +347,5 @@ KOAPY 가 동작하는 동안 내부적으로 :py:class:`KiwoomOpenApiTrayApplic
 * 각종 관련 외부링크
 * 어플리케이션 종료
 
-해당 트레이 아이콘을 더블클릭하는 경우 :py:class:`KiwoomOpenApiQAxWidget<koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget>` 에 대응되는 위젯이 뜨는데
+해당 트레이 아이콘을 더블클릭하는 경우 :py:class:`~.koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget` 에 대응되는 위젯이 뜨는데
 현재로는 크게 의미있는 요소를 넣거나 한 것은 없어서 그냥 닫으시면 됩니다.

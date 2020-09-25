@@ -71,6 +71,8 @@ autoapi_dirs = [module_dir]
 autodoc_mock_imports = ['PyQt5', 'sip', 'numpy', 'pandas']
 autodoc_warningiserror = True
 
+add_function_parentheses = False
+
 # -- Autodoc mocking configuration ---
 
 from unittest.mock import MagicMock
