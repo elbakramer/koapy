@@ -196,9 +196,10 @@ def stockname(codes, port):
 @click.option('-m', '--market', 'markets', metavar='MARKET', multiple=True, type=click.Choice(market_codes, case_sensitive=False), help='Stock market code to get. Alternative to --code. Can set multiple times.')
 @click.option('-i', '--input', metavar='FILENAME', type=click.Path(), help='Text or excel file containing codes. Alternative to --code or --market.')
 @click.option('-o', '--output', metavar='FILENAME', type=click.Path(), help="Output filename. Optional for single code (prints to console).")
+@click.option('-f', '--format', metavar='FORMAT', type=click.Choice(['md', 'xlsx', 'json'], case_sensitive=False))
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def stockinfo(codes, markets, input, output, port, verbose):
+def stockinfo(codes, markets, input, output, format, port, verbose):
     """
     \b
     Possible market codes are:
@@ -256,9 +257,20 @@ def stockinfo(codes, markets, input, output, port, verbose):
     if output is None:
         if codes_len > 1 or codes_from_input:
             fail_with_usage('Output path is not specified.')
+        if format is None:
+            format = 'md'
     else:
-        if not output.endswith('.xlsx'):
-            output += '.xlsx'
+        if format is None:
+            format = 'xlsx'
+        if format == 'xlsx':
+            if not output.endswith('.xlsx'):
+                output += '.xlsx'
+        elif format == 'md':
+            if not output.endswith('.md'):
+                output += '.md'
+        elif format == 'json':
+            if not output.endswith('.json'):
+                output += '.json'
 
     import pandas as pd
 
@@ -270,20 +282,37 @@ def stockinfo(codes, markets, input, output, port, verbose):
         if not codes_from_input and codes_len == 1:
             df = context.GetStockInfoAsDataFrame(codes)
             if not output:
-                click.echo(df.iloc[0].to_markdown())
+                if format == 'md':
+                    click.echo(df.iloc[0].to_markdown())
+                elif format == 'json':
+                    click.echo(df.iloc[0].to_json())
             else:
-                df.to_excel(output, index=False)
+                if format == 'xlsx':
+                    df.to_excel(output, index=False)
+                elif format == 'json':
+                    with open(output, 'w') as f:
+                        click.echo(df.iloc[0].to_json(), file=f)
         elif codes_len > 0:
             df = context.GetStockInfoAsDataFrame(codes)
             df.to_excel(output, index=False)
         elif len(markets) > 0:
             if 'all' in markets:
                 markets = market_codes
-            with pd.ExcelWriter(output) as writer: # pylint: disable=abstract-class-instantiated
+            if format == 'xlsx':
+                with pd.ExcelWriter(output) as writer: # pylint: disable=abstract-class-instantiated
+                    for market in markets:
+                        codes = context.GetCodeListByMarketAsList(market)
+                        df = context.GetStockInfoAsDataFrame(codes)
+                        df.to_excel(writer, index=False, sheet_name=market)
+            elif format == 'json':
+                codes = set()
                 for market in markets:
-                    codes = context.GetCodeListByMarketAsList(market)
-                    df = context.GetStockInfoAsDataFrame(codes)
-                    df.to_excel(writer, index=False, sheet_name=market)
+                    codes = codes.union(set(context.GetCodeListByMarketAsList(market)))
+                codes = sorted(list(codes))
+                with open(output, 'w', encoding='utf-8') as f:
+                    for code in codes:
+                        df = context.GetStockInfoAsDataFrame(code)
+                        click.echo(df.iloc[0].to_json(), file=f)
         else:
             fail_with_usage('Cannot specify codes.')
 
@@ -768,9 +797,10 @@ def errmsg(err_code, verbose):
 @click.option('-f', '--fid', 'fids', metavar='FID', multiple=True, help='FID to get. Can set multiple times.')
 @click.option('-t', '--realtype', metavar='REALTYPE', help='Real type name. Alternative to --fid.')
 @click.option('-o', '--output', metavar='FILENAME', type=click.File('w', lazy=True), default='-', help='Output filename (optional).')
+@click.option('-f', '--format', metavar='FORMAT', type=click.Choice(['md', 'json'], case_sensitive=False), default='md')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def watch(codes, input, fids, realtype, output, port, verbose):
+def watch(codes, input, fids, realtype, output, format, port, verbose):
     if (codes, fids, realtype) == (tuple(), tuple(), None):
         fail_with_usage()
 
@@ -820,20 +850,30 @@ def watch(codes, input, fids, realtype, output, port, verbose):
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
     from koapy.openapi.RealType import RealType
 
+    def parse_message(message):
+        fids = event.listen_response.single_data.names
+        names = [RealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
+        values = event.listen_response.single_data.values
+        dic = dict((name, value) for fid, name, value in zip(fids, names, values) if name != fid)
+        series = pd.Series(dic)
+        return series
+
+    if format == 'json':
+        def print_message(message):
+            click.echo(parse_message(message).to_json(), file=output)
+    else:
+        def print_message(message):
+            code = event.listen_response.arguments[0].string_value
+            name = event.listen_response.arguments[1].string_value
+            click.echo('[%s] [%s]' % (code, name), file=output)
+            click.echo('[%s]' % datetime.datetime.now(), file=output)
+            click.echo(parse_message(message).to_markdown(), file=output)
+
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
 
         for event in context.WatchRealDataForCodesAsStream(codes, fids, infer_fids=True):
-            code = event.listen_response.arguments[0].string_value
-            name = event.listen_response.arguments[1].string_value
-            fids = event.listen_response.single_data.names
-            names = [RealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
-            values = event.listen_response.single_data.values
-            dic = dict((name, value) for fid, name, value in zip(fids, names, values) if name != fid)
-            series = pd.Series(dic)
-            click.echo('[%s] [%s]' % (code, name), file=output)
-            click.echo('[%s]' % datetime.datetime.now(), file=output)
-            click.echo(series.to_markdown(), file=output)
+            print_message(event)
 
 order_types = [
     '1',
@@ -871,9 +911,10 @@ quote_types = [
 @click.option('--price', metavar='PRICE')
 @click.option('--quote-type', type=click.Choice(quote_types))
 @click.option('--original-order-no', metavar='ORDERNO')
+@click.option('-f', '--format', metavar='FORMAT', type=click.Choice(['pretty', 'json'], case_sensitive=False))
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def order(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no, port, verbose):
+def order(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no, format, port, verbose):
     """
     \b
     [주문유형]
@@ -905,19 +946,23 @@ def order(request_name, screen_no, account_no, order_type, code, quantity, price
 
     set_verbosity(verbose)
 
-    import pprint
-
     from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
     from google.protobuf.json_format import MessageToDict
 
-    pp = pprint.PrettyPrinter()
+    if format == 'json':
+        import json
+        def print_message(message):
+            click.echo(json.dumps(MessageToDict(message)))
+    else:
+        import pprint
+        pp = pprint.PrettyPrinter()
+        def print_message(message):
+            click.echo(pp.pformat(MessageToDict(message)))
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
-
         for response in context.OrderCall(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no):
-            dic = MessageToDict(response)
-            click.echo(pp.pformat(dic))
+            print_message(response)
 
 if __name__ == '__main__':
     cli()
