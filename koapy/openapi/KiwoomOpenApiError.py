@@ -4,6 +4,7 @@ class KiwoomOpenApiError(Exception):
     OP_ERR_COND_NOTFOUND = -11
     OP_ERR_COND_MISMATCH = -12
     OP_ERR_COND_OVERFLOW = -13
+    OP_ERR_TR_FAIL = -22
     OP_ERR_LOGIN = -100
     OP_ERR_CONNECT = -101
     OP_ERR_VERSION = -102
@@ -39,6 +40,7 @@ class KiwoomOpenApiError(Exception):
     MSG_ERR_COND_NOTFOUND = '조건번호 없음'
     MSG_ERR_COND_MISMATCH = '조건번호와 조건식 틀림'
     MSG_ERR_COND_OVERFLOW = '조건검색 조회요청 초과'
+    MSG_ERR_TR_FAIL = '전문 처리 실패'
     MSG_ERR_LOGIN = '사용자정보 교환 실패'
     MSG_ERR_CONNECT = '서버접속 실패'
     MSG_ERR_VERSION = '버전처리 실패'
@@ -75,6 +77,7 @@ class KiwoomOpenApiError(Exception):
         OP_ERR_COND_NOTFOUND: MSG_ERR_COND_NOTFOUND,
         OP_ERR_COND_MISMATCH: MSG_ERR_COND_MISMATCH,
         OP_ERR_COND_OVERFLOW: MSG_ERR_COND_OVERFLOW,
+        OP_ERR_TR_FAIL: MSG_ERR_TR_FAIL,
         OP_ERR_LOGIN: MSG_ERR_LOGIN,
         OP_ERR_CONNECT: MSG_ERR_CONNECT,
         OP_ERR_VERSION: MSG_ERR_VERSION,

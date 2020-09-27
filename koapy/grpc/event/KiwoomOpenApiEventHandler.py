@@ -1,3 +1,4 @@
+import re
 import logging
 import operator
 import datetime
@@ -408,14 +409,17 @@ class KiwoomOpenApiTrEventHandler(BaseKiwoomOpenApiEventHandler):
                 response.listen_response.single_data.names.extend(self._single_names) # pylint: disable=no-member
                 response.listen_response.single_data.values.extend(values) # pylint: disable=no-member
 
-            if repeat_cnt > 0 and len(self._multi_names) > 0:
-                rows = [[self.control.GetCommData(trcode, recordname, i, name).strip() for name in self._multi_names] for i in range(repeat_cnt)]
-                response.listen_response.multi_data.names.extend(self._multi_names) # pylint: disable=no-member
-                for row in rows:
-                    if self._is_stop_condition(row):
-                        should_stop = True
-                        break
-                    response.listen_response.multi_data.values.add().values.extend(row) # pylint: disable=no-member
+            if repeat_cnt > 0:
+                if len(self._multi_names) > 0:
+                    rows = [[self.control.GetCommData(trcode, recordname, i, name).strip() for name in self._multi_names] for i in range(repeat_cnt)]
+                    response.listen_response.multi_data.names.extend(self._multi_names) # pylint: disable=no-member
+                    for row in rows:
+                        if self._is_stop_condition(row):
+                            should_stop = True
+                            break
+                        response.listen_response.multi_data.values.add().values.extend(row) # pylint: disable=no-member
+                else:
+                    logging.warning('Repeat count greater than 0, but no multi data names available.')
 
             self.observer.on_next(response)
 
@@ -436,6 +440,17 @@ class KiwoomOpenApiTrEventHandler(BaseKiwoomOpenApiEventHandler):
             error = KiwoomOpenApiError(errcode)
             self.observer.on_error(error)
             return
+
+    def OnReceiveMsg(self, scrnno, rqname, trcode, msg):
+        if (rqname, trcode, scrnno) == (self._rqname, self._trcode, self._scrnno):
+            msg_pattern = r'^[^(]+\((-?[0-9]+)\)$'
+            match = re.match(msg_pattern, msg)
+            if match:
+                errcode = match.group(1)
+                errcode = int(errcode)
+                error = KiwoomOpenApiError(errcode, msg)
+                self.observer.on_error(error)
+                return
 
 class KiwoomOpenApiOrderEventHandler(BaseKiwoomOpenApiEventHandler):
 
