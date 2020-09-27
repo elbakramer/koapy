@@ -151,10 +151,12 @@ Reference
 개발과정에 있어서 참고하거나 전체적인 투자과정에서 같이 보면 좋을 것 같아 보이는 자료들입니다.
 
 * `파이썬으로 배우는 알고리즘 트레이딩`_
+* `퀀트투자를 위한 키움증권 API (파이썬 버전)`_
 * `시스템 트레이딩`_
 * `systrader79의 왕초보를 위한 주식투자`_
 
 .. _`파이썬으로 배우는 알고리즘 트레이딩`: https://wikidocs.net/book/110
+.. _`퀀트투자를 위한 키움증권 API (파이썬 버전)`: https://wikidocs.net/book/1173
 .. _`시스템 트레이딩`: https://igotit.tistory.com/840
 .. _`systrader79의 왕초보를 위한 주식투자`: https://stock79.tistory.com/
 
