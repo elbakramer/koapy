@@ -13,6 +13,10 @@ code {
     display: inline-block;
 }
 
+dl dd {
+    margin-left: 0;
+}
+
 @media screen and (max-width: 875px) {
     div.sphinxsidebar {
         width: calc(100% + 20px);

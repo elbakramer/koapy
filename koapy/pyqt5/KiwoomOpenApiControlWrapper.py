@@ -5,7 +5,7 @@ import logging
 import numpy as np
 
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
-from koapy.utils.rate_limiting.RateLimiter import SimpleRateLimiter
+from koapy.utils.rate_limiting.RateLimiter import KiwoomRateLimiter
 
 class KiwoomOpenApiControlCommonWrapper:
 
@@ -134,11 +134,14 @@ class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
             errcode = KiwoomOpenApiError.try_or_raise(q.get())
         return errcode
 
-    # 그냥 1초당 5회로하면 장기적으로 결국 막히기 때문에 4초당 1회로 제한 (3초당 1회부턴 제한걸림)
+    # 그냥 1초당 5회로하면 장기적으로 결국 막히기 때문에 원래 4초당 1회로 제한했었음 (3초당 1회부턴 제한걸림)
+    # @SimpleRateLimiter(period=4, calls=1)
+
     # 1시간에 1000회로 제한한다는 추측이 있는데 일리 있어 보임 (http://blog.quantylab.com/htsapi.html)
     # 1초당 1회로 계산했을때 1시간이면 3600 회, 주기를 1초씩 늘려보면
     # 2초당 1회 => 1800 > 1000, 3초당 1회 => 1200 > 1000, 4초당 1회 => 900 < 1000
-    @SimpleRateLimiter(period=4, calls=1)
+
+    @KiwoomRateLimiter()
     def RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
         """
         [OpenAPI 게시판]

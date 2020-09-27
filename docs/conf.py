@@ -131,7 +131,11 @@ import koapy
 # -- Warnings related setting ---
 
 suppress_warnings = []
-keep_warnings = False
+
+if on_rtd:
+    keep_warnings = False
+else:
+    keep_warnings = True
 
 # -- Translation related configuration ---
 

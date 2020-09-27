@@ -7,10 +7,20 @@ import pandas as pd
 import win32com.client
 from pywintypes import com_error as ComError # pylint: disable=no-name-in-module
 
-from koapy.utils.rate_limiting.RateLimiter import SimpleRateLimiter
+from koapy.utils.rate_limiting.RateLimiter import CybosRateLimiter
 from koapy.utils.krx.holiday import get_last_krx_datetime
 
-rate_limiter = SimpleRateLimiter(period=15, calls=60)
+class CybosPlusComObjectDispatch:
+
+    def __init__(self, dispatch):
+        self._dispatch = dispatch
+
+    @CybosRateLimiter()
+    def RateLimitedBlockRequest(self):
+        return self._dispatch.BlockRequest()
+
+    def __getattr__(self, name):
+        return getattr(self._dispatch, name)
 
 class CybosPlusComObjectInner:
 
@@ -18,11 +28,6 @@ class CybosPlusComObjectInner:
         self._parent = parent
         self._prefix = prefix
         self._dispatches = {}
-
-    def __getattribute__(self, name):
-        if name in ['BlockRequest']:
-            return rate_limiter(super().__getattribute__(name))
-        return super().__getattribute__(name)
 
     def __getattr__(self, name):
         dispatch = self._dispatches.get(name)
@@ -34,6 +39,7 @@ class CybosPlusComObjectInner:
                     del self._parent._inners[self._prefix]
                 raise
             else:
+                dispatch = CybosPlusComObjectDispatch(dispatch)
                 self._dispatches[name] = dispatch
         return dispatch
 
@@ -141,7 +147,7 @@ class CybosPlusComObject:
             chart.SetInputValue(9, ord('1'))
 
             logging.debug('Requesting from %s', internal_start_date)
-            err = chart.BlockRequest()
+            err = chart.RateLimitedBlockRequest()
             if err < 0:
                 logging.warning('BlockRequest returned non-zero code %d', err)
 
@@ -161,7 +167,9 @@ class CybosPlusComObject:
 
             df = pd.DataFrame.from_records(records, columns=names)
 
+            from_date = datetime.datetime.strptime(str(df.iloc[0]['날짜']), date_format_input)
             last_date = datetime.datetime.strptime(str(df.iloc[-1]['날짜']), date_format_input)
+            logging.debug('Received data from %s to %s for code %s', from_date, last_date, code)
 
             if end_date is None:
                 should_stop = received_count < expected_count

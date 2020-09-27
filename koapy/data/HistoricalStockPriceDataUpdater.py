@@ -22,10 +22,21 @@ from koapy.utils.krx.holiday import get_last_krx_datetime
 
 class BaseHistoricalStockPriceDataUpdater(ABC):
 
-    def __init__(self, codes, datadir, context=None):
+    def __init__(self, codes, datadir, context=None, if_exists='auto', delete_remainings=True):
         self._codes = codes
         self._datadir = datadir
         self._context = context
+
+        """
+        if_exists:
+          - force  = always overwrite
+          - auto   = append if exists, create if not exists, overwrite if invalid
+          - append = append if exists, create if not exists, ignore if invalid
+          - ignore = ignore if exists, create if not exists
+        """
+
+        self._if_exists = if_exists
+        self._delete_remainings = delete_remainings
 
         self.context = context
 
@@ -88,8 +99,11 @@ class BaseHistoricalStockPriceDataUpdater(ABC):
         with open(self._failover_filename, 'w') as f:
             f.write(code)
 
+    def get_start_date(self):
+        return get_last_krx_datetime()
+
     def update_only(self):
-        start_date = get_last_krx_datetime()
+        start_date = self.get_start_date()
         end_date = None
 
         failover_code = self.check_failover_code()
@@ -109,6 +123,9 @@ class BaseHistoricalStockPriceDataUpdater(ABC):
                     default_context = KiwoomOpenApiContext()
                 self.context = stack.enter_context(default_context)
             self.context.EnsureConnected()
+
+            should_try_append = self._if_exists in ['auto', 'append']
+
             for i, code in enumerate(self._codes):
                 if failover_code is not None:
                     if not failover_code_found:
@@ -124,19 +141,31 @@ class BaseHistoricalStockPriceDataUpdater(ABC):
                     filepath = os.path.join(self._datadir, filename)
                     should_overwrite = True
                     if os.path.exists(filepath):
-                        last_date = self.check_last_date(filepath)
-                        if last_date is not None:
-                            if start_date > last_date:
-                                logging.info('Found existing file %s, prepending from %s until %s', os.path.basename(filepath), start_date, last_date)
-                                df = self.get_data(code, start_date, last_date)
-                                if df.shape[0] > 0:
-                                    self.append_data(df, filepath)
-                                    logging.info('Appended stock data for code %s to %s', code, filepath)
+                        should_overwrite = self._if_exists in ['force', 'auto']
+                        if should_try_append:
+                            last_date = self.check_last_date(filepath)
+                            if last_date is not None:
+                                should_overwrite = False
+                                if start_date > last_date:
+                                    logging.info('Found existing file %s, prepending from %s until %s', os.path.basename(filepath), start_date, last_date)
+                                    df = self.get_data(code, start_date, last_date)
+                                    if df.shape[0] > 0:
+                                        self.append_data(df, filepath)
+                                        logging.info('Appended stock data for code %s to %s', code, filepath)
+                                    else:
+                                        logging.info('Got nothing to append for code %s', code)
                                 else:
-                                    logging.info('Got nothing to append for code %s', code)
+                                    logging.info('Already up to date, skipping %s...', code)
                             else:
-                                logging.info('Already up to date, skipping %s...', code)
-                            should_overwrite = False
+                                if should_overwrite:
+                                    logging.warning('File exists but cannot find last date, overwriting...')
+                                else:
+                                    logging.warning('File exists but cannot find last date, ignoring...')
+                        else:
+                            if should_overwrite:
+                                logging.warning('File exists but forcing to overwrite...')
+                            else:
+                                logging.info('File exists but just ignoring...')
                     if should_overwrite:
                         df = self.get_data(code, start_date, end_date)
                         if df.shape[0] > 0:
@@ -148,6 +177,9 @@ class BaseHistoricalStockPriceDataUpdater(ABC):
                     self.save_failover_code(code)
                     raise
 
+        if os.path.exists(self._failover_filename):
+            os.remove(self._failover_filename)
+
     def delete_remainings(self):
         for filename in os.listdir(self._datadir):
             if os.path.splitext(filename)[0] not in self._codes:
@@ -156,7 +188,8 @@ class BaseHistoricalStockPriceDataUpdater(ABC):
 
     def update(self):
         self.update_only()
-        self.delete_remainings()
+        if self._delete_remainings:
+            self.delete_remainings()
 
 class BaseHistoricalStockPriceDataToSqliteUpdater(BaseHistoricalStockPriceDataUpdater):
 
@@ -177,10 +210,13 @@ class BaseHistoricalStockPriceDataToSqliteUpdater(BaseHistoricalStockPriceDataUp
 
 class HistoricalDailyStockPriceDataToSqliteUpdater(BaseHistoricalStockPriceDataToSqliteUpdater):
 
-    def __init__(self, codes, datadir, context=None):
-        super().__init__(codes, datadir, context)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self._date_column_name = '일자'
         self._date_format = '%Y%m%d'
+
+    def get_start_date(self):
+        return datetime.datetime.combine(get_last_krx_datetime().date(), datetime.time())
 
     def get_data(self, code, start_date, end_date):
         return self.context.GetDailyStockDataAsDataFrame(code, start_date, end_date)
@@ -219,17 +255,18 @@ class HistoricalDailyStockPriceDataToSqliteUpdater(BaseHistoricalStockPriceDataT
         engine.dispose()
         return result
 
-class Historical15MinuteStockPriceDataToSqliteUpdater(BaseHistoricalStockPriceDataToSqliteUpdater):
+class HistoricalMinuteStockPriceDataToSqliteUpdater(BaseHistoricalStockPriceDataToSqliteUpdater):
 
-    def __init__(self, codes, datadir, context=None):
-        super().__init__(codes, datadir, context)
+    def __init__(self, codes, datadir, interval, context=None, if_exists='auto', delete_remainings=True):
+        super().__init__(codes, datadir, context, if_exists, delete_remainings)
+        self._interval = interval
         self._date_column_name = '체결시간'
         self._date_format = '%Y%m%d%H%M%S'
         self._time_column_name = '시간'
         self._time_format = '%H%M'
 
     def get_data(self, code, start_date, end_date):
-        return self.context.GetMinuteStockDataAsDataFrame(code, 15, start_date, end_date)
+        return self.context.GetMinuteStockDataAsDataFrame(code, self._interval, start_date, end_date)
 
     def set_context(self, context):
         super().set_context(context)
@@ -311,6 +348,11 @@ class Historical15MinuteStockPriceDataToSqliteUpdater(BaseHistoricalStockPriceDa
     def check_last_date(self, filepath):
         return self.check_last_date_kiwoom(filepath)
 
+class Historical15MinuteStockPriceDataToSqliteUpdater(HistoricalMinuteStockPriceDataToSqliteUpdater):
+
+    def __init__(self, codes, datadir, context=None, if_exists='auto', delete_remainings=True):
+        super().__init__(codes, datadir, 15, context, if_exists, delete_remainings)
+
 class BaseHistoricalStockPriceDataToExcelUpdater(BaseHistoricalStockPriceDataUpdater):
 
     @property
@@ -333,10 +375,13 @@ class BaseHistoricalStockPriceDataToExcelUpdater(BaseHistoricalStockPriceDataUpd
 
 class HistoricalDailyStockPriceDataToExcelUpdater(BaseHistoricalStockPriceDataToExcelUpdater):
 
-    def __init__(self, codes, datadir, context=None):
-        super().__init__(codes, datadir, context)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self._date_column_name = '일자'
         self._date_format = '%Y%m%d'
+
+    def get_start_date(self):
+        return datetime.datetime.combine(get_last_krx_datetime().date(), datetime.time())
 
     def get_data(self, code, start_date, end_date):
         return self.context.GetDailyStockDataAsDataFrame(code, start_date, end_date)
@@ -356,17 +401,18 @@ class HistoricalDailyStockPriceDataToExcelUpdater(BaseHistoricalStockPriceDataTo
             last_date = datetime.datetime.strptime(last_date, self._date_format)
         return last_date
 
-class Historical15MinuteStockPriceDataToExcelUpdater(BaseHistoricalStockPriceDataToExcelUpdater):
+class HistoricalMinuteStockPriceDataToExcelUpdater(BaseHistoricalStockPriceDataToExcelUpdater):
 
-    def __init__(self, codes, datadir, context=None):
-        super().__init__(codes, datadir, context)
+    def __init__(self, codes, datadir, interval, context=None, if_exists='auto', delete_remainings=True):
+        super().__init__(codes, datadir, context, if_exists, delete_remainings)
+        self._interval = interval
         self._date_column_name = '체결시간'
         self._date_format = '%Y%m%d%H%M%S'
         self._time_column_name = '시간'
         self._time_format = '%H%M'
 
     def get_data(self, code, start_date, end_date):
-        return self.context.GetMinuteStockDataAsDataFrame(code, 15, start_date, end_date)
+        return self.context.GetMinuteStockDataAsDataFrame(code, self._interval, start_date, end_date)
 
     def set_context(self, context):
         super().set_context(context)
@@ -401,3 +447,8 @@ class Historical15MinuteStockPriceDataToExcelUpdater(BaseHistoricalStockPriceDat
 
     def check_last_date(self, filepath):
         return self.check_last_date_kiwoom(filepath)
+
+class Historical15MinuteStockPriceDataToExcelUpdater(HistoricalMinuteStockPriceDataToExcelUpdater):
+
+    def __init__(self, codes, datadir, context=None, if_exists='auto', delete_remainings=True):
+        super().__init__(codes, datadir, 15, context, if_exists, delete_remainings)

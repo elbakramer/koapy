@@ -370,16 +370,24 @@ class KoreanLunarCalendar:
         return self.to_solar_datetime().date()
 
     @classmethod
-    def lunar_to_solar(cls, dt_or_year, month=None, day=None, is_intercalation=False):
-        return cls(dt_or_year, month, day, is_intercalation).to_solar_date()
+    def lunar_to_solar_datetime(cls, dt_or_year, month=None, day=None, is_intercalation=False):
+        return cls(dt_or_year, month, day, is_intercalation).to_solar_datetime()
 
     @classmethod
-    def solar_from_lunar(cls, dt_or_year, month=None, day=None):
+    def lunar_to_solar_date(cls, dt_or_year, month=None, day=None, is_intercalation=False):
+        return cls.lunar_to_solar_datetime(dt_or_year, month, day, is_intercalation).date()
+
+    @classmethod
+    def solar_from_lunar_datetime(cls, dt_or_year, month=None, day=None):
         cal = cls()
         if hasattr(dt_or_year, 'year'):
             dt = dt_or_year
         else:
             dt = datetime.date(dt_or_year, month, day)
         cal.setSolarDate(dt.year, dt.month, dt.day)
-        res = datetime.date(cal.lunarYear, cal.lunarMonth, cal.lunarDay)
+        res = datetime.datetime(cal.lunarYear, cal.lunarMonth, cal.lunarDay)
         return res
+
+    @classmethod
+    def solar_from_lunar_date(cls, dt_or_year, month=None, day=None):
+        return cls.solar_from_lunar_datetime(dt_or_year, month, day).date()

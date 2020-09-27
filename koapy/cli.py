@@ -199,7 +199,7 @@ def stockname(codes, port):
 @click.option('-f', '--format', metavar='FORMAT', type=click.Choice(['md', 'xlsx', 'json'], case_sensitive=False))
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def stockinfo(codes, markets, input, output, format, port, verbose):
+def stockinfo(codes, markets, input, output, format, port, verbose): # pylint: disable=redefined-builtin
     """
     \b
     Possible market codes are:
@@ -324,7 +324,7 @@ def stockinfo(codes, markets, input, output, format, port, verbose):
 @click.option('-e', '--end-date', metavar='YYYY-MM-DD', type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d']), help='Stops if reached, not included (optional).')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def daily(codes, input, output, start_date, end_date, port, verbose):
+def daily(codes, input, output, start_date, end_date, port, verbose): # pylint: disable=redefined-builtin
     if (codes, input, output, start_date, end_date) == (tuple(), None, None, None, None):
         fail_with_usage()
 
@@ -435,7 +435,7 @@ minute_intervals = [
 @click.option('-e', '--end-date', metavar="YYYY-MM-DD['T'hh:mm:ss]", type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d', '%Y-%m-%dT%H:%M:%S', '%Y%m%d%H%M%S']), help='Stops if reached, not included (optional).')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def minute(codes, interval, input, output, start_date, end_date, port, verbose):
+def minute(codes, interval, input, output, start_date, end_date, port, verbose): # pylint: disable=redefined-builtin
     if (codes, interval, input, output, start_date, end_date) == (tuple(), None, None, None, None, None):
         fail_with_usage()
 
@@ -606,15 +606,27 @@ def realinfo(realtypes):
                 click.echo('  [%s] = %s' % (fid, name))
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get market holidays.')
-@click.option('-o', '--output', metavar='FILENAME', type=click.Path(), help='Output filename (optional).')
+@click.option('-o', '--output', metavar='FILENAME', type=click.Path(), help='Output filename. (optional)')
+@click.option('-O', '--offline', is_flag=True, help='Do not use krx marketdata api. (default: false)')
+@click.option('-u', '--update', is_flag=True, help='Update local cache, download from krx marketdata api.')
+@click.option('-U', '--no-update', is_flag=True, help='Disable update.')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def holidays(output, verbose):
+def holidays(output, offline, update, no_update, verbose):
     set_verbosity(verbose)
 
     if output is None:
         import pandas as pd
-        from koapy.utils.krx.holiday import get_holidays_as_dict
-        response = get_holidays_as_dict()
+        if not offline:
+            from koapy.utils.krx.holiday.marketdata import download_holidays_as_dict
+            response = download_holidays_as_dict()
+            if not no_update:
+                from koapy.utils.krx.holiday.KrxBusinessDay import dump_holidays
+                dump_holidays(response)
+        else:
+            from koapy.utils.krx.holiday import get_holidays_as_dict
+            response = get_holidays_as_dict()
+            if not no_update or update:
+                logging.warning('Cannot update while offline.')
         lang = locale.getdefaultlocale()[0]
         if lang == 'ko_KR':
             day_key = 'kr_dy_tp'
@@ -631,10 +643,15 @@ def holidays(output, verbose):
         df = pd.DataFrame.from_records(data, columns=columns)
         click.echo(df.to_markdown())
     else:
-        from koapy.utils.krx.holiday import download_holidays_as_excel
-        if output and not output.endswith('.xls'):
-            output += '.xls'
-        download_holidays_as_excel(output)
+        if not offline:
+            from koapy.utils.krx.holiday.marketdata import download_holidays_as_excel
+            if output and not output.endswith('.xls'):
+                output += '.xls'
+            download_holidays_as_excel(output)
+            if update:
+                logging.warning('Cannot update on file output.')
+        else:
+            fail_with_usage('Saving to file should come with offline option disabled.')
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get user information.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')

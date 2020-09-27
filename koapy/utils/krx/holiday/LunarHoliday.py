@@ -32,7 +32,10 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
+# https://github.com/pandas-dev/pandas/blob/master/pandas/tseries/holiday.py
+
 import warnings
+import datetime
 
 from pandas.errors import PerformanceWarning
 from pandas import DateOffset, DatetimeIndex, Timestamp, date_range
@@ -94,10 +97,10 @@ class LunarHoliday(Holiday):
 
         year_offset = DateOffset(years=1)
         reference_start_date = Timestamp(
-            KoreanLunarCalendar(start_date.year - 1, self.month, self.day).to_solar_datetime()
+            KoreanLunarCalendar.lunar_to_solar_datetime(start_date.year - 1, self.month, self.day)
         )
         reference_end_date = Timestamp(
-            KoreanLunarCalendar(end_date.year + 1, self.month, self.day).to_solar_datetime()
+            KoreanLunarCalendar.lunar_to_solar_datetime(end_date.year + 1, self.month, self.day)
         )
 
         # Don't process unnecessary holidays
@@ -107,7 +110,7 @@ class LunarHoliday(Holiday):
             freq=year_offset,
             tz=start_date.tz,
         )
-        dates = dates.to_series().apply(lambda date: KoreanLunarCalendar(date.year, self.month, self.day).to_solar_datetime())
+        dates = dates.to_series().apply(lambda date: KoreanLunarCalendar.lunar_to_solar_datetime(date.year, self.month, self.day))
         dates = DatetimeIndex(dates)
 
         return dates
@@ -141,3 +144,14 @@ class LunarHoliday(Holiday):
             return dates.map(self.observance)
 
         return dates
+
+    def to_solar_datetime(self):
+        today = datetime.datetime.today()
+        year = self.year
+        if year is None:
+            year = today.year
+        date = KoreanLunarCalendar.lunar_to_solar_datetime(year, self.month, self.day)
+        dates = DatetimeIndex([date])
+        dates = self._apply_rule(dates)
+        date = dates[0]
+        return date
