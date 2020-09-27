@@ -5,10 +5,14 @@ import datetime
 import pandas as pd
 
 import win32com.client
+
 from pywintypes import com_error as ComError # pylint: disable=no-name-in-module
 
 from koapy.utils.rate_limiting.RateLimiter import CybosRateLimiter
 from koapy.utils.krx.holiday import get_last_krx_datetime
+from koapy.config import config
+
+import pywinauto
 
 class CybosPlusComObjectDispatch:
 
@@ -66,9 +70,113 @@ class CybosPlusComObject:
     def GetConnectState(self):
         return self.CpUtil.CpCybos.IsConnect
 
+    def CommConnect(self):
+        """
+        Not Tested
+        https://github.com/ippoeyeslhw/cppy/blob/master/cp_luncher.py
+        """
+
+        login_config = config.get('koapy.backend.cybos.login')
+
+        userid = login_config.get('id')
+        password = login_config.get('password')
+        cert = login_config.get('cert')
+
+        auto_account_password = login_config.get('auto_account_password')
+        auto_cert_password = login_config.get('auto_cert_password')
+        price_check_only = login_config.get('price_check_only')
+
+        account_passwords = login_config.get('account_passwords')
+
+        app = pywinauto.Application().start(r'C:\DAISHIN\STARTER\ncStarter.exe /prj:cp')
+        desktop = pywinauto.Desktop(allow_magic_lookup=False)
+
+        try:
+            ask_stop = desktop.window(title='ncStarter')
+            ask_stop.wait('ready', timeout=8)
+        except pywinauto.timings.TimeoutError:
+            pass
+        else:
+            ask_stop.print_control_identifiers()
+            if ask_stop['Static2'].window_text().endswith('종료하시겠습니까?'):
+                ask_stop['Button1'].click()
+                try:
+                    ask_stop = desktop.window(title='ncStarter')
+                    ask_stop.wait('ready', timeout=5)
+                except pywinauto.timings.TimeoutError:
+                    pass
+                else:
+                    ask_stop.print_control_identifiers()
+                    if ask_stop['Static2'].window_text().endswith('종료할 수 없습니다.'):
+                        ask_stop['Button'].click()
+                        raise RuntimeError
+
+        starter = desktop.window(title='CYBOS Starter')
+        starter.wait('ready', timeout=10)
+        starter.print_control_identifiers()
+
+        if userid:
+            starter['Edit1'].set_text(userid)
+        if password:
+            starter['Edit2'].set_text(password)
+        else:
+            raise RuntimeError
+        if not price_check_only:
+            if cert:
+                starter['Edit3'].set_text(cert)
+            else:
+                raise RuntimeError
+
+        if auto_account_password:
+            starter['Button4'].check()
+            try:
+                confirm = desktop.window(title='대신증권')
+                confirm.wait('ready', timeout=1)
+            except pywinauto.timings.TimeoutError:
+                pass
+            else:
+                confirm.print_control_identifiers()
+                confirm['Button'].click()
+        if auto_cert_password:
+            starter['Button5'].check()
+            try:
+                confirm = desktop.window(title='대신증권')
+                confirm.wait('ready', timeout=1)
+            except pywinauto.timings.TimeoutError:
+                pass
+            else:
+                confirm.print_control_identifiers()
+                confirm['Button'].click()
+        if price_check_only:
+            starter['Button6'].check()
+
+        starter['Button1'].click()
+
+        should_stop = False
+        while not should_stop:
+            try:
+                account_password = desktop.window(title='종합계좌 비밀번호 확인 입력')
+                account_password.wait('ready', timeout=5)
+            except pywinauto.timings.TimeoutError:
+                should_stop = True
+            else:
+                account_password.print_control_identifiers()
+                account_no = account_password['Static'].window_text().split(':')[-1].strip()
+                if account_no in account_passwords:
+                    account_password['Edit'].set_text(account_passwords[account_no])
+                else:
+                    raise RuntimeError
+                account_password['Button1'].click()
+
+        try:
+            starter.wait_not('visible', timeout=10)
+        except pywinauto.timings.TimeoutError:
+            pass
+
     def EnsureConnected(self):
         errcode = 0
         if self.GetConnectState() == 0:
+            self.CommConnect()
             raise RuntimeError('Cybos Plus is not running, please start Cybos Plus.')
         return errcode
 
@@ -203,3 +311,6 @@ class CybosPlusComObject:
 
     def GetMinuteStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None):
         return self.GetStockDataAsDataFrame(code, 'm', interval, start_date, end_date)
+
+if __name__ == '__main__':
+    CybosPlusComObject().CommConnect()

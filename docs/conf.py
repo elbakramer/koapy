@@ -20,6 +20,8 @@
 import os
 import sys
 
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
 # -- Directory and import setting ---
 
 doc_dir = os.path.abspath(os.path.dirname(__file__))
@@ -85,7 +87,10 @@ autoapi_dirs = [module_dir]
 
 # -- Autodoc configuration ---
 
-autodoc_warningiserror = True
+if on_rtd:
+    autodoc_warningiserror = False
+else:
+    autodoc_warningiserror = True
 
 add_function_parentheses = False
 
@@ -95,8 +100,6 @@ intersphinx_mapping = {
 }
 
 # -- Autodoc mocking configuration ---
-
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 if on_rtd:
     autodoc_mock_imports = ['PyQt5', 'sip', 'numpy', 'pandas']

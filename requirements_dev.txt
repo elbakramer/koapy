@@ -9,6 +9,6 @@ Sphinx==3.2.1
 Pygments==2.7.1
 twine==3.2.0
 Click==7.1.2
-pytest==6.0.2
+pytest==6.1.0
 pytest-runner==5.2
 sphinx-autoapi==1.5.0

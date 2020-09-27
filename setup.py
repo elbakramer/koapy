@@ -28,6 +28,7 @@ requirements = [
     'SQLAlchemy>=1.3.19',
     'pywin32>=228;sys_platform=="win32"',
     'mslex>=0.1.1;sys_platform=="win32"',
+    'pywinauto>=0.6.8;sys_platform=="win32"',
 ]
 
 setup_requirements = ['pytest-runner', ]
