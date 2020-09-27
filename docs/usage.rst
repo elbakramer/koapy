@@ -35,12 +35,12 @@ To use KOAPY in a command line:
 Python (More)
 -------------
 
-KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다음과 같을 때,
+KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다음과 같을 때:
 
 .. literalinclude:: ../koapy/examples/roll_your_own.py
     :language: python
 
-이것을 KOAPY 에서는 아래처럼 제공하고 있습니다.
+이것을 KOAPY 에서는 아래처럼 제공하고 있습니다:
 
 .. literalinclude:: ../koapy/examples/lower_access.py
     :language: python
@@ -48,22 +48,23 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 전체적인 구조에서 큰 차이는 없고, 차이점이라면 함수 호출시 |dynamicCall|_ 함수를 사용하지 않고
 직접적으로 함수를 호출하고 있다는 점입니다.
 
-당장 이렇게 사용할 수도 있겠지만 KOAPY 에서는 이것보다 좀 더 상위의 API 를 제공하고 있기 때문에
+당장 이렇게 사용할 수도 있겠지만 KOAPY 에서는 이것보다 좀 더 상위의 API 를 제공하고 있기 때문에,
 직접 하위 API 를 통해서 컨트롤 할 것이 아니라면 굳이 이렇게 사용할 필요는 없습니다.
 
 예시를 좀 더 복잡하게 해서, 로그인 후 특정 종목의 현재가를 가져오는 시나리오를 가정했을때,
-만약 이것을 KOAPY 없이 직접 짜는 경우에는 다음처럼 됩니다.
+만약 이것을 KOAPY 없이 직접 짜는 경우에는 다음처럼 됩니다:
 
 .. literalinclude:: ../koapy/examples/roll_your_own_event.py
     :language: python
 
 단순 함수콜에 비해서 추가된 점들을 짚어보면,
-이벤트 처리를 위해서 |QEventLoop|_ 를 생성하여 이벤트가 들어올 구간에 맞게 실행/종료를 시켜야 하며,
-이벤트를 직접적으로 처리할 콜백 함수들도 알맞게 구현후 적절한 타이밍에 |connect|_/|disconnect|_ 시켜주어야 합니다.
+이벤트 처리를 위하여 |QEventLoop|_ 를 생성하여 이벤트가 들어올 구간에 맞게 실행/종료를 시키고 있으며,
+이벤트를 직접적으로 처리할 콜백 함수들도 알맞게 구현후 적절한 타이밍에 |connect|_/|disconnect|_ 하고 있습니다.
 
 반면에 KOAPY 를 사용하면 동일한 작업을 아래와 같이 미리 주어진 메서드 :py:meth:`~.koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetStockInfoAsDataFrame`) 를 사용해 간단하게 처리가 가능합니다.
-좀 더 세부적인 컨트롤이 필요할 경우에는 요청할 TR 에 대한 정보를 직접 설정하고 주어진 API (:py:meth:`~.koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.TransactionCall`) 를 통해 호출한 뒤에
-반환되는 스트림을 순차적으로 처리하는 식으로 구현이 가능합니다. 앞선 이벤트루프/콜백함수 기반 구현과 비교했을 때 이 방식이 좀 더 직관적입니다.
+좀 더 세부적인 컨트롤이 필요할 경우에는 요청할 TR 에 대한 정보를 직접 설정하고 중간단계의 API (:py:meth:`~.koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.TransactionCall`) 를 통해 호출한 뒤에
+반환되는 스트림을 순차적으로 처리하는 식으로 구현이 가능합니다.
+앞선 이벤트루프/콜백함수 기반 구현과 비교했을 때 이 방식이 좀 더 직관적입니다.
 
 .. |dynamicCall| replace:: ``dynamicCall``
 .. _dynamicCall: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qaxcontainer/qaxbase.html?highlight=dynamicCall#dynamicCall
@@ -129,6 +130,9 @@ CLI 는 KOAPY 설치 후 아무 옵션 없이 ``koapy`` 명령어만 실행했�
 이후 필요한 커맨드를 정하고 ``--help`` 옵션을 통해 다른 옵션을 어떻게 설정하는지 확인하신 뒤
 최종적으로 옵션을 알맞게 설정해 호출, 사용하는 흐름으로 활용하시면 됩니다.
 
+Auto login
+==========
+
 만약에 최초로 사용하시는 경우에는 자동 로그인 설정부터 해놓는 것을 추천드립니다.
 
 .. code-block:: console
@@ -153,6 +157,9 @@ CLI 는 KOAPY 설치 후 아무 옵션 없이 ``koapy`` 명령어만 실행했�
 모의투자의 경우는 모든 계좌의 비밀번호가 ``0000`` 이므로 ``0000`` 을 입력하고 ``전체 계좌에 등록`` 버튼을 누릅니다.
 마지막으로 아래의 ``AUTO`` 박스를 체크하고 창을 닫습니다.
 이제 이후부터는 로그인 단계에서 사용자 입력을 묻지 않고 자동으로 로그인이 처리됩니다.
+
+Uasge example
+=============
 
 아래는 예시로 맨 처음 커멘드 목록의 커멘드들 중에 ``get`` 커멘드를 확인하고 따라가서
 최종적으로 주식기본정보 확인 기능을 사용하는 시나리오입니다.
@@ -285,6 +292,9 @@ CLI 는 KOAPY 설치 후 아무 옵션 없이 ``koapy`` 명령어만 실행했�
     | 유통주식        | 4450781  |
     | 유통비율        | 74.6     |
 
+gRPC server
+===========
+
 CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는 식이기 때문에
 단순히 명령을 여러 번 연이어 실행하는 경우 (자동 로그인을 설정해두었더라도) 매번 로그인을 수행해야 하는 번거로움이 있을 수 있습니다.
 
@@ -327,11 +337,11 @@ CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는
     2020-09-24 06:03:48,742 [DEBUG] CommRqData() was successful; CommRqData('주식기본정보요청', 'opt10001', 0, '0291') with inputs {'종목코드': '005930'} -- KiwoomOpenApiControlWrapper.py:151
     2020-09-24 06:03:48,756 [DEBUG] OnReceiveTrData('0291', '주식기본정보요청', 'opt10001', '', '0') -- KiwoomOpenApiEventHandler.py:17
 
-Tray application
-----------------
+Tray icon
+---------
 
 KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.pyqt5.KiwoomOpenApiTrayApplication.KiwoomOpenApiTrayApplication` 이 구동되며
-이것을 직접적으로 확인할 수 있도록 구동되는 동안 우측하단에 트레이 아이콘을 표시하게끔 구현되어있습니다.
+이것을 직접 확인할 수 있도록 구동되는 동안 우측하단에 트레이 아이콘을 표시하게끔 구현되어있습니다.
 아직 따로 마땅한 아이콘이 없어서 초록색 바탕에 ``Qt`` 가 적혀있는 디폴트 아이콘이 그것입니다.
 
 이것을 가장 빠르게 확인할 수 있는 방법은 서버를 띄워보는 것입니다.

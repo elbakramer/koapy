@@ -32,6 +32,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.autosectionlabel',
+    'sphinx.ext.intersphinx',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
@@ -46,6 +47,7 @@ autosummary_generate = True
 # https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html
 
 from sphinx.ext import apidoc
+from docutils import nodes
 
 apidoc_exclude_patterns = [
     'examples/*.py',
@@ -54,7 +56,22 @@ apidoc_exclude_patterns = [
 def run_apidoc(_):
     apidoc.main(['-e', '--force', '--doc-project', 'Koapy', '-o', doc_dir, module_dir] + [os.path.join(module_dir, p) for p in apidoc_exclude_patterns])
 
+missing_reference_uris = {
+    'PyQt5.QtWidgets.QWidget': 'https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtwidgets/qwidget.html?highlight=qwidget',
+    'PyQt5.QtCore.QObject': 'https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qobject.html?highlight=qobject',
+}
+
+def missing_reference(app, env, node, contnode):
+    target = node['reftarget']
+    uri = missing_reference_uris.get(target)
+    if uri:
+        newnode = nodes.reference('', '', internal=False, refuri=uri)
+        newnode.append(contnode)
+        return newnode
+    return None
+
 def setup(app):
+    app.connect('missing-reference', missing_reference)
     app.connect('builder-inited', run_apidoc)
 
 # -- Autoapi setting ---
@@ -68,30 +85,42 @@ autoapi_dirs = [module_dir]
 
 # -- Autodoc configuration ---
 
-autodoc_mock_imports = ['PyQt5', 'sip', 'numpy', 'pandas']
 autodoc_warningiserror = True
 
 add_function_parentheses = False
 
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None),
+    'PyQt5': ('https://www.riverbankcomputing.com/static/Docs/PyQt5/', None),
+}
+
 # -- Autodoc mocking configuration ---
 
-from unittest.mock import MagicMock
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
-class QClass:
-    pass
+if on_rtd:
+    autodoc_mock_imports = ['PyQt5', 'sip', 'numpy', 'pandas']
 
-PyQt5 = MagicMock()
-PyQt5.QtWidgets.QWidget = QClass
-PyQt5.QtCore.QObject = QClass
-PyQt5.QAxContainer.QAxWidget = MagicMock()
-PyQt5.QtGui.QDesktopServices = MagicMock()
+    from unittest.mock import MagicMock
 
-sys.modules.update({
-    'PyQt5.QtWidgets': PyQt5.QtWidgets,
-    'PyQt5.QtCore': PyQt5.QtCore,
-    'PyQt5.QAxContainer': PyQt5.QAxContainer,
-    'PyQt5.QtGui': PyQt5.QtGui,
-})
+    class QWidget:
+        __module__ = 'PyQt5.QtWidgets'
+
+    class QObject:
+        __module__ = 'PyQt5.QtCore'
+
+    PyQt5 = MagicMock()
+    PyQt5.QtWidgets.QWidget = QWidget
+    PyQt5.QtCore.QObject = QObject
+    PyQt5.QAxContainer.QAxWidget = MagicMock()
+    PyQt5.QtGui.QDesktopServices = MagicMock()
+
+    sys.modules.update({
+        'PyQt5.QtWidgets': PyQt5.QtWidgets,
+        'PyQt5.QtCore': PyQt5.QtCore,
+        'PyQt5.QAxContainer': PyQt5.QAxContainer,
+        'PyQt5.QtGui': PyQt5.QtGui,
+    })
 
 # -- Import main package after mocking
 
