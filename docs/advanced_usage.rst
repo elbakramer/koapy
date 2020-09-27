@@ -19,11 +19,11 @@ KOAPY 에서는 그런 데이터 확보 프로세스를 쉽게 만들기 위해�
 .. literalinclude:: ../koapy/examples/dump_historical_data.py
     :language: python
 
-코드를 하나하나 설명하지 않아도 대략 어떤 작업을 할지 예상 가능하리라 생각합니다.
-작업에 대해 짧게 설명하자면 ``codes`` 배열에 있는 종목들에 대해서 과거 15분봉 데이터를 가져와서 ``datadir``, data 폴더 아래에 저장합니다.
+위의 코드가 수행하는 작업에 대해 짧게 설명하자면
+``codes`` 배열에 있는 종목들에 대해서 과거 15분봉 데이터를 가져와서 ``datadir``, 즉 data 폴더 아래에 저장합니다.
 
-해당 주요 작업 외에도 아래와 같은 다양한 부가기능들이 들어가 있지만
-이것들에 대해서는 하나하나 구체적으로 설명하진 않겠습니다.
+위에서 설명한 주요 작업 외에도 아래와 같은 다양한 부가기능들이 들어가 있지만
+이것들에 대해서 더 세부적으로 설명하진 않겠습니다.
 자세한 내용은 실제로 예시 코드를 돌려보고 어떻게 동작하는지 확인하시면서 체득하거나
 직접 :py:mod:`~.koapy.data.HistoricalStockPriceDataUpdater` 의 구현을 참고하시기 바랍니다.
 
@@ -44,17 +44,17 @@ KOAPY 에서는 그런 데이터 확보 프로세스를 쉽게 만들기 위해�
 
 현재는 대신증권 CybosPlus 만 구현이 되어 있습니다. (:py:class:`~.koapy.backend.cybos.CybosPlusComObject.CybosPlusComObject`)
 
-적어도 데이터 조회에 있어서는 키움증권의 OpenAPI+ 에 비해서 대신증권 CybosPlus 몇 가지 이점이 있다고 생각하는데, 그중 일부는 아래와 같습니다.
+적어도 데이터 조회에 있어서는 키움증권의 OpenAPI+ 에 비해서 대신증권 CybosPlus 몇 가지 이점이 있다고 생각하는데, 그 중 일부는 아래와 같습니다.
 
-* 데이터 조회 호출 횟수 제한량이 더 느슨한듯싶습니다.
+* 데이터 조회 호출 횟수 제한량이 더 느슨한 듯 싶습니다.
     * 대신증권 CybosPlus 는 15초에 60회 호출 제한입니다.
-    * 키움증권 OpenAPI+ 는 여러 제한조건들이 다중으로 적용되는데, 장기적으로 봤을 때 1시간에 1000회 제한으로 대략 4초에 1회 꼴입니다.
+    * 키움증권 OpenAPI+ 는 여러 제한 조건들이 다중으로 적용되는데, 장기적으로 봤을 때 1시간에 1000회 제한으로 대략 4초에 1회 꼴입니다.
 * 가져올 수 있는 데이터의 기간이 더 길어서 데이터의 양도 더 많고, 더 오래된 과거 데이터를 가져올 수 있습니다.
 * CybosPlus 를 실행해 로그인을 최초 수동으로 해놓으면 이후 매번 스크립트를 수행할 때마다 따로 로그인할 필요가 없습니다.
     * KOAPY 에서 제공하는 서버 같은 걸 별도로 띄울 필요가 없습니다.
 
-대신증권 CybosPlus 를 사용해 볼 수 있는 방법 중 하나는 파이썬을 스크립트를 실행하는 디렉토리 아래에
-아래와 같은 설정 파일을 ``koapy.conf`` 파일 이름으로 추가하는 겁니다.
+대신증권 CybosPlus 를 사용해 볼 수 있는 방법 중 하나는 파이썬을 스크립트를 실행하는 디렉토리 (CWD/PWD) 아래
+혹은 사용자 홈 폴더 아래에 다음과 같은 설정 파일을 ``koapy.conf`` 혹은 ``.koapy.conf`` 파일 이름으로 추가하는 겁니다.
 
 .. code-block:: hocon
 
@@ -62,8 +62,13 @@ KOAPY 에서는 그런 데이터 확보 프로세스를 쉽게 만들기 위해�
         koapy.data.updater.default_context = "koapy.backend.cybos.CybosPlusComObject.CybosPlusComObject"
     }
 
-참고로 당연하지만 CybosPlus 설치 및 실행/로그인이 되어있어야 하고,
+설정파일 예시는 `KOAPY 의 기본 설정파일`_ 을 참고하세요.
+설정파일의 포맷은 HOCON_ 포맷입니다.
+
+CybosPlus 백엔드를 사용하기 위해선 당연하지만 CybosPlus 설치 및 실행/로그인이 되어있어야 하며,
 파이썬 스크립트 수행은 32-Bit 환경에서 실행되어야 합니다.
-CybosPlus 도 32-Bit 에서만 지원하기 때문입니다.
+CybosPlus 도 현재로선 32-Bit 에서만 지원하기 때문입니다.
 
 .. _SQLite: https://www.sqlite.org/index.html
+.. _`KOAPY 의 기본 설정파일`: https://github.com/elbakramer/koapy/blob/master/koapy/config.conf
+.. _HOCON: https://github.com/chimpler/pyhocon
