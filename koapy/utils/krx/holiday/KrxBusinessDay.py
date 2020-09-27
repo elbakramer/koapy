@@ -2,8 +2,6 @@ import os
 import json
 import datetime
 
-from functools import wraps
-
 from pandas.tseries.holiday import Holiday, AbstractHolidayCalendar
 from pandas.tseries.offsets import CustomBusinessDay
 from pandas.tseries.offsets import Day
@@ -11,6 +9,8 @@ from pandas.tseries.offsets import Day
 from koapy.utils.krx.holiday.KoreanLunarCalendar import KoreanLunarCalendar
 from koapy.utils.krx.holiday.LunarHoliday import LunarHoliday
 from koapy.utils.krx.marketdata.holiday import download_holidays_as_dict
+
+from koapy.utils import recursion
 
 korean_holiday_rules = []
 
@@ -40,20 +40,10 @@ def is_holiday(dt):
             return True
     return False
 
-def prevent_infinite_recursion(func):
-    entry_count = 0
-    maximum_recursion = 3
-    @wraps(func)
-    def wrapper(arg, *args, **kwargs):
-        nonlocal entry_count
-        entry_count += 1
-        if entry_count > maximum_recursion:
-            return arg
-        return func(arg, *args, **kwargs)
-    return wrapper
-
-@prevent_infinite_recursion
 def alternate_holiday(dt):
+    depth = recursion.depth()
+    if depth > 2:
+        return dt
     original_dt = dt
     while is_sunday(dt) or is_saterday_and_childrens_day(dt) or (dt != original_dt and is_holiday(dt)):
         dt += datetime.timedelta(1)
@@ -120,7 +110,11 @@ def load_holidays():
             if dt not in holiday_datetimes:
                 name = holiday['holdy_nm']
                 new_holiday = Holiday(name, year=dt.year, month=dt.month, day=dt.day)
-                korean_holiday_rules.append(new_holiday)
+                for i, h in enumerate(holiday_datetimes):
+                    if h >= dt:
+                        holiday_datetimes.insert(i, dt)
+                        korean_holiday_rules.insert(i, new_holiday)
+                        break
 
 load_holidays()
 
