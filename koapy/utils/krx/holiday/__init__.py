@@ -5,7 +5,7 @@ from koapy.utils.krx.holiday.LunarHoliday import LunarHoliday
 from koapy.utils.krx.holiday.KrxBusinessDay import KrxBusinessDay, holiday_to_datetime
 from koapy.utils.krx.holiday.KrxBusinessDay import krx_holiday_rules
 
-from koapy.utils.krx.holiday.marketdata import *
+from koapy.utils.krx.marketdata.holiday import *
 
 def get_last_krx_datetime():
     """

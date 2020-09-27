@@ -10,7 +10,7 @@ from pandas.tseries.offsets import Day
 
 from koapy.utils.krx.holiday.KoreanLunarCalendar import KoreanLunarCalendar
 from koapy.utils.krx.holiday.LunarHoliday import LunarHoliday
-from koapy.utils.krx.holiday.marketdata import download_holidays_as_dict
+from koapy.utils.krx.marketdata.holiday import download_holidays_as_dict
 
 korean_holiday_rules = []
 

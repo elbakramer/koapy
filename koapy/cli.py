@@ -617,7 +617,7 @@ def holidays(output, offline, update, no_update, verbose):
     if output is None:
         import pandas as pd
         if not offline:
-            from koapy.utils.krx.holiday.marketdata import download_holidays_as_dict
+            from koapy.utils.krx.marketdata.holiday import download_holidays_as_dict
             response = download_holidays_as_dict()
             if not no_update:
                 from koapy.utils.krx.holiday.KrxBusinessDay import dump_holidays
@@ -644,7 +644,7 @@ def holidays(output, offline, update, no_update, verbose):
         click.echo(df.to_markdown())
     else:
         if not offline:
-            from koapy.utils.krx.holiday.marketdata import download_holidays_as_excel
+            from koapy.utils.krx.marketdata.holiday import download_holidays_as_excel
             if output and not output.endswith('.xls'):
                 output += '.xls'
             download_holidays_as_excel(output)
