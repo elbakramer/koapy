@@ -2,6 +2,28 @@ import re
 import datetime
 import requests
 
+from koapy.config import config
+
+from koapy.utils.krx.holiday.KrxBusinessDay import KrxBusinessDay
+
+def get_last_krx_datetime():
+    """
+    대학수학능력 시험일에 한시간씩 늦춰지는건 고려하지 않음
+    """
+    today = datetime.datetime.now()
+    last = today + KrxBusinessDay(0)
+    if last == today:
+        last_end = datetime.datetime.combine(last.date(), datetime.time(15, 30))
+        if last > last_end:
+            last = last_end
+    elif last > today:
+        last = today - KrxBusinessDay(1)
+        last_end = datetime.datetime.combine(last.date(), datetime.time(15, 30))
+        last = last_end
+    return last
+
+user_agent = config.get('koapy.utils.krx.user_agent')
+
 def get_holidays_as_dict():
     now = datetime.datetime.now()
     def generate_otp():
@@ -10,7 +32,7 @@ def get_holidays_as_dict():
             'Accept-Encoding': 'gzip, deflate',
             'Host': 'marketdata.krx.co.kr',
             'Referer': 'http://marketdata.krx.co.kr/mdi',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
+            'User-Agent': user_agent,
             'X-Requested-With': 'XMLHttpRequest',
         }
         params = {
@@ -28,7 +50,7 @@ def get_holidays_as_dict():
         'Host': 'marketdata.krx.co.kr',
         'Origin': 'http://marketdata.krx.co.kr',
         'Referer': 'http://marketdata.krx.co.kr/mdi',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
+        'User-Agent': user_agent,
         'X-Requested-With': 'XMLHttpRequest',
     }
     data = {
@@ -50,7 +72,7 @@ def download_holidays_as_excel(f=None):
             'Accept-Encoding': 'gzip, deflate',
             'Host': 'marketdata.krx.co.kr',
             'Referer': 'http://marketdata.krx.co.kr/mdi',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
+            'User-Agent': user_agent,
             'X-Requested-With': 'XMLHttpRequest',
         }
         params = {
@@ -74,7 +96,7 @@ def download_holidays_as_excel(f=None):
         'Origin': 'http://marketdata.krx.co.kr',
         'Referer': 'http://marketdata.krx.co.kr/mdi',
         'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
+        'User-Agent': user_agent,
     }
     data = {
         'code': code,
@@ -92,4 +114,6 @@ def download_holidays_as_excel(f=None):
         with open(filename, 'wb') as f:
             f.write(response.content)
     return response
-    
+
+if __name__ == '__main__':
+    print(get_last_krx_datetime())
