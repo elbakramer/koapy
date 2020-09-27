@@ -37,6 +37,7 @@ for config_folder in config_folder_candidates:
 config = current_directory_config.with_fallback(default_config)
 
 logging_config = config.get('koapy.utils.logging.config')
+load_logging_config = config.get('koapy.utils.logging.load_config')
 
-if logging_config:
+if logging_config and load_logging_config:
     logging.config.dictConfig(logging_config)

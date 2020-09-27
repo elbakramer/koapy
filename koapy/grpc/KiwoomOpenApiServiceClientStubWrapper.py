@@ -129,7 +129,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 self.OnEventConnect.disconnect(OnEventConnect)
             self.OnEventConnect.connect(OnEventConnect)
             errcode = KiwoomOpenApiError.try_or_raise(self.CommConnect())
-            errcode = q.get()
+            errcode = KiwoomOpenApiError.try_or_raise(q.get())
         return errcode
 
     def _EnsureConnectedUsingLoginCall(self):
@@ -203,13 +203,14 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             if now < now.replace(hour=15, minute=30):
                 start_date -= datetime.timedelta(days=1)
         date_format = '%Y%m%d'
+        date_column_name = '일자'
         if isinstance(start_date, datetime.datetime):
             start_date = start_date.strftime(date_format)
         if end_date is not None:
             if isinstance(end_date, datetime.datetime):
                 end_date = end_date.strftime(date_format)
             stop_condition = {
-                'name': '일자',
+                'name': date_column_name,
                 'value': end_date,
             }
         else:
@@ -231,17 +232,18 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 columns = list(response.listen_response.multi_data.names)
             for values in response.listen_response.multi_data.values:
                 records.append(values.values)
-            date_index = columns.index('일자')
-            if len(response.listen_response.multi_data.values) > 0:
-                from_date = response.listen_response.multi_data.values[0].values[date_index]
-                to_date = response.listen_response.multi_data.values[-1].values[date_index]
-                from_date = datetime.datetime.strptime(from_date, date_format)
-                to_date = datetime.datetime.strptime(to_date, date_format)
-                logging.debug('Received data from %s to %s for code %s', from_date, to_date, code)
+            if date_column_name in columns:
+                date_index = columns.index(date_column_name)
+                if len(response.listen_response.multi_data.values) > 0:
+                    from_date = response.listen_response.multi_data.values[0].values[date_index]
+                    to_date = response.listen_response.multi_data.values[-1].values[date_index]
+                    from_date = datetime.datetime.strptime(from_date, date_format)
+                    to_date = datetime.datetime.strptime(to_date, date_format)
+                    logging.debug('Received data from %s to %s for code %s', from_date, to_date, code)
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetMinuteStockDataAsDataFrame(self, code, interval=None, start_date=None, end_date=None, rqname=None, scrnno=None):
+    def GetMinuteStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, rqname=None, scrnno=None):
         """
         [수정주가구분] 1:유상증자, 2:무상증자, 4:배당락, 8:액면분할, 16:액면병합, 32:기업합병, 64:감자, 256:권리락
         """
@@ -255,13 +257,14 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             if now < now.replace(hour=15, minute=30):
                 start_date -= datetime.timedelta(days=1)
         date_format = '%Y%m%d%H%M%S'
+        date_column_name = '체결시간'
         if isinstance(start_date, datetime.datetime):
             start_date = start_date.strftime(date_format)
         if end_date is not None:
             if isinstance(end_date, datetime.datetime):
                 end_date = end_date.strftime(date_format)
             stop_condition = {
-                'name': '체결시간',
+                'name': date_column_name,
                 'value': end_date,
             }
         else:
@@ -283,13 +286,14 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 columns = list(response.listen_response.multi_data.names)
             for values in response.listen_response.multi_data.values:
                 records.append(values.values)
-            date_index = columns.index('체결시간')
-            if len(response.listen_response.multi_data.values) > 0:
-                from_date = response.listen_response.multi_data.values[0].values[date_index]
-                to_date = response.listen_response.multi_data.values[-1].values[date_index]
-                from_date = datetime.datetime.strptime(from_date, date_format)
-                to_date = datetime.datetime.strptime(to_date, date_format)
-                logging.debug('Received data from %s to %s for code %s', from_date, to_date, code)
+            if date_column_name in columns:
+                date_index = columns.index(date_column_name)
+                if len(response.listen_response.multi_data.values) > 0:
+                    from_date = response.listen_response.multi_data.values[0].values[date_index]
+                    to_date = response.listen_response.multi_data.values[-1].values[date_index]
+                    from_date = datetime.datetime.strptime(from_date, date_format)
+                    to_date = datetime.datetime.strptime(to_date, date_format)
+                    logging.debug('Received data from %s to %s for code %s', from_date, to_date, code)
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 

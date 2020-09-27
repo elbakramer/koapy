@@ -49,7 +49,7 @@ def serve(port, verbose, no_verbose, args):
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def login(port, verbose):
     set_verbosity(verbose)
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout) as context:
         state = context.GetConnectState()
         if state == 0:
@@ -72,7 +72,7 @@ def config():
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def autologin(port, verbose):
     set_verbosity(verbose)
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout) as context:
         context.EnsureConnected()
         context.ShowAccountWindow()
@@ -139,7 +139,7 @@ def stockcode(markets, port):
     if (markets) == (tuple()):
         fail_with_usage()
 
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
 
     if 'all' in markets:
         markets = market_codes
@@ -161,7 +161,7 @@ def stockcode(markets, port):
 @click.option('-c', '--code', 'codes', metavar='CODE', multiple=True, help='Stock code to get. Can set multiple times.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 def stockname(codes, port):
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout) as context:
         context.EnsureConnected()
@@ -238,7 +238,7 @@ def stockinfo(codes, markets, input, output, format, port, verbose):
         if os.path.isfile(input):
             if input.endswith('.xlsx'):
                 import pandas as pd
-                df = pd.read_excel(input, dtype='object')
+                df = pd.read_excel(input, dtype=str)
                 code_column = '종목코드'
                 if code_column in df:
                     codes = df[code_column]
@@ -274,7 +274,7 @@ def stockinfo(codes, markets, input, output, format, port, verbose):
 
     import pandas as pd
 
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
@@ -341,7 +341,7 @@ def daily(codes, input, output, start_date, end_date, port, verbose):
         if os.path.isfile(input):
             if input.endswith('.xlsx'):
                 import pandas as pd
-                df = pd.read_excel(input, dtype='object')
+                df = pd.read_excel(input, dtype=str)
                 code_column = '종목코드'
                 if code_column in df:
                     codes = df[code_column]
@@ -390,7 +390,7 @@ def daily(codes, input, output, start_date, end_date, port, verbose):
     import datetime
     import pandas as pd
 
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
@@ -398,15 +398,21 @@ def daily(codes, input, output, start_date, end_date, port, verbose):
         for i, code in enumerate(codes):
             logging.info('Starting to get stock data for code: %s (%d/%d)', code, i+1, codes_len)
             filepath = filepath_for_code(code)
+            appended = False
             if os.path.exists(filepath):
-                df = pd.read_excel(filepath, dtype='object')
-                last_date = df.loc[0, '일자']
-                last_date = datetime.datetime.strptime(last_date, '%Y%m%d')
-                logging.info('Found existing file %s, prepending from %s until %s', os.path.basename(filepath), start_date, last_date)
-                df = pd.concat([context.GetDailyStockDataAsDataFrame(code, start_date, last_date), df], sort=False)
-            else:
+                df = pd.read_excel(filepath, dtype=str)
+                if df.shape[0] > 0:
+                    last_date = df.loc[0, '일자']
+                    last_date = datetime.datetime.strptime(last_date, '%Y%m%d')
+                    logging.info('Found existing file %s, prepending from %s until %s', os.path.basename(filepath), start_date, last_date)
+                    df = pd.concat([context.GetDailyStockDataAsDataFrame(code, start_date, last_date), df], sort=False)
+                    tempfilepath = filepath + '.tmp'
+                    df.to_excel(tempfilepath, index=False)
+                    os.replace(tempfilepath, filepath)
+                    appended = True
+            if not appended:
                 df = context.GetDailyStockDataAsDataFrame(code, start_date, end_date)
-            df.to_excel(filepath, index=False)
+                df.to_excel(filepath, index=False)
             logging.info('Saved stock data for code %s to %s', code, filepath)
 
 minute_intervals = [
@@ -449,7 +455,7 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
         if os.path.isfile(input):
             if input.endswith('.xlsx'):
                 import pandas as pd
-                df = pd.read_excel(input, dtype='object')
+                df = pd.read_excel(input, dtype=str)
                 code_column = '종목코드'
                 if code_column in df:
                     codes = df[code_column]
@@ -498,7 +504,7 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
     import datetime
     import pandas as pd
 
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
@@ -506,15 +512,21 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
         for i, code in enumerate(codes):
             logging.info('Starting to get stock data for code: %s (%d/%d)', code, i+1, codes_len)
             filepath = filepath_for_code(code)
+            appended = False
             if os.path.exists(filepath):
-                df = pd.read_excel(filepath, dtype='object')
-                last_date = df.loc[0, '체결시간']
-                last_date = datetime.datetime.strptime(last_date, '%Y%m%d%H%M%S')
-                logging.info('Found existing file %s, prepending from %s until %s', os.path.basename(filepath), start_date, last_date)
-                df = pd.concat([context.GetMinuteStockDataAsDataFrame(code, interval, start_date, last_date), df], sort=False)
-            else:
+                df = pd.read_excel(filepath, dtype=str)
+                if df.shape[0] > 0:
+                    last_date = df.loc[0, '체결시간']
+                    last_date = datetime.datetime.strptime(last_date, '%Y%m%d%H%M%S')
+                    logging.info('Found existing file %s, prepending from %s until %s', os.path.basename(filepath), start_date, last_date)
+                    df = pd.concat([context.GetMinuteStockDataAsDataFrame(code, interval, start_date, last_date), df], sort=False)
+                    tempfilepath = filepath + '.tmp'
+                    df.to_excel(tempfilepath, index=False)
+                    os.replace(tempfilepath, filepath)
+                    appended = True
+            if not appended:
                 df = context.GetMinuteStockDataAsDataFrame(code, interval, start_date, end_date)
-            df.to_excel(filepath, index=False)
+                df.to_excel(filepath, index=False)
             logging.info('Saved stock data for code %s to %s', code, filepath)
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get TR info.')
@@ -631,7 +643,7 @@ def userinfo(port, verbose):
     set_verbosity(verbose)
 
     import pandas as pd
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
@@ -668,7 +680,7 @@ def deposit(account, port, verbose):
     if account is None:
         logging.info('Account not given. Using first account available.')
 
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
@@ -702,7 +714,7 @@ def evaluation(account, include_delisted, exclude_delisted, for_each, as_summary
     elif for_each:
         lookup_type = '2'
 
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
@@ -745,7 +757,7 @@ def orders(account, date, reverse, executed_only, not_executed_only, stock_only,
     if account is None:
         logging.info('Account not given. Using first account available.')
 
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
 
     sort_type = '1'
     if reverse:
@@ -778,7 +790,7 @@ def orders(account, date, reverse, executed_only, not_executed_only, stock_only,
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def modulepath(port, verbose):
     set_verbosity(verbose)
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         click.echo(context.GetAPIModulePath())
 
@@ -817,7 +829,7 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
         if os.path.isfile(input):
             if input.endswith('.xlsx'):
                 import pandas as pd
-                df = pd.read_excel(input, dtype='object')
+                df = pd.read_excel(input, dtype=str)
                 code_column = '종목코드'
                 if code_column in df:
                     codes = df[code_column]
@@ -847,7 +859,7 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
     import datetime
     import pandas as pd
 
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
     from koapy.openapi.RealType import RealType
 
     def parse_message(message):
@@ -946,7 +958,7 @@ def order(request_name, screen_no, account_no, order_type, code, quantity, price
 
     set_verbosity(verbose)
 
-    from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+    from koapy import KiwoomOpenApiContext
     from google.protobuf.json_format import MessageToDict
 
     if format == 'json':

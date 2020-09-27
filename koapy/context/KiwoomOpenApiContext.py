@@ -1,4 +1,5 @@
 import logging
+import threading
 import subprocess
 
 from koapy.grpc.KiwoomOpenApiServiceClient import KiwoomOpenApiServiceClient
@@ -36,12 +37,22 @@ class KiwoomOpenApiContext:
         else:
             logging.debug('Client is ready, using existing server')
             self._stub = self._client.get_stub()
+        self._lock = threading.RLock()
+        self._enter_count = 0
+
+    def __del__(self):
+        self.close()
 
     def __enter__(self):
-        return self
+        with self._lock:
+            self._enter_count += 1
+            return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        self.close()
+        with self._lock:
+            self._enter_count -= 1
+            if self._enter_count == 0:
+                self.close()
 
     def get_stub(self):
         return self._stub
