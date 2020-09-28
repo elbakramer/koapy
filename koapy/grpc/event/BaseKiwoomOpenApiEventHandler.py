@@ -8,6 +8,8 @@ from koapy.grpc.observer.QueueBasedIterableObserver import QueueBasedIterableObs
 from koapy.utils.notimplemented import isimplemented
 
 class BaseKiwoomOpenApiEventHandler(KiwoomOpenApiEventHandlerFunctions, ABC):
+    """
+    """
 
     def __init__(self, control):
         self._control = control

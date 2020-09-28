@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    = -vv
+SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
 SPHINXPROJ    = koapy
 SOURCEDIR     = .
@@ -12,10 +12,11 @@ BUILDDIR      = _build
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-# Remove apidoc generated files on clean
+# Remove apidoc/autoapi generated files on clean
 clean:
 	@$(SPHINXBUILD) -M clean "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 	@rm -f modules.rst koapy.rst koapy.*.rst
+	@rm -fr autoapi
 
 # https://docs.readthedocs.io/en/stable/guides/manage-translations.html
 intl:

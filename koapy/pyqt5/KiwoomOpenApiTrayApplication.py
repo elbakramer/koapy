@@ -82,6 +82,9 @@ class KiwoomOpenApiTrayApplication(QObject):
 
     def _checkAndWaitForMaintananceAndThen(self, callback=None, args=None, kwargs=None):
         """
+        """
+
+        """
         # 시스템 점검 안내
 
         안녕하세요. 키움증권 입니다.
@@ -92,6 +95,7 @@ class KiwoomOpenApiTrayApplication(QObject):
         따라서 해당 시간대에는 접속단절이 될 수 있습니다.
         참고하시기 바랍니다.
         """
+
         if args is None:
             args = ()
         if kwargs is None:

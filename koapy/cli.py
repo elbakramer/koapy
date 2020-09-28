@@ -7,6 +7,7 @@ import logging
 import click
 
 import koapy
+
 from koapy.utils.logging import set_verbosity
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -947,13 +948,16 @@ def order(request_name, screen_no, account_no, order_type, code, quantity, price
     """
     \b
     [주문유형]
-      1:신규매수, 2:신규매도 3:매수취소, 4:매도취소, 5:매수정정, 6:매도정정
+      1 : 신규매수
+      2 : 신규매도
+      3 : 매수취소
+      4 : 매도취소
+      5 : 매수정정
+      6 : 매도정정
 
     \b
     [거래구분]
       모의투자에서는 지정가 주문과 시장가 주문만 가능합니다.
-
-    \b
       00 : 지정가
       03 : 시장가
       05 : 조건부지정가

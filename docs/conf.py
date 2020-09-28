@@ -41,29 +41,48 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinx.ext.imgconverter',
     'sphinx.ext.todo',
+    'sphinx.ext.inheritance_diagram',
+    'autoapi.extension',
 ]
 
 autosummary_generate = True
+autosectionlabel_prefix_document = True
 
 # -- Apidoc hook setting ---
 # https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html
 
 from sphinx.ext import apidoc
-from docutils import nodes
 
 apidoc_exclude_patterns = [
     'examples/*.py',
 ]
 
 def run_apidoc(_):
-    apidoc.main(['-e', '--force', '--doc-project', 'Koapy', '-o', doc_dir, module_dir] + [os.path.join(module_dir, p) for p in apidoc_exclude_patterns])
+    args = ['-e', '--force', '--doc-project', 'Koapy', '-o', doc_dir, module_dir]
+    if apidoc_exclude_patterns:
+        args += [os.path.join(module_dir, p) for p in apidoc_exclude_patterns]
+    return apidoc.main(args)
+
+generate_apidoc = False
+
+# -- Autoapi setting ---
+# https://github.com/readthedocs/sphinx-autoapi
+# See also if interested, https://github.com/rdb/sphinx-autopackagesummary
+
+autoapi_type = 'python'
+autoapi_dirs = [module_dir]
+autoapi_keep_files = True
+
+# -- Missing reference ---
+
+from docutils import nodes
 
 missing_reference_uris = {
     'PyQt5.QtWidgets.QWidget': 'https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtwidgets/qwidget.html?highlight=qwidget',
     'PyQt5.QtCore.QObject': 'https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qobject.html?highlight=qobject',
 }
 
-def missing_reference(app, env, node, contnode):
+def missing_reference(_app, _env, node, contnode):
     target = node['reftarget']
     uri = missing_reference_uris.get(target)
     if uri:
@@ -72,18 +91,12 @@ def missing_reference(app, env, node, contnode):
         return newnode
     return None
 
+# -- Setup hook ---
+
 def setup(app):
     app.connect('missing-reference', missing_reference)
-    app.connect('builder-inited', run_apidoc)
-
-# -- Autoapi setting ---
-# https://github.com/readthedocs/sphinx-autoapi
-# See also if interested, https://github.com/rdb/sphinx-autopackagesummary
-
-extensions.append('autoapi.extension')
-
-autoapi_type = 'python'
-autoapi_dirs = [module_dir]
+    if generate_apidoc:
+        app.connect('builder-inited', run_apidoc)
 
 # -- Autodoc configuration ---
 
@@ -97,6 +110,7 @@ add_function_parentheses = False
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'PyQt5': ('https://www.riverbankcomputing.com/static/Docs/PyQt5/', None),
+    'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
 }
 
 # -- Autodoc mocking configuration ---

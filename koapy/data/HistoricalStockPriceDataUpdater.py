@@ -21,6 +21,8 @@ from koapy.config import config
 from koapy.utils.krx.holiday import get_last_krx_datetime
 
 class BaseHistoricalStockPriceDataUpdater(ABC):
+    """
+    """
 
     def __init__(self, codes, datadir, context=None, if_exists='auto', delete_remainings=True):
         self._codes = codes

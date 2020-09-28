@@ -3,6 +3,8 @@ from abc import ABC
 from koapy.utils.notimplemented import notimplemented
 
 class KiwoomOpenApiEventHandlerFunctions(ABC):
+    """
+    """
 
     @notimplemented
     def OnEventConnect(self, errcode):

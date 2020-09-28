@@ -9,10 +9,10 @@ Welcome to KOAPY's documentation!
    installation
    usage
    advanced_usage
-   modules
    contributing
    authors
    history
+   autoapi/index
 
 Indices and tables
 ==================

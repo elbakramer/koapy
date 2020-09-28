@@ -23,7 +23,7 @@ def disable_autologin():
     if os.path.exists(autologin_dat):
         os.remove(autologin_dat)
 
-def do_semi_auto_login(login_window):
+def login_semiauto(login_window):
     login_config = config.get('koapy.backend.kiwoom.login')
 
     userid = login_config.get('id')
@@ -63,7 +63,7 @@ def do_semi_auto_login(login_window):
 
         login_window['Button1'].click()
 
-def do_version_update():
+def update_version():
     desktop = pywinauto.Desktop(allow_magic_lookup=False)
 
     login_window = desktop.window(title='Open API Login')
@@ -73,7 +73,7 @@ def do_version_update():
     control = KiwoomOpenApiQAxWidget()
     control.CommConnect()
 
-    do_semi_auto_login(login_window)
+    login_semiauto(login_window)
 
     try:
         version_window.wait('ready', 20)
@@ -92,7 +92,7 @@ def enable_autologin():
     control = KiwoomOpenApiQAxWidget()
     control.CommConnect()
 
-    do_semi_auto_login(login_window)
+    login_semiauto(login_window)
 
     try:
         login_window.wait_not('visible', 20)
@@ -130,7 +130,7 @@ def enable_autologin():
 
 def main():
     disable_autologin()
-    do_version_update()
+    update_version()
     enable_autologin()
 
 if __name__ == '__main__':

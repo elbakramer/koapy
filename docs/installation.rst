@@ -68,7 +68,7 @@ Kiwoom Open API
 
 키움증권의 계좌개설 및 HTS ID 연결까지는 진행되어 있는 것을 가정합니다.
 
-`키움 OpenAPI+`_ 페이지를 방문해서 사용절차의 Step 1 부터 Step 4 까지 순서대로 따라가시면 됩니다.
+이후 `키움 OpenAPI+`_ 페이지를 방문해서 사용절차의 Step 1 부터 Step 4 까지 순서대로 따라 진행합니다.
 물론 Step 3 의 "OCX 탑재 프로그램 제작" 은 이후 KOAPY 를 활용해서 제작할 수 있는 부분이니
 당장은 제공되는 자료들을 참고만 하는 수준이면 됩니다.
 
@@ -164,7 +164,7 @@ KOAPY
 
     $ pip install koapy
 
-맨 위의 :ref:`Stable release` 의 내용과 동일한 내용입니다.
+맨 위의 :ref:`installation:Stable release` 의 내용과 동일한 내용입니다.
 
 OpenAPI 와의 통신을 위해서 32-Bit 환경에는 필수로 설치되어야 합니다.
 OpenAPI 의 OCX 라이브러리가 32-Bit 환경만 지원하기 때문입니다.
