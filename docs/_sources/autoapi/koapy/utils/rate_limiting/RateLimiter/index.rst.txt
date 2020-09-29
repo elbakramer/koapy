@@ -1,0 +1,72 @@
+:mod:`koapy.utils.rate_limiting.RateLimiter`
+============================================
+
+.. py:module:: koapy.utils.rate_limiting.RateLimiter
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.utils.rate_limiting.RateLimiter.SimpleRateLimiter
+   koapy.utils.rate_limiting.RateLimiter.TimeWindowRateLimiter
+   koapy.utils.rate_limiting.RateLimiter.CompositeTimeWindowRateLimiter
+   koapy.utils.rate_limiting.RateLimiter.KiwoomRateLimiter
+   koapy.utils.rate_limiting.RateLimiter.CybosRateLimiter
+
+
+
+.. py:class:: SimpleRateLimiter(period, calls)
+
+   .. method:: period_remaining(self)
+
+
+   .. method:: __call__(self, func)
+
+
+
+.. py:class:: TimeWindowRateLimiter(period, calls)
+
+   .. method:: period_remaining(self)
+
+
+   .. method:: add_call(self)
+
+
+   .. method:: __call__(self, func)
+
+
+
+.. py:class:: CompositeTimeWindowRateLimiter(limiters)
+
+   .. method:: period_remaining(self)
+
+
+   .. method:: add_call(self)
+
+
+   .. method:: __call__(self, func)
+
+
+
+.. py:class:: KiwoomRateLimiter
+
+   Bases: :class:`koapy.utils.rate_limiting.RateLimiter.CompositeTimeWindowRateLimiter`
+
+   [조회횟수 제한 관련 가이드]
+   - 1초당 5회 조회를 1번 발생시킨 경우 : 17초대기
+   - 1초당 5회 조회를 5연속 발생시킨 경우 : 90초대기
+   - 1초당 5회 조회를 10연속 발생시킨 경우 : 3분(180초)대기
+
+
+.. py:class:: CybosRateLimiter
+
+   Bases: :class:`koapy.utils.rate_limiting.RateLimiter.SimpleRateLimiter`
+
+   15초당 60회
+
+

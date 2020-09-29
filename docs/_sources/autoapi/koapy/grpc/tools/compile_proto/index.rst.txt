@@ -1,0 +1,21 @@
+:mod:`koapy.grpc.tools.compile_proto`
+=====================================
+
+.. py:module:: koapy.grpc.tools.compile_proto
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   koapy.grpc.tools.compile_proto.compile_proto
+
+
+.. function:: compile_proto()
+
+

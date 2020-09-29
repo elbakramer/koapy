@@ -1,0 +1,14 @@
+:mod:`koapy.examples.transaction_event`
+=======================================
+
+.. py:module:: koapy.examples.transaction_event
+
+
+Module Contents
+---------------
+
+.. data:: code
+   :annotation: = 005930
+
+   
+

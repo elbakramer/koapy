@@ -1,0 +1,61 @@
+:mod:`koapy.utils.logging.TqdmStream`
+=====================================
+
+.. py:module:: koapy.utils.logging.TqdmStream
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.utils.logging.TqdmStream.TqdmStream
+
+
+
+.. py:class:: TqdmStream(file=None)
+
+   Bases: :class:`io.RawIOBase`
+
+   Base class for raw binary I/O.
+
+   .. method:: __getattr__(self, name)
+
+
+   .. method:: fileno(self)
+
+      Returns underlying file descriptor if one exists.
+
+      OSError is raised if the IO object does not use a file descriptor.
+
+
+   .. method:: seek(self, offset, whence=io.SEEK_SET)
+
+      Change stream position.
+
+      Change the stream position to the given byte offset. The offset is
+      interpreted relative to the position indicated by whence.  Values
+      for whence are:
+
+      * 0 -- start of stream (the default); offset should be zero or positive
+      * 1 -- current stream position; offset may be negative
+      * 2 -- end of stream; offset is usually negative
+
+      Return the new absolute position.
+
+
+   .. method:: truncate(self)
+
+      Truncate file to size bytes.
+
+      File pointer is left unchanged.  Size defaults to the current IO
+      position as reported by tell().  Returns the new size.
+
+
+   .. method:: write(self, b)
+
+
+

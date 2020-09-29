@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>koapy.openapi.ScreenManager &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../../koapy.html">koapy</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.openapi.ScreenManager</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+
+<div class="viewcode-block" id="ScreenManager"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager">[docs]</a><span class="k">class</span> <span class="nc">ScreenManager</span><span class="p">:</span>
+
+<div class="viewcode-block" id="ScreenManager._maximum_num"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager._maximum_num">[docs]</a>    <span class="n">_maximum_num</span> <span class="o">=</span> <span class="mi">200</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control</span> <span class="o">=</span> <span class="n">control</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_screen_nos</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_maximum_num</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="ScreenManager._number_to_screen_no"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager._number_to_screen_no">[docs]</a>    <span class="k">def</span> <span class="nf">_number_to_screen_no</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="ScreenManager._screen_no_to_number"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager._screen_no_to_number">[docs]</a>    <span class="k">def</span> <span class="nf">_screen_no_to_number</span><span class="p">(</span><span class="n">screen_no</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">screen_no</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ScreenManager.is_inuse"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager.is_inuse">[docs]</a>    <span class="k">def</span> <span class="nf">is_inuse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">screen_no</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_number_to_screen_no</span><span class="p">(</span><span class="n">screen_no</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_screen_nos</span></div>
+
+<div class="viewcode-block" id="ScreenManager.ensure_not_using"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager.ensure_not_using">[docs]</a>    <span class="k">def</span> <span class="nf">ensure_not_using</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">screen_no</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_inuse</span><span class="p">(</span><span class="n">screen_no</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+        <span class="k">return</span> <span class="n">screen_no</span></div>
+
+<div class="viewcode-block" id="ScreenManager.ensure_not_using_or_get"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager.ensure_not_using_or_get">[docs]</a>    <span class="k">def</span> <span class="nf">ensure_not_using_or_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">screen_no</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_single_free_screen</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ensure_not_using</span><span class="p">(</span><span class="n">screen_no</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">screen_no</span></div>
+
+<div class="viewcode-block" id="ScreenManager.get_single_free_screen"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager.get_single_free_screen">[docs]</a>    <span class="k">def</span> <span class="nf">get_single_free_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">exclude</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">exclude</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_screen_no_to_number</span><span class="p">(</span><span class="n">scrnno</span><span class="p">)</span> <span class="k">for</span> <span class="n">scrnno</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">]</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_occupied_screen_nos</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maximum_num</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Requesting free screen, but already using maximum number of screens.&#39;</span><span class="p">)</span>
+            <span class="n">screen_no</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_screen_nos</span> <span class="ow">and</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">])</span>
+            <span class="n">screen_no</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_number_to_screen_no</span><span class="p">(</span><span class="n">screen_no</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">screen_no</span></div>
+
+<div class="viewcode-block" id="ScreenManager.get_multiple_free_screens"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager.get_multiple_free_screens">[docs]</a>    <span class="k">def</span> <span class="nf">get_multiple_free_screens</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
+        <span class="n">screens</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+            <span class="n">screens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_single_free_screen</span><span class="p">(),</span> <span class="n">screens</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">screens</span></div>
+
+<div class="viewcode-block" id="ScreenManager.get_free_screen"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager.get_free_screen">[docs]</a>    <span class="k">def</span> <span class="nf">get_free_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_single_free_screen</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_multiple_free_screens</span><span class="p">(</span><span class="n">count</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ScreenManager.borrow_screen"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager.borrow_screen">[docs]</a>    <span class="k">def</span> <span class="nf">borrow_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_occupied_screen_nos</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maximum_num</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Borrowing a screen, but already using maximum number of screens.&#39;</span><span class="p">)</span>
+                <span class="n">oldest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_screen_nos</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Oldest screen </span><span class="si">%s</span><span class="s1"> popped.&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_number_to_screen_no</span><span class="p">(</span><span class="n">oldest</span><span class="p">))</span>
+            <span class="n">screen_no</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_not_using_or_get</span><span class="p">(</span><span class="n">screen_no</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_screen_nos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_screen_no_to_number</span><span class="p">(</span><span class="n">screen_no</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_occupied_screen_nos</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maximum_num</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Maximum number of screens reached.&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">screen_no</span></div>
+
+<div class="viewcode-block" id="ScreenManager.return_screen"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/ScreenManager/index.html#koapy.openapi.ScreenManager.ScreenManager.return_screen">[docs]</a>    <span class="k">def</span> <span class="nf">return_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_screen_nos</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_screen_no_to_number</span><span class="p">(</span><span class="n">screen_no</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Returned screen </span><span class="si">%s</span><span class="s1">, but not found.&#39;</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

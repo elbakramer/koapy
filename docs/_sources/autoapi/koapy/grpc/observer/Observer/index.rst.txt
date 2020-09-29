@@ -1,0 +1,36 @@
+:mod:`koapy.grpc.observer.Observer`
+===================================
+
+.. py:module:: koapy.grpc.observer.Observer
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.grpc.observer.Observer.Observer
+
+
+
+.. py:class:: Observer
+
+   Bases: :class:`abc.ABC`
+
+   
+   .. method:: on_next(self, value)
+      :abstractmethod:
+
+
+   .. method:: on_error(self, error)
+      :abstractmethod:
+
+
+   .. method:: on_completed(self)
+      :abstractmethod:
+
+
+

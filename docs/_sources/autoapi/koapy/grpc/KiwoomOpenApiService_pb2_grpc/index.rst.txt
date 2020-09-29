@@ -1,0 +1,156 @@
+:mod:`koapy.grpc.KiwoomOpenApiService_pb2_grpc`
+===============================================
+
+.. py:module:: koapy.grpc.KiwoomOpenApiService_pb2_grpc
+
+.. autoapi-nested-parse::
+
+   Client and server classes corresponding to protobuf-defined services.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.grpc.KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiServiceStub
+   koapy.grpc.KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiServiceServicer
+   koapy.grpc.KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiService
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   koapy.grpc.KiwoomOpenApiService_pb2_grpc.add_KiwoomOpenApiServiceServicer_to_server
+
+
+.. py:class:: KiwoomOpenApiServiceStub(channel)
+
+   Bases: :class:`object`
+
+   Missing associated documentation comment in .proto file.
+
+
+.. py:class:: KiwoomOpenApiServiceServicer
+
+   Bases: :class:`object`
+
+   Missing associated documentation comment in .proto file.
+
+   .. method:: Call(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. method:: Listen(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. method:: StopListen(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. method:: BidirectionalListen(self, request_iterator, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. method:: CustomListen(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. method:: CustomCallAndListen(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. method:: LoginCall(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. method:: TransactionCall(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. method:: OrderCall(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. method:: RealCall(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. method:: SetLogLevel(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+
+.. function:: add_KiwoomOpenApiServiceServicer_to_server(servicer, server)
+
+
+.. py:class:: KiwoomOpenApiService
+
+   Bases: :class:`object`
+
+   Missing associated documentation comment in .proto file.
+
+   .. method:: Call(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. method:: Listen(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. method:: StopListen(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. method:: BidirectionalListen(request_iterator, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. method:: CustomListen(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. method:: CustomCallAndListen(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. method:: LoginCall(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. method:: TransactionCall(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. method:: OrderCall(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. method:: RealCall(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. method:: SetLogLevel(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+

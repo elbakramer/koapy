@@ -1,0 +1,6 @@
+:mod:`koapy.tools.version_update.__main__`
+==========================================
+
+.. py:module:: koapy.tools.version_update.__main__
+
+

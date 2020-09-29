@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>koapy.openapi.RealType &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../../koapy.html">koapy</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.openapi.RealType</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">koapy.utils.serialization</span> <span class="kn">import</span> <span class="n">JsonSerializable</span>
+
+<div class="viewcode-block" id="RealType"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType">[docs]</a><span class="k">class</span> <span class="nc">RealType</span><span class="p">(</span><span class="n">JsonSerializable</span><span class="p">):</span>
+
+<div class="viewcode-block" id="RealType.Fid"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.Fid">[docs]</a>    <span class="k">class</span> <span class="nc">Fid</span><span class="p">(</span><span class="n">JsonSerializable</span><span class="p">):</span>
+
+<div class="viewcode-block" id="RealType.Fid.__outer_class__"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.Fid.__outer_class__">[docs]</a>        <span class="n">__outer_class__</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="RealType.Fid._FID_DUMP_FILENAME"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.Fid._FID_DUMP_FILENAME">[docs]</a>        <span class="n">_FID_DUMP_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;fid.xlsx&#39;</span></div>
+<div class="viewcode-block" id="RealType.Fid._NAME_BY_FID"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.Fid._NAME_BY_FID">[docs]</a>        <span class="n">_NAME_BY_FID</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+<div class="viewcode-block" id="RealType.Fid.__repr__"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.Fid.__repr__">[docs]</a>        <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">(</span><span class="si">%r</span><span class="s1">, </span><span class="si">%r</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__outer_class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fid</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+        <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RealType.Fid.name_by_fid_from_dump_file"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.Fid.name_by_fid_from_dump_file">[docs]</a>        <span class="k">def</span> <span class="nf">name_by_fid_from_dump_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dump_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">dump_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">dump_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FID_DUMP_FILENAME</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span>
+            <span class="n">fids</span> <span class="o">=</span> <span class="p">[</span><span class="bp">cls</span><span class="p">(</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;fid&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])]</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="n">fid</span><span class="o">.</span><span class="n">fid</span><span class="p">:</span> <span class="n">fid</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">fids</span><span class="p">}</span>
+            <span class="k">return</span> <span class="n">result</span></div>
+
+        <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RealType.Fid.load_from_dump_file"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.Fid.load_from_dump_file">[docs]</a>        <span class="k">def</span> <span class="nf">load_from_dump_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dump_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_NAME_BY_FID</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">name_by_fid_from_dump_file</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span></div>
+
+        <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RealType.Fid.get_name_by_fid"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.Fid.get_name_by_fid">[docs]</a>        <span class="k">def</span> <span class="nf">get_name_by_fid</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fid</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">fid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_NAME_BY_FID</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="RealType._REALTYPE_BY_DESC_DUMP_FILENAME"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType._REALTYPE_BY_DESC_DUMP_FILENAME">[docs]</a>    <span class="n">_REALTYPE_BY_DESC_DUMP_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;realtype_by_desc.json&#39;</span></div>
+<div class="viewcode-block" id="RealType._REALTYPE_BY_DESC"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType._REALTYPE_BY_DESC">[docs]</a>    <span class="n">_REALTYPE_BY_DESC</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gidc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nfid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fids</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gidc</span> <span class="o">=</span> <span class="n">gidc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="n">desc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nfid</span> <span class="o">=</span> <span class="n">nfid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fids</span> <span class="o">=</span> <span class="n">fids</span>
+
+<div class="viewcode-block" id="RealType.__repr__"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">(</span><span class="si">%r</span><span class="s1">, </span><span class="si">%r</span><span class="s1">, </span><span class="si">%r</span><span class="s1">, </span><span class="si">%r</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gidc</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">desc</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nfid</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fids</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RealType.get_fids_by_realtype"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.get_fids_by_realtype">[docs]</a>    <span class="k">def</span> <span class="nf">get_fids_by_realtype</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">realtype</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_REALTYPE_BY_DESC</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">realtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">fids</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RealType.get_fids_by_realtype_as_string"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.get_fids_by_realtype_as_string">[docs]</a>    <span class="k">def</span> <span class="nf">get_fids_by_realtype_as_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">realtype</span><span class="p">):</span>
+        <span class="n">fids</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_fids_by_realtype</span><span class="p">(</span><span class="n">realtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fids</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">fids</span><span class="p">]</span>
+            <span class="n">fids</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fids</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fids</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RealType.get_field_names_by_realtype"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.get_field_names_by_realtype">[docs]</a>    <span class="k">def</span> <span class="nf">get_field_names_by_realtype</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">realtype</span><span class="p">):</span>
+        <span class="n">fids</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_fids_by_realtype</span><span class="p">(</span><span class="n">realtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fids</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">Fid</span><span class="o">.</span><span class="n">get_name_by_fid</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fid</span><span class="p">))</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">fids</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">names</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RealType.realtypes_from_datfile"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.realtypes_from_datfile">[docs]</a>    <span class="k">def</span> <span class="nf">realtypes_from_datfile</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;euc-kr&#39;</span><span class="p">):</span>
+        <span class="n">gidc_width</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">desc_width</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="n">nfid_width</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">fid_width</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\OpenAPI\data\nkrealtime.dat&#39;</span>
+        <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">f</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">lines</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;;&#39;</span><span class="p">),</span> <span class="n">lines</span><span class="p">)</span>
+            <span class="n">realtypes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="n">gidc</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="n">gidc_width</span><span class="p">]</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">gidc_width</span><span class="p">:]</span>
+                <span class="n">gidc</span> <span class="o">=</span> <span class="n">gidc</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">desc</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="n">desc_width</span><span class="p">]</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">desc_width</span><span class="p">:]</span>
+                <span class="n">desc</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">nfid</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="n">nfid_width</span><span class="p">]</span>
+                <span class="n">nfid</span> <span class="o">=</span> <span class="n">nfid</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">nfid_width</span><span class="p">:]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nfid</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">nfid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nfid</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">nfid</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">fids</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nfid</span><span class="p">):</span>
+                    <span class="n">fid</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="n">fid_width</span><span class="p">]</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">fid_width</span><span class="p">:]</span>
+                    <span class="n">fid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+                    <span class="n">fids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;^M &#39;</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span>
+                <span class="n">realtypes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="p">(</span><span class="n">gidc</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">nfid</span><span class="p">,</span> <span class="n">fids</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">realtypes</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RealType.realtype_by_desc_from_datfile"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.realtype_by_desc_from_datfile">[docs]</a>    <span class="k">def</span> <span class="nf">realtype_by_desc_from_datfile</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">realtypes</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">realtypes_from_datfile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="n">realtype</span><span class="o">.</span><span class="n">desc</span><span class="p">:</span><span class="n">realtype</span> <span class="k">for</span> <span class="n">realtype</span> <span class="ow">in</span> <span class="n">realtypes</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RealType.dump_realtype_by_desc"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.dump_realtype_by_desc">[docs]</a>    <span class="k">def</span> <span class="nf">dump_realtype_by_desc</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dump_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dump_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">dump_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_REALTYPE_BY_DESC_DUMP_FILENAME</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">dump_file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">realtype_by_desc_from_datfile</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">tr_code</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">tr_code</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">tr_code</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">dump_file</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RealType.realtype_by_desc_from_dump_file"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.realtype_by_desc_from_dump_file">[docs]</a>    <span class="k">def</span> <span class="nf">realtype_by_desc_from_dump_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dump_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dump_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">dump_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_REALTYPE_BY_DESC_DUMP_FILENAME</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span><span class="o">.</span><span class="n">st_size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">dump_file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">))</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+                    <span class="n">result</span><span class="p">[</span><span class="n">desc</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">desc</span><span class="p">])</span>
+                <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="p">{}</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RealType.load_from_dump_file"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.RealType.load_from_dump_file">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_dump_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dump_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_REALTYPE_BY_DESC</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">realtype_by_desc_from_dump_file</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">Fid</span><span class="o">.</span><span class="n">load_from_dump_file</span><span class="p">()</span></div></div>
+
+<div class="viewcode-block" id="__outer_class__"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.__outer_class__">[docs]</a><span class="n">RealType</span><span class="o">.</span><span class="n">Fid</span><span class="o">.</span><span class="n">__outer_class__</span> <span class="o">=</span> <span class="n">RealType</span></div>
+
+<span class="n">RealType</span><span class="o">.</span><span class="n">load_from_dump_file</span><span class="p">()</span>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../autoapi/koapy/openapi/RealType/index.html#koapy.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">RealType</span><span class="o">.</span><span class="n">dump_realtype_by_desc</span><span class="p">()</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,16 @@
+:mod:`koapy.grpc.observer`
+==========================
+
+.. py:module:: koapy.grpc.observer
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   Observer/index.rst
+   QueueBasedIterableObserver/index.rst
+
+

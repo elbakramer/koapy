@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>koapy.pyqt5.KiwoomOpenApiTrayApplication &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../../koapy.html">koapy</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.pyqt5.KiwoomOpenApiTrayApplication</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">signal</span>
+<span class="kn">import</span> <span class="nn">contextlib</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QSystemTrayIcon</span><span class="p">,</span> <span class="n">QMenu</span><span class="p">,</span> <span class="n">QStyle</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QTimer</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">QUrl</span><span class="p">,</span> <span class="n">pyqtSignal</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="n">QDesktopServices</span>
+
+<span class="kn">from</span> <span class="nn">koapy.grpc.KiwoomOpenApiServiceServer</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiServiceServer</span>
+<span class="kn">from</span> <span class="nn">koapy.openapi.KiwoomOpenApiError</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiError</span>
+<span class="kn">from</span> <span class="nn">koapy.pyqt5.KiwoomOpenApiQAxWidget</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiQAxWidget</span>
+
+<span class="kn">from</span> <span class="nn">koapy.utils.logging</span> <span class="kn">import</span> <span class="n">set_verbosity</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiTrayApplication</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._should_restart"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._should_restart">[docs]</a>    <span class="n">_should_restart</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._should_restart_exit_code"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._should_restart_exit_code">[docs]</a>    <span class="n">_should_restart_exit_code</span> <span class="o">=</span> <span class="mi">1</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--port&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parsed_args</span><span class="p">,</span> <span class="n">remaining_args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parsed_args</span><span class="o">.</span><span class="n">port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parsed_args</span><span class="o">.</span><span class="n">verbose</span>
+
+        <span class="n">set_verbosity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">remaining_args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control</span> <span class="o">=</span> <span class="n">KiwoomOpenApiQAxWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">KiwoomOpenApiServiceServer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_should_restart</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_exit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startRestartNotifier</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startEventLoopProcessor</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tray</span> <span class="o">=</span> <span class="n">QSystemTrayIcon</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tray</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_activate</span><span class="p">)</span>
+
+        <span class="n">icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">standardIcon</span><span class="p">(</span><span class="n">QStyle</span><span class="o">.</span><span class="n">SP_TitleBarMenuButton</span><span class="p">)</span>
+
+        <span class="n">menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">()</span>
+        <span class="n">menu</span><span class="o">.</span><span class="n">addSection</span><span class="p">(</span><span class="s1">&#39;Connection&#39;</span><span class="p">)</span>
+        <span class="n">connectAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Login and Connect&#39;</span><span class="p">)</span>
+        <span class="n">connectAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">)</span>
+        <span class="n">autoLoginAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Congifure Auto Login&#39;</span><span class="p">)</span>
+        <span class="n">autoLoginAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_configureAutoLogin</span><span class="p">)</span>
+        <span class="n">menu</span><span class="o">.</span><span class="n">addSection</span><span class="p">(</span><span class="s1">&#39;Status&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connectionStatusAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Status: Disconnected&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connectionStatusAction</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_serverStatusAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Server: Unknown&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_serverStatusAction</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">menu</span><span class="o">.</span><span class="n">addSection</span><span class="p">(</span><span class="s1">&#39;Links&#39;</span><span class="p">)</span>
+        <span class="n">documentationAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Documentation&#39;</span><span class="p">)</span>
+        <span class="n">documentationAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_openReadthedocs</span><span class="p">)</span>
+        <span class="n">githubAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Github&#39;</span><span class="p">)</span>
+        <span class="n">githubAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_openGithub</span><span class="p">)</span>
+        <span class="n">openApiAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Kiwoom OpenAPI+ Home&#39;</span><span class="p">)</span>
+        <span class="n">openApiAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_openOpenApiHome</span><span class="p">)</span>
+        <span class="n">qnaAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Kiwoom OpenAPI+ Qna&#39;</span><span class="p">)</span>
+        <span class="n">qnaAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_openOpenApiQna</span><span class="p">)</span>
+        <span class="n">menu</span><span class="o">.</span><span class="n">addSection</span><span class="p">(</span><span class="s1">&#39;Exit&#39;</span><span class="p">)</span>
+        <span class="n">exitAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Exit&#39;</span><span class="p">)</span>
+        <span class="n">exitAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_exit</span><span class="p">)</span>
+
+        <span class="n">tooltip</span> <span class="o">=</span> <span class="s1">&#39;KOAPY Tray Application&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tray</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tray</span><span class="o">.</span><span class="n">setContextMenu</span><span class="p">(</span><span class="n">menu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tray</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tray</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_OnEventConnect</span><span class="p">)</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._checkAndWaitForMaintananceAndThen"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._checkAndWaitForMaintananceAndThen">[docs]</a>    <span class="k">def</span> <span class="nf">_checkAndWaitForMaintananceAndThen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        # 시스템 점검 안내</span>
+
+<span class="sd">        안녕하세요. 키움증권 입니다.</span>
+<span class="sd">        시스템의 안정적인 운영을 위하여</span>
+<span class="sd">        매일 시스템 점검을 하고 있습니다.</span>
+<span class="sd">        점검시간은 월~토요일 (05:05 ~ 05:10)</span>
+<span class="sd">                  일요일    (04:00 ~ 04:30) 까지 입니다.</span>
+<span class="sd">        따라서 해당 시간대에는 접속단절이 될 수 있습니다.</span>
+<span class="sd">        참고하시기 바랍니다.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">()</span>
+        <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">now</span><span class="o">.</span><span class="n">weekday</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="n">maintanance_start_time</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">maintanance_end_time</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">maintanance_start_time</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">maintanance_end_time</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">maintanance_start_time</span> <span class="o">&lt;</span> <span class="n">now</span> <span class="o">&lt;</span> <span class="n">maintanance_end_time</span><span class="p">:</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">maintanance_end_time</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Connection lost due to maintanance, waiting until </span><span class="si">%s</span><span class="s1"> (then will try to reconnect)&#39;</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+            <span class="n">timediff</span> <span class="o">=</span> <span class="n">target</span> <span class="o">-</span> <span class="n">now</span>
+            <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">callable</span><span class="p">(</span><span class="n">callback</span><span class="p">):</span>
+                <span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="n">timediff</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">callback</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._OnEventConnect"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._OnEventConnect">[docs]</a>    <span class="k">def</span> <span class="nf">_OnEventConnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errcode</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">errcode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Connected to server&#39;</span><span class="p">)</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_connectionStatusAction</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Status: Connected&#39;</span><span class="p">)</span>
+                <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">GetServerGubun</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">server</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_serverStatusAction</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Server: Simulation&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_serverStatusAction</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Server: Real&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Unexpected case&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">errcode</span> <span class="o">==</span> <span class="n">KiwoomOpenApiError</span><span class="o">.</span><span class="n">OP_ERR_SOCKET_CLOSED</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Socket closed&#39;</span><span class="p">)</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_connectionStatusAction</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Status: Disconnected&#39;</span><span class="p">)</span>
+            <span class="k">def</span> <span class="nf">callback</span><span class="p">():</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Trying to reconnect&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ensureConnectedAndThen</span><span class="p">()</span> <span class="c1"># 재연결 시도</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_checkAndWaitForMaintananceAndThen</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">errcode</span> <span class="o">==</span> <span class="n">KiwoomOpenApiError</span><span class="o">.</span><span class="n">OP_ERR_CONNECT</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Failed to connect&#39;</span><span class="p">)</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_connectionStatusAction</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Status: Disconnected&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._activate"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._activate">[docs]</a>    <span class="k">def</span> <span class="nf">_activate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">reason</span> <span class="o">==</span> <span class="n">QSystemTrayIcon</span><span class="o">.</span><span class="n">DoubleClick</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">showNormal</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">activateWindow</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._ensureConnectedAndThen"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._ensureConnectedAndThen">[docs]</a>    <span class="k">def</span> <span class="nf">_ensureConnectedAndThen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">()</span>
+        <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">callback</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Function is not callable&#39;</span><span class="p">)</span>
+                <span class="n">callback</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">callback</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Function is not callable&#39;</span><span class="p">)</span>
+                <span class="k">def</span> <span class="nf">callbackAndDisconnect</span><span class="p">(</span><span class="n">errcode</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callbackAndDisconnect</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">errcode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">callback</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">callbackAndDisconnect</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">CommConnect</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._connect"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._connect">[docs]</a>    <span class="k">def</span> <span class="nf">_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensureConnectedAndThen</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._showAccountWindow"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._showAccountWindow">[docs]</a>    <span class="k">def</span> <span class="nf">_showAccountWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">ShowAccountWindow</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._configureAutoLogin"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._configureAutoLogin">[docs]</a>    <span class="k">def</span> <span class="nf">_configureAutoLogin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensureConnectedAndThen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_showAccountWindow</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._openOpenApiHome"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._openOpenApiHome">[docs]</a>    <span class="k">def</span> <span class="nf">_openOpenApiHome</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">openApiHomeUrl</span> <span class="o">=</span> <span class="s2">&quot;https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">QUrl</span><span class="p">(</span><span class="n">openApiHomeUrl</span><span class="p">)</span>
+        <span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._openOpenApiQna"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._openOpenApiQna">[docs]</a>    <span class="k">def</span> <span class="nf">_openOpenApiQna</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">openApiQnaUrl</span> <span class="o">=</span> <span class="s2">&quot;https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">QUrl</span><span class="p">(</span><span class="n">openApiQnaUrl</span><span class="p">)</span>
+        <span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._openGithub"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._openGithub">[docs]</a>    <span class="k">def</span> <span class="nf">_openGithub</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">githubUrl</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/elbakramer/koapy&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">QUrl</span><span class="p">(</span><span class="n">githubUrl</span><span class="p">)</span>
+        <span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._openReadthedocs"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._openReadthedocs">[docs]</a>    <span class="k">def</span> <span class="nf">_openReadthedocs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">docUrl</span> <span class="o">=</span> <span class="s2">&quot;https://koapy.readthedocs.io/en/latest/&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">QUrl</span><span class="p">(</span><span class="n">docUrl</span><span class="p">)</span>
+        <span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._onInterrupt"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._onInterrupt">[docs]</a>    <span class="k">def</span> <span class="nf">_onInterrupt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signum</span><span class="p">,</span> <span class="n">_frame</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="n">signum</span> <span class="o">+</span> <span class="mi">100</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._exec"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._exec">[docs]</a>    <span class="k">def</span> <span class="nf">_exec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
+            <span class="n">orig_handler</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_onInterrupt</span><span class="p">)</span>
+            <span class="n">stack</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">orig_handler</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Starting app&#39;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Starting server&#39;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Error: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Started server&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._exit"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._exit">[docs]</a>    <span class="k">def</span> <span class="nf">_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_code</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Exiting app&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Stopping server&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Waiting for server to stop&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">wait_for_termination</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Stopped server&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Quitting app&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">return_code</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Quitted app&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._nextRestartTime"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._nextRestartTime">[docs]</a>    <span class="k">def</span> <span class="nf">_nextRestartTime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">now</span> <span class="o">&gt;=</span> <span class="n">target</span><span class="p">:</span>
+            <span class="n">target</span> <span class="o">+=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">target</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._startRestartNotifier"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._startRestartNotifier">[docs]</a>    <span class="k">def</span> <span class="nf">_startRestartNotifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">notify_and_wait_for_next</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_should_restart</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_should_restart_exit_code</span><span class="p">)</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">next_restart_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nextRestartTime</span><span class="p">()</span>
+            <span class="n">timediff</span> <span class="o">=</span> <span class="n">next_restart_time</span> <span class="o">-</span> <span class="n">now</span>
+            <span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">((</span><span class="n">timediff</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">notify_and_wait_for_next</span><span class="p">)</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">next_restart_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nextRestartTime</span><span class="p">()</span>
+        <span class="n">timediff</span> <span class="o">=</span> <span class="n">next_restart_time</span> <span class="o">-</span> <span class="n">now</span>
+        <span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">((</span><span class="n">timediff</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">notify_and_wait_for_next</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._startEventLoopProcessor"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._startEventLoopProcessor">[docs]</a>    <span class="k">def</span> <span class="nf">_startEventLoopProcessor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">interval</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">1000</span>
+        <span class="k">def</span> <span class="nf">process_and_wait</span><span class="p">():</span>
+            <span class="n">QApplication</span><span class="o">.</span><span class="n">processEvents</span><span class="p">()</span>
+            <span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="n">interval</span><span class="p">,</span> <span class="n">process_and_wait</span><span class="p">)</span>
+        <span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="n">interval</span><span class="p">,</span> <span class="n">process_and_wait</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication._exitForRestart"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication._exitForRestart">[docs]</a>    <span class="k">def</span> <span class="nf">_exitForRestart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_should_restart_exit_code</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication.__getattr__"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication.__getattr__">[docs]</a>    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication.control"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication.control">[docs]</a>    <span class="k">def</span> <span class="nf">control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication.get_control"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication.get_control">[docs]</a>    <span class="k">def</span> <span class="nf">get_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication.exec_"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication.exec_">[docs]</a>    <span class="k">def</span> <span class="nf">exec_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exec</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication.exit"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication.exit">[docs]</a>    <span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_code</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="n">return_code</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication.execAndExit"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication.execAndExit">[docs]</a>    <span class="k">def</span> <span class="nf">execAndExit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exec</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">code</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication.execAndExitWithAutomaticRestart"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication.execAndExitWithAutomaticRestart">[docs]</a>    <span class="k">def</span> <span class="nf">execAndExitWithAutomaticRestart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">should_restart</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">while</span> <span class="n">should_restart</span><span class="p">:</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exec</span><span class="p">()</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;App exitted with return code: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+            <span class="n">should_restart</span> <span class="o">=</span> <span class="n">code</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_restart_exit_code</span>
+            <span class="k">if</span> <span class="n">should_restart</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Exitted app for restart&#39;</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Restarting app&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">code</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiTrayApplication.main"><a class="viewcode-back" href="../../../autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.KiwoomOpenApiTrayApplication.main">[docs]</a>    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="n">app</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">execAndExitWithAutomaticRestart</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

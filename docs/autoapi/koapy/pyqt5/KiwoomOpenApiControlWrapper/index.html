@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>koapy.pyqt5.KiwoomOpenApiControlWrapper &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="koapy.pyqt5.KiwoomOpenApiDynamicCallable" href="../KiwoomOpenApiDynamicCallable/index.html" />
+    <link rel="prev" title="koapy.pyqt5.tools.start_tray_application" href="../tools/start_tray_application/index.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">API Reference</a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.pyqt5</span></code></a><ul>
+      <li>Previous: <a href="../tools/start_tray_application/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.pyqt5.tools.start_tray_application</span></code></a></li>
+      <li>Next: <a href="../KiwoomOpenApiDynamicCallable/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.pyqt5.KiwoomOpenApiDynamicCallable</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.pyqt5.KiwoomOpenApiControlWrapper">
+<span id="koapy-pyqt5-kiwoomopenapicontrolwrapper"></span><h1><a class="reference internal" href="#module-koapy.pyqt5.KiwoomOpenApiControlWrapper" title="koapy.pyqt5.KiwoomOpenApiControlWrapper"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.pyqt5.KiwoomOpenApiControlWrapper</span></code></a><a class="headerlink" href="#module-koapy.pyqt5.KiwoomOpenApiControlWrapper" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper" title="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiControlCommonWrapper</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlWrapper" title="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlWrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiControlWrapper</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.pyqt5.KiwoomOpenApiControlWrapper.</code><code class="sig-name descname">KiwoomOpenApiControlCommonWrapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">control</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.__getattr__">
+<code class="sig-name descname">__getattr__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.__getattr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.__getattr__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetServerGubun">
+<code class="sig-name descname">GetServerGubun</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.GetServerGubun"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetServerGubun" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.ShowAccountWindow">
+<code class="sig-name descname">ShowAccountWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.ShowAccountWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.ShowAccountWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetCodeListByMarketAsList">
+<code class="sig-name descname">GetCodeListByMarketAsList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">market</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.GetCodeListByMarketAsList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetCodeListByMarketAsList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetNameListByMarketAsList">
+<code class="sig-name descname">GetNameListByMarketAsList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">market</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.GetNameListByMarketAsList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetNameListByMarketAsList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetAccountList">
+<code class="sig-name descname">GetAccountList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.GetAccountList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetAccountList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetMasterStockStateAsList">
+<code class="sig-name descname">GetMasterStockStateAsList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.GetMasterStockStateAsList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetMasterStockStateAsList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetKospiCodeList">
+<code class="sig-name descname">GetKospiCodeList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_preferred_stocks</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_reits</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.GetKospiCodeList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetKospiCodeList" title="Permalink to this definition">¶</a></dt>
+<dd><p>[시장구분값]
+0 : 장내
+10 : 코스닥
+3 : ELW
+8 : ETF
+50 : KONEX
+4 : 뮤추얼펀드
+5 : 신주인수권
+6 : 리츠
+9 : 하이얼펀드
+30 : K-OTC</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetKosdaqCodeList">
+<code class="sig-name descname">GetKosdaqCodeList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.GetKosdaqCodeList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetKosdaqCodeList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetCommonCodeList">
+<code class="sig-name descname">GetCommonCodeList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.GetCommonCodeList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.GetCommonCodeList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.IsSuspended">
+<code class="sig-name descname">IsSuspended</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.IsSuspended"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.IsSuspended" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.IsInSupervision">
+<code class="sig-name descname">IsInSupervision</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.IsInSupervision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.IsInSupervision" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.IsInSurveillance">
+<code class="sig-name descname">IsInSurveillance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper.IsInSurveillance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper.IsInSurveillance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper._RemoveLeadingZerosForNumber">
+<code class="sig-name descname">_RemoveLeadingZerosForNumber</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper._RemoveLeadingZerosForNumber"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper._RemoveLeadingZerosForNumber" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper._RemoveLeadingZerosForNumbersInValues">
+<code class="sig-name descname">_RemoveLeadingZerosForNumbersInValues</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">values</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlCommonWrapper._RemoveLeadingZerosForNumbersInValues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper._RemoveLeadingZerosForNumbersInValues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlWrapper">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.pyqt5.KiwoomOpenApiControlWrapper.</code><code class="sig-name descname">KiwoomOpenApiControlWrapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">control</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlWrapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper" title="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlCommonWrapper</span></code></a></p>
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlWrapper.EnsureConnected">
+<code class="sig-name descname">EnsureConnected</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlWrapper.EnsureConnected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlWrapper.EnsureConnected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlWrapper.RateLimitedCommRqData">
+<code class="sig-name descname">RateLimitedCommRqData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">rqname</span></em>, <em class="sig-param"><span class="n">trcode</span></em>, <em class="sig-param"><span class="n">prevnext</span></em>, <em class="sig-param"><span class="n">scrnno</span></em>, <em class="sig-param"><span class="n">inputs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/pyqt5/KiwoomOpenApiControlWrapper.html#KiwoomOpenApiControlWrapper.RateLimitedCommRqData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.pyqt5.KiwoomOpenApiControlWrapper.KiwoomOpenApiControlWrapper.RateLimitedCommRqData" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>[OpenAPI 게시판]</dt><dd><p><a class="reference external" href="https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do">https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do</a></p>
+</dd>
+<dt>[조회횟수 제한 관련 가이드]</dt><dd><ul class="simple">
+<li><p>1초당 5회 조회를 1번 발생시킨 경우 : 17초대기</p></li>
+<li><p>1초당 5회 조회를 5연속 발생시킨 경우 : 90초대기</p></li>
+<li><p>1초당 5회 조회를 10연속 발생시킨 경우 : 3분(180초)대기</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../_sources/autoapi/koapy/pyqt5/KiwoomOpenApiControlWrapper/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

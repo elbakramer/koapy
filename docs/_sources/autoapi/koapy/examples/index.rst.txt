@@ -1,0 +1,20 @@
+:mod:`koapy.examples`
+=====================
+
+.. py:module:: koapy.examples
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   dump_historical_data/index.rst
+   lower_access/index.rst
+   main_scenario/index.rst
+   roll_your_own/index.rst
+   roll_your_own_event/index.rst
+   transaction_event/index.rst
+
+

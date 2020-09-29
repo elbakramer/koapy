@@ -1,0 +1,209 @@
+:mod:`koapy.utils.krx.holiday.KrxBusinessDay`
+=============================================
+
+.. py:module:: koapy.utils.krx.holiday.KrxBusinessDay
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.utils.krx.holiday.KrxBusinessDay.KoreanHolidayCalendar
+   koapy.utils.krx.holiday.KrxBusinessDay.KrxHolidayCalendar
+   koapy.utils.krx.holiday.KrxBusinessDay.KoreanBusinessDay
+   koapy.utils.krx.holiday.KrxBusinessDay.KrxBusinessDay
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   koapy.utils.krx.holiday.KrxBusinessDay.is_sunday
+   koapy.utils.krx.holiday.KrxBusinessDay.is_saterday_and_childrens_day
+   koapy.utils.krx.holiday.KrxBusinessDay.holiday_to_datetime
+   koapy.utils.krx.holiday.KrxBusinessDay.is_holiday
+   koapy.utils.krx.holiday.KrxBusinessDay.alternate_holiday
+   koapy.utils.krx.holiday.KrxBusinessDay.dump_holidays
+   koapy.utils.krx.holiday.KrxBusinessDay.load_holidays
+
+
+.. data:: korean_holiday_rules
+   :annotation: = []
+
+   
+
+.. function:: is_sunday(dt)
+
+
+.. function:: is_saterday_and_childrens_day(dt)
+
+
+.. function:: holiday_to_datetime(rule, reference_dt=None)
+
+
+.. function:: is_holiday(dt)
+
+
+.. function:: alternate_holiday(dt)
+
+
+.. data:: NewYearsDay
+   
+
+   
+
+.. data:: KoreanNewYearsDayBefore
+   
+
+   
+
+.. data:: KoreanNewYearsDay
+   
+
+   
+
+.. data:: KoreanNewYearsDayAfter
+   
+
+   
+
+.. data:: IndependenceMovementDay
+   
+
+   
+
+.. data:: BuddhasBirthday
+   
+
+   
+
+.. data:: LoborDay
+   
+
+   
+
+.. data:: ChildrensDay
+   
+
+   
+
+.. data:: MemorialDay
+   
+
+   
+
+.. data:: NationalLiberationDay
+   
+
+   
+
+.. data:: KoreanThanksgivingDayBefore
+   
+
+   
+
+.. data:: KoreanThanksgivingDay
+   
+
+   
+
+.. data:: KoreanThanksgivingDayAfter
+   
+
+   
+
+.. data:: KoreanNationalFoundationDay
+   
+
+   
+
+.. data:: HangulProclamationDay
+   
+
+   
+
+.. data:: Christmas
+   
+
+   
+
+.. data:: YearEndHoliday
+   
+
+   
+
+.. data:: file_directory
+   
+
+   
+
+.. data:: dumpfile_directory
+   
+
+   
+
+.. data:: dumpfile_name
+   :annotation: = holiday.json
+
+   
+
+.. data:: dumpfile_path
+   
+
+   
+
+.. function:: dump_holidays(dump=None)
+
+
+.. function:: load_holidays()
+
+
+.. data:: krx_holiday_rules
+   
+
+   
+
+.. py:class:: KoreanHolidayCalendar(name=None, rules=None)
+
+   Bases: :class:`pandas.tseries.holiday.AbstractHolidayCalendar`
+
+   별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
+   - 선거일은 반영되지 않음
+   - 임시공휴일은 반영되지 않음
+
+   .. attribute:: rules
+      
+
+      
+
+
+.. py:class:: KrxHolidayCalendar(name=None, rules=None)
+
+   Bases: :class:`koapy.utils.krx.holiday.KrxBusinessDay.KoreanHolidayCalendar`
+
+   별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
+   - 선거일은 반영되지 않음
+   - 임시공휴일은 반영되지 않음
+
+   .. attribute:: rules
+      
+
+      
+
+
+.. py:class:: KoreanBusinessDay(*args, **kwargs)
+
+   Bases: :class:`pandas.tseries.offsets.CustomBusinessDay`
+
+
+.. py:class:: KrxBusinessDay(*args, **kwargs)
+
+   Bases: :class:`pandas.tseries.offsets.CustomBusinessDay`
+
+

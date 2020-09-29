@@ -1,0 +1,50 @@
+:mod:`koapy.pyqt5.KiwoomOpenApiQAxWidget`
+=========================================
+
+.. py:module:: koapy.pyqt5.KiwoomOpenApiQAxWidget
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget
+
+
+
+.. py:class:: KiwoomOpenApiQAxWidget(*args, **kwargs)
+
+   Bases: :class:`PyQt5.QtWidgets.QWidget`
+
+   .. attribute:: CLSID
+      :annotation: = {A1574A0D-6BFA-4BD7-9020-DED88711818D}
+
+      
+
+   .. attribute:: PROGID
+      :annotation: = KHOPENAPI.KHOpenApiCtrl.1
+
+      
+
+   .. attribute:: CONTROL_NAME_KWARG_KEY
+      :annotation: = c
+
+      
+
+   .. method:: _onException(self, code, source, desc, help)
+
+
+   .. method:: __getattr__(self, name)
+
+
+   .. method:: changeEvent(self, event)
+
+
+   .. method:: closeEvent(self, event)
+
+
+

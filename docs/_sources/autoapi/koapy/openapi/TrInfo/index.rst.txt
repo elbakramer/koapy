@@ -1,0 +1,117 @@
+:mod:`koapy.openapi.TrInfo`
+===========================
+
+.. py:module:: koapy.openapi.TrInfo
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.openapi.TrInfo.TrInfo
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   koapy.openapi.TrInfo.main
+   koapy.openapi.TrInfo.infer_fids_by_tr_outputs
+
+
+.. py:class:: TrInfo(tr_code=None, name=None, tr_name=None, tr_names_svr=None, tr_type=None, gfid=None, inputs=None, single_outputs_name=None, single_outputs=None, multi_outputs_name=None, multi_outputs=None)
+
+   Bases: :class:`koapy.utils.serialization.JsonSerializable`
+
+   .. py:class:: Field(name=None, start=None, offset=None, fid=None)
+
+      Bases: :class:`koapy.utils.serialization.JsonSerializable`
+
+      .. attribute:: __outer_class__
+         
+
+         
+
+      .. method:: __repr__(self)
+
+         Return repr(self).
+
+
+
+   .. attribute:: _TRINFO_BY_CODE_DUMP_FILENAME
+      :annotation: = trinfo_by_code.json
+
+      
+
+   .. attribute:: _TRINFO_BY_CODE
+      
+
+      
+
+   .. method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. method:: to_dict(self)
+
+
+   .. method:: from_dict(cls, dic)
+      :classmethod:
+
+
+   .. method:: get_input_names(self)
+
+
+   .. method:: get_single_output_names(self)
+
+
+   .. method:: get_multi_output_names(self)
+
+
+   .. method:: get_trinfo_by_code(cls, trcode)
+      :classmethod:
+
+
+   .. method:: from_encfile(cls, f, tr_code='')
+      :classmethod:
+
+
+   .. method:: infos_from_data_dir(cls, data_dir=None, encoding='euc-kr')
+      :classmethod:
+
+
+   .. method:: trinfo_by_code_from_data_dir(cls, data_dir=None)
+      :classmethod:
+
+
+   .. method:: dump_trinfo_by_code(cls, dump_file=None)
+      :classmethod:
+
+
+   .. method:: trinfo_by_code_from_dump_file(cls, dump_file=None)
+      :classmethod:
+
+
+   .. method:: load_from_dump_file(cls, dump_file=None)
+      :classmethod:
+
+
+
+.. data:: __outer_class__
+   
+
+   
+
+.. function:: main()
+
+
+.. function:: infer_fids_by_tr_outputs()
+
+

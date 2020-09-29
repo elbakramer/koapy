@@ -1,0 +1,43 @@
+:mod:`koapy.pyqt5.KiwoomOpenApiDynamicCallable`
+===============================================
+
+.. py:module:: koapy.pyqt5.KiwoomOpenApiDynamicCallable
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.pyqt5.KiwoomOpenApiDynamicCallable.KiwoomOpenApiDynamicCallable
+
+
+
+.. py:class:: KiwoomOpenApiDynamicCallable(control, name)
+
+   .. attribute:: _void_method_names
+      :annotation: = ['SetInputValue', 'DisconnectRealData', 'SetRealRemove', 'SetCondition', 'SetConditionStop']
+
+      
+
+   .. method:: _getInputParameterType(cls, param)
+      :classmethod:
+
+
+   .. method:: _createDynamicCallFunction(cls, name, args)
+      :classmethod:
+
+
+   .. method:: _staticCall(self, *args, **kwargs)
+
+
+   .. method:: _dynamicCall(self, *args, **kwargs)
+
+
+   .. method:: __call__(self, *args, **kwargs)
+
+
+

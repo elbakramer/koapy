@@ -1,0 +1,49 @@
+:mod:`koapy.utils.krx.holiday`
+==============================
+
+.. py:module:: koapy.utils.krx.holiday
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   KoreanLunarCalendar/index.rst
+   KrxBusinessDay/index.rst
+   LunarHoliday/index.rst
+
+
+Package Contents
+----------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   koapy.utils.krx.holiday.get_last_krx_datetime
+   koapy.utils.krx.holiday.get_last_krx_date
+   koapy.utils.krx.holiday.get_holidays
+   koapy.utils.krx.holiday.get_holidays_as_dict
+
+
+.. function:: get_last_krx_datetime()
+
+   별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
+   - 선거일은 반영되지 않음
+   - 임시공휴일은 반영되지 않음
+   - 대학수학능력 시험일에 한시간씩 늦춰지는건 고려하지 않음
+
+
+.. function:: get_last_krx_date()
+
+
+.. function:: get_holidays()
+
+
+.. function:: get_holidays_as_dict()
+
+

@@ -1,0 +1,15 @@
+:mod:`koapy.data`
+=================
+
+.. py:module:: koapy.data
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   HistoricalStockPriceDataUpdater/index.rst
+
+

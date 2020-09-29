@@ -1,0 +1,15 @@
+:mod:`koapy.pyqt5.tools`
+========================
+
+.. py:module:: koapy.pyqt5.tools
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   start_tray_application/index.rst
+
+

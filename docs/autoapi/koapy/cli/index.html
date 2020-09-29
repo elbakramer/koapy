@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>koapy.cli &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="koapy.config" href="../config/index.html" />
+    <link rel="prev" title="koapy.utils.threading" href="../utils/threading/index.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">API Reference</a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+      <li>Previous: <a href="../utils/threading/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.threading</span></code></a></li>
+      <li>Next: <a href="../config/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.config</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.cli">
+<span id="koapy-cli"></span><h1><a class="reference internal" href="#module-koapy.cli" title="koapy.cli"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli</span></code></a><a class="headerlink" href="#module-koapy.cli" title="Permalink to this headline">¶</a></h1>
+<p>Console script for koapy.</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.fail_with_usage" title="koapy.cli.fail_with_usage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fail_with_usage</span></code></a>(message=None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.cli" title="koapy.cli.cli"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cli</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.serve" title="koapy.cli.serve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">serve</span></code></a>(port, verbose, no_verbose, args)</p></td>
+<td><p>ARGS are passed to QApplication.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.login" title="koapy.cli.login"><code class="xref py py-obj docutils literal notranslate"><span class="pre">login</span></code></a>(port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.config" title="koapy.cli.config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.autologin" title="koapy.cli.autologin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autologin</span></code></a>(port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.update" title="koapy.cli.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.trdata" title="koapy.cli.trdata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trdata</span></code></a>(verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.realdata" title="koapy.cli.realdata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">realdata</span></code></a>(verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.get" title="koapy.cli.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.stockcode" title="koapy.cli.stockcode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stockcode</span></code></a>(markets, port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.stockname" title="koapy.cli.stockname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stockname</span></code></a>(codes, port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.stockinfo" title="koapy.cli.stockinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stockinfo</span></code></a>(codes, markets, input, output, format, port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.daily" title="koapy.cli.daily"><code class="xref py py-obj docutils literal notranslate"><span class="pre">daily</span></code></a>(codes, input, output, start_date, end_date, port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.minute" title="koapy.cli.minute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minute</span></code></a>(codes, interval, input, output, start_date, end_date, port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.trinfo" title="koapy.cli.trinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trinfo</span></code></a>(trcodes)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.realinfo" title="koapy.cli.realinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">realinfo</span></code></a>(realtypes)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.holidays" title="koapy.cli.holidays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">holidays</span></code></a>(output, offline, update, no_update, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.userinfo" title="koapy.cli.userinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">userinfo</span></code></a>(port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.deposit" title="koapy.cli.deposit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deposit</span></code></a>(account, port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.evaluation" title="koapy.cli.evaluation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluation</span></code></a>(account, include_delisted, exclude_delisted, for_each, as_summary, port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.orders" title="koapy.cli.orders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">orders</span></code></a>(account, date, reverse, executed_only, not_executed_only, stock_only, bond_only, sell_only, buy_only, code, starting_order_no, port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.modulepath" title="koapy.cli.modulepath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modulepath</span></code></a>(port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.errmsg" title="koapy.cli.errmsg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">errmsg</span></code></a>(err_code, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.watch" title="koapy.cli.watch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">watch</span></code></a>(codes, input, fids, realtype, output, format, port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.order" title="koapy.cli.order"><code class="xref py py-obj docutils literal notranslate"><span class="pre">order</span></code></a>(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no, format, port, verbose)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="koapy.cli.CONTEXT_SETTINGS">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">CONTEXT_SETTINGS</code><a class="reference internal" href="../../../_modules/koapy/cli.html#CONTEXT_SETTINGS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.CONTEXT_SETTINGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.cli.client_check_timeout">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">client_check_timeout</code><em class="property"> = 3</em><a class="reference internal" href="../../../_modules/koapy/cli.html#client_check_timeout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.client_check_timeout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.fail_with_usage">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">fail_with_usage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#fail_with_usage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.fail_with_usage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.cli">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">cli</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#cli"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.cli" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.serve">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">serve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em>, <em class="sig-param"><span class="n">no_verbose</span></em>, <em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#serve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.serve" title="Permalink to this definition">¶</a></dt>
+<dd><p>ARGS are passed to QApplication.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.login">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">login</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.login" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.config">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.autologin">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">autologin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#autologin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.autologin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.update">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.trdata">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">trdata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#trdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.trdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.realdata">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">realdata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#realdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.realdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.get">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.cli.market_codes">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">market_codes</code><em class="property"> = ['0', '10', '3', '8', '50', '4', '5', '6', '9', '30', 'all']</em><a class="reference internal" href="../../../_modules/koapy/cli.html#market_codes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.market_codes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.stockcode">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">stockcode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">markets</span></em>, <em class="sig-param"><span class="n">port</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#stockcode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.stockcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>
+Possible market codes are:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<span class="docutils literal">C:\Users\NXZT\Documents\git\koapy\docs\autoapi\koapy\cli\index.rst</span>, line 100)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<div><p>0 : 장내
+10 : 코스닥
+3 : ELW
+8 : ETF
+50 : KONEX
+4 : 뮤추얼펀드
+5 : 신주인수권
+6 : 리츠
+9 : 하이얼펀드
+30 : K-OTC</p>
+</div></blockquote>
+<p>
+Possible market code aliases are:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<span class="docutils literal">C:\Users\NXZT\Documents\git\koapy\docs\autoapi\koapy\cli\index.rst</span>, line 113)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<div><p>all: All possible market codes.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.stockname">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">stockname</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">port</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#stockname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.stockname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.stockinfo">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">stockinfo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">markets</span></em>, <em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">format</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#stockinfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.stockinfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>
+Possible market codes are:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<span class="docutils literal">C:\Users\NXZT\Documents\git\koapy\docs\autoapi\koapy\cli\index.rst</span>, line 123)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<div><p>0 : 장내
+10 : 코스닥
+3 : ELW
+8 : ETF
+50 : KONEX
+4 : 뮤추얼펀드
+5 : 신주인수권
+6 : 리츠
+9 : 하이얼펀드
+30 : K-OTC</p>
+</div></blockquote>
+<p>
+Possible market code aliases are:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<span class="docutils literal">C:\Users\NXZT\Documents\git\koapy\docs\autoapi\koapy\cli\index.rst</span>, line 136)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<div><p>all: All possible market codes.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.daily">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">daily</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">start_date</span></em>, <em class="sig-param"><span class="n">end_date</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#daily"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.daily" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.cli.minute_intervals">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">minute_intervals</code><em class="property"> = ['1', '3', '5', '10', '15', '30', '45', '60']</em><a class="reference internal" href="../../../_modules/koapy/cli.html#minute_intervals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.minute_intervals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.minute">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">minute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">start_date</span></em>, <em class="sig-param"><span class="n">end_date</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#minute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.minute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.trinfo">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">trinfo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trcodes</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#trinfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.trinfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.realinfo">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">realinfo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">realtypes</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#realinfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.realinfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.holidays">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">holidays</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">offline</span></em>, <em class="sig-param"><span class="n">update</span></em>, <em class="sig-param"><span class="n">no_update</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#holidays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.holidays" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.userinfo">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">userinfo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#userinfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.userinfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.deposit">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">deposit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">account</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#deposit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.deposit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.evaluation">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">evaluation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">account</span></em>, <em class="sig-param"><span class="n">include_delisted</span></em>, <em class="sig-param"><span class="n">exclude_delisted</span></em>, <em class="sig-param"><span class="n">for_each</span></em>, <em class="sig-param"><span class="n">as_summary</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#evaluation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.evaluation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.orders">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">orders</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">account</span></em>, <em class="sig-param"><span class="n">date</span></em>, <em class="sig-param"><span class="n">reverse</span></em>, <em class="sig-param"><span class="n">executed_only</span></em>, <em class="sig-param"><span class="n">not_executed_only</span></em>, <em class="sig-param"><span class="n">stock_only</span></em>, <em class="sig-param"><span class="n">bond_only</span></em>, <em class="sig-param"><span class="n">sell_only</span></em>, <em class="sig-param"><span class="n">buy_only</span></em>, <em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">starting_order_no</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#orders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.orders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.modulepath">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">modulepath</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#modulepath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.modulepath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.errmsg">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">errmsg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">err_code</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#errmsg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.errmsg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.watch">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">watch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">fids</span></em>, <em class="sig-param"><span class="n">realtype</span></em>, <em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">format</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#watch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.watch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.cli.order_types">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">order_types</code><em class="property"> = ['1', '2', '3', '4', '5', '6']</em><a class="reference internal" href="../../../_modules/koapy/cli.html#order_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.order_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.cli.quote_types">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">quote_types</code><em class="property"> = ['00', '03', '05', '06', '07', '10', '13', '16', '20', '23', '26', '61', '62', '81']</em><a class="reference internal" href="../../../_modules/koapy/cli.html#quote_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.quote_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.cli.order">
+<code class="sig-prename descclassname">koapy.cli.</code><code class="sig-name descname">order</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request_name</span></em>, <em class="sig-param"><span class="n">screen_no</span></em>, <em class="sig-param"><span class="n">account_no</span></em>, <em class="sig-param"><span class="n">order_type</span></em>, <em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">quantity</span></em>, <em class="sig-param"><span class="n">price</span></em>, <em class="sig-param"><span class="n">quote_type</span></em>, <em class="sig-param"><span class="n">original_order_no</span></em>, <em class="sig-param"><span class="n">format</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/cli.html#order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.cli.order" title="Permalink to this definition">¶</a></dt>
+<dd><p>
+[주문유형]</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<span class="docutils literal">C:\Users\NXZT\Documents\git\koapy\docs\autoapi\koapy\cli\index.rst</span>, line 194)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<div><p>1 : 신규매수
+2 : 신규매도
+3 : 매수취소
+4 : 매도취소
+5 : 매수정정
+6 : 매도정정</p>
+</div></blockquote>
+<p>
+[거래구분]</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<span class="docutils literal">C:\Users\NXZT\Documents\git\koapy\docs\autoapi\koapy\cli\index.rst</span>, line 203)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<div><p>모의투자에서는 지정가 주문과 시장가 주문만 가능합니다.
+00 : 지정가
+03 : 시장가
+05 : 조건부지정가
+06 : 최유리지정가
+07 : 최우선지정가
+10 : 지정가IOC
+13 : 시장가IOC
+16 : 최유리IOC
+20 : 지정가FOK
+23 : 시장가FOK
+26 : 최유리FOK
+61 : 장전시간외종가
+62 : 시간외단일가매매
+81 : 장후시간외종가</p>
+</div></blockquote>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/autoapi/koapy/cli/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

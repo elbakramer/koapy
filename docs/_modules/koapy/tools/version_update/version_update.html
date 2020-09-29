@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>koapy.tools.version_update.version_update &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../../koapy.html">koapy</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.tools.version_update.version_update</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">atexit</span>
+
+<span class="kn">import</span> <span class="nn">pywinauto</span>
+
+<span class="kn">from</span> <span class="nn">koapy.tools.version_update.login_semiauto</span> <span class="kn">import</span> <span class="n">login_semiauto</span>
+
+<div class="viewcode-block" id="is_in_development"><a class="viewcode-back" href="../../../../autoapi/koapy/tools/version_update/version_update/index.html#koapy.tools.version_update.version_update.is_in_development">[docs]</a><span class="n">is_in_development</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="disable_autologin"><a class="viewcode-back" href="../../../../autoapi/koapy/tools/version_update/version_update/index.html#koapy.tools.version_update.version_update.disable_autologin">[docs]</a><span class="k">def</span> <span class="nf">disable_autologin</span><span class="p">():</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;disable_autologin.py&#39;</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="open_login_window"><a class="viewcode-back" href="../../../../autoapi/koapy/tools/version_update/version_update/index.html#koapy.tools.version_update.version_update.open_login_window">[docs]</a><span class="k">def</span> <span class="nf">open_login_window</span><span class="p">():</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;open_login_window.py&#39;</span><span class="p">)]</span>
+    <span class="n">creationflags</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CREATE_NEW_PROCESS_GROUP</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">creationflags</span><span class="o">=</span><span class="n">creationflags</span><span class="p">)</span>
+    <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">kill</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span></div>
+
+<div class="viewcode-block" id="enable_autologin_after_version_update"><a class="viewcode-back" href="../../../../autoapi/koapy/tools/version_update/version_update/index.html#koapy.tools.version_update.version_update.enable_autologin_after_version_update">[docs]</a><span class="k">def</span> <span class="nf">enable_autologin_after_version_update</span><span class="p">():</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;enable_autologin_after_version_update.py&#39;</span><span class="p">)]</span>
+    <span class="n">completed</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">completed</span><span class="o">.</span><span class="n">returncode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3221226525</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">(</span><span class="n">completed</span><span class="o">.</span><span class="n">returncode</span><span class="p">,</span> <span class="n">completed</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="update_version"><a class="viewcode-back" href="../../../../autoapi/koapy/tools/version_update/version_update/index.html#koapy.tools.version_update.version_update.update_version">[docs]</a><span class="k">def</span> <span class="nf">update_version</span><span class="p">():</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">open_login_window</span><span class="p">()</span>
+
+    <span class="n">login_window</span> <span class="o">=</span> <span class="n">login_semiauto</span><span class="p">(</span><span class="n">wait_closed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">desktop</span> <span class="o">=</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">Desktop</span><span class="p">(</span><span class="n">allow_magic_lookup</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">version_window</span> <span class="o">=</span> <span class="n">desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;opstarter&#39;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;wating for possible version update&#39;</span><span class="p">)</span>
+        <span class="n">timeout_version_update</span> <span class="o">=</span> <span class="mi">30</span>
+        <span class="n">version_window</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="n">timeout_version_update</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;no version update required&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;enable autologin back&#39;</span><span class="p">)</span>
+        <span class="n">enable_autologin_after_version_update</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;version update required&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_in_development</span><span class="p">:</span>
+            <span class="n">version_window</span><span class="o">.</span><span class="n">print_control_identifiers</span><span class="p">()</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;closing login app&#39;</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;killed process&#39;</span><span class="p">)</span>
+        <span class="n">timeout_login_screen_closed</span> <span class="o">=</span> <span class="mi">30</span>
+        <span class="n">login_window</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">timeout_login_screen_closed</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">login_window</span><span class="o">.</span><span class="n">wait_not</span><span class="p">(</span><span class="s1">&#39;visible&#39;</span><span class="p">,</span> <span class="n">timeout_login_screen_closed</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;cannot close login window&#39;</span><span class="p">)</span>
+            <span class="k">raise</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;closed login window&#39;</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;starting to update version&#39;</span><span class="p">)</span>
+            <span class="n">version_window</span><span class="p">[</span><span class="s1">&#39;Button&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+            <span class="n">versionup_window</span> <span class="o">=</span> <span class="n">desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;opversionup&#39;</span><span class="p">)</span>
+            <span class="n">confirm_window</span> <span class="o">=</span> <span class="n">desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;업그레이드 확인&#39;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;wating for possible failure&#39;</span><span class="p">)</span>
+                <span class="n">timeout_confirm_update</span> <span class="o">=</span> <span class="mi">10</span>
+                <span class="n">versionup_window</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="n">timeout_confirm_update</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;cannot find confirmation popup&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;failed update&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;wating for confirmation popup after update&#39;</span><span class="p">)</span>
+                <span class="n">timeout_confirm_update</span> <span class="o">=</span> <span class="mi">10</span>
+                <span class="n">confirm_window</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="n">timeout_confirm_update</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;cannot find confirmation popup&#39;</span><span class="p">)</span>
+                <span class="k">raise</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;confirming update&#39;</span><span class="p">)</span>
+                <span class="n">confirm_window</span><span class="p">[</span><span class="s1">&#39;Button&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;done update&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../autoapi/koapy/tools/version_update/version_update/index.html#koapy.tools.version_update.version_update.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">()):</span>
+    <span class="n">disable_autologin</span><span class="p">()</span>
+    <span class="n">updated</span> <span class="o">=</span> <span class="n">update_version</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">updated</span><span class="p">:</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">enable_autologin_after_version_update</span><span class="p">()</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

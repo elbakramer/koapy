@@ -1,0 +1,39 @@
+:mod:`koapy.context.KiwoomOpenApiContext`
+=========================================
+
+.. py:module:: koapy.context.KiwoomOpenApiContext
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext
+
+
+
+.. py:class:: KiwoomOpenApiContext(port=None, client_check_timeout=None, verbosity=None, log_level=None)
+
+   .. method:: __del__(self)
+
+
+   .. method:: __enter__(self)
+
+
+   .. method:: __exit__(self, exc_type, exc_value, traceback)
+
+
+   .. method:: get_stub(self)
+
+
+   .. method:: close(self)
+
+
+   .. method:: __getattr__(self, name)
+
+
+

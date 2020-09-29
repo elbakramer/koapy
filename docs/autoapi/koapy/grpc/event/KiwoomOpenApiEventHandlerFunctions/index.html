@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="koapy.grpc.observer" href="../../observer/index.html" />
+    <link rel="prev" title="koapy.grpc.event.KiwoomOpenApiEventHandler" href="../KiwoomOpenApiEventHandler/index.html" />
+   
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../index.html">API Reference</a><ul>
+  <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.grpc</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.grpc.event</span></code></a><ul>
+      <li>Previous: <a href="../KiwoomOpenApiEventHandler/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.grpc.event.KiwoomOpenApiEventHandler</span></code></a></li>
+      <li>Next: <a href="../../observer/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.grpc.observer</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions">
+<span id="koapy-grpc-event-kiwoomopenapieventhandlerfunctions"></span><h1><a class="reference internal" href="#module-koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions" title="koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions</span></code></a><a class="headerlink" href="#module-koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions" title="koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiEventHandlerFunctions</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.</code><code class="sig-name descname">KiwoomOpenApiEventHandlerFunctions</code><a class="reference internal" href="../../../../../_modules/koapy/grpc/event/KiwoomOpenApiEventHandlerFunctions.html#KiwoomOpenApiEventHandlerFunctions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<dl class="py method">
+<dt id="koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnEventConnect">
+<em class="property">abstract </em><code class="sig-name descname">OnEventConnect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">errcode</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/grpc/event/KiwoomOpenApiEventHandlerFunctions.html#KiwoomOpenApiEventHandlerFunctions.OnEventConnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnEventConnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveMsg">
+<em class="property">abstract </em><code class="sig-name descname">OnReceiveMsg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">scrnno</span></em>, <em class="sig-param"><span class="n">rqname</span></em>, <em class="sig-param"><span class="n">trcode</span></em>, <em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/grpc/event/KiwoomOpenApiEventHandlerFunctions.html#KiwoomOpenApiEventHandlerFunctions.OnReceiveMsg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveMsg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveTrData">
+<em class="property">abstract </em><code class="sig-name descname">OnReceiveTrData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">scrnno</span></em>, <em class="sig-param"><span class="n">rqname</span></em>, <em class="sig-param"><span class="n">trcode</span></em>, <em class="sig-param"><span class="n">recordname</span></em>, <em class="sig-param"><span class="n">prevnext</span></em>, <em class="sig-param"><span class="n">datalength</span></em>, <em class="sig-param"><span class="n">errorcode</span></em>, <em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">splmmsg</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/grpc/event/KiwoomOpenApiEventHandlerFunctions.html#KiwoomOpenApiEventHandlerFunctions.OnReceiveTrData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveTrData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveRealData">
+<em class="property">abstract </em><code class="sig-name descname">OnReceiveRealData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">realtype</span></em>, <em class="sig-param"><span class="n">realdata</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/grpc/event/KiwoomOpenApiEventHandlerFunctions.html#KiwoomOpenApiEventHandlerFunctions.OnReceiveRealData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveRealData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveChejanData">
+<em class="property">abstract </em><code class="sig-name descname">OnReceiveChejanData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">gubun</span></em>, <em class="sig-param"><span class="n">itemcnt</span></em>, <em class="sig-param"><span class="n">fidlist</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/grpc/event/KiwoomOpenApiEventHandlerFunctions.html#KiwoomOpenApiEventHandlerFunctions.OnReceiveChejanData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveChejanData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveConditionVer">
+<em class="property">abstract </em><code class="sig-name descname">OnReceiveConditionVer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">ret</span></em>, <em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/grpc/event/KiwoomOpenApiEventHandlerFunctions.html#KiwoomOpenApiEventHandlerFunctions.OnReceiveConditionVer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveConditionVer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveTrCondition">
+<em class="property">abstract </em><code class="sig-name descname">OnReceiveTrCondition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">scrnno</span></em>, <em class="sig-param"><span class="n">codelist</span></em>, <em class="sig-param"><span class="n">condition_name</span></em>, <em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">prevnext</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/grpc/event/KiwoomOpenApiEventHandlerFunctions.html#KiwoomOpenApiEventHandlerFunctions.OnReceiveTrCondition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveTrCondition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveRealCondition">
+<em class="property">abstract </em><code class="sig-name descname">OnReceiveRealCondition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">condition_type</span></em>, <em class="sig-param"><span class="n">condition_name</span></em>, <em class="sig-param"><span class="n">condition_index</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/grpc/event/KiwoomOpenApiEventHandlerFunctions.html#KiwoomOpenApiEventHandlerFunctions.OnReceiveRealCondition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions.OnReceiveRealCondition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../../_sources/autoapi/koapy/grpc/event/KiwoomOpenApiEventHandlerFunctions/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

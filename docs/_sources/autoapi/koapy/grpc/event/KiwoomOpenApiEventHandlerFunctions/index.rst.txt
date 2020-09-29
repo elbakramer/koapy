@@ -1,0 +1,56 @@
+:mod:`koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions`
+==========================================================
+
+.. py:module:: koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions
+
+
+
+.. py:class:: KiwoomOpenApiEventHandlerFunctions
+
+   Bases: :class:`abc.ABC`
+
+   
+   .. method:: OnEventConnect(self, errcode)
+      :abstractmethod:
+
+
+   .. method:: OnReceiveMsg(self, scrnno, rqname, trcode, msg)
+      :abstractmethod:
+
+
+   .. method:: OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg)
+      :abstractmethod:
+
+
+   .. method:: OnReceiveRealData(self, code, realtype, realdata)
+      :abstractmethod:
+
+
+   .. method:: OnReceiveChejanData(self, gubun, itemcnt, fidlist)
+      :abstractmethod:
+
+
+   .. method:: OnReceiveConditionVer(self, ret, msg)
+      :abstractmethod:
+
+
+   .. method:: OnReceiveTrCondition(self, scrnno, codelist, condition_name, index, prevnext)
+      :abstractmethod:
+
+
+   .. method:: OnReceiveRealCondition(self, code, condition_type, condition_name, condition_index)
+      :abstractmethod:
+
+
+

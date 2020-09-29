@@ -1,0 +1,592 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usage &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/style.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Advanced Usage" href="advanced_usage.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cli">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-more">Python (More)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cli-more">CLI (More)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tray-icon">Tray icon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#auto-login">Auto login</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-update">Version update</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+      <li>Next: <a href="advanced_usage.html" title="next chapter">Advanced Usage</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>To use KOAPY in a project:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">koapy</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cli">
+<h2>CLI<a class="headerlink" href="#cli" title="Permalink to this headline">¶</a></h2>
+<p>To use KOAPY in a command line:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> koapy
+<span class="go">Usage: koapy [OPTIONS] COMMAND [ARGS]...</span>
+
+<span class="go">Options:</span>
+<span class="go">  -V, --version  Show the version and exit.</span>
+<span class="go">  -h, --help     Show this message and exit.</span>
+
+<span class="go">Commands:</span>
+<span class="go">  config  Configure many things.</span>
+<span class="go">  get     Get various types of data.</span>
+<span class="go">  login   Ensure logged in when server is up.</span>
+<span class="go">  order   Place an order.</span>
+<span class="go">  serve   Start grpc server with tray application.</span>
+<span class="go">  update  Update openapi metadata.</span>
+<span class="go">  watch   Watch realtime data.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python-more">
+<h2>Python (More)<a class="headerlink" href="#python-more" title="Permalink to this headline">¶</a></h2>
+<p>KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다음과 같을 때:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QAxContainer</span> <span class="kn">import</span> <span class="n">QAxWidget</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+<span class="n">control</span> <span class="o">=</span> <span class="n">QAxWidget</span><span class="p">(</span><span class="s1">&#39;{A1574A0D-6BFA-4BD7-9020-DED88711818D}&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s1">&#39;GetAPIModulePath()&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>이것을 KOAPY 에서는 아래처럼 제공하고 있습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiTrayApplication</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">KiwoomOpenApiTrayApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+<span class="n">control</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">get_control</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">control</span><span class="o">.</span><span class="n">GetAPIModulePath</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>전체적인 구조에서 큰 차이는 없고, 차이점이라면 함수 호출시 <a class="reference external" href="https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qaxcontainer/qaxbase.html?highlight=dynamicCall#dynamicCall"><code class="docutils literal notranslate"><span class="pre">dynamicCall</span></code></a> 함수를 사용하지 않고
+직접적으로 함수를 호출하고 있다는 점입니다.</p>
+<p>당장 이렇게 사용할 수도 있겠지만 KOAPY 에서는 이것보다 좀 더 상위의 API 를 제공하고 있기 때문에,
+직접 하위 API 를 통해서 컨트롤 할 것이 아니라면 굳이 이렇게 사용할 필요는 없습니다.</p>
+<p>예시를 좀 더 복잡하게 해서, 로그인 후 특정 종목의 현재가를 가져오는 시나리오를 가정했을때,
+만약 이것을 KOAPY 없이 직접 짜는 경우에는 다음처럼 됩니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QAxContainer</span> <span class="kn">import</span> <span class="n">QAxWidget</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QEventLoop</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+<span class="n">control</span> <span class="o">=</span> <span class="n">QAxWidget</span><span class="p">(</span><span class="s1">&#39;{A1574A0D-6BFA-4BD7-9020-DED88711818D}&#39;</span><span class="p">)</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">QEventLoop</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">comm_connect</span><span class="p">():</span>
+    <span class="n">err</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s1">&#39;CommConnect()&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">on_event_connect</span><span class="p">(</span><span class="n">errcode</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">errcode</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">errcode</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">errcode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Connected!&#39;</span><span class="p">)</span>
+    <span class="n">control</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">on_event_connect</span><span class="p">)</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+<span class="n">control</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">on_event_connect</span><span class="p">)</span>
+
+<span class="n">comm_connect</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">get_stock_info</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+    <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;get_stock_info&#39;</span>
+    <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10001&#39;</span>
+    <span class="n">prevnext</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">screenno</span> <span class="o">=</span> <span class="s1">&#39;0001&#39;</span>
+    <span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s1">&#39;SetInputValue(const QString&amp;, const QString&amp;)&#39;</span><span class="p">,</span> <span class="s1">&#39;종목코드&#39;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+    <span class="n">err</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s1">&#39;CommRqData(const QString&amp;, const QString&amp;, int, const QString&amp;)&#39;</span><span class="p">,</span> <span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">prevnext</span><span class="p">,</span> <span class="n">screenno</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+<span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;005930&#39;</span>
+<span class="n">price</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">on_receive_tr_data</span><span class="p">(</span><span class="n">scrno</span><span class="p">,</span> <span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">recordname</span><span class="p">,</span> <span class="n">prevnext</span><span class="p">,</span> <span class="n">datalength</span><span class="p">,</span> <span class="n">errorcode</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">splmmsg</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">price</span>
+
+    <span class="c1"># single data</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">itemname</span> <span class="o">=</span> <span class="s1">&#39;현재가&#39;</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s1">&#39;GetCommData(const QString&amp;, const QString&amp;, int, const QString&amp;)&#39;</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">recordname</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">itemname</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="c1"># multi data</span>
+    <span class="n">repeat_cnt</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s1">&#39;GetRepeatCnt(const QString&amp;, const QString&amp;)&#39;</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">recordname</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">repeat_cnt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">prices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeat_cnt</span><span class="p">):</span>
+            <span class="n">price_index</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s1">&#39;GetCommData(const QString&amp;, const QString&amp;, int, const QString&amp;)&#39;</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">recordname</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">itemname</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">prices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">price_index</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">prevnext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">]:</span>
+        <span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s1">&#39;SetInputValue(const QString&amp;, const QString&amp;)&#39;</span><span class="p">,</span> <span class="s1">&#39;종목코드&#39;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s1">&#39;CommRqData(const QString&amp;, const QString&amp;, int, const QString&amp;)&#39;</span><span class="p">,</span> <span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">prevnext</span><span class="p">),</span> <span class="n">scrno</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">err</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">control</span><span class="o">.</span><span class="n">OnReceiveTrData</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">on_receive_tr_data</span><span class="p">)</span>
+        <span class="n">loop</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+<span class="n">control</span><span class="o">.</span><span class="n">OnReceiveTrData</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">on_receive_tr_data</span><span class="p">)</span>
+
+<span class="n">get_stock_info</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>단순 함수콜에 비해서 추가된 점들을 짚어보면,
+이벤트 처리를 위하여 <a class="reference external" href="https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qeventloop.html"><code class="docutils literal notranslate"><span class="pre">QEventLoop</span></code></a> 를 생성하여 이벤트가 들어올 구간에 맞게 실행/종료를 시키고 있으며,
+이벤트를 직접적으로 처리할 콜백 함수들도 알맞게 구현후 적절한 타이밍에 <a class="reference external" href="https://www.riverbankcomputing.com/static/Docs/PyQt5/signals_slots.html?highlight=connect#connect"><code class="docutils literal notranslate"><span class="pre">connect</span></code></a>/<a class="reference external" href="https://www.riverbankcomputing.com/static/Docs/PyQt5/signals_slots.html?highlight=disconnect#disconnect"><code class="docutils literal notranslate"><span class="pre">disconnect</span></code></a> 하고 있습니다.</p>
+<p>반면에 KOAPY 를 사용하면 동일한 작업을 아래와 같이 미리 주어진 메서드 <a class="reference internal" href="autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetStockInfoAsDataFrame" title="koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetStockInfoAsDataFrame"><code class="xref py py-meth docutils literal notranslate"><span class="pre">GetStockInfoAsDataFrame</span></code></a>) 를 사용해 간단하게 처리가 가능합니다.
+좀 더 세부적인 컨트롤이 필요할 경우에는 요청할 TR 에 대한 정보를 직접 설정하고 중간단계의 API (<a class="reference internal" href="autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.TransactionCall" title="koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.TransactionCall"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TransactionCall</span></code></a>) 를 통해 호출한 뒤에
+반환되는 스트림을 순차적으로 처리하는 식으로 구현이 가능합니다.
+앞선 이벤트루프/콜백함수 기반 구현과 비교했을 때 이 방식이 좀 더 직관적입니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiContext</span>
+
+<span class="k">with</span> <span class="n">KiwoomOpenApiContext</span><span class="p">()</span> <span class="k">as</span> <span class="n">context</span><span class="p">:</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">()</span>
+
+    <span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;005930&#39;</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">GetStockInfoAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;현재가&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+
+    <span class="c1"># or... what happens inside...</span>
+
+    <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;get_stock_info&#39;</span>
+    <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10001&#39;</span>
+    <span class="n">screenno</span> <span class="o">=</span> <span class="s1">&#39;0001&#39;</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;종목코드&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">}</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">screenno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="s1">&#39;현재가&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="autoapi/koapy/context/KiwoomOpenApiContext/index.html#koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext" title="koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">KiwoomOpenApiContext</span></code></a> 객체를 통해 사용 가능한 메서드 목록은 기본적으로 OpenAPI 에서 제공하는 모든 메서드들을 기반으로 합니다.
+해당 메서드 목록은 <a class="reference external" href="https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=12">키움 OpenAPI+ 개발 가이드 문서</a> 에서 확인 가능합니다.</p>
+<p>이후 그런 기본 메서드들을 활용하는 상위 함수들이 구현된 여러 래퍼 클래스들이 단계적으로 적용되면서
+최종적으로 모든 메서드들이 <a class="reference internal" href="autoapi/koapy/context/KiwoomOpenApiContext/index.html#koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext" title="koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">KiwoomOpenApiContext</span></code></a> 객체로 합쳐지는 구조입니다.
+따라서 해당 메서드들이 어떤 것들이 있는지 확인하기 위해서는 관련 래퍼 클래스들에 구현된 함수들을 참고하시는 게 좋습니다.</p>
+<p>주요 래퍼 클래스들을 포함하는 모듈들은 다음과 같습니다.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="autoapi/koapy/pyqt5/KiwoomOpenApiControlWrapper/index.html#module-koapy.pyqt5.KiwoomOpenApiControlWrapper" title="koapy.pyqt5.KiwoomOpenApiControlWrapper"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.pyqt5.KiwoomOpenApiControlWrapper</span></code></a></p></li>
+<li><p><a class="reference internal" href="autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#module-koapy.grpc.KiwoomOpenApiServiceClientStubWrapper" title="koapy.grpc.KiwoomOpenApiServiceClientStubWrapper"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.grpc.KiwoomOpenApiServiceClientStubWrapper</span></code></a></p></li>
+</ul>
+<p>여기서의 함수들 중에 <code class="docutils literal notranslate"><span class="pre">XXXCall</span></code> 패턴의 함수들은 TR/실시간 데이터 처리 등 몇몇 유형화가 가능한 사용 패턴들에 대해서
+미리 구현해놓은 이벤트 처리 로직들이 서버 사이드에서 동작하도록 구성되어 있습니다.
+혹시나 추후에 이런 메서드들이 다루지 못하는 새로운 사용 패턴이 생기는 경우에
+기존 구현들을 참고해 커스텀 <a class="reference internal" href="autoapi/koapy/grpc/event/KiwoomOpenApiEventHandler/index.html#module-koapy.grpc.event.KiwoomOpenApiEventHandler" title="koapy.grpc.event.KiwoomOpenApiEventHandler"><code class="xref py py-mod docutils literal notranslate"><span class="pre">EventHandler</span></code></a> 를 개발 후 <a class="reference internal" href="autoapi/koapy/grpc/KiwoomOpenApiServiceServicer/index.html#koapy.grpc.KiwoomOpenApiServiceServicer.KiwoomOpenApiServiceServicer.CustomCallAndListen" title="koapy.grpc.KiwoomOpenApiServiceServicer.KiwoomOpenApiServiceServicer.CustomCallAndListen"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CustomCallAndListen</span></code></a> 을 활용하거나
+아예 <a class="reference external" href="https://github.com/elbakramer/koapy/blob/master/koapy/grpc/KiwoomOpenApiService.proto"><code class="docutils literal notranslate"><span class="pre">KiwoomOpenApiService.proto</span></code></a> 파일을 수정해 신규 gRPC 메서드를 추가하는 방식으로도 확장이 가능합니다.</p>
+<p>서버 사이드의 이벤트 처리와 관련해서 참고할만한 모듈들입니다.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="autoapi/koapy/grpc/KiwoomOpenApiServiceServicer/index.html#module-koapy.grpc.KiwoomOpenApiServiceServicer" title="koapy.grpc.KiwoomOpenApiServiceServicer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.grpc.KiwoomOpenApiServiceServicer</span></code></a></p></li>
+<li><p><a class="reference internal" href="autoapi/koapy/grpc/event/KiwoomOpenApiEventHandler/index.html#module-koapy.grpc.event.KiwoomOpenApiEventHandler" title="koapy.grpc.event.KiwoomOpenApiEventHandler"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.grpc.event.KiwoomOpenApiEventHandler</span></code></a></p></li>
+</ul>
+<p>아래는 전체적으로 최상단의 <a class="reference internal" href="autoapi/koapy/context/KiwoomOpenApiContext/index.html#koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext" title="koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">KiwoomOpenApiContext</span></code></a> 부터
+최하단의 <a class="reference internal" href="autoapi/koapy/pyqt5/KiwoomOpenApiQAxWidget/index.html#koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget" title="koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">KiwoomOpenApiQAxWidget</span></code></a> 까지
+어떠한 흐름으로 이어져있는지 도식화한 것입니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">KiwoomOpenApiContext</span>
+<span class="o">-&gt;</span> <span class="n">KiwoomOpenApiServiceClientStubWrapper</span> <span class="o">+</span> <span class="n">KiwoomOpenApiServiceClientStubCoreWrapper</span> <span class="o">+</span> <span class="n">KiwoomOpenApiControlCommonWrapper</span>
+<span class="o">-&gt;</span> <span class="n">KiwoomOpenApiServiceStub</span>
+<span class="o">-&gt;</span> <span class="n">KiwoomOpenApiServiceClient</span>
+<span class="o">&lt;=</span><span class="n">gRPC</span><span class="o">=&gt;</span>
+<span class="o">-&gt;</span> <span class="n">KiwoomOpenApiServiceServer</span>
+<span class="o">-&gt;</span> <span class="n">KiwoomOpenApiServiceServicer</span> <span class="o">+</span> <span class="n">KiwoomOpenApiEventHandler</span>
+<span class="o">-&gt;</span> <span class="n">KiwoomOpenApiControlWrapper</span> <span class="o">+</span> <span class="n">KiwoomOpenApiControlCommonWrapper</span>
+<span class="o">-&gt;</span> <span class="n">KiwoomOpenApiQAxWidget</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cli-more">
+<h2>CLI (More)<a class="headerlink" href="#cli-more" title="Permalink to this headline">¶</a></h2>
+<p>CLI 는 KOAPY 설치 후 아무 옵션 없이 <code class="docutils literal notranslate"><span class="pre">koapy</span></code> 명령어만 실행했을 때 출력되는 설명문을 먼저 참고하세요.
+이후 필요한 커맨드를 정하고 <code class="docutils literal notranslate"><span class="pre">--help</span></code> 옵션을 통해 다른 옵션을 어떻게 설정하는지 확인하신 뒤
+최종적으로 옵션을 알맞게 설정해 호출, 사용하는 흐름으로 활용하시면 됩니다.</p>
+<div class="section" id="usage-example">
+<h3>Usage example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h3>
+<p>아래는 예시로 맨 처음 커멘드 목록의 커멘드들 중에 <code class="docutils literal notranslate"><span class="pre">get</span></code> 커멘드를 확인하고 따라가서
+최종적으로 주식기본정보 확인 기능을 사용하는 시나리오입니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> koapy
+<span class="go">Usage: koapy [OPTIONS] COMMAND [ARGS]...</span>
+
+<span class="go">Options:</span>
+<span class="go">  -V, --version  Show the version and exit.</span>
+<span class="go">  -h, --help     Show this message and exit.</span>
+
+<span class="go">Commands:</span>
+<span class="go">  config  Configure many things.</span>
+<span class="go">  get     Get various types of data.</span>
+<span class="go">  login   Ensure logged in when server is up.</span>
+<span class="go">  order   Place an order.</span>
+<span class="go">  serve   Start grpc server with tray application.</span>
+<span class="go">  update  Update openapi metadata.</span>
+<span class="go">  watch   Watch realtime data.</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> koapy get
+<span class="go">Usage: koapy get [OPTIONS] COMMAND [ARGS]...</span>
+
+<span class="go">Options:</span>
+<span class="go">  -h, --help  Show this message and exit.</span>
+
+<span class="go">Commands:</span>
+<span class="go">  daily       Get daily OHLCV of stocks.</span>
+<span class="go">  deposit     Get account deposit.</span>
+<span class="go">  errmsg      Get error message for error code.</span>
+<span class="go">  evaluation  Get account evaluation.</span>
+<span class="go">  holidays    Get market holidays.</span>
+<span class="go">  minute      Get minute OHLCV of stocks.</span>
+<span class="go">  modulepath  Get OpenApi module installation path.</span>
+<span class="go">  orders      Get order history of a date.</span>
+<span class="go">  realinfo    Get real type info.</span>
+<span class="go">  stockcode   Get stock codes.</span>
+<span class="go">  stockinfo   Get basic information of stocks.</span>
+<span class="go">  stockname   Get name for stock codes.</span>
+<span class="go">  trinfo      Get TR info.</span>
+<span class="go">  userinfo    Get user information.</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> koapy get stockinfo
+<span class="go">Usage: koapy get stockinfo [OPTIONS]</span>
+
+<span class="go">  Possible market codes are:</span>
+<span class="go">    0 : 장내</span>
+<span class="go">    10 : 코스닥</span>
+<span class="go">    3 : ELW</span>
+<span class="go">    8 : ETF</span>
+<span class="go">    50 : KONEX</span>
+<span class="go">    4 : 뮤추얼펀드</span>
+<span class="go">    5 : 신주인수권</span>
+<span class="go">    6 : 리츠</span>
+<span class="go">    9 : 하이얼펀드</span>
+<span class="go">    30 : K-OTC</span>
+
+<span class="go">  Possible market code aliases are:</span>
+<span class="go">    all: All possible market codes.</span>
+
+<span class="go">Options:</span>
+<span class="go">  -c, --code CODE        Stock code to get. Can set multiple times.</span>
+<span class="go">  -m, --market MARKET    Stock market code to get. Alternative to --code. Can</span>
+<span class="go">                        set multiple times.</span>
+
+<span class="go">  -i, --input FILENAME   Text or excel file containing codes. Alternative to</span>
+<span class="go">                        --code or --market.</span>
+
+<span class="go">  -o, --output FILENAME  Output filename. Optional for single code (prints to</span>
+<span class="go">                        console).</span>
+
+<span class="go">  -p, --port PORT        Port number of grpc server (optional).</span>
+<span class="go">  -v, --verbose          Verbosity.</span>
+<span class="go">  -h, --help             Show this message and exit.</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> koapy get stockinfo -c <span class="m">005930</span>
+<span class="go">|                 | 0        |</span>
+<span class="go">|:----------------|:---------|</span>
+<span class="go">| 종목코드        | 005930   |</span>
+<span class="go">| 종목명          | 삼성전자 |</span>
+<span class="go">| 결산월          | 12       |</span>
+<span class="go">| 액면가          | 100      |</span>
+<span class="go">| 자본금          | 7780     |</span>
+<span class="go">| 상장주식        | 5969783  |</span>
+<span class="go">| 신용비율        | +0.10    |</span>
+<span class="go">| 연중최고        | +62800   |</span>
+<span class="go">| 연중최저        | -42300   |</span>
+<span class="go">| 시가총액        | 3498293  |</span>
+<span class="go">| 시가총액비중    |          |</span>
+<span class="go">| 외인소진률      | 0.00     |</span>
+<span class="go">| 대용가          | 46880    |</span>
+<span class="go">| PER             | 18.51    |</span>
+<span class="go">| EPS             | 3166     |</span>
+<span class="go">| ROE             | 8.7      |</span>
+<span class="go">| PBR             | 1.56     |</span>
+<span class="go">| EV              | 4.52     |</span>
+<span class="go">| BPS             | 37528    |</span>
+<span class="go">| 매출액          | 2304009  |</span>
+<span class="go">| 영업이익        | 277685   |</span>
+<span class="go">| 당기순이익      | 217389   |</span>
+<span class="go">| 250최고         | +62800   |</span>
+<span class="go">| 250최저         | -42300   |</span>
+<span class="go">| 시가            | 0        |</span>
+<span class="go">| 고가            | 0        |</span>
+<span class="go">| 저가            | 0        |</span>
+<span class="go">| 상한가          | +76100   |</span>
+<span class="go">| 하한가          | -41100   |</span>
+<span class="go">| 기준가          | 58600    |</span>
+<span class="go">| 예상체결가      | -0       |</span>
+<span class="go">| 예상체결수량    | 0        |</span>
+<span class="go">| 250최고가일     | 20200120 |</span>
+<span class="go">| 250최고가대비율 | -6.69    |</span>
+<span class="go">| 250최저가일     | 20200319 |</span>
+<span class="go">| 250최저가대비율 | +38.53   |</span>
+<span class="go">| 현재가          | 58600    |</span>
+<span class="go">| 대비기호        | 3        |</span>
+<span class="go">| 전일대비        | 0        |</span>
+<span class="go">| 등락율          | 0.00     |</span>
+<span class="go">| 거래량          | 0        |</span>
+<span class="go">| 거래대비        | 0.00     |</span>
+<span class="go">| 액면가단위      | 원       |</span>
+<span class="go">| 유통주식        | 4450781  |</span>
+<span class="go">| 유통비율        | 74.6     |</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="grpc-server">
+<h3>gRPC server<a class="headerlink" href="#grpc-server" title="Permalink to this headline">¶</a></h3>
+<p>CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는 식이기 때문에
+단순히 명령을 여러 번 연이어 실행하는 경우 (<a class="reference internal" href="#id1"><span class="std std-ref">자동 로그인</span></a> 을 설정해두었더라도) 매번 로그인을 수행해야 하는 번거로움이 있을 수 있습니다.</p>
+<p>이런 경우 별도 프로세스로 gRPC 서버를 미리 띄워둔 뒤에 다른 창에서 CLI 명령을 실행하게 되면,
+최초 로그인 이후의 명령들은 이미 로그인된 서버와 통신하여 명령을 수행하게 되면서 불필요한 로그인 단계를 줄일 수 있습니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(server)</span> <span class="gp">$</span> koapy serve
+<span class="go">2020-09-24 06:02:55,028 [DEBUG] Starting app -- KiwoomOpenApiTrayApplication.py:176</span>
+<span class="go">2020-09-24 06:02:55,029 [DEBUG] Starting server -- KiwoomOpenApiTrayApplication.py:177</span>
+<span class="go">2020-09-24 06:02:55,031 [DEBUG] Started server -- KiwoomOpenApiTrayApplication.py:182</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(client)</span> <span class="gp">$</span> koapy login
+<span class="go">Logging in...</span>
+<span class="go">Logged into Simulation server.</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(server)</span> <span class="gp">$</span> ...
+<span class="go">2020-09-24 06:02:55,031 [DEBUG] Started server -- KiwoomOpenApiTrayApplication.py:182</span>
+
+<span class="go">[GetPCIdentity] VER 3.2.0.0  build 2015.8.12</span>
+
+<span class="go">[GetPCIdentity] VER 3.2.0.0  build 2015.8.12</span>
+<span class="go">2020-09-24 06:03:17,144 [DEBUG] OnEventConnect(0) -- KiwoomOpenApiEventHandler.py:73</span>
+<span class="go">2020-09-24 06:03:17,145 [DEBUG] Connected to server -- KiwoomOpenApiTrayApplication.py:108</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(client)</span> <span class="gp">$</span> koapy get stockinfo -c <span class="m">005930</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(server)</span> <span class="gp">$</span> ...
+<span class="go">2020-09-24 06:03:17,145 [DEBUG] Connected to server -- KiwoomOpenApiTrayApplication.py:108</span>
+<span class="go">2020-09-24 06:03:48,742 [DEBUG] CommRqData() was successful; CommRqData(&#39;주식기본정보요청&#39;, &#39;opt10001&#39;, 0, &#39;0291&#39;) with inputs {&#39;종목코드&#39;: &#39;005930&#39;} -- KiwoomOpenApiControlWrapper.py:151</span>
+<span class="go">2020-09-24 06:03:48,756 [DEBUG] OnReceiveTrData(&#39;0291&#39;, &#39;주식기본정보요청&#39;, &#39;opt10001&#39;, &#39;&#39;, &#39;0&#39;) -- KiwoomOpenApiEventHandler.py:17</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tray-icon">
+<h2>Tray icon<a class="headerlink" href="#tray-icon" title="Permalink to this headline">¶</a></h2>
+<p>KOAPY 가 동작하는 동안 내부적으로 <a class="reference internal" href="autoapi/koapy/pyqt5/KiwoomOpenApiTrayApplication/index.html#koapy.pyqt5.KiwoomOpenApiTrayApplication.KiwoomOpenApiTrayApplication" title="koapy.pyqt5.KiwoomOpenApiTrayApplication.KiwoomOpenApiTrayApplication"><code class="xref py py-class docutils literal notranslate"><span class="pre">KiwoomOpenApiTrayApplication</span></code></a> 이 구동되며
+이것을 직접 확인할 수 있도록 구동되는 동안 우측하단에 트레이 아이콘을 표시하게끔 구현되어있습니다.
+아직 따로 마땅한 아이콘이 없어서 초록색 바탕에 <code class="docutils literal notranslate"><span class="pre">Qt</span></code> 가 적혀있는 디폴트 아이콘이 그것입니다.</p>
+<p>이것을 가장 빠르게 확인할 수 있는 방법은 서버를 띄워보는 것입니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> koapy serve
+</pre></div>
+</div>
+<p>해당 트레이 아이콘을 우클릭하는 경우 아래와 같은 여러 기능들을 수행할 수 있는 메뉴를 제공합니다.</p>
+<ul class="simple">
+<li><p>로그인 처리</p></li>
+<li><p>자동 로그인 설정</p></li>
+<li><p>로그인 여부 확인</p></li>
+<li><p>접속중인 서버 타입 확인</p></li>
+<li><p>각종 관련 외부링크</p></li>
+<li><p>어플리케이션 종료</p></li>
+</ul>
+<p>해당 트레이 아이콘을 더블클릭하는 경우 <a class="reference internal" href="autoapi/koapy/pyqt5/KiwoomOpenApiQAxWidget/index.html#koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget" title="koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">KiwoomOpenApiQAxWidget</span></code></a> 에 대응되는 위젯이 뜨는데
+현재로는 크게 의미있는 요소를 넣거나 한 것은 없어서 그냥 닫으시면 됩니다.</p>
+</div>
+<div class="section" id="auto-login">
+<span id="id1"></span><h2>Auto login<a class="headerlink" href="#auto-login" title="Permalink to this headline">¶</a></h2>
+<p>만약에 최초로 사용하시는 경우에는 자동 로그인 설정부터 해놓는 것을 추천드립니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> koapy config autologin
+</pre></div>
+</div>
+<p>위의 명령어 실행시 키움 Open API 로그인 창이 뜰겁니다.</p>
+<p>입력창 아래의 <code class="docutils literal notranslate"><span class="pre">고객</span> <span class="pre">아이디</span> <span class="pre">저장</span></code> 을 체크해서 매번 아이디를 입력하지 않도록 합니다.
+그리고 실제 사용이 아닌 테스트 목적이므로 <code class="docutils literal notranslate"><span class="pre">모의투자</span> <span class="pre">접속</span></code> 을 체크합니다.
+참고로 모의투자로 접속하려면 <a class="reference external" href="https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1101000000">상시 모의투자</a> 를 신청해놓은 상태여야 합니다.</p>
+<p>이후 고객ID 와 비밀번호를 입력하고 로그인을 진행합니다.</p>
+<p>만약에 업데이트로 인해 탑재 프로그램을 종료하고 확인 버튼을 누르라는 메시지가 뜨는 경우에
+터미널에서 CTRL+C 로 현재 프로세스를 종료시키거나 아예 터미널을 닫은 뒤 확인 버튼을 누르시면 정상적으로 업데이트가 진행됩니다.</p>
+<p>로그인이 완료되면 이어서 계좌 비밀번호 입력 화면이 뜰겁니다.
+여기서 각 계좌의 계좌번호를 입력하고 <code class="docutils literal notranslate"><span class="pre">등록</span></code> 버튼을 누릅니다.
+모의투자의 경우는 모든 계좌의 비밀번호가 <code class="docutils literal notranslate"><span class="pre">0000</span></code> 이므로 <code class="docutils literal notranslate"><span class="pre">0000</span></code> 을 입력하고 <code class="docutils literal notranslate"><span class="pre">전체</span> <span class="pre">계좌에</span> <span class="pre">등록</span></code> 버튼을 누릅니다.
+마지막으로 아래의 <code class="docutils literal notranslate"><span class="pre">AUTO</span></code> 박스를 체크하고 창을 닫습니다.
+이제 이후부터는 로그인 단계에서 사용자 입력을 묻지 않고 자동으로 로그인이 처리됩니다.</p>
+</div>
+<div class="section" id="version-update">
+<h2>Version update<a class="headerlink" href="#version-update" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#id1"><span class="std std-ref">자동 로그인</span></a> 설정과 관련된 부분이라 이어서 설명합니다.</p>
+<p>위처럼 자동 로그인을 설정해놓을 경우 이후에 버전 업데이트가 필요한 경우 제대로 업데이트가 되지 않습니다.
+따라서 주기적으로 자동 로그인 설정을 해제하고 수동으로 로그인 진행 후 버전 업데이트를 해주는 작업이 필요합니다.</p>
+<p>관련해서 <a class="reference external" href="https://wikidocs.net/book/1173">퀀트투자를 위한 키움증권 API (파이썬 버전)</a> 책의 <a class="reference external" href="https://wikidocs.net/79236">버전처리</a> 문서 내용을 참고하시면 대략적인 이해에 도움이 되리라 생각합니다.</p>
+<p>해당 위키에서는 자동 버전처리에 대한 내용도 설명하고 있는데요.
+KOAPY 에서도 실험적으로 자동 버전처리를 수행하는 관련 스크립트들을 아래에 제공하고 있습니다.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="autoapi/koapy/tools/version_update/index.html#module-koapy.tools.version_update" title="koapy.tools.version_update"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.tools.version_update</span></code></a></p></li>
+</ul>
+<p>사용방식은 아래와 같습니다.</p>
+<p>먼저 <code class="docutils literal notranslate"><span class="pre">koapy.conf</span></code> 이름의 설정 파일을 현재 디렉토리나 홈 폴더 아래에 만들고 아래와 같은 계정 로그인과 관련된 내용들을 상황에 맞게 채워넣습니다.</p>
+<div class="highlight-hocon notranslate"><div class="highlight"><pre><span></span>{
+    koapy.backend.kiwoom.login {
+        id = &quot;userid&quot;
+        password = &quot;userpassword&quot;
+        cert = &quot;certpassword&quot;
+        is_simulation = true
+        account_passwords {
+            0000000000 = &quot;0000&quot;
+            1234567890 = &quot;1234&quot;
+        }
+    }
+}
+</pre></div>
+</div>
+<p>설정파일 전체 예시는 <a class="reference external" href="https://github.com/elbakramer/koapy/blob/master/koapy/config.conf">KOAPY 의 기본 설정파일</a> 을 참고하세요.
+설정파일의 포맷은 <a class="reference external" href="https://github.com/chimpler/pyhocon">HOCON</a> 포맷입니다.</p>
+<p>여기서 계좌번호 중 <code class="docutils literal notranslate"><span class="pre">0000000000</span></code> 은 모든 계좌에 대한 비밀번호로 이해하고 처리합니다.
+예를 들어 모의투자의 접속시 위처럼 설정하면 모든 모의계좌에 대한 비밀번호를 “0000” 으로 설정하도록 처리할 수 있습니다.</p>
+<p>이후 콘솔에서 아래 명령을 주기적으로 실행하는 것으로 OpenAPI 의 버전을 최신으로 유지할 수 있습니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python -m koapy.tools.version_update
+</pre></div>
+</div>
+<p>스크립트를 통해서 자동으로 사용자 입력을 시뮬레이션해서 처리하는 방식이다보니
+스크립트가 처리되는 도중에 다른 키보드 혹은 마우스 입력이 발생하는 경우 버전처리가 제대로 되지 않을 수 있다는 점 참고 바랍니다.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/usage.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,48 @@
+:mod:`koapy.utils.krx.holiday.LunarHoliday`
+===========================================
+
+.. py:module:: koapy.utils.krx.holiday.LunarHoliday
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.utils.krx.holiday.LunarHoliday.LunarHoliday
+
+
+
+.. py:class:: LunarHoliday(name, year=None, month=None, day=None, offset=None, observance=None, start_date=None, end_date=None, days_of_week=None)
+
+   Bases: :class:`pandas.tseries.holiday.Holiday`
+
+   Class that defines a holiday with start/end dates and rules
+   for observance.
+
+   .. method:: _reference_dates(self, start_date, end_date)
+
+      Get reference dates for the holiday.
+      Return reference dates for the holiday also returning the year
+      prior to the start_date and year following the end_date.  This ensures
+      that any offsets to be applied will yield the holidays within
+      the passed in dates.
+
+
+   .. method:: _apply_rule(self, dates)
+
+      Apply the given offset/observance to a DatetimeIndex of dates.
+      :param dates: Dates to apply the given offset/observance rule
+      :type dates: DatetimeIndex
+
+      :returns:
+      :rtype: Dates with rules applied
+
+
+   .. method:: to_solar_datetime(self)
+
+
+

@@ -1,0 +1,16 @@
+:mod:`koapy.utils.rate_limiting.RateLimitException`
+===================================================
+
+.. py:module:: koapy.utils.rate_limiting.RateLimitException
+
+
+Module Contents
+---------------
+
+.. py:exception:: RateLimitException
+
+   Bases: :class:`Exception`
+
+   Common base class for all non-exit exceptions.
+
+

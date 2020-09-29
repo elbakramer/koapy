@@ -1,0 +1,499 @@
+:mod:`koapy.grpc.KiwoomOpenApiService_pb2`
+==========================================
+
+.. py:module:: koapy.grpc.KiwoomOpenApiService_pb2
+
+.. autoapi-nested-parse::
+
+   Generated protocol buffer code.
+
+
+
+Module Contents
+---------------
+
+.. data:: _sym_db
+   
+
+   
+
+.. data:: DESCRIPTOR
+   
+
+   
+
+.. data:: _TRANSACTIONSTOPCONDITIONCOMPARTOR
+   
+
+   
+
+.. data:: TransactionStopConditionCompartor
+   
+
+   
+
+.. data:: LESS_THAN_OR_EQUAL_TO
+   :annotation: = 0
+
+   
+
+.. data:: LESS_THAN
+   :annotation: = 1
+
+   
+
+.. data:: GREATER_THAN_OR_EQUAL_TO
+   :annotation: = 2
+
+   
+
+.. data:: GREATER_THAN
+   :annotation: = 3
+
+   
+
+.. data:: EQUAL_TO
+   :annotation: = 4
+
+   
+
+.. data:: NOT_EQUAL_TO
+   :annotation: = 5
+
+   
+
+.. data:: _ARGUMENT
+   
+
+   
+
+.. data:: _CALLREQUEST
+   
+
+   
+
+.. data:: _RETURNVALUE
+   
+
+   
+
+.. data:: _CALLRESPONSE
+   
+
+   
+
+.. data:: _LISTENREQUEST
+   
+
+   
+
+.. data:: _SINGLEDATA
+   
+
+   
+
+.. data:: _REPEATEDSTRING
+   
+
+   
+
+.. data:: _MULTIDATA
+   
+
+   
+
+.. data:: _LISTENRESPONSE
+   
+
+   
+
+.. data:: _STOPLISTENREQUEST
+   
+
+   
+
+.. data:: _STOPLISTENRESPONSE
+   
+
+   
+
+.. data:: _HANDLEDREQUEST
+   
+
+   
+
+.. data:: _BIDIRECTIONALLISTENREQUEST
+   
+
+   
+
+.. data:: _CUSTOMLISTENREQUEST
+   
+
+   
+
+.. data:: _CUSTOMLISTENRESPONSE
+   
+
+   
+
+.. data:: _CUSTOMCALLANDLISTENREQUEST
+   
+
+   
+
+.. data:: _CUSTOMCALLANDLISTENRESPONSE
+   
+
+   
+
+.. data:: _LOGINREQUEST
+   
+
+   
+
+.. data:: _TRANSACTIONSUBSCRIPTIONTARGET
+   
+
+   
+
+.. data:: _TRANSACTIONSTOPCONDITION
+   
+
+   
+
+.. data:: _TRANSACTIONREQUEST_INPUTSENTRY
+   
+
+   
+
+.. data:: _TRANSACTIONREQUEST
+   
+
+   
+
+.. data:: _ORDERSUBSCRIPTIONTARGET
+   
+
+   
+
+.. data:: _ORDERREQUEST
+   
+
+   
+
+.. data:: _REALREQUESTFLAGS
+   
+
+   
+
+.. data:: _REALREQUEST
+   
+
+   
+
+.. data:: _SETLOGLEVELREQUEST
+   
+
+   
+
+.. data:: _SETLOGLEVELRESPONSE
+   
+
+   
+
+.. data:: containing_oneof
+   
+
+   
+
+.. data:: containing_oneof
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: containing_oneof
+   
+
+   
+
+.. data:: containing_oneof
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: containing_oneof
+   
+
+   
+
+.. data:: containing_oneof
+   
+
+   
+
+.. data:: containing_oneof
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: containing_oneof
+   
+
+   
+
+.. data:: containing_oneof
+   
+
+   
+
+.. data:: enum_type
+   
+
+   
+
+.. data:: containing_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: message_type
+   
+
+   
+
+.. data:: Argument
+   
+
+   
+
+.. data:: CallRequest
+   
+
+   
+
+.. data:: ReturnValue
+   
+
+   
+
+.. data:: CallResponse
+   
+
+   
+
+.. data:: ListenRequest
+   
+
+   
+
+.. data:: SingleData
+   
+
+   
+
+.. data:: RepeatedString
+   
+
+   
+
+.. data:: MultiData
+   
+
+   
+
+.. data:: ListenResponse
+   
+
+   
+
+.. data:: StopListenRequest
+   
+
+   
+
+.. data:: StopListenResponse
+   
+
+   
+
+.. data:: HandledRequest
+   
+
+   
+
+.. data:: BidirectionalListenRequest
+   
+
+   
+
+.. data:: CustomListenRequest
+   
+
+   
+
+.. data:: CustomListenResponse
+   
+
+   
+
+.. data:: CustomCallAndListenRequest
+   
+
+   
+
+.. data:: CustomCallAndListenResponse
+   
+
+   
+
+.. data:: LoginRequest
+   
+
+   
+
+.. data:: TransactionSubscriptionTarget
+   
+
+   
+
+.. data:: TransactionStopCondition
+   
+
+   
+
+.. data:: TransactionRequest
+   
+
+   
+
+.. data:: OrderSubscriptionTarget
+   
+
+   
+
+.. data:: OrderRequest
+   
+
+   
+
+.. data:: RealRequestFlags
+   
+
+   
+
+.. data:: RealRequest
+   
+
+   
+
+.. data:: SetLogLevelRequest
+   
+
+   
+
+.. data:: SetLogLevelResponse
+   
+
+   
+
+.. data:: _options
+   
+
+   
+
+.. data:: _KIWOOMOPENAPISERVICE
+   
+
+   
+

@@ -1,0 +1,38 @@
+:mod:`koapy.utils.logging`
+==========================
+
+.. py:module:: koapy.utils.logging
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   TqdmStream/index.rst
+
+
+Package Contents
+----------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   koapy.utils.logging.verbosity_to_loglevel
+   koapy.utils.logging.set_loglevel
+   koapy.utils.logging.set_verbosity
+
+
+.. function:: verbosity_to_loglevel(verbosity=0)
+
+
+.. function:: set_loglevel(loglevel=logging.WARNING, logger='')
+
+
+.. function:: set_verbosity(verbosity=0, logger='')
+
+

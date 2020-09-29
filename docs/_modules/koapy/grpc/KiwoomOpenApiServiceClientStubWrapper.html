@@ -1,0 +1,640 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>koapy.grpc.KiwoomOpenApiServiceClientStubWrapper &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../../koapy.html">koapy</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.grpc.KiwoomOpenApiServiceClientStubWrapper</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">queue</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">koapy.grpc</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiService_pb2</span>
+<span class="kn">from</span> <span class="nn">koapy.grpc.KiwoomOpenApiServiceClientSideDynamicCallable</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiServiceClientSideDynamicCallable</span>
+<span class="kn">from</span> <span class="nn">koapy.grpc.KiwoomOpenApiServiceClientSideSignalConnector</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiServiceClientSideSignalConnector</span>
+<span class="kn">from</span> <span class="nn">koapy.pyqt5.KiwoomOpenApiControlWrapper</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiControlCommonWrapper</span>
+<span class="kn">from</span> <span class="nn">koapy.openapi.RealType</span> <span class="kn">import</span> <span class="n">RealType</span>
+
+<span class="kn">from</span> <span class="nn">koapy.openapi.KiwoomOpenApiError</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiError</span>
+<span class="kn">from</span> <span class="nn">koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiEventHandlerFunctions</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubCoreWrapper"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiServiceClientStubCoreWrapper</span><span class="p">(</span><span class="n">KiwoomOpenApiControlCommonWrapper</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stub</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="n">stub</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubCoreWrapper.__getattr__"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.__getattr__">[docs]</a>    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;On&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">KiwoomOpenApiEventHandlerFunctions</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">KiwoomOpenApiServiceClientSideSignalConnector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">KiwoomOpenApiServiceClientSideDynamicCallable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubCoreWrapper.Call"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.Call">[docs]</a>    <span class="k">def</span> <span class="nf">Call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">KiwoomOpenApiServiceClientSideDynamicCallable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="n">name</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubCoreWrapper.LoginCall"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.LoginCall">[docs]</a>    <span class="k">def</span> <span class="nf">LoginCall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">KiwoomOpenApiService_pb2</span><span class="o">.</span><span class="n">LoginRequest</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="o">.</span><span class="n">LoginCall</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+            <span class="n">errcode</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">long_value</span>
+        <span class="k">return</span> <span class="n">errcode</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubCoreWrapper.TransactionCall"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.TransactionCall">[docs]</a>    <span class="k">def</span> <span class="nf">TransactionCall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">stop_condition</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">KiwoomOpenApiService_pb2</span><span class="o">.</span><span class="n">TransactionRequest</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">request_name</span> <span class="o">=</span> <span class="n">rqname</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">transaction_code</span> <span class="o">=</span> <span class="n">trcode</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">screen_no</span> <span class="o">=</span> <span class="n">scrnno</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inputs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="k">if</span> <span class="n">stop_condition</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">stop_condition</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">))</span> <span class="c1"># pylint: disable=no-member</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">comparator</span> <span class="o">=</span> <span class="p">{</span> <span class="c1"># pylint: disable=no-member</span>
+                <span class="s1">&#39;&lt;=&#39;</span><span class="p">:</span> <span class="n">KiwoomOpenApiService_pb2</span><span class="o">.</span><span class="n">TransactionStopConditionCompartor</span><span class="o">.</span><span class="n">LESS_THAN_OR_EQUAL_TO</span><span class="p">,</span>
+                <span class="s1">&#39;&lt;&#39;</span><span class="p">:</span> <span class="n">KiwoomOpenApiService_pb2</span><span class="o">.</span><span class="n">TransactionStopConditionCompartor</span><span class="o">.</span><span class="n">LESS_THAN</span><span class="p">,</span>
+                <span class="s1">&#39;&gt;=&#39;</span><span class="p">:</span> <span class="n">KiwoomOpenApiService_pb2</span><span class="o">.</span><span class="n">TransactionStopConditionCompartor</span><span class="o">.</span><span class="n">GREATER_THAN_OR_EQUAL_TO</span><span class="p">,</span>
+                <span class="s1">&#39;&gt;&#39;</span><span class="p">:</span> <span class="n">KiwoomOpenApiService_pb2</span><span class="o">.</span><span class="n">TransactionStopConditionCompartor</span><span class="o">.</span><span class="n">GREATER_THAN</span><span class="p">,</span>
+                <span class="s1">&#39;==&#39;</span><span class="p">:</span> <span class="n">KiwoomOpenApiService_pb2</span><span class="o">.</span><span class="n">TransactionStopConditionCompartor</span><span class="o">.</span><span class="n">EQUAL_TO</span><span class="p">,</span>
+                <span class="s1">&#39;!=&#39;</span><span class="p">:</span> <span class="n">KiwoomOpenApiService_pb2</span><span class="o">.</span><span class="n">TransactionStopConditionCompartor</span><span class="o">.</span><span class="n">NOT_EQUAL_TO</span><span class="p">,</span>
+            <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;comparator&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;=&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubCoreWrapper.OrderCall"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.OrderCall">[docs]</a>    <span class="k">def</span> <span class="nf">OrderCall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rqname</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">account</span><span class="p">,</span> <span class="n">order_type</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">quantity</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">quote_type</span><span class="p">,</span> <span class="n">original_order_no</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        [거래구분]</span>
+<span class="sd">          모의투자에서는 지정가 주문과 시장가 주문만 가능합니다.</span>
+
+<span class="sd">          00 : 지정가</span>
+<span class="sd">          03 : 시장가</span>
+<span class="sd">          05 : 조건부지정가</span>
+<span class="sd">          06 : 최유리지정가</span>
+<span class="sd">          07 : 최우선지정가</span>
+<span class="sd">          10 : 지정가IOC</span>
+<span class="sd">          13 : 시장가IOC</span>
+<span class="sd">          16 : 최유리IOC</span>
+<span class="sd">          20 : 지정가FOK</span>
+<span class="sd">          23 : 시장가FOK</span>
+<span class="sd">          26 : 최유리FOK</span>
+<span class="sd">          61 : 장전시간외종가</span>
+<span class="sd">          62 : 시간외단일가매매</span>
+<span class="sd">          81 : 장후시간외종가</span>
+
+<span class="sd">        [주문유형]</span>
+<span class="sd">          1:신규매수, 2:신규매도 3:매수취소, 4:매도취소, 5:매수정정, 6:매도정정</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">KiwoomOpenApiService_pb2</span><span class="o">.</span><span class="n">OrderRequest</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">request_name</span> <span class="o">=</span> <span class="n">rqname</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">screen_no</span> <span class="o">=</span> <span class="n">scrnno</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">account_no</span> <span class="o">=</span> <span class="n">account</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">order_type</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">order_type</span><span class="p">)</span> <span class="k">if</span> <span class="n">order_type</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">code</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">quantity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">quantity</span><span class="p">)</span> <span class="k">if</span> <span class="n">quantity</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">price</span><span class="p">)</span> <span class="k">if</span> <span class="n">price</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">quote_type</span> <span class="o">=</span> <span class="n">quote_type</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">original_order_no</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">original_order_no</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">original_order_no</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="o">.</span><span class="n">OrderCall</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubCoreWrapper.RealCall"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.RealCall">[docs]</a>    <span class="k">def</span> <span class="nf">RealCall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> <span class="n">fids</span><span class="p">,</span> <span class="n">realtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">infer_fids</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">readable_names</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fast_parse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">KiwoomOpenApiService_pb2</span><span class="o">.</span><span class="n">RealRequest</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnnos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scrnno</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">scrnnos</span> <span class="o">=</span> <span class="p">[</span><span class="n">scrnno</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scrnnos</span> <span class="o">=</span> <span class="n">scrnno</span>
+        <span class="n">fids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">fids</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">realtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">realtype</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">screen_no</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">scrnnos</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">code_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">fid_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">fids</span><span class="p">)</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">real_type</span> <span class="o">=</span> <span class="n">realtype</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">infer_fids</span> <span class="o">=</span> <span class="n">infer_fids</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">readable_names</span> <span class="o">=</span> <span class="n">readable_names</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">fast_parse</span> <span class="o">=</span> <span class="n">fast_parse</span> <span class="c1"># pylint: disable=no-member</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="o">.</span><span class="n">RealCall</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubCoreWrapper.SetLogLevel"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.SetLogLevel">[docs]</a>    <span class="k">def</span> <span class="nf">SetLogLevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">KiwoomOpenApiService_pb2</span><span class="o">.</span><span class="n">SetLogLevelRequest</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="o">.</span><span class="n">SetLogLevel</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiServiceClientStubWrapper</span><span class="p">(</span><span class="n">KiwoomOpenApiServiceClientStubCoreWrapper</span><span class="p">):</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper._EnsureConnectedUsingSignalConnector"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper._EnsureConnectedUsingSignalConnector">[docs]</a>    <span class="k">def</span> <span class="nf">_EnsureConnectedUsingSignalConnector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">errcode</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+            <span class="k">def</span> <span class="nf">OnEventConnect</span><span class="p">(</span><span class="n">errcode</span><span class="p">):</span>
+                <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">errcode</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">OnEventConnect</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">OnEventConnect</span><span class="p">)</span>
+            <span class="n">errcode</span> <span class="o">=</span> <span class="n">KiwoomOpenApiError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CommConnect</span><span class="p">())</span>
+            <span class="n">errcode</span> <span class="o">=</span> <span class="n">KiwoomOpenApiError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">errcode</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper._EnsureConnectedUsingLoginCall"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper._EnsureConnectedUsingLoginCall">[docs]</a>    <span class="k">def</span> <span class="nf">_EnsureConnectedUsingLoginCall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">errcode</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">errcode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">LoginCall</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">errcode</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper._EnsureConnectedUsingCall"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper._EnsureConnectedUsingCall">[docs]</a>    <span class="k">def</span> <span class="nf">_EnsureConnectedUsingCall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span><span class="s1">&#39;EnsureConnected&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.EnsureConnected"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.EnsureConnected">[docs]</a>    <span class="k">def</span> <span class="nf">EnsureConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_EnsureConnectedUsingCall</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.RateLimitedCommRqData"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.RateLimitedCommRqData">[docs]</a>    <span class="k">def</span> <span class="nf">RateLimitedCommRqData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">prevnext</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span><span class="s1">&#39;RateLimitedCommRqData&#39;</span><span class="p">,</span> <span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">prevnext</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper._ParseTransactionCallResponses"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper._ParseTransactionCallResponses">[docs]</a>    <span class="k">def</span> <span class="nf">_ParseTransactionCallResponses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">responses</span><span class="p">,</span> <span class="n">remove_zeros_width</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">single_output</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">single_output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">single_output</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span>
+                    <span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_RemoveLeadingZerosForNumbersInValues</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">remove_zeros_width</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">columns</span><span class="p">:</span>
+                <span class="n">columns</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">names</span>
+            <span class="k">for</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+                <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_RemoveLeadingZerosForNumbersInValues</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">remove_zeros_width</span><span class="p">))</span>
+        <span class="n">single</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">single_output</span><span class="p">)</span>
+        <span class="n">multi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">single</span><span class="p">,</span> <span class="n">multi</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetStockInfoAsDataFrame"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetStockInfoAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">GetStockInfoAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">codes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        [화면번호]</span>
+<span class="sd">         화면번호는 서버에 조회나 주문등 필요한 기능을 요청할때 이를 구별하기 위한 키값으로 이해하시면 됩니다.</span>
+<span class="sd">         0000(혹은 0)을 제외한 임의의 숫자를 사용하시면 되는데 갯수가 200개로 한정되어 있기 때문에 이 갯수를 넘지 않도록 관리하셔야 합니다.</span>
+<span class="sd">         만약 사용하는 화면번호가 200개를 넘는 경우 조회결과나 주문결과에 다른 데이터가 섞이거나 원하지 않는 결과를 나타날 수 있습니다.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">codes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">codes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetCommonCodeList</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">codes</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;주식기본정보요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;0291&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10001&#39;</span>
+        <span class="n">codes_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">codes</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Getting basic info for code: </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%d</span><span class="s1">/</span><span class="si">%d</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">codes_len</span><span class="p">)</span>
+            <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;종목코드&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">columns</span><span class="p">:</span>
+                    <span class="n">columns</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span>
+                <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetDailyStockDataAsDataFrame"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetDailyStockDataAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        [수정주가구분] 1:유상증자, 2:무상증자, 4:배당락, 8:액면분할, 16:액면병합, 32:기업합병, 64:감자, 256:권리락</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">start_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">start_date</span> <span class="o">=</span> <span class="n">now</span>
+            <span class="k">if</span> <span class="n">now</span> <span class="o">&lt;</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+                <span class="n">start_date</span> <span class="o">-=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">date_format</span> <span class="o">=</span> <span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">&#39;</span>
+        <span class="n">date_column_name</span> <span class="o">=</span> <span class="s1">&#39;일자&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+            <span class="n">start_date</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">date_format</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">end_date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+                <span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">date_format</span><span class="p">)</span>
+            <span class="n">stop_condition</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">date_column_name</span><span class="p">,</span>
+                <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">end_date</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">stop_condition</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;주식일봉차트조회요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;0613&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10081&#39;</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;종목코드&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
+            <span class="s1">&#39;기준일자&#39;</span><span class="p">:</span> <span class="n">start_date</span><span class="p">,</span>
+            <span class="s1">&#39;수정주가구분&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">stop_condition</span><span class="o">=</span><span class="n">stop_condition</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">columns</span><span class="p">:</span>
+                <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+                <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">date_column_name</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+                <span class="n">date_index</span> <span class="o">=</span> <span class="n">columns</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">date_column_name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">from_date</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">date_index</span><span class="p">]</span>
+                    <span class="n">to_date</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">date_index</span><span class="p">]</span>
+                    <span class="n">from_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">from_date</span><span class="p">,</span> <span class="n">date_format</span><span class="p">)</span>
+                    <span class="n">to_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">to_date</span><span class="p">,</span> <span class="n">date_format</span><span class="p">)</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Received data from </span><span class="si">%s</span><span class="s1"> to </span><span class="si">%s</span><span class="s1"> for code </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetMinuteStockDataAsDataFrame"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetMinuteStockDataAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">GetMinuteStockDataAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        [수정주가구분] 1:유상증자, 2:무상증자, 4:배당락, 8:액면분할, 16:액면병합, 32:기업합병, 64:감자, 256:권리락</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">interval</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">interval</span> <span class="o">=</span> <span class="mi">15</span>
+        <span class="k">if</span> <span class="n">interval</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">interval</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">start_date</span> <span class="o">=</span> <span class="n">now</span>
+            <span class="k">if</span> <span class="n">now</span> <span class="o">&lt;</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+                <span class="n">start_date</span> <span class="o">-=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">date_format</span> <span class="o">=</span> <span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H%M%S&#39;</span>
+        <span class="n">date_column_name</span> <span class="o">=</span> <span class="s1">&#39;체결시간&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+            <span class="n">start_date</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">date_format</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">end_date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+                <span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">date_format</span><span class="p">)</span>
+            <span class="n">stop_condition</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">date_column_name</span><span class="p">,</span>
+                <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">end_date</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">stop_condition</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;주식분봉차트조회요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;0613&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10080&#39;</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;종목코드&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
+            <span class="s1">&#39;틱범위&#39;</span><span class="p">:</span> <span class="n">interval</span><span class="p">,</span>
+            <span class="s1">&#39;수정주가구분&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">stop_condition</span><span class="o">=</span><span class="n">stop_condition</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">columns</span><span class="p">:</span>
+                <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+                <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">date_column_name</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+                <span class="n">date_index</span> <span class="o">=</span> <span class="n">columns</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">date_column_name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">from_date</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">date_index</span><span class="p">]</span>
+                    <span class="n">to_date</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">listen_response</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">date_index</span><span class="p">]</span>
+                    <span class="n">from_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">from_date</span><span class="p">,</span> <span class="n">date_format</span><span class="p">)</span>
+                    <span class="n">to_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">to_date</span><span class="p">,</span> <span class="n">date_format</span><span class="p">)</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Received data from </span><span class="si">%s</span><span class="s1"> to </span><span class="si">%s</span><span class="s1"> for code </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetDepositInfo"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetDepositInfo">[docs]</a>    <span class="k">def</span> <span class="nf">GetDepositInfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">lookup_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        조회구분 = 3:추정조회, 2:일반조회</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;예수금상세현황요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;0362&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opw00001&#39;</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;계좌번호&#39;</span><span class="p">:</span> <span class="n">account_no</span><span class="p">,</span>
+            <span class="s1">&#39;비밀번호&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;비밀번호입력매체구분&#39;</span><span class="p">:</span> <span class="s1">&#39;00&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;조회구분&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span> <span class="k">if</span> <span class="n">lookup_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">lookup_type</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="n">single</span><span class="p">,</span> <span class="n">_multi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ParseTransactionCallResponses</span><span class="p">(</span><span class="n">responses</span><span class="p">,</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">single</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetStockQuotes"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetStockQuotes">[docs]</a>    <span class="k">def</span> <span class="nf">GetStockQuotes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;주식호가요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;4989&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10004&#39;</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;종목코드&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="n">single</span><span class="p">,</span> <span class="n">_multi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ParseTransactionCallResponses</span><span class="p">(</span><span class="n">responses</span><span class="p">,</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">single</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetOrderLogAsDataFrame1"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetOrderLogAsDataFrame1">[docs]</a>    <span class="k">def</span> <span class="nf">GetOrderLogAsDataFrame1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">order_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       	계좌번호 = 전문 조회할 보유계좌번호</span>
+<span class="sd">        전체종목구분 = 0:전체, 1:종목</span>
+<span class="sd">        매매구분 = 0:전체, 1:매도, 2:매수</span>
+<span class="sd">        종목코드 = 전문 조회할 종목코드</span>
+<span class="sd">        체결구분 = 0:전체, 2:체결, 1:미체결</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;실시간미체결요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;1010&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10075&#39;</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;계좌번호&#39;</span><span class="p">:</span> <span class="n">account_no</span><span class="p">,</span>
+            <span class="s1">&#39;전체종목구분&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span> <span class="k">if</span> <span class="n">code</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;매매구분&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span> <span class="k">if</span> <span class="n">order_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">order_type</span><span class="p">,</span>
+            <span class="s1">&#39;종목코드&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">code</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">code</span><span class="p">,</span>
+            <span class="s1">&#39;체결구분&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span> <span class="k">if</span> <span class="n">status_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">status_type</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="n">_single</span><span class="p">,</span> <span class="n">multi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ParseTransactionCallResponses</span><span class="p">(</span><span class="n">responses</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">multi</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetOrderLogAsDataFrame2"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetOrderLogAsDataFrame2">[docs]</a>    <span class="k">def</span> <span class="nf">GetOrderLogAsDataFrame2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">order_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order_no</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        종목코드 = 전문 조회할 종목코드</span>
+<span class="sd">        조회구분 = 0:전체, 1:종목</span>
+<span class="sd">        매도수구분 = 0:전체, 1:매도, 2:매수</span>
+<span class="sd">        계좌번호 = 전문 조회할 보유계좌번호</span>
+<span class="sd">        비밀번호 = 사용안함(공백)</span>
+<span class="sd">        주문번호 = 조회할 주문번호</span>
+<span class="sd">        체결구분 = 0:전체, 2:체결, 1:미체결</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;실시간체결요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;1010&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10076&#39;</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;종목코드&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">code</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">code</span><span class="p">,</span>
+            <span class="s1">&#39;조회구분&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span> <span class="k">if</span> <span class="n">code</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;매도수구분&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span> <span class="k">if</span> <span class="n">order_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">order_type</span><span class="p">,</span>
+            <span class="s1">&#39;계좌번호&#39;</span><span class="p">:</span> <span class="n">account_no</span><span class="p">,</span>
+            <span class="s1">&#39;비밀번호&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;주문번호&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">order_no</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">order_no</span><span class="p">,</span>
+            <span class="s1">&#39;체결구분&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span> <span class="k">if</span> <span class="n">status_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">status_type</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="n">_single</span><span class="p">,</span> <span class="n">multi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ParseTransactionCallResponses</span><span class="p">(</span><span class="n">responses</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">multi</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetOrderLogAsDataFrame3"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetOrderLogAsDataFrame3">[docs]</a>    <span class="k">def</span> <span class="nf">GetOrderLogAsDataFrame3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sort_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">asset_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">starting_order_no</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      	주문일자 = YYYYMMDD (20170101 연도4자리, 월 2자리, 일 2자리 형식)</span>
+<span class="sd">        계좌번호 = 전문 조회할 보유계좌번호</span>
+<span class="sd">        비밀번호 = 사용안함(공백)</span>
+<span class="sd">        비밀번호입력매체구분 = 00</span>
+<span class="sd">        조회구분 = 1:주문순, 2:역순, 3:미체결, 4:체결내역만</span>
+<span class="sd">        주식채권구분 = 0:전체, 1:주식, 2:채권</span>
+<span class="sd">        매도수구분 = 0:전체, 1:매도, 2:매수</span>
+<span class="sd">        종목코드</span>
+<span class="sd">        시작주문번호</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;계좌별주문체결내역상세요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;1010&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opw00007&#39;</span>
+        <span class="k">if</span> <span class="n">date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">market_start_time</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">now</span> <span class="o">&lt;</span> <span class="n">market_start_time</span><span class="p">:</span>
+                <span class="n">now</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;주문일자&#39;</span><span class="p">:</span> <span class="n">date</span><span class="p">,</span>
+            <span class="s1">&#39;계좌번호&#39;</span><span class="p">:</span> <span class="n">account_no</span><span class="p">,</span>
+            <span class="s1">&#39;비밀번호&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;비밀번호입력매체구분&#39;</span><span class="p">:</span> <span class="s1">&#39;00&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;조회구분&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span> <span class="k">if</span> <span class="n">sort_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">sort_type</span><span class="p">,</span>
+            <span class="s1">&#39;주식채권구분&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span> <span class="k">if</span> <span class="n">asset_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">asset_type</span><span class="p">,</span>
+            <span class="s1">&#39;매도수구분&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span> <span class="k">if</span> <span class="n">order_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">order_type</span><span class="p">,</span>
+            <span class="s1">&#39;종목코드&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">code</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">code</span><span class="p">,</span>
+            <span class="s1">&#39;시작주문번호&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">starting_order_no</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">starting_order_no</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="n">_single</span><span class="p">,</span> <span class="n">multi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ParseTransactionCallResponses</span><span class="p">(</span><span class="n">responses</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">multi</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetAccountRateOfReturnAsDataFrame"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetAccountRateOfReturnAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">GetAccountRateOfReturnAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;계좌수익률요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;1010&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10085&#39;</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;계좌번호&#39;</span><span class="p">:</span> <span class="n">account_no</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="n">_single</span><span class="p">,</span> <span class="n">multi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ParseTransactionCallResponses</span><span class="p">(</span><span class="n">responses</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">multi</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetAccountEvaluationStatusAsSeriesAndDataFrame"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetAccountEvaluationStatusAsSeriesAndDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">GetAccountEvaluationStatusAsSeriesAndDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">include_delisted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;계좌평가현황요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;1010&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opw00004&#39;</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;계좌번호&#39;</span><span class="p">:</span> <span class="n">account_no</span><span class="p">,</span>
+            <span class="s1">&#39;비밀번호&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;상장폐지조회구분&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span> <span class="k">if</span> <span class="n">include_delisted</span> <span class="k">else</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;비밀번호입력매체구분&#39;</span><span class="p">:</span> <span class="s1">&#39;00&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="n">single</span><span class="p">,</span> <span class="n">multi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ParseTransactionCallResponses</span><span class="p">(</span><span class="n">responses</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">single</span><span class="p">,</span> <span class="n">multi</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetAccountExecutionBalanceAsSeriesAndDataFrame"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetAccountExecutionBalanceAsSeriesAndDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">GetAccountExecutionBalanceAsSeriesAndDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetServerGubun</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">server</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Not supported for simulated investment&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;체결잔고요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;1010&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opw00005&#39;</span> <span class="c1"># 모의투자에서 지원하지 않는 TR</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;계좌번호&#39;</span><span class="p">:</span> <span class="n">account_no</span><span class="p">,</span>
+            <span class="s1">&#39;비밀번호&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;비밀번호입력매체구분&#39;</span><span class="p">:</span> <span class="s1">&#39;00&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="n">single</span><span class="p">,</span> <span class="n">multi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ParseTransactionCallResponses</span><span class="p">(</span><span class="n">responses</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">single</span><span class="p">,</span> <span class="n">multi</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetAccountEvaluationBalanceAsSeriesAndDataFrame"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetAccountEvaluationBalanceAsSeriesAndDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">GetAccountEvaluationBalanceAsSeriesAndDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">lookup_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        조회구분 = 1:합산, 2:개별</span>
+
+<span class="sd">        [ 주의 ]</span>
+<span class="sd">        &quot;수익률%&quot; 데이터는 모의투자에서는 소숫점표현, 실거래서버에서는 소숫점으로 변환 필요 합니다.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;계좌평가잔고내역요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;1010&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opw00018&#39;</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;계좌번호&#39;</span><span class="p">:</span> <span class="n">account_no</span><span class="p">,</span>
+            <span class="s1">&#39;비밀번호&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;비밀번호입력매체구분&#39;</span><span class="p">:</span> <span class="s1">&#39;00&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;조회구분&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span> <span class="k">if</span> <span class="n">lookup_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">lookup_type</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="n">single</span><span class="p">,</span> <span class="n">multi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ParseTransactionCallResponses</span><span class="p">(</span><span class="n">responses</span><span class="p">,</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">single</span><span class="p">,</span> <span class="n">multi</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.GetMarketPriceInfo"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetMarketPriceInfo">[docs]</a>    <span class="k">def</span> <span class="nf">GetMarketPriceInfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">rqname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scrnno</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">rqname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;시세표성정보요청&#39;</span>
+        <span class="k">if</span> <span class="n">scrnno</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scrnno</span> <span class="o">=</span> <span class="s1">&#39;1010&#39;</span>
+        <span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10007&#39;</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;종목코드&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="n">single</span><span class="p">,</span> <span class="n">_multi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ParseTransactionCallResponses</span><span class="p">(</span><span class="n">responses</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">single</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiServiceClientStubWrapper.WatchRealDataForCodesAsStream"><a class="viewcode-back" href="../../../autoapi/koapy/grpc/KiwoomOpenApiServiceClientStubWrapper/index.html#koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.WatchRealDataForCodesAsStream">[docs]</a>    <span class="k">def</span> <span class="nf">WatchRealDataForCodesAsStream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> <span class="n">fids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">realtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">screen_no</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">infer_fids</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">readable_names</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fast_parse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">codes</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">fids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fids</span> <span class="o">=</span> <span class="n">RealType</span><span class="o">.</span><span class="n">get_fids_by_realtype</span><span class="p">(</span><span class="s1">&#39;주식시세&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">realtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">realtype</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+        <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">RealCall</span><span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> <span class="n">fids</span><span class="p">,</span> <span class="n">realtype</span><span class="p">,</span> <span class="n">infer_fids</span><span class="p">,</span> <span class="n">readable_names</span><span class="p">,</span> <span class="n">fast_parse</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">response</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

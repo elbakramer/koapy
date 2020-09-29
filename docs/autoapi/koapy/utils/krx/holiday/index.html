@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>koapy.utils.krx.holiday &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="koapy.utils.krx.holiday.KoreanLunarCalendar" href="KoreanLunarCalendar/index.html" />
+    <link rel="prev" title="koapy.utils.krx" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../index.html">API Reference</a><ul>
+  <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.krx</span></code></a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.krx</span></code></a></li>
+      <li>Next: <a href="KoreanLunarCalendar/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.krx.holiday.KoreanLunarCalendar</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.utils.krx.holiday">
+<span id="koapy-utils-krx-holiday"></span><h1><a class="reference internal" href="#module-koapy.utils.krx.holiday" title="koapy.utils.krx.holiday"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.krx.holiday</span></code></a><a class="headerlink" href="#module-koapy.utils.krx.holiday" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="KoreanLunarCalendar/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.krx.holiday.KoreanLunarCalendar</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="KrxBusinessDay/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.krx.holiday.KrxBusinessDay</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="LunarHoliday/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.krx.holiday.LunarHoliday</span></code></a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.krx.holiday.get_last_krx_datetime" title="koapy.utils.krx.holiday.get_last_krx_datetime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_last_krx_datetime</span></code></a>()</p></td>
+<td><p>별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.utils.krx.holiday.get_last_krx_date" title="koapy.utils.krx.holiday.get_last_krx_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_last_krx_date</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.krx.holiday.get_holidays" title="koapy.utils.krx.holiday.get_holidays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_holidays</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.utils.krx.holiday.get_holidays_as_dict" title="koapy.utils.krx.holiday.get_holidays_as_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_holidays_as_dict</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="koapy.utils.krx.holiday.get_last_krx_datetime">
+<code class="sig-prename descclassname">koapy.utils.krx.holiday.</code><code class="sig-name descname">get_last_krx_datetime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/krx/holiday.html#get_last_krx_datetime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.utils.krx.holiday.get_last_krx_datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
+- 선거일은 반영되지 않음
+- 임시공휴일은 반영되지 않음
+- 대학수학능력 시험일에 한시간씩 늦춰지는건 고려하지 않음</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="koapy.utils.krx.holiday.get_last_krx_date">
+<code class="sig-prename descclassname">koapy.utils.krx.holiday.</code><code class="sig-name descname">get_last_krx_date</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/krx/holiday.html#get_last_krx_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.utils.krx.holiday.get_last_krx_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.utils.krx.holiday.get_holidays">
+<code class="sig-prename descclassname">koapy.utils.krx.holiday.</code><code class="sig-name descname">get_holidays</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/krx/holiday.html#get_holidays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.utils.krx.holiday.get_holidays" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.utils.krx.holiday.get_holidays_as_dict">
+<code class="sig-prename descclassname">koapy.utils.krx.holiday.</code><code class="sig-name descname">get_holidays_as_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/krx/holiday.html#get_holidays_as_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.utils.krx.holiday.get_holidays_as_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../../_sources/autoapi/koapy/utils/krx/holiday/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

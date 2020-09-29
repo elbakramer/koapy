@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>koapy.data.HistoricalStockPriceDataUpdater &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="koapy.examples" href="../../examples/index.html" />
+    <link rel="prev" title="koapy.data" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">API Reference</a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.data</span></code></a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.data</span></code></a></li>
+      <li>Next: <a href="../../examples/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.examples</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.data.HistoricalStockPriceDataUpdater">
+<span id="koapy-data-historicalstockpricedataupdater"></span><h1><a class="reference internal" href="#module-koapy.data.HistoricalStockPriceDataUpdater" title="koapy.data.HistoricalStockPriceDataUpdater"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.data.HistoricalStockPriceDataUpdater</span></code></a><a class="headerlink" href="#module-koapy.data.HistoricalStockPriceDataUpdater" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseHistoricalStockPriceDataUpdater</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseHistoricalStockPriceDataToSqliteUpdater</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HistoricalDailyStockPriceDataToSqliteUpdater</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HistoricalMinuteStockPriceDataToSqliteUpdater</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.Historical15MinuteStockPriceDataToSqliteUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.Historical15MinuteStockPriceDataToSqliteUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Historical15MinuteStockPriceDataToSqliteUpdater</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseHistoricalStockPriceDataToExcelUpdater</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HistoricalDailyStockPriceDataToExcelUpdater</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HistoricalMinuteStockPriceDataToExcelUpdater</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.Historical15MinuteStockPriceDataToExcelUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.Historical15MinuteStockPriceDataToExcelUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Historical15MinuteStockPriceDataToExcelUpdater</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.data.HistoricalStockPriceDataUpdater.</code><code class="sig-name descname">BaseHistoricalStockPriceDataUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">datadir</span></em>, <em class="sig-param"><span class="n">context</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="n">delete_remainings</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<dl class="py attribute">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater._context">
+<code class="sig-name descname">_context</code><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater._context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater._context" title="Permalink to this definition">¶</a></dt>
+<dd><p>if_exists:
+- force  = always overwrite
+- auto   = append if exists, create if not exists, overwrite if invalid
+- append = append if exists, create if not exists, ignore if invalid
+- ignore = ignore if exists, create if not exists</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.get_data">
+<em class="property">abstract </em><code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">start_date</span></em>, <em class="sig-param"><span class="n">end_date</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.get_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.read_data">
+<em class="property">abstract </em><code class="sig-name descname">read_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.read_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.read_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.save_data">
+<em class="property">abstract </em><code class="sig-name descname">save_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.save_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.save_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.check_last_date">
+<em class="property">abstract </em><code class="sig-name descname">check_last_date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.check_last_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.check_last_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.append_data">
+<em class="property">abstract </em><code class="sig-name descname">append_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.append_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.append_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.extension">
+<em class="property">property </em><code class="sig-name descname">extension</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.extension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.extension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.context">
+<em class="property">property </em><code class="sig-name descname">context</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.set_context">
+<code class="sig-name descname">set_context</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">context</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.set_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.set_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.check_failover_code">
+<code class="sig-name descname">check_failover_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.check_failover_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.check_failover_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.save_failover_code">
+<code class="sig-name descname">save_failover_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.save_failover_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.save_failover_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.get_start_date">
+<code class="sig-name descname">get_start_date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.get_start_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.get_start_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.update_only">
+<code class="sig-name descname">update_only</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.update_only"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.update_only" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.delete_remainings">
+<code class="sig-name descname">delete_remainings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.delete_remainings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.delete_remainings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataUpdater.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.data.HistoricalStockPriceDataUpdater.</code><code class="sig-name descname">BaseHistoricalStockPriceDataToSqliteUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">datadir</span></em>, <em class="sig-param"><span class="n">context</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="n">delete_remainings</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataToSqliteUpdater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater"><code class="xref py py-class docutils literal notranslate"><span class="pre">koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater</span></code></a></p>
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater.extension">
+<em class="property">property </em><code class="sig-name descname">extension</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataToSqliteUpdater.extension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater.extension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater.tablename">
+<em class="property">property </em><code class="sig-name descname">tablename</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataToSqliteUpdater.tablename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater.tablename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater.read_data">
+<code class="sig-name descname">read_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataToSqliteUpdater.read_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater.read_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.data.HistoricalStockPriceDataUpdater.</code><code class="sig-name descname">HistoricalDailyStockPriceDataToSqliteUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToSqliteUpdater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater"><code class="xref py py-class docutils literal notranslate"><span class="pre">koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater</span></code></a></p>
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.get_start_date">
+<code class="sig-name descname">get_start_date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToSqliteUpdater.get_start_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.get_start_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">start_date</span></em>, <em class="sig-param"><span class="n">end_date</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToSqliteUpdater.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.get_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.set_context">
+<code class="sig-name descname">set_context</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">context</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToSqliteUpdater.set_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.set_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.write_data">
+<code class="sig-name descname">write_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="o">=</span><span class="default_value">'replace'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToSqliteUpdater.write_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.write_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.save_data">
+<code class="sig-name descname">save_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToSqliteUpdater.save_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.save_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.append_data">
+<code class="sig-name descname">append_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToSqliteUpdater.append_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.append_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.check_last_date_kiwoom">
+<code class="sig-name descname">check_last_date_kiwoom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToSqliteUpdater.check_last_date_kiwoom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToSqliteUpdater.check_last_date_kiwoom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.data.HistoricalStockPriceDataUpdater.</code><code class="sig-name descname">HistoricalMinuteStockPriceDataToSqliteUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">datadir</span></em>, <em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">context</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="n">delete_remainings</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToSqliteUpdater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater"><code class="xref py py-class docutils literal notranslate"><span class="pre">koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToSqliteUpdater</span></code></a></p>
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">start_date</span></em>, <em class="sig-param"><span class="n">end_date</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToSqliteUpdater.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.get_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.set_context">
+<code class="sig-name descname">set_context</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">context</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToSqliteUpdater.set_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.set_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.write_data_kiwoom">
+<code class="sig-name descname">write_data_kiwoom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="o">=</span><span class="default_value">'replace'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToSqliteUpdater.write_data_kiwoom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.write_data_kiwoom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.write_data_cybos">
+<code class="sig-name descname">write_data_cybos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="o">=</span><span class="default_value">'replace'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToSqliteUpdater.write_data_cybos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.write_data_cybos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.write_data">
+<code class="sig-name descname">write_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="o">=</span><span class="default_value">'replace'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToSqliteUpdater.write_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.write_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.save_data">
+<code class="sig-name descname">save_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToSqliteUpdater.save_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.save_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.append_data">
+<code class="sig-name descname">append_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToSqliteUpdater.append_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.append_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.check_last_date_kiwoom">
+<code class="sig-name descname">check_last_date_kiwoom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToSqliteUpdater.check_last_date_kiwoom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.check_last_date_kiwoom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.check_last_date_cybos">
+<code class="sig-name descname">check_last_date_cybos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToSqliteUpdater.check_last_date_cybos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.check_last_date_cybos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.check_last_date">
+<code class="sig-name descname">check_last_date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToSqliteUpdater.check_last_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater.check_last_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.Historical15MinuteStockPriceDataToSqliteUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.data.HistoricalStockPriceDataUpdater.</code><code class="sig-name descname">Historical15MinuteStockPriceDataToSqliteUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">datadir</span></em>, <em class="sig-param"><span class="n">context</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="n">delete_remainings</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#Historical15MinuteStockPriceDataToSqliteUpdater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.Historical15MinuteStockPriceDataToSqliteUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater"><code class="xref py py-class docutils literal notranslate"><span class="pre">koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToSqliteUpdater</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.data.HistoricalStockPriceDataUpdater.</code><code class="sig-name descname">BaseHistoricalStockPriceDataToExcelUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">datadir</span></em>, <em class="sig-param"><span class="n">context</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="n">delete_remainings</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataToExcelUpdater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater"><code class="xref py py-class docutils literal notranslate"><span class="pre">koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataUpdater</span></code></a></p>
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater.extension">
+<em class="property">property </em><code class="sig-name descname">extension</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataToExcelUpdater.extension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater.extension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater.read_data">
+<code class="sig-name descname">read_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataToExcelUpdater.read_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater.read_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater.save_data">
+<code class="sig-name descname">save_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataToExcelUpdater.save_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater.save_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater.append_data">
+<code class="sig-name descname">append_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#BaseHistoricalStockPriceDataToExcelUpdater.append_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater.append_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.data.HistoricalStockPriceDataUpdater.</code><code class="sig-name descname">HistoricalDailyStockPriceDataToExcelUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToExcelUpdater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater"><code class="xref py py-class docutils literal notranslate"><span class="pre">koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater</span></code></a></p>
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater.get_start_date">
+<code class="sig-name descname">get_start_date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToExcelUpdater.get_start_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater.get_start_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">start_date</span></em>, <em class="sig-param"><span class="n">end_date</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToExcelUpdater.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater.get_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater.set_context">
+<code class="sig-name descname">set_context</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">context</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToExcelUpdater.set_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater.set_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater.check_last_date">
+<code class="sig-name descname">check_last_date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalDailyStockPriceDataToExcelUpdater.check_last_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalDailyStockPriceDataToExcelUpdater.check_last_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.data.HistoricalStockPriceDataUpdater.</code><code class="sig-name descname">HistoricalMinuteStockPriceDataToExcelUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">datadir</span></em>, <em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">context</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="n">delete_remainings</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToExcelUpdater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater"><code class="xref py py-class docutils literal notranslate"><span class="pre">koapy.data.HistoricalStockPriceDataUpdater.BaseHistoricalStockPriceDataToExcelUpdater</span></code></a></p>
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">start_date</span></em>, <em class="sig-param"><span class="n">end_date</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToExcelUpdater.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater.get_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater.set_context">
+<code class="sig-name descname">set_context</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">context</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToExcelUpdater.set_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater.set_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater.check_last_date_kiwoom">
+<code class="sig-name descname">check_last_date_kiwoom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToExcelUpdater.check_last_date_kiwoom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater.check_last_date_kiwoom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater.check_last_date_cybos">
+<code class="sig-name descname">check_last_date_cybos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToExcelUpdater.check_last_date_cybos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater.check_last_date_cybos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater.check_last_date">
+<code class="sig-name descname">check_last_date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#HistoricalMinuteStockPriceDataToExcelUpdater.check_last_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater.check_last_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.data.HistoricalStockPriceDataUpdater.Historical15MinuteStockPriceDataToExcelUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">koapy.data.HistoricalStockPriceDataUpdater.</code><code class="sig-name descname">Historical15MinuteStockPriceDataToExcelUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codes</span></em>, <em class="sig-param"><span class="n">datadir</span></em>, <em class="sig-param"><span class="n">context</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="n">delete_remainings</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/data/HistoricalStockPriceDataUpdater.html#Historical15MinuteStockPriceDataToExcelUpdater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#koapy.data.HistoricalStockPriceDataUpdater.Historical15MinuteStockPriceDataToExcelUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater" title="koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater"><code class="xref py py-class docutils literal notranslate"><span class="pre">koapy.data.HistoricalStockPriceDataUpdater.HistoricalMinuteStockPriceDataToExcelUpdater</span></code></a></p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../_sources/autoapi/koapy/data/HistoricalStockPriceDataUpdater/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,91 @@
+:mod:`koapy.config`
+===================
+
+.. py:module:: koapy.config
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   koapy.config.read_config
+
+
+.. function:: read_config(filename)
+
+
+.. data:: config_filename_cadidates
+   :annotation: = ['koapy.conf', '.koapy.conf']
+
+   
+
+.. data:: default_config_filename
+   :annotation: = config.conf
+
+   
+
+.. data:: file_directory
+   
+
+   
+
+.. data:: default_config_filepath
+   
+
+   
+
+.. data:: default_config
+   
+
+   
+
+.. data:: empty_config
+   
+
+   
+
+.. data:: current_directory_config
+   
+
+   
+
+.. data:: home
+   
+
+   
+
+.. data:: cwd
+   
+
+   
+
+.. data:: config_folder_candidates
+   
+
+   
+
+.. data:: config_path
+   
+
+   
+
+.. data:: config
+   
+
+   
+
+.. data:: logging_config
+   
+
+   
+
+.. data:: load_logging_config
+   
+
+   
+

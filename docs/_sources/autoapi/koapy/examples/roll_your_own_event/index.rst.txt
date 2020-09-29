@@ -1,0 +1,58 @@
+:mod:`koapy.examples.roll_your_own_event`
+=========================================
+
+.. py:module:: koapy.examples.roll_your_own_event
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   koapy.examples.roll_your_own_event.comm_connect
+   koapy.examples.roll_your_own_event.on_event_connect
+   koapy.examples.roll_your_own_event.get_stock_info
+   koapy.examples.roll_your_own_event.on_receive_tr_data
+
+
+.. data:: app
+   
+
+   
+
+.. data:: control
+   
+
+   
+
+.. data:: loop
+   
+
+   
+
+.. function:: comm_connect()
+
+
+.. function:: on_event_connect(errcode)
+
+
+.. function:: get_stock_info(code)
+
+
+.. data:: code
+   :annotation: = 005930
+
+   
+
+.. data:: price
+   :annotation: = 0
+
+   
+
+.. function:: on_receive_tr_data(scrno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg)
+
+

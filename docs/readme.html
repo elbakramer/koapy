@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOAPY &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/style.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Welcome to KOAPY’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">KOAPY</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#credits">Credits</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to KOAPY’s documentation!</a></li>
+      <li>Next: <a href="installation.html" title="next chapter">Installation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="koapy">
+<h1>KOAPY<a class="headerlink" href="#koapy" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/koapy"><img alt="https://img.shields.io/pypi/v/koapy.svg" src="https://img.shields.io/pypi/v/koapy.svg" /></a>
+<a class="reference external image-reference" href="https://travis-ci.org/elbakramer/koapy"><img alt="https://img.shields.io/travis/elbakramer/koapy.svg" src="https://img.shields.io/travis/elbakramer/koapy.svg" /></a>
+<a class="reference external image-reference" href="https://koapy.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/koapy/badge/?version=latest" /></a>
+<a class="reference external image-reference" href="https://pyup.io/repos/github/elbakramer/koapy/"><img alt="Updates" src="https://pyup.io/repos/github/elbakramer/koapy/shield.svg" /></a>
+<p>Kiwoom Open Api Python</p>
+<ul class="simple">
+<li><p>Free software: MIT license</p></li>
+<li><p>Documentation: <a class="reference external" href="https://koapy.readthedocs.io">https://koapy.readthedocs.io</a>.</p></li>
+</ul>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<p>KOAPY 는 <a class="reference external" href="https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000">키움증권의 OpenAPI</a> 를 Python 에서 쉽게 사용할 수 있도록 만든 라이브러리 패키지 및 툴입니다.</p>
+<p>키움에서 제공하는 OpenAPI 를 활용하는데 필요한 아래와 같은 지식들을 알지 못해도,
+기본적인 Python 에 대한 지식만 어느 정도 있다면 쉽게 사용할 수 있도록 하는 것에 초점을 두었습니다.</p>
+<ul class="simple">
+<li><p>키움에서 제공하는 OpenAPI 의 OCX 라이브러리 구조</p></li>
+<li><p>OCX 를 Python 에서 구동하기 위한 <a class="reference external" href="https://pypi.org/project/PyQt5/">PyQt5</a> 와 <a class="reference external" href="https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qaxcontainer/qaxwidget.html"><code class="docutils literal notranslate"><span class="pre">QAxWidget</span></code></a> 생성</p></li>
+<li><p>컨트롤에서 함수 호출을 위한 <a class="reference external" href="https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qaxcontainer/qaxbase.html?highlight=dynamicCall#dynamicCall"><code class="docutils literal notranslate"><span class="pre">dynamicCall</span></code></a> 함수 사용</p></li>
+<li><p>이벤트 처리를 위해 적절한 <a class="reference external" href="https://www.riverbankcomputing.com/static/Docs/PyQt5/signals_slots.html?highlight=signal"><code class="docutils literal notranslate"><span class="pre">signal</span></code></a>/<a class="reference external" href="https://www.riverbankcomputing.com/static/Docs/PyQt5/signals_slots.html?highlight=slot"><code class="docutils literal notranslate"><span class="pre">slot</span></code></a> 설정 및 처리</p></li>
+</ul>
+<p>KOAPY 는 아래와 같은 기능을 제공합니다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pypi.org/project/PyQt5/">PyQt5</a> 를 기반한 GUI 환경에 얽매일 필요 없이 일반적인 라이브러리처럼 가져다 활용할 수 있습니다.
+CLI 형태로 쓸 수도 있고 이외에 다양한 곳에서도 쉽게 활용이 가능합니다.</p></li>
+<li><p>컨트롤 함수 호출 시 명세에 적혀있는 형태 그대로 Python 함수였던 것처럼 호출이 가능합니다.
+이후는 KOAPY 가 유연하게 처리합니다.
+매번 명세에 맞게 <a class="reference external" href="https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qaxcontainer/qaxbase.html?highlight=dynamicCall#dynamicCall"><code class="docutils literal notranslate"><span class="pre">dynamicCall</span></code></a> 의 인자를 적어 넣거나, 모든 존재하는 함수에 대해 미리 래퍼 함수를 손 아프게 만들어놓을 필요가 없습니다.</p></li>
+<li><p>이벤트 처리 및 비동기 프로그래밍에 익숙하지 않더라도 그보다 비교적 쉬운 인터페이스를 통해 관련 기능들을 활용할 수 있습니다.
+가장 간단한 로그인 처리부터 TR/실시간 데이터 처리, 그리고 주문처리까지 다양한 시나리오에 대한 기본 이벤트 처리 로직을 제공합니다.</p></li>
+<li><p>주식 기본정보 요청부터 일봉/분봉 등 시세 데이터 확인 그리고 예수금/잔고 확인까지 일반적으로 자주 사용되는 기능들에 대해서
+미리 구현된 함수를 제공합니다. 함수 호출 결과 중 테이블성 정보들은 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html"><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> 타입으로 제공해 이후 분석 및 처리가 유용하게끔 했습니다.</p></li>
+<li><p>TR 의 입력/출력 데이터 구조, 실시간 데이터별 FID 목록, 에러코드에 대한 설명문 등,
+개발하는 과정에서 필요한 여러 메타정보들을 언어 내 라이브러리에서 바로 조회 및 활용이 가능합니다.
+매번 <a class="reference external" href="https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf">매뉴얼</a> 이나 <a class="reference external" href="https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=7">KOAStudio</a> 를 열어서 참고하고 이후 일일이 하나씩 하드코딩할 필요가 없습니다.</p></li>
+<li><p>로컬 네트워크에서 <a class="reference external" href="https://grpc.io/">gRPC</a> 를 통한 서버-클라이언트 형태의 구성이 가능합니다.
+이를 통해 “라이브러리 호환성으로 인해 32bit 환경에서만 작업되어야 한다” 는 제약을 벗어나 클라이언트는 Python 64bit 를 사용할 수도 있습니다.
+더 나아가서는 <a class="reference external" href="https://grpc.io/">gRPC</a> 에서 지원하는 모든 다양한 언어를 클라이언트로 작성해 사용하는 방식으로도 확장 가능합니다.</p></li>
+<li><p>이외에 메시징/알람 기능, 휴장일 확인, TR 호출 시 호출 횟수 제한 회피 등 개발 및 활용에 필요한 다양한 부가기능들을 추가로 제공합니다.</p></li>
+<li><p>굳이 Python 코드를 작성하지 않더라도 기본적인 기능들을 활용해볼 수 있도록 여러 커맨드를 포함하는 CLI 를 제공합니다.
+CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인, 일봉/분봉 데이터 확인 및 저장, 실시간 데이터 구독 등
+다양한 기능들을 코드 구현 없이 사용할 수 있습니다. 서버도 CLI 커맨드로 쉽게 띄울 수 있습니다.</p></li>
+</ul>
+<p>아래는 KOAPY 를 활용하는 예시 스크립트 입니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiContext</span>
+<span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">RealType</span>
+
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">PrettyPrinter</span>
+<span class="kn">from</span> <span class="nn">google.protobuf.json_format</span> <span class="kn">import</span> <span class="n">MessageToDict</span>
+
+<span class="k">with</span> <span class="n">KiwoomOpenApiContext</span><span class="p">()</span> <span class="k">as</span> <span class="n">context</span><span class="p">:</span>
+    <span class="c1"># 로그인 예시</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Logging in...&#39;</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Logged in.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 함수 호출 예시</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Getting stock codes and names...&#39;</span><span class="p">)</span>
+    <span class="n">codes</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">GetCodeListByMarketAsList</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">context</span><span class="o">.</span><span class="n">GetMasterCodeName</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">codes</span><span class="p">]</span>
+
+    <span class="n">codes_by_name</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">codes</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Checking stock code of Samsung...&#39;</span><span class="p">)</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">codes_by_name</span><span class="p">[</span><span class="s1">&#39;삼성전자&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Code: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">code</span><span class="p">)</span>
+
+    <span class="c1"># TR 예시 (opt10081)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Getting daily stock data of Samsung...&#39;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Daily stock data:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="c1"># 실시간 예시</span>
+    <span class="n">code_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">code</span><span class="p">]</span>
+    <span class="n">fid_list</span> <span class="o">=</span> <span class="n">RealType</span><span class="o">.</span><span class="n">get_fids_by_realtype</span><span class="p">(</span><span class="s1">&#39;주식시세&#39;</span><span class="p">)</span>
+    <span class="n">real_type</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+
+    <span class="n">pp</span> <span class="o">=</span> <span class="n">PrettyPrinter</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting to get realtime stock data for code: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">code</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">WatchRealDataForCodesAsStream</span><span class="p">(</span><span class="n">code_list</span><span class="p">,</span> <span class="n">fid_list</span><span class="p">,</span> <span class="n">real_type</span><span class="p">,</span> <span class="n">screen_no</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">infer_fids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">readable_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fast_parse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">pp</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">MessageToDict</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>이외에 사용법과 관련한 다양한 예시들은 <a class="reference external" href="https://github.com/elbakramer/koapy/tree/master/koapy/examples">examples</a> 폴더에서 확인 가능합니다.</p>
+<p>해당 라이브러리는 <a class="reference external" href="https://pypi.org/project/koapy/">PyPI</a> 를 통해서 설치 가능합니다:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install koapy
+</pre></div>
+</div>
+<p>자세한 설치방법과 관련해서는 <a class="reference external" href="https://koapy.readthedocs.io/en/latest/installation.html">Installation</a> 을 참고하세요.</p>
+<p>이후 사용법에 대해서는 <a class="reference external" href="https://koapy.readthedocs.io/en/latest/usage.html">Usage</a> 를 참고하세요.</p>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>개발과정에 있어서 참고하거나 전체적인 투자과정에서 같이 보면 좋을 것 같아 보이는 자료들입니다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://wikidocs.net/book/110">파이썬으로 배우는 알고리즘 트레이딩</a></p></li>
+<li><p><a class="reference external" href="https://wikidocs.net/book/1173">퀀트투자를 위한 키움증권 API (파이썬 버전)</a></p></li>
+<li><p><a class="reference external" href="https://igotit.tistory.com/840">시스템 트레이딩</a></p></li>
+<li><p><a class="reference external" href="https://stock79.tistory.com/">systrader79의 왕초보를 위한 주식투자</a></p></li>
+</ul>
+</div>
+<div class="section" id="credits">
+<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
+<p>This package was created with <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> and the <a class="reference external" href="https://github.com/audreyr/cookiecutter-pypackage">audreyr/cookiecutter-pypackage</a> project template.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/readme.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,75 @@
+:mod:`koapy.grpc.event.BaseKiwoomOpenApiEventHandler`
+=====================================================
+
+.. py:module:: koapy.grpc.event.BaseKiwoomOpenApiEventHandler
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.grpc.event.BaseKiwoomOpenApiEventHandler.BaseKiwoomOpenApiEventHandler
+
+
+
+.. py:class:: BaseKiwoomOpenApiEventHandler(control)
+
+   Bases: :class:`koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions.KiwoomOpenApiEventHandlerFunctions`, :class:`abc.ABC`
+
+   
+   .. method:: control(self)
+      :property:
+
+
+   .. method:: observer(self)
+      :property:
+
+
+   .. method:: on_next(self, value)
+
+
+   .. method:: on_error(self, error)
+
+
+   .. method:: on_completed(self)
+
+
+   .. method:: __getattr__(self, name)
+
+
+   .. method:: names(cls)
+      :classmethod:
+
+
+   .. method:: slots(self)
+
+
+   .. method:: connect(self)
+
+
+   .. method:: disconnect(self)
+
+
+   .. method:: on_enter(self)
+
+
+   .. method:: on_exit(self)
+
+
+   .. method:: add_callback(self, callback, *args, **kwargs)
+
+
+   .. method:: __enter__(self)
+
+
+   .. method:: __exit__(self, exc_type, exc_value, traceback)
+
+
+   .. method:: __iter__(self)
+
+
+

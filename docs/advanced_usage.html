@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Usage &#8212; KOAPY 0.1.7 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/style.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="Usage" href="usage.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Python Interface</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-historical-data">Getting historical data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="usage.html" title="previous chapter">Usage</a></li>
+      <li>Next: <a href="contributing.html" title="next chapter">Contributing</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="advanced-usage">
+<h1>Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="getting-historical-data">
+<h2>Getting historical data<a class="headerlink" href="#getting-historical-data" title="Permalink to this headline">¶</a></h2>
+<p>아무래도 주식거래를 컴퓨터로 하는 것의 장점 중 하나는,
+머신러닝 등을 통해 축적된 데이터를 기반으로 컴퓨터가 최적의 판단을 할 수 있도록 만들 수 있기 때문일 겁니다.
+하지만 그러기 위해서는 맨 먼저 학습시킬 데이터부터 확보가 되어야 합니다.</p>
+<p>KOAPY 에서는 그런 데이터 확보 프로세스를 쉽게 만들기 위해서
+데이터 다운로드, 저장, 관리에 도움이 되는 여러 라이브러리를 제공합니다.</p>
+<p>그중 하나가 <a class="reference internal" href="autoapi/koapy/data/HistoricalStockPriceDataUpdater/index.html#module-koapy.data.HistoricalStockPriceDataUpdater" title="koapy.data.HistoricalStockPriceDataUpdater"><code class="xref py py-mod docutils literal notranslate"><span class="pre">HistoricalStockPriceDataUpdater</span></code></a> 입니다.</p>
+<p>아래는 <a class="reference internal" href="autoapi/koapy/data/HistoricalStockPriceDataUpdater/index.html#module-koapy.data.HistoricalStockPriceDataUpdater" title="koapy.data.HistoricalStockPriceDataUpdater"><code class="xref py py-mod docutils literal notranslate"><span class="pre">HistoricalStockPriceDataUpdater</span></code></a> 를 사용하는 예시입니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">koapy.data.HistoricalStockPriceDataUpdater</span> <span class="kn">import</span> <span class="n">Historical15MinuteStockPriceDataToExcelUpdater</span>
+
+<span class="n">codes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;005930&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;000660&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;035420&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">datadir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">datadir</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">datadir</span><span class="p">)</span>
+
+<span class="n">Historical15MinuteStockPriceDataToExcelUpdater</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">datadir</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>위의 코드가 수행하는 작업에 대해 짧게 설명하자면
+<code class="docutils literal notranslate"><span class="pre">codes</span></code> 배열에 있는 종목들에 대해서 과거 15분봉 데이터를 가져와서 <code class="docutils literal notranslate"><span class="pre">datadir</span></code>, 즉 data 폴더 아래에 저장합니다.</p>
+<p>위에서 설명한 주요 작업 외에도 아래와 같은 다양한 부가기능들이 들어가 있지만
+이것들에 대해서 더 세부적으로 설명하진 않겠습니다.
+자세한 내용은 실제로 예시 코드를 돌려보고 어떻게 동작하는지 확인하시면서 체득하거나
+직접 <a class="reference internal" href="autoapi/koapy/data/HistoricalStockPriceDataUpdater/index.html#module-koapy.data.HistoricalStockPriceDataUpdater" title="koapy.data.HistoricalStockPriceDataUpdater"><code class="xref py py-mod docutils literal notranslate"><span class="pre">HistoricalStockPriceDataUpdater</span></code></a> 의 구현을 참고하시기 바랍니다.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>가져온 데이터를 엑셀 혹은 <a class="reference external" href="https://www.sqlite.org/index.html">SQLite</a> 파일로 저장해 관리 가능</dt><dd><ul>
+<li><p>엑셀은 데이터를 쉽게 눈으로 확인 가능하다는 이점 있음, 용량이 비교적 적음,
+매번 파일을 새로 덮어쓰는 식이기 때문에 데이터 갱신 등 관리 과정에서는 비효율적</p></li>
+<li><p><a class="reference external" href="https://www.sqlite.org/index.html">SQLite</a> 는 별도 툴을 통해 데이터 확인 가능, 용량은 비교적 큼, SQL 인터페이스를 통해 데이터를 효율적으로 관리 가능</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>파일이 존재하는 경우 기본으로 최근 데이터만 가져와서 병합</dt><dd><ul>
+<li><p>거래소 개장 일정 기준 최신 데이터로 판단되는 경우 데이터 요청조차 하지 않음으로써 API 호출 횟수 제한 및 네트워킹 관련 효율성 증대</p></li>
+<li><p>이외에 이미 존재하는 파일은 그냥 무시하고 업데이트를 하지 않거나 반대로 아예 덮어써버리는 옵션도 있음</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>주어진 코드 목록에 포함되지 않는 데이터는 제거해서 유효한 데이터만 유지 가능</p></li>
+<li><p>진행 중에 어떠한 이유로 진행이 중단된 경우 중단 시점부터 재시작 할 수 있는 기능</p></li>
+<li><p>데이터 조회에 키움 OpenAPI+ 이외의 다른 백엔드 (예를 들어 대신증권 CybosPlus) 를 사용할 수 있는 옵션 제공</p></li>
+</ul>
+<p>이 중에 다른 백엔드 사용과 관련해서 추가로 설명을 하자면,
+기본적으로 <a class="reference internal" href="autoapi/koapy/data/HistoricalStockPriceDataUpdater/index.html#module-koapy.data.HistoricalStockPriceDataUpdater" title="koapy.data.HistoricalStockPriceDataUpdater"><code class="xref py py-mod docutils literal notranslate"><span class="pre">HistoricalStockPriceDataUpdater</span></code></a> 는 키움증권 OpenAPI+ 를 통해서 데이터를 조회하도록 설정이 되어있지만,
+설정 파일 수정이나 객체 생성 시에 다른 인자를 설정하는 것으로 다른 증권사의 API 도 사용 가능하도록 구현이 되어 있습니다.</p>
+<p>현재는 대신증권 CybosPlus 만 구현이 되어 있습니다. (<a class="reference internal" href="autoapi/koapy/backend/cybos/CybosPlusComObject/index.html#koapy.backend.cybos.CybosPlusComObject.CybosPlusComObject" title="koapy.backend.cybos.CybosPlusComObject.CybosPlusComObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">CybosPlusComObject</span></code></a>)</p>
+<p>적어도 데이터 조회에 있어서는 키움증권의 OpenAPI+ 에 비해서 대신증권 CybosPlus 몇 가지 이점이 있다고 생각하는데, 그 중 일부는 아래와 같습니다.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>데이터 조회 호출 횟수 제한량이 더 느슨한 듯 싶습니다.</dt><dd><ul>
+<li><p>대신증권 CybosPlus 는 15초에 60회 호출 제한입니다.</p></li>
+<li><p>키움증권 OpenAPI+ 는 여러 제한 조건들이 다중으로 적용되는데, 장기적으로 봤을 때 1시간에 1000회 제한으로 대략 4초에 1회 꼴입니다.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>가져올 수 있는 데이터의 기간이 더 길어서 데이터의 양도 더 많고, 더 오래된 과거 데이터를 가져올 수 있습니다.</p></li>
+<li><dl class="simple">
+<dt>CybosPlus 를 실행해 로그인을 최초 수동으로 해놓으면 이후 매번 스크립트를 수행할 때마다 따로 로그인할 필요가 없습니다.</dt><dd><ul>
+<li><p>KOAPY 에서 제공하는 서버 같은 걸 별도로 띄울 필요가 없습니다.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>데이터 조회 API 가 동기식으로 처리가 되기 때문에 다루기가 쉽습니다.</p></li>
+</ul>
+<p>대신증권 CybosPlus 를 사용해 볼 수 있는 방법 중 하나는 파이썬을 스크립트를 실행하는 디렉토리 (CWD/PWD) 아래
+혹은 사용자 홈 폴더 아래에 다음과 같은 설정 파일을 <code class="docutils literal notranslate"><span class="pre">koapy.conf</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">.koapy.conf</span></code> 파일 이름으로 추가하는 겁니다.</p>
+<div class="highlight-hocon notranslate"><div class="highlight"><pre><span></span>{
+    koapy.data.updater.default_context = &quot;koapy.backend.cybos.CybosPlusComObject.CybosPlusComObject&quot;
+}
+</pre></div>
+</div>
+<p>설정파일 예시는 <a class="reference external" href="https://github.com/elbakramer/koapy/blob/master/koapy/config.conf">KOAPY 의 기본 설정파일</a> 을 참고하세요.
+설정파일의 포맷은 <a class="reference external" href="https://github.com/chimpler/pyhocon">HOCON</a> 포맷입니다.</p>
+<p>CybosPlus 백엔드를 사용하기 위해선 당연하지만 CybosPlus 설치 및 실행/로그인이 되어있어야 하며,
+파이썬 스크립트 수행은 32-Bit 환경에서 실행되어야 합니다.
+CybosPlus 도 현재로선 32-Bit 에서만 지원하기 때문입니다.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/advanced_usage.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
