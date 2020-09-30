@@ -2,8 +2,7 @@ import datetime
 
 from koapy.utils.krx.holiday.KoreanLunarCalendar import KoreanLunarCalendar
 from koapy.utils.krx.holiday.LunarHoliday import LunarHoliday
-from koapy.utils.krx.holiday.KrxBusinessDay import KrxBusinessDay, holiday_to_datetime
-from koapy.utils.krx.holiday.KrxBusinessDay import krx_holiday_rules
+from koapy.utils.krx.holiday.KrxBusinessDay import KrxBusinessDay, KrxHolidayCalendar
 
 from koapy.utils.krx.marketdata.holiday import *
 
@@ -30,19 +29,20 @@ def get_last_krx_date():
     return get_last_krx_datetime().date()
 
 def get_holidays():
-    return krx_holiday_rules
+    today = datetime.datetime.today()
+    calendar = KrxHolidayCalendar()
+    start = datetime.datetime(today.year, 1, 1)
+    end = datetime.datetime(today.year, 12, 31)
+    return calendar.holidays(start, end, return_name=True)
 
 def get_holidays_as_dict():
     holidays = get_holidays()
-    holiday_datetimes = []
-    for holiday in holidays:
-        holiday_datetimes.append(holiday_to_datetime(holiday))
     response = {'block1': [{
         'calnd_dd_dy': dt.strftime('%Y-%m-%d'),
         'kr_dy_tp': dt.strftime('%a'),
         'dy_tp_cd': dt.strftime('%a'),
-        'holdy_nm': holiday.name,
-    } for holiday, dt in zip(holidays, holiday_datetimes) if dt.weekday() < 5]}
+        'holdy_nm': name,
+    } for dt, name in holidays.items() if dt.weekday() < 5]}
     return response
 
 __all__ = [

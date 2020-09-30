@@ -321,17 +321,20 @@ def stockinfo(codes, markets, input, output, format, port, verbose): # pylint: d
 @click.option('-c', '--code', 'codes', metavar='CODE', multiple=True, help='Stock code to get. Can set multiple times.')
 @click.option('-i', '--input', metavar='FILENAME', type=click.Path(), help='Text or excel file containing codes. Alternative to --codes option.')
 @click.option('-o', '--output', metavar='FOLDER|FILENAME', type=click.Path(), help='Output foldername or filename for single code. Files inside the folder would be named as CODE.xlsx. Defaults to current directory.')
+@click.option('-f', '--format', metavar='FORMAT', type=click.Choice(['xlsx', 'sqlite3'], case_sensitive=False), default='xlsx', help='Output format. (default: xlsx)')
+@click.option('-x', '--clean', is_flag=True, help='Remove untracked files.')
 @click.option('-s', '--start-date', metavar='YYYY-MM-DD', type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d']), help='Most recent date to get. Defaults to today or yesterday if market is open.')
 @click.option('-e', '--end-date', metavar='YYYY-MM-DD', type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d']), help='Stops if reached, not included (optional).')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def daily(codes, input, output, start_date, end_date, port, verbose): # pylint: disable=redefined-builtin
+def daily(codes, input, output, format, clean, start_date, end_date, port, verbose): # pylint: disable=redefined-builtin
     if (codes, input, output, start_date, end_date) == (tuple(), None, None, None, None):
         fail_with_usage()
 
     set_verbosity(verbose)
 
     codes_len = len(codes)
+    extension = '.' + format
 
     if codes_len == 0:
         if input is None:
@@ -354,10 +357,10 @@ def daily(codes, input, output, start_date, end_date, port, verbose): # pylint: 
                     codes = [line.strip() for line in f]
                 codes_len = len(codes)
             else:
-                fail_with_usage('Unrecognized input type.')
+                fail_with_usage('Unrecognized input file type.')
         elif os.path.isdir(input):
             import re
-            codes = [os.path.splitext(name)[0] for name in os.listdir(input) if name.endswith('.xlsx')]
+            codes = [os.path.splitext(name)[0] for name in os.listdir(input) if name.endswith(extension)]
             codes = [code for code in codes if re.match(r'[0-9A-Z]+', code)]
             codes_len = len(codes)
         else:
@@ -377,25 +380,41 @@ def daily(codes, input, output, start_date, end_date, port, verbose): # pylint: 
         else:
             output_is_folder = False
 
-    if output_is_folder:
-        def filepath_for_code(code):
-            if not os.path.exists(output):
-                os.mkdir(output)
-            return os.path.relpath(os.path.join(output, code + '.xlsx'))
+    if not output_is_folder:
+        assert codes_len == 1
+        code = codes[0]
+        base_output = os.path.basename(output)
+        output = os.path.dirname(output)
+        if not base_output.endswith(extension):
+            base_output += extension
+        final_output = os.path.join(output, base_output)
+        def post_process(updater, codes, output, context): # pylint: disable=unused-argument
+            os.replace(updater.get_filepath_for_code(code), final_output)
     else:
-        if not output.endswith('.xlsx'):
-            output += '.xlsx'
-        def filepath_for_code(_):
-            return output
+        def post_process(updater, codes, output, context): # pylint: disable=unused-argument
+            pass
 
-    import datetime
-    import pandas as pd
+    if format == 'xlsx':
+        from koapy.data.HistoricalStockPriceDataUpdater import HistoricalDailyStockPriceDataToExcelUpdater
+        def make_updater(context):
+            return HistoricalDailyStockPriceDataToExcelUpdater(codes, output, context=context, delete_remainings=clean)
+    elif format == 'sqlite3':
+        from koapy.data.HistoricalStockPriceDataUpdater import HistoricalDailyStockPriceDataToSqliteUpdater
+        def make_updater(context):
+            return HistoricalDailyStockPriceDataToSqliteUpdater(codes, output, context=context, delete_remainings=clean)
+    else:
+        fail_with_usage('Unrecognized output format %s.' % format)
 
     from koapy import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
 
+        updater = make_updater(context)
+        updater.update()
+        post_process(updater, codes, output, context)
+
+        """
         for i, code in enumerate(codes):
             logging.info('Starting to get stock data for code: %s (%d/%d)', code, i+1, codes_len)
             filepath = filepath_for_code(code)
@@ -415,6 +434,7 @@ def daily(codes, input, output, start_date, end_date, port, verbose): # pylint: 
                 df = context.GetDailyStockDataAsDataFrame(code, start_date, end_date)
                 df.to_excel(filepath, index=False)
             logging.info('Saved stock data for code %s to %s', code, filepath)
+        """
 
 minute_intervals = [
     '1',
@@ -432,11 +452,13 @@ minute_intervals = [
 @click.option('-t', '--interval', metavar='INTERVAL', type=click.Choice(minute_intervals, case_sensitive=False), help='Minute interval. Possible values are [%s]' % '|'.join(minute_intervals))
 @click.option('-i', '--input', metavar='FILENAME', type=click.Path(), help='Text or excel file containing codes. Alternative to --codes option.')
 @click.option('-o', '--output', metavar='FOLDER|FILENAME', type=click.Path(), help='Output foldername or filename for single code. Files inside the folder would be named as CODE.xlsx. Defaults to current directory.')
+@click.option('-f', '--format', metavar='FORMAT', type=click.Choice(['xlsx', 'sqlite3'], case_sensitive=False), default='xlsx', help='Output format. (default: xlsx)')
+@click.option('-x', '--clean', is_flag=True, help='Remove untracked files.')
 @click.option('-s', '--start-date', metavar="YYYY-MM-DD['T'hh:mm:ss]", type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d', '%Y-%m-%dT%H:%M:%S', '%Y%m%d%H%M%S']), help='Most recent date to get. Defaults to today or yesterday if market is open.')
 @click.option('-e', '--end-date', metavar="YYYY-MM-DD['T'hh:mm:ss]", type=click.DateTime(formats=['%Y-%m-%d', '%Y%m%d', '%Y-%m-%dT%H:%M:%S', '%Y%m%d%H%M%S']), help='Stops if reached, not included (optional).')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def minute(codes, interval, input, output, start_date, end_date, port, verbose): # pylint: disable=redefined-builtin
+def minute(codes, interval, input, output, format, clean, start_date, end_date, port, verbose): # pylint: disable=redefined-builtin
     if (codes, interval, input, output, start_date, end_date) == (tuple(), None, None, None, None, None):
         fail_with_usage()
 
@@ -446,6 +468,7 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
         fail_with_usage('Interval is not set.')
 
     codes_len = len(codes)
+    extension = '.' + format
 
     if codes_len == 0:
         if input is None:
@@ -468,10 +491,10 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
                     codes = [line.strip() for line in f]
                 codes_len = len(codes)
             else:
-                fail_with_usage('Unrecognized input type.')
+                fail_with_usage('Unrecognized input file type.')
         elif os.path.isdir(input):
             import re
-            codes = [os.path.splitext(name)[0] for name in os.listdir(input) if name.endswith('.xlsx')]
+            codes = [os.path.splitext(name)[0] for name in os.listdir(input) if name.endswith(extension)]
             codes = [code for code in codes if re.match(r'[0-9A-Z]+', code)]
             codes_len = len(codes)
         else:
@@ -491,25 +514,42 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
         else:
             output_is_folder = False
 
-    if output_is_folder:
-        def filepath_for_code(code):
-            if not os.path.exists(output):
-                os.mkdir(output)
-            return os.path.relpath(os.path.join(output, code + '.xlsx'))
+    if not output_is_folder:
+        assert codes_len == 1
+        code = codes[0]
+        base_output = os.path.basename(output)
+        output = os.path.dirname(output)
+        extension = '.' + format
+        if not base_output.endswith(extension):
+            base_output += extension
+        final_output = os.path.join(output, base_output)
+        def post_process(updater, codes, output, context): # pylint: disable=unused-argument
+            os.replace(updater.get_filepath_for_code(code), final_output)
     else:
-        if not output.endswith('.xlsx'):
-            output += '.xlsx'
-        def filepath_for_code(_):
-            return output
+        def post_process(updater, codes, output, context): # pylint: disable=unused-argument
+            pass
 
-    import datetime
-    import pandas as pd
+    if format == 'xlsx':
+        from koapy.data.HistoricalStockPriceDataUpdater import HistoricalMinuteStockPriceDataToExcelUpdater
+        def make_updater(context):
+            return HistoricalMinuteStockPriceDataToExcelUpdater(codes, output, interval, context=context, delete_remainings=clean)
+    elif format == 'sqlite3':
+        from koapy.data.HistoricalStockPriceDataUpdater import HistoricalMinuteStockPriceDataToSqliteUpdater
+        def make_updater(context):
+            return HistoricalMinuteStockPriceDataToSqliteUpdater(codes, output, interval, context=context, delete_remainings=clean)
+    else:
+        fail_with_usage('Unrecognized output format %s.' % format)
 
     from koapy import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
 
+        updater = make_updater(context)
+        updater.update()
+        post_process(updater, codes, output, context)
+
+        """
         for i, code in enumerate(codes):
             logging.info('Starting to get stock data for code: %s (%d/%d)', code, i+1, codes_len)
             filepath = filepath_for_code(code)
@@ -529,6 +569,7 @@ def minute(codes, interval, input, output, start_date, end_date, port, verbose):
                 df = context.GetMinuteStockDataAsDataFrame(code, interval, start_date, end_date)
                 df.to_excel(filepath, index=False)
             logging.info('Saved stock data for code %s to %s', code, filepath)
+        """
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get TR info.')
 @click.option('-t', '--trcode', 'trcodes', metavar='TRCODE', multiple=True, help='TR code to get (like opt10001).')

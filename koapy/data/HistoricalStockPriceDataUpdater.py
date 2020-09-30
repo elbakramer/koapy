@@ -77,6 +77,11 @@ class BaseHistoricalStockPriceDataUpdater(ABC):
     def extension(self):
         raise NotImplementedError
 
+    def get_filepath_for_code(self, code):
+        filename = code + self.extension
+        filepath = os.path.join(self._datadir, filename)
+        return filepath
+
     @property
     def context(self):
         return self._context
@@ -139,8 +144,7 @@ class BaseHistoricalStockPriceDataUpdater(ABC):
                             continue
                 try:
                     logging.info('Starting to get stock data for code: %s (%d/%d)', code, i+1, self._codes_len)
-                    filename = code + self.extension
-                    filepath = os.path.join(self._datadir, filename)
+                    filepath = self.get_filepath_for_code(code)
                     should_overwrite = True
                     if os.path.exists(filepath):
                         should_overwrite = self._if_exists in ['force', 'auto']
@@ -184,7 +188,8 @@ class BaseHistoricalStockPriceDataUpdater(ABC):
 
     def delete_remainings(self):
         for filename in os.listdir(self._datadir):
-            if os.path.splitext(filename)[0] not in self._codes:
+            basefilename, ext = os.path.splitext(filename)
+            if ext == self.extension and basefilename not in self._codes:
                 logging.info('File %s is not included in target codes, deleting...', filename)
                 os.remove(os.path.join(self._datadir, filename))
 
@@ -245,7 +250,7 @@ class HistoricalDailyStockPriceDataToSqliteUpdater(BaseHistoricalStockPriceDataT
     def append_data(self, data, filepath):
         return self.write_data(data, filepath, if_exists='append')
 
-    def check_last_date_kiwoom(self, filepath):
+    def check_last_date(self, filepath):
         engine = create_engine('sqlite:///' + filepath)
         with engine.connect() as con:
             sql = select([column(self._date_column_name)])

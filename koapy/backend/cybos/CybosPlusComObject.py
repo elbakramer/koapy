@@ -72,7 +72,6 @@ class CybosPlusComObject:
 
     def CommConnect(self):
         """
-        Not Tested
         https://github.com/ippoeyeslhw/cppy/blob/master/cp_luncher.py
         """
 
@@ -177,6 +176,7 @@ class CybosPlusComObject:
         errcode = 0
         if self.GetConnectState() == 0:
             self.CommConnect()
+        if self.GetConnectState() == 0:
             raise RuntimeError('Cybos Plus is not running, please start Cybos Plus.')
         return errcode
 
@@ -197,12 +197,15 @@ class CybosPlusComObject:
         return self.GetCodeListByMarketAsList(2)
 
     def GetStockDataAsDataFrame(self, code, type, interval, start_date=None, end_date=None):
+        """
+        http://cybosplus.github.io/cpsysdib_rtf_1_/stockchart.htm
+        """
         chart = self.CpSysDib.StockChart
 
         if len(code) == 6 and not code.startswith('A'):
             code = 'A' + code
 
-        fids = [5, 8, 0, 1, 2, 3, 4]
+        fids = [5, 8, 0, 1, 2, 3, 4, 18, 19]
         num_fids = len(fids)
         sorted_fids = sorted(fids)
         field_indexes = [sorted_fids.index(i) for i in fids]
@@ -252,7 +255,7 @@ class CybosPlusComObject:
             chart.SetInputvalue(5, fids)
             chart.SetInputValue(6, ord(type))
             chart.SetInputValue(7, int(interval))
-            chart.SetInputValue(9, ord('1'))
+            chart.SetInputValue(9, ord('1')) # TODO: 수정주가로 받으면서 append 하는 경우 과거 데이터에 대한 추가보정이 별도로 필요함
 
             logging.debug('Requesting from %s', internal_start_date)
             err = chart.RateLimitedBlockRequest()

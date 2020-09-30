@@ -223,7 +223,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         inputs = {
             '종목코드': code,
             '기준일자': start_date,
-            '수정주가구분': '1',
+            '수정주가구분': '1', # TODO: 수정주가로 받으면서 append 하는 경우 과거 데이터에 대한 추가보정이 별도로 필요함
         }
         columns = []
         records = []
@@ -277,7 +277,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         inputs = {
             '종목코드': code,
             '틱범위': interval,
-            '수정주가구분': '1',
+            '수정주가구분': '1', # TODO: 수정주가로 받으면서 append 하는 경우 과거 데이터에 대한 추가보정이 별도로 필요함
         }
         columns = []
         records = []

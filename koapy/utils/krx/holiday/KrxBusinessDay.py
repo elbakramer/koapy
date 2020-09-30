@@ -2,17 +2,15 @@ import os
 import json
 import datetime
 
-from pandas.tseries.holiday import Holiday, AbstractHolidayCalendar
+from pandas.tseries.holiday import AbstractHolidayCalendar
 from pandas.tseries.offsets import CustomBusinessDay
 from pandas.tseries.offsets import Day
 
-from koapy.utils.krx.holiday.KoreanLunarCalendar import KoreanLunarCalendar
-from koapy.utils.krx.holiday.LunarHoliday import LunarHoliday
+from koapy.utils.krx.holiday.LunarHoliday import LunarHoliday, SolarHoliday as Holiday
 from koapy.utils.krx.marketdata.holiday import download_holidays_as_dict
+from koapy.utils.collections import ChainList
 
-from koapy.utils import recursion
-
-korean_holiday_rules = []
+original_korean_holiday_datetimes = {}
 
 def is_sunday(dt):
     return dt.weekday() == 6
@@ -20,34 +18,29 @@ def is_sunday(dt):
 def is_saterday_and_childrens_day(dt):
     return dt.month == 5 and dt.day == 5 and dt.weekday() == 5
 
-def holiday_to_datetime(rule, reference_dt=None): # pylint: disable=redefined-outer-name
-    if reference_dt is None:
-        reference_dt = datetime.datetime.today()
-    if isinstance(rule, LunarHoliday):
-        holiday_dt = KoreanLunarCalendar.lunar_to_solar_datetime(rule.year or reference_dt.year, rule.month, rule.day)
-    else:
-        holiday_dt = datetime.datetime(rule.year or reference_dt.year, rule.month, rule.day)
-    if rule.offset:
-        holiday_dt += rule.offset
-    if rule.observance:
-        holiday_dt = rule.observance(holiday_dt)
-    return holiday_dt
+def prepare_original_holidays_for_year(dt):
+    if dt.year not in original_korean_holiday_datetimes:
+        original_korean_holiday_datetimes[dt.year] = {}
+        for rule in korean_non_alternate_holiday_rules:
+            date = rule.to_datetime(dt.year, apply_observance=rule.observance is not alternate_holiday)
+            original_korean_holiday_datetimes[dt.year].setdefault(date, []).append(rule)
+        for rule in korean_alternate_holiday_rules:
+            date = rule.to_datetime(dt.year, apply_observance=rule.observance is not alternate_holiday)
+            original_korean_holiday_datetimes[dt.year].setdefault(date, []).append(rule)
 
-def is_holiday(dt):
-    for rule in korean_holiday_rules: # pylint: disable=redefined-outer-name
-        holiday_dt = holiday_to_datetime(rule, dt)
-        if dt == holiday_dt:
-            return True
-    return False
+def is_already_holiday(dt, offset=0):
+    prepare_original_holidays_for_year(dt)
+    return dt in original_korean_holiday_datetimes[dt.year] and len(original_korean_holiday_datetimes[dt.year][dt]) > (1 if offset == 0 else 0)
 
 def alternate_holiday(dt):
-    depth = recursion.depth()
-    if depth > 2:
-        return dt
-    original_dt = dt
-    while is_sunday(dt) or is_saterday_and_childrens_day(dt) or (dt != original_dt and is_holiday(dt)):
-        dt += datetime.timedelta(1)
+    offset = 0
+    while is_sunday(dt) or is_saterday_and_childrens_day(dt) or is_already_holiday(dt, offset):
+        dt += datetime.timedelta(days=1)
+        offset += 1
     return dt
+
+# 국가법령정보센터 : 관공서의 공휴일에 관한 규정
+# http://www.law.go.kr/LSW/lsSc.do?section=&menuId=1&subMenuId=15&tabMenuId=81&eventGubun=060101&query=%EA%B4%80%EA%B3%B5%EC%84%9C%EC%9D%98+%EA%B3%B5%ED%9C%B4%EC%9D%BC%EC%97%90+%EA%B4%80%ED%95%9C+%EA%B7%9C%EC%A0%95
 
 NewYearsDay = Holiday("New Years Day", month=1, day=1)
 KoreanNewYearsDayBefore = LunarHoliday("Korean New Years Day (-1)", month=1, day=1, offset=Day(-1), observance=alternate_holiday)
@@ -67,7 +60,7 @@ HangulProclamationDay = Holiday("Hangul Proclamation Day", month=10, day=9)
 Christmas = Holiday("Christmas", month=12, day=25)
 YearEndHoliday = Holiday("Year End Holiday", month=12, day=31)
 
-for rule in  [
+korean_holiday_rules = [
     NewYearsDay,
     KoreanNewYearsDayBefore,
     KoreanNewYearsDay,
@@ -84,8 +77,77 @@ for rule in  [
     KoreanNationalFoundationDay,
     HangulProclamationDay,
     Christmas,
-]:
-    korean_holiday_rules.append(rule)
+]
+
+korean_non_alternate_holiday_rules = [
+    NewYearsDay,
+    IndependenceMovementDay,
+    BuddhasBirthday,
+    LoborDay,
+    MemorialDay,
+    NationalLiberationDay,
+    KoreanNationalFoundationDay,
+    HangulProclamationDay,
+    Christmas,
+]
+
+korean_alternate_holiday_rules = [
+    KoreanNewYearsDayBefore,
+    KoreanNewYearsDay,
+    KoreanNewYearsDayAfter,
+    ChildrensDay,
+    KoreanThanksgivingDayBefore,
+    KoreanThanksgivingDay,
+    KoreanThanksgivingDayAfter,
+]
+
+krx_additional_holiday_rules = [
+    YearEndHoliday
+]
+
+krx_holiday_rules = ChainList([korean_holiday_rules, krx_additional_holiday_rules])
+
+class KoreanHolidayCalendar(AbstractHolidayCalendar):
+    """
+    별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
+      - 선거일은 반영되지 않음
+      - 임시공휴일은 반영되지 않음
+    """
+
+    rules = korean_holiday_rules
+
+class KrxHolidayCalendar(KoreanHolidayCalendar):
+    """
+    별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
+      - 선거일은 반영되지 않음
+      - 임시공휴일은 반영되지 않음
+    """
+
+    rules = krx_holiday_rules
+
+class KoreanBusinessDay(CustomBusinessDay):
+    """
+    별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
+      - 선거일은 반영되지 않음
+      - 임시공휴일은 반영되지 않음
+    """
+
+    def __init__(self, *args, **kwargs):
+        if 'calendar' not in kwargs:
+            kwargs['calendar'] = KoreanHolidayCalendar()
+        super().__init__(*args, **kwargs)
+
+class KrxBusinessDay(CustomBusinessDay):
+    """
+    별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
+      - 선거일은 반영되지 않음
+      - 임시공휴일은 반영되지 않음
+    """
+
+    def __init__(self, *args, **kwargs):
+        if 'calendar' not in kwargs:
+            kwargs['calendar'] = KrxHolidayCalendar()
+        super().__init__(*args, **kwargs)
 
 file_directory = os.path.dirname(os.path.realpath(__file__))
 dumpfile_directory = os.path.join(file_directory, '..', 'data')
@@ -100,52 +162,22 @@ def dump_holidays(dump=None):
 
 def load_holidays():
     if os.path.exists(dumpfile_path):
-        holiday_datetimes = [holiday_to_datetime(rule) for rule in korean_holiday_rules]
-        yearend_datetime = holiday_to_datetime(YearEndHoliday)
-        holiday_datetimes.append(yearend_datetime)
         with open(dumpfile_path, encoding='utf-8') as f:
             dump = json.load(f)
+        calendar = KrxHolidayCalendar()
         for holiday in dump['block1']:
             dt = datetime.datetime.strptime(holiday['calnd_dd_dy'], '%Y-%m-%d')
-            if dt not in holiday_datetimes:
+            if len(calendar.holidays(dt, dt)) == 0:
                 name = holiday['holdy_nm']
-                new_holiday = Holiday(name, year=dt.year, month=dt.month, day=dt.day)
-                for i, h in enumerate(holiday_datetimes):
-                    if h >= dt:
-                        holiday_datetimes.insert(i, dt)
-                        korean_holiday_rules.insert(i, new_holiday)
-                        break
+                new_holiday_rule = Holiday(name, year=dt.year, month=dt.month, day=dt.day)
+                if '임시' in name or '선거' in name:
+                    korean_holiday_rules.append(new_holiday_rule)
+                else:
+                    krx_additional_holiday_rules.append(new_holiday_rule)
+        # clear cache
+        calendar._cache = None # pylint: disable=protected-access
 
 load_holidays()
-
-krx_holiday_rules = korean_holiday_rules + [YearEndHoliday]
-
-class KoreanHolidayCalendar(AbstractHolidayCalendar):
-    """
-    별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
-      - 선거일은 반영되지 않음
-      - 임시공휴일은 반영되지 않음
-    """
-
-    rules = korean_holiday_rules
-
-class KrxHolidayCalendar(KoreanHolidayCalendar):
-
-    rules = krx_holiday_rules
-
-class KoreanBusinessDay(CustomBusinessDay):
-
-    def __init__(self, *args, **kwargs):
-        if 'calendar' not in kwargs:
-            kwargs['calendar'] = KoreanHolidayCalendar()
-        super().__init__(*args, **kwargs)
-
-class KrxBusinessDay(CustomBusinessDay):
-
-    def __init__(self, *args, **kwargs):
-        if 'calendar' not in kwargs:
-            kwargs['calendar'] = KrxHolidayCalendar()
-        super().__init__(*args, **kwargs)
 
 if __name__ == '__main__':
     dump_holidays()
