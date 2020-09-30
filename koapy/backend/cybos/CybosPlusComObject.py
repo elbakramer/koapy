@@ -47,6 +47,8 @@ class CybosPlusComObjectInner:
                 self._dispatches[name] = dispatch
         return dispatch
 
+is_in_development = False
+
 class CybosPlusComObject:
 
     """
@@ -96,7 +98,8 @@ class CybosPlusComObject:
         except pywinauto.timings.TimeoutError:
             pass
         else:
-            ask_stop.print_control_identifiers()
+            if is_in_development:
+                ask_stop.print_control_identifiers()
             if ask_stop['Static2'].window_text().endswith('종료하시겠습니까?'):
                 ask_stop['Button1'].click()
                 try:
@@ -105,26 +108,28 @@ class CybosPlusComObject:
                 except pywinauto.timings.TimeoutError:
                     pass
                 else:
-                    ask_stop.print_control_identifiers()
+                    if is_in_development:
+                        ask_stop.print_control_identifiers()
                     if ask_stop['Static2'].window_text().endswith('종료할 수 없습니다.'):
                         ask_stop['Button'].click()
-                        raise RuntimeError
+                        raise RuntimeError('cannot stop existing server')
 
         starter = desktop.window(title='CYBOS Starter')
         starter.wait('ready', timeout=10)
-        starter.print_control_identifiers()
+        if is_in_development:
+            starter.print_control_identifiers()
 
         if userid:
             starter['Edit1'].set_text(userid)
         if password:
             starter['Edit2'].set_text(password)
         else:
-            raise RuntimeError
+            raise RuntimeError('no password given')
         if not price_check_only:
             if cert:
                 starter['Edit3'].set_text(cert)
             else:
-                raise RuntimeError
+                raise RuntimeError('no cert password given')
 
         if auto_account_password:
             starter['Button4'].check()
@@ -134,7 +139,8 @@ class CybosPlusComObject:
             except pywinauto.timings.TimeoutError:
                 pass
             else:
-                confirm.print_control_identifiers()
+                if is_in_development:
+                    confirm.print_control_identifiers()
                 confirm['Button'].click()
         if auto_cert_password:
             starter['Button5'].check()
@@ -144,7 +150,8 @@ class CybosPlusComObject:
             except pywinauto.timings.TimeoutError:
                 pass
             else:
-                confirm.print_control_identifiers()
+                if is_in_development:
+                    confirm.print_control_identifiers()
                 confirm['Button'].click()
         if price_check_only:
             starter['Button6'].check()
@@ -159,12 +166,13 @@ class CybosPlusComObject:
             except pywinauto.timings.TimeoutError:
                 should_stop = True
             else:
-                account_password.print_control_identifiers()
+                if is_in_development:
+                    account_password.print_control_identifiers()
                 account_no = account_password['Static'].window_text().split(':')[-1].strip()
                 if account_no in account_passwords:
                     account_password['Edit'].set_text(account_passwords[account_no])
                 else:
-                    raise RuntimeError
+                    raise RuntimeError('no account password given for account %s' % account_no)
                 account_password['Button1'].click()
 
         try:
@@ -190,11 +198,44 @@ class CybosPlusComObject:
         """
         return self.CpUtil.CpCodeMgr.GetStockListByMarket(market)
 
-    def GetKospiCodeList(self, include_preferred_stocks=False, include_reits=True):
-        return self.GetCodeListByMarketAsList(1)
+    def GetKospiCodeList(self):
+        codes = self.GetCodeListByMarketAsList(1)
+        codes = sorted(codes)
+        return codes
 
     def GetKosdaqCodeList(self):
-        return self.GetCodeListByMarketAsList(2)
+        codes = self.GetCodeListByMarketAsList(2)
+        codes = sorted(codes)
+        return codes
+
+    def GetCommonCodeList(self,
+            include_preferred_stock=True,
+            include_etn=False,
+            include_etf=False,
+            include_mutual_fund=False,
+            include_reits=False,
+            include_kosdaq=False):
+
+        codes = self.GetKospiCodeList()
+        codemgr = self.CpUtil.CpCodeMgr
+
+        if not include_preferred_stock:
+            codes = [code for code in codes if code.endswith('0')]
+        if not include_etn:
+            codes = [code for code in codes if not code.startswith('Q')]
+        if not include_etf:
+            codes = [code for code in codes if codemgr.GetStockSectionKind(code) not in [10, 12]]
+        if not include_mutual_fund:
+            codes = [code for code in codes if codemgr.GetStockSectionKind(code) not in [2]]
+        if not include_reits:
+            codes = [code for code in codes if codemgr.GetStockSectionKind(code) not in [3]]
+
+        if include_kosdaq:
+            codes += self.GetKosdaqCodeList()
+
+        codes = sorted(codes)
+
+        return codes
 
     def GetStockDataAsDataFrame(self, code, type, interval, start_date=None, end_date=None):
         """

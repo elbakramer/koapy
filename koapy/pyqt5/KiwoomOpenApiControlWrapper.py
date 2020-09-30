@@ -42,7 +42,23 @@ class KiwoomOpenApiControlCommonWrapper:
         states = states.split('|') if states else []
         return states
 
-    def GetKospiCodeList(self, include_preferred_stocks=False, include_reits=True):
+    def GetKospiCodeList(self):
+        codes = self.GetCodeListByMarketAsList('0')
+        codes = sorted(codes)
+        return codes
+
+    def GetKosdaqCodeList(self):
+        codes = self.GetCodeListByMarketAsList('10')
+        codes = sorted(codes)
+        return codes
+
+    def GetCommonCodeList(self,
+            include_preferred_stock=True,
+            include_etn=False,
+            include_etf=False,
+            include_mutual_fund=False,
+            include_reits=False,
+            include_kosdaq=False):
         """
         [시장구분값]
           0 : 장내
@@ -57,43 +73,36 @@ class KiwoomOpenApiControlCommonWrapper:
           30 : K-OTC
         """
 
-        # 기본 코드 리스트
-        codes = self.GetCodeListByMarketAsList('0')
+        codes = self.GetKospiCodeList()
 
         # 코드 마지막 자리가 0 이 아니면 우선주일 가능성이 있다고 보고 제외
-        if not include_preferred_stocks:
+        if not include_preferred_stock:
             codes = [code for code in codes if code.endswith('0')]
 
         # 장내 시장에서 ETN 이 섞여 있는데 시장구분값으로 뺄 수가 없어서 이름을 보고 대충 제외
-        names = [self.GetMasterCodeName(code) for code in codes]
-        etn_suffixes = ['ETN', 'ETN(H)', 'ETN B', 'ETN(H) B']
-        is_not_etn_name = [not any(name.endswith(suffix) for suffix in etn_suffixes) for name in names]
-        codes = np.array(codes)[is_not_etn_name].tolist()
+        if not include_etn:
+            names = [self.GetMasterCodeName(code) for code in codes]
+            etn_suffixes = ['ETN', 'ETN(H)', 'ETN B', 'ETN(H) B']
+            is_not_etn_name = [not any(name.endswith(suffix) for suffix in etn_suffixes) for name in names]
+            codes = np.array(codes)[is_not_etn_name].tolist()
 
         # 코드값 기준 제외 준비
         codes = set(codes)
 
         # 나머지는 혹시나 겹치는 애들이 나올 수 있는 시장에서 코드기준 제외
-        codes = codes - set(self.GetCodeListByMarketAsList('10'))
-        codes = codes - set(self.GetCodeListByMarketAsList('8'))
-        codes = codes - set(self.GetCodeListByMarketAsList('4'))
-
-        # 리츠는 기본적으로 코스피에 포함됨
+        if not include_kosdaq:
+            codes = codes - set(self.GetCodeListByMarketAsList('10')) # 코스닥
+        if not include_etf:
+            codes = codes - set(self.GetCodeListByMarketAsList('8'))  # ETF
+        if not include_mutual_fund:
+            codes = codes - set(self.GetCodeListByMarketAsList('4'))  # 뮤추얼펀드
         if not include_reits:
-            codes = codes - set(self.GetCodeListByMarketAsList('6'))
+            codes = codes - set(self.GetCodeListByMarketAsList('6'))  # 리츠
 
         # 정렬된 리스트 형태로 제공
         codes = sorted(list(codes))
 
         return codes
-
-    def GetKosdaqCodeList(self):
-        codes = self.GetCodeListByMarketAsList('10')
-        codes = sorted(codes)
-        return codes
-
-    def GetCommonCodeList(self):
-        return self.GetKospiCodeList(include_preferred_stocks=True, include_reits=False)
 
     def IsSuspended(self, code):
         return '거래정지' in self.GetMasterStockStateAsList(code)
