@@ -123,12 +123,17 @@ class BaseHistoricalStockPriceDataUpdater(ABC):
             if self.context is None:
                 default_context = config.get('koapy.data.updater.default_context')
                 if default_context == 'koapy.backend.cybos.CybosPlusComObject.CybosPlusComObject':
+                    logging.debug('Using CybosPlus backend')
                     default_context = CybosPlusComObject()
                 else:
                     if default_context != 'koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext':
                         logging.warning('Unexpected default context %s, defaults to KiwoomOpenApiContext.', default_context)
+                    logging.debug('Using Kiwoom OpenAPI backend')
                     default_context = KiwoomOpenApiContext()
                 self.context = stack.enter_context(default_context)
+            else:
+                logging.debug('Using existing given context of type %s', type(self.context))
+
             self.context.EnsureConnected()
 
             should_try_append = self._if_exists in ['auto', 'append']
