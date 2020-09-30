@@ -237,7 +237,7 @@ class CybosPlusComObject:
 
         return codes
 
-    def GetStockDataAsDataFrame(self, code, type, interval, start_date=None, end_date=None):
+    def GetStockDataAsDataFrame(self, code, chart_type, interval, start_date=None, end_date=None):
         """
         http://cybosplus.github.io/cpsysdib_rtf_1_/stockchart.htm
         """
@@ -294,7 +294,7 @@ class CybosPlusComObject:
             chart.SetInputValue(2, int(internal_start_date.strftime(date_format_input)))
             chart.SetInputValue(4, request_count)
             chart.SetInputvalue(5, fids)
-            chart.SetInputValue(6, ord(type))
+            chart.SetInputValue(6, ord(chart_type))
             chart.SetInputValue(7, int(interval))
             chart.SetInputValue(9, ord('1')) # TODO: 수정주가로 받으면서 append 하는 경우 과거 데이터에 대한 추가보정이 별도로 필요함
 
@@ -319,8 +319,8 @@ class CybosPlusComObject:
 
             df = pd.DataFrame.from_records(records, columns=names)
 
-            from_date = datetime.datetime.strptime(str(df.iloc[0]['날짜']), date_format_input)
-            last_date = datetime.datetime.strptime(str(df.iloc[-1]['날짜']), date_format_input)
+            from_date = datetime.datetime.strptime(df.iloc[0]['날짜'].astype(int).astype(str), date_format_input)
+            last_date = datetime.datetime.strptime(df.iloc[-1]['날짜'].astype(int).astype(str), date_format_input)
             logging.debug('Received data from %s to %s for code %s', from_date, last_date, code)
 
             if end_date is None:
@@ -332,7 +332,7 @@ class CybosPlusComObject:
                 logging.debug('More data to request remains')
                 internal_start_date = last_date
                 nrows_before_truncate = df.shape[0]
-                condition = pd.to_datetime(df['날짜'].astype(str), format='%Y%m%d') > last_date
+                condition = pd.to_datetime(df['날짜'].astype(int).astype(str), format='%Y%m%d') > last_date
                 df = df.loc[condition]
                 nrows_after_truncate = df.shape[0]
                 logging.debug('Trailing rows truncated: %d', nrows_before_truncate - nrows_after_truncate)
@@ -340,7 +340,7 @@ class CybosPlusComObject:
                 logging.debug('No more data to request')
                 if end_date is not None:
                     nrows_before_truncate = df.shape[0]
-                    datetimes = pd.to_datetime(df['날짜'].astype(str).str.cat(df['시간'].astype(str).str.zfill(6)), format='%Y%m%d%H%M%S')
+                    datetimes = pd.to_datetime(df['날짜'].astype(int).astype(str).str.cat(df['시간'].astype(int).astype(str).str.zfill(6)), format='%Y%m%d%H%M%S')
                     condition = datetimes > end_date
                     df = df.loc[condition]
                     nrows_after_truncate = df.shape[0]

@@ -394,47 +394,21 @@ def daily(codes, input, output, format, clean, start_date, end_date, port, verbo
         def post_process(updater, codes, output, context): # pylint: disable=unused-argument
             pass
 
-    if format == 'xlsx':
-        from koapy.data.HistoricalStockPriceDataUpdater import HistoricalDailyStockPriceDataToExcelUpdater
-        def make_updater(context):
-            return HistoricalDailyStockPriceDataToExcelUpdater(codes, output, context=context, delete_remainings=clean)
-    elif format == 'sqlite3':
-        from koapy.data.HistoricalStockPriceDataUpdater import HistoricalDailyStockPriceDataToSqliteUpdater
-        def make_updater(context):
-            return HistoricalDailyStockPriceDataToSqliteUpdater(codes, output, context=context, delete_remainings=clean)
-    else:
-        fail_with_usage('Unrecognized output format %s.' % format)
+    import contextlib
 
-    from koapy import KiwoomOpenApiContext
+    with contextlib.ExitStack() as stack:
+        context = None
 
-    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
-        context.EnsureConnected()
+        if port is not None:
+            from koapy import KiwoomOpenApiContext
+            context = stack.enter_context(KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose))
+            context.EnsureConnected()
 
-        updater = make_updater(context)
+        from koapy.data.HistoricalStockPriceDataUpdater import HistoricalStockPriceDataUpdater
+
+        updater = HistoricalStockPriceDataUpdater(codes, output, 'daily', 1, format, delete_remainings=clean, context=context)
         updater.update()
         post_process(updater, codes, output, context)
-
-        """
-        for i, code in enumerate(codes):
-            logging.info('Starting to get stock data for code: %s (%d/%d)', code, i+1, codes_len)
-            filepath = filepath_for_code(code)
-            appended = False
-            if os.path.exists(filepath):
-                df = pd.read_excel(filepath, dtype=str)
-                if df.shape[0] > 0:
-                    last_date = df.loc[0, '일자']
-                    last_date = datetime.datetime.strptime(last_date, '%Y%m%d')
-                    logging.info('Found existing file %s, prepending from %s until %s', os.path.basename(filepath), start_date, last_date)
-                    df = pd.concat([context.GetDailyStockDataAsDataFrame(code, start_date, last_date), df], sort=False)
-                    tempfilepath = filepath + '.tmp'
-                    df.to_excel(tempfilepath, index=False)
-                    os.replace(tempfilepath, filepath)
-                    appended = True
-            if not appended:
-                df = context.GetDailyStockDataAsDataFrame(code, start_date, end_date)
-                df.to_excel(filepath, index=False)
-            logging.info('Saved stock data for code %s to %s', code, filepath)
-        """
 
 minute_intervals = [
     '1',
@@ -529,47 +503,21 @@ def minute(codes, interval, input, output, format, clean, start_date, end_date, 
         def post_process(updater, codes, output, context): # pylint: disable=unused-argument
             pass
 
-    if format == 'xlsx':
-        from koapy.data.HistoricalStockPriceDataUpdater import HistoricalMinuteStockPriceDataToExcelUpdater
-        def make_updater(context):
-            return HistoricalMinuteStockPriceDataToExcelUpdater(codes, output, interval, context=context, delete_remainings=clean)
-    elif format == 'sqlite3':
-        from koapy.data.HistoricalStockPriceDataUpdater import HistoricalMinuteStockPriceDataToSqliteUpdater
-        def make_updater(context):
-            return HistoricalMinuteStockPriceDataToSqliteUpdater(codes, output, interval, context=context, delete_remainings=clean)
-    else:
-        fail_with_usage('Unrecognized output format %s.' % format)
+    import contextlib
 
-    from koapy import KiwoomOpenApiContext
+    with contextlib.ExitStack() as stack:
+        context = None
 
-    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
-        context.EnsureConnected()
+        if port is not None:
+            from koapy import KiwoomOpenApiContext
+            context = stack.enter_context(KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose))
+            context.EnsureConnected()
 
-        updater = make_updater(context)
+        from koapy.data.HistoricalStockPriceDataUpdater import HistoricalStockPriceDataUpdater
+
+        updater = HistoricalStockPriceDataUpdater(codes, output, 'minute', interval, format, delete_remainings=clean, context=context)
         updater.update()
         post_process(updater, codes, output, context)
-
-        """
-        for i, code in enumerate(codes):
-            logging.info('Starting to get stock data for code: %s (%d/%d)', code, i+1, codes_len)
-            filepath = filepath_for_code(code)
-            appended = False
-            if os.path.exists(filepath):
-                df = pd.read_excel(filepath, dtype=str)
-                if df.shape[0] > 0:
-                    last_date = df.loc[0, '체결시간']
-                    last_date = datetime.datetime.strptime(last_date, '%Y%m%d%H%M%S')
-                    logging.info('Found existing file %s, prepending from %s until %s', os.path.basename(filepath), start_date, last_date)
-                    df = pd.concat([context.GetMinuteStockDataAsDataFrame(code, interval, start_date, last_date), df], sort=False)
-                    tempfilepath = filepath + '.tmp'
-                    df.to_excel(tempfilepath, index=False)
-                    os.replace(tempfilepath, filepath)
-                    appended = True
-            if not appended:
-                df = context.GetMinuteStockDataAsDataFrame(code, interval, start_date, end_date)
-                df.to_excel(filepath, index=False)
-            logging.info('Saved stock data for code %s to %s', code, filepath)
-        """
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get TR info.')
 @click.option('-t', '--trcode', 'trcodes', metavar='TRCODE', multiple=True, help='TR code to get (like opt10001).')

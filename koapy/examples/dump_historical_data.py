@@ -1,6 +1,6 @@
 import os
 
-from koapy.data.HistoricalStockPriceDataUpdater import Historical15MinuteStockPriceDataToExcelUpdater
+from koapy.data.HistoricalStockPriceDataUpdater import HistoricalStockPriceDataUpdater
 
 codes = [
     '005930',
@@ -12,4 +12,4 @@ datadir = 'data'
 if not os.path.exists(datadir):
     os.mkdir(datadir)
 
-Historical15MinuteStockPriceDataToExcelUpdater(codes, datadir).update()
+HistoricalStockPriceDataUpdater(codes, datadir, 'minute', 15).update()

@@ -26,6 +26,7 @@ requirements = [
     'pandas>=1.1.2',
     'xlrd>=1.2.0',
     'SQLAlchemy>=1.3.19',
+    'Send2Trash>=1.5.0',
     'pywin32>=228;sys_platform=="win32"',
     'mslex>=0.1.1;sys_platform=="win32"',
     'pywinauto>=0.6.8;sys_platform=="win32"',
