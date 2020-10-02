@@ -63,81 +63,77 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 
 아래는 KOAPY 를 활용하는 예시 스크립트 입니다:
 
-.. only:: internal
+..  .. literalinclude:: ../koapy/examples/main_scenario.py
+            :language: python
 
-    .. literalinclude:: ../koapy/examples/main_scenario.py
-        :language: python
+.. code-block:: python
 
-.. only:: not internal
+    from koapy import KiwoomOpenApiContext
+    from koapy import RealType
 
-    .. code-block:: python
+    from pprint import PrettyPrinter
+    from google.protobuf.json_format import MessageToDict
 
-        from koapy import KiwoomOpenApiContext
-        from koapy import RealType
+    pp = PrettyPrinter()
 
-        from pprint import PrettyPrinter
-        from google.protobuf.json_format import MessageToDict
+    with KiwoomOpenApiContext() as context:
+        # 로그인 예시
+        print('Logging in...')
+        context.EnsureConnected()
+        print('Logged in.')
 
-        pp = PrettyPrinter()
+        # 기본 함수 호출 예시
+        print('Getting stock codes and names...')
+        codes = context.GetCodeListByMarketAsList('0')
+        names = [context.GetMasterCodeName(code) for code in codes]
 
-        with KiwoomOpenApiContext() as context:
-            # 로그인 예시
-            print('Logging in...')
-            context.EnsureConnected()
-            print('Logged in.')
+        # 위에서 가져온 정보로 삼성전자의 code 확인
+        codes_by_name = dict(zip(names, codes))
+        print('Checking stock code of Samsung...')
+        samsung_code = codes_by_name['삼성전자']
+        code = samsung_code
+        print('Code: %s' % code)
 
-            # 기본 함수 호출 예시
-            print('Getting stock codes and names...')
-            codes = context.GetCodeListByMarketAsList('0')
-            names = [context.GetMasterCodeName(code) for code in codes]
+        # TR 예시 (opt10081)
+        print('Getting daily stock data of Samsung...')
+        data = context.GetDailyStockDataAsDataFrame(code)
+        print('Daily stock data:')
+        print(data)
 
-            # 위에서 가져온 정보로 삼성전자의 code 확인
-            codes_by_name = dict(zip(names, codes))
-            print('Checking stock code of Samsung...')
-            samsung_code = codes_by_name['삼성전자']
-            code = samsung_code
-            print('Code: %s' % code)
+        # 조건검색 예시
+        condition_name = '대형 저평가 우량주'
+        print('Getting stock codes with condition: %s' % condition_name)
+        codes, info = context.GetCodeListByCondition(condition_name, with_info=True)
+        print(codes)
+        print(info)
 
-            # TR 예시 (opt10081)
-            print('Getting daily stock data of Samsung...')
-            data = context.GetDailyStockDataAsDataFrame(code)
-            print('Daily stock data:')
-            print(data)
+        # 주문처리 예시
+        first_account_no = context.GetFirstAvailableAccount()
 
-            # 조건검색 예시
-            condition_name = '대형 저평가 우량주'
-            print('Getting stock codes with condition: %s' % condition_name)
-            codes, info = context.GetCodeListByCondition(condition_name, with_info=True)
-            print(codes)
-            print(info)
+        request_name = '삼성전자 1주 시장가 신규 매수' # 사용자 구분명, 구분가능한 임의의 문자열
+        screen_no = '0001'                           # 화면번호
+        account_no = first_account_no                # 계좌번호 10자리, 여기서는 계좌번호 목록에서 첫번째로 발견한 계좌번호로 매수처리
+        order_type = 1         # 주문유형, 1 : 신규매수
+        code = samsung_code    # 종목코드, 앞의 삼성전자 종목코드
+        quantity = 1           # 주문수량, 1주 매수
+        price = 0              # 주문가격, 시장가 매수는 가격설정 의미없음
+        quote_type = '03'      # 거래구분, 03 : 시장가
+        original_order_no = '' # 원주문번호, 주문 정정/취소 등에서 사용
 
-            # 주문처리 예시
-            first_account_no = context.GetFirstAvailableAccount()
+        # 현재는 주문수량이 모두 소진되기 전까지 이벤트를 듣도록 되어있음, TODO: 중간에 끊을 수 있는 방법이 필요함
+        print('Sending order to buy %s, quantity of 1 stock, at market price...' % code)
+        for event in context.OrderCall(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no):
+            pp.pprint(MessageToDict(event))
 
-            request_name = '삼성전자 1주 시장가 신규 매수' # 사용자 구분명, 구분가능한 임의의 문자열
-            screen_no = '0001'                           # 화면번호
-            account_no = first_account_no                # 계좌번호 10자리, 여기서는 계좌번호 목록에서 첫번째로 발견한 계좌번호로 매수처리
-            order_type = 1         # 주문유형, 1 : 신규매수
-            code = samsung_code    # 종목코드, 앞의 삼성전자 종목코드
-            quantity = 1           # 주문수량, 1주 매수
-            price = 0              # 주문가격, 시장가 매수는 가격설정 의미없음
-            quote_type = '03'      # 거래구분, 03 : 시장가
-            original_order_no = '' # 원주문번호, 주문 정정/취소 등에서 사용
+        # 실시간 예시
+        code_list = [code]
+        fid_list = RealType.get_fids_by_realtype('주식시세')
+        real_type = '0'
 
-            # 현재는 주문수량이 모두 소진되기 전까지 이벤트를 듣도록 되어있음, TODO: 중간에 끊을 수 있는 방법이 필요함
-            print('Sending order to buy %s, quantity of 1 stock, at market price...' % code)
-            for event in context.OrderCall(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no):
-                pp.pprint(MessageToDict(event))
-
-            # 실시간 예시
-            code_list = [code]
-            fid_list = RealType.get_fids_by_realtype('주식시세')
-            real_type = '0'
-
-            # 현재는 실시간 이벤트를 무한정 가져옴, TODO: 중간에 끊을 수 있는 방법이 필요함
-            print('Starting to get realtime stock data for code: %s' % code)
-            for event in context.GetRealDataForCodesAsStream(code_list, fid_list, real_type, screen_no=None, infer_fids=True, readable_names=True, fast_parse=False):
-                pp.pprint(MessageToDict(event))
+        # 현재는 실시간 이벤트를 무한정 가져옴, TODO: 중간에 끊을 수 있는 방법이 필요함
+        print('Starting to get realtime stock data for code: %s' % code)
+        for event in context.GetRealDataForCodesAsStream(code_list, fid_list, real_type, screen_no=None, infer_fids=True, readable_names=True, fast_parse=False):
+            pp.pprint(MessageToDict(event))
 
 이외에 사용법과 관련한 다양한 예시들은 examples_ 폴더에서 확인 가능합니다.
 
@@ -147,17 +143,12 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 
     $ pip install koapy
 
-.. only:: internal
-
-    자세한 설치방법과 관련해서는 :doc:`./installation` 을 참고하세요.
-
+..  자세한 설치방법과 관련해서는 :doc:`./installation` 을 참고하세요.
     이후 사용법에 대해서는 :doc:`./usage` 를 참고하세요.
 
-.. only:: not internal
+자세한 설치방법과 관련해서는 Installation_ 을 참고하세요.
 
-    자세한 설치방법과 관련해서는 Installation_ 을 참고하세요.
-
-    이후 사용법에 대해서는 Usage_ 를 참고하세요.
+이후 사용법에 대해서는 Usage_ 를 참고하세요.
 
 현재 알파 단계이기 때문에 많은 기능들이 실제로 문제없이 동작하는지 충분히 테스트되지 않았습니다.
 만약에 실전 트레이딩에 사용하려는 경우 자체적으로 충분한 테스트를 거친 후 사용하시기 바랍니다.
