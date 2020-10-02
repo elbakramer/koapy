@@ -227,7 +227,11 @@ html_theme_options = {
     'fixed_sidebar': 'true',
     'github_banner': 'true',
     'github_button': 'true',
+    'donate_url': 'https://www.patreon.com/yunseong',
 }
+
+if not on_rtd:
+    html_theme_options['analytics_id'] = 'UA-179490468-1'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
