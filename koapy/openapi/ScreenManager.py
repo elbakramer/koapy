@@ -23,18 +23,6 @@ class ScreenManager:
     def is_inuse(self, screen_no):
         return screen_no is not None and self._number_to_screen_no(screen_no) in self._occupied_screen_nos
 
-    def ensure_not_using(self, screen_no):
-        if screen_no is None or self.is_inuse(screen_no):
-            raise ValueError
-        return screen_no
-
-    def ensure_not_using_or_get(self, screen_no):
-        if screen_no is None:
-            return self.get_single_free_screen()
-        else:
-            self.ensure_not_using(screen_no)
-            return screen_no
-
     def get_single_free_screen(self, exclude=None):
         if exclude is None:
             exclude = []
@@ -65,7 +53,10 @@ class ScreenManager:
                 logging.warning('Borrowing a screen, but already using maximum number of screens.')
                 oldest = self._occupied_screen_nos.popleft()
                 logging.warning('Oldest screen %s popped.', self._number_to_screen_no(oldest))
-            screen_no = self.ensure_not_using_or_get(screen_no)
+            if screen_no is None or screen_no == '':
+                screen_no = self.get_single_free_screen()
+            elif self.is_inuse(screen_no):
+                logging.warning("Borrowing screen %s, but it's already is use.", screen_no)
             self._occupied_screen_nos.append(self._screen_no_to_number(screen_no))
             if len(self._occupied_screen_nos) == self._maximum_num:
                 logging.warning('Maximum number of screens reached.')

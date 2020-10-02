@@ -891,7 +891,7 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
 
-        for event in context.WatchRealDataForCodesAsStream(codes, fids, infer_fids=True):
+        for event in context.GetRealDataForCodesAsStream(codes, fids, infer_fids=True):
             print_message(event)
 
 order_types = [

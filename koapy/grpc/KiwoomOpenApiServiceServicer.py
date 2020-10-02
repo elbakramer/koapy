@@ -2,6 +2,7 @@ import threading
 
 from koapy.grpc import KiwoomOpenApiService_pb2, KiwoomOpenApiService_pb2_grpc
 from koapy.grpc.event.BaseKiwoomOpenApiEventHandler import BaseKiwoomOpenApiEventHandler
+
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiAllEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiSomeEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiLoginEventHandler
@@ -9,6 +10,11 @@ from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiTrEventHandl
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiOrderEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiRealEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiSomeBidirectionalEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiLoadConditionEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiConditionEventHandler
+
+from koapy.grpc.KiwoomOpenApiService import convert_arguments_from_protobuf_to_python
+
 from koapy.openapi.ScreenManager import ScreenManager
 
 from koapy.utils.logging import set_loglevel
@@ -32,19 +38,9 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
     def screen_manager(self):
         return self._screen_manager
 
-    @classmethod
-    def _convertArguments(cls, arguments):
-        args = []
-        for argument in arguments:
-            if argument.HasField('string_value'):
-                args.append(argument.string_value)
-            elif argument.HasField('long_value'):
-                args.append(argument.long_value)
-        return args
-
     def Call(self, request, context):
         name = request.name
-        arguments = self._convertArguments(request.arguments)
+        arguments = convert_arguments_from_protobuf_to_python(request.arguments)
         function = getattr(self.control, name)
         result = function(*arguments)
         response = KiwoomOpenApiService_pb2.CallResponse()
@@ -110,7 +106,7 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
 
     def CustomCallAndListen(self, request, context):
         name = request.name
-        arguments = self._convertArguments(request.arguments)
+        arguments = convert_arguments_from_protobuf_to_python(request.arguments)
         function = getattr(self.control, name)
         code = request.listen_request.code
         class_name = request.listen_request.class_name
@@ -154,6 +150,16 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
 
     def RealCall(self, request, context):
         with KiwoomOpenApiRealEventHandler(self.control, request, self.screen_manager) as handler:
+            for response in handler:
+                yield response
+
+    def LoadConditionCall(self, request, context):
+        with KiwoomOpenApiLoadConditionEventHandler(self.control, request) as handler:
+            for response in handler:
+                yield response
+
+    def ConditionCall(self, request, context):
+        with KiwoomOpenApiConditionEventHandler(self.control, request, self.screen_manager) as handler:
             for response in handler:
                 yield response
 

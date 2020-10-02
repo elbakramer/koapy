@@ -16,6 +16,7 @@ cybos_codes = [code[1:] for code in cybos_codes]
 
 kiwoom_codes = pd.DataFrame(kiwoom_codes, columns=['code'])
 kiwoom_codes['kiwoom'] = 'TRUE'
+
 cybos_codes = pd.DataFrame(cybos_codes, columns=['code'])
 cybos_codes['cybos'] = 'TRUE'
 

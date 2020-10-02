@@ -1,5 +1,7 @@
 from koapy.grpc import KiwoomOpenApiService_pb2
 
+from koapy.grpc.KiwoomOpenApiService import convert_arguments_from_python_to_protobuf
+
 class KiwoomOpenApiServiceClientSideDynamicCallable:
 
     def __init__(self, stub, name):
@@ -7,29 +9,25 @@ class KiwoomOpenApiServiceClientSideDynamicCallable:
         self._name = name
 
     @classmethod
-    def _createCallRequest(cls, name, args):
+    def _create_call_request(cls, name, args):
         request = KiwoomOpenApiService_pb2.CallRequest()
         request.name = name
-        for i, arg in enumerate(args):
-            if isinstance(arg, str):
-                request.arguments.add().string_value = arg # pylint: disable=no-member
-            elif isinstance(arg, int):
-                request.arguments.add().long_value = arg # pylint: disable=no-member
-            else:
-                raise TypeError('Unexpected type for argument %d: %s' % (i, type(arg)))
+        convert_arguments_from_python_to_protobuf(args, request.arguments) # pylint: disable=no-member
         return request
 
     @classmethod
-    def _unpackResponse(cls, response):
+    def _unpack_response(cls, response):
         if response.return_value.HasField('string_value'):
             return response.return_value.string_value
         elif response.return_value.HasField('long_value'):
             return response.return_value.long_value
+        elif response.return_value.HasField('bool_value'):
+            return response.return_value.bool_value
         else:
             return None
 
     def __call__(self, *args):
-        request = self._createCallRequest(self._name, args)
+        request = self._create_call_request(self._name, args)
         response = self._stub.Call(request)
-        result = self._unpackResponse(response)
+        result = self._unpack_response(response)
         return result

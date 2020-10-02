@@ -6,6 +6,8 @@ from concurrent import futures
 from koapy.grpc import KiwoomOpenApiService_pb2
 from koapy.grpc.observer.QueueBasedIterableObserver import QueueBasedIterableObserver
 
+from koapy.grpc.KiwoomOpenApiService import convert_arguments_from_protobuf_to_python
+
 from koapy.config import config
 
 class KiwoomOpenApiServiceClientSideSignalConnector:
@@ -53,16 +55,6 @@ class KiwoomOpenApiServiceClientSideSignalConnector:
                         cls._stop_observer(observer)
         cls._executor.shutdown(False)
 
-    @classmethod
-    def _convert_arguments(cls, arguments):
-        args = []
-        for argument in arguments:
-            if argument.HasField('string_value'):
-                args.append(argument.string_value)
-            elif argument.HasField('long_value'):
-                args.append(argument.long_value)
-        return args
-
     def connect(self, callback):
         with self._lock:
             observer = self._add_observer(callback)
@@ -72,7 +64,7 @@ class KiwoomOpenApiServiceClientSideSignalConnector:
                 observer.on_next(request)
                 observer_iterator = iter(observer)
                 for i, response in enumerate(self._stub.BidirectionalListen(observer_iterator)):
-                    args = self._convert_arguments(response.arguments)
+                    args = convert_arguments_from_protobuf_to_python(response.arguments)
                     callback(*args)
                     request = KiwoomOpenApiService_pb2.BidirectionalListenRequest()
                     request.handled_request.id = i # pylint: disable=no-member,pointless-statement

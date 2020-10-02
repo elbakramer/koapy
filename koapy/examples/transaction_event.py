@@ -3,12 +3,14 @@ from koapy import KiwoomOpenApiContext
 with KiwoomOpenApiContext() as context:
     context.EnsureConnected()
 
+    # 이벤트를 알아서 처리하고 결과물만 제공하는 상위 함수 사용 예시
     code = '005930'
-    price = context.GetStockInfoAsDataFrame(code).loc[0, '현재가']
+    info = context.GetStockInfoAsDataFrame(code)
+    print(info)
+    price = info.loc[0, '현재가']
     print(price)
 
-    # or... what happens inside...
-
+    # 이벤트를 스트림으로 반환하는 하위 함수 직접 사용 예시 (위의 상위 함수 내부에서 실제로 처리되는 내용에 해당)
     rqname = 'get_stock_info'
     trcode = 'opt10001'
     screenno = '0001'
@@ -20,5 +22,8 @@ with KiwoomOpenApiContext() as context:
         values = event.listen_response.single_data.values
         for name, value in zip(names, values):
             output[name] = value
+
+    print(output)
+
     price = output['현재가']
     print(price)

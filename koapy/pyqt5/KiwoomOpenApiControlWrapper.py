@@ -1,3 +1,4 @@
+import os
 import re
 import queue
 import logging
@@ -5,7 +6,7 @@ import logging
 import numpy as np
 
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
-from koapy.utils.rate_limiting.RateLimiter import KiwoomRateLimiter
+from koapy.utils.rate_limiting.RateLimiter import KiwoomCommRqDataRateLimiter, KiwoomSendConditionRateLimiter
 
 class KiwoomOpenApiControlCommonWrapper:
 
@@ -14,6 +15,21 @@ class KiwoomOpenApiControlCommonWrapper:
 
     def __getattr__(self, name):
         return getattr(self._control, name)
+
+    def _RemoveLeadingZerosForNumber(self, value, width=0):
+        remove = False
+        if width is None:
+            remove = False
+        elif isinstance(width, int) and (width == 0 or len(value) == width):
+            remove = True
+        elif hasattr(width, '__iter__') and len(value) in width:
+            remove = True
+        if remove:
+            return re.sub(r'^\s*([+-]?)[0]+([0-9]+(.[0-9]+)?)\s*$', r'\1\2', value)
+        return value
+
+    def _RemoveLeadingZerosForNumbersInValues(self, values, width=0):
+        return [self._RemoveLeadingZerosForNumber(value, width) for value in values]
 
     def GetServerGubun(self):
         return self.GetLoginInfo('GetServerGubun')
@@ -32,10 +48,21 @@ class KiwoomOpenApiControlCommonWrapper:
         names = [self.GetMasterCodeName(code) for code in codes]
         return names
 
+    def GetUserId(self):
+        userid = self.GetLoginInfo('USER_ID')
+        return userid
+
     def GetAccountList(self):
         accounts = self.GetLoginInfo('ACCLIST').rstrip(';')
         accounts = accounts.split(';') if accounts else []
         return accounts
+
+    def GetFirstAvailableAccount(self):
+        account = None
+        accounts = self.GetAccountList()
+        if len(accounts) > 0:
+            account = accounts[0]
+        return account
 
     def GetMasterStockStateAsList(self, code):
         states = self.GetMasterStockState(code).strip()
@@ -113,35 +140,65 @@ class KiwoomOpenApiControlCommonWrapper:
     def IsInSurveillance(self, code):
         return '감리종목' in self.GetMasterStockStateAsList(code)
 
-    def _RemoveLeadingZerosForNumber(self, value, width=0):
-        remove = False
-        if width is None:
-            remove = False
-        elif isinstance(width, int) and width == 0 or len(value) == width:
-            remove = True
-        elif hasattr(width, '__iter__') and len(value) in width:
-            remove = True
-        if remove:
-            return re.sub(r'^\s*([+-]?)[0]+([0-9]+(.[0-9]+)?)\s*$', r'\1\2', value)
-        return value
+    def GetConditionFilePath(self):
+        modulepath = self.GetAPIModulePath()
+        userid = self.GetUserId()
+        condition_filepath = os.path.join(modulepath, 'system', '%s_NewSaveIndex.dat' % userid)
+        return condition_filepath
 
-    def _RemoveLeadingZerosForNumbersInValues(self, values, width=0):
-        return [self._RemoveLeadingZerosForNumber(value, width) for value in values]
-
+    def GetConditionNameListAsList(self):
+        self.EnsureConditionLoaded()
+        conditions = self.GetConditionNameList()
+        conditions = conditions.rstrip(';').split(';') if conditions else []
+        conditions = [cond.split('^') for cond in conditions]
+        conditions = [(int(cond[0]), cond[1]) for cond in conditions]
+        return conditions
 
 class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
+
+    def Connect(self):
+        q = queue.Queue()
+        def OnEventConnect(errcode):
+            q.put(errcode)
+        self.OnEventConnect.connect(OnEventConnect)
+        try:
+            errcode = KiwoomOpenApiError.try_or_raise(self.CommConnect())
+            errcode = KiwoomOpenApiError.try_or_raise(q.get())
+        finally:
+            self.OnEventConnect.disconnect(OnEventConnect)
+        return errcode
 
     def EnsureConnected(self):
         errcode = 0
         if self.GetConnectState() == 0:
-            q = queue.Queue()
-            def OnEventConnect(errcode):
-                q.put(errcode)
-                self.OnEventConnect.disconnect(OnEventConnect)
-            self.OnEventConnect.connect(OnEventConnect)
-            errcode = KiwoomOpenApiError.try_or_raise(self.CommConnect())
-            errcode = KiwoomOpenApiError.try_or_raise(q.get())
+            errcode = self.Connect()
         return errcode
+
+    def LoadCondition(self):
+        q = queue.Queue()
+        def OnReceiveConditionVer(ret, msg):
+            if not ret:
+                q.put(KiwoomOpenApiError(0, msg))
+            else:
+                q.put((ret, msg))
+        self.OnReceiveConditionVer.connect(OnReceiveConditionVer)
+        try:
+            return_code = self.GetConditionLoad()
+            if return_code == 0:
+                raise KiwoomOpenApiError(0, 'Failed to load condition.')
+            res = q.get()
+            if isinstance(res, KiwoomOpenApiError):
+                raise res
+        finally:
+            self.OnReceiveConditionVer.disconnect(OnReceiveConditionVer)
+        return return_code
+
+    def EnsureConditionLoaded(self, force=False):
+        return_code = 1
+        condition_filepath = self.GetConditionFilePath()
+        if not os.path.exists(condition_filepath) or force:
+            return_code = self.LoadCondition()
+        return return_code
 
     # 그냥 1초당 5회로하면 장기적으로 결국 막히기 때문에 원래 4초당 1회로 제한했었음 (3초당 1회부턴 제한걸림)
     # @SimpleRateLimiter(period=4, calls=1)
@@ -150,7 +207,7 @@ class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
     # 1초당 1회로 계산했을때 1시간이면 3600 회, 주기를 1초씩 늘려보면
     # 2초당 1회 => 1800 > 1000, 3초당 1회 => 1200 > 1000, 4초당 1회 => 900 < 1000
 
-    @KiwoomRateLimiter()
+    @KiwoomCommRqDataRateLimiter()
     def RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
         """
         [OpenAPI 게시판]
@@ -192,3 +249,7 @@ class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
             raise KiwoomOpenApiError(code)
 
         return code
+
+    @KiwoomSendConditionRateLimiter()
+    def RateLimitedSendCondition(self, scrnno, condition_name, condition_index, search_type):
+        return self.SendCondition(scrnno, condition_name, condition_index, search_type)

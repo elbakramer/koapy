@@ -72,7 +72,7 @@ class BaseKiwoomOpenApiEventHandler(KiwoomOpenApiEventHandlerFunctions, ABC):
                 self.connect()
                 self.on_enter()
             self._enter_count += 1
-        return self
+            return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         with self._lock:

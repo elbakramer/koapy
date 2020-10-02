@@ -64,6 +64,16 @@ class KiwoomOpenApiServiceStub(object):
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.RealRequest.SerializeToString,
                 response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomCallAndListenResponse.FromString,
                 )
+        self.LoadConditionCall = channel.unary_stream(
+                '/koapy.grpc.KiwoomOpenApiService/LoadConditionCall',
+                request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.LoadConditionRequest.SerializeToString,
+                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomCallAndListenResponse.FromString,
+                )
+        self.ConditionCall = channel.unary_stream(
+                '/koapy.grpc.KiwoomOpenApiService/ConditionCall',
+                request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ConditionRequest.SerializeToString,
+                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomCallAndListenResponse.FromString,
+                )
         self.SetLogLevel = channel.unary_unary(
                 '/koapy.grpc.KiwoomOpenApiService/SetLogLevel',
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.SetLogLevelRequest.SerializeToString,
@@ -134,6 +144,18 @@ class KiwoomOpenApiServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def LoadConditionCall(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConditionCall(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SetLogLevel(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -191,6 +213,16 @@ def add_KiwoomOpenApiServiceServicer_to_server(servicer, server):
             'RealCall': grpc.unary_stream_rpc_method_handler(
                     servicer.RealCall,
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.RealRequest.FromString,
+                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomCallAndListenResponse.SerializeToString,
+            ),
+            'LoadConditionCall': grpc.unary_stream_rpc_method_handler(
+                    servicer.LoadConditionCall,
+                    request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.LoadConditionRequest.FromString,
+                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomCallAndListenResponse.SerializeToString,
+            ),
+            'ConditionCall': grpc.unary_stream_rpc_method_handler(
+                    servicer.ConditionCall,
+                    request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ConditionRequest.FromString,
                     response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomCallAndListenResponse.SerializeToString,
             ),
             'SetLogLevel': grpc.unary_unary_rpc_method_handler(
@@ -374,6 +406,40 @@ class KiwoomOpenApiService(object):
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/koapy.grpc.KiwoomOpenApiService/RealCall',
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.RealRequest.SerializeToString,
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomCallAndListenResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def LoadConditionCall(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/koapy.grpc.KiwoomOpenApiService/LoadConditionCall',
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.LoadConditionRequest.SerializeToString,
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomCallAndListenResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ConditionCall(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/koapy.grpc.KiwoomOpenApiService/ConditionCall',
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ConditionRequest.SerializeToString,
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CustomCallAndListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

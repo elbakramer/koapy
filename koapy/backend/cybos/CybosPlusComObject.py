@@ -8,7 +8,7 @@ import win32com.client
 
 from pywintypes import com_error as ComError # pylint: disable=no-name-in-module
 
-from koapy.utils.rate_limiting.RateLimiter import CybosRateLimiter
+from koapy.utils.rate_limiting.RateLimiter import CybosBlockRequestRateLimiter
 from koapy.utils.krx.holiday import get_last_krx_datetime
 from koapy.config import config
 
@@ -19,7 +19,7 @@ class CybosPlusComObjectDispatch:
     def __init__(self, dispatch):
         self._dispatch = dispatch
 
-    @CybosRateLimiter()
+    @CybosBlockRequestRateLimiter()
     def RateLimitedBlockRequest(self):
         return self._dispatch.BlockRequest()
 

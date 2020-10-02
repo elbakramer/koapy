@@ -112,13 +112,30 @@ class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlCommonWrappe
         request.flags.fast_parse = fast_parse # pylint: disable=no-member
         return self._stub.RealCall(request)
 
+    def LoadConditionCall(self):
+        request = KiwoomOpenApiService_pb2.LoadConditionRequest()
+        for response in self._stub.LoadConditionCall(request):
+            ret = response.listen_response.arguments[0].long_value
+            msg = response.listen_response.arguments[1].string_value
+        return (ret, msg)
+
+    def ConditionCall(self, scrnno, condition_name, condition_index, search_type, with_info=False, is_future_option=False, request_name=None):
+        request = request = KiwoomOpenApiService_pb2.ConditionRequest()
+        request.screen_no = scrnno or ''
+        request.condition_name = condition_name
+        request.condition_index = condition_index
+        request.search_type = search_type
+        request.flags.with_info = with_info # pylint: disable=no-member
+        request.flags.is_future_option = is_future_option # pylint: disable=no-member
+        if request_name is not None:
+            request.request_name = request_name
+        return self._stub.ConditionCall(request)
+
     def SetLogLevel(self, level, logger=''):
         request = KiwoomOpenApiService_pb2.SetLogLevelRequest()
         request.level = level
         request.logger = logger
         return self._stub.SetLogLevel(request)
-
-class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWrapper):
 
     def _EnsureConnectedUsingSignalConnector(self):
         errcode = 0
@@ -144,10 +161,39 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
     def EnsureConnected(self):
         return self._EnsureConnectedUsingCall()
 
-    def RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
+    def _ConnectUsingCall(self):
+        return self.Call('Connect')
+
+    def Connect(self):
+        return self._ConnectUsingCall()
+
+    def _LoadConditionUsingCall(self):
+        return self.Call('LoadCondition')
+
+    def LoadCondition(self):
+        return self._LoadConditionUsingCall()
+
+    def _EnsureConditionLoadedUsingCall(self, force=False):
+        return self.Call('EnsureConditionLoaded', force)
+
+    def EnsureConditionLoaded(self, force=False):
+        return self._EnsureConditionLoadedUsingCall(force)
+
+    def _RateLimitedCommRqDataUsingCall(self, rqname, trcode, prevnext, scrnno, inputs=None):
         return self.Call('RateLimitedCommRqData', rqname, trcode, prevnext, scrnno, inputs)
 
-    def _ParseTransactionCallResponses(self, responses, remove_zeros_width=0):
+    def RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
+        self._RateLimitedCommRqDataUsingCall(rqname, trcode, prevnext, scrnno, inputs)
+
+    def _RateLimitedSendConditionUsingCall(self, scrnno, condition_name, condition_index, search_type):
+        return self.Call('RateLimitedSendCondition', scrnno, condition_name, condition_index, search_type)
+
+    def RateLimitedSendCondition(self, scrnno, condition_name, condition_index, search_type):
+        return self._RateLimitedSendConditionUsingCall(scrnno, condition_name, condition_index, search_type)
+
+class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWrapper):
+
+    def _ParseTransactionCallResponses(self, responses, remove_zeros_width=None):
         single_output = None
         columns = []
         records = []
@@ -504,7 +550,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         single, _multi = self._ParseTransactionCallResponses(responses)
         return single
 
-    def WatchRealDataForCodesAsStream(self, codes, fids=None, realtype=None, screen_no=None, infer_fids=False, readable_names=False, fast_parse=False):
+    def GetRealDataForCodesAsStream(self, codes, fids=None, realtype=None, screen_no=None, infer_fids=False, readable_names=False, fast_parse=False):
         if isinstance(codes, str):
             codes = [codes]
         if fids is None:
@@ -513,3 +559,98 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             realtype = '0'
         for response in self.RealCall(screen_no, codes, fids, realtype, infer_fids, readable_names, fast_parse):
             yield response
+
+    def GetCodeListByCondition(self, condition_name, condition_index=None, with_info=False, is_future_option=False, request_name=None, screen_no=None):
+        search_type = 0
+
+        if condition_index is None:
+            condition_names = self.GetConditionNameListAsList()
+            condition_indices = {item[1]: item[0] for item in condition_names}
+            condition_index = condition_indices[condition_name]
+
+        codes = []
+
+        single_output = None
+        columns = []
+        records = []
+        remove_zeros_width=None
+
+        for response in self.ConditionCall(screen_no, condition_name, condition_index, search_type, with_info, is_future_option, request_name):
+            if response.listen_response.name == 'OnReceiveTrCondition':
+                code_list = response.listen_response.arguments[1].string_value
+                code_list = code_list.rstrip(';').split(';') if code_list else []
+                codes.extend(code_list)
+            elif response.listen_response.name == 'OnReceiveTrData':
+                if single_output is None:
+                    single_output = dict(zip(
+                        response.listen_response.single_data.names,
+                        self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, remove_zeros_width)))
+                if not columns:
+                    columns = response.listen_response.multi_data.names
+                for values in response.listen_response.multi_data.values:
+                    records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, remove_zeros_width))
+
+        _single = pd.Series(single_output)
+        multi = pd.DataFrame.from_records(records, columns=columns)
+
+        if with_info:
+            return codes, multi
+        else:
+            return codes
+
+    def GetCodeListByConditionAsStream(self, condition_name, condition_index=None, with_info=False, is_future_option=False, request_name=None, screen_no=None):
+        search_type = 1
+
+        if condition_index is None:
+            condition_names = self.GetConditionNameListAsList()
+            condition_indices = {item[1]: item[0] for item in condition_names}
+            condition_index = condition_indices[condition_name]
+
+        for response in self.ConditionCall(screen_no, condition_name, condition_index, search_type, with_info, is_future_option, request_name):
+            if response.listen_response.name == 'OnReceiveTrCondition':
+                code_list = response.listen_response.arguments[1].string_value
+                code_list = code_list.rstrip(';').split(';') if code_list else []
+                inserted = code_list
+                deleted = []
+                if with_info:
+                    yield inserted, deleted, None
+                else:
+                    yield inserted, deleted
+            elif response.listen_response.name == 'OnReceiveTrCondition':
+                code = response.listen_response.arguments[0].string_value
+                condition_type = response.listen_response.arguments[1].string_value
+                inserted = []
+                deleted = []
+                if condition_type == 'I':
+                    inserted.append(code)
+                elif condition_type == 'D':
+                    deleted.append(code)
+                else:
+                    raise ValueError('Unexpected condition type %s' % condition_type)
+                if with_info:
+                    yield inserted, deleted, None
+                else:
+                    yield inserted, deleted
+            elif response.listen_response.name == 'OnReceiveTrData':
+                single_output = None
+                columns = []
+                records = []
+                remove_zeros_width=None
+                if single_output is None:
+                    single_output = dict(zip(
+                        response.listen_response.single_data.names,
+                        self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, remove_zeros_width)))
+                if not columns:
+                    columns = response.listen_response.multi_data.names
+                for values in response.listen_response.multi_data.values:
+                    records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, remove_zeros_width))
+                _single = pd.Series(single_output)
+                multi = pd.DataFrame.from_records(records, columns=columns)
+                inserted = []
+                deleted = []
+                if with_info:
+                    yield inserted, deleted, multi
+                else:
+                    raise RuntimeError('Unexpected, OnReceiveTrData event with with_info=False ???')
+            else:
+                raise ValueError('Unexpected event handler name %s' % response.listen_response.name)
