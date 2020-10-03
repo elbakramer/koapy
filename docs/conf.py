@@ -227,6 +227,7 @@ html_theme_options = {
     'fixed_sidebar': 'true',
     'github_banner': 'true',
     'github_button': 'true',
+    'github_type': 'star',
     'donate_url': 'https://www.patreon.com/yunseong',
 }
 
