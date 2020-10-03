@@ -58,10 +58,10 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
     :language: python
 
 단순 함수콜에 비해서 추가된 점들을 짚어보면,
-이벤트 처리를 위하여 |QEventLoop|_ 를 생성하여 이벤트가 들어올 구간에 맞게 실행/종료를 시키고 있으며,
+이벤트 처리를 위하여 |QEventLoop|_ 를 생성하여 이벤트가 들어올 구간에 맞게 |exec|_/|exit|_ 를 시키고 있으며,
 이벤트를 직접적으로 처리할 콜백 함수들도 알맞게 구현후 적절한 타이밍에 |connect|_/|disconnect|_ 하고 있습니다.
 
-반면에 KOAPY 를 사용하면 동일한 작업을 아래와 같이 미리 주어진 메서드 :py:meth:`~.koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetStockInfoAsDataFrame`) 를 사용해 간단하게 처리가 가능합니다.
+반면에 KOAPY 를 사용하면 동일한 작업을 아래와 같이 미리 주어진 메서드 (:py:meth:`~.koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetStockInfoAsDataFrame`) 를 사용해 간단하게 처리가 가능합니다.
 좀 더 세부적인 컨트롤이 필요할 경우에는 요청할 TR 에 대한 정보를 직접 설정하고 중간단계의 API (:py:meth:`~.koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.TransactionCall`) 를 통해 호출한 뒤에
 반환되는 스트림을 순차적으로 처리하는 식으로 구현이 가능합니다.
 앞선 이벤트루프/콜백함수 기반 구현과 비교했을 때 이 방식이 좀 더 직관적입니다.
@@ -70,6 +70,11 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 .. _dynamicCall: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qaxcontainer/qaxbase.html?highlight=dynamicCall#dynamicCall
 .. |QEventLoop| replace:: ``QEventLoop``
 .. _QEventLoop: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qeventloop.html
+
+.. |exec| replace:: ``exec``
+.. _exec: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qeventloop.html?highlight=exec#exec
+.. |exit| replace:: ``exit``
+.. _exit: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qeventloop.html?highlight=exit#exit
 
 .. |connect| replace:: ``connect``
 .. _connect: https://www.riverbankcomputing.com/static/Docs/PyQt5/signals_slots.html?highlight=connect#connect
