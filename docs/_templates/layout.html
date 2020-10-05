@@ -1,0 +1,7 @@
+{%- extends "!layout.html" %}
+{%- block extrahead %}
+  {{ super() }}
+  {% if google_site_verification %}
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  {% endif %}
+{% endblock %}
