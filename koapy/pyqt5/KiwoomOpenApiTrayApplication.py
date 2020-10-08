@@ -59,11 +59,13 @@ class KiwoomOpenApiTrayApplication(QObject):
         self._serverStatusAction.setEnabled(False)
         menu.addSection('Links')
         documentationAction = menu.addAction('Documentation')
-        documentationAction.triggered.connect(self._openReadthedocs)
+        documentationAction.triggered.connect(self._openReadTheDocs)
         githubAction = menu.addAction('Github')
         githubAction.triggered.connect(self._openGithub)
         openApiAction = menu.addAction('Kiwoom OpenAPI+ Home')
         openApiAction.triggered.connect(self._openOpenApiHome)
+        openApiAction = menu.addAction('Kiwoom OpenAPI+ Document')
+        openApiAction.triggered.connect(self._openOpenApiDocument)
         qnaAction = menu.addAction('Kiwoom OpenAPI+ Qna')
         qnaAction.triggered.connect(self._openOpenApiQna)
         menu.addSection('Exit')
@@ -185,6 +187,11 @@ class KiwoomOpenApiTrayApplication(QObject):
         url = QUrl(openApiHomeUrl)
         QDesktopServices.openUrl(url)
 
+    def _openOpenApiDocument(self):
+        openApiHomeUrl = "https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf"
+        url = QUrl(openApiHomeUrl)
+        QDesktopServices.openUrl(url)
+
     def _openOpenApiQna(self):
         openApiQnaUrl = "https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do"
         url = QUrl(openApiQnaUrl)
@@ -195,7 +202,7 @@ class KiwoomOpenApiTrayApplication(QObject):
         url = QUrl(githubUrl)
         QDesktopServices.openUrl(url)
 
-    def _openReadthedocs(self):
+    def _openReadTheDocs(self):
         docUrl = "https://koapy.readthedocs.io/en/latest/"
         url = QUrl(docUrl)
         QDesktopServices.openUrl(url)

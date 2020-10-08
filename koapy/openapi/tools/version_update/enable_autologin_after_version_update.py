@@ -1,8 +1,6 @@
 import sys
-import time
 import logging
 import warnings
-import queue
 
 from concurrent import futures
 
@@ -14,9 +12,10 @@ import pywinauto
 
 from PyQt5.QtWidgets import QApplication
 
-from koapy import KiwoomOpenApiQAxWidget, KiwoomOpenApiError
+from koapy.pyqt5.KiwoomOpenApiQAxWidget import KiwoomOpenApiQAxWidget
+from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 from koapy.config import config
-from koapy.tools.version_update.login_semiauto import login_semiauto
+from koapy.openapi.tools.version_update.login_semiauto import login_semiauto
 
 is_in_development = False
 

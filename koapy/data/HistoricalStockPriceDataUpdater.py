@@ -19,6 +19,9 @@ from koapy.utils.krx.holiday import get_last_krx_datetime
 
 from send2trash import send2trash
 
+# TODO: 수정주가로 받으면서 append 하는 경우 과거 데이터에 대한 추가보정이 별도로 필요함
+# TODO: InfluxDB 지원 추가 검토
+
 class ChartType:
 
     DAY = 1

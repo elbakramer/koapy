@@ -13,6 +13,10 @@ KOAPY
         :target: https://koapy.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
+.. image:: https://img.shields.io/pypi/pyversions/koapy.svg
+        :target: https://pypi.python.org/pypi/koapy/
+        :alt: Python versions
+
 .. image:: https://pyup.io/repos/github/elbakramer/koapy/shield.svg
         :target: https://pyup.io/repos/github/elbakramer/koapy/
         :alt: Updates

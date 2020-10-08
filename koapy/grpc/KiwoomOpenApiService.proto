@@ -5,21 +5,23 @@ package koapy.grpc;
 service KiwoomOpenApiService {
   rpc Call (CallRequest) returns (CallResponse) {};
 
-  rpc Listen (ListenRequest) returns (stream CustomListenResponse) {};
+  rpc Listen (ListenRequest) returns (stream ListenResponse) {};
   rpc StopListen (StopListenRequest) returns (StopListenResponse) {};
 
-  rpc BidirectionalListen (stream BidirectionalListenRequest) returns (stream CustomListenResponse) {};
+  rpc BidirectionalListen (stream BidirectionalListenRequest) returns (stream ListenResponse) {};
 
-  rpc CustomListen (CustomListenRequest) returns (stream CustomListenResponse) {};
-  rpc CustomCallAndListen (CustomCallAndListenRequest) returns (stream CustomCallAndListenResponse) {};
+  rpc CustomListen (ListenRequest) returns (stream ListenResponse) {};
+  rpc CustomCallAndListen (CallAndListenRequest) returns (stream CallAndListenResponse) {};
 
-  rpc LoginCall (LoginRequest) returns (stream CustomCallAndListenResponse) {};
-  rpc TransactionCall (TransactionRequest) returns (stream CustomCallAndListenResponse) {};
-  rpc OrderCall (OrderRequest) returns (stream CustomCallAndListenResponse) {};
-  rpc RealCall (RealRequest) returns (stream CustomCallAndListenResponse) {};
+  rpc LoginCall (LoginRequest) returns (stream CallAndListenResponse) {};
+  rpc TransactionCall (TransactionRequest) returns (stream CallAndListenResponse) {};
+  rpc OrderCall (OrderRequest) returns (stream CallAndListenResponse) {};
+  rpc RealCall (RealRequest) returns (stream CallAndListenResponse) {};
 
-  rpc LoadConditionCall (LoadConditionRequest) returns (stream CustomCallAndListenResponse) {};
-  rpc ConditionCall (ConditionRequest) returns (stream CustomCallAndListenResponse) {};
+  rpc LoadConditionCall (LoadConditionRequest) returns (stream CallAndListenResponse) {};
+  rpc ConditionCall (ConditionRequest) returns (stream CallAndListenResponse) {};
+
+  rpc BidirectionalRealCall(stream BidirectionalRealRequest) returns (stream CallAndListenRequest) {};
 
   rpc SetLogLevel (SetLogLevelRequest) returns (SetLogLevelResponse) {};
 }
@@ -54,6 +56,8 @@ message CallResponse {
 message ListenRequest {
   string id = 1;
   repeated string slots = 2;
+  string code = 3;
+  string class_name = 4;
 }
 
 message SingleData {
@@ -68,11 +72,6 @@ message RepeatedString {
 message MultiData {
   repeated string names = 1;
   repeated RepeatedString values = 2;
-}
-
-message ListenResponse {
-  string name = 1;
-  repeated Argument arguments = 2;
 }
 
 
@@ -90,7 +89,7 @@ message HandledRequest {
 }
 
 message BidirectionalListenRequest {
-  oneof response {
+  oneof request {
     ListenRequest listen_request = 1;
     HandledRequest handled_request = 2;
     StopListenRequest stop_listen_request = 3;
@@ -98,12 +97,7 @@ message BidirectionalListenRequest {
 }
 
 
-message CustomListenRequest {
-  string code = 1;
-  string class_name = 2;
-}
-
-message CustomListenResponse {
+message ListenResponse {
   string name = 1;
   repeated Argument arguments = 2;
   SingleData single_data = 3;
@@ -111,15 +105,15 @@ message CustomListenResponse {
 }
 
 
-message CustomCallAndListenRequest {
+message CallAndListenRequest {
   CallRequest call_request = 1;
-  CustomListenRequest listen_request = 2;
+  ListenRequest listen_request = 2;
 }
 
-message CustomCallAndListenResponse {
+message CallAndListenResponse {
   oneof response {
     CallResponse call_response = 1;
-    CustomListenResponse listen_response = 2;
+    ListenResponse listen_response = 2;
   }
 }
 
@@ -147,6 +141,7 @@ message TransactionStopCondition {
   string name = 1;
   string value = 2;
   TransactionStopConditionCompartor comparator = 3;
+  bool include_equal = 4;
 }
 
 message TransactionRequest {
@@ -218,4 +213,31 @@ message SetLogLevelRequest {
 }
 
 message SetLogLevelResponse {
+}
+
+
+message BidirectionalRealInitializeRequest {
+  repeated int32 fid_list = 1;
+  RealRequestFlags flags = 2;
+}
+
+message BidirectionalRealRegisterRequest {
+  repeated string code_list = 1;
+  repeated int32 fid_list = 2;
+}
+
+message BidirectionalRealRemoveRequest {
+  repeated string code_list = 1;
+}
+
+message BidirectionalRealStopRequest {
+}
+
+message BidirectionalRealRequest {
+  oneof request {
+    BidirectionalRealInitializeRequest initialize_request = 1;
+    BidirectionalRealRegisterRequest register_request = 2;
+    BidirectionalRealRemoveRequest remove_request = 3;
+    BidirectionalRealStopRequest stop_request = 4;
+  }
 }

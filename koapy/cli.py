@@ -546,21 +546,22 @@ def trinfo(trcodes):
                     break
 
     for trcode in get_codes():
-        if not trcode.startswith('opt'):
-            trcode = 'opt' + trcode
         trinfo = TrInfo.get_trinfo_by_code(trcode)
-        click.echo('[%s] : [%s]' % (trinfo.tr_code.upper(), trinfo.name))
-        click.echo('  [INPUT]')
-        for input in trinfo.inputs:
-            click.echo('    %s' % input.name)
-        if trinfo.single_outputs:
-            click.echo('  [OUTPUT] [SINGLE DATA] : [%s]' % trinfo.single_outputs_name)
-            for output in trinfo.single_outputs:
-                click.echo('    %s' % output.name)
-        if trinfo.multi_outputs:
-            click.echo('  [OUTPUT] [MULTI DATA]  : [%s]' % trinfo.multi_outputs_name)
-            for output in trinfo.multi_outputs:
-                click.echo('    %s' % output.name)
+        if trinfo is not None:
+            click.echo('[%s] : [%s]' % (trinfo.tr_code.upper(), trinfo.name))
+            click.echo('  [INPUT]')
+            for input in trinfo.inputs:
+                click.echo('    %s' % input.name)
+            if trinfo.single_outputs:
+                click.echo('  [OUTPUT] [SINGLE DATA] : [%s]' % trinfo.single_outputs_name)
+                for output in trinfo.single_outputs:
+                    click.echo('    %s' % output.name)
+            if trinfo.multi_outputs:
+                click.echo('  [OUTPUT] [MULTI DATA]  : [%s]' % trinfo.multi_outputs_name)
+                for output in trinfo.multi_outputs:
+                    click.echo('    %s' % output.name)
+        else:
+            click.echo('Given trcode is invalid')
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get real type info.')
 @click.option('-t', '--realtype', 'realtypes', metavar='REALTYPE', multiple=True, help='Real type name to get (like 주식시세).')
@@ -594,6 +595,8 @@ def realinfo(realtypes):
             names = [RealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
             for fid, name in zip(fids, names):
                 click.echo('  [%s] = %s' % (fid, name))
+        else:
+            click.echo('Given realtype is invalid')
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get market holidays.')
 @click.option('-o', '--output', metavar='FILENAME', type=click.Path(), help='Output filename. (optional)')
@@ -615,8 +618,6 @@ def holidays(output, offline, update, no_update, verbose):
         else:
             from koapy.utils.krx.holiday import get_holidays_as_dict
             response = get_holidays_as_dict()
-            if not no_update or update:
-                logging.warning('Cannot update while offline.')
         lang = locale.getdefaultlocale()[0]
         if lang == 'ko_KR':
             day_key = 'kr_dy_tp'

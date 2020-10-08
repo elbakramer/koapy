@@ -7,7 +7,7 @@ from PyQt5.QtCore import QEvent, Qt
 from koapy.pyqt5.KiwoomOpenApiDynamicCallable import KiwoomOpenApiDynamicCallable
 from koapy.pyqt5.KiwoomOpenApiSignalConnector import KiwoomOpenApiSignalConnector
 from koapy.pyqt5.KiwoomOpenApiControlWrapper import KiwoomOpenApiControlWrapper
-from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiLoggingEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiLoggingEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions import KiwoomOpenApiEventHandlerFunctions
 
 class KiwoomOpenApiQAxWidget(QWidget):

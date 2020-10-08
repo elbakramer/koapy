@@ -112,23 +112,57 @@ class KiwoomOpenApiError(Exception):
     ERROR_CODES = list(ERROR_MESSAGE_BY_CODE.keys())
     ERROR_MESSAGES = list(ERROR_MESSAGE_BY_CODE.values())
 
+    DEFAULT_CODE = OP_ERR_FAIL
+
     @classmethod
     def get_error_message_by_code(cls, code, default=None):
         return cls.ERROR_MESSAGE_BY_CODE.get(code, default)
 
     @classmethod
-    def try_or_raise(cls, code_or_function, *args, **kwargs):
+    def try_or_raise_code(cls, code_or_function, *args, **kwargs):
         if callable(code_or_function):
             code = code_or_function(*args, **kwargs)
         elif isinstance(code_or_function, int):
             code = code_or_function
         else:
-            raise ValueError("Invalid argument for code_or_function: %s" % code_or_function)
+            raise ValueError('Invalid argument for code_or_function: %s' % code_or_function)
         if code < 0:
             raise cls(code)
         return code
 
-    def __init__(self, code, message=None):
+    @classmethod
+    def try_or_raise_boolean(cls, boolean_or_function, *args, **kwargs):
+        code = cls.DEFAULT_CODE
+        message = None
+        if callable(boolean_or_function):
+            boolean = boolean_or_function(*args, **kwargs)
+        elif isinstance(boolean_or_function, (int, bool)):
+            boolean = boolean_or_function
+            if len(args) > 0:
+                message = args[0]
+            else:
+                message = kwargs.get('message')
+            if len(args) > 1:
+                code = args[1]
+            else:
+                code = kwargs.get('code', code)
+        else:
+            raise ValueError('Invalid argument for boolean_or_function: %s' % boolean_or_function)
+        if not boolean:
+            raise cls(code, message)
+        return boolean
+
+    @classmethod
+    def try_or_raise(cls, code_or_function, *args, **kwargs):
+        return cls.try_or_raise_code(code_or_function, *args, **kwargs)
+
+    def __init__(self, code_or_message, message=None):
+        if isinstance(code_or_message, int):
+            code = code_or_message
+        elif isinstance(code_or_message, str):
+            code = message or self.DEFAULT_CODE
+            message = code_or_message
+
         if message is None:
             message = self.get_error_message_by_code(code)
 

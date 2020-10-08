@@ -178,14 +178,13 @@ class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
         q = queue.Queue()
         def OnReceiveConditionVer(ret, msg):
             if not ret:
-                q.put(KiwoomOpenApiError(0, msg))
+                q.put(KiwoomOpenApiError(msg))
             else:
                 q.put((ret, msg))
         self.OnReceiveConditionVer.connect(OnReceiveConditionVer)
         try:
-            return_code = self.GetConditionLoad()
-            if return_code == 0:
-                raise KiwoomOpenApiError(0, 'Failed to load condition.')
+            return_code = KiwoomOpenApiError.try_or_raise_boolean(
+                self.GetConditionLoad(), 'Failed to load condition')
             res = q.get()
             if isinstance(res, KiwoomOpenApiError):
                 raise res

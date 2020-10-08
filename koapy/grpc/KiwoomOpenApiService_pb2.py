@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%koapy/grpc/KiwoomOpenApiService.proto\x12\nkoapy.grpc\"W\n\x08\x41rgument\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x12\x14\n\nbool_value\x18\x03 \x01(\x08H\x00\x42\x07\n\x05value\"D\n\x0b\x43\x61llRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\targuments\x18\x02 \x03(\x0b\x32\x14.koapy.grpc.Argument\"Z\n\x0bReturnValue\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x12\x14\n\nbool_value\x18\x03 \x01(\x08H\x00\x42\x07\n\x05value\"=\n\x0c\x43\x61llResponse\x12-\n\x0creturn_value\x18\x01 \x01(\x0b\x32\x17.koapy.grpc.ReturnValue\"*\n\rListenRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05slots\x18\x02 \x03(\t\"+\n\nSingleData\x12\r\n\x05names\x18\x01 \x03(\t\x12\x0e\n\x06values\x18\x02 \x03(\t\" \n\x0eRepeatedString\x12\x0e\n\x06values\x18\x01 \x03(\t\"F\n\tMultiData\x12\r\n\x05names\x18\x01 \x03(\t\x12*\n\x06values\x18\x02 \x03(\x0b\x32\x1a.koapy.grpc.RepeatedString\"G\n\x0eListenResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\targuments\x18\x02 \x03(\x0b\x32\x14.koapy.grpc.Argument\"\x1f\n\x11StopListenRequest\x12\n\n\x02id\x18\x01 \x01(\t\"(\n\x12StopListenResponse\x12\x12\n\nsuccessful\x18\x01 \x01(\x08\"\x1c\n\x0eHandledRequest\x12\n\n\x02id\x18\x01 \x01(\r\"\xd2\x01\n\x1a\x42idirectionalListenRequest\x12\x33\n\x0elisten_request\x18\x01 \x01(\x0b\x32\x19.koapy.grpc.ListenRequestH\x00\x12\x35\n\x0fhandled_request\x18\x02 \x01(\x0b\x32\x1a.koapy.grpc.HandledRequestH\x00\x12<\n\x13stop_listen_request\x18\x03 \x01(\x0b\x32\x1d.koapy.grpc.StopListenRequestH\x00\x42\n\n\x08response\"7\n\x13\x43ustomListenRequest\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x12\n\nclass_name\x18\x02 \x01(\t\"\xa5\x01\n\x14\x43ustomListenResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\targuments\x18\x02 \x03(\x0b\x32\x14.koapy.grpc.Argument\x12+\n\x0bsingle_data\x18\x03 \x01(\x0b\x32\x16.koapy.grpc.SingleData\x12)\n\nmulti_data\x18\x04 \x01(\x0b\x32\x15.koapy.grpc.MultiData\"\x84\x01\n\x1a\x43ustomCallAndListenRequest\x12-\n\x0c\x63\x61ll_request\x18\x01 \x01(\x0b\x32\x17.koapy.grpc.CallRequest\x12\x37\n\x0elisten_request\x18\x02 \x01(\x0b\x32\x1f.koapy.grpc.CustomListenRequest\"\x99\x01\n\x1b\x43ustomCallAndListenResponse\x12\x31\n\rcall_response\x18\x01 \x01(\x0b\x32\x18.koapy.grpc.CallResponseH\x00\x12;\n\x0flisten_response\x18\x02 \x01(\x0b\x32 .koapy.grpc.CustomListenResponseH\x00\x42\n\n\x08response\"\x0e\n\x0cLoginRequest\"S\n\x1dTransactionSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\"z\n\x18TransactionStopCondition\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x12\x41\n\ncomparator\x18\x03 \x01(\x0e\x32-.koapy.grpc.TransactionStopConditionCompartor\"\xbb\x02\n\x12TransactionRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x18\n\x10transaction_code\x18\x02 \x01(\t\x12\x11\n\tscreen_no\x18\x03 \x01(\t\x12:\n\x06inputs\x18\x04 \x03(\x0b\x32*.koapy.grpc.TransactionRequest.InputsEntry\x12\x39\n\x06output\x18\x05 \x01(\x0b\x32).koapy.grpc.TransactionSubscriptionTarget\x12<\n\x0estop_condition\x18\x06 \x01(\x0b\x32$.koapy.grpc.TransactionStopCondition\x1a-\n\x0bInputsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"]\n\x17OrderSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\x12\x0e\n\x06\x43HEJAN\x18\x05 \x01(\x08\"\xf2\x01\n\x0cOrderRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x11\n\tscreen_no\x18\x02 \x01(\t\x12\x12\n\naccount_no\x18\x03 \x01(\t\x12\x12\n\norder_type\x18\x04 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x05 \x01(\t\x12\x10\n\x08quantity\x18\x06 \x01(\x03\x12\r\n\x05price\x18\x07 \x01(\x03\x12\x12\n\nquote_type\x18\x08 \x01(\t\x12\x19\n\x11original_order_no\x18\t \x01(\t\x12\x33\n\x06target\x18\n \x01(\x0b\x32#.koapy.grpc.OrderSubscriptionTarget\"R\n\x10RealRequestFlags\x12\x12\n\ninfer_fids\x18\x01 \x01(\x08\x12\x16\n\x0ereadable_names\x18\x02 \x01(\x08\x12\x12\n\nfast_parse\x18\x03 \x01(\x08\"\x85\x01\n\x0bRealRequest\x12\x11\n\tscreen_no\x18\x01 \x03(\t\x12\x11\n\tcode_list\x18\x02 \x03(\t\x12\x10\n\x08\x66id_list\x18\x03 \x03(\x05\x12\x11\n\treal_type\x18\x04 \x01(\t\x12+\n\x05\x66lags\x18\x05 \x01(\x0b\x32\x1c.koapy.grpc.RealRequestFlags\"\x16\n\x14LoadConditionRequest\"D\n\x15\x43onditionRequestFlags\x12\x11\n\twith_info\x18\x01 \x01(\x08\x12\x18\n\x10is_future_option\x18\x02 \x01(\x08\"\xb3\x01\n\x10\x43onditionRequest\x12\x11\n\tscreen_no\x18\x01 \x01(\t\x12\x16\n\x0e\x63ondition_name\x18\x02 \x01(\t\x12\x17\n\x0f\x63ondition_index\x18\x03 \x01(\x05\x12\x13\n\x0bsearch_type\x18\x04 \x01(\x05\x12\x14\n\x0crequest_name\x18\x05 \x01(\t\x12\x30\n\x05\x66lags\x18\x06 \x01(\x0b\x32!.koapy.grpc.ConditionRequestFlags\"3\n\x12SetLogLevelRequest\x12\r\n\x05level\x18\x01 \x01(\x05\x12\x0e\n\x06logger\x18\x02 \x01(\t\"\x15\n\x13SetLogLevelResponse*\x9d\x01\n!TransactionStopConditionCompartor\x12\x19\n\x15LESS_THAN_OR_EQUAL_TO\x10\x00\x12\r\n\tLESS_THAN\x10\x01\x12\x1c\n\x18GREATER_THAN_OR_EQUAL_TO\x10\x02\x12\x10\n\x0cGREATER_THAN\x10\x03\x12\x0c\n\x08\x45QUAL_TO\x10\x04\x12\x10\n\x0cNOT_EQUAL_TO\x10\x05\x32\x83\t\n\x14KiwoomOpenApiService\x12;\n\x04\x43\x61ll\x12\x17.koapy.grpc.CallRequest\x1a\x18.koapy.grpc.CallResponse\"\x00\x12I\n\x06Listen\x12\x19.koapy.grpc.ListenRequest\x1a .koapy.grpc.CustomListenResponse\"\x00\x30\x01\x12M\n\nStopListen\x12\x1d.koapy.grpc.StopListenRequest\x1a\x1e.koapy.grpc.StopListenResponse\"\x00\x12\x65\n\x13\x42idirectionalListen\x12&.koapy.grpc.BidirectionalListenRequest\x1a .koapy.grpc.CustomListenResponse\"\x00(\x01\x30\x01\x12U\n\x0c\x43ustomListen\x12\x1f.koapy.grpc.CustomListenRequest\x1a .koapy.grpc.CustomListenResponse\"\x00\x30\x01\x12j\n\x13\x43ustomCallAndListen\x12&.koapy.grpc.CustomCallAndListenRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12R\n\tLoginCall\x12\x18.koapy.grpc.LoginRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12^\n\x0fTransactionCall\x12\x1e.koapy.grpc.TransactionRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12R\n\tOrderCall\x12\x18.koapy.grpc.OrderRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12P\n\x08RealCall\x12\x17.koapy.grpc.RealRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12\x62\n\x11LoadConditionCall\x12 .koapy.grpc.LoadConditionRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12Z\n\rConditionCall\x12\x1c.koapy.grpc.ConditionRequest\x1a\'.koapy.grpc.CustomCallAndListenResponse\"\x00\x30\x01\x12P\n\x0bSetLogLevel\x12\x1e.koapy.grpc.SetLogLevelRequest\x1a\x1f.koapy.grpc.SetLogLevelResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n%koapy/grpc/KiwoomOpenApiService.proto\x12\nkoapy.grpc\"W\n\x08\x41rgument\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x12\x14\n\nbool_value\x18\x03 \x01(\x08H\x00\x42\x07\n\x05value\"D\n\x0b\x43\x61llRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\targuments\x18\x02 \x03(\x0b\x32\x14.koapy.grpc.Argument\"Z\n\x0bReturnValue\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x12\x14\n\nbool_value\x18\x03 \x01(\x08H\x00\x42\x07\n\x05value\"=\n\x0c\x43\x61llResponse\x12-\n\x0creturn_value\x18\x01 \x01(\x0b\x32\x17.koapy.grpc.ReturnValue\"L\n\rListenRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05slots\x18\x02 \x03(\t\x12\x0c\n\x04\x63ode\x18\x03 \x01(\t\x12\x12\n\nclass_name\x18\x04 \x01(\t\"+\n\nSingleData\x12\r\n\x05names\x18\x01 \x03(\t\x12\x0e\n\x06values\x18\x02 \x03(\t\" \n\x0eRepeatedString\x12\x0e\n\x06values\x18\x01 \x03(\t\"F\n\tMultiData\x12\r\n\x05names\x18\x01 \x03(\t\x12*\n\x06values\x18\x02 \x03(\x0b\x32\x1a.koapy.grpc.RepeatedString\"\x1f\n\x11StopListenRequest\x12\n\n\x02id\x18\x01 \x01(\t\"(\n\x12StopListenResponse\x12\x12\n\nsuccessful\x18\x01 \x01(\x08\"\x1c\n\x0eHandledRequest\x12\n\n\x02id\x18\x01 \x01(\r\"\xd1\x01\n\x1a\x42idirectionalListenRequest\x12\x33\n\x0elisten_request\x18\x01 \x01(\x0b\x32\x19.koapy.grpc.ListenRequestH\x00\x12\x35\n\x0fhandled_request\x18\x02 \x01(\x0b\x32\x1a.koapy.grpc.HandledRequestH\x00\x12<\n\x13stop_listen_request\x18\x03 \x01(\x0b\x32\x1d.koapy.grpc.StopListenRequestH\x00\x42\t\n\x07request\"\x9f\x01\n\x0eListenResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\'\n\targuments\x18\x02 \x03(\x0b\x32\x14.koapy.grpc.Argument\x12+\n\x0bsingle_data\x18\x03 \x01(\x0b\x32\x16.koapy.grpc.SingleData\x12)\n\nmulti_data\x18\x04 \x01(\x0b\x32\x15.koapy.grpc.MultiData\"x\n\x14\x43\x61llAndListenRequest\x12-\n\x0c\x63\x61ll_request\x18\x01 \x01(\x0b\x32\x17.koapy.grpc.CallRequest\x12\x31\n\x0elisten_request\x18\x02 \x01(\x0b\x32\x19.koapy.grpc.ListenRequest\"\x8d\x01\n\x15\x43\x61llAndListenResponse\x12\x31\n\rcall_response\x18\x01 \x01(\x0b\x32\x18.koapy.grpc.CallResponseH\x00\x12\x35\n\x0flisten_response\x18\x02 \x01(\x0b\x32\x1a.koapy.grpc.ListenResponseH\x00\x42\n\n\x08response\"\x0e\n\x0cLoginRequest\"S\n\x1dTransactionSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\"\x91\x01\n\x18TransactionStopCondition\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x12\x41\n\ncomparator\x18\x03 \x01(\x0e\x32-.koapy.grpc.TransactionStopConditionCompartor\x12\x15\n\rinclude_equal\x18\x04 \x01(\x08\"\xbb\x02\n\x12TransactionRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x18\n\x10transaction_code\x18\x02 \x01(\t\x12\x11\n\tscreen_no\x18\x03 \x01(\t\x12:\n\x06inputs\x18\x04 \x03(\x0b\x32*.koapy.grpc.TransactionRequest.InputsEntry\x12\x39\n\x06output\x18\x05 \x01(\x0b\x32).koapy.grpc.TransactionSubscriptionTarget\x12<\n\x0estop_condition\x18\x06 \x01(\x0b\x32$.koapy.grpc.TransactionStopCondition\x1a-\n\x0bInputsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"]\n\x17OrderSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\x12\x0e\n\x06\x43HEJAN\x18\x05 \x01(\x08\"\xf2\x01\n\x0cOrderRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x11\n\tscreen_no\x18\x02 \x01(\t\x12\x12\n\naccount_no\x18\x03 \x01(\t\x12\x12\n\norder_type\x18\x04 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x05 \x01(\t\x12\x10\n\x08quantity\x18\x06 \x01(\x03\x12\r\n\x05price\x18\x07 \x01(\x03\x12\x12\n\nquote_type\x18\x08 \x01(\t\x12\x19\n\x11original_order_no\x18\t \x01(\t\x12\x33\n\x06target\x18\n \x01(\x0b\x32#.koapy.grpc.OrderSubscriptionTarget\"R\n\x10RealRequestFlags\x12\x12\n\ninfer_fids\x18\x01 \x01(\x08\x12\x16\n\x0ereadable_names\x18\x02 \x01(\x08\x12\x12\n\nfast_parse\x18\x03 \x01(\x08\"\x85\x01\n\x0bRealRequest\x12\x11\n\tscreen_no\x18\x01 \x03(\t\x12\x11\n\tcode_list\x18\x02 \x03(\t\x12\x10\n\x08\x66id_list\x18\x03 \x03(\x05\x12\x11\n\treal_type\x18\x04 \x01(\t\x12+\n\x05\x66lags\x18\x05 \x01(\x0b\x32\x1c.koapy.grpc.RealRequestFlags\"\x16\n\x14LoadConditionRequest\"D\n\x15\x43onditionRequestFlags\x12\x11\n\twith_info\x18\x01 \x01(\x08\x12\x18\n\x10is_future_option\x18\x02 \x01(\x08\"\xb3\x01\n\x10\x43onditionRequest\x12\x11\n\tscreen_no\x18\x01 \x01(\t\x12\x16\n\x0e\x63ondition_name\x18\x02 \x01(\t\x12\x17\n\x0f\x63ondition_index\x18\x03 \x01(\x05\x12\x13\n\x0bsearch_type\x18\x04 \x01(\x05\x12\x14\n\x0crequest_name\x18\x05 \x01(\t\x12\x30\n\x05\x66lags\x18\x06 \x01(\x0b\x32!.koapy.grpc.ConditionRequestFlags\"3\n\x12SetLogLevelRequest\x12\r\n\x05level\x18\x01 \x01(\x05\x12\x0e\n\x06logger\x18\x02 \x01(\t\"\x15\n\x13SetLogLevelResponse\"c\n\"BidirectionalRealInitializeRequest\x12\x10\n\x08\x66id_list\x18\x01 \x03(\x05\x12+\n\x05\x66lags\x18\x02 \x01(\x0b\x32\x1c.koapy.grpc.RealRequestFlags\"G\n BidirectionalRealRegisterRequest\x12\x11\n\tcode_list\x18\x01 \x03(\t\x12\x10\n\x08\x66id_list\x18\x02 \x03(\x05\"3\n\x1e\x42idirectionalRealRemoveRequest\x12\x11\n\tcode_list\x18\x01 \x03(\t\"\x1e\n\x1c\x42idirectionalRealStopRequest\"\xc5\x02\n\x18\x42idirectionalRealRequest\x12L\n\x12initialize_request\x18\x01 \x01(\x0b\x32..koapy.grpc.BidirectionalRealInitializeRequestH\x00\x12H\n\x10register_request\x18\x02 \x01(\x0b\x32,.koapy.grpc.BidirectionalRealRegisterRequestH\x00\x12\x44\n\x0eremove_request\x18\x03 \x01(\x0b\x32*.koapy.grpc.BidirectionalRealRemoveRequestH\x00\x12@\n\x0cstop_request\x18\x04 \x01(\x0b\x32(.koapy.grpc.BidirectionalRealStopRequestH\x00\x42\t\n\x07request*\x9d\x01\n!TransactionStopConditionCompartor\x12\x19\n\x15LESS_THAN_OR_EQUAL_TO\x10\x00\x12\r\n\tLESS_THAN\x10\x01\x12\x1c\n\x18GREATER_THAN_OR_EQUAL_TO\x10\x02\x12\x10\n\x0cGREATER_THAN\x10\x03\x12\x0c\n\x08\x45QUAL_TO\x10\x04\x12\x10\n\x0cNOT_EQUAL_TO\x10\x05\x32\xa2\t\n\x14KiwoomOpenApiService\x12;\n\x04\x43\x61ll\x12\x17.koapy.grpc.CallRequest\x1a\x18.koapy.grpc.CallResponse\"\x00\x12\x43\n\x06Listen\x12\x19.koapy.grpc.ListenRequest\x1a\x1a.koapy.grpc.ListenResponse\"\x00\x30\x01\x12M\n\nStopListen\x12\x1d.koapy.grpc.StopListenRequest\x1a\x1e.koapy.grpc.StopListenResponse\"\x00\x12_\n\x13\x42idirectionalListen\x12&.koapy.grpc.BidirectionalListenRequest\x1a\x1a.koapy.grpc.ListenResponse\"\x00(\x01\x30\x01\x12I\n\x0c\x43ustomListen\x12\x19.koapy.grpc.ListenRequest\x1a\x1a.koapy.grpc.ListenResponse\"\x00\x30\x01\x12^\n\x13\x43ustomCallAndListen\x12 .koapy.grpc.CallAndListenRequest\x1a!.koapy.grpc.CallAndListenResponse\"\x00\x30\x01\x12L\n\tLoginCall\x12\x18.koapy.grpc.LoginRequest\x1a!.koapy.grpc.CallAndListenResponse\"\x00\x30\x01\x12X\n\x0fTransactionCall\x12\x1e.koapy.grpc.TransactionRequest\x1a!.koapy.grpc.CallAndListenResponse\"\x00\x30\x01\x12L\n\tOrderCall\x12\x18.koapy.grpc.OrderRequest\x1a!.koapy.grpc.CallAndListenResponse\"\x00\x30\x01\x12J\n\x08RealCall\x12\x17.koapy.grpc.RealRequest\x1a!.koapy.grpc.CallAndListenResponse\"\x00\x30\x01\x12\\\n\x11LoadConditionCall\x12 .koapy.grpc.LoadConditionRequest\x1a!.koapy.grpc.CallAndListenResponse\"\x00\x30\x01\x12T\n\rConditionCall\x12\x1c.koapy.grpc.ConditionRequest\x1a!.koapy.grpc.CallAndListenResponse\"\x00\x30\x01\x12\x65\n\x15\x42idirectionalRealCall\x12$.koapy.grpc.BidirectionalRealRequest\x1a .koapy.grpc.CallAndListenRequest\"\x00(\x01\x30\x01\x12P\n\x0bSetLogLevel\x12\x1e.koapy.grpc.SetLogLevelRequest\x1a\x1f.koapy.grpc.SetLogLevelResponse\"\x00\x62\x06proto3'
 )
 
 _TRANSACTIONSTOPCONDITIONCOMPARTOR = _descriptor.EnumDescriptor(
@@ -63,8 +63,8 @@ _TRANSACTIONSTOPCONDITIONCOMPARTOR = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2925,
-  serialized_end=3082,
+  serialized_start=3408,
+  serialized_end=3565,
 )
 _sym_db.RegisterEnumDescriptor(_TRANSACTIONSTOPCONDITIONCOMPARTOR)
 
@@ -273,6 +273,20 @@ _LISTENREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='code', full_name='koapy.grpc.ListenRequest.code', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='class_name', full_name='koapy.grpc.ListenRequest.class_name', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -286,7 +300,7 @@ _LISTENREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=367,
-  serialized_end=409,
+  serialized_end=443,
 )
 
 
@@ -324,8 +338,8 @@ _SINGLEDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=411,
-  serialized_end=454,
+  serialized_start=445,
+  serialized_end=488,
 )
 
 
@@ -356,8 +370,8 @@ _REPEATEDSTRING = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=456,
-  serialized_end=488,
+  serialized_start=490,
+  serialized_end=522,
 )
 
 
@@ -395,47 +409,8 @@ _MULTIDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=490,
-  serialized_end=560,
-)
-
-
-_LISTENRESPONSE = _descriptor.Descriptor(
-  name='ListenResponse',
-  full_name='koapy.grpc.ListenResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='koapy.grpc.ListenResponse.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='arguments', full_name='koapy.grpc.ListenResponse.arguments', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=562,
-  serialized_end=633,
+  serialized_start=524,
+  serialized_end=594,
 )
 
 
@@ -466,8 +441,8 @@ _STOPLISTENREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=635,
-  serialized_end=666,
+  serialized_start=596,
+  serialized_end=627,
 )
 
 
@@ -498,8 +473,8 @@ _STOPLISTENRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=668,
-  serialized_end=708,
+  serialized_start=629,
+  serialized_end=669,
 )
 
 
@@ -530,8 +505,8 @@ _HANDLEDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=710,
-  serialized_end=738,
+  serialized_start=671,
+  serialized_end=699,
 )
 
 
@@ -576,86 +551,47 @@ _BIDIRECTIONALLISTENREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
-      name='response', full_name='koapy.grpc.BidirectionalListenRequest.response',
+      name='request', full_name='koapy.grpc.BidirectionalListenRequest.request',
       index=0, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=741,
-  serialized_end=951,
+  serialized_start=702,
+  serialized_end=911,
 )
 
 
-_CUSTOMLISTENREQUEST = _descriptor.Descriptor(
-  name='CustomListenRequest',
-  full_name='koapy.grpc.CustomListenRequest',
+_LISTENRESPONSE = _descriptor.Descriptor(
+  name='ListenResponse',
+  full_name='koapy.grpc.ListenResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='code', full_name='koapy.grpc.CustomListenRequest.code', index=0,
+      name='name', full_name='koapy.grpc.ListenResponse.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='class_name', full_name='koapy.grpc.CustomListenRequest.class_name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=953,
-  serialized_end=1008,
-)
-
-
-_CUSTOMLISTENRESPONSE = _descriptor.Descriptor(
-  name='CustomListenResponse',
-  full_name='koapy.grpc.CustomListenResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='koapy.grpc.CustomListenResponse.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='arguments', full_name='koapy.grpc.CustomListenResponse.arguments', index=1,
+      name='arguments', full_name='koapy.grpc.ListenResponse.arguments', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='single_data', full_name='koapy.grpc.CustomListenResponse.single_data', index=2,
+      name='single_data', full_name='koapy.grpc.ListenResponse.single_data', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='multi_data', full_name='koapy.grpc.CustomListenResponse.multi_data', index=3,
+      name='multi_data', full_name='koapy.grpc.ListenResponse.multi_data', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -673,28 +609,28 @@ _CUSTOMLISTENRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1011,
-  serialized_end=1176,
+  serialized_start=914,
+  serialized_end=1073,
 )
 
 
-_CUSTOMCALLANDLISTENREQUEST = _descriptor.Descriptor(
-  name='CustomCallAndListenRequest',
-  full_name='koapy.grpc.CustomCallAndListenRequest',
+_CALLANDLISTENREQUEST = _descriptor.Descriptor(
+  name='CallAndListenRequest',
+  full_name='koapy.grpc.CallAndListenRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='call_request', full_name='koapy.grpc.CustomCallAndListenRequest.call_request', index=0,
+      name='call_request', full_name='koapy.grpc.CallAndListenRequest.call_request', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='listen_request', full_name='koapy.grpc.CustomCallAndListenRequest.listen_request', index=1,
+      name='listen_request', full_name='koapy.grpc.CallAndListenRequest.listen_request', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -712,28 +648,28 @@ _CUSTOMCALLANDLISTENREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1179,
-  serialized_end=1311,
+  serialized_start=1075,
+  serialized_end=1195,
 )
 
 
-_CUSTOMCALLANDLISTENRESPONSE = _descriptor.Descriptor(
-  name='CustomCallAndListenResponse',
-  full_name='koapy.grpc.CustomCallAndListenResponse',
+_CALLANDLISTENRESPONSE = _descriptor.Descriptor(
+  name='CallAndListenResponse',
+  full_name='koapy.grpc.CallAndListenResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='call_response', full_name='koapy.grpc.CustomCallAndListenResponse.call_response', index=0,
+      name='call_response', full_name='koapy.grpc.CallAndListenResponse.call_response', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='listen_response', full_name='koapy.grpc.CustomCallAndListenResponse.listen_response', index=1,
+      name='listen_response', full_name='koapy.grpc.CallAndListenResponse.listen_response', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -751,13 +687,13 @@ _CUSTOMCALLANDLISTENRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
-      name='response', full_name='koapy.grpc.CustomCallAndListenResponse.response',
+      name='response', full_name='koapy.grpc.CallAndListenResponse.response',
       index=0, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1314,
-  serialized_end=1467,
+  serialized_start=1198,
+  serialized_end=1339,
 )
 
 
@@ -781,8 +717,8 @@ _LOGINREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1469,
-  serialized_end=1483,
+  serialized_start=1341,
+  serialized_end=1355,
 )
 
 
@@ -834,8 +770,8 @@ _TRANSACTIONSUBSCRIPTIONTARGET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1485,
-  serialized_end=1568,
+  serialized_start=1357,
+  serialized_end=1440,
 )
 
 
@@ -868,6 +804,13 @@ _TRANSACTIONSTOPCONDITION = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='include_equal', full_name='koapy.grpc.TransactionStopCondition.include_equal', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -880,8 +823,8 @@ _TRANSACTIONSTOPCONDITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1570,
-  serialized_end=1692,
+  serialized_start=1443,
+  serialized_end=1588,
 )
 
 
@@ -919,8 +862,8 @@ _TRANSACTIONREQUEST_INPUTSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1965,
-  serialized_end=2010,
+  serialized_start=1861,
+  serialized_end=1906,
 )
 
 _TRANSACTIONREQUEST = _descriptor.Descriptor(
@@ -985,8 +928,8 @@ _TRANSACTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1695,
-  serialized_end=2010,
+  serialized_start=1591,
+  serialized_end=1906,
 )
 
 
@@ -1045,8 +988,8 @@ _ORDERSUBSCRIPTIONTARGET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2012,
-  serialized_end=2105,
+  serialized_start=1908,
+  serialized_end=2001,
 )
 
 
@@ -1140,8 +1083,8 @@ _ORDERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2108,
-  serialized_end=2350,
+  serialized_start=2004,
+  serialized_end=2246,
 )
 
 
@@ -1186,8 +1129,8 @@ _REALREQUESTFLAGS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2352,
-  serialized_end=2434,
+  serialized_start=2248,
+  serialized_end=2330,
 )
 
 
@@ -1246,8 +1189,8 @@ _REALREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2437,
-  serialized_end=2570,
+  serialized_start=2333,
+  serialized_end=2466,
 )
 
 
@@ -1271,8 +1214,8 @@ _LOADCONDITIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2572,
-  serialized_end=2594,
+  serialized_start=2468,
+  serialized_end=2490,
 )
 
 
@@ -1310,8 +1253,8 @@ _CONDITIONREQUESTFLAGS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2596,
-  serialized_end=2664,
+  serialized_start=2492,
+  serialized_end=2560,
 )
 
 
@@ -1377,8 +1320,8 @@ _CONDITIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2667,
-  serialized_end=2846,
+  serialized_start=2563,
+  serialized_end=2742,
 )
 
 
@@ -1416,8 +1359,8 @@ _SETLOGLEVELREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2848,
-  serialized_end=2899,
+  serialized_start=2744,
+  serialized_end=2795,
 )
 
 
@@ -1441,8 +1384,201 @@ _SETLOGLEVELRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2901,
-  serialized_end=2922,
+  serialized_start=2797,
+  serialized_end=2818,
+)
+
+
+_BIDIRECTIONALREALINITIALIZEREQUEST = _descriptor.Descriptor(
+  name='BidirectionalRealInitializeRequest',
+  full_name='koapy.grpc.BidirectionalRealInitializeRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='fid_list', full_name='koapy.grpc.BidirectionalRealInitializeRequest.fid_list', index=0,
+      number=1, type=5, cpp_type=1, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='flags', full_name='koapy.grpc.BidirectionalRealInitializeRequest.flags', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2820,
+  serialized_end=2919,
+)
+
+
+_BIDIRECTIONALREALREGISTERREQUEST = _descriptor.Descriptor(
+  name='BidirectionalRealRegisterRequest',
+  full_name='koapy.grpc.BidirectionalRealRegisterRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='code_list', full_name='koapy.grpc.BidirectionalRealRegisterRequest.code_list', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fid_list', full_name='koapy.grpc.BidirectionalRealRegisterRequest.fid_list', index=1,
+      number=2, type=5, cpp_type=1, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2921,
+  serialized_end=2992,
+)
+
+
+_BIDIRECTIONALREALREMOVEREQUEST = _descriptor.Descriptor(
+  name='BidirectionalRealRemoveRequest',
+  full_name='koapy.grpc.BidirectionalRealRemoveRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='code_list', full_name='koapy.grpc.BidirectionalRealRemoveRequest.code_list', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2994,
+  serialized_end=3045,
+)
+
+
+_BIDIRECTIONALREALSTOPREQUEST = _descriptor.Descriptor(
+  name='BidirectionalRealStopRequest',
+  full_name='koapy.grpc.BidirectionalRealStopRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3047,
+  serialized_end=3077,
+)
+
+
+_BIDIRECTIONALREALREQUEST = _descriptor.Descriptor(
+  name='BidirectionalRealRequest',
+  full_name='koapy.grpc.BidirectionalRealRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='initialize_request', full_name='koapy.grpc.BidirectionalRealRequest.initialize_request', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='register_request', full_name='koapy.grpc.BidirectionalRealRequest.register_request', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='remove_request', full_name='koapy.grpc.BidirectionalRealRequest.remove_request', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='stop_request', full_name='koapy.grpc.BidirectionalRealRequest.stop_request', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='request', full_name='koapy.grpc.BidirectionalRealRequest.request',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+  ],
+  serialized_start=3080,
+  serialized_end=3405,
 )
 
 _ARGUMENT.oneofs_by_name['value'].fields.append(
@@ -1466,32 +1602,31 @@ _RETURNVALUE.oneofs_by_name['value'].fields.append(
 _RETURNVALUE.fields_by_name['bool_value'].containing_oneof = _RETURNVALUE.oneofs_by_name['value']
 _CALLRESPONSE.fields_by_name['return_value'].message_type = _RETURNVALUE
 _MULTIDATA.fields_by_name['values'].message_type = _REPEATEDSTRING
-_LISTENRESPONSE.fields_by_name['arguments'].message_type = _ARGUMENT
 _BIDIRECTIONALLISTENREQUEST.fields_by_name['listen_request'].message_type = _LISTENREQUEST
 _BIDIRECTIONALLISTENREQUEST.fields_by_name['handled_request'].message_type = _HANDLEDREQUEST
 _BIDIRECTIONALLISTENREQUEST.fields_by_name['stop_listen_request'].message_type = _STOPLISTENREQUEST
-_BIDIRECTIONALLISTENREQUEST.oneofs_by_name['response'].fields.append(
+_BIDIRECTIONALLISTENREQUEST.oneofs_by_name['request'].fields.append(
   _BIDIRECTIONALLISTENREQUEST.fields_by_name['listen_request'])
-_BIDIRECTIONALLISTENREQUEST.fields_by_name['listen_request'].containing_oneof = _BIDIRECTIONALLISTENREQUEST.oneofs_by_name['response']
-_BIDIRECTIONALLISTENREQUEST.oneofs_by_name['response'].fields.append(
+_BIDIRECTIONALLISTENREQUEST.fields_by_name['listen_request'].containing_oneof = _BIDIRECTIONALLISTENREQUEST.oneofs_by_name['request']
+_BIDIRECTIONALLISTENREQUEST.oneofs_by_name['request'].fields.append(
   _BIDIRECTIONALLISTENREQUEST.fields_by_name['handled_request'])
-_BIDIRECTIONALLISTENREQUEST.fields_by_name['handled_request'].containing_oneof = _BIDIRECTIONALLISTENREQUEST.oneofs_by_name['response']
-_BIDIRECTIONALLISTENREQUEST.oneofs_by_name['response'].fields.append(
+_BIDIRECTIONALLISTENREQUEST.fields_by_name['handled_request'].containing_oneof = _BIDIRECTIONALLISTENREQUEST.oneofs_by_name['request']
+_BIDIRECTIONALLISTENREQUEST.oneofs_by_name['request'].fields.append(
   _BIDIRECTIONALLISTENREQUEST.fields_by_name['stop_listen_request'])
-_BIDIRECTIONALLISTENREQUEST.fields_by_name['stop_listen_request'].containing_oneof = _BIDIRECTIONALLISTENREQUEST.oneofs_by_name['response']
-_CUSTOMLISTENRESPONSE.fields_by_name['arguments'].message_type = _ARGUMENT
-_CUSTOMLISTENRESPONSE.fields_by_name['single_data'].message_type = _SINGLEDATA
-_CUSTOMLISTENRESPONSE.fields_by_name['multi_data'].message_type = _MULTIDATA
-_CUSTOMCALLANDLISTENREQUEST.fields_by_name['call_request'].message_type = _CALLREQUEST
-_CUSTOMCALLANDLISTENREQUEST.fields_by_name['listen_request'].message_type = _CUSTOMLISTENREQUEST
-_CUSTOMCALLANDLISTENRESPONSE.fields_by_name['call_response'].message_type = _CALLRESPONSE
-_CUSTOMCALLANDLISTENRESPONSE.fields_by_name['listen_response'].message_type = _CUSTOMLISTENRESPONSE
-_CUSTOMCALLANDLISTENRESPONSE.oneofs_by_name['response'].fields.append(
-  _CUSTOMCALLANDLISTENRESPONSE.fields_by_name['call_response'])
-_CUSTOMCALLANDLISTENRESPONSE.fields_by_name['call_response'].containing_oneof = _CUSTOMCALLANDLISTENRESPONSE.oneofs_by_name['response']
-_CUSTOMCALLANDLISTENRESPONSE.oneofs_by_name['response'].fields.append(
-  _CUSTOMCALLANDLISTENRESPONSE.fields_by_name['listen_response'])
-_CUSTOMCALLANDLISTENRESPONSE.fields_by_name['listen_response'].containing_oneof = _CUSTOMCALLANDLISTENRESPONSE.oneofs_by_name['response']
+_BIDIRECTIONALLISTENREQUEST.fields_by_name['stop_listen_request'].containing_oneof = _BIDIRECTIONALLISTENREQUEST.oneofs_by_name['request']
+_LISTENRESPONSE.fields_by_name['arguments'].message_type = _ARGUMENT
+_LISTENRESPONSE.fields_by_name['single_data'].message_type = _SINGLEDATA
+_LISTENRESPONSE.fields_by_name['multi_data'].message_type = _MULTIDATA
+_CALLANDLISTENREQUEST.fields_by_name['call_request'].message_type = _CALLREQUEST
+_CALLANDLISTENREQUEST.fields_by_name['listen_request'].message_type = _LISTENREQUEST
+_CALLANDLISTENRESPONSE.fields_by_name['call_response'].message_type = _CALLRESPONSE
+_CALLANDLISTENRESPONSE.fields_by_name['listen_response'].message_type = _LISTENRESPONSE
+_CALLANDLISTENRESPONSE.oneofs_by_name['response'].fields.append(
+  _CALLANDLISTENRESPONSE.fields_by_name['call_response'])
+_CALLANDLISTENRESPONSE.fields_by_name['call_response'].containing_oneof = _CALLANDLISTENRESPONSE.oneofs_by_name['response']
+_CALLANDLISTENRESPONSE.oneofs_by_name['response'].fields.append(
+  _CALLANDLISTENRESPONSE.fields_by_name['listen_response'])
+_CALLANDLISTENRESPONSE.fields_by_name['listen_response'].containing_oneof = _CALLANDLISTENRESPONSE.oneofs_by_name['response']
 _TRANSACTIONSTOPCONDITION.fields_by_name['comparator'].enum_type = _TRANSACTIONSTOPCONDITIONCOMPARTOR
 _TRANSACTIONREQUEST_INPUTSENTRY.containing_type = _TRANSACTIONREQUEST
 _TRANSACTIONREQUEST.fields_by_name['inputs'].message_type = _TRANSACTIONREQUEST_INPUTSENTRY
@@ -1500,6 +1635,23 @@ _TRANSACTIONREQUEST.fields_by_name['stop_condition'].message_type = _TRANSACTION
 _ORDERREQUEST.fields_by_name['target'].message_type = _ORDERSUBSCRIPTIONTARGET
 _REALREQUEST.fields_by_name['flags'].message_type = _REALREQUESTFLAGS
 _CONDITIONREQUEST.fields_by_name['flags'].message_type = _CONDITIONREQUESTFLAGS
+_BIDIRECTIONALREALINITIALIZEREQUEST.fields_by_name['flags'].message_type = _REALREQUESTFLAGS
+_BIDIRECTIONALREALREQUEST.fields_by_name['initialize_request'].message_type = _BIDIRECTIONALREALINITIALIZEREQUEST
+_BIDIRECTIONALREALREQUEST.fields_by_name['register_request'].message_type = _BIDIRECTIONALREALREGISTERREQUEST
+_BIDIRECTIONALREALREQUEST.fields_by_name['remove_request'].message_type = _BIDIRECTIONALREALREMOVEREQUEST
+_BIDIRECTIONALREALREQUEST.fields_by_name['stop_request'].message_type = _BIDIRECTIONALREALSTOPREQUEST
+_BIDIRECTIONALREALREQUEST.oneofs_by_name['request'].fields.append(
+  _BIDIRECTIONALREALREQUEST.fields_by_name['initialize_request'])
+_BIDIRECTIONALREALREQUEST.fields_by_name['initialize_request'].containing_oneof = _BIDIRECTIONALREALREQUEST.oneofs_by_name['request']
+_BIDIRECTIONALREALREQUEST.oneofs_by_name['request'].fields.append(
+  _BIDIRECTIONALREALREQUEST.fields_by_name['register_request'])
+_BIDIRECTIONALREALREQUEST.fields_by_name['register_request'].containing_oneof = _BIDIRECTIONALREALREQUEST.oneofs_by_name['request']
+_BIDIRECTIONALREALREQUEST.oneofs_by_name['request'].fields.append(
+  _BIDIRECTIONALREALREQUEST.fields_by_name['remove_request'])
+_BIDIRECTIONALREALREQUEST.fields_by_name['remove_request'].containing_oneof = _BIDIRECTIONALREALREQUEST.oneofs_by_name['request']
+_BIDIRECTIONALREALREQUEST.oneofs_by_name['request'].fields.append(
+  _BIDIRECTIONALREALREQUEST.fields_by_name['stop_request'])
+_BIDIRECTIONALREALREQUEST.fields_by_name['stop_request'].containing_oneof = _BIDIRECTIONALREALREQUEST.oneofs_by_name['request']
 DESCRIPTOR.message_types_by_name['Argument'] = _ARGUMENT
 DESCRIPTOR.message_types_by_name['CallRequest'] = _CALLREQUEST
 DESCRIPTOR.message_types_by_name['ReturnValue'] = _RETURNVALUE
@@ -1508,15 +1660,13 @@ DESCRIPTOR.message_types_by_name['ListenRequest'] = _LISTENREQUEST
 DESCRIPTOR.message_types_by_name['SingleData'] = _SINGLEDATA
 DESCRIPTOR.message_types_by_name['RepeatedString'] = _REPEATEDSTRING
 DESCRIPTOR.message_types_by_name['MultiData'] = _MULTIDATA
-DESCRIPTOR.message_types_by_name['ListenResponse'] = _LISTENRESPONSE
 DESCRIPTOR.message_types_by_name['StopListenRequest'] = _STOPLISTENREQUEST
 DESCRIPTOR.message_types_by_name['StopListenResponse'] = _STOPLISTENRESPONSE
 DESCRIPTOR.message_types_by_name['HandledRequest'] = _HANDLEDREQUEST
 DESCRIPTOR.message_types_by_name['BidirectionalListenRequest'] = _BIDIRECTIONALLISTENREQUEST
-DESCRIPTOR.message_types_by_name['CustomListenRequest'] = _CUSTOMLISTENREQUEST
-DESCRIPTOR.message_types_by_name['CustomListenResponse'] = _CUSTOMLISTENRESPONSE
-DESCRIPTOR.message_types_by_name['CustomCallAndListenRequest'] = _CUSTOMCALLANDLISTENREQUEST
-DESCRIPTOR.message_types_by_name['CustomCallAndListenResponse'] = _CUSTOMCALLANDLISTENRESPONSE
+DESCRIPTOR.message_types_by_name['ListenResponse'] = _LISTENRESPONSE
+DESCRIPTOR.message_types_by_name['CallAndListenRequest'] = _CALLANDLISTENREQUEST
+DESCRIPTOR.message_types_by_name['CallAndListenResponse'] = _CALLANDLISTENRESPONSE
 DESCRIPTOR.message_types_by_name['LoginRequest'] = _LOGINREQUEST
 DESCRIPTOR.message_types_by_name['TransactionSubscriptionTarget'] = _TRANSACTIONSUBSCRIPTIONTARGET
 DESCRIPTOR.message_types_by_name['TransactionStopCondition'] = _TRANSACTIONSTOPCONDITION
@@ -1530,6 +1680,11 @@ DESCRIPTOR.message_types_by_name['ConditionRequestFlags'] = _CONDITIONREQUESTFLA
 DESCRIPTOR.message_types_by_name['ConditionRequest'] = _CONDITIONREQUEST
 DESCRIPTOR.message_types_by_name['SetLogLevelRequest'] = _SETLOGLEVELREQUEST
 DESCRIPTOR.message_types_by_name['SetLogLevelResponse'] = _SETLOGLEVELRESPONSE
+DESCRIPTOR.message_types_by_name['BidirectionalRealInitializeRequest'] = _BIDIRECTIONALREALINITIALIZEREQUEST
+DESCRIPTOR.message_types_by_name['BidirectionalRealRegisterRequest'] = _BIDIRECTIONALREALREGISTERREQUEST
+DESCRIPTOR.message_types_by_name['BidirectionalRealRemoveRequest'] = _BIDIRECTIONALREALREMOVEREQUEST
+DESCRIPTOR.message_types_by_name['BidirectionalRealStopRequest'] = _BIDIRECTIONALREALSTOPREQUEST
+DESCRIPTOR.message_types_by_name['BidirectionalRealRequest'] = _BIDIRECTIONALREALREQUEST
 DESCRIPTOR.enum_types_by_name['TransactionStopConditionCompartor'] = _TRANSACTIONSTOPCONDITIONCOMPARTOR
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -1589,13 +1744,6 @@ MultiData = _reflection.GeneratedProtocolMessageType('MultiData', (_message.Mess
   })
 _sym_db.RegisterMessage(MultiData)
 
-ListenResponse = _reflection.GeneratedProtocolMessageType('ListenResponse', (_message.Message,), {
-  'DESCRIPTOR' : _LISTENRESPONSE,
-  '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
-  # @@protoc_insertion_point(class_scope:koapy.grpc.ListenResponse)
-  })
-_sym_db.RegisterMessage(ListenResponse)
-
 StopListenRequest = _reflection.GeneratedProtocolMessageType('StopListenRequest', (_message.Message,), {
   'DESCRIPTOR' : _STOPLISTENREQUEST,
   '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
@@ -1624,33 +1772,26 @@ BidirectionalListenRequest = _reflection.GeneratedProtocolMessageType('Bidirecti
   })
 _sym_db.RegisterMessage(BidirectionalListenRequest)
 
-CustomListenRequest = _reflection.GeneratedProtocolMessageType('CustomListenRequest', (_message.Message,), {
-  'DESCRIPTOR' : _CUSTOMLISTENREQUEST,
+ListenResponse = _reflection.GeneratedProtocolMessageType('ListenResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTENRESPONSE,
   '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
-  # @@protoc_insertion_point(class_scope:koapy.grpc.CustomListenRequest)
+  # @@protoc_insertion_point(class_scope:koapy.grpc.ListenResponse)
   })
-_sym_db.RegisterMessage(CustomListenRequest)
+_sym_db.RegisterMessage(ListenResponse)
 
-CustomListenResponse = _reflection.GeneratedProtocolMessageType('CustomListenResponse', (_message.Message,), {
-  'DESCRIPTOR' : _CUSTOMLISTENRESPONSE,
+CallAndListenRequest = _reflection.GeneratedProtocolMessageType('CallAndListenRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CALLANDLISTENREQUEST,
   '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
-  # @@protoc_insertion_point(class_scope:koapy.grpc.CustomListenResponse)
+  # @@protoc_insertion_point(class_scope:koapy.grpc.CallAndListenRequest)
   })
-_sym_db.RegisterMessage(CustomListenResponse)
+_sym_db.RegisterMessage(CallAndListenRequest)
 
-CustomCallAndListenRequest = _reflection.GeneratedProtocolMessageType('CustomCallAndListenRequest', (_message.Message,), {
-  'DESCRIPTOR' : _CUSTOMCALLANDLISTENREQUEST,
+CallAndListenResponse = _reflection.GeneratedProtocolMessageType('CallAndListenResponse', (_message.Message,), {
+  'DESCRIPTOR' : _CALLANDLISTENRESPONSE,
   '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
-  # @@protoc_insertion_point(class_scope:koapy.grpc.CustomCallAndListenRequest)
+  # @@protoc_insertion_point(class_scope:koapy.grpc.CallAndListenResponse)
   })
-_sym_db.RegisterMessage(CustomCallAndListenRequest)
-
-CustomCallAndListenResponse = _reflection.GeneratedProtocolMessageType('CustomCallAndListenResponse', (_message.Message,), {
-  'DESCRIPTOR' : _CUSTOMCALLANDLISTENRESPONSE,
-  '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
-  # @@protoc_insertion_point(class_scope:koapy.grpc.CustomCallAndListenResponse)
-  })
-_sym_db.RegisterMessage(CustomCallAndListenResponse)
+_sym_db.RegisterMessage(CallAndListenResponse)
 
 LoginRequest = _reflection.GeneratedProtocolMessageType('LoginRequest', (_message.Message,), {
   'DESCRIPTOR' : _LOGINREQUEST,
@@ -1751,6 +1892,41 @@ SetLogLevelResponse = _reflection.GeneratedProtocolMessageType('SetLogLevelRespo
   })
 _sym_db.RegisterMessage(SetLogLevelResponse)
 
+BidirectionalRealInitializeRequest = _reflection.GeneratedProtocolMessageType('BidirectionalRealInitializeRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BIDIRECTIONALREALINITIALIZEREQUEST,
+  '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
+  # @@protoc_insertion_point(class_scope:koapy.grpc.BidirectionalRealInitializeRequest)
+  })
+_sym_db.RegisterMessage(BidirectionalRealInitializeRequest)
+
+BidirectionalRealRegisterRequest = _reflection.GeneratedProtocolMessageType('BidirectionalRealRegisterRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BIDIRECTIONALREALREGISTERREQUEST,
+  '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
+  # @@protoc_insertion_point(class_scope:koapy.grpc.BidirectionalRealRegisterRequest)
+  })
+_sym_db.RegisterMessage(BidirectionalRealRegisterRequest)
+
+BidirectionalRealRemoveRequest = _reflection.GeneratedProtocolMessageType('BidirectionalRealRemoveRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BIDIRECTIONALREALREMOVEREQUEST,
+  '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
+  # @@protoc_insertion_point(class_scope:koapy.grpc.BidirectionalRealRemoveRequest)
+  })
+_sym_db.RegisterMessage(BidirectionalRealRemoveRequest)
+
+BidirectionalRealStopRequest = _reflection.GeneratedProtocolMessageType('BidirectionalRealStopRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BIDIRECTIONALREALSTOPREQUEST,
+  '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
+  # @@protoc_insertion_point(class_scope:koapy.grpc.BidirectionalRealStopRequest)
+  })
+_sym_db.RegisterMessage(BidirectionalRealStopRequest)
+
+BidirectionalRealRequest = _reflection.GeneratedProtocolMessageType('BidirectionalRealRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BIDIRECTIONALREALREQUEST,
+  '__module__' : 'koapy.grpc.KiwoomOpenApiService_pb2'
+  # @@protoc_insertion_point(class_scope:koapy.grpc.BidirectionalRealRequest)
+  })
+_sym_db.RegisterMessage(BidirectionalRealRequest)
+
 
 _TRANSACTIONREQUEST_INPUTSENTRY._options = None
 
@@ -1761,8 +1937,8 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=3085,
-  serialized_end=4240,
+  serialized_start=3568,
+  serialized_end=4754,
   methods=[
   _descriptor.MethodDescriptor(
     name='Call',
@@ -1780,7 +1956,7 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
     index=1,
     containing_service=None,
     input_type=_LISTENREQUEST,
-    output_type=_CUSTOMLISTENRESPONSE,
+    output_type=_LISTENRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -1800,7 +1976,7 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
     index=3,
     containing_service=None,
     input_type=_BIDIRECTIONALLISTENREQUEST,
-    output_type=_CUSTOMLISTENRESPONSE,
+    output_type=_LISTENRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -1809,8 +1985,8 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
     full_name='koapy.grpc.KiwoomOpenApiService.CustomListen',
     index=4,
     containing_service=None,
-    input_type=_CUSTOMLISTENREQUEST,
-    output_type=_CUSTOMLISTENRESPONSE,
+    input_type=_LISTENREQUEST,
+    output_type=_LISTENRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -1819,8 +1995,8 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
     full_name='koapy.grpc.KiwoomOpenApiService.CustomCallAndListen',
     index=5,
     containing_service=None,
-    input_type=_CUSTOMCALLANDLISTENREQUEST,
-    output_type=_CUSTOMCALLANDLISTENRESPONSE,
+    input_type=_CALLANDLISTENREQUEST,
+    output_type=_CALLANDLISTENRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -1830,7 +2006,7 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
     index=6,
     containing_service=None,
     input_type=_LOGINREQUEST,
-    output_type=_CUSTOMCALLANDLISTENRESPONSE,
+    output_type=_CALLANDLISTENRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -1840,7 +2016,7 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
     index=7,
     containing_service=None,
     input_type=_TRANSACTIONREQUEST,
-    output_type=_CUSTOMCALLANDLISTENRESPONSE,
+    output_type=_CALLANDLISTENRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -1850,7 +2026,7 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
     index=8,
     containing_service=None,
     input_type=_ORDERREQUEST,
-    output_type=_CUSTOMCALLANDLISTENRESPONSE,
+    output_type=_CALLANDLISTENRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -1860,7 +2036,7 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
     index=9,
     containing_service=None,
     input_type=_REALREQUEST,
-    output_type=_CUSTOMCALLANDLISTENRESPONSE,
+    output_type=_CALLANDLISTENRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -1870,7 +2046,7 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
     index=10,
     containing_service=None,
     input_type=_LOADCONDITIONREQUEST,
-    output_type=_CUSTOMCALLANDLISTENRESPONSE,
+    output_type=_CALLANDLISTENRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -1880,14 +2056,24 @@ _KIWOOMOPENAPISERVICE = _descriptor.ServiceDescriptor(
     index=11,
     containing_service=None,
     input_type=_CONDITIONREQUEST,
-    output_type=_CUSTOMCALLANDLISTENRESPONSE,
+    output_type=_CALLANDLISTENRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='BidirectionalRealCall',
+    full_name='koapy.grpc.KiwoomOpenApiService.BidirectionalRealCall',
+    index=12,
+    containing_service=None,
+    input_type=_BIDIRECTIONALREALREQUEST,
+    output_type=_CALLANDLISTENREQUEST,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
     name='SetLogLevel',
     full_name='koapy.grpc.KiwoomOpenApiService.SetLogLevel',
-    index=12,
+    index=13,
     containing_service=None,
     input_type=_SETLOGLEVELREQUEST,
     output_type=_SETLOGLEVELRESPONSE,

@@ -3,6 +3,8 @@ import logging
 import threading
 import collections
 
+from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
+
 class ScreenManager:
 
     _maximum_num = 200
@@ -47,12 +49,15 @@ class ScreenManager:
         else:
             return self.get_multiple_free_screens(count)
 
-    def borrow_screen(self, screen_no):
+    def borrow_screen(self, screen_no=None, pop=False):
         with self._lock:
             if len(self._occupied_screen_nos) == self._maximum_num:
                 logging.warning('Borrowing a screen, but already using maximum number of screens.')
-                oldest = self._occupied_screen_nos.popleft()
-                logging.warning('Oldest screen %s popped.', self._number_to_screen_no(oldest))
+                if pop:
+                    oldest = self._occupied_screen_nos.popleft()
+                    logging.warning('Oldest screen %s popped.', self._number_to_screen_no(oldest))
+                else:
+                    raise KiwoomOpenApiError('Cannot allocate more screen')
             if screen_no is None or screen_no == '':
                 screen_no = self.get_single_free_screen()
             elif self.is_inuse(screen_no):

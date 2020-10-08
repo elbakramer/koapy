@@ -7,7 +7,7 @@ import atexit
 
 import pywinauto
 
-from koapy.tools.version_update.login_semiauto import login_semiauto
+from koapy.openapi.tools.version_update.login_semiauto import login_semiauto
 
 is_in_development = False
 
@@ -28,7 +28,7 @@ def enable_autologin_after_version_update():
     if completed.returncode not in [0, 3221226525]:
         raise subprocess.CalledProcessError(completed.returncode, completed.args)
 
-def update_version():
+def process_version_update():
     p = open_login_window()
 
     login_window = login_semiauto(wait_closed=False)
@@ -96,13 +96,10 @@ def update_version():
 
     return False
 
-def main(args=()):
+def update_version():
     disable_autologin()
-    updated = update_version()
+    updated = process_version_update()
     if updated:
         time.sleep(2)
         enable_autologin_after_version_update()
-    return 0
-
-if __name__ == '__main__':
-    sys.exit(main())
+    return updated

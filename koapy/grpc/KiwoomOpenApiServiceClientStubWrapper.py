@@ -41,12 +41,12 @@ class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlCommonWrappe
         request = KiwoomOpenApiService_pb2.TransactionRequest()
         request.request_name = rqname
         request.transaction_code = trcode
-        request.screen_no = scrnno
+        request.screen_no = scrnno or ''
         for k, v in inputs.items():
             request.inputs[k] = v # pylint: disable=no-member
         if stop_condition:
-            request.stop_condition.name = stop_condition.get('name') # pylint: disable=no-member
-            request.stop_condition.value = str(stop_condition.get('value')) # pylint: disable=no-member
+            request.stop_condition.name = stop_condition.get('name', '') # pylint: disable=no-member
+            request.stop_condition.value = str(stop_condition.get('value', '')) # pylint: disable=no-member
             request.stop_condition.comparator = { # pylint: disable=no-member
                 '<=': KiwoomOpenApiService_pb2.TransactionStopConditionCompartor.LESS_THAN_OR_EQUAL_TO,
                 '<': KiwoomOpenApiService_pb2.TransactionStopConditionCompartor.LESS_THAN,
@@ -55,6 +55,7 @@ class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlCommonWrappe
                 '==': KiwoomOpenApiService_pb2.TransactionStopConditionCompartor.EQUAL_TO,
                 '!=': KiwoomOpenApiService_pb2.TransactionStopConditionCompartor.NOT_EQUAL_TO,
             }.get(stop_condition.get('comparator', '<='))
+            request.stop_condition.include_equal = stop_condition.get('include_equal', False) # pylint: disable=no-member
         return self._stub.TransactionCall(request)
 
     def OrderCall(self, rqname, scrnno, account, order_type, code, quantity, price, quote_type, original_order_no=None):
@@ -82,7 +83,7 @@ class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlCommonWrappe
         """
         request = KiwoomOpenApiService_pb2.OrderRequest()
         request.request_name = rqname
-        request.screen_no = scrnno
+        request.screen_no = scrnno or ''
         request.account_no = account
         request.order_type = int(order_type) if order_type else 0
         request.code = code
@@ -211,20 +212,12 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         return single, multi
 
     def GetStockInfoAsDataFrame(self, codes=None, rqname=None, scrnno=None):
-        """
-        [화면번호]
-         화면번호는 서버에 조회나 주문등 필요한 기능을 요청할때 이를 구별하기 위한 키값으로 이해하시면 됩니다.
-         0000(혹은 0)을 제외한 임의의 숫자를 사용하시면 되는데 갯수가 200개로 한정되어 있기 때문에 이 갯수를 넘지 않도록 관리하셔야 합니다.
-         만약 사용하는 화면번호가 200개를 넘는 경우 조회결과나 주문결과에 다른 데이터가 섞이거나 원하지 않는 결과를 나타날 수 있습니다.
-        """
         if codes is None:
             codes = self.GetCommonCodeList()
         elif isinstance(codes, str):
             codes = [codes]
         if rqname is None:
             rqname = '주식기본정보요청'
-        if scrnno is None:
-            scrnno = '0291'
         trcode = 'opt10001'
         codes_len = len(codes)
         columns = []
@@ -239,19 +232,17 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetDailyStockDataAsDataFrame(self, code, start_date=None, end_date=None, rqname=None, scrnno=None):
-        """
-        [수정주가구분] 1:유상증자, 2:무상증자, 4:배당락, 8:액면분할, 16:액면병합, 32:기업합병, 64:감자, 256:권리락
-        """
-        if start_date is None:
-            now = datetime.datetime.now()
-            start_date = now
-            if now < now.replace(hour=15, minute=30):
-                start_date -= datetime.timedelta(days=1)
-        date_format = '%Y%m%d'
-        date_column_name = '일자'
+    def GetTickStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
+        if interval is not None:
+            interval = int(interval)
+            interval = str(interval)
+
+        date_format = '%Y%m%d%H%M%S'
+        date_column_name = '체결시간'
+
         if isinstance(start_date, datetime.datetime):
             start_date = start_date.strftime(date_format)
+
         if end_date is not None:
             if isinstance(end_date, datetime.datetime):
                 end_date = end_date.strftime(date_format)
@@ -259,53 +250,66 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 'name': date_column_name,
                 'value': end_date,
             }
+            if include_end:
+                stop_condition['include_equal'] = True
         else:
             stop_condition = None
+
         if rqname is None:
-            rqname = '주식일봉차트조회요청'
-        if scrnno is None:
-            scrnno = '0613'
-        trcode = 'opt10081'
+            rqname = '주식틱차트조회요청'
+        trcode = 'opt10079'
         inputs = {
             '종목코드': code,
-            '기준일자': start_date,
-            '수정주가구분': '1', # TODO: 수정주가로 받으면서 append 하는 경우 과거 데이터에 대한 추가보정이 별도로 필요함
+            '틱범위': interval,
+            '수정주가구분': '1' if adjusted_price else '0',
         }
+
         columns = []
         records = []
+
+        date_column_index = None
+        should_compare_start = start_date is not None
+
         for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
             if not columns:
                 columns = list(response.listen_response.multi_data.names)
+                if date_column_name in columns:
+                    date_column_index = columns.index(date_column_name)
             for values in response.listen_response.multi_data.values:
+                if should_compare_start and date_column_index is not None:
+                    date = values.values[date_column_index]
+                    if date > start_date:
+                        # 해당 TR 은 기준일자를 INPUT 으로 설정할 수 없는 이유로
+                        # 일단 가장 최근부터 차례대로 가져오고 클라이언트에서 요청보다 최근 데이터는 버림
+                        # 클라이언트 말고 서버에서 미리 처리해서 데이터를 보내지조차 않아야 할지??
+                        continue
+                    else:
+                        should_compare_start = False
                 records.append(values.values)
-            if date_column_name in columns:
-                date_index = columns.index(date_column_name)
-                if len(response.listen_response.multi_data.values) > 0:
-                    from_date = response.listen_response.multi_data.values[0].values[date_index]
-                    to_date = response.listen_response.multi_data.values[-1].values[date_index]
+
+            if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
+                nrows = len(response.listen_response.multi_data.values)
+                if nrows > 0:
+                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
+                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
                     from_date = datetime.datetime.strptime(from_date, date_format)
                     to_date = datetime.datetime.strptime(to_date, date_format)
-                    logging.debug('Received data from %s to %s for code %s', from_date, to_date, code)
+                    logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
+
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetMinuteStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, rqname=None, scrnno=None):
-        """
-        [수정주가구분] 1:유상증자, 2:무상증자, 4:배당락, 8:액면분할, 16:액면병합, 32:기업합병, 64:감자, 256:권리락
-        """
-        if interval is None:
-            interval = 15
+    def GetMinuteStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
         if interval is not None:
+            interval = int(interval)
             interval = str(interval)
-        if start_date is None:
-            now = datetime.datetime.now()
-            start_date = now
-            if now < now.replace(hour=15, minute=30):
-                start_date -= datetime.timedelta(days=1)
+
         date_format = '%Y%m%d%H%M%S'
         date_column_name = '체결시간'
+
         if isinstance(start_date, datetime.datetime):
             start_date = start_date.strftime(date_format)
+
         if end_date is not None:
             if isinstance(end_date, datetime.datetime):
                 end_date = end_date.strftime(date_format)
@@ -313,44 +317,284 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 'name': date_column_name,
                 'value': end_date,
             }
+            if include_end:
+                stop_condition['include_equal'] = True
         else:
             stop_condition = None
+
         if rqname is None:
             rqname = '주식분봉차트조회요청'
-        if scrnno is None:
-            scrnno = '0613'
         trcode = 'opt10080'
         inputs = {
             '종목코드': code,
             '틱범위': interval,
-            '수정주가구분': '1', # TODO: 수정주가로 받으면서 append 하는 경우 과거 데이터에 대한 추가보정이 별도로 필요함
+            '수정주가구분': '1' if adjusted_price else '0',
         }
+
         columns = []
         records = []
+
+        date_column_index = None
+        should_compare_start = start_date is not None
+
         for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
             if not columns:
                 columns = list(response.listen_response.multi_data.names)
+                if date_column_name in columns:
+                    date_column_index = columns.index(date_column_name)
             for values in response.listen_response.multi_data.values:
+                if should_compare_start and date_column_index is not None:
+                    date = values.values[date_column_index]
+                    if date > start_date:
+                        # 해당 TR 은 기준일자를 INPUT 으로 설정할 수 없는 이유로
+                        # 일단 가장 최근부터 차례대로 가져오고 클라이언트에서 요청보다 최근 데이터는 버림
+                        # 클라이언트 말고 서버에서 미리 처리해서 데이터를 보내지조차 않아야 할지??
+                        continue
+                    else:
+                        should_compare_start = False
                 records.append(values.values)
-            if date_column_name in columns:
-                date_index = columns.index(date_column_name)
-                if len(response.listen_response.multi_data.values) > 0:
-                    from_date = response.listen_response.multi_data.values[0].values[date_index]
-                    to_date = response.listen_response.multi_data.values[-1].values[date_index]
+
+            if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
+                nrows = len(response.listen_response.multi_data.values)
+                if nrows > 0:
+                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
+                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
                     from_date = datetime.datetime.strptime(from_date, date_format)
                     to_date = datetime.datetime.strptime(to_date, date_format)
-                    logging.debug('Received data from %s to %s for code %s', from_date, to_date, code)
+                    logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
+
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetDepositInfo(self, account_no, lookup_type=None, rqname=None, scrnno=None):
+    def GetDailyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
+        date_format = '%Y%m%d'
+        date_column_name = '일자'
+
+        if isinstance(start_date, datetime.datetime):
+            start_date = start_date.strftime(date_format)
+
+        if end_date is not None:
+            if isinstance(end_date, datetime.datetime):
+                end_date = end_date.strftime(date_format)
+            stop_condition = {
+                'name': date_column_name,
+                'value': end_date,
+            }
+            if include_end:
+                stop_condition['include_equal'] = True
+        else:
+            stop_condition = None
+
+        if rqname is None:
+            rqname = '주식일봉차트조회요청'
+
+        trcode = 'opt10081'
+        inputs = {
+            '종목코드': code,
+            '수정주가구분': '1' if adjusted_price else '0',
+        }
+        if start_date is not None:
+            inputs['기준일자'] = start_date
+
+        columns = []
+        records = []
+
+        date_column_index = None
+
+        for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
+            if not columns:
+                columns = list(response.listen_response.multi_data.names)
+                if date_column_name in columns:
+                    date_column_index = columns.index(date_column_name)
+            for values in response.listen_response.multi_data.values:
+                records.append(values.values)
+
+            if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
+                nrows = len(response.listen_response.multi_data.values)
+                if nrows > 0:
+                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
+                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
+                    from_date = datetime.datetime.strptime(from_date, date_format)
+                    to_date = datetime.datetime.strptime(to_date, date_format)
+                    logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
+
+        df = pd.DataFrame.from_records(records, columns=columns)
+        return df
+
+    def GetWeeklyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
+        date_format = '%Y%m%d'
+        date_column_name = '일자'
+
+        if isinstance(start_date, datetime.datetime):
+            start_date = start_date.strftime(date_format)
+
+        if end_date is not None:
+            if isinstance(end_date, datetime.datetime):
+                end_date = end_date.strftime(date_format)
+            stop_condition = {
+                'name': date_column_name,
+                'value': end_date,
+            }
+            if include_end:
+                stop_condition['include_equal'] = True
+        else:
+            stop_condition = None
+
+        if rqname is None:
+            rqname = '주식주봉차트조회요청'
+
+        trcode = 'opt10082'
+        inputs = {
+            '종목코드': code,
+            '수정주가구분': '1' if adjusted_price else '0',
+        }
+        if start_date is not None:
+            inputs['기준일자'] = start_date
+        if end_date is not None:
+            inputs['끝일자'] = end_date # 딱히 끝일자가 생각하는대로 안먹히는듯...
+
+        columns = []
+        records = []
+        date_column_index = None
+
+        for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
+            if not columns:
+                columns = list(response.listen_response.multi_data.names)
+                if date_column_name in columns:
+                    date_column_index = columns.index(date_column_name)
+            for values in response.listen_response.multi_data.values:
+                records.append(values.values)
+
+            if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
+                nrows = len(response.listen_response.multi_data.values)
+                if nrows > 0:
+                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
+                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
+                    from_date = datetime.datetime.strptime(from_date, date_format)
+                    to_date = datetime.datetime.strptime(to_date, date_format)
+                    logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
+
+        df = pd.DataFrame.from_records(records, columns=columns)
+        return df
+
+    def GetMonthlyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
+        date_format = '%Y%m%d'
+        date_column_name = '일자'
+
+        if isinstance(start_date, datetime.datetime):
+            start_date = start_date.strftime(date_format)
+
+        if end_date is not None:
+            if isinstance(end_date, datetime.datetime):
+                end_date = end_date.strftime(date_format)
+            stop_condition = {
+                'name': date_column_name,
+                'value': end_date,
+            }
+            if include_end:
+                stop_condition['include_equal'] = True
+        else:
+            stop_condition = None
+
+        if rqname is None:
+            rqname = '주식월봉차트조회요청'
+
+        trcode = 'opt10083'
+        inputs = {
+            '종목코드': code,
+            '수정주가구분': '1' if adjusted_price else '0',
+        }
+        if start_date is not None:
+            inputs['기준일자'] = start_date
+        if end_date is not None:
+            inputs['끝일자'] = end_date # 딱히 끝일자가 생각하는대로 안먹히는듯...
+
+        columns = []
+        records = []
+        date_column_index = None
+
+        for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
+            if not columns:
+                columns = list(response.listen_response.multi_data.names)
+                if date_column_name in columns:
+                    date_column_index = columns.index(date_column_name)
+            for values in response.listen_response.multi_data.values:
+                records.append(values.values)
+
+            if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
+                nrows = len(response.listen_response.multi_data.values)
+                if nrows > 0:
+                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
+                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
+                    from_date = datetime.datetime.strptime(from_date, date_format)
+                    to_date = datetime.datetime.strptime(to_date, date_format)
+                    logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
+
+        df = pd.DataFrame.from_records(records, columns=columns)
+        return df
+
+    def GetYearlyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
+        date_format = '%Y%m%d'
+        date_column_name = '일자'
+
+        if isinstance(start_date, datetime.datetime):
+            start_date = start_date.strftime(date_format)
+
+        if end_date is not None:
+            if isinstance(end_date, datetime.datetime):
+                end_date = end_date.strftime(date_format)
+            stop_condition = {
+                'name': date_column_name,
+                'value': end_date,
+            }
+            if include_end:
+                stop_condition['include_equal'] = True
+        else:
+            stop_condition = None
+
+        if rqname is None:
+            rqname = '주식년봉차트조회요청'
+
+        trcode = 'opt10094'
+        inputs = {
+            '종목코드': code,
+            '수정주가구분': '1' if adjusted_price else '0',
+        }
+        if start_date is not None:
+            inputs['기준일자'] = start_date
+        if end_date is not None:
+            inputs['끝일자'] = end_date # 딱히 끝일자가 생각하는대로 안먹히는듯...
+
+        columns = []
+        records = []
+        date_column_index = None
+
+        for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
+            if not columns:
+                columns = list(response.listen_response.multi_data.names)
+                if date_column_name in columns:
+                    date_column_index = columns.index(date_column_name)
+            for values in response.listen_response.multi_data.values:
+                records.append(values.values)
+
+            if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
+                nrows = len(response.listen_response.multi_data.values)
+                if nrows > 0:
+                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
+                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
+                    from_date = datetime.datetime.strptime(from_date, date_format)
+                    to_date = datetime.datetime.strptime(to_date, date_format)
+                    logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
+
+        df = pd.DataFrame.from_records(records, columns=columns)
+        return df
+
+    def GetDepositInfo(self, account_no, lookup_type=None, with_multi=False, rqname=None, scrnno=None):
         """
         조회구분 = 3:추정조회, 2:일반조회
         """
         if rqname is None:
             rqname = '예수금상세현황요청'
-        if scrnno is None:
-            scrnno = '0362'
         trcode = 'opw00001'
         inputs = {
             '계좌번호': account_no,
@@ -359,14 +603,15 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             '조회구분': '2' if lookup_type is None else lookup_type,
         }
         responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
-        single, _multi = self._ParseTransactionCallResponses(responses, [12, 15])
-        return single
+        single, multi = self._ParseTransactionCallResponses(responses, [12, 15])
+        if with_multi:
+            return single, multi
+        else:
+            return single
 
     def GetStockQuotes(self, code, rqname=None, scrnno=None):
         if rqname is None:
             rqname = '주식호가요청'
-        if scrnno is None:
-            scrnno = '4989'
         trcode = 'opt10004'
         inputs = {
             '종목코드': code,
@@ -386,8 +631,6 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
 
         if rqname is None:
             rqname = '실시간미체결요청'
-        if scrnno is None:
-            scrnno = '1010'
         trcode = 'opt10075'
         inputs = {
             '계좌번호': account_no,
@@ -413,8 +656,6 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
 
         if rqname is None:
             rqname = '실시간체결요청'
-        if scrnno is None:
-            scrnno = '1010'
         trcode = 'opt10076'
         inputs = {
             '종목코드': '' if code is None else code,
@@ -444,8 +685,6 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
 
         if rqname is None:
             rqname = '계좌별주문체결내역상세요청'
-        if scrnno is None:
-            scrnno = '1010'
         trcode = 'opw00007'
         if date is None:
             now = datetime.datetime.now()
@@ -471,8 +710,6 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
     def GetAccountRateOfReturnAsDataFrame(self, account_no, rqname=None, scrnno=None):
         if rqname is None:
             rqname = '계좌수익률요청'
-        if scrnno is None:
-            scrnno = '1010'
         trcode = 'opt10085'
         inputs = {
             '계좌번호': account_no,
@@ -484,8 +721,6 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
     def GetAccountEvaluationStatusAsSeriesAndDataFrame(self, account_no, include_delisted=True, rqname=None, scrnno=None):
         if rqname is None:
             rqname = '계좌평가현황요청'
-        if scrnno is None:
-            scrnno = '1010'
         trcode = 'opw00004'
         inputs = {
             '계좌번호': account_no,
@@ -524,8 +759,6 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         """
         if rqname is None:
             rqname = '계좌평가잔고내역요청'
-        if scrnno is None:
-            scrnno = '1010'
         trcode = 'opw00018'
         inputs = {
             '계좌번호': account_no,
@@ -540,8 +773,6 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
     def GetMarketPriceInfo(self, code, rqname=None, scrnno=None):
         if rqname is None:
             rqname = '시세표성정보요청'
-        if scrnno is None:
-            scrnno = '1010'
         trcode = 'opt10007'
         inputs = {
             '종목코드': code,
@@ -557,8 +788,8 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             fids = RealType.get_fids_by_realtype('주식시세')
         if realtype is None:
             realtype = '0'
-        for response in self.RealCall(screen_no, codes, fids, realtype, infer_fids, readable_names, fast_parse):
-            yield response
+        responses = self.RealCall(screen_no, codes, fids, realtype, infer_fids, readable_names, fast_parse)
+        return responses
 
     def GetCodeListByCondition(self, condition_name, condition_index=None, with_info=False, is_future_option=False, request_name=None, screen_no=None):
         search_type = 0
@@ -589,6 +820,8 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                     columns = response.listen_response.multi_data.names
                 for values in response.listen_response.multi_data.values:
                     records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, remove_zeros_width))
+            else:
+                raise ValueError('Unexpected event handler name %s' % response.listen_response.name)
 
         _single = pd.Series(single_output)
         multi = pd.DataFrame.from_records(records, columns=columns)
@@ -613,7 +846,8 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 inserted = code_list
                 deleted = []
                 if with_info:
-                    yield inserted, deleted, None
+                    info = None
+                    yield inserted, deleted, info
                 else:
                     yield inserted, deleted
             elif response.listen_response.name == 'OnReceiveTrCondition':
@@ -628,7 +862,8 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 else:
                     raise ValueError('Unexpected condition type %s' % condition_type)
                 if with_info:
-                    yield inserted, deleted, None
+                    info = None
+                    yield inserted, deleted, info
                 else:
                     yield inserted, deleted
             elif response.listen_response.name == 'OnReceiveTrData':
@@ -649,7 +884,8 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 inserted = []
                 deleted = []
                 if with_info:
-                    yield inserted, deleted, multi
+                    info = multi
+                    yield inserted, deleted, info
                 else:
                     raise RuntimeError('Unexpected, OnReceiveTrData event with with_info=False ???')
             else:

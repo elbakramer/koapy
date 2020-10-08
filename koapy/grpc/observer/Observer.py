@@ -6,7 +6,7 @@ class Observer(ABC):
     """
 
     @abstractmethod
-    def on_next(self, value):
+    def on_next(self, item):
         raise NotImplementedError
 
     @abstractmethod

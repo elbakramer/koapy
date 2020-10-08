@@ -1,6 +1,7 @@
 from koapy import KiwoomOpenApiContext
 
 with KiwoomOpenApiContext() as context:
+    # 로그인 처리
     context.EnsureConnected()
 
     # 조건검색을 사용하기 위해서는 먼저 서버에 저장된 조건들을 불러와야함 (GetConditionLoad)

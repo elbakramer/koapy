@@ -211,6 +211,23 @@ class TrInfo(JsonSerializable):
                 logging.debug('Saving trinfo to %s', dump_filename)
             return json.dump(result, dump_file)
 
+    _SINGLE_TO_MULTI_TRCODES = [
+        'opt10085',
+        'optkwfid',
+        'optkwinv',
+        'optkwpro',
+    ]
+
+    @classmethod
+    def _single_outputs_are_actually_multi_outputs(cls, item):
+        single_outputs_name = item.single_outputs_name
+        single_outputs = item.single_outputs
+        item.single_outputs_name = item.multi_outputs_name
+        item.single_outputs = item.multi_outputs
+        item.multi_outputs_name = single_outputs_name
+        item.multi_outputs = single_outputs
+        return item
+
     @classmethod
     def trinfo_by_code_from_dump_file(cls, dump_file=None):
         with contextlib.ExitStack() as stack:
@@ -220,7 +237,10 @@ class TrInfo(JsonSerializable):
                 dump_file = stack.enter_context(open(dump_file, 'r'))
                 result = json.load(dump_file)
                 for tr_code in result:
-                    result[tr_code] = cls.from_dict(result[tr_code])
+                    item = cls.from_dict(result[tr_code])
+                    if item.tr_code in cls._SINGLE_TO_MULTI_TRCODES:
+                        item = cls._single_outputs_are_actually_multi_outputs(item)
+                    result[tr_code] = item
                 return result
         return {}
 

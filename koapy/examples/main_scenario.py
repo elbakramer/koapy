@@ -1,3 +1,5 @@
+import threading
+
 from koapy import KiwoomOpenApiContext
 from koapy import RealType
 
@@ -50,7 +52,7 @@ with KiwoomOpenApiContext() as context:
     quote_type = '03'      # 거래구분, 03 : 시장가
     original_order_no = '' # 원주문번호, 주문 정정/취소 등에서 사용
 
-    # 현재는 주문수량이 모두 소진되기 전까지 이벤트를 듣도록 되어있음, TODO: 중간에 끊을 수 있는 방법이 필요함
+    # 현재는 주문수량이 모두 소진되기 전까지 이벤트를 듣도록 되어있음 (단순 호출 예시)
     print('Sending order to buy %s, quantity of 1 stock, at market price...' % code)
     for event in context.OrderCall(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no):
         pp.pprint(MessageToDict(event))
@@ -60,7 +62,16 @@ with KiwoomOpenApiContext() as context:
     fid_list = RealType.get_fids_by_realtype('주식시세')
     real_type = '0'
 
-    # 현재는 실시간 이벤트를 무한정 가져옴, TODO: 중간에 끊을 수 있는 방법이 필요함
+    # 현재는 실시간 이벤트를 무한정 가져옴 (커넥션 컨트롤 가능한 예시)
     print('Starting to get realtime stock data for code: %s' % code)
-    for event in context.GetRealDataForCodesAsStream(code_list, fid_list, real_type, screen_no=None, infer_fids=True, readable_names=True, fast_parse=False):
+    events = context.GetRealDataForCodesAsStream(code_list, fid_list, real_type, screen_no=None, infer_fids=True, readable_names=True, fast_parse=False)
+
+    def stop_listening():
+        print('Stopping to listen events...')
+        events.cancel()
+
+    threading.Timer(10.0, stop_listening).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
+
+    # 이벤트 불러와서 출력처리
+    for event in events:
         pp.pprint(MessageToDict(event))

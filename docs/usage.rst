@@ -101,7 +101,8 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 여기서의 함수들 중에 ``XXXCall`` 패턴의 함수들은 TR/실시간 데이터 처리 등 몇몇 유형화가 가능한 사용 패턴들에 대해서
 미리 구현해놓은 이벤트 처리 로직들이 서버 사이드에서 동작하도록 구성되어 있습니다.
 혹시나 추후에 이런 메서드들이 다루지 못하는 새로운 사용 패턴이 생기는 경우에
-기존 구현들을 참고해 커스텀 :py:mod:`EventHandler<koapy.grpc.event.KiwoomOpenApiEventHandler>` 를 개발 후 :py:meth:`~.koapy.grpc.KiwoomOpenApiServiceServicer.KiwoomOpenApiServiceServicer.CustomCallAndListen` 을 활용하거나
+기존 구현들을 참고해 커스텀 :py:mod:`EventHandler<koapy.grpc.event.KiwoomOpenApiEventHandler>` 를 개발 후
+:py:meth:`~.koapy.grpc.KiwoomOpenApiServiceServicer.KiwoomOpenApiServiceServicer.CustomCallAndListen` 을 활용하거나
 아예 |KiwoomOpenApiService.proto|_ 파일을 수정해 신규 gRPC 메서드를 추가하는 방식으로도 확장이 가능합니다.
 
 .. |KiwoomOpenApiService.proto| replace:: ``KiwoomOpenApiService.proto``
@@ -386,7 +387,7 @@ Version update
 해당 위키에서는 자동 버전처리에 대한 내용도 설명하고 있는데요.
 KOAPY 에서도 실험적으로 자동 버전처리를 수행하는 관련 스크립트들을 아래에 제공하고 있습니다.
 
-* :py:mod:`koapy.tools.version_update`
+* :py:mod:`koapy.openapi.tools.version_update`
 
 사용방식은 아래와 같습니다.
 

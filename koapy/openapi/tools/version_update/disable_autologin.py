@@ -4,7 +4,7 @@ import logging
 
 from PyQt5.QtWidgets import QApplication
 
-from koapy import KiwoomOpenApiQAxWidget
+from koapy.pyqt5.KiwoomOpenApiQAxWidget import KiwoomOpenApiQAxWidget
 
 def disable_autologin():
     logging.info('disabling autologin')

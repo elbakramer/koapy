@@ -2,7 +2,8 @@ import sys
 
 from PyQt5.QtWidgets import QApplication
 
-from koapy import KiwoomOpenApiQAxWidget, KiwoomOpenApiError
+from koapy.pyqt5.KiwoomOpenApiQAxWidget import KiwoomOpenApiQAxWidget
+from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 
 def open_login_window(exit_on_login=True):
     app = QApplication(sys.argv)

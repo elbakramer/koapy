@@ -1,17 +1,18 @@
 import threading
 
 from koapy.grpc import KiwoomOpenApiService_pb2, KiwoomOpenApiService_pb2_grpc
-from koapy.grpc.event.BaseKiwoomOpenApiEventHandler import BaseKiwoomOpenApiEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiEventHandler
 
-from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiAllEventHandler
-from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiSomeEventHandler
-from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiLoginEventHandler
-from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiTrEventHandler
-from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiOrderEventHandler
-from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiRealEventHandler
-from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiSomeBidirectionalEventHandler
-from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiLoadConditionEventHandler
-from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiConditionEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiAllEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiSomeEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiLoginEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiTrEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiOrderEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiRealEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiSomeBidirectionalEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiLoadConditionEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiConditionEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiBidirectionalRealEventHandler
 
 from koapy.grpc.KiwoomOpenApiService import convert_arguments_from_protobuf_to_python
 
@@ -68,7 +69,7 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
         return False
 
     def Listen(self, request, context):
-        handler = KiwoomOpenApiSomeEventHandler(self.control, request)
+        handler = KiwoomOpenApiSomeEventHandler(self.control, request, context)
         self._RegisterHandler(request.id, handler)
         handler.add_callback(self._UnregisterHandler, request.id)
         with handler:
@@ -81,8 +82,7 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
         return response
 
     def BidirectionalListen(self, request_iterator, context):
-        handler = KiwoomOpenApiSomeBidirectionalEventHandler(self.control, request_iterator)
-        with handler:
+        with KiwoomOpenApiSomeBidirectionalEventHandler(self.control, request_iterator, context) as handler:
             for response in handler:
                 yield response
 
@@ -93,16 +93,13 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
             g = {}
             l = {}
             exec(code, g, l) # pylint: disable=exec-used
-            handler = eval(class_name, g, l)(self.control, request) # pylint: disable=eval-used
-            assert isinstance(handler, BaseKiwoomOpenApiEventHandler)
-            with handler:
-                for response in handler:
-                    yield response
+            handler = eval(class_name, g, l)(self.control, request, context) # pylint: disable=eval-used
+            assert isinstance(handler, KiwoomOpenApiEventHandler)
         else:
-            handler = KiwoomOpenApiAllEventHandler(self.control)
-            with handler:
-                for response in handler:
-                    yield response
+            handler = KiwoomOpenApiAllEventHandler(self.control, context)
+        with handler:
+            for response in handler:
+                yield response
 
     def CustomCallAndListen(self, request, context):
         name = request.name
@@ -114,13 +111,13 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
             g = {}
             l = {}
             exec(code, g, l) # pylint: disable=exec-used
-            handler = eval(class_name, g, l)(self.control, request) # pylint: disable=eval-used
-            assert isinstance(handler, BaseKiwoomOpenApiEventHandler)
+            handler = eval(class_name, g, l)(self.control, request, context) # pylint: disable=eval-used
+            assert isinstance(handler, KiwoomOpenApiEventHandler)
         else:
-            handler = KiwoomOpenApiAllEventHandler(self.control)
+            handler = KiwoomOpenApiAllEventHandler(self.control, context)
         with handler:
             result = function(*arguments)
-            response = KiwoomOpenApiService_pb2.CustomCallAndListenResponse()
+            response = KiwoomOpenApiService_pb2.CallAndListenResponse()
             if isinstance(result, str):
                 response.call_response.return_value.string_value = result # pylint: disable=no-member
             elif isinstance(result, int):
@@ -134,32 +131,37 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
                 yield response
 
     def LoginCall(self, request, context):
-        with KiwoomOpenApiLoginEventHandler(self.control, request) as handler:
+        with KiwoomOpenApiLoginEventHandler(self.control, request, context) as handler:
             for response in handler:
                 yield response
 
     def TransactionCall(self, request, context):
-        with KiwoomOpenApiTrEventHandler(self.control, request, self.screen_manager) as handler:
+        with KiwoomOpenApiTrEventHandler(self.control, request, context, self.screen_manager) as handler:
             for response in handler:
                 yield response
 
     def OrderCall(self, request, context):
-        with KiwoomOpenApiOrderEventHandler(self.control, request, self.screen_manager) as handler:
+        with KiwoomOpenApiOrderEventHandler(self.control, request, context, self.screen_manager) as handler:
             for response in handler:
                 yield response
 
     def RealCall(self, request, context):
-        with KiwoomOpenApiRealEventHandler(self.control, request, self.screen_manager) as handler:
+        with KiwoomOpenApiRealEventHandler(self.control, request, context, self.screen_manager) as handler:
             for response in handler:
                 yield response
 
     def LoadConditionCall(self, request, context):
-        with KiwoomOpenApiLoadConditionEventHandler(self.control, request) as handler:
+        with KiwoomOpenApiLoadConditionEventHandler(self.control, request, context) as handler:
             for response in handler:
                 yield response
 
     def ConditionCall(self, request, context):
-        with KiwoomOpenApiConditionEventHandler(self.control, request, self.screen_manager) as handler:
+        with KiwoomOpenApiConditionEventHandler(self.control, request, context, self.screen_manager) as handler:
+            for response in handler:
+                yield response
+
+    def BidirectionalRealCall(self, request_iterator, context):
+        with KiwoomOpenApiBidirectionalRealEventHandler(self.control, request_iterator, context, self.screen_manager) as handler:
             for response in handler:
                 yield response
 
