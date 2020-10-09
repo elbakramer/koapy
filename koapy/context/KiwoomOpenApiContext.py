@@ -41,7 +41,7 @@ class KiwoomOpenApiContext:
         self._enter_count = 0
 
     def __del__(self):
-        self.close()
+        self.close_server_proc()
 
     def __enter__(self):
         with self._lock:
@@ -57,12 +57,18 @@ class KiwoomOpenApiContext:
     def get_stub(self):
         return self._stub
 
-    def close(self):
+    def close_client(self):
         self._client.close()
+
+    def close_server_proc(self):
         if self._server_proc is not None:
             self._server_proc.terminate() # maybe soft termination available via grpc? rather than hard termination
             self._server_proc.wait(self._server_proc_terminate_timeout)
             self._server_proc = None
+
+    def close(self):
+        self.close_client()
+        self.close_server_proc()
 
     def __getattr__(self, name):
         return getattr(self._stub, name)
