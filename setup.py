@@ -30,6 +30,7 @@ requirements = [
     'backtrader>=1.9.76.123',
     'matplotlib>=3.3.2',
     'pendulum>=2.1.2',
+    'rx>=3.1.1',
     'pywin32>=228;sys_platform=="win32"',
     'mslex>=0.1.1;sys_platform=="win32"',
     'pywinauto>=0.6.8;sys_platform=="win32"',

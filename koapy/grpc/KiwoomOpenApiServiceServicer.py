@@ -1,5 +1,3 @@
-import threading
-
 from koapy.grpc import KiwoomOpenApiService_pb2, KiwoomOpenApiService_pb2_grpc
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiEventHandler
 
@@ -21,9 +19,6 @@ from koapy.openapi.ScreenManager import ScreenManager
 from koapy.utils.logging import set_loglevel
 
 class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiServiceServicer):
-
-    _listen_id_to_handler = {}
-    _listen_id_to_handler_lock = threading.RLock()
 
     def __init__(self, control):
         super().__init__()
@@ -55,31 +50,10 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
             raise TypeError('Unexpected return value type from server side dynamicCall(): %s' % type(result))
         return response
 
-    def _RegisterHandler(self, handler_id, handler):
-        with self._listen_id_to_handler_lock:
-            self._UnregisterHandler(handler_id)
-            self._listen_id_to_handler[handler_id] = handler
-
-    def _UnregisterHandler(self, handler_id):
-        with self._listen_id_to_handler_lock:
-            if handler_id in self._listen_id_to_handler:
-                self._listen_id_to_handler[handler_id].observer.on_completed()
-                del self._listen_id_to_handler[handler_id]
-                return True
-        return False
-
     def Listen(self, request, context):
-        handler = KiwoomOpenApiSomeEventHandler(self.control, request, context)
-        self._RegisterHandler(request.id, handler)
-        handler.add_callback(self._UnregisterHandler, request.id)
-        with handler:
+        with KiwoomOpenApiSomeEventHandler(self.control, request, context) as handler:
             for response in handler:
                 yield response
-
-    def StopListen(self, request, context):
-        response = KiwoomOpenApiService_pb2.StopListenResponse()
-        response.successful = self._UnregisterHandler(request.id)
-        return response
 
     def BidirectionalListen(self, request_iterator, context):
         with KiwoomOpenApiSomeBidirectionalEventHandler(self.control, request_iterator, context) as handler:
@@ -127,7 +101,9 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
             else:
                 raise TypeError('Unexpected return value type from server side dynamicCall(): %s' % type(result))
             yield response
-            for response in handler:
+            for listen_response in handler:
+                response = KiwoomOpenApiService_pb2.CallAndListenResponse()
+                response.listen_response = listen_response
                 yield response
 
     def LoginCall(self, request, context):

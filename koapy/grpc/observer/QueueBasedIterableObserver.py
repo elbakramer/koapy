@@ -1,7 +1,7 @@
 import atexit
 
 from queue import Queue, Empty
-from koapy.grpc.observer.Observer import Observer
+from rx.core.typing import Observer
 
 class QueueBasedIterableObserver(Observer):
 
@@ -20,8 +20,12 @@ class QueueBasedIterableObserver(Observer):
     def __del__(self):
         atexit.unregister(self.stop)
 
-    def on_next(self, item):
-        self._queue.put((item, None))
+    @property
+    def queue(self):
+        return self._queue
+
+    def on_next(self, value):
+        self._queue.put((value, None))
 
     def on_error(self, error):
         self._queue.put((None, error))
@@ -38,15 +42,15 @@ class QueueBasedIterableObserver(Observer):
     def __iter__(self):
         while not self._should_stop:
             try:
-                item, err = self._queue.get(True, self._queue_get_timeout)
+                value, error = self._queue.get(True, self._queue_get_timeout)
             except Empty:
                 pass
             else:
-                if item == self._sentinel:
+                if value == self._sentinel:
                     self._queue.task_done()
                     break
-                if err is not None and isinstance(err, Exception):
+                if error is not None and isinstance(error, Exception):
                     self._queue.task_done()
-                    raise err
-                yield item
+                    raise error
+                yield value
                 self._queue.task_done()

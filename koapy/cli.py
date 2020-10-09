@@ -871,9 +871,9 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
     from koapy.openapi.RealType import RealType
 
     def parse_message(message):
-        fids = event.listen_response.single_data.names
+        fids = event.single_data.names
         names = [RealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
-        values = event.listen_response.single_data.values
+        values = event.single_data.values
         dic = dict((name, value) for fid, name, value in zip(fids, names, values) if name != fid)
         series = pd.Series(dic)
         return series
@@ -883,8 +883,8 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
             click.echo(parse_message(message).to_json(), file=output)
     else:
         def print_message(message):
-            code = event.listen_response.arguments[0].string_value
-            name = event.listen_response.arguments[1].string_value
+            code = event.arguments[0].string_value
+            name = event.arguments[1].string_value
             click.echo('[%s] [%s]' % (code, name), file=output)
             click.echo('[%s]' % datetime.datetime.now(), file=output)
             click.echo(parse_message(message).to_markdown(), file=output)

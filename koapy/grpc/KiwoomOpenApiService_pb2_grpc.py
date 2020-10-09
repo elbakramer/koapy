@@ -24,11 +24,6 @@ class KiwoomOpenApiServiceStub(object):
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenRequest.SerializeToString,
                 response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
                 )
-        self.StopListen = channel.unary_unary(
-                '/koapy.grpc.KiwoomOpenApiService/StopListen',
-                request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenRequest.SerializeToString,
-                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenResponse.FromString,
-                )
         self.BidirectionalListen = channel.stream_stream(
                 '/koapy.grpc.KiwoomOpenApiService/BidirectionalListen',
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.BidirectionalListenRequest.SerializeToString,
@@ -47,37 +42,37 @@ class KiwoomOpenApiServiceStub(object):
         self.LoginCall = channel.unary_stream(
                 '/koapy.grpc.KiwoomOpenApiService/LoginCall',
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.LoginRequest.SerializeToString,
-                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
                 )
         self.TransactionCall = channel.unary_stream(
                 '/koapy.grpc.KiwoomOpenApiService/TransactionCall',
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.TransactionRequest.SerializeToString,
-                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
                 )
         self.OrderCall = channel.unary_stream(
                 '/koapy.grpc.KiwoomOpenApiService/OrderCall',
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.OrderRequest.SerializeToString,
-                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
                 )
         self.RealCall = channel.unary_stream(
                 '/koapy.grpc.KiwoomOpenApiService/RealCall',
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.RealRequest.SerializeToString,
-                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
                 )
         self.LoadConditionCall = channel.unary_stream(
                 '/koapy.grpc.KiwoomOpenApiService/LoadConditionCall',
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.LoadConditionRequest.SerializeToString,
-                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
                 )
         self.ConditionCall = channel.unary_stream(
                 '/koapy.grpc.KiwoomOpenApiService/ConditionCall',
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ConditionRequest.SerializeToString,
-                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
                 )
         self.BidirectionalRealCall = channel.stream_stream(
                 '/koapy.grpc.KiwoomOpenApiService/BidirectionalRealCall',
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.BidirectionalRealRequest.SerializeToString,
-                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenRequest.FromString,
+                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
                 )
         self.SetLogLevel = channel.unary_unary(
                 '/koapy.grpc.KiwoomOpenApiService/SetLogLevel',
@@ -96,12 +91,6 @@ class KiwoomOpenApiServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Listen(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def StopListen(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -186,11 +175,6 @@ def add_KiwoomOpenApiServiceServicer_to_server(servicer, server):
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenRequest.FromString,
                     response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.SerializeToString,
             ),
-            'StopListen': grpc.unary_unary_rpc_method_handler(
-                    servicer.StopListen,
-                    request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenRequest.FromString,
-                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenResponse.SerializeToString,
-            ),
             'BidirectionalListen': grpc.stream_stream_rpc_method_handler(
                     servicer.BidirectionalListen,
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.BidirectionalListenRequest.FromString,
@@ -209,37 +193,37 @@ def add_KiwoomOpenApiServiceServicer_to_server(servicer, server):
             'LoginCall': grpc.unary_stream_rpc_method_handler(
                     servicer.LoginCall,
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.LoginRequest.FromString,
-                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.SerializeToString,
+                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.SerializeToString,
             ),
             'TransactionCall': grpc.unary_stream_rpc_method_handler(
                     servicer.TransactionCall,
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.TransactionRequest.FromString,
-                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.SerializeToString,
+                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.SerializeToString,
             ),
             'OrderCall': grpc.unary_stream_rpc_method_handler(
                     servicer.OrderCall,
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.OrderRequest.FromString,
-                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.SerializeToString,
+                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.SerializeToString,
             ),
             'RealCall': grpc.unary_stream_rpc_method_handler(
                     servicer.RealCall,
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.RealRequest.FromString,
-                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.SerializeToString,
+                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.SerializeToString,
             ),
             'LoadConditionCall': grpc.unary_stream_rpc_method_handler(
                     servicer.LoadConditionCall,
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.LoadConditionRequest.FromString,
-                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.SerializeToString,
+                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.SerializeToString,
             ),
             'ConditionCall': grpc.unary_stream_rpc_method_handler(
                     servicer.ConditionCall,
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ConditionRequest.FromString,
-                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.SerializeToString,
+                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.SerializeToString,
             ),
             'BidirectionalRealCall': grpc.stream_stream_rpc_method_handler(
                     servicer.BidirectionalRealCall,
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.BidirectionalRealRequest.FromString,
-                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenRequest.SerializeToString,
+                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.SerializeToString,
             ),
             'SetLogLevel': grpc.unary_unary_rpc_method_handler(
                     servicer.SetLogLevel,
@@ -287,23 +271,6 @@ class KiwoomOpenApiService(object):
         return grpc.experimental.unary_stream(request, target, '/koapy.grpc.KiwoomOpenApiService/Listen',
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenRequest.SerializeToString,
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def StopListen(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/koapy.grpc.KiwoomOpenApiService/StopListen',
-            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenRequest.SerializeToString,
-            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.StopListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -371,7 +338,7 @@ class KiwoomOpenApiService(object):
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/koapy.grpc.KiwoomOpenApiService/LoginCall',
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.LoginRequest.SerializeToString,
-            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -388,7 +355,7 @@ class KiwoomOpenApiService(object):
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/koapy.grpc.KiwoomOpenApiService/TransactionCall',
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.TransactionRequest.SerializeToString,
-            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -405,7 +372,7 @@ class KiwoomOpenApiService(object):
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/koapy.grpc.KiwoomOpenApiService/OrderCall',
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.OrderRequest.SerializeToString,
-            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -422,7 +389,7 @@ class KiwoomOpenApiService(object):
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/koapy.grpc.KiwoomOpenApiService/RealCall',
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.RealRequest.SerializeToString,
-            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -439,7 +406,7 @@ class KiwoomOpenApiService(object):
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/koapy.grpc.KiwoomOpenApiService/LoadConditionCall',
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.LoadConditionRequest.SerializeToString,
-            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -456,7 +423,7 @@ class KiwoomOpenApiService(object):
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/koapy.grpc.KiwoomOpenApiService/ConditionCall',
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ConditionRequest.SerializeToString,
-            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenResponse.FromString,
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -473,7 +440,7 @@ class KiwoomOpenApiService(object):
             metadata=None):
         return grpc.experimental.stream_stream(request_iterator, target, '/koapy.grpc.KiwoomOpenApiService/BidirectionalRealCall',
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.BidirectionalRealRequest.SerializeToString,
-            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.CallAndListenRequest.FromString,
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

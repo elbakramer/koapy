@@ -4,24 +4,20 @@ package koapy.grpc;
 
 service KiwoomOpenApiService {
   rpc Call (CallRequest) returns (CallResponse) {};
-
   rpc Listen (ListenRequest) returns (stream ListenResponse) {};
-  rpc StopListen (StopListenRequest) returns (StopListenResponse) {};
-
   rpc BidirectionalListen (stream BidirectionalListenRequest) returns (stream ListenResponse) {};
 
   rpc CustomListen (ListenRequest) returns (stream ListenResponse) {};
   rpc CustomCallAndListen (CallAndListenRequest) returns (stream CallAndListenResponse) {};
 
-  rpc LoginCall (LoginRequest) returns (stream CallAndListenResponse) {};
-  rpc TransactionCall (TransactionRequest) returns (stream CallAndListenResponse) {};
-  rpc OrderCall (OrderRequest) returns (stream CallAndListenResponse) {};
-  rpc RealCall (RealRequest) returns (stream CallAndListenResponse) {};
+  rpc LoginCall (LoginRequest) returns (stream ListenResponse) {};
+  rpc TransactionCall (TransactionRequest) returns (stream ListenResponse) {};
+  rpc OrderCall (OrderRequest) returns (stream ListenResponse) {};
+  rpc RealCall (RealRequest) returns (stream ListenResponse) {};
+  rpc LoadConditionCall (LoadConditionRequest) returns (stream ListenResponse) {};
+  rpc ConditionCall (ConditionRequest) returns (stream ListenResponse) {};
 
-  rpc LoadConditionCall (LoadConditionRequest) returns (stream CallAndListenResponse) {};
-  rpc ConditionCall (ConditionRequest) returns (stream CallAndListenResponse) {};
-
-  rpc BidirectionalRealCall(stream BidirectionalRealRequest) returns (stream CallAndListenRequest) {};
+  rpc BidirectionalRealCall(stream BidirectionalRealRequest) returns (stream ListenResponse) {};
 
   rpc SetLogLevel (SetLogLevelRequest) returns (SetLogLevelResponse) {};
 }
@@ -75,17 +71,10 @@ message MultiData {
 }
 
 
-message StopListenRequest {
-  string id = 1;
-}
-
-message StopListenResponse {
-  bool successful = 1;
-}
-
-
 message HandledRequest {
-  uint32 id = 1;
+}
+
+message StopListenRequest {
 }
 
 message BidirectionalListenRequest {

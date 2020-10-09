@@ -24,7 +24,6 @@ class KiwoomOpenApiServiceClientSideSignalConnector:
     @classmethod
     def _stop_observer(cls, observer):
         request = KiwoomOpenApiService_pb2.BidirectionalListenRequest()
-        request.stop_listen_request.id = '' # pylint: disable=no-member,pointless-statement
         observer.on_next(request)
         observer.on_completed()
 
@@ -67,7 +66,6 @@ class KiwoomOpenApiServiceClientSideSignalConnector:
                     args = convert_arguments_from_protobuf_to_python(response.arguments)
                     callback(*args)
                     request = KiwoomOpenApiService_pb2.BidirectionalListenRequest()
-                    request.handled_request.id = i # pylint: disable=no-member,pointless-statement
                     observer.on_next(request)
             future = self._executor.submit(fn)
             def done(future):

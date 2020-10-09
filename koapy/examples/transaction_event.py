@@ -20,8 +20,8 @@ with KiwoomOpenApiContext() as context:
 
     # 아래의 함수는 gRPC 서비스의 rpc 함수를 호출함, 따라서 event 메시지의 구조는 KiwoomOpenApiService.proto 파일 참조
     for event in context.TransactionCall(rqname, trcode, screenno, inputs):
-        names = event.listen_response.single_data.names
-        values = event.listen_response.single_data.values
+        names = event.single_data.names
+        values = event.single_data.values
         for name, value in zip(names, values):
             output[name] = value
 

@@ -1,5 +1,6 @@
 # pylint: disable=no-member
 
+import time
 import threading
 import collections
 
@@ -10,6 +11,8 @@ from backtrader.metabase import MetaParams
 from backtrader.utils.py3 import queue, with_metaclass
 
 import koapy
+
+from koapy.grpc.event.KiwoomOpenApiEventStreamer import KiwoomOpenApiEventStreamer
 
 class KiwoomOpenApiJsonError(koapy.KiwoomOpenApiError):
 
@@ -257,6 +260,20 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
             q.put(candle)
 
         q.put({})
+
+    def streaming_prices(self, dataname, timeout=None):
+        q = queue.Queue()
+        kwargs = {'q': q, 'dataname': dataname, 'timeout': timeout}
+        t = threading.Thread(target=self._t_streaming_prices, kwargs=kwargs)
+        t.daemon = True
+        t.start()
+        return q
+
+    def _t_streaming_prices(self, dataname, q, timeout):
+        if timeout is not None:
+            time.sleep(timeout)
+        streamer = KiwoomOpenApiEventStreamer(self.oapi, q)
+        streamer.rates(dataname)
 
     def get_cash(self):
         return self._cash

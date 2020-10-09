@@ -23,6 +23,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
         ('backfill_start', True),  # do backfilling at the start
         ('backfill', True),  # do backfilling when reconnecting
         ('backfill_from', None),  # additional data source to do backfill from
+        ('useask', False),
         ('reconnect', True),
         ('reconnections', -1),  # forever
         ('reconntimeout', 5.0),
@@ -256,21 +257,24 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
                     return False
 
     def _load_tick(self, msg):
-        dtobj = datetime.datetime.utcfromtimestamp(int(msg['time']) / 10 ** 6)
+        dtobj = datetime.utcfromtimestamp(int(msg['time']) / 10 ** 6)
         dt = date2num(dtobj)
         if dt <= self.lines.datetime[-1]:
             return False  # time already seen
 
         # Common fields
         self.lines.datetime[0] = dt
-        self.lines.volume[0] = float(msg['volume'])
+        self.lines.volume[0] = 0.0
         self.lines.openinterest[0] = 0.0
 
         # Put the prices into the bar
-        self.lines.open[0] = float(msg['open'])
-        self.lines.high[0] = float(msg['high'])
-        self.lines.low[0] = float(msg['low'])
-        self.lines.close[0] = float(msg['close'])
+        tick = float(msg['ask']) if self.p.useask else float(msg['bid'])
+        self.lines.open[0] = tick
+        self.lines.high[0] = tick
+        self.lines.low[0] = tick
+        self.lines.close[0] = tick
+        self.lines.volume[0] = 0.0
+        self.lines.openinterest[0] = 0.0
 
         return True
 

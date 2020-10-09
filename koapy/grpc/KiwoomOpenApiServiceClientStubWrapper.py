@@ -34,7 +34,7 @@ class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlCommonWrappe
     def LoginCall(self):
         request = KiwoomOpenApiService_pb2.LoginRequest()
         for response in self._stub.LoginCall(request):
-            errcode = response.listen_response.arguments[0].long_value
+            errcode = response.arguments[0].long_value
         return errcode
 
     def TransactionCall(self, rqname, trcode, scrnno, inputs, stop_condition=None):
@@ -116,8 +116,8 @@ class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlCommonWrappe
     def LoadConditionCall(self):
         request = KiwoomOpenApiService_pb2.LoadConditionRequest()
         for response in self._stub.LoadConditionCall(request):
-            ret = response.listen_response.arguments[0].long_value
-            msg = response.listen_response.arguments[1].string_value
+            ret = response.arguments[0].long_value
+            msg = response.arguments[1].string_value
         return (ret, msg)
 
     def ConditionCall(self, scrnno, condition_name, condition_index, search_type, with_info=False, is_future_option=False, request_name=None):
@@ -201,11 +201,11 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         for response in responses:
             if single_output is None:
                 single_output = dict(zip(
-                    response.listen_response.single_data.names,
-                    self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, remove_zeros_width)))
+                    response.single_data.names,
+                    self._RemoveLeadingZerosForNumbersInValues(response.single_data.values, remove_zeros_width)))
             if not columns:
-                columns = response.listen_response.multi_data.names
-            for values in response.listen_response.multi_data.values:
+                columns = response.multi_data.names
+            for values in response.multi_data.values:
                 records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, remove_zeros_width))
         single = pd.Series(single_output)
         multi = pd.DataFrame.from_records(records, columns=columns)
@@ -227,8 +227,8 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             inputs = {'종목코드': code}
             for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
                 if not columns:
-                    columns = response.listen_response.single_data.names
-                records.append(response.listen_response.single_data.values)
+                    columns = response.single_data.names
+                records.append(response.single_data.values)
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
@@ -272,10 +272,10 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
 
         for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
             if not columns:
-                columns = list(response.listen_response.multi_data.names)
+                columns = list(response.multi_data.names)
                 if date_column_name in columns:
                     date_column_index = columns.index(date_column_name)
-            for values in response.listen_response.multi_data.values:
+            for values in response.multi_data.values:
                 if should_compare_start and date_column_index is not None:
                     date = values.values[date_column_index]
                     if date > start_date:
@@ -288,10 +288,10 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 records.append(values.values)
 
             if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
-                nrows = len(response.listen_response.multi_data.values)
+                nrows = len(response.multi_data.values)
                 if nrows > 0:
-                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
-                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
+                    from_date = response.multi_data.values[0].values[date_column_index]
+                    to_date = response.multi_data.values[-1].values[date_column_index]
                     from_date = datetime.datetime.strptime(from_date, date_format)
                     to_date = datetime.datetime.strptime(to_date, date_format)
                     logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
@@ -339,10 +339,10 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
 
         for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
             if not columns:
-                columns = list(response.listen_response.multi_data.names)
+                columns = list(response.multi_data.names)
                 if date_column_name in columns:
                     date_column_index = columns.index(date_column_name)
-            for values in response.listen_response.multi_data.values:
+            for values in response.multi_data.values:
                 if should_compare_start and date_column_index is not None:
                     date = values.values[date_column_index]
                     if date > start_date:
@@ -355,10 +355,10 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 records.append(values.values)
 
             if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
-                nrows = len(response.listen_response.multi_data.values)
+                nrows = len(response.multi_data.values)
                 if nrows > 0:
-                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
-                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
+                    from_date = response.multi_data.values[0].values[date_column_index]
+                    to_date = response.multi_data.values[-1].values[date_column_index]
                     from_date = datetime.datetime.strptime(from_date, date_format)
                     to_date = datetime.datetime.strptime(to_date, date_format)
                     logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
@@ -403,17 +403,17 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
 
         for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
             if not columns:
-                columns = list(response.listen_response.multi_data.names)
+                columns = list(response.multi_data.names)
                 if date_column_name in columns:
                     date_column_index = columns.index(date_column_name)
-            for values in response.listen_response.multi_data.values:
+            for values in response.multi_data.values:
                 records.append(values.values)
 
             if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
-                nrows = len(response.listen_response.multi_data.values)
+                nrows = len(response.multi_data.values)
                 if nrows > 0:
-                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
-                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
+                    from_date = response.multi_data.values[0].values[date_column_index]
+                    to_date = response.multi_data.values[-1].values[date_column_index]
                     from_date = datetime.datetime.strptime(from_date, date_format)
                     to_date = datetime.datetime.strptime(to_date, date_format)
                     logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
@@ -459,17 +459,17 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
 
         for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
             if not columns:
-                columns = list(response.listen_response.multi_data.names)
+                columns = list(response.multi_data.names)
                 if date_column_name in columns:
                     date_column_index = columns.index(date_column_name)
-            for values in response.listen_response.multi_data.values:
+            for values in response.multi_data.values:
                 records.append(values.values)
 
             if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
-                nrows = len(response.listen_response.multi_data.values)
+                nrows = len(response.multi_data.values)
                 if nrows > 0:
-                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
-                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
+                    from_date = response.multi_data.values[0].values[date_column_index]
+                    to_date = response.multi_data.values[-1].values[date_column_index]
                     from_date = datetime.datetime.strptime(from_date, date_format)
                     to_date = datetime.datetime.strptime(to_date, date_format)
                     logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
@@ -515,17 +515,17 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
 
         for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
             if not columns:
-                columns = list(response.listen_response.multi_data.names)
+                columns = list(response.multi_data.names)
                 if date_column_name in columns:
                     date_column_index = columns.index(date_column_name)
-            for values in response.listen_response.multi_data.values:
+            for values in response.multi_data.values:
                 records.append(values.values)
 
             if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
-                nrows = len(response.listen_response.multi_data.values)
+                nrows = len(response.multi_data.values)
                 if nrows > 0:
-                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
-                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
+                    from_date = response.multi_data.values[0].values[date_column_index]
+                    to_date = response.multi_data.values[-1].values[date_column_index]
                     from_date = datetime.datetime.strptime(from_date, date_format)
                     to_date = datetime.datetime.strptime(to_date, date_format)
                     logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
@@ -571,17 +571,17 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
 
         for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
             if not columns:
-                columns = list(response.listen_response.multi_data.names)
+                columns = list(response.multi_data.names)
                 if date_column_name in columns:
                     date_column_index = columns.index(date_column_name)
-            for values in response.listen_response.multi_data.values:
+            for values in response.multi_data.values:
                 records.append(values.values)
 
             if logging.getLogger().getEffectiveLevel() <= logging.DEBUG:
-                nrows = len(response.listen_response.multi_data.values)
+                nrows = len(response.multi_data.values)
                 if nrows > 0:
-                    from_date = response.listen_response.multi_data.values[0].values[date_column_index]
-                    to_date = response.listen_response.multi_data.values[-1].values[date_column_index]
+                    from_date = response.multi_data.values[0].values[date_column_index]
+                    to_date = response.multi_data.values[-1].values[date_column_index]
                     from_date = datetime.datetime.strptime(from_date, date_format)
                     to_date = datetime.datetime.strptime(to_date, date_format)
                     logging.debug('Received %d records from %s to %s for code %s', nrows, from_date, to_date, code)
@@ -807,21 +807,21 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         remove_zeros_width=None
 
         for response in self.ConditionCall(screen_no, condition_name, condition_index, search_type, with_info, is_future_option, request_name):
-            if response.listen_response.name == 'OnReceiveTrCondition':
-                code_list = response.listen_response.arguments[1].string_value
+            if response.name == 'OnReceiveTrCondition':
+                code_list = response.arguments[1].string_value
                 code_list = code_list.rstrip(';').split(';') if code_list else []
                 codes.extend(code_list)
-            elif response.listen_response.name == 'OnReceiveTrData':
+            elif response.name == 'OnReceiveTrData':
                 if single_output is None:
                     single_output = dict(zip(
-                        response.listen_response.single_data.names,
-                        self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, remove_zeros_width)))
+                        response.single_data.names,
+                        self._RemoveLeadingZerosForNumbersInValues(response.single_data.values, remove_zeros_width)))
                 if not columns:
-                    columns = response.listen_response.multi_data.names
-                for values in response.listen_response.multi_data.values:
+                    columns = response.multi_data.names
+                for values in response.multi_data.values:
                     records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, remove_zeros_width))
             else:
-                raise ValueError('Unexpected event handler name %s' % response.listen_response.name)
+                raise ValueError('Unexpected event handler name %s' % response.name)
 
         _single = pd.Series(single_output)
         multi = pd.DataFrame.from_records(records, columns=columns)
@@ -840,8 +840,8 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
             condition_index = condition_indices[condition_name]
 
         for response in self.ConditionCall(screen_no, condition_name, condition_index, search_type, with_info, is_future_option, request_name):
-            if response.listen_response.name == 'OnReceiveTrCondition':
-                code_list = response.listen_response.arguments[1].string_value
+            if response.name == 'OnReceiveTrCondition':
+                code_list = response.arguments[1].string_value
                 code_list = code_list.rstrip(';').split(';') if code_list else []
                 inserted = code_list
                 deleted = []
@@ -850,9 +850,9 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                     yield inserted, deleted, info
                 else:
                     yield inserted, deleted
-            elif response.listen_response.name == 'OnReceiveTrCondition':
-                code = response.listen_response.arguments[0].string_value
-                condition_type = response.listen_response.arguments[1].string_value
+            elif response.name == 'OnReceiveTrCondition':
+                code = response.arguments[0].string_value
+                condition_type = response.arguments[1].string_value
                 inserted = []
                 deleted = []
                 if condition_type == 'I':
@@ -866,18 +866,18 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                     yield inserted, deleted, info
                 else:
                     yield inserted, deleted
-            elif response.listen_response.name == 'OnReceiveTrData':
+            elif response.name == 'OnReceiveTrData':
                 single_output = None
                 columns = []
                 records = []
                 remove_zeros_width=None
                 if single_output is None:
                     single_output = dict(zip(
-                        response.listen_response.single_data.names,
-                        self._RemoveLeadingZerosForNumbersInValues(response.listen_response.single_data.values, remove_zeros_width)))
+                        response.single_data.names,
+                        self._RemoveLeadingZerosForNumbersInValues(response.single_data.values, remove_zeros_width)))
                 if not columns:
-                    columns = response.listen_response.multi_data.names
-                for values in response.listen_response.multi_data.values:
+                    columns = response.multi_data.names
+                for values in response.multi_data.values:
                     records.append(self._RemoveLeadingZerosForNumbersInValues(values.values, remove_zeros_width))
                 _single = pd.Series(single_output)
                 multi = pd.DataFrame.from_records(records, columns=columns)
@@ -889,4 +889,4 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 else:
                     raise RuntimeError('Unexpected, OnReceiveTrData event with with_info=False ???')
             else:
-                raise ValueError('Unexpected event handler name %s' % response.listen_response.name)
+                raise ValueError('Unexpected event handler name %s' % response.name)
