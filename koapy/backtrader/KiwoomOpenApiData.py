@@ -1,16 +1,17 @@
 
-import datetime
+import pendulum
 
-from backtrader.feed import DataBase
 from backtrader import date2num, num2date
+from backtrader.feed import DataBase
 from backtrader.utils.py3 import queue, with_metaclass
 
 from koapy.backtrader.KiwoomOpenApiStore import KiwoomOpenApiStore
+from koapy.backtrader.KrxTradingCalendar import KrxTradingCalendar
 
 class MetaKiwoomOpenApiData(DataBase.__class__):
 
     def __init__(cls, name, bases, dct): # pylint: disable=no-self-argument
-        super().__init__(name, bases, dct)
+        super(MetaKiwoomOpenApiData, cls).__init__(name, bases, dct)
         KiwoomOpenApiStore.DataCls = cls
 
 class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pylint: disable=invalid-metaclass
@@ -27,6 +28,9 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
         ('reconnect', True),
         ('reconnections', -1),  # forever
         ('reconntimeout', 5.0),
+        ('tz', 'Asia/Seoul'),
+        ('tzinput', 'Asia/Seoul'),
+        ('calendar', KrxTradingCalendar()),
     )
 
     _store = KiwoomOpenApiStore
@@ -49,8 +53,32 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
     def _timeoffset(self):
         return self.k.timeoffset()
 
+    def astimezone(self, dt, tz):
+        if hasattr(dt, 'tzinfo') and dt.tzinfo is not None:
+            dt = dt.astimezone(tz)
+        else:
+            dt = tz.localize(dt)
+        return dt
+
+    def date2num(self, dt, tz=None): # pylint: disable=arguments-differ
+        if tz is None:
+            tz = self._tz
+        if tz is not None:
+            dt = self.astimezone(dt, tz)
+        return date2num(dt)
+
+    def num2date(self, dt=None, tz=None, naive=False):
+        if dt is None:
+            dt = self.lines.datetime[0]
+        if tz is None:
+            tz = self._tz
+        return num2date(dt, tz, naive)
+
+    def fromtimestamp(self, timestamp, tz=None):
+        return pendulum.from_timestamp(timestamp, tz=tz or self._tz)
+
     def islive(self):
-        return not self.k.historical
+        return not self.p.historical
 
     def setenvironment(self, env):
         super().setenvironment(env)
@@ -59,10 +87,12 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
     def start(self):
         super().start()
 
+        self.qlive = queue.Queue()
+        self.qhist = queue.Queue()
+
         self._statelivereconn = False
         self._storedmsg = dict()
         self._state = self._ST_OVER
-        self._reconns = 0
 
         self.k.start(data=self)
 
@@ -89,17 +119,19 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
             self._state = self._ST_START
             self._st_start()
 
+        self._reconns = 0
+
     def _st_start(self, instart=True, timeout=None):
         if self.p.historical:
             self.put_notification(self.DELAYED)
 
             dtend = None
             if self.todate < float('inf'):
-                dtend = num2date(self.todate)
+                dtend = self.num2date(self.todate)
 
             dtbegin = None
             if self.fromdate > float('-inf'):
-                dtbegin = num2date(self.fromdate)
+                dtbegin = self.num2date(self.fromdate)
 
             self.qhist = self.k.candles(
                 self.p.dataname, dtbegin, dtend,
@@ -131,7 +163,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
         self.k.stop()
 
     def haslivedata(self):
-        return bool(self._storedmsg or self.qlive)
+        return bool(self._storedmsg or not self.qlive.empty())
 
     def _load(self):
         if self._state == self._ST_OVER:
@@ -197,11 +229,11 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
                 if len(self) > 1:
                     dtbegin = self.datetime.datetime(-1)
                 elif self.fromdate > float('-inf'):
-                    dtbegin = num2date(self.fromdate)
+                    dtbegin = self.num2date(self.fromdate)
                 else:
                     dtbegin = None
 
-                dtend = datetime.datetime.utcfromtimestamp(int(msg['time']) / 10 ** 6)
+                dtend = self.fromtimestamp(int(msg['time']) / 10 ** 6)
 
                 self.qhist = self.k.candles(
                     self.p.dataname, dtbegin, dtend,
@@ -257,8 +289,8 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
                     return False
 
     def _load_tick(self, msg):
-        dtobj = datetime.utcfromtimestamp(int(msg['time']) / 10 ** 6)
-        dt = date2num(dtobj)
+        dtobj = self.fromtimestamp(int(msg['time']) / 10 ** 6)
+        dt = self.date2num(dtobj)
         if dt <= self.lines.datetime[-1]:
             return False  # time already seen
 
@@ -279,8 +311,8 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
         return True
 
     def _load_history(self, msg):
-        dtobj = datetime.datetime.utcfromtimestamp(int(msg['time']) / 10 ** 6)
-        dt = date2num(dtobj)
+        dtobj = self.fromtimestamp(int(msg['time']) / 10 ** 6)
+        dt = self.date2num(dtobj)
         if dt <= self.lines.datetime[-1]:
             return False  # time already seen
 

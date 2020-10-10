@@ -31,6 +31,7 @@ requirements = [
     'matplotlib>=3.3.2',
     'pendulum>=2.1.2',
     'rx>=3.1.1',
+    'trading-calendars>=2.0.0',
     'pywin32>=228;sys_platform=="win32"',
     'mslex>=0.1.1;sys_platform=="win32"',
     'pywinauto>=0.6.8;sys_platform=="win32"',
@@ -74,6 +75,8 @@ setup(
             'openapi/data/fid.xlsx',
             'openapi/data/realtype_by_desc.json',
             'openapi/data/trinfo_by_code.json',
+            'utils/krx/data/holiday.json',
+            'backtrader/examples/data/orcl-1986-2020.csv',
             'config.conf',
         ]
     },

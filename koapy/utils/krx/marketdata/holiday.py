@@ -1,12 +1,16 @@
 import re
 import datetime
+import logging
+
 import requests
 
 from koapy.config import config
 
 user_agent = config.get('koapy.utils.krx.user_agent')
 
-def download_holidays_as_dict():
+oldest_year_available = 1975
+
+def download_holidays_as_dict(year=None, page_first_call=False):
     now = datetime.datetime.now()
     def generate_otp():
         headers = {
@@ -36,17 +40,33 @@ def download_holidays_as_dict():
         'X-Requested-With': 'XMLHttpRequest',
     }
     data = {
-        'search_bas_yy': str(now.year),
+        'search_bas_yy': str(year if year is not None else now.year),
         'gridTp': 'KRX',
         'pagePath': '/contents/MKD/01/0110/01100305/MKD01100305.jsp',
         'code': code,
-        'pageFirstCall': 'Y',
     }
+    if page_first_call:
+        data['pageFirstCall'] = 'Y'
     response = requests.post('http://marketdata.krx.co.kr/contents/MKD/99/MKD99000001.jspx', headers=headers, data=data)
     body = response.json()
     return body
 
-def download_holidays_as_excel(f=None):
+def download_entire_holidays_as_dicts():
+    now = datetime.datetime.now()
+    current_year = now.year
+    results = []
+    years = range(current_year, oldest_year_available - 1, -1)
+    num_years = len(years)
+    for i, year in enumerate(years):
+        logging.debug('Downloading holidays for year %d (%d/%d)', year, i + 1, num_years)
+        page_first_call = i == 0
+        result = download_holidays_as_dict(year, page_first_call=page_first_call)
+        results.append(result)
+    # block1 = list(itertools.chain.from_iterable(map(operator.itemgetter('block1'), results)))
+    # result = {'block1': block1}
+    return results
+
+def download_holidays_as_excel(f=None, year=None):
     now = datetime.datetime.now()
     def generate_otp():
         headers = {
@@ -61,7 +81,7 @@ def download_holidays_as_excel(f=None):
             'name': 'fileDown',
             'filetype': 'xls',
             'url': 'MKD/01/0110/01100305/mkd01100305_01',
-            'search_bas_yy': str(now.year),
+            'search_bas_yy': str(year if year is not None else now.year),
             'gridTp': 'KRX',
             'pagePath': '/contents/MKD/01/0110/01100305/MKD01100305.jsp',
         }

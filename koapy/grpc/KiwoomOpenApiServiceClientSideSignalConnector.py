@@ -4,7 +4,7 @@ import threading
 from concurrent import futures
 
 from koapy.grpc import KiwoomOpenApiService_pb2
-from koapy.grpc.observer.QueueBasedIterableObserver import QueueBasedIterableObserver
+from koapy.grpc.utils.QueueBasedIterableObserver import QueueBasedIterableObserver
 
 from koapy.grpc.KiwoomOpenApiService import convert_arguments_from_protobuf_to_python
 

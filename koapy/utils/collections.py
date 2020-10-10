@@ -17,6 +17,7 @@ class ChainList(collections.abc.Sequence):
             while j >= l:
                 j -= l
                 i += 1
+                l = len(self._lists[i])
             return self._lists[i][j]
         elif isinstance(key, slice):
             if key.step == 0:

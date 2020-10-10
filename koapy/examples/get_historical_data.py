@@ -2,7 +2,7 @@ import datetime
 import logging
 
 from koapy import KiwoomOpenApiContext
-from koapy.utils.krx.holiday.KrxBusinessDay import KrxBusinessDay
+from koapy.utils.krx.calendar.KrxBusinessDay import KrxBusinessDay
 
 with KiwoomOpenApiContext() as context:
     # 로그인 처리

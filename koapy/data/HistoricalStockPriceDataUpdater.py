@@ -15,7 +15,7 @@ from koapy import KiwoomOpenApiContext
 from koapy.backend.cybos.CybosPlusComObject import CybosPlusComObject
 
 from koapy.config import config
-from koapy.utils.krx.holiday import get_last_krx_datetime
+from koapy.utils.krx.calendar import get_last_krx_datetime
 
 from send2trash import send2trash
 

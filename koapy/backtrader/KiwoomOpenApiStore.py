@@ -10,14 +10,14 @@ from backtrader import TimeFrame
 from backtrader.metabase import MetaParams
 from backtrader.utils.py3 import queue, with_metaclass
 
-import koapy
-
+from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
+from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 from koapy.grpc.event.KiwoomOpenApiEventStreamer import KiwoomOpenApiEventStreamer
 
-class KiwoomOpenApiJsonError(koapy.KiwoomOpenApiError):
+class KiwoomOpenApiJsonError(KiwoomOpenApiError):
 
     def __init__(self, code, message=None):
-        if isinstance(code, koapy.KiwoomOpenApiError):
+        if isinstance(code, KiwoomOpenApiError):
             err = code
             code = err.code
             message = err.message
@@ -37,18 +37,18 @@ class KiwoomOpenApiTimeFrameError(KiwoomOpenApiJsonError):
     def __init__(self):
         super().__init__(code=597, message='Not supported TimeFrame')
 
-class Message(collections.namedtuple('Message', ['time', 'open', 'high', 'low', 'close', 'volume'])):
+class HistoricalPriceRecord(collections.namedtuple('HistoricalPriceRecord', ['time', 'open', 'high', 'low', 'close', 'volume'])):
 
     __slots__ = ()
 
     @classmethod
     def from_tuple(cls, tup):
         if '일자' in tup._fields:
-            time = pendulum.from_format(tup.일자, 'YYYYMMDD', tz='Asia/Seoul').timestamp() * (10 ** 6)
+            time = pendulum.from_format(tup.일자, 'YYYYMMDD', tz='Asia/Seoul').timestamp() * (10 ** 6) # pylint: disable=redefined-outer-name
         elif '체결시간' in tup._fields:
             time = pendulum.from_format(tup.체결시간, 'YYYYMMDDhhmmss', tz='Asia/Seoul').timestamp() * (10 ** 6)
         else:
-            raise koapy.KiwoomOpenApiError('Cannot specify time')
+            raise KiwoomOpenApiError('Cannot specify time')
         open = abs(float(tup.시가)) # pylint: disable=redefined-builtin
         high = abs(float(tup.고가))
         low = abs(float(tup.저가))
@@ -57,14 +57,20 @@ class Message(collections.namedtuple('Message', ['time', 'open', 'high', 'low', 
         return cls(time, open, high, low, close, volume)
 
     @classmethod
-    def messages_from_dataframe(cls, df):
+    def records_from_dataframe(cls, df):
         return [cls.from_tuple(tup) for tup in df[::-1].itertuples()]
 
     @classmethod
-    def dict_messages_from_dataframe(cls, df):
-        return [msg._asdict() for msg in cls.messages_from_dataframe(df)]
+    def dict_records_from_dataframe(cls, df):
+        return [msg._asdict() for msg in cls.records_from_dataframe(df)]
 
-class API(koapy.KiwoomOpenApiContext):
+class API:
+
+    def __init__(self, context):
+        self._context = context
+
+    def __getattr__(self, name):
+        return getattr(self._context, name)
 
     def get_instruments(self, account, instruments): # TODO: 계좌에 따라 시장이 다를 수 있음
         instruments = self.GetStockInfoAsDataFrame(instruments)
@@ -100,9 +106,9 @@ class API(koapy.KiwoomOpenApiContext):
             adjusted_price = inputs.get('수정주가구분') == '1'
             df = self.GetYearlyStockDataAsDataFrame(code, dtend, dtbegin, adjusted_price=adjusted_price)
         else:
-            raise koapy.KiwoomOpenApiError('Unexpected trcode %s' % trcode)
+            raise KiwoomOpenApiError('Unexpected trcode %s' % trcode)
 
-        candles = Message.dict_messages_from_dataframe(df)
+        candles = HistoricalPriceRecord.dict_records_from_dataframe(df)
         response = {'candles': candles}
         return response
 
@@ -148,7 +154,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
         '''Returns broker with *args, **kwargs from registered ``BrokerCls``'''
         return cls.BrokerCls(*args, **kwargs) # pylint: disable=not-callable
 
-    def __init__(self):
+    def __init__(self, context=None):
         super().__init__()
 
         self.notifs = collections.deque()
@@ -157,7 +163,13 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
         self.broker = None
         self.datas = list()
 
-        self.oapi = API()
+        if context is None:
+            context = KiwoomOpenApiContext()
+
+        self._context = context
+        self._context.EnsureConnected()
+
+        self.context = API(self._context)
 
         self._cash = 0.0
         self._value = 0.0
@@ -214,8 +226,8 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
 
     def get_instrument(self, dataname):
         try:
-            insts = self.oapi.get_instruments(self.p.account, instruments=dataname)
-        except koapy.KiwoomOpenApiError:
+            insts = self.context.get_instruments(self.p.account, instruments=dataname)
+        except KiwoomOpenApiError:
             return None
 
         i = insts.get('instruments', [{}])
@@ -250,8 +262,8 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
                 inputs['기준일자'] = dtend.strftime('%Y%m%d')
 
         try:
-            response = self.oapi.get_history(trcode, inputs, dtbegin, dtend)
-        except koapy.KiwoomOpenApiError as e:
+            response = self.context.get_history(trcode, inputs, dtbegin, dtend)
+        except KiwoomOpenApiError as e:
             q.put(KiwoomOpenApiJsonError(e).error_response)
             q.put(None)
             return
@@ -272,7 +284,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
     def _t_streaming_prices(self, dataname, q, timeout):
         if timeout is not None:
             time.sleep(timeout)
-        streamer = KiwoomOpenApiEventStreamer(self.oapi, q)
+        streamer = KiwoomOpenApiEventStreamer(self.context, q)
         streamer.rates(dataname)
 
     def get_cash(self):
@@ -283,8 +295,8 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
 
     def get_positions(self):
         try:
-            positions = self.oapi.get_positions(self.p.account)
-        except koapy.KiwoomOpenApiError:
+            positions = self.context.get_positions(self.p.account)
+        except KiwoomOpenApiError:
             return None
 
         poslist = positions.get('positions', [])

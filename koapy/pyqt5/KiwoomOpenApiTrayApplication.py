@@ -80,7 +80,7 @@ class KiwoomOpenApiTrayApplication(QObject):
 
         self._tray.show()
 
-        self._control.OnEventConnect.connect(self._OnEventConnect)
+        self._control.OnEventConnect.connect(self._onEventConnect)
 
     def _checkAndWaitForMaintananceAndThen(self, callback=None, args=None, kwargs=None):
         """
@@ -119,7 +119,7 @@ class KiwoomOpenApiTrayApplication(QObject):
             if callback is not None and callable(callback):
                 QTimer.singleShot(timediff.total_seconds() * 1000, lambda: callback(*args, **kwargs))
 
-    def _OnEventConnect(self, errcode):
+    def _onEventConnect(self, errcode):
         if errcode == 0:
             logging.debug('Connected to server')
             state = self._control.GetConnectState()
@@ -211,28 +211,25 @@ class KiwoomOpenApiTrayApplication(QObject):
         self._exit(signum + 100)
 
     def _exec(self):
+        logging.debug('Starting app')
         with contextlib.ExitStack() as stack:
             orig_handler = signal.signal(signal.SIGINT, self._onInterrupt)
             stack.callback(signal.signal, signal.SIGINT, orig_handler)
-            logging.debug('Starting app')
-            logging.debug('Starting server')
             try:
+                logging.debug('Starting server')
                 self._server.start()
-            except ValueError as e:
-                logging.warning('Error: %s', e)
-            logging.debug('Started server')
+                logging.debug('Server started')
+            except ValueError:
+                logging.exception('Failed to start server')
             return self._app.exec_()
 
     def _exit(self, return_code=0):
         logging.debug('Exiting app')
         logging.debug('Stopping server')
         self._server.stop(10)
-        logging.debug('Waiting for server to stop')
         self._server.wait_for_termination(10)
-        logging.debug('Stopped server')
-        logging.debug('Quitting app')
+        logging.debug('Server stopped')
         self._app.exit(return_code)
-        logging.debug('Quitted app')
 
     def _nextRestartTime(self):
         now = datetime.datetime.now()

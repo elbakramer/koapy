@@ -1,3 +1,5 @@
+import logging
+
 import rx
 import pendulum
 
@@ -7,7 +9,8 @@ from rx.scheduler import ThreadPoolScheduler
 from rx.core.typing import Observer
 
 from koapy.grpc import KiwoomOpenApiService_pb2
-from koapy.grpc.observer.QueueBasedIterableObserver import QueueBasedIterableObserver
+from koapy.grpc.utils.QueueBasedIterableObserver import QueueBasedIterableObserver
+from koapy.grpc.utils.QueueBasedBufferedIterator import QueueBasedBufferedIterator
 
 from koapy.openapi.RealType import RealType
 
@@ -23,7 +26,8 @@ class KiwoomOpenApiPriceEventChannel:
         self._response_subject = Subject()
         self._response_scheduler_max_workers = 8
         self._response_scheduler = ThreadPoolScheduler(self._response_scheduler_max_workers)
-        self._response_observable = rx.from_iterable(self._response_iterator, self._response_scheduler)
+        self._buffered_response_iterator = QueueBasedBufferedIterator(self._response_iterator)
+        self._response_observable = rx.from_iterable(self._buffered_response_iterator, self._response_scheduler)
         self._response_subscription = self._response_observable.subscribe(self._response_subject)
 
         self._subjects_by_code = {}
@@ -37,17 +41,18 @@ class KiwoomOpenApiPriceEventChannel:
         self.close()
 
     def initialize(self):
-        request = KiwoomOpenApiService_pb2.BidirectionalListenRequest()
+        request = KiwoomOpenApiService_pb2.BidirectionalRealRequest()
         request.initialize_request.fid_list.extend(self._fid_list) # pylint: disable=no-member
         self._request_observer.on_next(request)
 
     def register_code(self, code):
-        request = KiwoomOpenApiService_pb2.BidirectionalListenRequest()
+        request = KiwoomOpenApiService_pb2.BidirectionalRealRequest()
         code_list = [code]
         fid_list = RealType.get_fids_by_realtype('주식시세')
         request.register_request.code_list.extend(code_list) # pylint: disable=no-member
         request.register_request.fid_list.extend(fid_list) # pylint: disable=no-member
         self._request_observer.on_next(request)
+        logging.debug('Registering code %s for real events', code)
 
     def is_for_code(self, response, code):
         return response.arguments[0].string_value == code
@@ -124,25 +129,27 @@ class KiwoomOpenApiEventStreamer(Observer):
     _price_event_channels_by_stub = {}
 
     def __init__(self, stub, queue):
-        super().__init__(queue)
+        super().__init__()
         self._stub = stub
         self._queue = queue
-        self._sentinel = {}
 
     def on_next(self, value):
         self._queue.put(value)
 
     def on_error(self, error):
+        logging.debug('Streamer.on_error %s', error)
         self._queue.put(error)
 
     def on_completed(self):
-        self._queue.put(self._sentinel)
+        pass
 
     def rates(self, code):
         if self._stub not in self._price_event_channels_by_stub:
             self._price_event_channels_by_stub[self._stub] = KiwoomOpenApiPriceEventChannel(self._stub)
         event_channel = self._price_event_channels_by_stub[self._stub]
-        return event_channel.get_observable_for_code(code).subscribe(self)
+        subscription = event_channel.get_observable_for_code(code).subscribe(self)
+        logging.debug('Subscribing rates for code %s', code)
+        return subscription
 
     def events(self):
         return NotImplemented

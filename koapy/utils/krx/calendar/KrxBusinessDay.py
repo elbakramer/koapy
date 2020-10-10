@@ -1,13 +1,21 @@
+"""
+대부분의 기능은 trading-calendars 혹은 pandas_market_calendars 패키지에 더 잘 구현되어 있어서 이쪽을 사용하는 것을 권장함
+
+trading-calendars: https://github.com/quantopian/trading_calendars
+pandas_market_calendars: https://github.com/rsheftel/pandas_market_calendars
+"""
+
 import os
 import json
 import datetime
 
-from pandas.tseries.holiday import AbstractHolidayCalendar
+from pandas import DatetimeIndex, Series, Timestamp
+from pandas.tseries.holiday import AbstractHolidayCalendar as PandasAbstractHolidayCalendar
 from pandas.tseries.offsets import CustomBusinessDay
 from pandas.tseries.offsets import Day
 
-from koapy.utils.krx.holiday.LunarHoliday import LunarHoliday, SolarHoliday as Holiday
-from koapy.utils.krx.marketdata.holiday import download_holidays_as_dict
+from koapy.utils.krx.calendar.LunarHoliday import LunarHoliday, SolarHoliday as Holiday
+from koapy.utils.krx.marketdata.holiday import download_entire_holidays_as_dicts
 from koapy.utils.collections import ChainList
 
 original_korean_holiday_datetimes = {}
@@ -21,10 +29,10 @@ def is_saterday_and_childrens_day(dt):
 def prepare_original_holidays_for_year(dt):
     if dt.year not in original_korean_holiday_datetimes:
         original_korean_holiday_datetimes[dt.year] = {}
-        for rule in korean_non_alternate_holiday_rules:
+        for rule in korean_non_alternate_regular_holiday_rules:
             date = rule.to_datetime(dt.year, apply_observance=rule.observance is not alternate_holiday)
             original_korean_holiday_datetimes[dt.year].setdefault(date, []).append(rule)
-        for rule in korean_alternate_holiday_rules:
+        for rule in korean_alternate_regular_holiday_rules:
             date = rule.to_datetime(dt.year, apply_observance=rule.observance is not alternate_holiday)
             original_korean_holiday_datetimes[dt.year].setdefault(date, []).append(rule)
 
@@ -60,7 +68,7 @@ HangulProclamationDay = Holiday("Hangul Proclamation Day", month=10, day=9)
 Christmas = Holiday("Christmas", month=12, day=25)
 YearEndHoliday = Holiday("Year End Holiday", month=12, day=31)
 
-korean_holiday_rules = [
+korean_regular_holiday_rules = [
     NewYearsDay,
     KoreanNewYearsDayBefore,
     KoreanNewYearsDay,
@@ -79,7 +87,7 @@ korean_holiday_rules = [
     Christmas,
 ]
 
-korean_non_alternate_holiday_rules = [
+korean_non_alternate_regular_holiday_rules = [
     NewYearsDay,
     IndependenceMovementDay,
     BuddhasBirthday,
@@ -91,7 +99,7 @@ korean_non_alternate_holiday_rules = [
     Christmas,
 ]
 
-korean_alternate_holiday_rules = [
+korean_alternate_regular_holiday_rules = [
     KoreanNewYearsDayBefore,
     KoreanNewYearsDay,
     KoreanNewYearsDayAfter,
@@ -101,35 +109,114 @@ korean_alternate_holiday_rules = [
     KoreanThanksgivingDayAfter,
 ]
 
-krx_additional_holiday_rules = [
-    YearEndHoliday
+korean_additional_adhoc_holiday_rules = []
+
+korean_holiday_rules = ChainList([
+    korean_additional_adhoc_holiday_rules,
+    korean_regular_holiday_rules,
+])
+
+krx_additional_regular_holiday_rules = [
+    YearEndHoliday,
 ]
 
-krx_holiday_rules = ChainList([korean_holiday_rules, krx_additional_holiday_rules])
+krx_additional_adhoc_holiday_rules = []
+
+precomputed_krx_holidays = []
+
+krx_additional_precomputed_holiday_rules = [
+    Holiday('Precomputed %s' % dt.strftime('%Y-%m-%d'),
+        year=dt.year, month=dt.month, day=dt.day) for dt in precomputed_krx_holidays
+]
+
+krx_additional_holiday_rules = ChainList([
+    krx_additional_adhoc_holiday_rules,
+    krx_additional_regular_holiday_rules,
+    krx_additional_precomputed_holiday_rules,
+])
+
+krx_holiday_rules = ChainList([
+    krx_additional_adhoc_holiday_rules,
+    korean_additional_adhoc_holiday_rules,
+    korean_regular_holiday_rules,
+    krx_additional_regular_holiday_rules,
+    krx_additional_precomputed_holiday_rules,
+])
+
+class AbstractHolidayCalendar(PandasAbstractHolidayCalendar):
+
+    def concat(self, pre_holidays):
+        combined = Series(index=DatetimeIndex([]), dtype=object)
+        for holidays in pre_holidays:
+            combined = combined.combine_first(holidays)
+        return combined
+
+    def holidays(self, start=None, end=None, return_name=False):
+        """
+        Returns a curve with holidays between start_date and end_date
+        Parameters
+        ----------
+        start : starting date, datetime-like, optional
+        end : ending date, datetime-like, optional
+        return_name : bool, optional
+            If True, return a series that has dates and holiday names.
+            False will only return a DatetimeIndex of dates.
+        Returns
+        -------
+            DatetimeIndex of holidays
+        """
+        if self.rules is None:
+            raise Exception(
+                f"Holiday Calendar {self.name} does not have any rules specified"
+            )
+
+        if start is None:
+            start = AbstractHolidayCalendar.start_date
+
+        if end is None:
+            end = AbstractHolidayCalendar.end_date
+
+        start = Timestamp(start)
+        end = Timestamp(end)
+
+        # If we don't have a cache or the dates are outside the prior cache, we
+        # get them again
+        if self._cache is None or start < self._cache[0] or end > self._cache[1]:
+            pre_holidays = [
+                rule.dates(start, end, return_name=True) for rule in self.rules
+            ]
+            if pre_holidays:
+                holidays = self.concat(pre_holidays) # This line is changed from original implementation
+            else:
+                holidays = Series(index=DatetimeIndex([]), dtype=object)
+
+            self._cache = (start, end, holidays.sort_index())
+
+        holidays = self._cache[2]
+        holidays = holidays[start:end]
+
+        if return_name:
+            return holidays
+        else:
+            return holidays.index
 
 class KoreanHolidayCalendar(AbstractHolidayCalendar):
     """
-    별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
-      - 선거일은 반영되지 않음
-      - 임시공휴일은 반영되지 않음
+    정규휴일 이외에 임시공휴일과 선거일등은 대응하지 못함
     """
 
     rules = korean_holiday_rules
 
-class KrxHolidayCalendar(KoreanHolidayCalendar):
+class KrxHolidayCalendar(AbstractHolidayCalendar):
     """
-    별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
-      - 선거일은 반영되지 않음
-      - 임시공휴일은 반영되지 않음
+    정규휴일 이외는 trading-calendars 패키지로 최대한 대응
     """
 
     rules = krx_holiday_rules
 
 class KoreanBusinessDay(CustomBusinessDay):
     """
-    별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
-      - 선거일은 반영되지 않음
-      - 임시공휴일은 반영되지 않음
+    정규휴일 이외에 임시공휴일과 선거일등은 대응하지 못함
     """
 
     def __init__(self, *args, **kwargs):
@@ -139,15 +226,14 @@ class KoreanBusinessDay(CustomBusinessDay):
 
 class KrxBusinessDay(CustomBusinessDay):
     """
-    별도 덤프파일을 사용하지 않는 경우 아래 사항들 주의필요
-      - 선거일은 반영되지 않음
-      - 임시공휴일은 반영되지 않음
+    정규휴일 이외는 trading-calendars 패키지로 최대한 대응
     """
 
     def __init__(self, *args, **kwargs):
         if 'calendar' not in kwargs:
             kwargs['calendar'] = KrxHolidayCalendar()
         super().__init__(*args, **kwargs)
+
 
 file_directory = os.path.dirname(os.path.realpath(__file__))
 dumpfile_directory = os.path.join(file_directory, '..', 'data')
@@ -156,28 +242,21 @@ dumpfile_path = os.path.join(dumpfile_directory, dumpfile_name)
 
 def dump_holidays(dump=None):
     if dump is None:
-        dump = download_holidays_as_dict()
+        dump = download_entire_holidays_as_dicts()
     with open(dumpfile_path, 'w', encoding='utf-8') as f:
-        json.dump(dump, f)
+        for d in dump:
+            json.dump(d, f)
+            f.write('\n')
 
 def load_holidays():
     if os.path.exists(dumpfile_path):
         with open(dumpfile_path, encoding='utf-8') as f:
-            dump = json.load(f)
-        calendar = KrxHolidayCalendar()
-        for holiday in dump['block1']:
-            dt = datetime.datetime.strptime(holiday['calnd_dd_dy'], '%Y-%m-%d')
-            if len(calendar.holidays(dt, dt)) == 0:
-                name = holiday['holdy_nm']
-                new_holiday_rule = Holiday(name, year=dt.year, month=dt.month, day=dt.day)
-                if '임시' in name or '선거' in name:
-                    korean_holiday_rules.append(new_holiday_rule)
-                else:
-                    krx_additional_holiday_rules.append(new_holiday_rule)
-        # clear cache
-        calendar._cache = None # pylint: disable=protected-access
+            for line in f:
+                dump = json.loads(line.rstrip())
+                for holiday in dump['block1']:
+                    dt = datetime.datetime.strptime(holiday['calnd_dd_dy'][:10], '%Y-%m-%d')
+                    name = holiday['holdy_nm'].strip() or 'Loaded %s' % dt.strftime('%Y-%m-%d')
+                    new_holiday_rule = Holiday(name, year=dt.year, month=dt.month, day=dt.day)
+                    krx_additional_adhoc_holiday_rules.append(new_holiday_rule)
 
 load_holidays()
-
-if __name__ == '__main__':
-    dump_holidays()

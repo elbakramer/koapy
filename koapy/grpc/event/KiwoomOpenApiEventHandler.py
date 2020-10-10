@@ -2,7 +2,7 @@ from contextlib import ExitStack
 from threading import RLock
 
 from koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions import KiwoomOpenApiEventHandlerFunctions
-from koapy.grpc.observer.QueueBasedIterableObserver import QueueBasedIterableObserver
+from koapy.grpc.utils.QueueBasedIterableObserver import QueueBasedIterableObserver
 
 from koapy.utils.notimplemented import isimplemented
 

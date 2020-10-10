@@ -9,7 +9,7 @@ import win32com.client
 from pywintypes import com_error as ComError # pylint: disable=no-name-in-module
 
 from koapy.utils.rate_limiting.RateLimiter import CybosBlockRequestRateLimiter
-from koapy.utils.krx.holiday import get_last_krx_datetime
+from koapy.utils.krx.calendar import get_last_krx_datetime
 from koapy.config import config
 
 import pywinauto

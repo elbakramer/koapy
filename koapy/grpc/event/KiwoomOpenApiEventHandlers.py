@@ -1,4 +1,5 @@
 import re
+import queue
 import logging
 import operator
 import datetime
@@ -8,6 +9,8 @@ import grpc
 
 from koapy.grpc import KiwoomOpenApiService_pb2
 from koapy.grpc.event.KiwoomOpenApiEventHandler import KiwoomOpenApiEventHandler, KiwoomOpenApiEventHandlerForGrpc
+from koapy.grpc.utils.QueueBasedBufferedIterator import QueueBasedBufferedIterator
+
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 from koapy.openapi.TrInfo import TrInfo
 from koapy.openapi.RealType import RealType
@@ -906,6 +909,7 @@ class KiwoomOpenApiBidirectionalRealEventHandler(KiwoomOpenApiRealEventHandler):
         super().__init__(control, request, context, screen_manager)
 
         self._request_iterator = request_iterator
+        self._buffered_request_iterator = QueueBasedBufferedIterator(self._request_iterator)
 
         self._fid_list = []
         self._fid_list_joined = ';'.join(str(fid) for fid in self._fid_list)
@@ -941,12 +945,14 @@ class KiwoomOpenApiBidirectionalRealEventHandler(KiwoomOpenApiRealEventHandler):
             fid_list_joined = ';'.join(str(fid) for fid in fid_list)
         else:
             fid_list_joined = self._fid_list_joined
+        logging.debug('Registering code %s to screen %s with type %s', code, screen_no, opt_type)
         KiwoomOpenApiError.try_or_raise(
             self.control.SetRealReg(screen_no, code, fid_list_joined, opt_type))
 
     def remove_code(self, code):
         if code in self._screen_by_code:
             screen_no = self._screen_by_code[code]
+            logging.debug('Removing code %s from screen %s', code, screen_no)
             self.control.SetRealRemove(screen_no, code)
             self._screen_by_code.pop(code)
             self._code_list_by_screen[screen_no].remove(code)
@@ -968,12 +974,14 @@ class KiwoomOpenApiBidirectionalRealEventHandler(KiwoomOpenApiRealEventHandler):
             code_list = self._code_list_by_screen.pop(screen_no)
             assert len(code_list) == 0
 
-    def consume_request_iterator(self, request_iterator):
+    def consume_request_iterator(self):
         while not self._request_iterator_consumer_should_stop:
             try:
-                request = request_iterator.result(self._request_iterator_consumer_timeout)
-            except grpc.FutureTimeoutError:
+                request = self._buffered_request_iterator.next(timeout=self._request_iterator_consumer_timeout)
+            except queue.Empty:
                 pass
+            except grpc.RpcError:
+                break
             else:
                 if request.HasField('register_request'):
                     code_list = request.register_request.code_list
@@ -1005,7 +1013,8 @@ class KiwoomOpenApiBidirectionalRealEventHandler(KiwoomOpenApiRealEventHandler):
     def start_request_iterator_consumer(self):
         self.stop_request_iterator_consumer()
         self._request_iterator_consumer_should_stop = False
-        self._request_iterator_consumer = threading.Thread(target=self.consume_request_iterator, args=[self._request_iterator], daemon=True)
+        self._request_iterator_consumer = threading.Thread(
+            target=self.consume_request_iterator, daemon=True)
         self._request_iterator_consumer.start()
 
     def on_enter(self):

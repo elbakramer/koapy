@@ -116,8 +116,9 @@ market_codes = [
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get stock codes.')
 @click.option('-m', '--market', 'markets', metavar='MARKET', multiple=True, type=click.Choice(market_codes, case_sensitive=False), help='Stock market code to get. Can set multiple times.')
+@click.option('-n', '--name', metavar='NAME', help='Name of stock.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
-def stockcode(markets, port):
+def stockcode(markets, name, port):
     """
     \b
     Possible market codes are:
@@ -137,16 +138,19 @@ def stockcode(markets, port):
       all: All possible market codes.
     """
 
-    if (markets) == (tuple()):
+    if (markets, name) == (tuple(), None):
         fail_with_usage()
 
     from koapy import KiwoomOpenApiContext
 
-    if 'all' in markets:
-        markets = market_codes
-
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout) as context:
         context.EnsureConnected()
+
+        if name is not None and not markets:
+            markets = ['0']
+
+        if 'all' in markets:
+            markets = market_codes
 
         codes = set()
 
@@ -155,8 +159,17 @@ def stockcode(markets, port):
 
         codes = sorted(list(codes))
 
-        for code in codes:
-            click.echo(code)
+        if not name:
+            for code in codes:
+                click.echo(code)
+        else:
+            names = [context.GetMasterCodeName(code) for code in codes]
+            codes_by_name = dict(zip(names, codes))
+            code = codes_by_name.get(name, None)
+            if code:
+                click.echo(code)
+            else:
+                click.echo('Cannot find code for given name.')
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get name for stock codes.')
 @click.option('-c', '--code', 'codes', metavar='CODE', multiple=True, help='Stock code to get. Can set multiple times.')
@@ -612,11 +625,8 @@ def holidays(output, offline, update, no_update, verbose):
         if not offline:
             from koapy.utils.krx.marketdata.holiday import download_holidays_as_dict
             response = download_holidays_as_dict()
-            if not no_update:
-                from koapy.utils.krx.holiday.KrxBusinessDay import dump_holidays
-                dump_holidays(response)
         else:
-            from koapy.utils.krx.holiday import get_holidays_as_dict
+            from koapy.utils.krx.calendar import get_holidays_as_dict
             response = get_holidays_as_dict()
         lang = locale.getdefaultlocale()[0]
         if lang == 'ko_KR':
