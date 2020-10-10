@@ -27,10 +27,10 @@ class KiwoomOpenApiCommInfo(CommInfoBase):
         if self._commtype == self.COMM_PERC and not self.p.percabs:
             self.p.tax /= 100.0
 
-    def _getcommissionbuy(self, size, price, pseudoexec):
+    def _getcommissionbuy(self, size, price, pseudoexec): # pylint: disable=unused-argument
         return size * price * self.p.commission * self.p.mult
 
-    def _getcommissionsell(self, size, price, pseudoexec):
+    def _getcommissionsell(self, size, price, pseudoexec): # pylint: disable=unused-argument
         return abs(size) * price * (self.p.commission + self.p.tax) * self.p.mult
 
     def _getcommission(self, size, price, pseudoexec):
@@ -45,7 +45,7 @@ class MetaKiwoomOpenApiBroker(BrokerBase.__class__):
         super().__init__(name, bases, dct)
         KiwoomOpenApiStore.BrokerCls = cls
 
-class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)):
+class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)): # pylint: disable=abstract-method
 
     params = (
         ('use_positions', True),
@@ -84,10 +84,6 @@ class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)):
                 price = p['avgPrice']
                 self.positions[p['instrument']] = Position(size, price)
 
-    def stop(self):
-        super().stop()
-        self.k.stop()
-
     def data_started(self, data):
         pos = self.getposition(data)
 
@@ -125,6 +121,10 @@ class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)):
             order.completed()
             self.notify(order)
 
+    def stop(self):
+        super().stop()
+        self.k.stop()
+
     def getcash(self):
         self.cash = self.k.get_cash()
         return self.cash
@@ -138,6 +138,10 @@ class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)):
         if clone:
             pos = pos.clone()
         return pos
+
+    def orderstatus(self, order):
+        order = self.orders[order.ref]
+        return order.status
 
     def _submit(self, oref):
         order = self.orders[oref]
@@ -200,7 +204,7 @@ class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)):
                 if o.alive():
                     self._cancel(o.ref)
 
-    def _fill(self, oref, size, price, ttype, **kwargs):
+    def _fill(self, oref, size, price, ttype, **kwargs): # pylint: disable=unused-argument
         order = self.orders[oref]
 
         if not order.alive():  # can be a bracket
@@ -230,7 +234,7 @@ class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)):
         pos = self.getposition(data, clone=False)
         psize, pprice, opened, closed = pos.update(size, price)
 
-        comminfo = self.getcommissioninfo(data)
+        comminfo = self.getcommissioninfo(data) # pylint: disable=unused-variable
 
         closedvalue = closedcomm = 0.0
         openedvalue = openedcomm = 0.0
@@ -310,10 +314,6 @@ class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)):
         order.addinfo(**kwargs)
         order.addcomminfo(self.getcommissioninfo(data))
         return self._transmit(order)
-
-    def orderstatus(self, order):
-        order = self.orders[order.ref]
-        return order.status
 
     def cancel(self, order):
         order = self.orders[order.ref]

@@ -70,7 +70,7 @@ class KiwoomOpenApiPriceEventChannel:
         if fid20 is None:
             dt = pendulum.now()
         else:
-            dt = pendulum.now()
+            dt = pendulum.now() # TODO: 장 오픈동안 포맷 확인해서 파싱로직 구현
         return dt.timestamp() * (10 ** 6)
 
     def event_to_dict(self, response):
@@ -137,7 +137,7 @@ class KiwoomOpenApiEventStreamer(Observer):
         self._queue.put(value)
 
     def on_error(self, error):
-        logging.debug('Streamer.on_error %s', error)
+        logging.error('Streamer.on_error(%s)', error)
         self._queue.put(error)
 
     def on_completed(self):
@@ -152,4 +152,5 @@ class KiwoomOpenApiEventStreamer(Observer):
         return subscription
 
     def events(self):
-        return NotImplemented
+        # TODO: Implement
+        raise NotImplementedError

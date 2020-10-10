@@ -111,3 +111,28 @@ def test_chainlist_iter():
         assert cci == dd[i]
         cclen += 1
     assert cclen == ddlen
+
+def test_chainlist_with_emtpy():
+    d1 = [1,2,3]
+    d2 = []
+    d3 = [7,8,9]
+    c = ChainList([d1, d2, d3])
+    d = [1,2,3,7,8,9]
+    dlen = len(d)
+    for i in range(dlen):
+        assert c[i] == d[i]
+        assert c[-1-i] == d[-1-i]
+    with pytest.raises(IndexError):
+        assert c[dlen] == d[dlen]
+    with pytest.raises(IndexError):
+        assert c[-dlen-1] == d[-dlen-1]
+    cc = ChainList([c, c, c])
+    dd = ChainList([d, d, d])
+    ddlen = len(dd)
+    for i in range(ddlen):
+        assert cc[i] == dd[i]
+        assert cc[-1-i] == dd[-1-i]
+    with pytest.raises(IndexError):
+        assert cc[ddlen] == dd[ddlen]
+    with pytest.raises(IndexError):
+        assert cc[-ddlen-1] == dd[-ddlen-1]

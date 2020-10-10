@@ -121,7 +121,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
 
         self._reconns = 0
 
-    def _st_start(self, instart=True, timeout=None):
+    def _st_start(self, instart=True, tmout=None):
         if self.p.historical:
             self.put_notification(self.DELAYED)
 
@@ -141,7 +141,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
 
             return True
         else:
-            self.qlive = self.k.streaming_prices(self.p.dataname, timeout=timeout)
+            self.qlive = self.k.streaming_prices(self.p.dataname, tmout=tmout)
 
             if instart:
                 self._statelivereconn = self.p.backfill_start
@@ -186,7 +186,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
                         return False
 
                     self._reconns -= 1
-                    self._st_start(instart=False, timeout=self.p.reconntimeout)
+                    self._st_start(instart=False, tmout=self.p.reconntimeout)
                     continue
 
                 if 'code' in msg:
@@ -205,7 +205,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
                         return False
 
                     self._reconns -= 1
-                    self._st_start(instart=False, timeout=self.p.reconntimeout)
+                    self._st_start(instart=False, tmout=self.p.reconntimeout)
                     continue
 
                 self._reconns = self.p.reconnections
