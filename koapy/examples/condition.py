@@ -1,3 +1,6 @@
+import threading
+import grpc
+
 from koapy import KiwoomOpenApiContext
 
 with KiwoomOpenApiContext() as context:
@@ -32,8 +35,20 @@ with KiwoomOpenApiContext() as context:
     condition_name = '중소형 저평가주'
 
     # 실시간 조건 검색 예시, 편입된/제외된 코드 리스트 쌍을 스트림으로 반환 (실시간 조건 검색)
-    for i, (inserted, deleted) in enumerate(context.GetCodeListByConditionAsStream(condition_name)):
+    event_iterator = context.GetCodeListByConditionAsStream(condition_name)
+
+    def stop_listening():
         print()
-        print('event: %d' % i)
-        print('inserted: %s' % inserted)
-        print('deleted: %s' % deleted)
+        print('Stopping to listen events...')
+        event_iterator.cancel()
+
+    threading.Timer(10.0, stop_listening).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
+
+    try:
+        for i, (inserted, deleted) in enumerate(event_iterator):
+            print()
+            print('event: %d' % i)
+            print('inserted: %s' % inserted)
+            print('deleted: %s' % deleted)
+    except grpc.RpcError as e:
+        print(e)

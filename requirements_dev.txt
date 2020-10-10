@@ -3,7 +3,7 @@ bump2version==1.0.1
 wheel==0.35.1
 watchdog==0.10.3
 flake8==3.8.4
-tox==3.20.0
+tox==3.20.1
 coverage==5.3
 Sphinx==3.2.1
 Pygments==2.7.1
@@ -12,3 +12,6 @@ Click==7.1.2
 pytest==6.1.1
 pytest-runner==5.2
 sphinx-autoapi==1.5.1
+
+# temporary fix until astroid 2.4.3 comes out
+git+https://github.com/PyCQA/astroid.git

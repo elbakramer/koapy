@@ -45,7 +45,7 @@ class MetaKiwoomOpenApiBroker(BrokerBase.__class__):
         super().__init__(name, bases, dct)
         KiwoomOpenApiStore.BrokerCls = cls
 
-class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)): # pylint: disable=abstract-method
+class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)):
 
     params = (
         ('use_positions', True),
@@ -331,3 +331,14 @@ class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)): 
 
     def next(self):
         self.notifs.append(None)
+
+    # below may not accurate
+
+    def submit(self, order):
+        return self._transmit(order)
+
+    def add_order_history(self, orders, notify=False):
+        return self.k.add_order_history(orders, notify)
+
+    def set_fund_history(self, fund):
+        return self.k.set_fund_history(fund)

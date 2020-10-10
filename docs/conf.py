@@ -42,7 +42,6 @@ extensions = [
     'sphinx.ext.imgconverter',
     'sphinx.ext.todo',
     'sphinx.ext.inheritance_diagram',
-    'autoapi.extension',
 ]
 
 autosummary_generate = True
@@ -54,7 +53,7 @@ autosectionlabel_prefix_document = True
 from sphinx.ext import apidoc
 
 apidoc_exclude_patterns = [
-    'examples/*.py',
+    '**/examples/*.py',
 ]
 
 def run_apidoc(_):
@@ -69,8 +68,14 @@ generate_apidoc = False
 # https://github.com/readthedocs/sphinx-autoapi
 # See also if interested, https://github.com/rdb/sphinx-autopackagesummary
 
+extensions.append('autoapi.extension')
+
 autoapi_type = 'python'
 autoapi_dirs = [module_dir]
+autoapi_file_patterns = ['*.py', '*.pyi']
+autoapi_ignore =[
+    '**/examples/*.py',
+]
 autoapi_keep_files = True
 
 # -- Missing reference ---

@@ -3,7 +3,7 @@ PyQt5==5.15.1
 grpcio==1.32.0
 grpcio-tools==1.32.0
 protobuf==3.13.0
-pyhocon==0.3.55
+pyhocon==0.3.56
 discord.py==1.5.0
 schedule==0.6.0
 tabulate==0.8.7
@@ -17,7 +17,7 @@ Send2Trash==1.5.0
 backtrader==1.9.76.123
 matplotlib==3.3.2
 pendulum==2.1.2
-rx=3.1.1
+rx==3.1.1
 trading-calendars==2.0.0
 pywin32==228;sys_platform=='win32'
 mslex==0.1.1;sys_platform=='win32'

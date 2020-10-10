@@ -163,7 +163,7 @@ class MetaSingleton(MetaParams):
 
 class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
 
-    BrokerCls = None  # broker class will autoregister
+    BrokerCls = None  # broker class will auto register
     DataCls = None  # data class will auto register
 
     params = (
@@ -173,12 +173,16 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
 
     @classmethod
     def getdata(cls, *args, **kwargs):
-        '''Returns ``DataCls`` with args, kwargs'''
+        if cls.DataCls is None:
+            from koapy.backtrader.KiwoomOpenApiData import KiwoomOpenApiData
+            cls.DataCls = KiwoomOpenApiData
         return cls.DataCls(*args, **kwargs) # pylint: disable=not-callable
 
     @classmethod
     def getbroker(cls, *args, **kwargs):
-        '''Returns broker with *args, **kwargs from registered ``BrokerCls``'''
+        if cls.BrokerCls is None:
+            from koapy.backtrader.KiwoomOpenApiBroker import KiwoomOpenApiBroker
+            cls.BrokerCls = KiwoomOpenApiBroker
         return cls.BrokerCls(*args, **kwargs) # pylint: disable=not-callable
 
     def __init__(self, context=None):
@@ -402,7 +406,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
             self._evt_acct.set()
 
 
-    # from below is related to processing orders
+    # from below, it's related to processing orders
 
 
     _ORDEREXECS = {
