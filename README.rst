@@ -5,13 +5,19 @@ KOAPY
 
 .. image:: https://img.shields.io/pypi/v/koapy.svg
         :target: https://pypi.python.org/pypi/koapy
+        :alt: PyPI
 
 .. image:: https://img.shields.io/travis/elbakramer/koapy.svg
         :target: https://travis-ci.org/elbakramer/koapy
+        :alt: Travis Build Status
 
 .. image:: https://readthedocs.org/projects/koapy/badge/?version=latest
         :target: https://koapy.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
+
+.. image:: https://codecov.io/gh/elbakramer/koapy/branch/master/graph/badge.svg
+        :target: https://codecov.io/gh/elbakramer/koapy
+        :alt: Codecov
 
 .. image:: https://img.shields.io/pypi/pyversions/koapy.svg
         :target: https://pypi.python.org/pypi/koapy/
@@ -21,6 +27,9 @@ KOAPY
         :target: https://pyup.io/repos/github/elbakramer/koapy/
         :alt: Updates
 
+.. .. image:: https://app.fossa.com/api/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy.svg?type=shield
+        :target: https://app.fossa.com/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy?ref=badge_shield
+        :alt: FOSSA Status
 
 
 Kiwoom Open Api Python

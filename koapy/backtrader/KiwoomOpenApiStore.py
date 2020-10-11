@@ -168,6 +168,7 @@ class MetaSingleton(MetaParams):
         return cls._singleton
 
 class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
+    # pylint: disable=protected-access
 
     BrokerCls = None  # broker class will auto register
     DataCls = None  # data class will auto register
