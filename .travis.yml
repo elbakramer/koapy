@@ -25,6 +25,8 @@ install:
 script:
 - tox --showconfig
 - tox --travis-after --verbose
+after_success:
+- bash <(curl -s https://codecov.io/bash)
 deploy:
 - provider: script
   edge: true
