@@ -1,7 +1,8 @@
+import datetime
 import logging
 
 import rx
-import pendulum
+import tzlocal
 
 from rx import operators as ops
 from rx.subject import Subject
@@ -15,6 +16,8 @@ from koapy.grpc.utils.QueueBasedBufferedIterator import QueueBasedBufferedIterat
 from koapy.openapi.RealType import RealType
 
 class KiwoomOpenApiPriceEventChannel:
+
+    local_timezone = tzlocal.get_localzone()
 
     def __init__(self, stub):
         self._stub = stub
@@ -68,9 +71,9 @@ class KiwoomOpenApiPriceEventChannel:
 
     def time_to_timestamp(self, fid20):
         if fid20 is None:
-            dt = pendulum.now()
+            dt = datetime.datetime.now(self.local_timezone)
         else:
-            dt = pendulum.now() # TODO: 장 오픈동안 포맷 확인해서 파싱로직 구현
+            dt = datetime.datetime.now(self.local_timezone) # TODO: 장 오픈동안 포맷 확인해서 파싱로직 구현
         return dt.timestamp() * (10 ** 6)
 
     def event_to_dict(self, response):

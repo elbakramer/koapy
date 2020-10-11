@@ -5,8 +5,8 @@ import datetime
 import threading
 import collections
 
-import pendulum
 import backtrader as bt
+import pytz
 
 from backtrader import TimeFrame
 from backtrader.metabase import MetaParams
@@ -43,12 +43,18 @@ class HistoricalPriceRecord(collections.namedtuple('HistoricalPriceRecord', ['ti
 
     __slots__ = ()
 
+    kst = pytz.timezone('Asia/Seoul')
+
     @classmethod
     def from_tuple(cls, tup):
         if '일자' in tup._fields:
-            time = pendulum.from_format(tup.일자, 'YYYYMMDD', tz='Asia/Seoul').timestamp() * (10 ** 6) # pylint: disable=redefined-outer-name
+            dt = datetime.datetime.strptime(tup.일자, '%Y%m%d')
+            dt = cls.kst.localize(dt)
+            time = dt.timestamp() * (10 ** 6) # pylint: disable=redefined-outer-name
         elif '체결시간' in tup._fields:
-            time = pendulum.from_format(tup.체결시간, 'YYYYMMDDhhmmss', tz='Asia/Seoul').timestamp() * (10 ** 6)
+            dt = datetime.datetime.strptime(tup.체결시간, '%Y%m%d%H%M%S')
+            dt = cls.kst.localize(dt)
+            time = dt.timestamp() * (10 ** 6)
         else:
             raise KiwoomOpenApiError('Cannot specify time')
         open = abs(float(tup.시가)) # pylint: disable=redefined-builtin

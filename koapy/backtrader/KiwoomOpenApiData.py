@@ -1,4 +1,4 @@
-import pendulum
+import datetime
 
 from pytz import utc
 
@@ -81,7 +81,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
     def fromtimestamp(self, timestamp, tz=None):
         if tz is None:
             tz = self._tz
-        return pendulum.from_timestamp(timestamp, tz=tz)
+        return datetime.datetime.fromtimestamp(timestamp, tz=tz)
 
     def islive(self):
         return not self.p.historical
