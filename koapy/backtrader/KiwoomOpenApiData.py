@@ -1,5 +1,6 @@
-
 import pendulum
+
+from pytz import utc
 
 from backtrader import date2num, num2date
 from backtrader.feed import DataBase
@@ -29,7 +30,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
         ('reconnections', -1),  # forever
         ('reconntimeout', 5.0),
         ('tz', 'Asia/Seoul'),
-        ('tzinput', 'Asia/Seoul'),
+        ('tzinput', None),  # this should be none (utc) since we are already putting datetimes converted to utc
         ('calendar', KrxTradingCalendar()),
     )
 
@@ -53,18 +54,21 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
     def _timeoffset(self):
         return self.k.timeoffset()
 
-    def astimezone(self, dt, tz):
-        if hasattr(dt, 'tzinfo') and dt.tzinfo is not None:
-            dt = dt.astimezone(tz)
-        else:
+    def isnaive(self, dt):
+        return dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None
+
+    def asutc(self, dt, tz=None, naive=True):
+        if tz is None:
+            tz = self._tz
+        if self.isnaive(dt) and tz is not None:
             dt = tz.localize(dt)
+        dt = dt.astimezone(utc)
+        if naive:
+            dt = dt.replace(tzinfo=None)
         return dt
 
     def date2num(self, dt, tz=None): # pylint: disable=arguments-differ
-        if tz is None:
-            tz = self._tz
-        if tz is not None:
-            dt = self.astimezone(dt, tz)
+        dt = self.asutc(dt, tz)
         return date2num(dt)
 
     def num2date(self, dt=None, tz=None, naive=False):
@@ -75,7 +79,9 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
         return num2date(dt, tz, naive)
 
     def fromtimestamp(self, timestamp, tz=None):
-        return pendulum.from_timestamp(timestamp, tz=tz or self._tz)
+        if tz is None:
+            tz = self._tz
+        return pendulum.from_timestamp(timestamp, tz=tz)
 
     def islive(self):
         return not self.p.historical

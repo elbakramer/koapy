@@ -29,6 +29,7 @@ class KiwoomOpenApiSignalConnector:
             return list(self._slots)
 
     def call(self, *args, **kwargs):
+        # TODO: use ThreadPoolExecutor with await/join for concurrency?
         for slot in self.get_slots():
             slot(*args, **kwargs)
 

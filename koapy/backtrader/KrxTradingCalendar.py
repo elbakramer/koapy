@@ -6,7 +6,7 @@ from backtrader.tradingcal import TradingCalendarBase
 from backtrader.utils import tzparse
 from backtrader.utils.py3 import string_types
 
-class TradingCalendarsCalendar(TradingCalendarBase):
+class TradingCalendarsTradingCalendar(TradingCalendarBase):
 
     params = (
         ('calendar', None),
@@ -48,7 +48,7 @@ class TradingCalendarsCalendar(TradingCalendarBase):
         closing = closing.to_pydatetime()
         return opening, closing
 
-class KrxTradingCalendar(TradingCalendarsCalendar):
+class KrxTradingCalendar(TradingCalendarsTradingCalendar):
 
     params = (
         ('calendar', 'XKRX'),
