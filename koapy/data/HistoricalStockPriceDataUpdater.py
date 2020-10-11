@@ -15,7 +15,7 @@ from koapy import KiwoomOpenApiContext
 from koapy.backend.cybos.CybosPlusComObject import CybosPlusComObject
 
 from koapy.config import config
-from koapy.utils.krx.calendar import get_last_krx_datetime
+from koapy.utils.krx.calendar import get_last_krx_close_datetime
 
 from send2trash import send2trash
 
@@ -163,7 +163,7 @@ class HistoricalStockPriceDataUpdater:
         self._tablename = 'history'
 
     def get_start_date(self):
-        return get_last_krx_datetime()
+        return get_last_krx_close_datetime()
 
     def check_failover_code(self):
         failover_code = None

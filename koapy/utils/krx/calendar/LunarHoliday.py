@@ -41,12 +41,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import warnings
 import datetime
+import tzlocal
 
 from pandas.errors import PerformanceWarning
 from pandas import DateOffset, DatetimeIndex, Timestamp, date_range
 from pandas.tseries.holiday import Holiday as PandasHoliday
 
-from koapy.utils.krx.calendar.KoreanLunarCalendar import KoreanLunarCalendar
+from koapy.utils.krx.calendar.KoreanLunarDateTime import KoreanLunarDateTime
 
 class BaseHoliday(PandasHoliday):
 
@@ -135,6 +136,20 @@ class SolarHoliday(BaseHoliday):
 
 class LunarHoliday(BaseHoliday):
 
+    def local_timezone(self):
+        return tzlocal.get_localzone()
+
+    def is_naive(self, dt):
+        return dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None
+
+    def lunar_to_solar_datetime(self, dt):
+        naive = self.is_naive(dt)
+        dt = KoreanLunarDateTime.lunar_to_solar_datetime(dt)
+        if naive:
+            dt = dt.astimezone(self.local_timezone())
+            dt = dt.replace(tzinfo=None)
+        return dt
+
     def _reference_dates(self, start_date, end_date):
         if self.start_date is not None:
             start_date = self.start_date.tz_localize(start_date.tz)
@@ -157,16 +172,21 @@ class LunarHoliday(BaseHoliday):
             freq=year_offset,
             tz=start_date.tz,
         )
-        dates = dates.map(lambda ts: Timestamp(KoreanLunarCalendar.lunar_to_solar_datetime(ts.year, ts.month, ts.day)))
+
+        dates = dates.to_series()
+        dates = dates.map(lambda ts: Timestamp(self.lunar_to_solar_datetime(ts.to_pydatetime())))
+        dates = DatetimeIndex(dates)
 
         return dates
 
     def to_datetime(self, year=None, month=None, day=None, apply_offset=True, apply_observance=True):
         today = datetime.datetime.today()
-        date = KoreanLunarCalendar.lunar_to_solar_datetime(
+        date = datetime.datetime(
             year or self.year or today.year,
             month or self.month or today.month,
-            day or self.day or today.day)
+            day or self.day or today.day
+        )
+        date = self.lunar_to_solar_datetime(date)
         dates = [date]
         dates = DatetimeIndex(dates)
         if apply_offset:

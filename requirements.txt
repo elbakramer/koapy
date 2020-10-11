@@ -17,8 +17,11 @@ Send2Trash==1.5.0
 backtrader==1.9.76.123
 matplotlib==3.3.2
 pendulum==2.1.2
+pytz==2020.1
+tzlocal==2.1
 rx==3.1.1
 trading-calendars==2.0.0
+korean_lunar_calendar==0.2.1
 pywin32==228;sys_platform=='win32'
 mslex==0.1.1;sys_platform=='win32'
 pywinauto==0.6.8;sys_platform=='win32'

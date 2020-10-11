@@ -9,7 +9,7 @@ import win32com.client
 from pywintypes import com_error as ComError # pylint: disable=no-name-in-module
 
 from koapy.utils.rate_limiting.RateLimiter import CybosBlockRequestRateLimiter
-from koapy.utils.krx.calendar import get_last_krx_datetime
+from koapy.utils.krx.calendar import get_last_krx_close_datetime
 from koapy.config import config
 
 import pywinauto
@@ -259,7 +259,7 @@ class CybosPlusComObject:
         date_format_input = '%Y%m%d'
 
         if start_date is None:
-            start_date = get_last_krx_datetime()
+            start_date = get_last_krx_close_datetime()
         if isinstance(start_date, str):
             start_date_len = len(start_date)
             if start_date_len == 14:

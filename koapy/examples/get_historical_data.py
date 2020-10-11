@@ -30,7 +30,7 @@ with KiwoomOpenApiContext() as context:
     # 참고로 trading_calendars 는 현재 년도의 말일까지 미리 계산된 휴일정보를 사용하므로 미래시간은 계산이 안됨
 
     # 만약에 미래 시간에 대한 연산 또한 필요하다면 아래처럼 내부 구현체를 대체재로 사용해 볼 수 잇음
-    #   from koapy.utils.krx.calendar.KrxBuinessDay import KrxBusinessDay
+    #   from koapy.utils.krx.calendar.KrxHolidayCalendar import KrxBusinessDay
     #   end_date = start_date + KrxBusinessDay(30) # (거래소 개장일 기준 30일 이후)
     # 하지만 계산시 일반적인 휴일들을 제외한 임시공휴일, 선거일등은 별도 추가 데이터가 없는 한 반영되지 않으니 주의
 

@@ -626,7 +626,24 @@ def holidays(output, offline, update, no_update, verbose):
             from koapy.utils.krx.marketdata.holiday import download_holidays_as_dict
             response = download_holidays_as_dict()
         else:
-            from koapy.utils.krx.calendar import get_holidays_as_dict
+            def get_holidays():
+                import datetime
+                from koapy.utils.krx.calendar.KrxHolidayCalendar import KrxHolidayCalendar
+                today = datetime.datetime.today()
+                calendar = KrxHolidayCalendar()
+                start = datetime.datetime(today.year, 1, 1)
+                end = datetime.datetime(today.year, 12, 31)
+                holidays = calendar.holidays(start, end, return_name=True)
+                return holidays
+            def get_holidays_as_dict():
+                holidays = get_holidays()
+                response = {'block1': [{
+                    'calnd_dd_dy': dt.strftime('%Y-%m-%d'),
+                    'kr_dy_tp': dt.strftime('%a'),
+                    'dy_tp_cd': dt.strftime('%a'),
+                    'holdy_nm': name,
+                } for dt, name in holidays.items() if dt.weekday() < 5]}
+                return response
             response = get_holidays_as_dict()
         lang = locale.getdefaultlocale()[0]
         if lang == 'ko_KR':
