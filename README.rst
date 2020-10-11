@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy?ref=badge_shield)
+
 =====
 KOAPY
 =====
@@ -241,3 +243,7 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy?ref=badge_large)
