@@ -83,18 +83,24 @@ def update():
     pass
 
 @update.command(context_settings=CONTEXT_SETTINGS, short_help='Update openapi TR metadata.')
+@click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def trdata(verbose):
+def trdata(port, verbose):
     set_verbosity(verbose)
+    from koapy import KiwoomOpenApiContext
     from koapy.openapi.TrInfo import TrInfo
-    TrInfo.dump_trinfo_by_code()
+    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout) as context:
+        TrInfo.dump_trinfo_by_code(context=context)
 
 @update.command(context_settings=CONTEXT_SETTINGS, short_help='Update openapi realtype metadata.')
+@click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
-def realdata(verbose):
+def realdata(port, verbose):
     set_verbosity(verbose)
+    from koapy import KiwoomOpenApiContext
     from koapy.openapi.RealType import RealType
-    RealType.dump_realtype_by_desc()
+    with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout) as context:
+        RealType.dump_realtype_by_desc(context=context)
 
 @cli.group(context_settings=CONTEXT_SETTINGS, short_help='Get various types of data.')
 def get():

@@ -84,17 +84,22 @@ class RealType(JsonSerializable):
         return None
 
     @classmethod
-    def realtypes_from_datfile(cls, f=None, encoding='euc-kr'):
+    def realtypes_from_datfile(cls, dat_file=None, encoding='euc-kr', context=None):
         gidc_width = 2
         desc_width = 20
         nfid_width = 3
         fid_width = 5
-        if f is None:
-            f = r'C:\OpenAPI\data\nkrealtime.dat'
+        if dat_file is None:
+            module_path = None
+            if context is not None:
+                module_path = context.GetAPIModulePath()
+            if module_path is None:
+                module_path = r'C:\OpenAPI'
+            dat_file = os.path.join(module_path, 'data', 'nkrealtime.dat')
         with contextlib.ExitStack() as stack:
-            if isinstance(f, str):
-                f = stack.enter_context(open(f, 'rb'))
-            lines = iter(f)
+            if isinstance(dat_file, str):
+                dat_file = stack.enter_context(open(dat_file, 'rb'))
+            lines = iter(dat_file)
             lines = map(lambda line: line.rstrip(b'\r\n'), lines)
             lines = filter(lambda line: not line.startswith(b';'), lines)
             realtypes = []
@@ -123,19 +128,19 @@ class RealType(JsonSerializable):
             return realtypes
 
     @classmethod
-    def realtype_by_desc_from_datfile(cls, f=None):
-        realtypes = cls.realtypes_from_datfile(f)
+    def realtype_by_desc_from_datfile(cls, dat_file=None, context=None):
+        realtypes = cls.realtypes_from_datfile(dat_file, context=context)
         result = {realtype.desc:realtype for realtype in realtypes}
         return result
 
     @classmethod
-    def dump_realtype_by_desc(cls, dump_file=None):
+    def dump_realtype_by_desc(cls, dump_file=None, dat_file=None, context=None):
         with contextlib.ExitStack() as stack:
             if dump_file is None:
                 dump_file = os.path.join(os.path.dirname(__file__), 'data', cls._REALTYPE_BY_DESC_DUMP_FILENAME)
             if isinstance(dump_file, str):
                 dump_file = stack.enter_context(open(dump_file, 'w'))
-            result = cls.realtype_by_desc_from_datfile()
+            result = cls.realtype_by_desc_from_datfile(dat_file, context)
             for tr_code in result:
                 result[tr_code] = result[tr_code].to_dict()
             return json.dump(result, dump_file)
@@ -145,7 +150,7 @@ class RealType(JsonSerializable):
         with contextlib.ExitStack() as stack:
             if dump_file is None:
                 dump_file = os.path.join(os.path.dirname(__file__), 'data', cls._REALTYPE_BY_DESC_DUMP_FILENAME)
-            if isinstance(dump_file, str) and os.path.exists(dump_file) and os.stat(dump_file).st_size > 0:
+            if isinstance(dump_file, str) and os.path.exists(dump_file) and os.path.getsize(dump_file) > 0:
                 dump_file = stack.enter_context(open(dump_file, 'r'))
                 result = json.load(dump_file)
                 for desc in result:

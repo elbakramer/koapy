@@ -169,9 +169,14 @@ class TrInfo(JsonSerializable):
                        inputs, single_outputs_name, single_outputs, multi_outputs_name, multi_outputs)
 
     @classmethod
-    def infos_from_data_dir(cls, data_dir=None, encoding='euc-kr'):
+    def infos_from_data_dir(cls, data_dir=None, encoding='euc-kr', context=None):
         if data_dir is None:
-            data_dir = r'C:\OpenAPI\data'
+            module_path = None
+            if context is not None:
+                module_path = context.GetAPIModulePath()
+            if module_path is None:
+                module_path = r'C:\OpenAPI'
+            data_dir = os.path.join(module_path, 'data')
         logging.debug('Reading files under %s', data_dir)
         enc_filenames = [filename.lower() for filename in os.listdir(data_dir)]
         enc_filenames = [filename for filename in enc_filenames if filename.startswith('o') and filename.endswith('.enc')]
@@ -189,13 +194,13 @@ class TrInfo(JsonSerializable):
         return results
 
     @classmethod
-    def trinfo_by_code_from_data_dir(cls, data_dir=None):
-        infos = cls.infos_from_data_dir(data_dir)
+    def trinfo_by_code_from_data_dir(cls, data_dir=None, context=None):
+        infos = cls.infos_from_data_dir(data_dir, context=context)
         result = {info.tr_code:info for info in infos}
         return result
 
     @classmethod
-    def dump_trinfo_by_code(cls, dump_file=None):
+    def dump_trinfo_by_code(cls, dump_file=None, data_dir=None, context=None):
         with contextlib.ExitStack() as stack:
             if dump_file is None:
                 dump_file = os.path.join(os.path.dirname(__file__), 'data', cls._TRINFO_BY_CODE_DUMP_FILENAME)
@@ -204,7 +209,7 @@ class TrInfo(JsonSerializable):
                 dump_file = stack.enter_context(open(dump_file, 'w'))
             else:
                 dump_filename = None
-            result = cls.trinfo_by_code_from_data_dir()
+            result = cls.trinfo_by_code_from_data_dir(data_dir, context)
             for tr_code in result:
                 result[tr_code] = result[tr_code].to_dict()
             if dump_filename is not None:
@@ -233,7 +238,7 @@ class TrInfo(JsonSerializable):
         with contextlib.ExitStack() as stack:
             if dump_file is None:
                 dump_file = os.path.join(os.path.dirname(__file__), 'data', cls._TRINFO_BY_CODE_DUMP_FILENAME)
-            if isinstance(dump_file, str) and os.path.exists(dump_file):
+            if isinstance(dump_file, str) and os.path.exists(dump_file) and os.path.getsize(dump_file) > 0:
                 dump_file = stack.enter_context(open(dump_file, 'r'))
                 result = json.load(dump_file)
                 for tr_code in result:
