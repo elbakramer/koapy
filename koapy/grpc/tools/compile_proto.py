@@ -1,13 +1,6 @@
 import os
 import subprocess
 
-import sys
-
-if sys.platform == 'win32':
-    from mslex import quote
-else:
-    from shlex import quote
-
 def compile_proto():
     proto_filename = 'KiwoomOpenApiService.proto'
     file_dir = os.path.dirname(os.path.realpath(__file__))
@@ -19,9 +12,9 @@ def compile_proto():
     cmd = [
         'python',
         '-m', 'grpc_tools.protoc',
-        '--proto_path=%s' % quote(proto_path),
-        '--python_out=%s' % quote(python_out),
-        '--grpc_python_out=%s' % quote(grpc_python_out),
+        '--proto_path=%s' % proto_path,
+        '--python_out=%s' % python_out,
+        '--grpc_python_out=%s' % grpc_python_out,
         proto_filepath]
     print(' '.join(cmd))
     subprocess.run(cmd, cwd=project_dir, check=True)

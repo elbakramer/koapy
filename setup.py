@@ -36,7 +36,6 @@ requirements = [
     'trading-calendars>=2.0.0',
     'korean_lunar_calendar>=0.2.1',
     'pywin32>=228;sys_platform=="win32"',
-    'mslex>=0.1.1;sys_platform=="win32"',
     'pywinauto>=0.6.8;sys_platform=="win32"',
 ]
 

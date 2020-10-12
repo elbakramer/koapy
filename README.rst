@@ -3,33 +3,61 @@ KOAPY
 =====
 
 
-.. image:: https://img.shields.io/pypi/v/koapy.svg
-        :target: https://pypi.python.org/pypi/koapy
-        :alt: PyPI
+.. container::
 
-.. image:: https://img.shields.io/travis/elbakramer/koapy.svg
-        :target: https://travis-ci.org/elbakramer/koapy
-        :alt: Travis Build Status
+    .. image:: https://img.shields.io/pypi/v/koapy.svg
+            :target: https://pypi.python.org/pypi/koapy
+            :alt: PyPI Version
 
-.. image:: https://readthedocs.org/projects/koapy/badge/?version=latest
-        :target: https://koapy.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
+    .. image:: https://img.shields.io/pypi/pyversions/koapy.svg
+            :target: https://pypi.python.org/pypi/koapy/
+            :alt: PyPI Python Versions
 
-.. image:: https://codecov.io/gh/elbakramer/koapy/branch/master/graph/badge.svg
-        :target: https://codecov.io/gh/elbakramer/koapy
-        :alt: Codecov
+    .. image:: https://img.shields.io/pypi/status/koapy.svg
+            :target: https://pypi.python.org/pypi/koapy/
+            :alt: PyPI Status
 
-.. image:: https://img.shields.io/pypi/pyversions/koapy.svg
-        :target: https://pypi.python.org/pypi/koapy/
-        :alt: Python versions
+    .. .. image:: https://img.shields.io/pypi/dm/koapy.svg
+            :target: https://pypi.python.org/pypi/koapy/
+            :alt: PyPI Monthly Donwloads
 
-.. image:: https://pyup.io/repos/github/elbakramer/koapy/shield.svg
-        :target: https://pyup.io/repos/github/elbakramer/koapy/
-        :alt: Updates
 
-.. .. image:: https://app.fossa.com/api/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy.svg?type=shield
-        :target: https://app.fossa.com/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy?ref=badge_shield
-        :alt: FOSSA Status
+.. container::
+
+    .. image:: https://img.shields.io/travis/elbakramer/koapy.svg
+            :target: https://travis-ci.org/elbakramer/koapy
+            :alt: Travis CI Build Status
+    .. .. image:: https://travis-ci.org/elbakramer/koapy.svg?branch=master
+
+    .. image:: https://img.shields.io/readthedocs/koapy/latest.svg
+            :target: https://koapy.readthedocs.io/en/latest/?badge=latest
+            :alt: ReadTheDocs Documentation Build Status
+    .. .. image:: https://readthedocs.org/projects/koapy/badge/?version=latest
+
+    .. image:: https://img.shields.io/codecov/c/github/elbakramer/koapy.svg
+            :target: https://codecov.io/gh/elbakramer/koapy
+            :alt: Codecov Coverage
+    .. .. image:: https://codecov.io/gh/elbakramer/koapy/branch/master/graph/badge.svg
+
+    .. image:: https://img.shields.io/requires/github/elbakramer/koapy/master.svg
+            :target: https://requires.io/github/elbakramer/koapy/requirements/?branch=master
+            :alt: Requires.io Requirements Status
+    .. .. image:: https://requires.io/github/elbakramer/koapy/requirements.svg?branch=master
+
+    .. .. image:: https://pyup.io/repos/github/elbakramer/koapy/shield.svg
+            :target: https://pyup.io/repos/github/elbakramer/koapy/
+            :alt: PyUp Updates
+
+
+.. container::
+
+    .. image:: https://img.shields.io/pypi/l/koapy.svg
+            :target: https://github.com/elbakramer/koapy/blob/master/LICENSE
+            :alt: PyPI License
+
+    .. image:: https://app.fossa.com/api/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy.svg?type=shield
+            :target: https://app.fossa.com/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy?ref=badge_shield
+            :alt: FOSSA Status
 
 
 Kiwoom Open Api Python
