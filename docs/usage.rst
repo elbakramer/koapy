@@ -111,7 +111,7 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 서버 사이드의 이벤트 처리와 관련해서 참고할만한 모듈들입니다.
 
 * :py:mod:`koapy.grpc.KiwoomOpenApiServiceServicer`
-* :py:mod:`koapy.grpc.event.KiwoomOpenApiEventHandler`
+* :py:mod:`koapy.grpc.event.KiwoomOpenApiEventHandlers`
 
 아래는 전체적으로 최상단의 :py:class:`~.koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext` 부터
 최하단의 :py:class:`~.koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget` 까지
@@ -421,7 +421,7 @@ KOAPY 에서도 실험적으로 자동 버전처리를 수행하는 관련 스�
 
 .. code-block:: console
 
-    $ python -m koapy.tools.version_update
+    $ python -m koapy.openapi.tools.version_update
 
 스크립트를 통해서 자동으로 사용자 입력을 시뮬레이션해서 처리하는 방식이다보니
 스크립트가 처리되는 도중에 다른 키보드 혹은 마우스 입력이 발생하는 경우 버전처리가 제대로 되지 않을 수 있다는 점 참고 바랍니다.
