@@ -121,10 +121,10 @@ market_codes = [
 ]
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get stock codes.')
+@click.option('-n', '--name', 'names', metavar='NAME', multiple=True, help='Name of stock. Can set multiple times.')
 @click.option('-m', '--market', 'markets', metavar='MARKET', multiple=True, type=click.Choice(market_codes, case_sensitive=False), help='Stock market code to get. Can set multiple times.')
-@click.option('-n', '--name', metavar='NAME', help='Name of stock.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
-def stockcode(markets, name, port):
+def stockcode(names, markets, port):
     """
     \b
     Possible market codes are:
@@ -144,15 +144,18 @@ def stockcode(markets, name, port):
       all: All possible market codes.
     """
 
-    if (markets, name) == (tuple(), None):
-        fail_with_usage()
+    markets_option = markets
+
+    if (markets, names) == (tuple(), tuple()):
+        # fail_with_usage()
+        pass
 
     from koapy import KiwoomOpenApiContext
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout) as context:
         context.EnsureConnected()
 
-        if name is not None and not markets:
+        if not names and not markets:
             markets = ['0']
 
         if 'all' in markets:
@@ -165,17 +168,40 @@ def stockcode(markets, name, port):
 
         codes = sorted(list(codes))
 
-        if not name:
+        if markets_option:
             for code in codes:
                 click.echo(code)
         else:
-            names = [context.GetMasterCodeName(code) for code in codes]
-            codes_by_name = dict(zip(names, codes))
-            code = codes_by_name.get(name, None)
-            if code:
-                click.echo(code)
-            else:
-                click.echo('Cannot find code for given name.')
+            def get_names():
+                if names:
+                    if '-' in names:
+                        with click.open_file('-', 'r') as f:
+                            for name in f:
+                                yield name.strip()
+                    else:
+                        for name in names:
+                            yield name
+                else:
+                    while True:
+                        try:
+                            name = click.prompt('name', prompt_suffix=' >>> ')
+                            name = name.strip()
+                            if name == 'exit':
+                                break
+                            if name:
+                                yield name
+                        except EOFError:
+                            break
+
+            all_names = [context.GetMasterCodeName(code) for code in codes]
+            codes_by_name = dict(zip(all_names, codes))
+
+            for name in get_names():
+                code = codes_by_name.get(name, None)
+                if code:
+                    click.echo(code)
+                else:
+                    click.echo('Cannot find code for given name: %s.' % name)
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get name for stock codes.')
 @click.option('-c', '--code', 'codes', metavar='CODE', multiple=True, help='Stock code to get. Can set multiple times.')
