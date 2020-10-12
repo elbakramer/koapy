@@ -999,6 +999,7 @@ class KiwoomOpenApiBidirectionalRealEventHandler(KiwoomOpenApiRealEventHandler):
                     self._fid_list = request.initialize_request.fid_list
                     self._fid_list_joined = ';'.join(str(fid) for fid in self._fid_list)
                     self._infer_fids = request.initialize_request.flags.infer_fids
+                    self._infer_fids = True
                     self._readable_names = request.initialize_request.flags.readable_names
                     self._fast_parse = request.initialize_request.flags.fast_parse
                     self.remove_all_codes()
@@ -1023,3 +1024,33 @@ class KiwoomOpenApiBidirectionalRealEventHandler(KiwoomOpenApiRealEventHandler):
     def on_exit(self, exc_type=None, exc_value=None, traceback=None):
         self.stop_request_iterator_consumer()
         self.remove_all_screens()
+
+    def OnReceiveRealData(self, code, realtype, realdata):
+        if code in self._code_list:
+            response = KiwoomOpenApiService_pb2.ListenResponse()
+            response.name = 'OnReceiveRealData' # pylint: disable=no-member
+            response.arguments.add().string_value = code # pylint: disable=no-member
+            response.arguments.add().string_value = realtype # pylint: disable=no-member
+            response.arguments.add().string_value = realdata # pylint: disable=no-member
+
+            if self._infer_fids:
+                fids = RealType.get_fids_by_realtype(realtype)
+            else:
+                fids = self._fid_list
+
+            if self._readable_names:
+                names = [RealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
+            else:
+                names = [str(fid) for fid in fids]
+
+            if self._infer_fids and self._fast_parse:
+                values = realdata.split('\t')
+            else:
+                values = [self.control.GetCommRealData(code, fid) for fid in fids]
+
+            assert len(names) == len(values)
+
+            response.single_data.names.extend(names) # pylint: disable=no-member
+            response.single_data.values.extend(values) # pylint: disable=no-member
+
+            self.observer.on_next(response) # pylint: disable=no-member

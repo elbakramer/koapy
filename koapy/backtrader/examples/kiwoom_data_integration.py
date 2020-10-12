@@ -13,7 +13,7 @@ def main():
 
     kiwoomstore = KiwoomOpenApiStore()
 
-    data = kiwoomstore.getdata(dataname='005930', historical=True)
+    data = kiwoomstore.getdata(dataname='005930', historical=False)
     cerebro.adddata(data)
 
     cerebro.addsizer(bt.sizers.FixedSize, stake=10)

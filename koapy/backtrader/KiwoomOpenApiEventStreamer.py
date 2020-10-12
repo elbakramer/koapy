@@ -64,7 +64,7 @@ class KiwoomOpenApiPriceEventChannel:
         return ops.filter(lambda response: self.is_for_code(response, code))
 
     def is_valid_price_event(self, response):
-        return all(name in response.single_output.names for name in ['27', '28'])
+        return all(name in response.single_data.names for name in ['27', '28'])
 
     def filter_price_event(self):
         return ops.filter(self.is_valid_price_event)
@@ -73,15 +73,18 @@ class KiwoomOpenApiPriceEventChannel:
         if fid20 is None:
             dt = datetime.datetime.now(self.local_timezone)
         else:
-            dt = datetime.datetime.now(self.local_timezone) # TODO: 장 오픈동안 포맷 확인해서 파싱로직 구현
+            dt = datetime.datetime.now(self.local_timezone).date()
+            tm = datetime.datetime.strptime(fid20, '%H%M%S').time()
+            dt = datetime.datetime.combine(dt, tm)
+            dt = self.local_timezone.localize(dt)
         return dt.timestamp() * (10 ** 6)
 
     def event_to_dict(self, response):
-        single_output = dict(zip(response.single_output.names, response.single_output.values))
+        single_data = dict(zip(response.single_data.names, response.single_data.values))
         result = {
-            'time': self.time_to_timestamp(single_output.get('20')),
-            'bid': single_output['28'],
-            'ask': single_output['27'],
+            'time': self.time_to_timestamp(single_data.get('20')),
+            'bid': abs(float(single_data['28'])),
+            'ask': abs(float(single_data['27'])),
         }
         return result
 
