@@ -1,5 +1,10 @@
 import logging
 import threading
+import inspect
+
+from PySide2.QtCore import SIGNAL
+
+from koapy.openapi.KiwoomOpenApiSignature import get_event_signature_by_name, qt_function_spec_from_signature
 
 class KiwoomOpenApiSignalConnector:
 
@@ -8,7 +13,22 @@ class KiwoomOpenApiSignalConnector:
         self._lock = threading.RLock()
         self._slots = list()
 
+        self._signature = get_event_signature_by_name(self._name)
+        self._param_types = [(p.annotation) for p in self._signature.parameters.values()]
+        self._signal = qt_function_spec_from_signature(self._name, self._signature)
+
+    def is_valid_slot(self, slot):
+        slot_signature = inspect.signature(slot)
+        slot_types = [(p.annotation) for p in slot_signature.parameters.values()]
+        condition = len(self._param_types) == len(slot_types)
+        return condition
+
+    def connect_to(self, control):
+        return control.connect(SIGNAL(self._signal), self)
+
     def connect(self, slot):
+        if not self.is_valid_slot(slot):
+            raise TypeError('Invalid slot: %s' % slot)
         with self._lock:
             if slot not in self._slots:
                 self._slots.append(slot)
@@ -34,4 +54,4 @@ class KiwoomOpenApiSignalConnector:
             slot(*args, **kwargs)
 
     def __call__(self, *args, **kwargs):
-        self.call(*args, **kwargs)
+        return self.call(*args, **kwargs)

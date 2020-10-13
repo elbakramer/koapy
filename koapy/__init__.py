@@ -8,8 +8,8 @@ import koapy.config
 
 from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
 
-from koapy.pyqt5.KiwoomOpenApiQAxWidget import KiwoomOpenApiQAxWidget
-from koapy.pyqt5.KiwoomOpenApiTrayApplication import KiwoomOpenApiTrayApplication
+from koapy.pyside2.KiwoomOpenApiQAxWidget import KiwoomOpenApiQAxWidget
+from koapy.pyside2.KiwoomOpenApiTrayApplication import KiwoomOpenApiTrayApplication
 
 from koapy.grpc.KiwoomOpenApiServiceServer import KiwoomOpenApiServiceServer
 from koapy.grpc.KiwoomOpenApiServiceClient import KiwoomOpenApiServiceClient

@@ -5,19 +5,22 @@ import datetime
 import signal
 import contextlib
 
-from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QStyle
-from PyQt5.QtCore import QTimer, QObject, QUrl, pyqtSignal
-from PyQt5.QtGui import QDesktopServices
+# see /koapy/pyside2/__init__.py for more information.
+import koapy.pyside2 # pylint: disable=unused-import
+
+from PySide2.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QStyle
+from PySide2.QtCore import QTimer, QObject, QUrl, Signal
+from PySide2.QtGui import QDesktopServices
 
 from koapy.grpc.KiwoomOpenApiServiceServer import KiwoomOpenApiServiceServer
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
-from koapy.pyqt5.KiwoomOpenApiQAxWidget import KiwoomOpenApiQAxWidget
+from koapy.pyside2.KiwoomOpenApiQAxWidget import KiwoomOpenApiQAxWidget
 
 from koapy.utils.logging import set_verbosity
 
 class KiwoomOpenApiTrayApplication(QObject):
 
-    _should_restart = pyqtSignal(int)
+    _should_restart = Signal(int)
     _should_restart_exit_code = 1
 
     def __init__(self, args=()):

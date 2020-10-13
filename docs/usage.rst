@@ -67,19 +67,19 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 앞선 이벤트루프/콜백함수 기반 구현과 비교했을 때 이 방식이 좀 더 직관적입니다.
 
 .. |dynamicCall| replace:: ``dynamicCall``
-.. _dynamicCall: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qaxcontainer/qaxbase.html?highlight=dynamicCall#dynamicCall
+.. _dynamicCall: https://doc.qt.io/qt-5/qaxbase.html#dynamicCall
 .. |QEventLoop| replace:: ``QEventLoop``
-.. _QEventLoop: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qeventloop.html
+.. _QEventLoop: https://doc.qt.io/qt-5/qeventloop.html
 
 .. |exec| replace:: ``exec``
-.. _exec: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qeventloop.html?highlight=exec#exec
+.. _exec: https://doc.qt.io/qt-5/qeventloop.html#exec
 .. |exit| replace:: ``exit``
-.. _exit: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qeventloop.html?highlight=exit#exit
+.. _exit: https://doc.qt.io/qt-5/qeventloop.html#exit
 
 .. |connect| replace:: ``connect``
-.. _connect: https://www.riverbankcomputing.com/static/Docs/PyQt5/signals_slots.html?highlight=connect#connect
+.. _connect: https://doc.qt.io/qt-5/qobject.html#connect
 .. |disconnect| replace:: ``disconnect``
-.. _disconnect: https://www.riverbankcomputing.com/static/Docs/PyQt5/signals_slots.html?highlight=disconnect#disconnect
+.. _disconnect: https://doc.qt.io/qt-5/qobject.html#disconnect
 
 .. literalinclude:: ../koapy/examples/transaction_event.py
     :language: python
@@ -95,7 +95,7 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 
 주요 래퍼 클래스들을 포함하는 모듈들은 다음과 같습니다.
 
-* :py:mod:`koapy.pyqt5.KiwoomOpenApiControlWrapper`
+* :py:mod:`koapy.pyside2.KiwoomOpenApiControlWrapper`
 * :py:mod:`koapy.grpc.KiwoomOpenApiServiceClientStubWrapper`
 
 여기서의 함수들 중에 ``XXXCall`` 패턴의 함수들은 TR/실시간 데이터 처리 등 몇몇 유형화가 가능한 사용 패턴들에 대해서
@@ -114,7 +114,7 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 * :py:mod:`koapy.grpc.event.KiwoomOpenApiEventHandlers`
 
 아래는 전체적으로 최상단의 :py:class:`~.koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext` 부터
-최하단의 :py:class:`~.koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget` 까지
+최하단의 :py:class:`~.koapy.pyside2.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget` 까지
 어떠한 흐름으로 이어져있는지 도식화한 것입니다.
 
 .. code-block::
@@ -318,7 +318,7 @@ CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는
 Tray icon
 ---------
 
-KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.pyqt5.KiwoomOpenApiTrayApplication.KiwoomOpenApiTrayApplication` 이 구동되며
+KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.pyside2.KiwoomOpenApiTrayApplication.KiwoomOpenApiTrayApplication` 이 구동되며
 이것을 직접 확인할 수 있도록 구동되는 동안 우측하단에 트레이 아이콘을 표시하게끔 구현되어있습니다.
 아직 따로 마땅한 아이콘이 없어서 초록색 바탕에 ``Qt`` 가 적혀있는 디폴트 아이콘이 그것입니다.
 
@@ -337,7 +337,7 @@ KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.pyqt5.KiwoomOpe
 * 각종 관련 외부링크
 * 어플리케이션 종료
 
-해당 트레이 아이콘을 더블클릭하는 경우 :py:class:`~.koapy.pyqt5.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget` 에 대응되는 위젯이 뜨는데
+해당 트레이 아이콘을 더블클릭하는 경우 :py:class:`~.koapy.pyside2.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget` 에 대응되는 위젯이 뜨는데
 현재로는 크게 의미있는 요소를 넣거나 한 것은 없어서 그냥 닫으시면 됩니다.
 
 .. _`자동 로그인`:

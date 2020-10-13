@@ -42,7 +42,7 @@ def serve(port, verbose, no_verbose, args):
     if not no_verbose and verbose > 0:
         app_args.append('-' + 'v' * verbose)
     app_args += list(args)
-    from koapy.pyqt5.KiwoomOpenApiTrayApplication import KiwoomOpenApiTrayApplication
+    from koapy.pyside2.KiwoomOpenApiTrayApplication import KiwoomOpenApiTrayApplication
     KiwoomOpenApiTrayApplication.main(app_args)
 
 @cli.command(context_settings=CONTEXT_SETTINGS, short_help='Ensure logged in when server is up.')

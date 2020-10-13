@@ -7,7 +7,7 @@ import pandas as pd
 from koapy.grpc import KiwoomOpenApiService_pb2
 from koapy.grpc.KiwoomOpenApiServiceClientSideDynamicCallable import KiwoomOpenApiServiceClientSideDynamicCallable
 from koapy.grpc.KiwoomOpenApiServiceClientSideSignalConnector import KiwoomOpenApiServiceClientSideSignalConnector
-from koapy.pyqt5.KiwoomOpenApiControlWrapper import KiwoomOpenApiControlCommonWrapper
+from koapy.pyside2.KiwoomOpenApiControlWrapper import KiwoomOpenApiControlCommonWrapper
 from koapy.openapi.RealType import RealType
 
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError

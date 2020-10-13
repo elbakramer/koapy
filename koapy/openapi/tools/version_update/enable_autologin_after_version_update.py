@@ -10,9 +10,9 @@ warnings.simplefilter("ignore", UserWarning)
 
 import pywinauto
 
-from PyQt5.QtWidgets import QApplication
+from PySide2.QtWidgets import QApplication
 
-from koapy.pyqt5.KiwoomOpenApiQAxWidget import KiwoomOpenApiQAxWidget
+from koapy.pyside2.KiwoomOpenApiQAxWidget import KiwoomOpenApiQAxWidget
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 from koapy.config import config
 from koapy.openapi.tools.version_update.login_semiauto import login_semiauto

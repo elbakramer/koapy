@@ -76,13 +76,13 @@ KOAPY 는 `키움증권의 OpenAPI`_ 를 Python 에서 쉽게 사용할 수 있�
 기본적인 Python 에 대한 지식만 어느 정도 있다면 쉽게 사용할 수 있도록 하는 것에 초점을 두었습니다.
 
 * 키움에서 제공하는 OpenAPI 의 OCX 라이브러리 구조
-* OCX 를 Python 에서 구동하기 위한 PyQt5_ 와 |QAxWidget|_ 생성
+* OCX 를 Python 에서 구동하기 위한 PyQt5_/PySide2_ 와 |QAxWidget|_ 생성
 * 컨트롤에서 함수 호출을 위한 |dynamicCall|_ 함수 사용
 * 이벤트 처리를 위해 적절한 |signal|_/|slot|_ 설정 및 처리
 
 KOAPY 는 아래와 같은 기능을 제공합니다.
 
-* PyQt5_ 를 기반한 GUI 환경에 얽매일 필요 없이 일반적인 라이브러리처럼 가져다 활용할 수 있습니다.
+* PyQt5_/PySide2_ 를 기반한 GUI 환경에 얽매일 필요 없이 일반적인 라이브러리처럼 가져다 활용할 수 있습니다.
   CLI 형태로 쓸 수도 있고 이외에 다양한 곳에서도 쉽게 활용이 가능합니다.
 * 컨트롤 함수 호출 시 명세에 적혀있는 형태 그대로 Python 함수였던 것처럼 호출이 가능합니다.
   이후는 KOAPY 가 유연하게 처리합니다.
@@ -235,7 +235,8 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 
 .. _`키움증권의 OpenAPI`: https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000
 
-.. _PyQt5: https://pypi.org/project/PyQt5/
+.. _PyQt5: https://www.riverbankcomputing.com/software/pyqt/
+.. _PySide2: https://doc.qt.io/qtforpython/index.html
 .. _매뉴얼: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf
 .. _KOAStudio: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=7
 .. _gRPC: https://grpc.io/
@@ -245,13 +246,13 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 .. _Usage: https://koapy.readthedocs.io/en/latest/usage.html
 
 .. |QAxWidget| replace:: ``QAxWidget``
-.. _QAxWidget: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qaxcontainer/qaxwidget.html
+.. _QAxWidget: https://doc.qt.io/qt-5/qaxwidget.html
 .. |dynamicCall| replace:: ``dynamicCall``
-.. _dynamicCall: https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qaxcontainer/qaxbase.html?highlight=dynamicCall#dynamicCall
+.. _dynamicCall: https://doc.qt.io/qt-5/qaxbase.html#dynamicCall
 .. |signal| replace:: ``signal``
-.. _signal: https://www.riverbankcomputing.com/static/Docs/PyQt5/signals_slots.html?highlight=signal
+.. _signal: https://doc.qt.io/qt-5/signalsandslots.html#signals
 .. |slot| replace:: ``slot``
-.. _slot: https://www.riverbankcomputing.com/static/Docs/PyQt5/signals_slots.html?highlight=slot
+.. _slot: https://doc.qt.io/qt-5/signalsandslots.html#slots
 .. |pandas.DataFrame| replace:: ``pandas.DataFrame``
 .. _`pandas.DataFrame`: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html
 

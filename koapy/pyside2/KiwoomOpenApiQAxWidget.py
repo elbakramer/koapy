@@ -1,14 +1,17 @@
 import logging
 
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QAxContainer import QAxWidget
-from PyQt5.QtCore import QEvent, Qt
+# see /koapy/pyside2/__init__.py for more information.
+import koapy.pyside2 # pylint: disable=unused-import
 
-from koapy.pyqt5.KiwoomOpenApiDynamicCallable import KiwoomOpenApiDynamicCallable
-from koapy.pyqt5.KiwoomOpenApiSignalConnector import KiwoomOpenApiSignalConnector
-from koapy.pyqt5.KiwoomOpenApiControlWrapper import KiwoomOpenApiControlWrapper
+from PySide2.QtWidgets import QWidget
+from PySide2.QtAxContainer import QAxWidget
+from PySide2.QtCore import QEvent, Qt
+
+from koapy.pyside2.KiwoomOpenApiDynamicCallable import KiwoomOpenApiDynamicCallable
+from koapy.pyside2.KiwoomOpenApiSignalConnector import KiwoomOpenApiSignalConnector
+from koapy.pyside2.KiwoomOpenApiControlWrapper import KiwoomOpenApiControlWrapper
 from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiLoggingEventHandler
-from koapy.grpc.event.KiwoomOpenApiEventHandlerFunctions import KiwoomOpenApiEventHandlerFunctions
+from koapy.openapi.KiwoomOpenApiSignature import dispatch_signatures_by_name, event_signatures_by_name
 
 class KiwoomOpenApiQAxWidget(QWidget):
 
@@ -31,6 +34,9 @@ class KiwoomOpenApiQAxWidget(QWidget):
 
     CONTROL_NAME_KWARG_KEY = 'c'
 
+    METHOD_NAMES = list(dispatch_signatures_by_name.keys())
+    EVENT_NAMES = list(event_signatures_by_name.keys())
+
     def __init__(self, *args, **kwargs):
         super_args = args
         super_kwargs = kwargs
@@ -48,40 +54,42 @@ class KiwoomOpenApiQAxWidget(QWidget):
 
         self._ax = QAxWidget(clsid_or_progid, self)
         self._ax_wrapped = KiwoomOpenApiControlWrapper(self)
+
+        self._methods = {}
         self._signals = {}
+
         self._event_logger = KiwoomOpenApiLoggingEventHandler(self)
 
-        for event_name in [name for name in dir(KiwoomOpenApiEventHandlerFunctions) if name.startswith('On')]:
-            # 아래처럼 중간의 프록시 객체 (KiwoomOpenApiSignalConnector) 를 넣지
-            # 않으면 외부에서 동적으로 connect 를 할 수가 없어보임 (하더라도
-            # 제대로 이벤트를 받지 못함)
-            connector = KiwoomOpenApiSignalConnector()
-            connector.connect(getattr(self._event_logger, event_name))
-            getattr(self._ax, event_name).connect(connector)
-            self._signals[event_name] = connector
-            # 아래는 기존에 시도해서 실패한 구현 (제대로 이벤트를 받지 못함)
-            """
-            connector = getattr(self._ax, event_name)
-            connector.connect(getattr(self._event_logger, event_name))
-            self._signals[event_name] = connector
-            """
+        for method_name in self.METHOD_NAMES:
+            dynamic_callable = KiwoomOpenApiDynamicCallable(self._ax, method_name)
+            self._methods[method_name] = dynamic_callable
+
+        for event_name in self.EVENT_NAMES:
+            signal_connector = KiwoomOpenApiSignalConnector(event_name)
+            if hasattr(self._event_logger, event_name):
+                signal_connector.connect(getattr(self._event_logger, event_name))
+            self._signals[event_name] = signal_connector
+            signal_connector.connect_to(self._ax)
 
         self._ax.exception.connect(self._onException)
 
-    def _onException(self, code, source, desc, help):
+    def _onException(self, code, source, desc, help): # pylint: disable=redefined-builtin
         logging.exception('QAxBaseException(%r, %r, %r, %r)', code, source, desc, help)
 
     def __getattr__(self, name):
+        if name in self._methods:
+            return self._methods[name]
+        if name in self._signals:
+            return self._signals[name]
         try:
-            result = getattr(self._ax, name)
+            return getattr(self._ax, name)
         except AttributeError:
-            result = self._ax_wrapped.__getattribute__(name)
-        else:
-            if type(result).__name__ == 'pyqtMethodProxy':
-                result = KiwoomOpenApiDynamicCallable(self._ax, name)
-            elif name.startswith('On') and name in self._signals:
-                result = self._signals[name]
-        return result
+            pass
+        try:
+            return self._ax_wrapped.__getattribute__(name)
+        except AttributeError:
+            pass
+        raise AttributeError("'%s' object has not attribute '%s'" % (self.__class__.__name__, name))
 
     def changeEvent(self, event):
         if event.type() == QEvent.WindowStateChange:

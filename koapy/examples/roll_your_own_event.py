@@ -1,8 +1,8 @@
 import sys
 
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QAxContainer import QAxWidget
-from PyQt5.QtCore import QEventLoop
+from PySide2.QtWidgets import QApplication
+from PySide2.QtAxContainer import QAxWidget
+from PySide2.QtCore import QEventLoop, SIGNAL
 
 app = QApplication(sys.argv)
 control = QAxWidget('{A1574A0D-6BFA-4BD7-9020-DED88711818D}')
@@ -15,15 +15,17 @@ def comm_connect():
         raise ValueError(err)
     loop.exec_()
 
+on_event_connect_signal = SIGNAL('OnEventConnect(int)')
+
 def on_event_connect(errcode):
     if errcode < 0:
         raise ValueError(errcode)
     if errcode == 0:
         print('Connected!')
-    control.OnEventConnect.disconnect(on_event_connect)
+    control.disconnect(on_event_connect_signal, on_event_connect)
     loop.exit()
 
-control.OnEventConnect.connect(on_event_connect)
+control.connect(on_event_connect_signal, on_event_connect)
 
 comm_connect()
 
@@ -40,6 +42,8 @@ def get_stock_info(code):
 
 code = '005930'
 price = 0
+
+on_receive_tr_data_signal = SIGNAL('OnReceiveTrData(const QString&, const QString&, const QString&, const QString&, const QString&, int, const QString&, const QString&, const QString&)')
 
 def on_receive_tr_data(scrno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg):
     global price
@@ -63,10 +67,10 @@ def on_receive_tr_data(scrno, rqname, trcode, recordname, prevnext, datalength, 
         if err < 0:
             raise ValueError(err)
     else:
-        control.OnReceiveTrData.disconnect(on_receive_tr_data)
+        control.disconnect(on_receive_tr_data_signal, on_receive_tr_data)
         loop.exit()
 
-control.OnReceiveTrData.connect(on_receive_tr_data)
+control.connect(on_receive_tr_data_signal, on_receive_tr_data)
 
 get_stock_info(code)
 

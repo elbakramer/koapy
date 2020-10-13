@@ -12,7 +12,7 @@ with open('HISTORY.rst', encoding='utf-8') as history_file:
 
 requirements = [
     'Click>=7.1.2',
-    'PyQt5>=5.15.1',
+    'PySide2>=5.15.1',
     'grpcio>=1.32.0',
     'grpcio-tools>=1.32.0',
     'protobuf>=3.13.0',
@@ -77,6 +77,8 @@ setup(
             'openapi/data/fid.xlsx',
             'openapi/data/realtype_by_desc.json',
             'openapi/data/trinfo_by_code.json',
+            'openapi/data/dispatch_signatures_by_name.pkl',
+            'openapi/data/event_signatures_by_name.pkl',
             'utils/krx/data/holiday.json',
             'backtrader/examples/data/orcl-1986-2020.csv',
             'config.conf',

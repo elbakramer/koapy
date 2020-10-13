@@ -21,7 +21,7 @@ class KiwoomOpenApiContext:
         if self._log_level is not None:
             set_loglevel(self._log_level)
         self._server_proc_args = [
-            'python', '-m', 'koapy.pyqt5.tools.start_tray_application',
+            'python', '-m', 'koapy.pyside2.tools.start_tray_application',
             '--port', str(self._port)]
         if self._verbosity:
             self._server_proc_args.append('-' + 'v' * self._verbosity)
