@@ -128,7 +128,7 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
     # 주문 테스트 전에 실제로 주문이 가능한지 확인 용도
     def is_currently_in_session():
         is_in_session = False
-        now = Timestamp.now()
+        now = Timestamp.now(tz=krx_calendar.tz)
         today_session = now.normalize()
         if krx_calendar.is_session(today_session):
             opening, closing = krx_calendar.open_and_close_for_session(today_session)

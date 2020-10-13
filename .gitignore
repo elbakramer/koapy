@@ -110,3 +110,6 @@ ENV/
 
 # PyPi
 .pypirc
+
+# Mac OS
+.DS_Store

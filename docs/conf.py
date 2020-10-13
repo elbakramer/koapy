@@ -85,6 +85,8 @@ from docutils import nodes
 missing_reference_uris = {
     'PyQt5.QtWidgets.QWidget': 'https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtwidgets/qwidget.html?highlight=qwidget',
     'PyQt5.QtCore.QObject': 'https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qobject.html?highlight=qobject',
+    'PySide2.QtWidgets.QWidget': 'https://doc.qt.io/qtforpython/PySide2/QtWidgets/QWidget.html',
+    'PySide2.QtCore.QObject': 'https://doc.qt.io/qtforpython/PySide2/QtCore/QObject.html',
 }
 
 def missing_reference(_app, _env, node, contnode):
@@ -114,35 +116,40 @@ add_function_parentheses = False
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
-    'PyQt5': ('https://www.riverbankcomputing.com/static/Docs/PyQt5/', None),
     'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
+    'PyQt5': ('https://www.riverbankcomputing.com/static/Docs/PyQt5/', None),
 }
 
 # -- Autodoc mocking configuration ---
 
-if on_rtd:
-    autodoc_mock_imports = ['PyQt5', 'sip', 'numpy', 'pandas']
+from unittest.mock import MagicMock
 
-    from unittest.mock import MagicMock
+autodoc_mock_imports = [
+    'PyQt5','PySide2', 
+    'numpy', 'pandas', 'sip',
+    'pythoncom', 'win32com.client']
 
-    class QWidget:
-        __module__ = 'PyQt5.QtWidgets'
+for module in autodoc_mock_imports:
+    sys.modules[module] = MagicMock()
 
-    class QObject:
-        __module__ = 'PyQt5.QtCore'
+class QWidget:
+    __module__ = 'PySide2.QtWidgets'
 
-    PyQt5 = MagicMock()
-    PyQt5.QtWidgets.QWidget = QWidget
-    PyQt5.QtCore.QObject = QObject
-    PyQt5.QAxContainer.QAxWidget = MagicMock()
-    PyQt5.QtGui.QDesktopServices = MagicMock()
+class QObject:
+    __module__ = 'PySide2.QtCore'
 
-    sys.modules.update({
-        'PyQt5.QtWidgets': PyQt5.QtWidgets,
-        'PyQt5.QtCore': PyQt5.QtCore,
-        'PyQt5.QAxContainer': PyQt5.QAxContainer,
-        'PyQt5.QtGui': PyQt5.QtGui,
-    })
+PySide2 = MagicMock()
+PySide2.QtWidgets.QWidget = QWidget
+PySide2.QtCore.QObject = QObject
+PySide2.QtAxContainer.QAxWidget = MagicMock()
+PySide2.QtGui.QDesktopServices = MagicMock()
+
+sys.modules.update({
+    'PySide2.QtWidgets': PySide2.QtWidgets,
+    'PySide2.QtCore': PySide2.QtCore,
+    'PySide2.QtAxContainer': PySide2.QtAxContainer,
+    'PySide2.QtGui': PySide2.QtGui,
+})
 
 # -- Import main package after mocking
 

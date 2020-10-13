@@ -15,7 +15,7 @@ class KiwoomOpenApiDynamicCallable:
             return False
         return True
 
-    def __call__(self, /, *args, **kwargs):
+    def __call__(self, *args, **kwargs):
         ba = self._signature.bind(*args, **kwargs)
         ba.apply_defaults()
         if len(ba.args) <= 8:
