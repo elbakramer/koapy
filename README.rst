@@ -256,12 +256,23 @@ Installation
 
     $ pip install koapy
 
-..  자세한 설치방법과 관련해서는 :doc:`./installation` 을 참고하세요.
-    이후 사용법에 대해서는 :doc:`./usage` 를 참고하세요.
+.. _PyPI: https://pypi.org/project/koapy/
+
+만약에 기본 기능 이외에 추가적인 기능들을 사용하고자 하는 경우, 아래처럼 추가적인 의존성까지 같이 설치해주셔야 합니다.
+
+예를 들어 backtrader_ 관련 기능들이 구현된 ``koapy.backtrader`` 모듈 하위의 기능들을 사용하고자 하는 경우,
+관련 의존성을 포함해 설치하기 위해서는 아래 명령을 실행합니다:
+
+.. code-block:: console
+
+    $ pip install koapy[backtrader]
+
+.. _backtrader: https://github.com/mementum/backtrader
 
 자세한 설치방법과 관련해서는 Installation_ 을 참고하세요.
 
-.. _PyPI: https://pypi.org/project/koapy/
+..  자세한 설치방법과 관련해서는 :doc:`./installation` 을 참고하세요.
+
 .. _Installation: https://koapy.readthedocs.io/en/latest/installation.html
 
 
@@ -269,6 +280,8 @@ Usage
 -----
 
 설치 이후 세부적인 사용법에 대해서는 Usage_ 를 참고하세요.
+
+.. 설치 이후 세부적인 사용법에 대해서는 :doc:`./usage` 를 참고하세요.
 
 현재 알파 단계이기 때문에 많은 기능들이 실제로 문제없이 동작하는지 충분히 테스트되지 않았습니다.
 만약에 실전 트레이딩에 사용하려는 경우 자체적으로 충분한 테스트를 거친 후 사용하시기 바랍니다.
@@ -282,25 +295,27 @@ Licensing
 ---------
 
 KOAPY 는 다중 라이선스 방식으로 배포되며,
-사용자는 자신의 의도 및 사용 방식에 따라 아래 라이선스 옵션들 중 하나를 골라 사용할 수 있습니다.
+사용자는 자신의 의도 및 사용 방식에 따라 아래 라이선스 옵션들 중 하나를 선택해 사용할 수 있습니다.
 
 * `MIT License`_
 * `Apache License 2.0`_
 * `GNU General Public License v3.0`_ or later
 
-라이선스 선택과 관련하여 개인적으로 추천하는 가이드라인은 아래와 같습니다.
+라이선스 선택과 관련하여 추천하는 가이드라인은 아래와 같습니다.
 
 * `MIT License`_
     * 일반적인 사용자에게 알맞습니다.
     * 짧고 단순한 라이선스를 선호하시면 해당 라이선스를 선택하세요.
 * `Apache License 2.0`_
     * MIT 라이선스와 큰 차이는 없지만, 특허와 관련해서 명시적인 허가조항이 있습니다.
-    * 추후 특허권과 관련해 우려되는 부분이 있는 경우 MIT 대신에 선택하시면 됩니다.
+    * 추후 특허권 침해 소송이 우려되는 경우 MIT 라이선스 대신에 선택하시면 됩니다.
 * `GNU General Public License v3.0`_ or later
     * FSF_/GPL_ 이 추구하는 Copyleft_ 의 가치를 따르신다면 선택 가능한 옵션중 하나입니다.
-    * 이외에 backtrader_ 와 관련된 기능들을 활용하시는 경우, 해당 패키지는 **반드시** GPLv3+ 로만 배포되어야 합니다.
+    * 이외에 backtrader_ 와 관련된 기능들을 활용하시는 경우 해당 패키지는 **반드시** GPLv3+ 로만 배포되어야 합니다.
+        * 설치시 ``pip install koapy[backtrader]`` 명령으로 설치
+        * 사용시 ``koapy.backtrader`` 모듈 하위의 기능들을 사용
     * 이것은 backtrader_ 가 GPLv3+ 로 배포되고 있으며,
-      라이선스의 요구사항에 따라 그것을 사용하는 소프트웨어도 GPLv3+ 로 배포되어야 하기 때문입니다.
+      해당 라이선스의 요구사항에 따라 그것을 사용하는 소프트웨어 또한 GPLv3+ 로 배포되어야 하기 때문입니다.
 
 각 라이선스의 허가 및 요구사항과 관련해서 쉽게 정리된 내용은 `tr;dlLegal`_ 에서 참고하실 수 있습니다.
 

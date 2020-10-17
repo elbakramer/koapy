@@ -11,6 +11,7 @@ pre, tt, code {
 
 code {
     display: inline-block;
+    padding: 0 0.2em;
 }
 
 dl dd {

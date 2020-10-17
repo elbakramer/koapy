@@ -2,6 +2,9 @@ include AUTHORS.rst
 include CONTRIBUTING.rst
 include HISTORY.rst
 include LICENSE
+include LICENSE.MIT
+include LICENSE.APACHE-2.0
+include LICENSE.GPL-3.0-OR-LATER
 include README.rst
 
 recursive-include tests *

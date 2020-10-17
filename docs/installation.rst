@@ -16,6 +16,14 @@ To install KOAPY, run this command in your terminal:
 
 This is the preferred method to install KOAPY, as it will always install the most recent stable release.
 
+Optionally, in order to install KOAPY with additional backtrader_ support, run this command in your terminal:
+
+.. code-block:: console
+
+    $ pip install koapy[backtrader]
+
+.. _backtrader: https://github.com/mementum/backtrader
+
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
 
@@ -158,13 +166,25 @@ Python 을 설치하는데 여러 방법이 있겠지만, 여기서는 Anaconda 
 KOAPY
 =====
 
-이후 KOAPY 설치는 pip_ 를 통해 설치하면 됩니다.
+이후 KOAPY 설치는 pip_ 를 통해 설치하면 됩니다:
 
 .. code-block:: console
 
     $ pip install koapy
 
+.. _pip: https://pip.pypa.io
+
 맨 위의 :ref:`installation:Stable release` 의 내용과 동일한 내용입니다.
+
+만약에 backtrader_ 관련 기능들이 구현된 ``koapy.backtrader`` 모듈 하위의 기능들을 사용하고자 하는 경우,
+관련 의존성을 포함해 설치하기 위해서는 아래 명령을 실행합니다:
+
+.. code-block:: console
+
+    $ pip install koapy[backtrader]
+
+.. _backtrader: https://github.com/mementum/backtrader
+
 
 OpenAPI 와의 통신을 위해서 32-Bit 환경에는 필수로 설치되어야 합니다.
 OpenAPI 의 OCX 라이브러리가 32-Bit 환경만 지원하기 때문입니다.
@@ -174,5 +194,3 @@ OpenAPI 의 OCX 라이브러리가 32-Bit 환경만 지원하기 때문입니다
 32-Bit 환경에는 서버만 띄워두고 64Bit 환경에서 gRPC 클라이언트 API 를 통해 서버에 연결하여 동일하게 OpenAPI 의 모든 기능을 활용할 수 있습니다.
 
 이후 사용법에 대해서는 :doc:`./usage` 를 참고하세요.
-
-.. _pip: https://pip.pypa.io
