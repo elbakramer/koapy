@@ -1,3 +1,4 @@
+# core dependencies for testing/documentation
 pip==20.2.3
 bump2version==1.0.1
 wheel==0.35.1
@@ -16,5 +17,5 @@ codecov==2.1.10
 pytest-cov==2.10.1
 pytest-xdist==2.1.0
 
-# temporary fix until astroid 2.4.3 comes out
+# temporary fix until astroid 2.4.3 comes out, documentation build fails on astroid 2.4.2
 git+https://github.com/PyCQA/astroid.git

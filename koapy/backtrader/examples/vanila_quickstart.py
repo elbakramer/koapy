@@ -112,6 +112,8 @@ def main():
     _strats = cerebro.optstrategy(OrclStrategy, maperiod=range(10, 31))
 
     modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+    # goto https://finance.yahoo.com/quote/ORCL/history and download historical data as csv
     datapath = os.path.join(modpath, 'data/orcl-1986-2020.csv')
 
     data = bt.feeds.YahooFinanceCSVData(

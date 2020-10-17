@@ -25,10 +25,8 @@ requirements = [
     'numpy>=1.19.2',
     'pandas>=1.1.3',
     'xlrd>=1.2.0',
-    'SQLAlchemy>=1.3.19',
+    'SQLAlchemy>=1.3.20',
     'Send2Trash>=1.5.0',
-    'backtrader>=1.9.76.123',
-    'matplotlib>=3.3.2',
     'pendulum>=2.1.2',
     'pytz>=2020.1',
     'tzlocal>=2.1',
@@ -39,9 +37,12 @@ requirements = [
     'pywinauto>=0.6.8;sys_platform=="win32"',
 ]
 
-setup_requirements = ['pytest-runner', ]
-
-test_requirements = ['pytest>=3', ]
+requirements_extras = {
+    'backtrader': [
+        'backtrader>=1.9.76.123',
+        'matplotlib>=3.3.2',
+    ]
+}
 
 setup(
     author="Yunseong Hwang",
@@ -51,6 +52,8 @@ setup(
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: Apache Software License',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
         'Natural Language :: English',
         'Natural Language :: Korean',
         'Programming Language :: Python :: 3',
@@ -69,7 +72,8 @@ setup(
         ],
     },
     install_requires=requirements,
-    license="MIT license",
+    extras_require=requirements_extras,
+    license="MIT OR Apache-2.0 OR GPL-3.0-or-later",
     long_description=readme + '\n\n' + history,
     package_data={
         'koapy': [
@@ -80,7 +84,6 @@ setup(
             'openapi/data/dispatch_signatures_by_name.pkl',
             'openapi/data/event_signatures_by_name.pkl',
             'utils/krx/data/holiday.json',
-            'backtrader/examples/data/orcl-1986-2020.csv',
             'config.conf',
         ]
     },
@@ -88,9 +91,7 @@ setup(
     keywords='koapy',
     name='koapy',
     packages=find_packages(include=['koapy', 'koapy.*']),
-    setup_requires=setup_requirements,
     test_suite='tests',
-    tests_require=test_requirements,
     url='https://github.com/elbakramer/koapy',
     version='0.1.12',
     zip_safe=False,

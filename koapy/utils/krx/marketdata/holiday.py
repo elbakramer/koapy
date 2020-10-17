@@ -1,3 +1,5 @@
+# check http://marketdata.krx.co.kr/mdi#document=01100305 for more information
+
 import re
 import datetime
 import logging

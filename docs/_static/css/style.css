@@ -17,6 +17,10 @@ dl dd {
     margin-left: 0;
 }
 
+div.document {
+    width: 1000px;
+}
+
 @media screen and (max-width: 875px) {
     div.sphinxsidebar {
         width: calc(100% + 20px);

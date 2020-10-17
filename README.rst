@@ -17,6 +17,8 @@ KOAPY
             :target: https://pypi.python.org/pypi/koapy/
             :alt: PyPI Status
 
+    .. badges from below are commendted out
+
     .. .. image:: https://img.shields.io/pypi/dm/koapy.svg
             :target: https://pypi.python.org/pypi/koapy/
             :alt: PyPI Monthly Donwloads
@@ -44,6 +46,8 @@ KOAPY
             :alt: Requires.io Requirements Status
     .. .. image:: https://requires.io/github/elbakramer/koapy/requirements.svg?branch=master
 
+    .. badges from below are commendted out
+
     .. .. image:: https://pyup.io/repos/github/elbakramer/koapy/shield.svg
             :target: https://pyup.io/repos/github/elbakramer/koapy/
             :alt: PyUp Updates
@@ -60,10 +64,18 @@ KOAPY
             :alt: FOSSA Status
 
 
+.. container::
+
+    .. image:: https://badges.gitter.im/elbakramer/koapy.svg
+            :target: https://gitter.im/koapy/community
+            :alt: Gitter Chat
+    .. .. image:: https://img.shields.io/gitter/room/elbakramer/koapy.svg
+
+
 Kiwoom Open Api Python
 
 
-* Free software: MIT license
+* Free software: MIT OR Apache-2.0 OR GPL-3.0-or-later
 * Documentation: https://koapy.readthedocs.io.
 
 
@@ -214,25 +226,6 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 
 이외에 사용법과 관련한 다양한 예시들은 examples_ 폴더에서 확인 가능합니다.
 
-해당 라이브러리는 PyPI_ 를 통해서 설치 가능합니다:
-
-.. code-block:: console
-
-    $ pip install koapy
-
-..  자세한 설치방법과 관련해서는 :doc:`./installation` 을 참고하세요.
-    이후 사용법에 대해서는 :doc:`./usage` 를 참고하세요.
-
-자세한 설치방법과 관련해서는 Installation_ 을 참고하세요.
-
-이후 사용법에 대해서는 Usage_ 를 참고하세요.
-
-현재 알파 단계이기 때문에 많은 기능들이 실제로 문제없이 동작하는지 충분히 테스트되지 않았습니다.
-만약에 실전 트레이딩에 사용하려는 경우 자체적으로 충분한 테스트를 거친 후 사용하시기 바랍니다.
-개발자는 라이브러리 사용으로 인해 발생하는 손실에 대해 어떠한 책임도 지지 않습니다.
-
-또한 알파 단계에서 개발이 진행되면서 라이브러리의 구조가 계속 급격하게 변경될 수 있으니 참고 바랍니다.
-
 .. _`키움증권의 OpenAPI`: https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000
 
 .. _PyQt5: https://www.riverbankcomputing.com/software/pyqt/
@@ -241,9 +234,6 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 .. _KOAStudio: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=7
 .. _gRPC: https://grpc.io/
 .. _examples: https://github.com/elbakramer/koapy/tree/master/koapy/examples
-.. _PyPI: https://pypi.org/project/koapy/
-.. _Installation: https://koapy.readthedocs.io/en/latest/installation.html
-.. _Usage: https://koapy.readthedocs.io/en/latest/usage.html
 
 .. |QAxWidget| replace:: ``QAxWidget``
 .. _QAxWidget: https://doc.qt.io/qt-5/qaxwidget.html
@@ -255,6 +245,79 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 .. _slot: https://doc.qt.io/qt-5/signalsandslots.html#slots
 .. |pandas.DataFrame| replace:: ``pandas.DataFrame``
 .. _`pandas.DataFrame`: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html
+
+
+Installation
+------------
+
+해당 라이브러리는 PyPI_ 를 통해서 설치 가능합니다:
+
+.. code-block:: console
+
+    $ pip install koapy
+
+..  자세한 설치방법과 관련해서는 :doc:`./installation` 을 참고하세요.
+    이후 사용법에 대해서는 :doc:`./usage` 를 참고하세요.
+
+자세한 설치방법과 관련해서는 Installation_ 을 참고하세요.
+
+.. _PyPI: https://pypi.org/project/koapy/
+.. _Installation: https://koapy.readthedocs.io/en/latest/installation.html
+
+
+Usage
+-----
+
+설치 이후 세부적인 사용법에 대해서는 Usage_ 를 참고하세요.
+
+현재 알파 단계이기 때문에 많은 기능들이 실제로 문제없이 동작하는지 충분히 테스트되지 않았습니다.
+만약에 실전 트레이딩에 사용하려는 경우 자체적으로 충분한 테스트를 거친 후 사용하시기 바랍니다.
+개발자는 라이브러리 사용으로 인해 발생하는 손실에 대해 어떠한 책임도 지지 않습니다.
+
+또한 알파 단계에서 개발이 진행되면서 라이브러리의 구조가 계속 급격하게 변경될 수 있으니 참고 바랍니다.
+
+.. _Usage: https://koapy.readthedocs.io/en/latest/usage.html
+
+Licensing
+---------
+
+KOAPY 는 다중 라이선스 방식으로 배포되며,
+사용자는 자신의 의도 및 사용 방식에 따라 아래 라이선스 옵션들 중 하나를 골라 사용할 수 있습니다.
+
+* `MIT License`_
+* `Apache License 2.0`_
+* `GNU General Public License v3.0`_ or later
+
+라이선스 선택과 관련하여 개인적으로 추천하는 가이드라인은 아래와 같습니다.
+
+* `MIT License`_
+    * 일반적인 사용자에게 알맞습니다.
+    * 짧고 단순한 라이선스를 선호하시면 해당 라이선스를 선택하세요.
+* `Apache License 2.0`_
+    * MIT 라이선스와 큰 차이는 없지만, 특허와 관련해서 명시적인 허가조항이 있습니다.
+    * 추후 특허권과 관련해 우려되는 부분이 있는 경우 MIT 대신에 선택하시면 됩니다.
+* `GNU General Public License v3.0`_ or later
+    * FSF_/GPL_ 이 추구하는 Copyleft_ 의 가치를 따르신다면 선택 가능한 옵션중 하나입니다.
+    * 이외에 backtrader_ 와 관련된 기능들을 활용하시는 경우, 해당 패키지는 **반드시** GPLv3+ 로만 배포되어야 합니다.
+    * 이것은 backtrader_ 가 GPLv3+ 로 배포되고 있으며,
+      라이선스의 요구사항에 따라 그것을 사용하는 소프트웨어도 GPLv3+ 로 배포되어야 하기 때문입니다.
+
+각 라이선스의 허가 및 요구사항과 관련해서 쉽게 정리된 내용은 `tr;dlLegal`_ 에서 참고하실 수 있습니다.
+
+다만 위의 내용이 법률적 조언은 아닌 점 참고 바랍니다.
+
+.. _`MIT License`: https://spdx.org/licenses/MIT.html
+.. _`Apache License 2.0`: http://www.apache.org/licenses/LICENSE-2.0
+.. _`GNU General Public License v3.0`: https://www.gnu.org/licenses/gpl-3.0.html
+
+.. _FSF: https://www.fsf.org/
+.. _GPL: https://www.gnu.org/licenses/licenses.html#GPL
+.. _Copyleft: https://www.gnu.org/licenses/copyleft.html
+
+.. _backtrader: https://github.com/mementum/backtrader
+
+.. _`tr;dlLegal`: https://tldrlegal.com/
+
 
 Reference
 ---------
