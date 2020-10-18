@@ -74,6 +74,11 @@ class KiwoomOpenApiServiceStub(object):
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.BidirectionalRealRequest.SerializeToString,
                 response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
                 )
+        self.OrderListen = channel.unary_stream(
+                '/koapy.grpc.KiwoomOpenApiService/OrderListen',
+                request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenRequest.SerializeToString,
+                response_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
+                )
         self.SetLogLevel = channel.unary_unary(
                 '/koapy.grpc.KiwoomOpenApiService/SetLogLevel',
                 request_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.SetLogLevelRequest.SerializeToString,
@@ -156,6 +161,12 @@ class KiwoomOpenApiServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def OrderListen(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SetLogLevel(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -223,6 +234,11 @@ def add_KiwoomOpenApiServiceServicer_to_server(servicer, server):
             'BidirectionalRealCall': grpc.stream_stream_rpc_method_handler(
                     servicer.BidirectionalRealCall,
                     request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.BidirectionalRealRequest.FromString,
+                    response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.SerializeToString,
+            ),
+            'OrderListen': grpc.unary_stream_rpc_method_handler(
+                    servicer.OrderListen,
+                    request_deserializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenRequest.FromString,
                     response_serializer=koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.SerializeToString,
             ),
             'SetLogLevel': grpc.unary_unary_rpc_method_handler(
@@ -440,6 +456,23 @@ class KiwoomOpenApiService(object):
             metadata=None):
         return grpc.experimental.stream_stream(request_iterator, target, '/koapy.grpc.KiwoomOpenApiService/BidirectionalRealCall',
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.BidirectionalRealRequest.SerializeToString,
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def OrderListen(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/koapy.grpc.KiwoomOpenApiService/OrderListen',
+            koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenRequest.SerializeToString,
             koapy_dot_grpc_dot_KiwoomOpenApiService__pb2.ListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

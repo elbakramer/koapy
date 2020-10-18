@@ -11,6 +11,7 @@ from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiSomeBidirec
 from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiLoadConditionEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiConditionEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiBidirectionalRealEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiAllOrderEventHandler
 
 from koapy.grpc.KiwoomOpenApiService import convert_arguments_from_protobuf_to_python
 
@@ -138,6 +139,11 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
 
     def BidirectionalRealCall(self, request_iterator, context):
         with KiwoomOpenApiBidirectionalRealEventHandler(self.control, request_iterator, context, self.screen_manager) as handler:
+            for response in handler:
+                yield response
+
+    def OrderListen(self, request, context):
+        with KiwoomOpenApiAllOrderEventHandler(self.control, context) as handler:
             for response in handler:
                 yield response
 

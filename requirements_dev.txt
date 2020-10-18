@@ -1,5 +1,5 @@
 # core dependencies for testing/documentation
-pip==20.2.3
+pip==20.2.4
 bump2version==1.0.1
 wheel==0.35.1
 watchdog==0.10.3

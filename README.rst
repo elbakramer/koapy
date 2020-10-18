@@ -316,7 +316,8 @@ KOAPY 는 다중 라이선스 방식으로 배포되며,
 * `GNU General Public License v3.0`_ or later
 
   * FSF_/GPL_ 이 추구하는 Copyleft_ 의 가치를 따르신다면 선택 가능한 옵션중 하나입니다.
-  * 이외에 backtrader_ 와 관련된 기능들을 활용하시는 경우 해당 패키지는 **반드시** GPLv3+ 로만 배포되어야 합니다.
+  * 이외에 backtrader_ 관련 기능들을 활용하시는 경우, KOAPY 는 **반드시** GPLv3+ 로만 배포되어야 합니다.
+    구체적으로 아래와 같은 경우들에 하나라도 포함된다면 GPLv3+ 배포 조건에 해당됩니다.
 
     * 설치시 ``pip install koapy[backtrader]`` 명령으로 설치
     * 사용시 ``koapy.backtrader`` 모듈 하위의 기능들을 사용

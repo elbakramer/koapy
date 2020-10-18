@@ -2,7 +2,6 @@ import datetime
 import logging
 
 import rx
-import tzlocal
 
 from rx import operators as ops
 from rx.subject import Subject
@@ -12,12 +11,13 @@ from rx.core.typing import Observer
 from koapy.grpc import KiwoomOpenApiService_pb2
 from koapy.grpc.utils.QueueBasedIterableObserver import QueueBasedIterableObserver
 from koapy.grpc.utils.QueueBasedBufferedIterator import QueueBasedBufferedIterator
-
 from koapy.openapi.RealType import RealType
+
+from koapy.utils.krx.calendar import get_krx_timezone
 
 class KiwoomOpenApiPriceEventChannel:
 
-    local_timezone = tzlocal.get_localzone()
+    krx_timezone = get_krx_timezone()
 
     def __init__(self, stub):
         self._stub = stub
@@ -38,6 +38,10 @@ class KiwoomOpenApiPriceEventChannel:
         self.initialize()
 
     def close(self):
+        for _code, (_subject, subscription) in self._subjects_by_code.items():
+            subscription.dispose()
+        self._response_subscription.dispose()
+        self._buffered_response_iterator.stop()
         self._response_iterator.cancel()
 
     def __del__(self):
@@ -71,12 +75,12 @@ class KiwoomOpenApiPriceEventChannel:
 
     def time_to_timestamp(self, fid20):
         if fid20 is None:
-            dt = datetime.datetime.now(self.local_timezone)
+            dt = datetime.datetime.now(self.krx_timezone)
         else:
-            dt = datetime.datetime.now(self.local_timezone).date()
+            dt = datetime.datetime.now(self.krx_timezone).date()
             tm = datetime.datetime.strptime(fid20, '%H%M%S').time()
             dt = datetime.datetime.combine(dt, tm)
-            dt = self.local_timezone.localize(dt)
+            dt = self.krx_timezone.localize(dt)
         return dt.timestamp() * (10 ** 6)
 
     def event_to_dict(self, response):
@@ -95,44 +99,137 @@ class KiwoomOpenApiPriceEventChannel:
         self.register_code(code)
         if code not in self._subjects_by_code:
             subject = Subject()
-            self._response_subject.pipe(
+            subscription = self._response_subject.pipe(
                 self.filter_for_code(code),
                 self.filter_price_event(),
                 self.convert_to_dict(),
             ).subscribe(subject)
-            self._subjects_by_code[code] = subject
-        subject = self._subjects_by_code[code]
+            self._subjects_by_code[code] = (subject, subscription)
+        subject, subscription = self._subjects_by_code[code]
         return subject
 
 class KiwoomOpenApiOrderEventChannel:
 
     def __init__(self, stub):
         self._stub = stub
-        self._slots = [
-            'OnReceiveMsg',
-            'OnReceiveTrData',
-            'OnReceiveChejanData',
-            'OnEventConnect',
-        ]
 
         request = KiwoomOpenApiService_pb2.ListenRequest()
-        request.slots.extend(self._slots) # pylint: disable=no-member
-        self._response_iterator = self._stub.Listen(request)
-        self._subscription = rx.from_iterable(self._response_iterator).subscribe(self)
+        self._response_iterator = self._stub.OrderListen(request)
+        self._response_subject = Subject()
+        self._response_scheduler_max_workers = 8
+        self._response_scheduler = ThreadPoolScheduler(self._response_scheduler_max_workers)
+        self._buffered_response_iterator = QueueBasedBufferedIterator(self._response_iterator)
+        self._response_observable = rx.from_iterable(self._buffered_response_iterator, self._response_scheduler)
+        self._response_subscription = self._response_observable.subscribe(self._response_subject)
+
+        self._observable = Subject()
+        self._subscription = self._response_subject.pipe(
+            self.filter_chejan_response(),
+            self.convert_to_dict(),
+        ).subscribe(self._observable)
 
     def close(self):
         self._subscription.dispose()
+        self._response_subscription.dispose()
+        self._buffered_response_iterator.stop()
         self._response_iterator.cancel()
-
-    def dispose(self):
-        self.close()
 
     def __del__(self):
         self.close()
 
+    def is_chejan_response(self, response):
+        name = response.name
+        gubun = response.arguments[0].string_value
+        if name == 'OnReceiveChejanData' and gubun == '0':
+            data = dict(zip(response.single_data.names, response.single_data.values))
+            order_type = data['주문구분']
+            hoga_type = data['매매구분']
+            status = data['주문상태']
+            market_order_created_and_filled = order_type in ['1', '2'] and hoga_type in ['03'] and status in ['접수']
+            limit_order_created = order_type in ['1', '2'] and hoga_type in ['00'] and status in ['접수']
+            order_filled = order_type in ['1', '2'] and status in ['체결']
+            order_canceled = order_type in ['3', '4'] and status in ['확인']
+            return any(
+                market_order_created_and_filled,
+                limit_order_created,
+                order_filled,
+                order_canceled,
+            )
+        return False
+
+    def filter_chejan_response(self):
+        return ops.filter(self.is_chejan_response)
+
+    def event_to_dict(self, response):
+        result = {}
+        data = dict(zip(response.single_data.names, response.single_data.values))
+        original_order_no = data['원주문번호']
+        if original_order_no:
+            reject_reason = data['거부사유']
+            result = {
+                'type': 'ORDER_CANCEL',
+                'orderId': original_order_no,
+                'reason': reject_reason if reject_reason else 'CLIENT_REQUEST',
+            }
+        else:
+            status = data['주문상태']
+            if status == '접수':
+                hoga_type = data['매매구분']
+                if hoga_type == '00':
+                    order_no = data['주문번호']
+                    result = {
+                        'type': 'LIMIT_ORDER_CREATE',
+                        'id': order_no,
+                    }
+                elif hoga_type == '03':
+                    order_no = data['주문번호']
+                    units = data['단위체결량']
+                    buy_or_sell = data['매도수구분']
+                    side = {
+                        '매수': 'buy',
+                        '매도': 'sell',
+                    }[buy_or_sell]
+                    price = data['단위체결가']
+                    result = {
+                        'type': 'MARKET_ORDER_CREATE', # TODO: 시장가 주문 체결 데이터가 어디서 오는지 확인
+                        'id': order_no,
+                        'orderOpened': {'id': order_no},
+                        'units': int(units),
+                        'side': side, # TODO: 장 시간동안 값 확인해서 buy/sell 로 변환
+                        'price': abs(float(price)),
+                    }
+                else:
+                    logging.warning('Unexpected hoga type %s', hoga_type)
+            elif status == '체결':
+                order_no = data['주문번호']
+                units = data['단위체결량']
+                buy_or_sell = data['매도수구분']
+                side = {
+                    '매수': 'buy',
+                    '매도': 'sell',
+                }[buy_or_sell]
+                price = data['단위체결가']
+                result = {
+                    'type': 'ORDER_FILLED',
+                    'orderId': order_no,
+                    'units': int(units),
+                    'side': side, # TODO: 장 시간동안 값 확인해서 buy/sell 로 변환
+                    'price': abs(float(price)),
+                }
+            else:
+                logging.warning('Unexcpected status %s', status)
+        return result
+
+    def convert_to_dict(self):
+        return ops.map(self.event_to_dict)
+
+    def get_observable(self):
+        return self._observable
+
 class KiwoomOpenApiEventStreamer(Observer):
 
     _price_event_channels_by_stub = {}
+    _order_event_channels_by_stub = {}
 
     def __init__(self, stub, queue):
         super().__init__()
@@ -158,5 +255,9 @@ class KiwoomOpenApiEventStreamer(Observer):
         return subscription
 
     def events(self):
-        # TODO: Implement
-        raise NotImplementedError
+        if self._stub not in self._order_event_channels_by_stub:
+            self._order_event_channels_by_stub[self._stub] = KiwoomOpenApiOrderEventChannel(self._stub)
+        event_channel = self._order_event_channels_by_stub[self._stub]
+        subscription = event_channel.get_observable().subscribe(self)
+        logging.debug('Subscribing order events')
+        return subscription

@@ -18,6 +18,7 @@ service KiwoomOpenApiService {
   rpc ConditionCall (ConditionRequest) returns (stream ListenResponse) {};
 
   rpc BidirectionalRealCall(stream BidirectionalRealRequest) returns (stream ListenResponse) {};
+  rpc OrderListen (ListenRequest) returns (stream ListenResponse) {};
 
   rpc SetLogLevel (SetLogLevelRequest) returns (SetLogLevelResponse) {};
 }

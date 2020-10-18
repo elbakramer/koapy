@@ -144,16 +144,82 @@ class API:
         return response
 
     def create_order(self, account, **kwargs):
-        # TODO: Implement
-        raise NotImplementedError
-        response = {}
-        return response
+        request_name = 'create_order(%s, %s)' % (account, kwargs)
+        screen_no = ''
+        account_no = account
+        order_type = {
+            'buy': 1,
+            'sell': 2,
+        }[kwargs['side']]
+        code = kwargs['instrument']
+        quantity = kwargs['units']
+        price = kwargs.get('price', 0)
+        quote_type = {
+            'limit': '00',
+            'market': '03',
+        }[kwargs['type']]
+        original_order_no = ''
+        responses = self.OrderCall(
+            request_name,
+            screen_no,
+            account_no,
+            order_type,
+            code,
+            quantity,
+            price,
+            quote_type,
+            original_order_no,
+        )
+        """
+        trans = next(responses)
+        accept = next(responses)
+        fill = next(responses)
+        balance = next(response)
+        response = {
+            'type': 'MARKET_ORDER_CREATE',
+            'orderOpened': {'id': ''},
+            'tradeOpened': {'id': ''},
+            'tradeReduced': {'id': ''},
+            'tradesClosed': [
+                {'id': ''},
+            ],
+        }
+        response = {
+            'type': 'LIMIT_ORDER_CREATE',
+            'id': '',
+        }
+        response = {
+            'type': 'ORDER_FILLED',
+            'orderId': '',
+            'units': 0,
+            'side': 'buy' or 'sell',
+            'price': 0
+        }
+        """
+        return responses
 
-    def close_order(self, account, oid):
-        # TODO: Implement
-        raise NotImplementedError
-        response = {}
-        return response
+    def close_order(self, account, oid, size):
+        request_name = 'close_order(%s, %s, %s)' % (account, oid, size)
+        screen_no = ''
+        account_no = account
+        order_type = 3 if size >= 0 else 4
+        code = ''
+        quantity = 0
+        price = 0
+        quote_type = ''
+        original_order_no = oid
+        responses = self.OrderCall(
+            request_name,
+            screen_no,
+            account_no,
+            order_type,
+            code,
+            quantity,
+            price,
+            quote_type,
+            original_order_no,
+        )
+        return responses
 
 class MetaSingleton(MetaParams):
 
@@ -508,27 +574,31 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
                     self._process_transaction(oid, trans)
 
     def order_cancel(self, order):
-        self.q_orderclose.put(order.ref)
+        self.q_orderclose.put((order.ref, order.created.size))
         return order
 
     def _t_order_cancel(self):
         while True:
-            oref = self.q_orderclose.get()
-            if oref is None:
+            msg = self.q_orderclose.get()
+            if msg is None:
                 break
 
+            oref, size = msg
             oid = self._orders.get(oref, None)
             if oid is None:
                 continue  # the order is no longer there
             try:
-                o = self.context.close_order(self.p.account, oid)
+                o = self.context.close_order(self.p.account, oid, size)
             except Exception as e:
                 continue  # not cancelled - FIXME: notify
 
             self.broker._cancel(oref)
 
-    _X_ORDER_CREATE = ('STOP_ORDER_CREATE',
-                       'LIMIT_ORDER_CREATE', 'MARKET_IF_TOUCHED_ORDER_CREATE',)
+    _X_ORDER_CREATE = (
+        'STOP_ORDER_CREATE',
+        'LIMIT_ORDER_CREATE',
+        'MARKET_IF_TOUCHED_ORDER_CREATE',
+    )
 
     def _transaction(self, trans):
         # Invoked from Streaming Events. May actually receive an event for an
@@ -585,9 +655,13 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
         except KeyError:  # not yet seen, keep as pending
             self._transpend[oid].append(trans)
 
-    _X_ORDER_FILLED = ('MARKET_ORDER_CREATE',
-                       'ORDER_FILLED', 'TAKE_PROFIT_FILLED',
-                       'STOP_LOSS_FILLED', 'TRAILING_STOP_FILLED',)
+    _X_ORDER_FILLED = (
+        'MARKET_ORDER_CREATE',
+        'ORDER_FILLED',
+        'TAKE_PROFIT_FILLED',
+        'STOP_LOSS_FILLED',
+        'TRAILING_STOP_FILLED',
+    )
 
     def _process_transaction(self, oid, trans):
         try:
