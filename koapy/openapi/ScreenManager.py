@@ -13,6 +13,7 @@ class ScreenManager:
         self._control = control
         self._lock = threading.RLock()
         self._occupied_screen_nos = collections.deque(maxlen=self._maximum_num)
+        self._borrow_count_by_screen_no = {}
 
     @staticmethod
     def _number_to_screen_no(number):
@@ -23,7 +24,7 @@ class ScreenManager:
         return int(screen_no)
 
     def is_inuse(self, screen_no):
-        return screen_no is not None and self._number_to_screen_no(screen_no) in self._occupied_screen_nos
+        return screen_no is not None and self._screen_no_to_number(screen_no) in self._occupied_screen_nos
 
     def get_single_free_screen(self, exclude=None):
         if exclude is None:
@@ -40,7 +41,7 @@ class ScreenManager:
     def get_multiple_free_screens(self, count):
         screens = []
         for _ in range(count):
-            screens.append(self.get_single_free_screen(), screens)
+            screens.append(self.get_single_free_screen(exclude=screens))
         return screens
 
     def get_free_screen(self, count=None):
@@ -49,20 +50,25 @@ class ScreenManager:
         else:
             return self.get_multiple_free_screens(count)
 
-    def borrow_screen(self, screen_no=None, pop=False):
+    def borrow_screen(self, screen_no=None, reuse=True, pop=True):
         with self._lock:
-            if len(self._occupied_screen_nos) == self._maximum_num:
-                logging.warning('Borrowing a screen, but already using maximum number of screens.')
-                if pop:
-                    oldest = self._occupied_screen_nos.popleft()
-                    logging.warning('Oldest screen %s popped.', self._number_to_screen_no(oldest))
-                else:
-                    raise KiwoomOpenApiError('Cannot allocate more screen')
             if screen_no is None or screen_no == '':
                 screen_no = self.get_single_free_screen()
-            elif self.is_inuse(screen_no):
-                logging.warning("Borrowing screen %s, but it's already is use.", screen_no)
-            self._occupied_screen_nos.append(self._screen_no_to_number(screen_no))
+            if not reuse:
+                if self.is_inuse(screen_no):
+                    raise KiwoomOpenApiError("Borrowing screen %s, but it's already is use." % screen_no)
+                if len(self._occupied_screen_nos) == self._maximum_num:
+                    logging.warning('Borrowing a screen, but already using maximum number of screens.')
+                    if pop:
+                        oldest = self._occupied_screen_nos.popleft()
+                        del self._borrow_count_by_screen_no[oldest]
+                        logging.warning('Oldest screen %s popped.', self._number_to_screen_no(oldest))
+                    else:
+                        raise KiwoomOpenApiError('Cannot allocate more screen')
+            screen_no_int = self._screen_no_to_number(screen_no)
+            if not self.is_inuse(screen_no):
+                self._occupied_screen_nos.append(screen_no_int)
+            self._borrow_count_by_screen_no[screen_no_int] = self._borrow_count_by_screen_no.get(screen_no_int, 0) + 1
             if len(self._occupied_screen_nos) == self._maximum_num:
                 logging.warning('Maximum number of screens reached.')
             return screen_no
@@ -70,8 +76,12 @@ class ScreenManager:
     def return_screen(self, screen_no):
         try:
             with self._lock:
-                self._occupied_screen_nos.remove(self._screen_no_to_number(screen_no))
+                screen_no_int = self._screen_no_to_number(screen_no)
+                self._borrow_count_by_screen_no[screen_no_int] -= 1
+                if self._borrow_count_by_screen_no[screen_no_int] == 0:
+                    self._occupied_screen_nos.remove(self._screen_no_to_number(screen_no))
+                    del self._borrow_count_by_screen_no[screen_no_int]
             return True
-        except ValueError:
+        except (KeyError, ValueError):
             logging.warning('Returned screen %s, but not found.', screen_no)
             return False
