@@ -1,3 +1,4 @@
+import os
 import sys
 import logging
 import argparse
@@ -5,12 +6,18 @@ import datetime
 import signal
 import contextlib
 
-# see /koapy/pyside2/__init__.py for more information.
-import koapy.pyside2 # pylint: disable=unused-import
-
-from PySide2.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QStyle
-from PySide2.QtCore import QTimer, QObject, QUrl, Signal
-from PySide2.QtGui import QDesktopServices
+if os.environ.get('QT_API', 'pyside2') == 'pyside2' and False:
+    import PySide2
+    if hasattr(PySide2, '__file__') and 'QT_QPA_PLATFORM_PLUGIN_PATH' not in os.environ:
+        qt_qpa_platform_plugin_path = os.path.join(os.path.dirname(PySide2.__file__), 'plugins', 'platforms')
+        os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = qt_qpa_platform_plugin_path
+    from PySide2.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QStyle
+    from PySide2.QtCore import QTimer, QObject, QUrl, Signal
+    from PySide2.QtGui import QDesktopServices
+else:
+    from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QStyle
+    from PyQt5.QtCore import QTimer, QObject, QUrl, pyqtSignal as Signal
+    from PyQt5.QtGui import QDesktopServices
 
 from koapy.grpc.KiwoomOpenApiServiceServer import KiwoomOpenApiServiceServer
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError

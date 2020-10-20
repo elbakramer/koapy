@@ -18,10 +18,7 @@ class KiwoomOpenApiDynamicCallable:
     def __call__(self, *args, **kwargs):
         ba = self._signature.bind(*args, **kwargs)
         ba.apply_defaults()
-        if len(ba.args) <= 8:
-            result = self._control.dynamicCall(self._function, *ba.args)
-        else:
-            result = self._control.dynamicCall(self._function, list(ba.args))
+        result = self._control.dynamicCall(self._function, list(ba.args))
         if not self.is_valid_return_type(result):
             raise TypeError('Return type %s expected for function call %s(), but %s found.' % (
                 self._signature.return_annotation,

@@ -29,3 +29,6 @@ pywinauto==0.6.8;sys_platform=='win32'
 # dependencies when using backtrader related features
 backtrader==1.9.76.123
 matplotlib==3.3.2
+
+# dependencies when using pyqt5 related features
+PyQt5==5.15.1

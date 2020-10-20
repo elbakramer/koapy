@@ -1,8 +1,10 @@
+import time
 import math
 import logging
 import datetime
 
 import pandas as pd
+import pytz
 
 import win32com.client
 
@@ -10,6 +12,7 @@ from pywintypes import com_error as ComError # pylint: disable=no-name-in-module
 
 from koapy.utils.rate_limiting.RateLimiter import CybosBlockRequestRateLimiter
 from koapy.utils.krx.calendar import get_last_krx_close_datetime
+from koapy.utils.datetime import localize
 from koapy.config import config
 
 import pywinauto
@@ -179,6 +182,8 @@ class CybosPlusComObject:
             starter.wait_not('visible', timeout=10)
         except pywinauto.timings.TimeoutError:
             pass
+        else:
+            time.sleep(5)
 
     def EnsureConnected(self):
         errcode = 0
@@ -242,6 +247,7 @@ class CybosPlusComObject:
         http://cybosplus.github.io/cpsysdib_rtf_1_/stockchart.htm
         """
         chart = self.CpSysDib.StockChart
+        tz = pytz.timezone('Asia/Seoul')
 
         if len(code) == 6 and not code.startswith('A'):
             code = 'A' + code
@@ -271,6 +277,8 @@ class CybosPlusComObject:
         if not isinstance(start_date, datetime.datetime):
             raise ValueError
 
+        start_date = localize(start_date, tz)
+
         internal_start_date = start_date
 
         if end_date is not None:
@@ -284,6 +292,8 @@ class CybosPlusComObject:
                     raise ValueError
             if not isinstance(end_date, datetime.datetime):
                 raise ValueError
+
+            end_date = localize(end_date, tz)
 
         should_stop = False
         dataframes = []
@@ -321,6 +331,10 @@ class CybosPlusComObject:
 
             from_date = datetime.datetime.strptime(df.iloc[0]['날짜'].astype(int).astype(str), date_format_input)
             last_date = datetime.datetime.strptime(df.iloc[-1]['날짜'].astype(int).astype(str), date_format_input)
+
+            from_date = localize(from_date, tz)
+            last_date = localize(last_date, tz)
+
             logging.debug('Received data from %s to %s for code %s', from_date, last_date, code)
 
             if end_date is None:
@@ -332,7 +346,9 @@ class CybosPlusComObject:
                 logging.debug('More data to request remains')
                 internal_start_date = last_date
                 nrows_before_truncate = df.shape[0]
-                condition = pd.to_datetime(df['날짜'].astype(int).astype(str), format='%Y%m%d') > last_date
+                datetimes = pd.to_datetime(df['날짜'].astype(int).astype(str), format='%Y%m%d')
+                datetimes = datetimes.dt.tz_localize(tz)
+                condition = datetimes > last_date
                 df = df.loc[condition]
                 nrows_after_truncate = df.shape[0]
                 logging.debug('Trailing rows truncated: %d', nrows_before_truncate - nrows_after_truncate)
@@ -340,7 +356,11 @@ class CybosPlusComObject:
                 logging.debug('No more data to request')
                 if end_date is not None:
                     nrows_before_truncate = df.shape[0]
-                    datetimes = pd.to_datetime(df['날짜'].astype(int).astype(str).str.cat(df['시간'].astype(int).astype(str).str.zfill(6)), format='%Y%m%d%H%M%S')
+                    dates = df['날짜'].astype(int).astype(str)
+                    times = df['시간'].astype(int).astype(str).str.zfill(6)
+                    datetimes = dates.str.cat(times)
+                    datetimes = pd.to_datetime(datetimes, format='%Y%m%d%H%M%S')
+                    datetimes = datetimes.dt.tz_localize(tz)
                     condition = datetimes > end_date
                     df = df.loc[condition]
                     nrows_after_truncate = df.shape[0]

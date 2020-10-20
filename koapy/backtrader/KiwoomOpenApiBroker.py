@@ -1,3 +1,4 @@
+import logging
 import collections
 
 from backtrader import BrokerBase, Order, BuyOrder, SellOrder
@@ -21,8 +22,8 @@ class KiwoomOpenApiCommInfo(CommInfoBase):
         ('mult', 1.0),
     )
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         if self._commtype == self.COMM_PERC and not self.p.percabs:
             self.p.tax /= 100.0
@@ -239,6 +240,13 @@ class KiwoomOpenApiBroker(with_metaclass(MetaKiwoomOpenApiBroker, BrokerBase)):
         closedvalue = closedcomm = 0.0
         openedvalue = openedcomm = 0.0
         margin = pnl = 0.0
+
+        if size >= 0:
+            openedvalue = comminfo.getvaluesize(size, price)
+            openedcomm = comminfo.confirmexec(size, price)
+        else:
+            closedvalue = comminfo.getvaluesize(size, price)
+            closedcomm = comminfo.confirmexec(size, price)
 
         order.execute(data.datetime[0], size, price,
                       closed, closedvalue, closedcomm,

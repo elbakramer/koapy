@@ -2,6 +2,7 @@
 
 import time
 import datetime
+import logging
 import threading
 import collections
 
@@ -138,7 +139,7 @@ class API:
         deposit = self.GetDepositInfo(account)
         summary, _foreach = self.GetAccountEvaluationStatusAsSeriesAndDataFrame(account)
         response = {
-            'marginAvail': float(deposit['주문가능금액']),
+            'marginAvail': float(deposit['100%종목주문가능금액']),
             'balance': float(summary['유가잔고평가액']),
         }
         return response
@@ -170,40 +171,21 @@ class API:
             quote_type,
             original_order_no,
         )
-        """
-        trans = next(responses)
+        _msg = next(responses)
+        _tr = next(responses)
         accept = next(responses)
-        fill = next(responses)
-        balance = next(response)
-        response = {
-            'type': 'MARKET_ORDER_CREATE',
-            'orderOpened': {'id': ''},
-            'tradeOpened': {'id': ''},
-            'tradeReduced': {'id': ''},
-            'tradesClosed': [
-                {'id': ''},
-            ],
+        accept_data = dict(zip(accept.single_data.names, accept.single_data.values))
+        result = {
+            'orderOpened': {'id': accept_data['주문번호']}
         }
-        response = {
-            'type': 'LIMIT_ORDER_CREATE',
-            'id': '',
-        }
-        response = {
-            'type': 'ORDER_FILLED',
-            'orderId': '',
-            'units': 0,
-            'side': 'buy' or 'sell',
-            'price': 0
-        }
-        """
-        return responses
+        return result
 
-    def close_order(self, account, oid, size):
-        request_name = 'close_order(%s, %s, %s)' % (account, oid, size)
+    def close_order(self, account, oid, size, dataname):
+        request_name = 'close_order(%s, %s, %s, %s)' % (account, oid, size, dataname)
         screen_no = ''
         account_no = account
         order_type = 3 if size >= 0 else 4
-        code = ''
+        code = dataname
         quantity = 0
         price = 0
         quote_type = ''
@@ -219,7 +201,15 @@ class API:
             quote_type,
             original_order_no,
         )
-        return responses
+        _msg = next(responses)
+        _tr = next(responses)
+        _accept = next(responses)
+        confirm = next(responses)
+        confirm_data = dict(zip(confirm.single_data.names, confirm.single_data.values))
+        result = {
+            'orderOpened': {'id': confirm_data['주문번호']}
+        }
+        return result
 
 class MetaSingleton(MetaParams):
 
@@ -241,8 +231,10 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
 
     params = (
         ('account', ''),
-        ('account_tmout', 10.0),
+        ('account_tmout', 60.0), # TODO: 60초마다 TR 을 두개씩 날리는데 정말 이게 필요한가?
     )
+
+    _DTEPOCH = datetime.datetime(1970, 1, 1)
 
     @classmethod
     def getdata(cls, *args, **kwargs):
@@ -267,13 +259,20 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
         self.broker = None
         self.datas = list()
 
+        self._orders = collections.OrderedDict()  # map order.ref to oid
+        self._ordersrev = collections.OrderedDict()  # map oid to order.ref
+        self._transpend = collections.defaultdict(collections.deque)
+
         if context is None:
             context = KiwoomOpenApiContext()
 
         self._context = context
         self._context.EnsureConnected()
 
-        self.context = API(self._context)
+        if not self.p.account:
+            self.p.account = self._context.GetFirstAvailableAccount()
+
+        self.api = API(self._context)
 
         self._cash = 0.0
         self._value = 0.0
@@ -282,6 +281,8 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
         self.q_account = None
         self.q_ordercreate = None
         self.q_orderclose = None
+
+        self._tmoffset = datetime.timedelta()
 
     def start(self, data=None, broker=None):
         if data is None and broker is None:
@@ -309,6 +310,9 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
         self.notifs.append(None)
         return [x for x in iter(self.notifs.popleft, None)]
 
+    def timeoffset(self):
+        return self._tmoffset
+
     _GRANULARITIES = {
         (TimeFrame.Ticks, 1):    ('opt10079', {'종목코드': '', '틱범위': '1', '수정주가구분': '1'}),
         (TimeFrame.Ticks, 3):    ('opt10079', {'종목코드': '', '틱범위': '3', '수정주가구분': '1'}),
@@ -334,7 +338,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
 
     def get_instrument(self, dataname):
         try:
-            insts = self.context.get_instruments(self.p.account, instruments=dataname)
+            insts = self.api.get_instruments(self.p.account, instruments=dataname)
         except KiwoomOpenApiError:
             return None
 
@@ -362,7 +366,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
     def _t_streaming_events(self, q, tmout=None):
         if tmout is not None:
             time.sleep(tmout)
-        streamer = KiwoomOpenApiEventStreamer(self.context, q)
+        streamer = KiwoomOpenApiEventStreamer(self.api, q)
         streamer.events()
 
     def candles(self, dataname, dtbegin, dtend, timeframe, compression): # pylint: disable=unused-argument
@@ -394,7 +398,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
                 inputs['기준일자'] = dtend.strftime('%Y%m%d')
 
         try:
-            response = self.context.get_history(trcode, inputs, dtbegin, dtend)
+            response = self.api.get_history(trcode, inputs, dtbegin, dtend)
         except KiwoomOpenApiError as e:
             q.put(KiwoomOpenApiJsonError(e).error_response)
             q.put(None)
@@ -416,7 +420,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
     def _t_streaming_prices(self, dataname, q, tmout):
         if tmout is not None:
             time.sleep(tmout)
-        streamer = KiwoomOpenApiEventStreamer(self.context, q)
+        streamer = KiwoomOpenApiEventStreamer(self.api, q)
         streamer.rates(dataname)
 
     def get_cash(self):
@@ -427,7 +431,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
 
     def get_positions(self):
         try:
-            positions = self.context.get_positions(self.p.account)
+            positions = self.api.get_positions(self.p.account)
         except KiwoomOpenApiError:
             return None
 
@@ -465,7 +469,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
                 pass
 
             try:
-                accinfo = self.context.get_account(self.p.account)
+                accinfo = self.api.get_account(self.p.account)
             except Exception as e: # pylint: disable=broad-except
                 self.put_notification(e)
                 continue
@@ -534,8 +538,9 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
 
             oref, okwargs = msg
             try:
-                o = self.context.create_order(self.p.account, **okwargs)
+                o = self.api.create_order(self.p.account, **okwargs)
             except Exception as e:
+                logging.exception('Exception while create_order(%s, %s)', self.p.account, okwargs)
                 self.put_notification(e)
                 self.broker._reject(oref)
                 return
@@ -553,6 +558,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
                         oids.append(suboidfield['id'])
 
             if not oids:
+                logging.warning('Rejecting %s because no oids specified', oref)
                 self.broker._reject(oref)
                 return
 
@@ -574,7 +580,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
                     self._process_transaction(oid, trans)
 
     def order_cancel(self, order):
-        self.q_orderclose.put((order.ref, order.created.size))
+        self.q_orderclose.put((order.ref, order.created.size, order.data.p.dataname))
         return order
 
     def _t_order_cancel(self):
@@ -583,13 +589,14 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
             if msg is None:
                 break
 
-            oref, size = msg
+            oref, size, dataname = msg
             oid = self._orders.get(oref, None)
             if oid is None:
                 continue  # the order is no longer there
             try:
-                o = self.context.close_order(self.p.account, oid, size)
+                o = self.api.close_order(self.p.account, oid, size, dataname)
             except Exception as e:
+                logging.exception('Failed to close order')
                 continue  # not cancelled - FIXME: notify
 
             self.broker._cancel(oref)
@@ -691,4 +698,5 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
             elif reason == 'CLIENT_REQUEST':
                 self.broker._cancel(oref)
             else:  # default action ... if nothing else
+                logging.warning('Rejecting %s since it\'s canceled', oref)
                 self.broker._reject(oref)

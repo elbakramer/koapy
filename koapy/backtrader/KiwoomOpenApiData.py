@@ -103,9 +103,10 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
 
         self.k.start(data=self)
 
-        otf = self.k.get_granularity(self._timeframe, self._compression)
+        otf = self.k.get_granularity(self.p.timeframe, self.p.compression)
 
         if otf is None:
+            logging.warning('Given timeframe and compression not supported: (%s, %s)', self.p.timeframe, self.p.compression)
             self.put_notification(self.NOTSUPPORTED_TF)
             self._state = self._ST_OVER
             return
@@ -113,6 +114,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
         self.contractdetails = cd = self.k.get_instrument(self.p.dataname)
 
         if cd is None:
+            logging.warning('Given dataname is not supported')
             self.put_notification(self.NOTSUBSCRIBED)
             self._state = self._ST_OVER
             return
@@ -142,7 +144,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
 
             self.qhist = self.k.candles(
                 self.p.dataname, dtbegin, dtend,
-                self._timeframe, self._compression)
+                self.p.timeframe, self.p.compression)
 
             self._state = self._ST_HISTORBACK
 
@@ -244,7 +246,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
 
                 self.qhist = self.k.candles(
                     self.p.dataname, dtbegin, dtend,
-                    self._timeframe, self._compression)
+                    self.p.timeframe, self.p.compression)
 
                 self._state = self._ST_HISTORBACK
                 self._statelivereconn = False

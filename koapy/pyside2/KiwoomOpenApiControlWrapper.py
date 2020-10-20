@@ -2,6 +2,7 @@ import os
 import re
 import queue
 import logging
+import threading
 
 import numpy as np
 
@@ -156,6 +157,10 @@ class KiwoomOpenApiControlCommonWrapper:
 
 class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
 
+    def __init__(self, control=None):
+        super().__init__(control)
+        self._lock = threading.RLock()
+
     def Connect(self):
         q = queue.Queue()
         def OnEventConnect(errcode):
@@ -218,7 +223,11 @@ class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
           - 1초당 5회 조회를 10연속 발생시킨 경우 : 3분(180초)대기
         """
         prevnext = int(prevnext) # ensure prevnext is int
-        code = self.CommRqData(rqname, trcode, prevnext, scrnno)
+        with self._lock:
+            if inputs:
+                for k, v in inputs.items():
+                    self.SetInputValue(k, v)
+            code = self.CommRqData(rqname, trcode, prevnext, scrnno)
         spec = 'CommRqData(%r, %r, %r, %r)' % (rqname, trcode, prevnext, scrnno)
 
         if inputs is not None:

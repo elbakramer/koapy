@@ -756,7 +756,7 @@ def deposit(account, port, verbose):
             account = context.GetAccountList()[0]
 
         result = context.GetDepositInfo(account)
-        click.echo(result.to_markdown())
+        click.echo(result.to_markdown(floatfmt='.2f'))
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get account evaluation.')
 @click.option('-a', '--account', metavar='ACCNO', help='Account number.')
@@ -791,7 +791,7 @@ def evaluation(account, include_delisted, exclude_delisted, for_each, as_summary
 
         single, multi = context.GetAccountEvaluationStatusAsSeriesAndDataFrame(account, include_delisted)
         click.echo('[계좌평가현황요청] : [계좌평가현황]')
-        click.echo(single.to_markdown())
+        click.echo(single.to_markdown(floatfmt='.2f'))
         click.echo()
         click.echo('[계좌평가현황요청] : [종목별계좌평가현황]')
         click.echo(multi.to_markdown())
@@ -799,7 +799,7 @@ def evaluation(account, include_delisted, exclude_delisted, for_each, as_summary
 
         single, multi = context.GetAccountEvaluationBalanceAsSeriesAndDataFrame(account, lookup_type)
         click.echo('[계좌평가잔고내역요청] : [계좌평가결과]')
-        click.echo(single.to_markdown())
+        click.echo(single.to_markdown(floatfmt='.2f'))
         click.echo()
         click.echo('[계좌평가잔고내역요청] : [계좌평가잔고개별합산]')
         click.echo(multi.to_markdown())
@@ -824,8 +824,6 @@ def orders(account, date, reverse, executed_only, not_executed_only, stock_only,
     if account is None:
         logging.info('Account not given. Using first account available.')
 
-    from koapy import KiwoomOpenApiContext
-
     sort_type = '1'
     if reverse:
         sort_type = '2'
@@ -844,13 +842,23 @@ def orders(account, date, reverse, executed_only, not_executed_only, stock_only,
     if buy_only:
         order_type = '2'
 
+    from koapy import KiwoomOpenApiContext
+
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
-
         if account is None:
-            account = context.GetAccountList()[0]
-
-        click.echo(context.GetOrderLogAsDataFrame3(account, date, sort_type, asset_type, order_type, code, starting_order_no).to_markdown())
+            account = context.GetFirstAvailableAccount()
+        df = context.GetOrderLogAsDataFrame1(account)
+        click.echo('[실시간미체결요청]')
+        click.echo(df.to_markdown())
+        click.echo()
+        df = context.GetOrderLogAsDataFrame2(account)
+        click.echo('[실시간체결요청]')
+        click.echo(df.to_markdown())
+        click.echo()
+        df = context.GetOrderLogAsDataFrame3(account, date, sort_type, asset_type, order_type, code, starting_order_no)
+        click.echo('[계좌별주문체결내역상세요청]')
+        click.echo(df.to_markdown())
 
 @get.command(context_settings=CONTEXT_SETTINGS, short_help='Get OpenApi module installation path.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
@@ -994,6 +1002,8 @@ quote_types = [
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def order(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no, format, port, verbose):
+    # TODO: 주문 취소시 기존 주문에 대한 이벤트 스트림 종료되도록
+
     """
     \b
     [주문유형]
@@ -1026,6 +1036,9 @@ def order(request_name, screen_no, account_no, order_type, code, quantity, price
     if (request_name, screen_no, account_no, order_type, code, quantity) == (None, None, None, None, None, None):
         fail_with_usage()
 
+    if order_type is None:
+        fail_with_usage()
+
     set_verbosity(verbose)
 
     from koapy import KiwoomOpenApiContext
@@ -1043,7 +1056,35 @@ def order(request_name, screen_no, account_no, order_type, code, quantity, price
 
     with KiwoomOpenApiContext(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         context.EnsureConnected()
-        for response in context.OrderCall(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no):
+
+        if order_type in ['3', '4'] and (account_no is None or code is None):
+            for account_no_candidate in context.GetAccountList():
+                df = context.GetOrderLogAsDataFrame1(account_no_candidate)
+                if '주문번호' in df.columns:
+                    rows = df.loc[df['주문번호'] == original_order_no,:]
+                    if rows.shape[0] > 0:
+                        row = rows.iloc[0,:]
+                        if account_no is None:
+                            account_no = row['계좌번호']
+                        if code is None:
+                            code = row['종목코드']
+                        break
+
+        if account_no is None:
+            logging.info('Account not given. Using first account available.')
+            account_no = context.GetFirstAvailableAccount()
+
+        responses = context.OrderCall(
+            request_name,
+            screen_no,
+            account_no,
+            order_type,
+            code,
+            quantity,
+            price,
+            quote_type,
+            original_order_no)
+        for response in responses:
             print_message(response)
 
 if __name__ == '__main__':

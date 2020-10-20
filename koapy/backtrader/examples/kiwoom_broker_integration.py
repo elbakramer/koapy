@@ -1,16 +1,15 @@
+import datetime
 import logging
 
 import backtrader as bt
 
 from koapy.backtrader.KiwoomOpenApiStore import KiwoomOpenApiStore
-from koapy.backtrader.KiwoomOpenApiBroker import KiwoomOpenApiCommInfo
 from koapy.backtrader.KrxTradingCalendar import KrxTradingCalendar
 
 class TestStrategy(bt.Strategy):
 
     params = [
         ('exitbars', 5),
-        ('maperiod', 15),
         ('printlog', True),
     ]
 
@@ -20,6 +19,7 @@ class TestStrategy(bt.Strategy):
         self.dataclose = self.datas[0].close
 
         self.order = None
+        self.order_cancel = None
         self.buyprice = None
         self.buycomm = None
 
@@ -27,7 +27,10 @@ class TestStrategy(bt.Strategy):
 
     def log(self, fmt, *args, doprint=False, **kwargs):
         if self.params.printlog or doprint: # pylint: disable=no-member
-            dt = self.datas[0].datetime.datetime(0, naive=False)
+            try:
+                dt = self.datas[0].datetime.datetime(0, naive=False)
+            except IndexError:
+                dt = datetime.datetime.now()
             fmt = '%s, %s' % (dt, fmt)
             logging.info(fmt, *args, **kwargs)
 
@@ -51,12 +54,24 @@ class TestStrategy(bt.Strategy):
                     order.executed.value,
                     order.executed.comm)
 
+            self.order = None
             self.bar_executed = len(self)
 
-        elif order.status in [order.Canceled, order.Margin, order.Rejected]:
-            self.log('Order Canceled/Margin/Rejected')
-
-        self.order = None
+        elif order.status in [order.Canceled]:
+            self.log('Order Canceled')
+            if self.order == self.order_cancel:
+                self.order = None
+            self.order_cancel = None
+        elif order.status in [order.Margin]:
+            self.log('Order Margin')
+            if self.order == self.order_cancel:
+                self.order = None
+            self.order_cancel = None
+        elif order.status in [order.Rejected]:
+            self.log('Order Rejected')
+            if self.order == self.order_cancel:
+                self.order = None
+            self.order_cancel = None
 
     def notify_trade(self, trade):
         if not trade.isclosed:
@@ -64,49 +79,63 @@ class TestStrategy(bt.Strategy):
 
         self.log('Operation Profit, Gross: %.2f, Net: %.2f', trade.pnl, trade.pnlcomm)
 
-    def next_simple(self):
+    def next_market(self):
         self.log('Close, %.2f', self.dataclose[0])
 
         if self.order:
             return
 
         if not self.position:
-            if self.dataclose[0] < self.dataclose[-1]:
-                if self.dataclose[-1] < self.dataclose[-2]:
-                    self.log('Buy Create, %.2f', self.dataclose[0])
-                    self.order = self.buy()
+            self.log('Buy Create, %.2f', self.dataclose[0])
+            self.order = self.buy()
         else:
             if len(self) >= (self.bar_executed + self.params.exitbars): # pylint: disable=no-member
                 self.log('Sell Create, %.2f', self.dataclose[0])
                 self.order = self.sell()
 
+    def next_limit(self):
+        self.log('Close, %.2f', self.dataclose[0])
+
+        if self.order:
+            if len(self) >= (self.bar_executed + self.params.exitbars): # pylint: disable=no-member
+                if not self.order_cancel:
+                    self.log('Cancel Create')
+                    self.cancel(self.order)
+                    self.order_cancel = self.order
+        else:
+            if not self.position:
+                self.log('Buy Create, %.2f', self.dataclose[0])
+                self.order = self.buy(exectype=bt.Order.Limit, price=self.dataclose[0] - 1000.0)
+                self.bar_executed = len(self)
+            else:
+                if len(self) >= (self.bar_executed + self.params.exitbars): # pylint: disable=no-member
+                    self.log('No Sell Create, %.2f', self.dataclose[0])
+
+    def start(self):
+        self.log('Starting Portfolio Value: %.2f', self.broker.getvalue(), doprint=True)
+
     def next(self):
-        return self.next_simple()
+        return self.next_limit()
 
     def stop(self):
-        self.log('(MA Period: %2d) Ending Value: %.2f', self.params.maperiod, self.broker.getvalue(), doprint=True) # pylint: disable=no-member
+        self.log('Final Portfolio Value: %.2f', self.broker.getvalue(), doprint=True)
 
 def main():
     cerebro = bt.Cerebro()
 
-    kiwoomstore = KiwoomOpenApiStore()
+    kiwoomstore = KiwoomOpenApiStore() # pylint: disable=unexpected-keyword-arg
 
-    data = kiwoomstore.getdata(dataname='005930', timeframe=bt.TimeFrame.Seconds, compression=5)
-    cerebro.adddata(data)
+    data = kiwoomstore.getdata(dataname='005930', backfill_start=False, timeframe=bt.TimeFrame.Ticks, compression=1)
+    cerebro.resampledata(data, timeframe=bt.TimeFrame.Seconds, compression=5)
 
-    cerebro.addsizer(bt.sizers.FixedSize, stake=10)
+    cerebro.broker = kiwoomstore.getbroker()
 
     cerebro.addtz('Asia/Seoul')
     cerebro.addcalendar(KrxTradingCalendar())
 
-    cerebro.broker.setcash(30000000.0)
-    cerebro.broker.addcommissioninfo(KiwoomOpenApiCommInfo())
-
     cerebro.addstrategy(TestStrategy)
 
-    logging.info('Starting Portfolio Value: %.2f', cerebro.broker.getvalue())
     cerebro.run(maxcpus=1)
-    logging.info('Final Portfolio Value: %.2f', cerebro.broker.getvalue())
 
 if __name__ == '__main__':
     main()

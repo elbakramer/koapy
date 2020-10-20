@@ -1,11 +1,18 @@
+import os
 import logging
 
-# see /koapy/pyside2/__init__.py for more information.
-import koapy.pyside2 # pylint: disable=unused-import
-
-from PySide2.QtWidgets import QWidget
-from PySide2.QtAxContainer import QAxWidget
-from PySide2.QtCore import QEvent, Qt
+if os.environ.get('QT_API', 'pyside2') == 'pyside2' and False:
+    import PySide2
+    if hasattr(PySide2, '__file__') and 'QT_QPA_PLATFORM_PLUGIN_PATH' not in os.environ:
+        qt_qpa_platform_plugin_path = os.path.join(os.path.dirname(PySide2.__file__), 'plugins', 'platforms')
+        os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = qt_qpa_platform_plugin_path
+    from PySide2.QtWidgets import QWidget
+    from PySide2.QtAxContainer import QAxWidget
+    from PySide2.QtCore import QEvent, Qt
+else:
+    from PyQt5.QtWidgets import QWidget
+    from PyQt5.QAxContainer import QAxWidget
+    from PyQt5.QtCore import QEvent, Qt
 
 from koapy.pyside2.KiwoomOpenApiDynamicCallable import KiwoomOpenApiDynamicCallable
 from koapy.pyside2.KiwoomOpenApiSignalConnector import KiwoomOpenApiSignalConnector

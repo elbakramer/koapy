@@ -125,31 +125,52 @@ intersphinx_mapping = {
 from unittest.mock import MagicMock
 
 autodoc_mock_imports = [
-    'PyQt5','PySide2', 
+    'PyQt5','PySide2',
     'numpy', 'pandas', 'sip',
     'pythoncom', 'win32com.client']
 
 for module in autodoc_mock_imports:
     sys.modules[module] = MagicMock()
 
-class QWidget:
-    __module__ = 'PySide2.QtWidgets'
+if 'PySide2' in autodoc_mock_imports:
+    class QWidget:
+        __module__ = 'PySide2.QtWidgets'
 
-class QObject:
-    __module__ = 'PySide2.QtCore'
+    class QObject:
+        __module__ = 'PySide2.QtCore'
 
-PySide2 = MagicMock()
-PySide2.QtWidgets.QWidget = QWidget
-PySide2.QtCore.QObject = QObject
-PySide2.QtAxContainer.QAxWidget = MagicMock()
-PySide2.QtGui.QDesktopServices = MagicMock()
+    PySide2 = MagicMock()
+    PySide2.QtWidgets.QWidget = QWidget
+    PySide2.QtCore.QObject = QObject
+    PySide2.QtAxContainer.QAxWidget = MagicMock()
+    PySide2.QtGui.QDesktopServices = MagicMock()
 
-sys.modules.update({
-    'PySide2.QtWidgets': PySide2.QtWidgets,
-    'PySide2.QtCore': PySide2.QtCore,
-    'PySide2.QtAxContainer': PySide2.QtAxContainer,
-    'PySide2.QtGui': PySide2.QtGui,
-})
+    sys.modules.update({
+        'PySide2.QtWidgets': PySide2.QtWidgets,
+        'PySide2.QtCore': PySide2.QtCore,
+        'PySide2.QtAxContainer': PySide2.QtAxContainer,
+        'PySide2.QtGui': PySide2.QtGui,
+    })
+
+if 'PyQt5' in autodoc_mock_imports:
+    class QWidget: # pylint: disable=function-redefined
+        __module__ = 'PyQt5.QtWidgets'
+
+    class QObject: # pylint: disable=function-redefined
+        __module__ = 'PyQt5.QtCore'
+
+    PyQt5 = MagicMock()
+    PyQt5.QtWidgets.QWidget = QWidget
+    PyQt5.QtCore.QObject = QObject
+    PyQt5.QAxContainer.QAxWidget = MagicMock()
+    PyQt5.QtGui.QDesktopServices = MagicMock()
+
+    sys.modules.update({
+        'PyQt5.QtWidgets': PySide2.QtWidgets,
+        'PyQt5.QtCore': PySide2.QtCore,
+        'PyQt5.QAxContainer': PySide2.QAxContainer,
+        'PyQt5.QtGui': PySide2.QtGui,
+    })
 
 # -- Import main package after mocking
 

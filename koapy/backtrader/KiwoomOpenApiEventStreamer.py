@@ -145,16 +145,17 @@ class KiwoomOpenApiOrderEventChannel:
             order_type = data['주문구분']
             hoga_type = data['매매구분']
             status = data['주문상태']
-            market_order_created_and_filled = order_type in ['1', '2'] and hoga_type in ['03'] and status in ['접수']
-            limit_order_created = order_type in ['1', '2'] and hoga_type in ['00'] and status in ['접수']
-            order_filled = order_type in ['1', '2'] and status in ['체결']
-            order_canceled = order_type in ['3', '4'] and status in ['확인']
-            return any(
+            market_order_created_and_filled = order_type in ['+매수', '-매도'] and hoga_type in ['시장가'] and status in ['체결']
+            limit_order_created = order_type in ['+매수', '-매도'] and hoga_type in ['보통'] and status in ['접수'] and data['819'] in ['0'] # 취소 확인 뒤에 오는 원주문 이벤트는 819 가 1 로 들어오는 것 같음
+            order_filled = order_type in ['+매수', '-매도'] and status in ['체결']
+            order_canceled = order_type in ['매수취소', '매도취소'] and status in ['확인']
+            condition = any([
                 market_order_created_and_filled,
                 limit_order_created,
                 order_filled,
                 order_canceled,
-            )
+            ])
+            return condition
         return False
 
     def filter_chejan_response(self):
@@ -164,58 +165,65 @@ class KiwoomOpenApiOrderEventChannel:
         result = {}
         data = dict(zip(response.single_data.names, response.single_data.values))
         original_order_no = data['원주문번호']
-        if original_order_no:
-            reject_reason = data['거부사유']
-            result = {
-                'type': 'ORDER_CANCEL',
-                'orderId': original_order_no,
-                'reason': reject_reason if reject_reason else 'CLIENT_REQUEST',
-            }
+        if int(original_order_no):
+            status = data['주문상태']
+            if status == '확인':
+                reject_reason = data['거부사유']
+                result = {
+                    'type': 'ORDER_CANCEL',
+                    'orderId': original_order_no,
+                    'reason': reject_reason if int(reject_reason) else 'ORDER_FILLED',
+                }
         else:
             status = data['주문상태']
+            hoga_type = data['매매구분']
             if status == '접수':
-                hoga_type = data['매매구분']
-                if hoga_type == '00':
+                if hoga_type == '보통':
                     order_no = data['주문번호']
                     result = {
                         'type': 'LIMIT_ORDER_CREATE',
                         'id': order_no,
                     }
-                elif hoga_type == '03':
+                elif hoga_type == '시장가':
+                    pass
+                else:
+                    logging.warning('Unexpected hoga type %s', hoga_type)
+            elif status == '체결':
+                if hoga_type == '보통':
                     order_no = data['주문번호']
                     units = data['단위체결량']
-                    buy_or_sell = data['매도수구분']
+                    buy_or_sell = data['주문구분']
                     side = {
-                        '매수': 'buy',
-                        '매도': 'sell',
+                        '+매수': 'buy',
+                        '-매도': 'sell',
                     }[buy_or_sell]
                     price = data['단위체결가']
                     result = {
-                        'type': 'MARKET_ORDER_CREATE', # TODO: 시장가 주문 체결 데이터가 어디서 오는지 확인
-                        'id': order_no,
-                        'orderOpened': {'id': order_no},
+                        'type': 'ORDER_FILLED',
+                        'orderId': order_no,
                         'units': int(units),
-                        'side': side, # TODO: 장 시간동안 값 확인해서 buy/sell 로 변환
+                        'side': side,
+                        'price': abs(float(price)),
+                    }
+                elif hoga_type == '시장가':
+                    order_no = data['주문번호']
+                    units = data['단위체결량']
+                    buy_or_sell = data['주문구분']
+                    side = {
+                        '+매수': 'buy',
+                        '-매도': 'sell',
+                    }[buy_or_sell]
+                    price = data['단위체결가']
+                    result = {
+                        'type': 'MARKET_ORDER_CREATE',
+                        'id': order_no,
+                        'tradeOpened': {'id': order_no},
+                        'units': int(units),
+                        'side': side,
                         'price': abs(float(price)),
                     }
                 else:
                     logging.warning('Unexpected hoga type %s', hoga_type)
-            elif status == '체결':
-                order_no = data['주문번호']
-                units = data['단위체결량']
-                buy_or_sell = data['매도수구분']
-                side = {
-                    '매수': 'buy',
-                    '매도': 'sell',
-                }[buy_or_sell]
-                price = data['단위체결가']
-                result = {
-                    'type': 'ORDER_FILLED',
-                    'orderId': order_no,
-                    'units': int(units),
-                    'side': side, # TODO: 장 시간동안 값 확인해서 buy/sell 로 변환
-                    'price': abs(float(price)),
-                }
             else:
                 logging.warning('Unexcpected status %s', status)
         return result
@@ -241,7 +249,6 @@ class KiwoomOpenApiEventStreamer(Observer):
 
     def on_error(self, error):
         logging.error('Streamer.on_error(%s)', error)
-        self._queue.put(error)
 
     def on_completed(self):
         pass

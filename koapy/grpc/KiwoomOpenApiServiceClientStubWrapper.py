@@ -82,15 +82,15 @@ class KiwoomOpenApiServiceClientStubCoreWrapper(KiwoomOpenApiControlCommonWrappe
           1:신규매수, 2:신규매도 3:매수취소, 4:매도취소, 5:매수정정, 6:매도정정
         """
         request = KiwoomOpenApiService_pb2.OrderRequest()
-        request.request_name = rqname
-        request.screen_no = scrnno or ''
-        request.account_no = account
+        request.request_name = rqname or ''
+        request.screen_no = str(scrnno).zfill(4) if scrnno else ''
+        request.account_no = str(account) if account else ''
         request.order_type = int(order_type) if order_type else 0
-        request.code = code
+        request.code = code or ''
         request.quantity = int(quantity) if quantity else 0
         request.price = int(price) if price else 0
-        request.quote_type = quote_type
-        request.original_order_no = '' if original_order_no is None else original_order_no
+        request.quote_type = quote_type or ''
+        request.original_order_no = original_order_no or ''
         return self._stub.OrderCall(request)
 
     def RealCall(self, scrnno, codes, fids, realtype=None, infer_fids=False, readable_names=False, fast_parse=False):

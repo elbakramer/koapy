@@ -428,8 +428,6 @@ class KiwoomOpenApiTrEventHandler(KiwoomOpenApiEventHandlerForGrpc):
         self._scrnno = self._screen_manager.borrow_screen(self._scrnno)
         self.add_callback(self._screen_manager.return_screen, self._scrnno)
         self.add_callback(self.control.DisconnectRealData, self._scrnno)
-        for k, v in self._inputs.items():
-            self.control.SetInputValue(k, v)
         KiwoomOpenApiError.try_or_raise(
             self.control.RateLimitedCommRqData(self._rqname, self._trcode, 0, self._scrnno, self._inputs))
 
@@ -471,8 +469,6 @@ class KiwoomOpenApiTrEventHandler(KiwoomOpenApiEventHandlerForGrpc):
                 self.observer.on_completed()
                 return
             else:
-                for k, v in self._inputs.items():
-                    self.control.SetInputValue(k, v)
                 try:
                     self.control.RateLimitedCommRqData(rqname, trcode, int(prevnext), scrnno, self._inputs)
                 except KiwoomOpenApiError as e:
@@ -517,6 +513,13 @@ class KiwoomOpenApiBaseOrderEventHandler(KiwoomOpenApiEventHandlerForGrpc):
         response.arguments.add().string_value = trcode # pylint: disable=no-member
         response.arguments.add().string_value = msg # pylint: disable=no-member
 
+        return response
+
+    def OnReceiveMsg(self, scrnno, rqname, trcode, msg):
+        if self._listen_msg:
+            response = self.ResponseForOnReceiveMsg(scrnno, rqname, trcode, msg)
+            self.observer.on_next(response)
+
         # 아래는 개발과정에서 확인 용도
         # 키움에서도 경고하지만 메시지의 코드로 판단하는건 위험함 (게다가 모의투자만 해당)
         if trcode == 'KOA_NORMAL_BUY_KP_ORD':
@@ -527,17 +530,10 @@ class KiwoomOpenApiBaseOrderEventHandler(KiwoomOpenApiEventHandlerForGrpc):
             elif msg == '[00Z237] 모의투자 단가를 입력하지 않는 호가입니다.':
                 logging.warning('Price is given but should not')
             elif msg == '[00Z112] 모의투자 정상처리 되었습니다':
-                logging.debug('Processed successfully')
+                logging.debug('Order processed successfully')
         elif trcode == 'KOA_NORMAL_KP_CANCEL':
             if msg == '[00Z924] 모의투자 취소수량이 취소가능수량을 초과합니다':
                 logging.warning('Not enough amount to cancel')
-
-        return response
-
-    def OnReceiveMsg(self, scrnno, rqname, trcode, msg):
-        if self._listen_msg:
-            response = self.ResponseForOnReceiveMsg(scrnno, rqname, trcode, msg)
-            self.observer.on_next(response)
 
     def ResponseForOnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg): # pylint: disable=unused-argument
         response = KiwoomOpenApiService_pb2.ListenResponse()
@@ -679,46 +675,72 @@ class KiwoomOpenApiOrderEventHandler(KiwoomOpenApiBaseOrderEventHandler):
                 logging.warning('Unexpected to have prevnext for order tr data.')
 
     def OnReceiveChejanData(self, gubun, itemcnt, fidlist):
-        if gubun == '0': # 접수와 체결시 (+ 취소 확인)
-            accno = self.control.GetChejanData(9201).strip()
-            scrnno = self.control.GetChejanData(920).strip()
-            order_no = self.control.GetChejanData(9203).strip()
-            if (scrnno, accno, order_no) == (self._scrnno, self._accno, self._order_no):
-                response = self.ResponseForOnReceiveChejanData(gubun, itemcnt, fidlist)
-                self.observer.on_next(response)
+        # TODO: 정정 케이스에 대해 테스트 해보지 않음
+        # TODO: 취소를 취소하는 케이스 같은건 고려하지 않음
+        # TODO: 서로 같은 원주문을 정정 혹은 취소하는 케이스 사이에는 이벤트 전파가 필요할지 모르겠음
+        accno = self.control.GetChejanData(9201).strip()
+        code = self.control.GetChejanData(9001).strip()
+        if accno == self._accno and code.endswith(self._code): # code 비교시에 앞에 prefix 가 붙어오기 때문에 endswith 으로 비교해야됨
+            if gubun == '0': # 접수와 체결시 (+ 취소 확인)
+                order_no = self.control.GetChejanData(9203).strip()
+                original_order_no = self.control.GetChejanData(904).strip()
                 status = self.control.GetChejanData(913).strip()
-                if status == '접수':
-                    pass
-                elif status == '체결':
-                    orders_left = self.control.GetChejanData(902).strip()
-                    orders_left = int(orders_left) if orders_left.isdigit() else 0
-                    if orders_left == 0:
-                        self._should_stop = True # 미체결수량이 더 이상 없다면 이후 잔고 이벤트 후 종료
-                elif status == '확인':
-                    self.observer.on_completed()
-                    return
-        elif gubun == '1': # 국내주식 잔고전달
-            accno = self.control.GetChejanData(9201).strip()
-            code = self.control.GetChejanData(9001).strip()
-            if accno == self._accno and code.endswith(self._code): # code 비교시에 앞에 prefix 가 붙어오기 때문에 endswith 으로 비교해야됨
+                scrnno = self.control.GetChejanData(920).strip()
+                if order_no in [self._order_no, self._orgorderno] or self._order_no in [order_no, original_order_no]:
+                    response = self.ResponseForOnReceiveChejanData(gubun, itemcnt, fidlist)
+                    self.observer.on_next(response)
+                if order_no == self._order_no: # 자기 주문 처리하는 입장 OR 취소 및 정정 당한 뒤 원주문 정보를 받는 입장
+                    if status == '접수':
+                        if scrnno == self._scrnno:
+                            pass
+                        elif self._should_stop: # 취소 확인 이후 원주문 정보 받고 종료 (타)
+                            self.observer.on_completed()
+                            return
+                    elif status == '체결':
+                        orders_left = self.control.GetChejanData(902).strip()
+                        orders_left = int(orders_left) if orders_left.isdigit() else 0
+                        if orders_left == 0:
+                            self._should_stop = True # 미체결수량이 더 이상 없다면 이후 잔고 이벤트 후 종료
+                    elif status == '확인':
+                        self._should_stop = True # 취소 확인 이후 원주문 정보 받고 종료 (자)
+                    else:
+                        e = KiwoomOpenApiError('Unexpected order status: %s' % status)
+                        self.observer.on_error(e)
+                        return
+                elif order_no == self._orgorderno: # 취소하는 입장에서 원주문 정보 받는 케이스
+                    if status == '접수':
+                        if self._should_stop: # 취소 확인 이후 원주문 정보 받고 종료 (자)
+                            self.observer.on_completed()
+                            return
+                    else:
+                        e = KiwoomOpenApiError('Unexpected order status: %s' % status)
+                        self.observer.on_error(e)
+                        return
+                elif self._order_no == original_order_no: # 취소 혹은 정정 당하는 케이스
+                    if status == '접수':
+                        pass
+                    elif status == '확인':
+                        self._should_stop = True # 취소 확인 이후 원주문 정보 받고 종료 (타)
+                    else:
+                        e = KiwoomOpenApiError('Unexpected order status: %s' % status)
+                        self.observer.on_error(e)
+                        return
+            elif gubun == '1': # 국내주식 잔고전달
                 response = self.ResponseForOnReceiveChejanData(gubun, itemcnt, fidlist)
                 self.observer.on_next(response)
                 if self._should_stop: # 미체결수량이 더 이상 없다면 잔고 이벤트 후 종료
                     self.observer.on_completed()
                     return
-        elif gubun == '4': # 파생 잔고전달
-            accno = self.control.GetChejanData(9201).strip()
-            code = self.control.GetChejanData(9001).strip()
-            if accno == self._accno and code.endswith(self._code):
+            elif gubun == '4': # 파생 잔고전달
                 response = self.ResponseForOnReceiveChejanData(gubun, itemcnt, fidlist)
                 self.observer.on_next(response)
                 if self._should_stop: # 미체결수량이 더 이상 없다면 잔고 이벤트 후 종료
                     self.observer.on_completed()
                     return
-        else:
-            e = KiwoomOpenApiError('Unexpected gubun value: %r' % gubun)
-            self.observer.on_error(e)
-            return
+            else:
+                e = KiwoomOpenApiError('Unexpected gubun value: %s' % gubun)
+                self.observer.on_error(e)
+                return
 
 class KiwoomOpenApiRealEventHandler(KiwoomOpenApiEventHandlerForGrpc):
 

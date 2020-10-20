@@ -325,7 +325,12 @@ KOAPY 는 다중 라이선스 방식으로 배포되며,
   * 이것은 backtrader_ 가 GPLv3+ 로 배포되고 있으며,
     해당 라이선스의 요구사항에 따라 그것을 사용하는 소프트웨어 또한 GPLv3+ 로 배포되어야 하기 때문입니다.
 
-각 라이선스의 허가 및 요구사항과 관련해서 쉽게 정리된 내용은 `tr;dlLegal`_ 에서 참고하실 수 있습니다.
+  * 추가로 PySide2_ 대신 PyQt5_ 를 사용하는 경우에도 비슷한 이유로 KOAPY 는 **반드시** GPLv3 로만 배포되어야 합니다.
+  * 참고로 현재 PySide2_ 의 |dynamicCall|_ 함수에 버그가 발견되어 임시로 하단을 PyQt5_ 를 사용하도록 해놓았습니다.
+    * 현재 함수의 인자 개수가 8개를 넘어가는 경우 PySide2_ 에서 함수를 제대로 호출할 수 없습니다. (제가 방법을 못 찾은 걸 수도 있습니다.)
+    * ``SendOrder`` 함수가 이에 해당되서 PySide2_ 사용시 주문기능이 제대로 안됩니다.
+
+각 라이선스의 허가 및 요구사항과 관련해서 쉽게 정리된 내용은 `tl;drLegal`_ 에서 참고하실 수 있습니다.
 
 다만 위의 내용이 법률적 조언은 아닌 점 참고 바랍니다.
 
@@ -339,7 +344,7 @@ KOAPY 는 다중 라이선스 방식으로 배포되며,
 
 .. _backtrader: https://github.com/mementum/backtrader
 
-.. _`tr;dlLegal`: https://tldrlegal.com/
+.. _`tl;drLegal`: https://tldrlegal.com/
 
 
 Reference

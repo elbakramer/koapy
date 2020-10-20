@@ -3,6 +3,7 @@ import threading
 import inspect
 
 from PySide2.QtCore import SIGNAL
+from PySide2.QtAxContainer import QAxWidget
 
 from koapy.openapi.KiwoomOpenApiSignature import get_event_signature_by_name, qt_function_spec_from_signature
 
@@ -24,7 +25,10 @@ class KiwoomOpenApiSignalConnector:
         return condition
 
     def connect_to(self, control):
-        return control.connect(SIGNAL(self._signal), self)
+        if isinstance(control, QAxWidget):
+            return control.connect(SIGNAL(self._signal), self)
+        else:
+            return getattr(control, self._name).connect(self)
 
     def connect(self, slot):
         if not self.is_valid_slot(slot):
@@ -49,7 +53,7 @@ class KiwoomOpenApiSignalConnector:
             return list(self._slots)
 
     def call(self, *args, **kwargs):
-        # TODO: use ThreadPoolExecutor with await/join for concurrency?
+        # TODO: use Thread with await/join for concurrency?
         for slot in self.get_slots():
             slot(*args, **kwargs)
 

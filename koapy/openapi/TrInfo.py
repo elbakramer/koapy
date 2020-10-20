@@ -217,6 +217,8 @@ class TrInfo(JsonSerializable):
             return json.dump(result, dump_file)
 
     _SINGLE_TO_MULTI_TRCODES = [
+        'opt10075',
+        'opt10076',
         'opt10085',
         'optkwfid',
         'optkwinv',

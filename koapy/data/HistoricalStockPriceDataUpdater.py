@@ -6,6 +6,7 @@ import datetime
 import contextlib
 
 import pandas as pd
+import pytz
 
 from sqlalchemy import create_engine
 from sqlalchemy import select, column, text, desc
@@ -133,7 +134,10 @@ class IfExists:
 class HistoricalStockPriceDataUpdater:
 
     def __init__(self, codes, datadir, chart_type='daily', interval=1, file_format='xlsx',
-            if_exists='auto', delete_remainings=True, context=None):
+            if_exists='auto', delete_remainings=True, timezone='Asia/Seoul', context=None):
+
+        if isinstance(timezone, str):
+            timezone = pytz.timezone(timezone)
 
         self._codes = codes
         self._datadir = datadir
@@ -143,6 +147,7 @@ class HistoricalStockPriceDataUpdater:
         self._extension = '.' + FileFormat.to_string(self._format)
         self._if_exists = IfExists.from_string(if_exists)
         self._delete_remainings = delete_remainings
+        self._timezone = timezone
         self._context = context
 
         self._codes_len = len(self._codes)
@@ -239,6 +244,7 @@ class HistoricalStockPriceDataUpdater:
         if df.shape[0] > 0 and self._date_column_name in df.columns:
             last_date = df.loc[0, self._date_column_name]
             last_date = datetime.datetime.strptime(last_date, self._date_format)
+            last_date = self._timezone.localize(last_date)
         return last_date
 
     def _check_last_date_minute_excel_kiwoom(self, filepath):
@@ -247,6 +253,7 @@ class HistoricalStockPriceDataUpdater:
         if df.shape[0] > 0 and self._date_column_name in df.columns:
             last_date = df.loc[0, self._date_column_name]
             last_date = datetime.datetime.strptime(last_date, self._date_format)
+            last_date = self._timezone.localize(last_date)
         return last_date
 
     def _check_last_date_minute_excel_cybos(self, filepath):
@@ -257,6 +264,7 @@ class HistoricalStockPriceDataUpdater:
             last_date = last_record[self._date_column_name]
             last_time = last_record[self._time_column_name]
             last_date = datetime.datetime.strptime(last_date + last_time, self._date_format + self._time_format)
+            last_date = self._timezone.localize(last_date)
         return last_date
 
     def _check_last_date_day_sql(self, filepath):
@@ -267,9 +275,10 @@ class HistoricalStockPriceDataUpdater:
             sql = sql.order_by(desc(self._date_column_name))
             sql = sql.limit(1)
             data = pd.read_sql_query(sql, con)
-            result = data.iloc[0, 0]
+            last_date = data.iloc[0, 0]
+            last_date = self._timezone.localize(last_date)
         engine.dispose()
-        return result
+        return last_date
 
     def _check_last_date_minute_sql_kiwoom(self, filepath):
         engine = create_engine('sqlite:///' + filepath)
@@ -279,9 +288,10 @@ class HistoricalStockPriceDataUpdater:
             sql = sql.order_by(desc(self._date_column_name))
             sql = sql.limit(1)
             data = pd.read_sql_query(sql, con)
-            result = data.iloc[0, 0]
+            last_date = data.iloc[0, 0]
+            last_date = self._timezone.localize(last_date)
         engine.dispose()
-        return result
+        return last_date
 
     def _check_last_date_minute_sql_cybos(self, filepath):
         engine = create_engine('sqlite:///' + filepath)
@@ -295,12 +305,13 @@ class HistoricalStockPriceDataUpdater:
                 data[self._date_column_name] = data[self._date_column_name].dt.date
                 data[self._time_column_name] = data[self._time_column_name].dt.time
             except OperationalError:
-                result = None
+                last_date = None
             else:
                 date, time = data.iloc[0]
-                result = datetime.datetime.combine(date, time)
+                last_date = datetime.datetime.combine(date, time)
+                last_date = self._timezone.localize(last_date)
         engine.dispose()
-        return result
+        return last_date
 
     def check_last_date(self, filepath):
         if isinstance(self._context, KiwoomOpenApiContext):
