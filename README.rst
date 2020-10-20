@@ -260,7 +260,7 @@ Installation
 
 만약에 기본 기능 이외에 추가적인 기능들을 사용하고자 하는 경우, 아래처럼 추가적인 의존성까지 같이 설치해주셔야 합니다.
 
-예를 들어 backtrader_ 관련 기능들이 구현된 ``koapy.backtrader`` 모듈 하위의 기능들을 사용하고자 하는 경우,
+예를 들어 backtrader_ 관련 기능들이 구현된 |koapy.backtrader|_ 모듈 하위의 기능들을 사용하고자 하는 경우,
 관련 의존성을 포함해 설치하기 위해서는 아래 명령을 실행합니다:
 
 .. code-block:: console
@@ -317,18 +317,25 @@ KOAPY 는 다중 라이선스 방식으로 배포되며,
 
   * FSF_/GPL_ 이 추구하는 Copyleft_ 의 가치를 따르신다면 선택 가능한 옵션중 하나입니다.
   * 이외에 backtrader_ 관련 기능들을 활용하시는 경우, KOAPY 는 **반드시** GPLv3+ 로만 배포되어야 합니다.
-    구체적으로 아래와 같은 경우들에 하나라도 포함된다면 GPLv3+ 배포 조건에 해당됩니다.
+  * 구체적으로 아래와 같은 경우들에 하나라도 포함된다면 GPLv3+ 배포 조건에 해당됩니다.
 
     * 설치시 ``pip install koapy[backtrader]`` 명령으로 설치
-    * 사용시 ``koapy.backtrader`` 모듈 하위의 기능들을 사용
+    * 사용시 |koapy.backtrader|_ 모듈 하위의 기능들을 사용
 
   * 이것은 backtrader_ 가 GPLv3+ 로 배포되고 있으며,
     해당 라이선스의 요구사항에 따라 그것을 사용하는 소프트웨어 또한 GPLv3+ 로 배포되어야 하기 때문입니다.
 
   * 추가로 PySide2_ 대신 PyQt5_ 를 사용하는 경우에도 비슷한 이유로 KOAPY 는 **반드시** GPLv3 로만 배포되어야 합니다.
+  * 구체적으로 아래 컴포넌트들에서 PySide2_ 혹은 PyQt5_ 가 필요합니다.
+
+    * |koapy.pyside2.KiwoomOpenApiTrayApplication|_
+    * |koapy.pyside2.KiwoomOpenApiQAxWidget|_
+
   * 참고로 현재 PySide2_ 의 |dynamicCall|_ 함수에 버그가 발견되어 임시로 하단을 PyQt5_ 를 사용하도록 해놓았습니다.
-    * 현재 함수의 인자 개수가 8개를 넘어가는 경우 PySide2_ 에서 함수를 제대로 호출할 수 없습니다. (제가 방법을 못 찾은 걸 수도 있습니다.)
-    * ``SendOrder`` 함수가 이에 해당되서 PySide2_ 사용시 주문기능이 제대로 안됩니다.
+
+    * 설치시 ``pip install koapy[PyQt5]`` 명령으로 설치가 필요합니다.
+    * 현재 함수의 인자 개수가 8개를 넘어가는 경우 PySide2_ 에서 함수를 제대로 호출할 수 없습니다. 어쩌면 제가 방법을 아직 못 찾은 걸 수도 있습니다.
+    * 구체적으로 |SendOrder|_ 함수가 이에 해당되서 PySide2_ 사용시 주문기능이 제대로 안됩니다.
 
 각 라이선스의 허가 및 요구사항과 관련해서 쉽게 정리된 내용은 `tl;drLegal`_ 에서 참고하실 수 있습니다.
 
@@ -345,6 +352,17 @@ KOAPY 는 다중 라이선스 방식으로 배포되며,
 .. _backtrader: https://github.com/mementum/backtrader
 
 .. _`tl;drLegal`: https://tldrlegal.com/
+
+.. |koapy.backtrader| replace:: ``koapy.backtrader``
+.. _`koapy.backtrader`: https://github.com/elbakramer/koapy/tree/master/koapy/backtrader
+
+.. |koapy.pyside2.KiwoomOpenApiTrayApplication| replace:: ``koapy.pyside2.KiwoomOpenApiTrayApplication``
+.. _`koapy.pyside2.KiwoomOpenApiTrayApplication`: https://github.com/elbakramer/koapy/blob/master/koapy/pyside2/KiwoomOpenApiTrayApplication.py
+.. |koapy.pyside2.KiwoomOpenApiQAxWidget| replace:: ``koapy.pyside2.KiwoomOpenApiQAxWidget``
+.. _`koapy.pyside2.KiwoomOpenApiQAxWidget`: https://github.com/elbakramer/koapy/blob/master/koapy/pyside2/KiwoomOpenApiQAxWidget.py
+
+.. |SendOrder| replace:: ``SendOrder``
+.. _SendOrder: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=16
 
 
 Reference
