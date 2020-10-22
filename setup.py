@@ -40,7 +40,7 @@ requirements = [
 requirements_extras = {
     'backtrader': [
         'backtrader>=1.9.76.123',
-        'matplotlib>=3.3.2',
+        'matplotlib<=3.2.2',
     ],
     'PyQt5': [
         'PyQt5>=5.15.1',

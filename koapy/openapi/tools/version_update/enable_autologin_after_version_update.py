@@ -41,7 +41,7 @@ def enable_autologin_with_control(control):
             account_window.logging.info_control_identifiers()
 
         logging.info('enabling auto login')
-        account_window['AUTO'].check()
+        account_window['CheckBox'].check()
 
         account_passwords = config.get('koapy.backend.kiwoom.login.account_passwords')
 

@@ -4,7 +4,6 @@ import backtrader as bt
 
 from koapy.backtrader.KiwoomOpenApiStore import KiwoomOpenApiStore
 from koapy.backtrader.KiwoomOpenApiBroker import KiwoomOpenApiCommInfo
-from koapy.backtrader.KrxTradingCalendar import KrxTradingCalendar
 
 from koapy.backtrader.examples.vanila_quickstart import OrclStrategy
 
@@ -17,9 +16,7 @@ def main():
     cerebro.adddata(data)
 
     cerebro.addsizer(bt.sizers.FixedSize, stake=10)
-
     cerebro.addtz('Asia/Seoul')
-    cerebro.addcalendar(KrxTradingCalendar())
 
     cerebro.broker.setcash(30000000.0)
     cerebro.broker.addcommissioninfo(KiwoomOpenApiCommInfo())

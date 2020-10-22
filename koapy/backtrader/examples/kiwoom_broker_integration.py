@@ -4,7 +4,6 @@ import logging
 import backtrader as bt
 
 from koapy.backtrader.KiwoomOpenApiStore import KiwoomOpenApiStore
-from koapy.backtrader.KrxTradingCalendar import KrxTradingCalendar
 
 class TestStrategy(bt.Strategy):
 
@@ -131,8 +130,6 @@ def main():
     cerebro.broker = kiwoomstore.getbroker()
 
     cerebro.addtz('Asia/Seoul')
-    cerebro.addcalendar(KrxTradingCalendar())
-
     cerebro.addstrategy(TestStrategy)
 
     cerebro.run(maxcpus=1)

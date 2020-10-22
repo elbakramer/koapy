@@ -8,7 +8,6 @@ from backtrader.feed import DataBase
 from backtrader.utils.py3 import queue, with_metaclass
 
 from koapy.backtrader.KiwoomOpenApiStore import KiwoomOpenApiStore
-from koapy.backtrader.KrxTradingCalendar import KrxTradingCalendar
 
 class MetaKiwoomOpenApiData(DataBase.__class__):
 
@@ -32,7 +31,7 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
         ('reconntimeout', 5.0),
         ('tz', 'Asia/Seoul'),
         ('tzinput', None),  # this should be none (utc) since we are already putting datetimes converted to utc
-        ('calendar', KrxTradingCalendar()),
+        ('calendar', None),
     )
 
     _store = KiwoomOpenApiStore

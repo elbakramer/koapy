@@ -183,7 +183,7 @@ class CybosPlusComObject:
         except pywinauto.timings.TimeoutError:
             pass
         else:
-            time.sleep(5)
+            time.sleep(10)
 
     def EnsureConnected(self):
         errcode = 0
