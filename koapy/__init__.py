@@ -2,7 +2,7 @@
 
 __author__ = """Yunseong Hwang"""
 __email__ = 'kika1492@gmail.com'
-__version__ = '0.1.14'
+__version__ = '0.1.15'
 
 import sys
 import koapy.config
