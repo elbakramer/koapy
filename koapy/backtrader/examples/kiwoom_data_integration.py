@@ -25,7 +25,7 @@ def main():
     cerebro.addstrategy(OrclStrategy, printlog=True)
 
     logging.info('Starting Portfolio Value: %.2f', cerebro.broker.getvalue())
-    cerebro.run(maxcpus=1)
+    cerebro.run()
     logging.info('Final Portfolio Value: %.2f', cerebro.broker.getvalue())
 
 if __name__ == '__main__':

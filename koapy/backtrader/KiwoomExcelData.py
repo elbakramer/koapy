@@ -1,6 +1,7 @@
 import pandas as pd
 
 from backtrader.feeds import PandasDirectData
+from backtrader.utils.py3 import string_types
 
 class KiwoomExcelData(PandasDirectData):
 
@@ -51,6 +52,6 @@ class KiwoomExcelData(PandasDirectData):
 
         return data
 
-    def __init__(self, *args, **kwargs):
-        self.p.dataname = self.read_excel(self.p.dataname) # pylint: disable=no-member
-        super().__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs): # pylint: disable=unused-argument
+        if isinstance(self.p.dataname, string_types): # pylint: disable=no-member
+            self.p.dataname = self.read_excel(self.p.dataname) # pylint: disable=no-member

@@ -1,4 +1,7 @@
 from inspect import Signature
+
+from PySide2.QtAxContainer import QAxWidget
+
 from koapy.openapi.KiwoomOpenApiSignature import get_dispatch_signature_by_name, qt_function_spec_from_signature
 
 class KiwoomOpenApiDynamicCallable:
@@ -18,7 +21,10 @@ class KiwoomOpenApiDynamicCallable:
     def __call__(self, *args, **kwargs):
         ba = self._signature.bind(*args, **kwargs)
         ba.apply_defaults()
-        result = self._control.dynamicCall(self._function, list(ba.args))
+        if isinstance(self._control, QAxWidget):
+            result = self._control.dynamicCall(self._function, *ba.args) # cannot call with more than 8 args
+        else:
+            result = self._control.dynamicCall(self._function, list(ba.args))
         if not self.is_valid_return_type(result):
             raise TypeError('Return type %s expected for function call %s(), but %s found.' % (
                 self._signature.return_annotation,

@@ -122,17 +122,21 @@ class TestStrategy(bt.Strategy):
 def main():
     cerebro = bt.Cerebro()
 
-    kiwoomstore = KiwoomOpenApiStore() # pylint: disable=unexpected-keyword-arg
+    kiwoomstore = KiwoomOpenApiStore()
+    cerebro.broker = kiwoomstore.getbroker()
 
     data = kiwoomstore.getdata(dataname='005930', backfill_start=False, timeframe=bt.TimeFrame.Ticks, compression=1)
-    cerebro.resampledata(data, timeframe=bt.TimeFrame.Seconds, compression=5)
+    cerebro.resampledata(data, name='005930', timeframe=bt.TimeFrame.Seconds, compression=1)
+    cerebro.replaydata(data, name='005930-1day', timeframe=bt.TimeFrame.Days, compression=1)
 
-    cerebro.broker = kiwoomstore.getbroker()
+    data = kiwoomstore.getdata(dataname='035420', backfill_start=False, timeframe=bt.TimeFrame.Ticks, compression=1)
+    cerebro.resampledata(data, name='035420', timeframe=bt.TimeFrame.Seconds, compression=1)
+    cerebro.replaydata(data, name='035420-1day', timeframe=bt.TimeFrame.Days, compression=1)
 
     cerebro.addtz('Asia/Seoul')
     cerebro.addstrategy(TestStrategy)
 
-    cerebro.run(maxcpus=1)
+    cerebro.run()
 
 if __name__ == '__main__':
     main()

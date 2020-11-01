@@ -80,13 +80,21 @@ class API:
 
     def __init__(self, context):
         self._context = context
+        self._codes = self._context.GetCodeListByMarketAsList()
 
     def __getattr__(self, name):
         return getattr(self._context, name)
 
-    def get_instruments(self, account, instruments): # TODO: 계좌에 따라 시장이 다를 수 있음
+    def get_instruments_original(self, account, instruments): # TODO: 계좌에 따라 시장이 다를 수 있음
         instruments = self.GetStockInfoAsDataFrame(instruments)
         instruments = [tup._asdict() for tup in instruments.itertuples(index=False)]
+        response = {'instruments': instruments}
+        return response
+
+    def get_instruments(self, account, instruments):
+        if isinstance(instruments, str):
+            instruments = [instruments]
+        instruments = [inst for inst in instruments if inst in self._codes]
         response = {'instruments': instruments}
         return response
 
@@ -136,11 +144,10 @@ class API:
         return response
 
     def get_account(self, account):
-        deposit = self.GetDepositInfo(account)
         summary, _foreach = self.GetAccountEvaluationStatusAsSeriesAndDataFrame(account)
         response = {
-            'marginAvail': float(deposit['100%종목주문가능금액']),
-            'balance': float(summary['유가잔고평가액']),
+            'marginAvail': float(summary['D+2추정예수금']),
+            'balance': float(summary['추정예탁자산']),
         }
         return response
 
@@ -231,7 +238,7 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
 
     params = (
         ('account', ''),
-        ('account_tmout', 60.0), # TODO: 60초마다 TR 을 두개씩 날리는데 정말 이게 필요한가?
+        ('account_tmout', 60.0), # TODO: 60초마다 TR 을 날리는데 정말 이게 필요한가?
     )
 
     _DTEPOCH = datetime.datetime(1970, 1, 1)
@@ -343,7 +350,8 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
             return None
 
         i = insts.get('instruments', [{}])
-        return i[0] or None
+        inst = i[0] if len(i) else None
+        return inst
 
     def streaming_events(self, tmout=None):
         q = queue.Queue()

@@ -38,7 +38,9 @@ class KiwoomOpenApiControlCommonWrapper:
     def ShowAccountWindow(self):
         return self.KOA_Functions('ShowAccountWindow', '')
 
-    def GetCodeListByMarketAsList(self, market):
+    def GetCodeListByMarketAsList(self, market=None):
+        if market is None:
+            market = ''
         market = str(market)
         result = self.GetCodeListByMarket(market).rstrip(';')
         result = result.split(';') if result else []
