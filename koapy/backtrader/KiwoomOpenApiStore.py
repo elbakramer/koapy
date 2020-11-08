@@ -7,7 +7,8 @@ import threading
 import collections
 
 import backtrader as bt
-import pytz
+import pandas as pd
+import numpy as np
 
 from backtrader import TimeFrame
 from backtrader.metabase import MetaParams
@@ -16,6 +17,8 @@ from backtrader.utils.py3 import queue, with_metaclass
 from koapy.context.KiwoomOpenApiContext import KiwoomOpenApiContext
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 from koapy.backtrader.KiwoomOpenApiEventStreamer import KiwoomOpenApiEventStreamer
+
+from koapy.utils.krx.calendar import get_krx_timezone
 
 class KiwoomOpenApiJsonError(KiwoomOpenApiError):
 
@@ -44,17 +47,17 @@ class HistoricalPriceRecord(collections.namedtuple('HistoricalPriceRecord', ['ti
 
     __slots__ = ()
 
-    kst = pytz.timezone('Asia/Seoul')
+    _krx_timezone = get_krx_timezone()
 
     @classmethod
     def from_tuple(cls, tup):
         if '일자' in tup._fields:
             dt = datetime.datetime.strptime(tup.일자, '%Y%m%d')
-            dt = cls.kst.localize(dt)
+            dt = cls._krx_timezone.localize(dt)
             time = dt.timestamp() * (10 ** 6) # pylint: disable=redefined-outer-name
         elif '체결시간' in tup._fields:
             dt = datetime.datetime.strptime(tup.체결시간, '%Y%m%d%H%M%S')
-            dt = cls.kst.localize(dt)
+            dt = cls._krx_timezone.localize(dt)
             time = dt.timestamp() * (10 ** 6)
         else:
             raise KiwoomOpenApiError('Cannot specify time')
@@ -77,6 +80,8 @@ class API:
 
     # 우선은 최대한 기존 Oanda 구현을 유지한채로 맞춰서 동작할 수 있도록 구현해놓고
     # 추후 동작이 되는게 확인되면 천천히 하단 API 에 맞게 최적화를 하는 방향으로 작업하는 것으로...
+
+    _krx_timezone = get_krx_timezone()
 
     def __init__(self, context):
         self._context = context
@@ -218,6 +223,24 @@ class API:
         }
         return result
 
+    def get_today_quotes_by_code(self, codes=None):
+        if codes is None:
+            codes = self._codes
+        df = self.GetStockQuoteInfoAsDataFrame(codes)
+        dt = pd.to_datetime(df['일자'].str.cat(df['체결시간']), format='%Y%m%d%H%M%S').dt.tz_localize(self._krx_timezone)
+        dt = dt.astype(np.int64) // 10 ** 3
+        df = pd.DataFrame({
+            'dataname': df['종목코드'],
+            'time': dt,
+            'open': df['시가'].astype(float).abs(),
+            'high': df['고가'].astype(float).abs(),
+            'low': df['저가'].astype(float).abs(),
+            'close': df['종가'].astype(float).abs(),
+            'volume': df['거래량'].astype(float).abs(),
+        })
+        msgs = {tup.dataname: tup._asdict() for tup in df.itertuples(index=False)}
+        return msgs
+
 class MetaSingleton(MetaParams):
 
     def __init__(cls, name, bases, dct):
@@ -264,7 +287,13 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
 
         self._env = None
         self.broker = None
+
         self.datas = list()
+        self.datanames = list()
+
+        self._ever_started = False
+        self._today_quotes_by_code = None
+        self._today_quotes_by_code_done = threading.Event()
 
         self._orders = collections.OrderedDict()  # map order.ref to oid
         self._ordersrev = collections.OrderedDict()  # map oid to order.ref
@@ -292,6 +321,11 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
         self._tmoffset = datetime.timedelta()
 
     def start(self, data=None, broker=None):
+        if not self._ever_started:
+            self._ever_started = True
+            self._today_quotes_by_code = self.api.get_today_quotes_by_code(self.datanames)
+            self._today_quotes_by_code_done.set()
+
         if data is None and broker is None:
             return
 
@@ -302,10 +336,16 @@ class KiwoomOpenApiStore(with_metaclass(MetaSingleton, object)):
             if self.broker is not None:
                 self.broker.data_started(data)
 
+            self._today_quotes_by_code_done.wait()
+
         elif broker is not None:
             self.broker = broker
             self.streaming_events()
             self.broker_threads()
+
+    def initial_today_historical_msg(self, data=None):
+        if data is not None:
+            return self._today_quotes_by_code.get(data.p.dataname)
 
     def stop(self):
         pass

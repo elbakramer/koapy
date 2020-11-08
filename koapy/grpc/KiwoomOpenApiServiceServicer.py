@@ -5,6 +5,7 @@ from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiAllEventHan
 from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiSomeEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiLoginEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiTrEventHandler
+from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiKwTrEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiOrderEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiRealEventHandler
 from koapy.grpc.event.KiwoomOpenApiEventHandlers import KiwoomOpenApiSomeBidirectionalEventHandler
@@ -113,7 +114,14 @@ class KiwoomOpenApiServiceServicer(KiwoomOpenApiService_pb2_grpc.KiwoomOpenApiSe
                 yield response
 
     def TransactionCall(self, request, context):
-        with KiwoomOpenApiTrEventHandler(self.control, request, context, self.screen_manager) as handler:
+        trcode = request.transaction_code.upper()
+
+        if trcode in ['OPTKWFID', 'OPTFOFID']:
+            handler = KiwoomOpenApiKwTrEventHandler(self.control, request, context, self.screen_manager)
+        else:
+            handler = KiwoomOpenApiTrEventHandler(self.control, request, context, self.screen_manager)
+
+        with handler:
             for response in handler:
                 yield response
 

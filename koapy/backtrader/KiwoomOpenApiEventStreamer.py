@@ -1,5 +1,6 @@
 import datetime
 import logging
+import threading
 
 import rx
 
@@ -17,11 +18,11 @@ from koapy.utils.krx.calendar import get_krx_timezone
 
 class KiwoomOpenApiPriceEventChannel:
 
-    krx_timezone = get_krx_timezone()
+    _krx_timezone = get_krx_timezone()
 
     def __init__(self, stub):
         self._stub = stub
-        self._fid_list = []
+        self._fid_list = RealType.get_fids_by_realtype('주식시세')
 
         self._request_observer = QueueBasedIterableObserver()
         self._request_iterator = iter(self._request_observer)
@@ -68,25 +69,22 @@ class KiwoomOpenApiPriceEventChannel:
         return ops.filter(lambda response: self.is_for_code(response, code))
 
     def is_valid_price_event(self, response):
-        return all(name in response.single_data.names for name in ['27', '28'])
+        return all(name in response.single_data.names for name in ['20', '27', '28'])
 
     def filter_price_event(self):
         return ops.filter(self.is_valid_price_event)
 
     def time_to_timestamp(self, fid20):
-        if fid20 is None:
-            dt = datetime.datetime.now(self.krx_timezone)
-        else:
-            dt = datetime.datetime.now(self.krx_timezone).date()
-            tm = datetime.datetime.strptime(fid20, '%H%M%S').time()
-            dt = datetime.datetime.combine(dt, tm)
-            dt = self.krx_timezone.localize(dt)
+        dt = datetime.datetime.now(self._krx_timezone).date()
+        tm = datetime.datetime.strptime(fid20, '%H%M%S').time()
+        dt = datetime.datetime.combine(dt, tm)
+        dt = self._krx_timezone.localize(dt)
         return dt.timestamp() * (10 ** 6)
 
     def event_to_dict(self, response):
         single_data = dict(zip(response.single_data.names, response.single_data.values))
         result = {
-            'time': self.time_to_timestamp(single_data.get('20')),
+            'time': self.time_to_timestamp(single_data['20']),
             'bid': abs(float(single_data['28'])),
             'ask': abs(float(single_data['27'])),
         }
@@ -239,6 +237,8 @@ class KiwoomOpenApiEventStreamer(Observer):
     _price_event_channels_by_stub = {}
     _order_event_channels_by_stub = {}
 
+    _lock = threading.RLock()
+
     def __init__(self, stub, queue):
         super().__init__()
         self._stub = stub
@@ -254,17 +254,19 @@ class KiwoomOpenApiEventStreamer(Observer):
         pass
 
     def rates(self, code):
-        if self._stub not in self._price_event_channels_by_stub:
-            self._price_event_channels_by_stub[self._stub] = KiwoomOpenApiPriceEventChannel(self._stub)
-        event_channel = self._price_event_channels_by_stub[self._stub]
+        with self._lock:
+            if self._stub not in self._price_event_channels_by_stub:
+                self._price_event_channels_by_stub[self._stub] = KiwoomOpenApiPriceEventChannel(self._stub)
+            event_channel = self._price_event_channels_by_stub[self._stub]
         subscription = event_channel.get_observable_for_code(code).subscribe(self)
         logging.debug('Subscribing rates for code %s', code)
         return subscription
 
     def events(self):
-        if self._stub not in self._order_event_channels_by_stub:
-            self._order_event_channels_by_stub[self._stub] = KiwoomOpenApiOrderEventChannel(self._stub)
-        event_channel = self._order_event_channels_by_stub[self._stub]
+        with self._lock:
+            if self._stub not in self._order_event_channels_by_stub:
+                self._order_event_channels_by_stub[self._stub] = KiwoomOpenApiOrderEventChannel(self._stub)
+            event_channel = self._order_event_channels_by_stub[self._stub]
         subscription = event_channel.get_observable().subscribe(self)
         logging.debug('Subscribing order events')
         return subscription

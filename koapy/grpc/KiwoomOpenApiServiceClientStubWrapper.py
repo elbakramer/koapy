@@ -211,7 +211,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         multi = pd.DataFrame.from_records(records, columns=columns)
         return single, multi
 
-    def GetStockInfoAsDataFrame(self, codes=None, rqname=None, scrnno=None):
+    def GetStockBasicInfoAsDataFrame(self, codes=None, rqname=None, scrnno=None):
         if codes is None:
             codes = self.GetCommonCodeList()
         elif isinstance(codes, str):
@@ -229,6 +229,25 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
                 if not columns:
                     columns = response.single_data.names
                 records.append(response.single_data.values)
+        df = pd.DataFrame.from_records(records, columns=columns)
+        return df
+
+    def GetStockQuoteInfoAsDataFrame(self, codes=None, rqname=None, scrnno=None):
+        if codes is None:
+            codes = self.GetCommonCodeList()
+        elif isinstance(codes, str):
+            codes = [codes]
+        if rqname is None:
+            rqname = '관심종목정보요청'
+        trcode = 'OPTKWFID'
+        columns = []
+        records = []
+        inputs = {'종목코드': ';'.join(codes)}
+        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
+            if not columns:
+                columns = response.multi_data.names
+            for values in response.multi_data.values:
+                records.append(values.values)
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 

@@ -26,11 +26,11 @@ from send2trash import send2trash
 
 class ChartType:
 
-    DAY = 1
-    WEEK = 2
-    MONTH = 3
-    MINUTE = 4
-    TICK = 5
+    TICK = 1
+    MINUTE = 2
+    DAY = 3
+    WEEK = 4
+    MONTH = 5
 
     DAY_STRINGS = ['day', 'daily', 'date', 'd', 'D']
     WEEK_STRINGS = ['week', 'weekly', 'w', 'W']
@@ -166,18 +166,23 @@ class HistoricalStockPriceDataUpdater:
         self._time_column_name = '시간'
         self._time_format = '%H%M'
 
-        self._tablename = 'history'
-
     def get_start_date(self):
-        return get_last_krx_close_datetime()
+        dt = get_last_krx_close_datetime()
+        if self._chart_type >= ChartType.DAY:
+            dt = datetime.datetime.combine(dt.date(), datetime.time())
+            dt = self._timezone.localize(dt)
+        return dt
 
     def check_failover_code(self):
         failover_code = None
         if os.path.exists(self._failover_filename):
+            logging.debug('Failover file found: %s', self._failover_filename)
             with open(self._failover_filename) as f:
                 failover_code = f.read()
             if not len(failover_code) > 0:
                 failover_code = None
+            if failover_code:
+                logging.debug('Failover code found: %s', failover_code)
         return failover_code
 
     def save_failover_code(self, code):
@@ -229,37 +234,50 @@ class HistoricalStockPriceDataUpdater:
             yield self._context
 
     def get_filepath_for_code(self, code):
-        filename = code + self._extension
-        filepath = os.path.join(self._datadir, filename)
-        return filepath
+        if self._format == FileFormat.XLSX:
+            filename = code + self._extension
+            filepath = os.path.join(self._datadir, filename)
+            return filepath
+        elif self._format == FileFormat.SQLITE:
+            if os.path.exists(self._datadir) and os.path.isdir(self._datadir):
+                filename = code + self._extension
+                filepath = os.path.join(self._datadir, filename)
+                return filepath
+            else:
+                filepath = self._datadir
+                if not filepath.endswith(self._extension):
+                    filepath += self._extension
+                return filepath
+        else:
+            raise ValueError('Unsupported file format')
 
     def remove_file(self, filepath):
         return send2trash(filepath)
 
-    def _read_data_excel(self, filepath):
-        return pd.read_excel(filepath, dtype=str)
+    def _read_data_excel(self, filepath, tablename):
+        return pd.read_excel(filepath, sheet_name=tablename, dtype=str)
 
-    def _check_last_date_day_excel(self, filepath):
+    def _check_last_date_day_excel(self, filepath, tablename):
         last_date = None
-        df = self._read_data_excel(filepath)
+        df = self._read_data_excel(filepath, tablename)
         if df.shape[0] > 0 and self._date_column_name in df.columns:
             last_date = df.loc[0, self._date_column_name]
             last_date = datetime.datetime.strptime(last_date, self._date_format)
             last_date = self._timezone.localize(last_date)
         return last_date
 
-    def _check_last_date_minute_excel_kiwoom(self, filepath):
+    def _check_last_date_minute_excel_kiwoom(self, filepath, tablename):
         last_date = None
-        df = self._read_data_excel(filepath)
+        df = self._read_data_excel(filepath, tablename)
         if df.shape[0] > 0 and self._date_column_name in df.columns:
             last_date = df.loc[0, self._date_column_name]
             last_date = datetime.datetime.strptime(last_date, self._date_format)
             last_date = self._timezone.localize(last_date)
         return last_date
 
-    def _check_last_date_minute_excel_cybos(self, filepath):
+    def _check_last_date_minute_excel_cybos(self, filepath, tablename):
         last_date = None
-        df = self._read_data_excel(filepath)
+        df = self._read_data_excel(filepath, tablename)
         if df.shape[0] > 0 and self._date_column_name in df.columns and self._time_column_name in df.columns:
             last_record = df.loc[0]
             last_date = last_record[self._date_column_name]
@@ -268,70 +286,79 @@ class HistoricalStockPriceDataUpdater:
             last_date = self._timezone.localize(last_date)
         return last_date
 
-    def _check_last_date_day_sql(self, filepath):
+    def _check_last_date_day_sql(self, filepath, tablename):
         engine = create_engine('sqlite:///' + filepath)
         with engine.connect() as con:
             sql = select([column(self._date_column_name)])
-            sql = sql.select_from(text(self._tablename))
+            sql = sql.select_from(text(tablename))
             sql = sql.order_by(desc(self._date_column_name))
             sql = sql.limit(1)
-            data = pd.read_sql_query(sql, con)
-            last_date = data.iloc[0, 0]
-            last_date = self._timezone.localize(last_date)
+            try:
+                data = pd.read_sql_query(sql, con)
+            except OperationalError:
+                last_date = None
+            else:
+                last_date = data.iloc[0, 0]
+                last_date = datetime.datetime.strptime(last_date, '%Y-%m-%d')
+                last_date = self._timezone.localize(last_date)
         engine.dispose()
         return last_date
 
-    def _check_last_date_minute_sql_kiwoom(self, filepath):
+    def _check_last_date_minute_sql_kiwoom(self, filepath, tablename):
         engine = create_engine('sqlite:///' + filepath)
         with engine.connect() as con:
             sql = select([column(self._date_column_name)])
-            sql = sql.select_from(text(self._tablename))
+            sql = sql.select_from(text(tablename))
             sql = sql.order_by(desc(self._date_column_name))
             sql = sql.limit(1)
-            data = pd.read_sql_query(sql, con)
-            last_date = data.iloc[0, 0]
-            last_date = self._timezone.localize(last_date)
+            try:
+                data = pd.read_sql_query(sql, con)
+            except OperationalError:
+                last_date = None
+            else:
+                last_date = data.iloc[0, 0]
+                last_date = self._timezone.localize(last_date)
         engine.dispose()
         return last_date
 
-    def _check_last_date_minute_sql_cybos(self, filepath):
+    def _check_last_date_minute_sql_cybos(self, filepath, tablename):
         engine = create_engine('sqlite:///' + filepath)
         with engine.connect() as con:
             sql = select([column(self._date_column_name), column(self._time_column_name)])
-            sql = sql.select_from(text(self._tablename))
+            sql = sql.select_from(text(tablename))
             sql = sql.order_by(desc(self._date_column_name), desc(self._time_column_name))
             sql = sql.limit(1)
             try:
                 data = pd.read_sql_query(sql, con, parse_dates=[self._date_column_name, self._time_column_name])
-                data[self._date_column_name] = data[self._date_column_name].dt.date
-                data[self._time_column_name] = data[self._time_column_name].dt.time
             except OperationalError:
                 last_date = None
             else:
+                data[self._date_column_name] = data[self._date_column_name].dt.date
+                data[self._time_column_name] = data[self._time_column_name].dt.time
                 date, time = data.iloc[0]
                 last_date = datetime.datetime.combine(date, time)
                 last_date = self._timezone.localize(last_date)
         engine.dispose()
         return last_date
 
-    def check_last_date(self, filepath):
+    def check_last_date(self, filepath, tablename):
         if isinstance(self._context, KiwoomOpenApiContext):
             if self._chart_type == ChartType.DAY:
                 self._date_column_name = '일자'
                 self._date_format = '%Y%m%d'
                 if self._format == FileFormat.XLSX:
-                    return self._check_last_date_day_excel(filepath)
+                    return self._check_last_date_day_excel(filepath, tablename)
                 elif self._format == FileFormat.SQLITE:
-                    return self._check_last_date_day_sql(filepath)
+                    return self._check_last_date_day_sql(filepath, tablename)
                 else:
                     raise ValueError
             elif self._chart_type == ChartType.MINUTE:
                 self._date_column_name = '체결시간'
                 self._date_format = '%Y%m%d%H%M%S'
                 if self._format == FileFormat.XLSX:
-                    return self._check_last_date_minute_excel_kiwoom(filepath)
+                    return self._check_last_date_minute_excel_kiwoom(filepath, tablename)
                 elif self._format == FileFormat.SQLITE:
-                    return self._check_last_date_minute_sql_kiwoom(filepath)
+                    return self._check_last_date_minute_sql_kiwoom(filepath, tablename)
                 else:
                     raise ValueError
             else:
@@ -341,9 +368,9 @@ class HistoricalStockPriceDataUpdater:
                 self._date_column_name = '날짜'
                 self._date_format = '%Y%m%d'
                 if self._format == FileFormat.XLSX:
-                    return self._check_last_date_day_excel(filepath)
+                    return self._check_last_date_day_excel(filepath, tablename)
                 elif self._format == FileFormat.SQLITE:
-                    return self._check_last_date_day_sql(filepath)
+                    return self._check_last_date_day_sql(filepath, tablename)
                 else:
                     raise ValueError
             elif self._chart_type == ChartType.MINUTE:
@@ -352,9 +379,9 @@ class HistoricalStockPriceDataUpdater:
                 self._time_column_name = '시간'
                 self._time_format = '%H%M'
                 if self._format == FileFormat.XLSX:
-                    return self._check_last_date_minute_excel_cybos(filepath)
+                    return self._check_last_date_minute_excel_cybos(filepath, tablename)
                 elif self._format == FileFormat.SQLITE:
-                    return self._check_last_date_minute_sql_cybos(filepath)
+                    return self._check_last_date_minute_sql_cybos(filepath, tablename)
                 else:
                     raise ValueError
             else:
@@ -382,42 +409,42 @@ class HistoricalStockPriceDataUpdater:
         else:
             raise TypeError
 
-    def _save_data_excel(self, data, filepath):
+    def _save_data_excel(self, data, filepath, tablename):
         filepathparts = os.path.splitext(filepath)
         tempfilepath = filepathparts[0] + '.tmp' + filepathparts[1]
-        data.to_excel(tempfilepath, index=False)
+        data.to_excel(tempfilepath, index=False, sheet_name=tablename)
         os.replace(tempfilepath, filepath)
 
-    def _append_data_excel(self, data, filepath):
-        original = self._read_data_excel(filepath)
+    def _append_data_excel(self, data, filepath, tablename):
+        original = self._read_data_excel(filepath, tablename)
         appended = pd.concat([data, original])
-        self._save_data_excel(appended, filepath)
+        self._save_data_excel(appended, filepath, tablename)
 
-    def _write_data_day_sql(self, data, filepath, if_exists='replace'):
+    def _write_data_day_sql(self, data, filepath, tablename, if_exists='replace'):
         engine = create_engine('sqlite:///' + filepath)
         with engine.connect() as con:
             dates = pd.to_datetime(data[self._date_column_name].astype(str), format=self._date_format).dt.date
             data = data.assign(**{self._date_column_name: dates})
             data = data.set_index(self._date_column_name)
-            data.to_sql(self._tablename, con, if_exists=if_exists)
+            data.to_sql(tablename, con, if_exists=if_exists)
         engine.dispose()
 
-    def _save_data_day_sql(self, data, filepath):
-        return self._write_data_day_sql(data, filepath, if_exists='replace')
+    def _save_data_day_sql(self, data, filepath, tablename):
+        return self._write_data_day_sql(data, filepath, tablename, if_exists='replace')
 
-    def _append_data_day_sql(self, data, filepath):
-        return self._write_data_day_sql(data, filepath, if_exists='append')
+    def _append_data_day_sql(self, data, filepath, tablename):
+        return self._write_data_day_sql(data, filepath, tablename, if_exists='append')
 
-    def _write_data_minute_sql_kiwoom(self, data, filepath, if_exists='replace'):
+    def _write_data_minute_sql_kiwoom(self, data, filepath, tablename, if_exists='replace'):
         engine = create_engine('sqlite:///' + filepath)
         with engine.connect() as con:
             dates = pd.to_datetime(data[self._date_column_name].astype(str), format=self._date_format).dt.date
             data = data.assign(**{self._date_column_name: dates})
             data = data.set_index(self._date_column_name)
-            data.to_sql(self._tablename, con, if_exists=if_exists)
+            data.to_sql(tablename, con, if_exists=if_exists)
         engine.dispose()
 
-    def _write_data_minute_sql_cybos(self, data, filepath, if_exists='replace'):
+    def _write_data_minute_sql_cybos(self, data, filepath, tablename, if_exists='replace'):
         engine = create_engine('sqlite:///' + filepath)
         with engine.connect() as con:
             datetimes = data[self._date_column_name].astype(str).str.cat(data[self._time_column_name].astype(str).str.zfill(4))
@@ -427,50 +454,50 @@ class HistoricalStockPriceDataUpdater:
                 self._time_column_name: datetimes.dt.time,
             })
             data = data.set_index([self._date_column_name, self._time_column_name])
-            data.to_sql(self._tablename, con, if_exists=if_exists)
+            data.to_sql(tablename, con, if_exists=if_exists)
         engine.dispose()
 
-    def _write_data_minute_sql(self, data, filepath, if_exists='replace'): # pylint: disable=method-hidden
+    def _write_data_minute_sql(self, data, filepath, tablename, if_exists='replace'): # pylint: disable=method-hidden
         if isinstance(self._context, KiwoomOpenApiContext):
-            return self._write_data_minute_sql_kiwoom(data, filepath, if_exists)
+            return self._write_data_minute_sql_kiwoom(data, filepath, tablename, if_exists)
         elif isinstance(self._context, CybosPlusComObject):
-            return self._write_data_minute_sql_cybos(data, filepath, if_exists)
+            return self._write_data_minute_sql_cybos(data, filepath, tablename, if_exists)
         else:
             raise TypeError
 
-    def _save_data_minute_sql(self, data, filepath):
-        return self._write_data_minute_sql(data, filepath, if_exists='replace')
+    def _save_data_minute_sql(self, data, filepath, tablename):
+        return self._write_data_minute_sql(data, filepath, tablename, if_exists='replace')
 
-    def _append_data_minute_sql(self, data, filepath):
-        return self._write_data_minute_sql(data, filepath, if_exists='append')
+    def _append_data_minute_sql(self, data, filepath, tablename):
+        return self._write_data_minute_sql(data, filepath, tablename, if_exists='append')
 
-    def append_data(self, data, filepath):
+    def append_data(self, data, filepath, tablename):
         if self._format == FileFormat.XLSX:
-            return self._append_data_excel(data, filepath)
+            return self._append_data_excel(data, filepath, tablename)
         elif self._format == FileFormat.SQLITE:
             if self._chart_type == ChartType.DAY:
-                return self._append_data_day_sql(data, filepath)
+                return self._append_data_day_sql(data, filepath, tablename)
             elif self._chart_type == ChartType.MINUTE:
-                return self._append_data_minute_sql(data, filepath)
+                return self._append_data_minute_sql(data, filepath, tablename)
             else:
                 raise ValueError
         else:
             raise ValueError
 
-    def save_data(self, data, filepath):
+    def save_data(self, data, filepath, tablename):
         if self._format == FileFormat.XLSX:
-            return self._save_data_excel(data, filepath)
+            return self._save_data_excel(data, filepath, tablename)
         elif self._format == FileFormat.SQLITE:
             if self._chart_type == ChartType.DAY:
-                return self._save_data_day_sql(data, filepath)
+                return self._save_data_day_sql(data, filepath, tablename)
             elif self._chart_type == ChartType.MINUTE:
-                return self._save_data_minute_sql(data, filepath)
+                return self._save_data_minute_sql(data, filepath, tablename)
             else:
                 raise ValueError
         else:
             raise ValueError
 
-    def update(self):
+    def update_with_progress(self):
         start_date = self.get_start_date()
         end_date = None
 
@@ -486,6 +513,7 @@ class HistoricalStockPriceDataUpdater:
 
         with self.get_or_create_context():
             for i, code in enumerate(self._codes):
+                yield (0, code, i, self._codes_len)
                 if failover_code is not None:
                     if not failover_code_reached:
                         if code == failover_code:
@@ -497,16 +525,19 @@ class HistoricalStockPriceDataUpdater:
                 try:
                     logging.info('Starting to get stock data for code: %s (%d/%d)', code, i+1, self._codes_len)
                     filepath = self.get_filepath_for_code(code)
+                    tablename = code
+                    if not tablename[0].isalpha():
+                        tablename = 'A' + tablename
                     should_overwrite = False
                     if os.path.exists(filepath):
                         if should_try_append:
-                            last_date = self.check_last_date(filepath)
+                            last_date = self.check_last_date(filepath, tablename)
                             if last_date is not None:
                                 if start_date > last_date:
                                     logging.info('Found existing file %s, prepending from %s until %s', os.path.basename(filepath), start_date, last_date)
                                     df = self.get_data(code, start_date, last_date)
-                                    if df.shape[0] > 0:
-                                        self.append_data(df, filepath)
+                                    if df is not None and df.shape[0] > 0:
+                                        self.append_data(df, filepath, tablename)
                                         logging.info('Appended stock data for code %s to %s', code, filepath)
                                     else:
                                         logging.info('Got nothing to append for code %s', code)
@@ -528,23 +559,29 @@ class HistoricalStockPriceDataUpdater:
                                 logging.info('File exists but just ignoring...')
                     if not os.path.exists(filepath) or should_overwrite:
                         df = self.get_data(code, start_date, end_date)
-                        if df.shape[0] > 0:
-                            self.save_data(df, filepath)
+                        if df is not None and df.shape[0] > 0:
+                            self.save_data(df, filepath, tablename)
                             logging.info('Saved stock data for code %s to %s', code, filepath)
                         else:
                             logging.info('Nothing to save for code %s', code)
                 except:
                     self.save_failover_code(code)
                     raise
+                yield (1, code, i, self._codes_len)
 
         # update finished successfully, delete possibly existing failover file
         if os.path.exists(self._failover_filename):
             self.remove_file(self._failover_filename)
 
         # delete untracked data if want to
-        if self._delete_remainings:
+        if os.path.isdir(self._datadir) and self._delete_remainings:
             for filename in os.listdir(self._datadir):
                 basefilename, ext = os.path.splitext(filename)
                 if ext == self._extension and basefilename not in self._codes:
                     logging.info('File %s is not included in target codes, deleting...', filename)
                     self.remove_file(os.path.join(self._datadir, filename))
+
+    def update(self):
+        for event in self.update_with_progress():
+            pass
+        return self

@@ -41,6 +41,9 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
     def __init__(self, *args, **kwargs):
         self.k = self._store(*args, **kwargs)
 
+        if self.p.dataname not in self.k.datanames:
+            self.k.datanames.append(self.p.dataname)
+
         self.qlive = queue.Queue()
         self.qhist = queue.Queue()
 
@@ -50,6 +53,8 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
         self._storedmsg = dict()
         self._state = self._ST_OVER
         self._reconns = 0
+
+        self._tz = self._gettz()
 
     def _timeoffset(self):
         return self.k.timeoffset()
@@ -163,6 +168,16 @@ class KiwoomOpenApiData(with_metaclass(MetaKiwoomOpenApiData, DataBase)): # pyli
 
             if instart:
                 self._reconns = self.p.reconnections
+
+            if instart and not self.p.backfill_start:
+                self.put_notification(self.DELAYED)
+
+                msg = self.k.initial_today_historical_msg(data=self)
+
+                self.qhist.put(msg)
+                self.qhist.put({})
+
+                self._state = self._ST_HISTORBACK
 
             return True
 

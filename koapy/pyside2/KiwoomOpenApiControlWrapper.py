@@ -2,9 +2,8 @@ import os
 import re
 import queue
 import logging
-import threading
 
-import numpy as np
+from wrapt import synchronized
 
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 from koapy.utils.rate_limiting.RateLimiter import KiwoomCommRqDataRateLimiter, KiwoomSendConditionRateLimiter
@@ -114,7 +113,7 @@ class KiwoomOpenApiControlCommonWrapper:
             names = [self.GetMasterCodeName(code) for code in codes]
             etn_suffixes = ['ETN', 'ETN(H)', 'ETN B', 'ETN(H) B']
             is_not_etn_name = [not any(name.endswith(suffix) for suffix in etn_suffixes) for name in names]
-            codes = np.array(codes)[is_not_etn_name].tolist()
+            codes = [code for code, cond in zip(codes, is_not_etn_name) if cond]
 
         # 코드값 기준 제외 준비
         codes = set(codes)
@@ -157,11 +156,10 @@ class KiwoomOpenApiControlCommonWrapper:
         conditions = [(int(cond[0]), cond[1]) for cond in conditions]
         return conditions
 
-class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
+commratelimited = KiwoomCommRqDataRateLimiter()
+condratelimited = KiwoomSendConditionRateLimiter()
 
-    def __init__(self, control=None):
-        super().__init__(control)
-        self._lock = threading.RLock()
+class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
 
     def Connect(self):
         q = queue.Queue()
@@ -206,6 +204,15 @@ class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
             return_code = self.LoadCondition()
         return return_code
 
+    @synchronized
+    def AtomicCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
+        if inputs:
+            for k, v in inputs.items():
+                self.SetInputValue(k, v)
+        prevnext = int(prevnext) # ensure prevnext is int
+        code = self.CommRqData(rqname, trcode, prevnext, scrnno)
+        return code
+
     # 그냥 1초당 5회로하면 장기적으로 결국 막히기 때문에 원래 4초당 1회로 제한했었음 (3초당 1회부턴 제한걸림)
     # @SimpleRateLimiter(period=4, calls=1)
 
@@ -213,7 +220,7 @@ class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
     # 1초당 1회로 계산했을때 1시간이면 3600 회, 주기를 1초씩 늘려보면
     # 2초당 1회 => 1800 > 1000, 3초당 1회 => 1200 > 1000, 4초당 1회 => 900 < 1000
 
-    @KiwoomCommRqDataRateLimiter()
+    @commratelimited
     def RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
         """
         [OpenAPI 게시판]
@@ -224,12 +231,24 @@ class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
           - 1초당 5회 조회를 5연속 발생시킨 경우 : 90초대기
           - 1초당 5회 조회를 10연속 발생시킨 경우 : 3분(180초)대기
         """
-        prevnext = int(prevnext) # ensure prevnext is int
-        with self._lock:
-            if inputs:
-                for k, v in inputs.items():
-                    self.SetInputValue(k, v)
-            code = self.CommRqData(rqname, trcode, prevnext, scrnno)
+        return self.AtomicCommRqData(rqname, trcode, prevnext, scrnno, inputs)
+
+    @commratelimited
+    def RateLimitedCommKwRqData(self, codes, prevnext, codecnt, typeflag, rqname, scrnno):
+        """
+        [조회제한]
+          OpenAPI 조회는 1초당 5회로 제한되며 복수종목 조회와 조건검색 조회 횟수가 합산됩니다.
+          가령 1초 동안 시세조회2회 관심종목 1회 조건검색 2회 순서로 조회를 했다면 모두 합쳐서 5회이므로 모두 조회성공하겠지만
+          조건검색을 3회 조회하면 맨 마지막 조건검색 조회는 실패하게 됩니다.
+
+        [조건검색 제한]
+          조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
+        """
+        return self.CommKwRqData(codes, prevnext, codecnt, typeflag, rqname, scrnno)
+
+    def RateLimitedCommRqDataAndCheck(self, rqname, trcode, prevnext, scrnno, inputs=None):
+        code = self.RateLimitedCommRqData(rqname, trcode, prevnext, scrnno)
+
         spec = 'CommRqData(%r, %r, %r, %r)' % (rqname, trcode, prevnext, scrnno)
 
         if inputs is not None:
@@ -260,6 +279,16 @@ class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
 
         return code
 
-    @KiwoomSendConditionRateLimiter()
+    @condratelimited
+    @commratelimited
     def RateLimitedSendCondition(self, scrnno, condition_name, condition_index, search_type):
+        """
+        [조회제한]
+          OpenAPI 조회는 1초당 5회로 제한되며 복수종목 조회와 조건검색 조회 횟수가 합산됩니다.
+          가령 1초 동안 시세조회2회 관심종목 1회 조건검색 2회 순서로 조회를 했다면 모두 합쳐서 5회이므로 모두 조회성공하겠지만
+          조건검색을 3회 조회하면 맨 마지막 조건검색 조회는 실패하게 됩니다.
+
+        [조건검색 제한]
+          조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
+        """
         return self.SendCondition(scrnno, condition_name, condition_index, search_type)

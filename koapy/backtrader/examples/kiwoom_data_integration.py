@@ -12,8 +12,10 @@ def main():
 
     kiwoomstore = KiwoomOpenApiStore()
 
-    data = kiwoomstore.getdata(dataname='005930', historical=False)
-    cerebro.adddata(data)
+    historial_data = kiwoomstore.getdata(dataname='005930', historical=True)
+    realtime_data = kiwoomstore.getdata(dataname='005930', backfill_start=False, timeframe=bt.TimeFrame.Ticks, compression=1)
+
+    cerebro.adddata(historial_data)
 
     cerebro.addsizer(bt.sizers.FixedSize, stake=10)
     cerebro.addtz('Asia/Seoul')
@@ -21,7 +23,6 @@ def main():
     cerebro.broker.setcash(30000000.0)
     cerebro.broker.addcommissioninfo(KiwoomOpenApiCommInfo())
 
-    # _strats = cerebro.optstrategy(OrclStrategy, maperiod=range(10, 31))
     cerebro.addstrategy(OrclStrategy, printlog=True)
 
     logging.info('Starting Portfolio Value: %.2f', cerebro.broker.getvalue())
