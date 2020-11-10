@@ -144,12 +144,14 @@ if 'PySide2' in autodoc_mock_imports:
     PySide2.QtCore.QObject = QObject
     PySide2.QtAxContainer.QAxWidget = MagicMock()
     PySide2.QtGui.QDesktopServices = MagicMock()
+    PySide2.QtNetwork = MagicMock()
 
     sys.modules.update({
         'PySide2.QtWidgets': PySide2.QtWidgets,
         'PySide2.QtCore': PySide2.QtCore,
         'PySide2.QtAxContainer': PySide2.QtAxContainer,
         'PySide2.QtGui': PySide2.QtGui,
+        'PySide2.QtNetwork': PySide2.QtNetwork,
     })
 
 if 'PyQt5' in autodoc_mock_imports:
@@ -164,12 +166,14 @@ if 'PyQt5' in autodoc_mock_imports:
     PyQt5.QtCore.QObject = QObject
     PyQt5.QAxContainer.QAxWidget = MagicMock()
     PyQt5.QtGui.QDesktopServices = MagicMock()
+    PyQt5.QtNetwork = MagicMock()
 
     sys.modules.update({
-        'PyQt5.QtWidgets': PySide2.QtWidgets,
-        'PyQt5.QtCore': PySide2.QtCore,
-        'PyQt5.QAxContainer': PySide2.QAxContainer,
-        'PyQt5.QtGui': PySide2.QtGui,
+        'PyQt5.QtWidgets': PyQt5.QtWidgets,
+        'PyQt5.QtCore': PyQt5.QtCore,
+        'PyQt5.QAxContainer': PyQt5.QAxContainer,
+        'PyQt5.QtGui': PyQt5.QtGui,
+        'PyQt5.QtNetwork': PyQt5.QtNetwork,
     })
 
 # -- Import main package after mocking
