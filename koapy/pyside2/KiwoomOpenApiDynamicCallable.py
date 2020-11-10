@@ -3,6 +3,7 @@ from inspect import Signature
 from PySide2.QtAxContainer import QAxWidget
 
 from koapy.openapi.KiwoomOpenApiSignature import get_dispatch_signature_by_name, qt_function_spec_from_signature
+from koapy.pyside2.utils.fix_string_encoding import fix_string_encoding # pylint: disable=unused-import
 
 class KiwoomOpenApiDynamicCallable:
 

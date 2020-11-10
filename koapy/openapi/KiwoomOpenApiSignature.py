@@ -28,7 +28,6 @@ def signature_from_entry(entry):
     arg_names = entry.names[1:]
     arg_types = [typ[0] for typ in entry.desc[2]]
     return_type = entry.desc[8][0]
-    print( entry.names[0])
     parameters = [
         Parameter(
             name=name,

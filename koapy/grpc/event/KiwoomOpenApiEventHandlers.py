@@ -562,11 +562,14 @@ class KiwoomOpenApiKwTrEventHandler(KiwoomOpenApiEventHandlerForGrpc):
         for codes, scrnno in zip(self._code_lists, self._scrnnos):
             self.add_callback(self._screen_manager.return_screen, scrnno)
             self.add_callback(self.control.DisconnectRealData, scrnno)
+            self.add_callback(self.control.SetRealRemove, scrnno, 'ALL')
             KiwoomOpenApiError.try_or_raise(
                 self.control.RateLimitedCommKwRqData(';'.join(codes), 0, len(codes), self._typeflag, self._rqname, scrnno))
 
     def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg):
         if (rqname, trcode) == (self._rqname, self._trcode) and scrnno in self._scrnnos:
+            self.control.SetRealRemove(scrnno, 'ALL')
+
             response = KiwoomOpenApiService_pb2.ListenResponse()
             response.name = 'OnReceiveTrData' # pylint: disable=no-member
             response.arguments.add().string_value = scrnno # pylint: disable=no-member
@@ -770,7 +773,7 @@ class KiwoomOpenApiOrderEventHandler(KiwoomOpenApiBaseOrderEventHandler):
         self.add_callback(self._screen_manager.return_screen, self._scrnno)
         self.add_callback(self.control.DisconnectRealData, self._scrnno)
         KiwoomOpenApiError.try_or_raise(
-            self.control.SendOrder(
+            self.control.RatedLimitedSendOrder(
                 self._rqname,
                 self._scrnno,
                 self._accno,
@@ -822,16 +825,16 @@ class KiwoomOpenApiOrderEventHandler(KiwoomOpenApiBaseOrderEventHandler):
                 original_order_no = self.control.GetChejanData(904).strip()
                 status = self.control.GetChejanData(913).strip()
                 scrnno = self.control.GetChejanData(920).strip()
+                is_last = self.control.GetChejanData(819).strip() == '1'
                 if order_no in [self._order_no, self._orgorderno] or self._order_no in [order_no, original_order_no]:
                     response = self.ResponseForOnReceiveChejanData(gubun, itemcnt, fidlist)
                     self.observer.on_next(response)
                 if order_no == self._order_no: # 자기 주문 처리하는 입장 OR 취소 및 정정 당한 뒤 원주문 정보를 받는 입장
-                    if status == '접수':
-                        if scrnno == self._scrnno:
-                            pass
-                        elif self._should_stop: # 취소 확인 이후 원주문 정보 받고 종료 (타)
-                            self.observer.on_completed()
-                            return
+                    if is_last and self._shold_stop: # 취소 확인 이후 원주문 정보 받고 종료 (타)
+                        self.observer.on_completed()
+                        return
+                    elif status == '접수':
+                        pass
                     elif status == '체결':
                         orders_left = self.control.GetChejanData(902).strip()
                         orders_left = int(orders_left) if orders_left.isdigit() else 0
@@ -844,10 +847,11 @@ class KiwoomOpenApiOrderEventHandler(KiwoomOpenApiBaseOrderEventHandler):
                         self.observer.on_error(e)
                         return
                 elif order_no == self._orgorderno: # 취소하는 입장에서 원주문 정보 받는 케이스
-                    if status == '접수':
-                        if self._should_stop: # 취소 확인 이후 원주문 정보 받고 종료 (자)
-                            self.observer.on_completed()
-                            return
+                    if is_last and self._shold_stop: # 취소 확인 이후 원주문 정보 받고 종료 (자)
+                        self.observer.on_completed()
+                        return
+                    elif status in ['접수', '체결']:
+                        pass
                     else:
                         e = KiwoomOpenApiError('Unexpected order status: %s' % status)
                         self.observer.on_error(e)

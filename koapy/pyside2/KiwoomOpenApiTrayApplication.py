@@ -5,6 +5,7 @@ import argparse
 import datetime
 import signal
 import contextlib
+import socket
 
 if os.environ.get('QT_API', 'pyside2') == 'pyside2' and False:
     import PySide2
@@ -14,16 +15,58 @@ if os.environ.get('QT_API', 'pyside2') == 'pyside2' and False:
     from PySide2.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QStyle
     from PySide2.QtCore import QTimer, QObject, QUrl, Signal
     from PySide2.QtGui import QDesktopServices
+    from PySide2.QtNetwork import QAbstractSocket
 else:
     from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QStyle
     from PyQt5.QtCore import QTimer, QObject, QUrl, pyqtSignal as Signal
     from PyQt5.QtGui import QDesktopServices
+    from PyQt5.QtNetwork import QAbstractSocket
 
 from koapy.grpc.KiwoomOpenApiServiceServer import KiwoomOpenApiServiceServer
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError
 from koapy.pyside2.KiwoomOpenApiQAxWidget import KiwoomOpenApiQAxWidget
 
 from koapy.utils.logging import set_verbosity
+
+
+class SignalHandler(QAbstractSocket):
+
+    signalReceived = Signal(int)
+
+    def __init__(self, parent=None):
+        super().__init__(QAbstractSocket.UdpSocket, parent)
+
+        self._old_wakeup_fd = None
+        self._old_signal_handlers = {}
+
+        self._wsock, self._rsock = socket.socketpair(socket.AF_INET, socket.SOCK_STREAM)
+        self.setSocketDescriptor(self._rsock.fileno())
+        self._old_wakeup_fd = signal.set_wakeup_fd(self._wsock.fileno())
+        self.readyRead.connect(self._readSignal)
+
+    def __del__(self):
+        if hasattr(self, '_old_wakeup_fd') and self._old_wakeup_fd is not None:
+            signal.set_wakeup_fd(self._old_wakeup_fd)
+        if hasattr(self, '_old_signal_handlers') and self._old_signal_handlers:
+            for signal_, handler in self._old_signal_handlers.items():
+                self.restoreHandler(signal_, handler)
+
+    def _readSignal(self):
+        data = self.readData(1)
+        self.signalReceived.emit(data[0])
+
+    def setHandler(self, signal_, handler):
+        old_handler = signal.signal(signal_, handler)
+        if signal_ not in self._old_signal_handlers:
+            self._old_signal_handlers[signal_] = old_handler
+        return old_handler
+
+    def restoreHandler(self, signal_, default=None):
+        if default is None:
+            default = signal.SIG_DFL
+        if signal_ in self._old_signal_handlers:
+            return signal.signal(signal_, self._old_signal_handlers.pop(signal_, default))
+
 
 class KiwoomOpenApiTrayApplication(QObject):
 
@@ -49,7 +92,8 @@ class KiwoomOpenApiTrayApplication(QObject):
 
         self._should_restart.connect(self._exit)
         self._startRestartNotifier()
-        self._startEventLoopProcessor()
+
+        self._signal_handler = SignalHandler(self._app)
 
         self._tray = QSystemTrayIcon()
         self._tray.activated.connect(self._activate)
@@ -217,14 +261,19 @@ class KiwoomOpenApiTrayApplication(QObject):
         url = QUrl(docUrl)
         QDesktopServices.openUrl(url)
 
-    def _onInterrupt(self, signum, _frame):
+    def _onSignal(self, signum, _frame):
+        if signum == signal.SIGTERM:
+            logging.warning('Received SIGTERM')
+        if signum == signal.SIGINT:
+            logging.warning('Received SIGINT')
         self._exit(signum + 100)
 
     def _exec(self):
         logging.debug('Starting app')
         with contextlib.ExitStack() as stack:
-            orig_handler = signal.signal(signal.SIGINT, self._onInterrupt)
-            stack.callback(signal.signal, signal.SIGINT, orig_handler)
+            for signal_ in [signal.SIGINT, signal.SIGTERM]:
+                self._signal_handler.setHandler(signal_, self._onSignal)
+                stack.callback(self._signal_handler.restoreHandler, signal_)
             try:
                 logging.debug('Starting server')
                 self._server.start()
@@ -259,13 +308,6 @@ class KiwoomOpenApiTrayApplication(QObject):
         next_restart_time = self._nextRestartTime()
         timediff = next_restart_time - now
         QTimer.singleShot((timediff.total_seconds() + 1) * 1000, notify_and_wait_for_next)
-
-    def _startEventLoopProcessor(self):
-        interval = 5 * 1000
-        def process_and_wait():
-            QApplication.processEvents()
-            QTimer.singleShot(interval, process_and_wait)
-        QTimer.singleShot(interval, process_and_wait)
 
     def _exitForRestart(self):
         return self._exit(self._should_restart_exit_code)

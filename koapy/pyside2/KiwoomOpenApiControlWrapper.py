@@ -279,6 +279,10 @@ class KiwoomOpenApiControlWrapper(KiwoomOpenApiControlCommonWrapper):
 
         return code
 
+    @commratelimited
+    def RatedLimitedSendOrder(self, rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno):
+        return self.SendOrder(rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno)
+
     @condratelimited
     @commratelimited
     def RateLimitedSendCondition(self, scrnno, condition_name, condition_index, search_type):

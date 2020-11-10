@@ -7,11 +7,10 @@ def compile_proto():
     project_dir = os.path.realpath(os.path.join(file_dir, '..', '..', '..'))
     proto_path = project_dir
     proto_filepath = os.path.join(proto_path, 'koapy', 'grpc', proto_filename)
-    python_out = proto_path
-    grpc_python_out = proto_path
+    python_out = project_dir
+    grpc_python_out = python_out
     cmd = [
-        'python',
-        '-m', 'grpc_tools.protoc',
+        'python', '-m', 'grpc_tools.protoc',
         '--proto_path=%s' % proto_path,
         '--python_out=%s' % python_out,
         '--grpc_python_out=%s' % grpc_python_out,

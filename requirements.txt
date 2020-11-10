@@ -4,7 +4,7 @@ PySide2==5.15.1
 grpcio==1.33.2
 grpcio-tools==1.33.2
 protobuf==3.13.0
-pyhocon==0.3.56
+pyhocon==0.3.57
 discord.py==1.5.1
 schedule==0.6.0
 tabulate==0.8.7
@@ -16,7 +16,7 @@ xlrd==1.2.0
 SQLAlchemy==1.3.20
 Send2Trash==1.5.0
 pendulum==2.1.2
-pytz==2020.1
+pytz==2020.4
 tzlocal==2.1
 rx==3.1.1
 trading-calendars==2.0.0
@@ -28,7 +28,7 @@ pywinauto==0.6.8;sys_platform=='win32'
 
 # dependencies when using backtrader related features
 backtrader==1.9.76.123
-matplotlib==3.3.2
+matplotlib==3.2.2
 
 # dependencies when using pyqt5 related features
 PyQt5==5.15.1

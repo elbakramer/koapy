@@ -6,6 +6,7 @@ from PySide2.QtCore import SIGNAL
 from PySide2.QtAxContainer import QAxWidget
 
 from koapy.openapi.KiwoomOpenApiSignature import get_event_signature_by_name, qt_function_spec_from_signature
+from koapy.pyside2.utils.fix_string_encoding import fix_string_encoding # pylint: disable=unused-import
 
 class KiwoomOpenApiSignalConnector:
 
