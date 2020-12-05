@@ -251,7 +251,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetTickStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
+    def GetTickStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
         if interval is not None:
             interval = int(interval)
             interval = str(interval)
@@ -318,7 +318,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetMinuteStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
+    def GetMinuteStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
         if interval is not None:
             interval = int(interval)
             interval = str(interval)
@@ -385,7 +385,11 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetDailyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
+    def GetDailyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
+        # 현재 adjusted_price=True 로 설정할 경우 글로벌한 최신 가격 기준이 아니라
+        # 각 내부 트랜젝션 마다의 최신 가격을 기준으로 수정주가가 적용되고 있음
+        # 이걸 보완할 방법 필요
+
         date_format = '%Y%m%d'
         date_column_name = '일자'
 
@@ -440,7 +444,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetWeeklyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
+    def GetWeeklyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
         date_format = '%Y%m%d'
         date_column_name = '일자'
 
@@ -496,7 +500,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetMonthlyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
+    def GetMonthlyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
         date_format = '%Y%m%d'
         date_column_name = '일자'
 
@@ -552,7 +556,7 @@ class KiwoomOpenApiServiceClientStubWrapper(KiwoomOpenApiServiceClientStubCoreWr
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetYearlyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=True, rqname=None, scrnno=None):
+    def GetYearlyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
         date_format = '%Y%m%d'
         date_column_name = '일자'
 

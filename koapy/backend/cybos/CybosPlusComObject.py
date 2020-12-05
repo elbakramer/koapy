@@ -242,7 +242,7 @@ class CybosPlusComObject:
 
         return codes
 
-    def GetStockDataAsDataFrame(self, code, chart_type, interval, start_date=None, end_date=None):
+    def GetStockDataAsDataFrame(self, code, chart_type, interval, start_date=None, end_date=None, adjusted_price=False):
         """
         http://cybosplus.github.io/cpsysdib_rtf_1_/stockchart.htm
         """
@@ -306,7 +306,7 @@ class CybosPlusComObject:
             chart.SetInputvalue(5, fids)
             chart.SetInputValue(6, ord(chart_type))
             chart.SetInputValue(7, int(interval))
-            chart.SetInputValue(9, ord('1')) # TODO: 수정주가로 받으면서 append 하는 경우 과거 데이터에 대한 추가보정이 별도로 필요함
+            chart.SetInputValue(9, ord('1') if adjusted_price else ord('0')) # 기본으로 수정주가 적용하지 않음
 
             logging.debug('Requesting from %s', internal_start_date)
             err = chart.RateLimitedBlockRequest()
@@ -368,7 +368,10 @@ class CybosPlusComObject:
 
             dataframes.append(df)
 
-        return pd.concat(dataframes)
+        df = pd.concat(dataframes)
+        df = df.reset_index()
+
+        return df
 
     def GetDailyStockDataAsDataFrame(self, code, start_date=None, end_date=None):
         return self.GetStockDataAsDataFrame(code, 'D', 1, start_date, end_date)

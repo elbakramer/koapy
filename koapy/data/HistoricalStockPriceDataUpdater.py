@@ -415,10 +415,23 @@ class HistoricalStockPriceDataUpdater:
         data.to_excel(tempfilepath, index=False, sheet_name=tablename)
         os.replace(tempfilepath, filepath)
 
-    def _append_data_excel(self, data, filepath, tablename):
+    def _append_data_excel_kiwoom(self, data, filepath, tablename):
         original = self._read_data_excel(filepath, tablename)
         appended = pd.concat([data, original])
         self._save_data_excel(appended, filepath, tablename)
+
+    def _append_data_excel_cybos(self, data, filepath, tablename):
+        original = self._read_data_excel(filepath, tablename)
+        appended = pd.concat([data, original])
+        self._save_data_excel(appended, filepath, tablename)
+
+    def _append_data_excel(self, data, filepath, tablename):
+        if isinstance(self._context, KiwoomOpenApiContext):
+            return self._append_data_excel_kiwoom(data, filepath, tablename)
+        elif isinstance(self._context, CybosPlusComObject):
+            return self._append_data_excel_cybos(data, filepath, tablename)
+        else:
+            raise TypeError
 
     def _write_data_day_sql(self, data, filepath, tablename, if_exists='replace'):
         engine = create_engine('sqlite:///' + filepath)
