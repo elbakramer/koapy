@@ -107,6 +107,12 @@ class CompositeTimeWindowRateLimiter:
 
 class KiwoomCommRqDataRateLimiter(CompositeTimeWindowRateLimiter):
 
+    # [조회횟수 제한 관련]
+    # 단순하게 1초당 5회로 날리다보면 장기적으로 결국 막히기 때문에 기존에는 4초당 1회로 제한했었음 (3초당 1회부턴 제한걸림)
+    # 이후 1시간에 1000회로 제한한다는 추측이 있는데 일리 있어 보여서 도입 (http://blog.quantylab.com/htsapi.html)
+    # 1초당 1회로 계산했을때 1시간이면 3600 회, 주기를 1초씩 늘려보면
+    # 2초당 1회 => 1800 > 1000, 3초당 1회 => 1200 > 1000, 4초당 1회 => 900 < 1000
+
     """
     [조회횟수 제한 관련 가이드]
       - 1초당 5회 조회를 1번 발생시킨 경우 : 17초대기
@@ -153,15 +159,3 @@ class KiwoomSendConditionRateLimiter(CompositeTimeWindowRateLimiter):
                 self.add_call_history()
             return func(*args, **kwargs)
         return wrapper
-
-class CybosBlockRequestRateLimiter(TimeWindowRateLimiter):
-
-    """
-    15초에 최대 60건으로제한
-
-    Q. 플러스 데이터 요청 사용 제한에 대해 알고 싶습니다.
-    http://money2.daishin.com/e5/mboard/ptype_accordion/plusFAQ/DW_Basic_List.aspx?boardseq=298&m=9508&p=8835&v=8640
-    """
-
-    def __init__(self):
-        super().__init__(15, 60)

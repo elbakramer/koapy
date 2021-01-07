@@ -2,6 +2,7 @@ import logging
 import threading
 
 import grpc
+import datetime
 
 from koapy import KiwoomOpenApiContext
 from koapy import RealType
@@ -16,13 +17,13 @@ krx_calendar = get_calendar('XKRX')
 
 # 주문 테스트 전에 실제로 주문이 가능한지 확인 용도
 def is_currently_in_session():
-    is_in_session = False
     now = Timestamp.now(tz=krx_calendar.tz)
-    today_session = now.normalize()
-    if krx_calendar.is_session(today_session):
-        opening, closing = krx_calendar.open_and_close_for_session(today_session)
-        is_in_session = opening <= now <= closing
-    return is_in_session
+    previous_open = krx_calendar.previous_open(now).astimezone(krx_calendar.tz)
+    # https://github.com/quantopian/trading_calendars#why-are-open-times-one-minute-late
+    if previous_open.minute % 5 == 1:
+        previous_open -= datetime.timedelta(minutes=1)
+    next_close = krx_calendar.next_close(previous_open).astimezone(krx_calendar.tz)
+    return previous_open <= now <= next_close
 
 with KiwoomOpenApiContext() as context:
     # 로그인 예시
@@ -44,16 +45,16 @@ with KiwoomOpenApiContext() as context:
 
     # TR 예시 (opt10081)
     logging.info('Getting daily stock data of Samsung...')
-    data = context.GetDailyStockDataAsDataFrame(code)
-    logging.info('Daily stock data:')
-    print(data)
+    # data = context.GetDailyStockDataAsDataFrame(code)
+    # logging.info('Daily stock data:')
+    # print(data)
 
     # 조건검색 예시
     condition_name = '대형 저평가 우량주'
     logging.info('Getting stock codes with condition: %s', condition_name)
-    codes, info = context.GetCodeListByCondition(condition_name, with_info=True)
-    print(codes)
-    print(info)
+    # codes, info = context.GetCodeListByCondition(condition_name, with_info=True)
+    # print(codes)
+    # print(info)
 
     # 주문처리 예시
     first_account_no = context.GetFirstAvailableAccount()

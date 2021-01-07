@@ -12,38 +12,38 @@ with open('HISTORY.rst', encoding='utf-8') as history_file:
 
 requirements = [
     'Click>=7.1.2',
-    'PySide2>=5.15.1',
-    'grpcio>=1.33.2',
-    'grpcio-tools>=1.33.2',
-    'protobuf>=3.13.0',
+    'PySide2>=5.15.2',
+    'grpcio>=1.34.0',
+    'grpcio-tools>=1.34.0',
+    'protobuf>=3.14.0',
     'pyhocon>=0.3.57',
-    'discord.py>=1.5.0',
+    'discord.py>=1.6.0',
     'schedule>=0.6.0',
     'tabulate>=0.8.7',
-    'tqdm>=4.51.0',
+    'tqdm>=4.56.0',
     'wrapt>=1.12.1',
-    'numpy<=1.19.3',
-    'pandas>=1.1.4',
-    'xlrd>=1.2.0',
-    'SQLAlchemy>=1.3.20',
+    'numpy>=1.19.5',
+    'pandas>=1.2.0',
+    'openpyxl>=3.0.4',
+    'SQLAlchemy>=1.3.22',
     'Send2Trash>=1.5.0',
     'pendulum>=2.1.2',
-    'pytz>=2020.4',
+    'pytz>=2020.5',
     'tzlocal>=2.1',
     'rx>=3.1.1',
-    'trading-calendars>=2.0.0',
+    'trading-calendars>=2.1.1',
     'korean_lunar_calendar>=0.2.1',
-    'pywin32>=225;sys_platform=="win32"',
+    'pywin32>=300;sys_platform=="win32"',
     'pywinauto>=0.6.8;sys_platform=="win32"',
 ]
 
 requirements_extras = {
     'backtrader': [
         'backtrader>=1.9.76.123',
-        'matplotlib<=3.2.2',
+        'matplotlib>=3.3.3',
     ],
     'PyQt5': [
-        'PyQt5>=5.15.1',
+        'PyQt5>=5.15.2',
     ],
 }
 

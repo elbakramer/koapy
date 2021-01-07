@@ -26,7 +26,7 @@ def enable_autologin_with_control(control):
     _future = executor.submit(control.ShowAccountWindow)
 
     desktop = pywinauto.Desktop(allow_magic_lookup=False)
-    account_window = desktop.window(title_re=r'계좌비밀번호 입력 \(버전: [0-9].+[0-9]+\)')
+    account_window = desktop.window(title_re=r'계좌비밀번호 입력 \(버전: [0-9]+.+[0-9]+\)')
 
     try:
         logging.info('waiting for account window to show up')

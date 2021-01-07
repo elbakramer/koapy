@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+service CybosPlusProxyService {
+    rpc Dispatch(DispatchRequest) returns (DispatchResponse) {};
+    rpc Property(PropertyRequest) returns (PropertyResponse) {};
+    rpc Method(MethodRequest) returns (MethodResponse) {};
+    rpc Event(stream EventRequest) returns (stream EventResponse) {};
+}
+
+message DispatchRequest {
+    string prog = 1;
+}
+
+message DispatchResponse {
+    string prog = 1;
+    repeated string properties = 2;
+    repeated string methods = 3;
+    string id = 4;
+}
+
+message PropertyRequest {
+    string prog = 1;
+    string name = 2;
+}
+
+message PrimitiveValueArray {
+    repeated PrimitiveValue values = 1;
+}
+
+message PrimitiveValue {
+    oneof value {
+        string string_value = 1;
+        int64 long_value = 2;
+        bool bool_value = 3;
+        double float_value = 4;
+        PrimitiveValueArray list_value = 5;
+        PrimitiveValueArray tuple_value = 6;
+    }
+}
+
+message PropertyResponse {
+    PrimitiveValue value = 1;
+}
+
+message Argument {
+    PrimitiveValue value = 1;
+}
+
+message MethodRequest {
+    string prog = 1;
+    string name = 2;
+    repeated Argument arguments = 3;
+}
+
+message MethodResponse {
+    PrimitiveValue return_value = 1;
+}
+
+message EventStartRequest {
+    string prog = 1;
+}
+
+message EventDoneRequest {
+    PrimitiveValue return_value = 1;
+}
+
+message EventStopRequest {
+}
+
+message EventRequest {
+    EventStartRequest start = 1;
+    EventDoneRequest done = 2;
+    EventStopRequest stop = 3;
+}
+
+message EventStartedResponse {
+}
+
+message EventFiredResponse {
+}
+
+message EventResponse {
+    oneof response {
+        EventStartedResponse started = 1;
+        EventFiredResponse fired = 2;
+    }
+}

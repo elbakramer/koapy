@@ -139,13 +139,13 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 
     # 주문 테스트 전에 실제로 주문이 가능한지 확인 용도
     def is_currently_in_session():
-        is_in_session = False
         now = Timestamp.now(tz=krx_calendar.tz)
-        today_session = now.normalize()
-        if krx_calendar.is_session(today_session):
-            opening, closing = krx_calendar.open_and_close_for_session(today_session)
-            is_in_session = opening <= now <= closing
-        return is_in_session
+        previous_open = krx_calendar.previous_open(now).astimezone(krx_calendar.tz)
+        # https://github.com/quantopian/trading_calendars#why-are-open-times-one-minute-late
+        if previous_open.minute % 5 == 1:
+            previous_open -= datetime.timedelta(minutes=1)
+        next_close = krx_calendar.next_close(previous_open).astimezone(krx_calendar.tz)
+        return previous_open <= now <= next_close
 
     with KiwoomOpenApiContext() as context:
         # 로그인 예시

@@ -17,7 +17,7 @@ def disable_autologin():
         os.remove(autologin_dat)
         logging.info('disabled autologin')
     else:
-        logging.info('autologin already disabled')
+        logging.info('autologin is already disabled')
 
 if __name__ == '__main__':
     disable_autologin()

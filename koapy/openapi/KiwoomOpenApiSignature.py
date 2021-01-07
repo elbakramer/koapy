@@ -11,7 +11,7 @@ def comtype_to_pythontype(comtype):
     return {
         pythoncom.VT_I4: int,
         pythoncom.VT_BSTR: str,
-        pythoncom.VT_VARIANT: type(None), # QVariant does'nt exist in PySide2
+        pythoncom.VT_VARIANT: type(None), # QVariant does not exist in PySide2
         pythoncom.VT_VOID: type(None),
     }[comtype]
 

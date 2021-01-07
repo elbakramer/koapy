@@ -1,21 +1,18 @@
 # core dependencies for testing/documentation
-pip==20.2.4
+pip==20.3.3
 bump2version==1.0.1
-wheel==0.35.1
-watchdog==0.10.3
+wheel==0.36.2
+watchdog==1.0.2
 flake8==3.8.4
-tox==3.20.1
-coverage==5.3
-Sphinx==3.3.0
-Pygments==2.7.2
-twine==3.2.0
+tox==3.21.0
+coverage==5.3.1
+Sphinx==3.4.3
+Pygments==2.7.4
+twine==3.3.0
 Click==7.1.2
-pytest==6.1.2
-pytest-runner==5.2
+pytest==6.2.1
 sphinx-autoapi==1.5.1
-codecov==2.1.10
+codecov==2.1.11
 pytest-cov==2.10.1
-pytest-xdist==2.1.0
-
-# temporary fix until astroid 2.4.3 comes out, documentation build fails on astroid 2.4.2
-git+https://github.com/PyCQA/astroid.git
+pytest-xdist==2.2.0
+astroid==2.4.2

@@ -108,7 +108,7 @@ class IfExists:
     AUTO_STRINGS = ['auto']
     APPEND_STRINGS = ['append']
     IGNORE_STRINGS = ['ignore']
-    FORCE_STRINGS = ['force']
+    FORCE_STRINGS = ['force', 'overwrite']
 
     FROM_STRING_DICT = {}
     TO_STRING_DICT = {}
@@ -135,7 +135,8 @@ class IfExists:
 class HistoricalStockPriceDataUpdater:
 
     def __init__(self, codes, datadir, chart_type='daily', interval=1, file_format='xlsx',
-            if_exists='auto', delete_remainings=True, timezone='Asia/Seoul', context=None):
+            if_exists='auto', delete_remainings=True, timezone='Asia/Seoul', context=None,
+            adjusted_price=False, end_date=None, retention_period=None):
 
         if isinstance(timezone, str):
             timezone = pytz.timezone(timezone)
@@ -150,6 +151,9 @@ class HistoricalStockPriceDataUpdater:
         self._delete_remainings = delete_remainings
         self._timezone = timezone
         self._context = context
+        self._adjusted_price = adjusted_price
+        self._end_date = end_date
+        self._retention_period = retention_period
 
         self._codes_len = len(self._codes)
 
@@ -171,6 +175,14 @@ class HistoricalStockPriceDataUpdater:
         if self._chart_type >= ChartType.DAY:
             dt = datetime.datetime.combine(dt.date(), datetime.time())
             dt = self._timezone.localize(dt)
+        return dt
+
+    def get_end_date(self, start_date):
+        if self._end_date is not None:
+            dt = self._end_date
+            dt = self._timezone.localize(dt)
+        elif self._retention_period is not None:
+            dt = start_date - self._retention_period
         return dt
 
     def check_failover_code(self):
@@ -393,9 +405,9 @@ class HistoricalStockPriceDataUpdater:
         if isinstance(self._context, KiwoomOpenApiContext):
             if self._chart_type == ChartType.DAY:
                 assert self._interval == 1
-                return self._context.GetDailyStockDataAsDataFrame(code, start_date, end_date)
+                return self._context.GetDailyStockDataAsDataFrame(code, start_date, end_date, adjusted_price=self._adjusted_price)
             elif self._chart_type == ChartType.MINUTE:
-                return self._context.GetMinuteStockDataAsDataFrame(code, self._interval, start_date, end_date)
+                return self._context.GetMinuteStockDataAsDataFrame(code, self._interval, start_date, end_date, adjusted_price=self._adjusted_price)
             else:
                 raise ValueError
         elif isinstance(self._context, CybosPlusComObject):
@@ -405,7 +417,7 @@ class HistoricalStockPriceDataUpdater:
                 chart_type = 'm'
             else:
                 raise ValueError
-            return self._context.GetStockDataAsDataFrame(code, chart_type, self._interval, start_date, end_date)
+            return self._context.GetStockDataAsDataFrame(code, chart_type, self._interval, start_date, end_date, adjusted_price=self._adjusted_price)
         else:
             raise TypeError
 
@@ -512,7 +524,7 @@ class HistoricalStockPriceDataUpdater:
 
     def update_with_progress(self):
         start_date = self.get_start_date()
-        end_date = None
+        end_date = self.get_end_date(start_date)
 
         failover_code = self.check_failover_code()
         failover_code_reached = False

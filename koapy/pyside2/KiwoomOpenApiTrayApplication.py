@@ -7,7 +7,9 @@ import signal
 import contextlib
 import socket
 
-if os.environ.get('QT_API', 'pyside2') == 'pyside2' and False:
+QT_API = os.environ.get('QT_API', 'pyside2').lower()
+
+if QT_API == 'pyside2' and False:
     import PySide2
     if hasattr(PySide2, '__file__') and 'QT_QPA_PLATFORM_PLUGIN_PATH' not in os.environ:
         qt_qpa_platform_plugin_path = os.path.join(os.path.dirname(PySide2.__file__), 'plugins', 'platforms')
@@ -16,11 +18,13 @@ if os.environ.get('QT_API', 'pyside2') == 'pyside2' and False:
     from PySide2.QtCore import QTimer, QObject, QUrl, Signal
     from PySide2.QtGui import QDesktopServices
     from PySide2.QtNetwork import QAbstractSocket
-else:
+elif QT_API == 'pyqt5' or True:
     from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QStyle
     from PyQt5.QtCore import QTimer, QObject, QUrl, pyqtSignal as Signal
     from PyQt5.QtGui import QDesktopServices
     from PyQt5.QtNetwork import QAbstractSocket
+else:
+    raise ValueError('QT_API should be either pyside2 or pyqt5 but %s given' % QT_API)
 
 from koapy.grpc.KiwoomOpenApiServiceServer import KiwoomOpenApiServiceServer
 from koapy.openapi.KiwoomOpenApiError import KiwoomOpenApiError

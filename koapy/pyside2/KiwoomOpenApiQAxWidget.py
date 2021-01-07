@@ -1,7 +1,9 @@
 import os
 import logging
 
-if os.environ.get('QT_API', 'pyside2') == 'pyside2' and False:
+QT_API = os.environ.get('QT_API', 'pyside2').lower()
+
+if QT_API == 'pyside2' and False:
     import PySide2
     if hasattr(PySide2, '__file__') and 'QT_QPA_PLATFORM_PLUGIN_PATH' not in os.environ:
         qt_qpa_platform_plugin_path = os.path.join(os.path.dirname(PySide2.__file__), 'plugins', 'platforms')
@@ -9,10 +11,12 @@ if os.environ.get('QT_API', 'pyside2') == 'pyside2' and False:
     from PySide2.QtWidgets import QWidget
     from PySide2.QtAxContainer import QAxWidget
     from PySide2.QtCore import QEvent, Qt
-else:
+elif QT_API == 'pyqt5' or True:
     from PyQt5.QtWidgets import QWidget
     from PyQt5.QAxContainer import QAxWidget
     from PyQt5.QtCore import QEvent, Qt
+else:
+    raise ValueError('QT_API should be either pyside2 or pyqt5 but %s given' % QT_API)
 
 from koapy.pyside2.KiwoomOpenApiDynamicCallable import KiwoomOpenApiDynamicCallable
 from koapy.pyside2.KiwoomOpenApiSignalConnector import KiwoomOpenApiSignalConnector
