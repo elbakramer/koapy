@@ -2,7 +2,7 @@
 
 __author__ = """Yunseong Hwang"""
 __email__ = 'kika1492@gmail.com'
-__version__ = '0.3.0'
+__version__ = '0.3.1'
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget import KiwoomOpenApiPlusQAxWidget
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import KiwoomOpenApiPlusEntrypoint
