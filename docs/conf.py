@@ -125,18 +125,50 @@ intersphinx_mapping = {
 from unittest.mock import MagicMock
 
 autodoc_mock_imports = [
-    'PyQt5','PySide2',
-    'numpy', 'pandas', 'sip',
-    'pythoncom', 'win32com.client']
+    'PyQt5', 'PySide2', 'sip', 'qtpy',
+    'pythoncom', 'win32com.client',
+]
 
 for module in autodoc_mock_imports:
     sys.modules[module] = MagicMock()
 
-if 'PySide2' in autodoc_mock_imports:
+if 'qtpy' in autodoc_mock_imports:
     class QWidget:
-        __module__ = 'PySide2.QtWidgets'
+        __module__ = 'qtpy.QtWidgets'
 
     class QObject:
+        __module__ = 'qtpy.QtCore'
+
+    qtpy = MagicMock()
+    qtpy.QtWidgets.QWidget = QWidget
+    qtpy.QtWidgets.QApplication = MagicMock()
+    qtpy.QtWidgets.QSystemTrayIcon = MagicMock()
+    qtpy.QtWidgets.QMenu = MagicMock()
+    qtpy.QtWidgets.QStyle = MagicMock()
+    qtpy.QtCore.QObject = QObject
+    qtpy.QtCore.QEvent = MagicMock()
+    qtpy.QtCore.Qt = MagicMock()
+    qtpy.QtCore.QTimer = MagicMock()
+    qtpy.QtCore.QUrl = MagicMock()
+    qtpy.QtCore.Signal = MagicMock()
+    qtpy.QtCore.SIGNAL = MagicMock()
+    qtpy.QtAxContainer.QAxWidget = MagicMock()
+    qtpy.QtGui.QDesktopServices = MagicMock()
+    qtpy.QtNetwork.QAbstractSocket = MagicMock()
+
+    sys.modules.update({
+        'qtpy.QtWidgets': qtpy.QtWidgets,
+        'qtpy.QtCore': qtpy.QtCore,
+        'qtpy.QtAxContainer': qtpy.QtAxContainer,
+        'qtpy.QtGui': qtpy.QtGui,
+        'qtpy.QtNetwork': qtpy.QtNetwork,
+    })
+
+if 'PySide2' in autodoc_mock_imports:
+    class QWidget: # pylint: disable=function-redefined
+        __module__ = 'PySide2.QtWidgets'
+
+    class QObject: # pylint: disable=function-redefined
         __module__ = 'PySide2.QtCore'
 
     PySide2 = MagicMock()

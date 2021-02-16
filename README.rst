@@ -116,7 +116,7 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 
 아래는 KOAPY 를 활용하는 예시 스크립트 입니다:
 
-..  .. literalinclude:: ../koapy/examples/main_scenario.py
+..  .. literalinclude:: ../koapy/examples/6_main_scenario.py
             :language: python
 
 .. code-block:: python
@@ -126,13 +126,13 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 
     import grpc
 
-    from koapy import KiwoomOpenApiContext
-    from koapy import RealType
+    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy import KiwoomOpenApiPlusRealType
 
     from pprint import PrettyPrinter
     from google.protobuf.json_format import MessageToDict
     from pandas import Timestamp
-    from trading_calendars import get_calendar
+    from exchange_calendars import get_calendar
 
     pp = PrettyPrinter()
     krx_calendar = get_calendar('XKRX')
@@ -141,13 +141,10 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
     def is_currently_in_session():
         now = Timestamp.now(tz=krx_calendar.tz)
         previous_open = krx_calendar.previous_open(now).astimezone(krx_calendar.tz)
-        # https://github.com/quantopian/trading_calendars#why-are-open-times-one-minute-late
-        if previous_open.minute % 5 == 1:
-            previous_open -= datetime.timedelta(minutes=1)
         next_close = krx_calendar.next_close(previous_open).astimezone(krx_calendar.tz)
         return previous_open <= now <= next_close
 
-    with KiwoomOpenApiContext() as context:
+    with KiwoomOpenApiPlusEntrypoint() as context:
         # 로그인 예시
         logging.info('Logging in...')
         context.EnsureConnected()
@@ -192,7 +189,7 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
         original_order_no = '' # 원주문번호, 주문 정정/취소 등에서 사용
 
         # 현재는 기본적으로 주문수량이 모두 소진되기 전까지 이벤트를 듣도록 되어있음 (단순 호출 예시)
-        if is_currently_in_session():
+        if is_currently_in_session() and False:
             logging.info('Sending order to buy %s, quantity of 1 stock, at market price...', code)
             for event in context.OrderCall(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no):
                 pp.pprint(MessageToDict(event))
@@ -201,22 +198,22 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 
         # 실시간 예시
         code_list = [code]
-        fid_list = RealType.get_fids_by_realtype('주식시세')
+        fid_list = KiwoomOpenApiPlusRealType.get_fids_by_realtype('주식시세')
         real_type = '0' # 기존 화면에 추가가 아니라 신규 생성
 
         # 현재는 기본적으로 실시간 이벤트를 무한정 가져옴 (커넥션 컨트롤 가능한 예시)
         logging.info('Starting to get realtime stock data for code: %s', code)
-        event_iterator = context.GetRealDataForCodesAsStream(code_list, fid_list, real_type, screen_no=None, infer_fids=True, readable_names=True, fast_parse=False)
+        stream = context.GetRealDataForCodesAsStream(code_list, fid_list, real_type, screen_no=None, infer_fids=True, readable_names=True, fast_parse=False)
 
         def stop_listening():
             logging.info('Stopping to listen events...')
-            event_iterator.cancel()
+            stream.cancel()
 
         threading.Timer(10.0, stop_listening).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
 
         # 이벤트 불러와서 출력처리
         try:
-            for event in event_iterator:
+            for event in stream:
                 pp.pprint(MessageToDict(event))
         except grpc.RpcError as e:
             print(e)
@@ -328,14 +325,10 @@ KOAPY 는 다중 라이선스 방식으로 배포되며,
   * 추가로 PySide2_ 대신 PyQt5_ 를 사용하는 경우에도 비슷한 이유로 KOAPY 는 **반드시** GPLv3 로만 배포되어야 합니다.
   * 구체적으로 아래 컴포넌트들에서 PySide2_ 혹은 PyQt5_ 가 필요합니다.
 
-    * |koapy.pyside2.KiwoomOpenApiTrayApplication|_
-    * |koapy.pyside2.KiwoomOpenApiQAxWidget|_
+    * |koapy.backend.kiwoom_openapi_plus.core.KiwoomOpenApiPlusQAxWidget|_
+    * |koapy.backend.kiwoom_openapi_plus.grpc.KiwoomOpenApiPlusTrayApplication|_
 
-  * 참고로 현재 PySide2_ 의 |dynamicCall|_ 함수에 버그가 발견되어 임시로 하단을 PyQt5_ 를 사용하도록 해놓았습니다.
-
-    * 설치시 ``pip install koapy[PyQt5]`` 명령으로 설치가 필요합니다.
-    * 현재 함수의 인자 개수가 8개를 넘어가는 경우 PySide2_ 에서 함수를 제대로 호출할 수 없습니다. 어쩌면 제가 방법을 아직 못 찾은 걸 수도 있습니다.
-    * 구체적으로 |SendOrder|_ 함수가 이에 해당되서 PySide2_ 사용시 주문기능이 제대로 안됩니다.
+  * 설치시 ``pip install koapy[PyQt5]`` 명령으로 설치가 필요합니다.
 
 각 라이선스의 허가 및 요구사항과 관련해서 쉽게 정리된 내용은 `tl;drLegal`_ 에서 참고하실 수 있습니다.
 
@@ -356,13 +349,10 @@ KOAPY 는 다중 라이선스 방식으로 배포되며,
 .. |koapy.backtrader| replace:: ``koapy.backtrader``
 .. _`koapy.backtrader`: https://github.com/elbakramer/koapy/tree/master/koapy/backtrader
 
-.. |koapy.pyside2.KiwoomOpenApiTrayApplication| replace:: ``koapy.pyside2.KiwoomOpenApiTrayApplication``
-.. _`koapy.pyside2.KiwoomOpenApiTrayApplication`: https://github.com/elbakramer/koapy/blob/master/koapy/pyside2/KiwoomOpenApiTrayApplication.py
-.. |koapy.pyside2.KiwoomOpenApiQAxWidget| replace:: ``koapy.pyside2.KiwoomOpenApiQAxWidget``
-.. _`koapy.pyside2.KiwoomOpenApiQAxWidget`: https://github.com/elbakramer/koapy/blob/master/koapy/pyside2/KiwoomOpenApiQAxWidget.py
-
-.. |SendOrder| replace:: ``SendOrder``
-.. _SendOrder: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=16
+.. |koapy.backend.kiwoom_openapi_plus.core.KiwoomOpenApiPlusQAxWidget| replace:: ``koapy.backend.kiwoom_openapi_plus.core.KiwoomOpenApiPlusQAxWidget``
+.. _`koapy.backend.kiwoom_openapi_plus.core.KiwoomOpenApiPlusQAxWidget`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_openapi_plus/core/KiwoomOpenApiQAxWidget.py
+.. |koapy.backend.kiwoom_openapi_plus.grpc.KiwoomOpenApiPlusTrayApplication| replace:: ``koapy.backend.kiwoom_openapi_plus.grpc.KiwoomOpenApiPlusTrayApplication``
+.. _`koapy.backend.kiwoom_openapi_plus.grpc.KiwoomOpenApiPlusTrayApplication`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_openapi_plus/core/KiwoomOpenApiTrayApplication.py
 
 
 Reference

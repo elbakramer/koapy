@@ -1,13 +1,13 @@
 from datetime import time
 from pytz import timezone
 
-from trading_calendars.trading_calendar import TradingCalendar
-from trading_calendars.exchange_calendar_xkrx import precomputed_krx_holidays
-from trading_calendars import calendar_utils
+from exchange_calendars.exchange_calendar import ExchangeCalendar
+from exchange_calendars.exchange_calendar_xkrx import precomputed_krx_holidays
+from exchange_calendars import calendar_utils
 
 from koapy.utils.krx.calendar.KrxHolidayCalendar import KrxHolidayCalendar
 
-class XKRXExchangeCalendar(TradingCalendar):
+class XKRXExchangeCalendar(ExchangeCalendar):
     """
     Calendar for the Korea exchange, and the primary calendar for
     the country of South Korea.
@@ -32,11 +32,10 @@ class XKRXExchangeCalendar(TradingCalendar):
     - Hangeul Proclamation Day
     """
 
-    name_ = 'XKRX'
     tz = timezone('Asia/Seoul')
 
     open_times = (
-        (None, time(9, 1)),
+        (None, time(9)),
     )
     close_times = (
         (None, time(15, 30)),
@@ -47,7 +46,7 @@ class XKRXExchangeCalendar(TradingCalendar):
 
     @property
     def name(self):
-        return type(self).name_
+        return 'XKRX'
 
     @property
     def regular_holidays(self):
@@ -60,7 +59,7 @@ class XKRXExchangeCalendar(TradingCalendar):
     @classmethod
     def register(cls, name=None):
         if name is None:
-            name = cls.name_
+            name = 'XKRX'
         instance = calendar_utils.get_calendar(name)
         if not isinstance(instance, cls):
             calendar_utils.register_calendar_type(name, cls, force=True)

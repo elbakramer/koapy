@@ -37,12 +37,12 @@ Python (More)
 
 KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다음과 같을 때:
 
-.. literalinclude:: ../koapy/examples/roll_your_own.py
+.. literalinclude:: ../koapy/examples/0_roll_your_own_pyside2.py
     :language: python
 
 이것을 KOAPY 에서는 아래처럼 제공하고 있습니다:
 
-.. literalinclude:: ../koapy/examples/lower_access.py
+.. literalinclude:: ../koapy/examples/1_roll_your_own_koapy.py
     :language: python
 
 전체적인 구조에서 큰 차이는 없고, 차이점이라면 함수 호출시 |dynamicCall|_ 함수를 사용하지 않고
@@ -54,15 +54,15 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 예시를 좀 더 복잡하게 해서, 로그인 후 특정 종목의 현재가를 가져오는 시나리오를 가정했을때,
 만약 이것을 KOAPY 없이 직접 짜는 경우에는 다음처럼 됩니다:
 
-.. literalinclude:: ../koapy/examples/roll_your_own_event.py
+.. literalinclude:: ../koapy/examples/2_roll_your_own_event_pyside2.py
     :language: python
 
 단순 함수콜에 비해서 추가된 점들을 짚어보면,
 이벤트 처리를 위하여 |QEventLoop|_ 를 생성하여 이벤트가 들어올 구간에 맞게 |exec|_/|exit|_ 를 시키고 있으며,
 이벤트를 직접적으로 처리할 콜백 함수들도 알맞게 구현후 적절한 타이밍에 |connect|_/|disconnect|_ 하고 있습니다.
 
-반면에 KOAPY 를 사용하면 동일한 작업을 아래와 같이 제공된 메서드 (:py:meth:`~.koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubWrapper.GetStockInfoAsDataFrame`) 를 사용해 간단하게 처리가 가능합니다.
-좀 더 세부적인 컨트롤이 필요할 경우에는 요청할 TR 에 대한 정보를 직접 설정하고 중간단계의 API (:py:meth:`~.koapy.grpc.KiwoomOpenApiServiceClientStubWrapper.KiwoomOpenApiServiceClientStubCoreWrapper.TransactionCall`) 를 통해 호출한 뒤에
+반면에 KOAPY 를 사용하면 동일한 작업을 아래와 같이 제공된 메서드 (:py:meth:`~.koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetStockBasicInfoAsDict`) 를 사용해 간단하게 처리가 가능합니다.
+좀 더 세부적인 컨트롤이 필요할 경우에는 요청할 TR 에 대한 정보를 직접 설정하고 중간단계의 API (:py:meth:`~.koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.TransactionCall`) 를 통해 호출한 뒤에
 반환되는 스트림을 순차적으로 처리하는 식으로 구현이 가능합니다.
 앞선 이벤트루프/콜백함수 기반 구현과 비교했을 때 이 방식이 좀 더 직관적입니다.
 
@@ -81,53 +81,37 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 .. |disconnect| replace:: ``disconnect``
 .. _disconnect: https://doc.qt.io/qt-5/qobject.html#disconnect
 
-.. literalinclude:: ../koapy/examples/transaction_event.py
+.. literalinclude:: ../koapy/examples/7_transaction_event.py
     :language: python
 
-:py:class:`~.koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext` 객체를 통해 사용 가능한 메서드 목록은 기본적으로 OpenAPI 에서 제공하는 모든 메서드들을 기반으로 합니다.
+:py:class:`~.koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint.KiwoomOpenApiPlusEntrypoint` 객체를 통해 사용 가능한 메서드 목록은 기본적으로 OpenAPI 에서 제공하는 모든 메서드들을 기반으로 합니다.
 해당 메서드 목록은 `키움 OpenAPI+ 개발 가이드 문서`_ 에서 확인 가능합니다.
 
 .. _`키움 OpenAPI+ 개발 가이드 문서`: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=12
 
 이후 그런 기본 메서드들을 활용하는 상위 함수들이 구현된 여러 래퍼 클래스들이 단계적으로 적용되면서
-최종적으로 모든 메서드들이 :py:class:`~.koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext` 객체로 합쳐지는 구조입니다.
+최종적으로 모든 메서드들이 :py:class:`~.koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint.KiwoomOpenApiPlusEntrypoint` 객체로 합쳐지는 구조입니다.
 따라서 해당 메서드들이 어떤 것들이 있는지 확인하기 위해서는 관련 래퍼 클래스들에 구현된 함수들을 참고하시는 게 좋습니다.
 
 주요 래퍼 클래스들을 포함하는 모듈들은 다음과 같습니다.
 
-* :py:mod:`koapy.pyside2.KiwoomOpenApiControlWrapper`
-* :py:mod:`koapy.grpc.KiwoomOpenApiServiceClientStubWrapper`
+* :py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin`
+* :py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper`
 
 여기서의 함수들 중에 ``XXXCall`` 패턴의 함수들은 TR/실시간 데이터 처리 등 몇몇 유형화가 가능한 사용 패턴들에 대해서
 미리 구현해놓은 이벤트 처리 로직들이 서버 사이드에서 동작하도록 구성되어 있습니다.
-혹시나 추후에 이런 메서드들이 다루지 못하는 새로운 사용 패턴이 생기는 경우에
-기존 구현들을 참고해 커스텀 :py:mod:`EventHandler<koapy.grpc.event.KiwoomOpenApiEventHandler>` 를 개발 후
-:py:meth:`~.koapy.grpc.KiwoomOpenApiServiceServicer.KiwoomOpenApiServiceServicer.CustomCallAndListen` 을 활용하거나
-아예 |KiwoomOpenApiService.proto|_ 파일을 수정해 신규 gRPC 메서드를 추가하는 방식으로도 확장이 가능합니다.
 
-.. |KiwoomOpenApiService.proto| replace:: ``KiwoomOpenApiService.proto``
-.. _`KiwoomOpenApiService.proto`: https://github.com/elbakramer/koapy/blob/master/koapy/grpc/KiwoomOpenApiService.proto
+혹시나 추후에 이런 메서드들이 다루지 못하는 새로운 사용 패턴이 생기는 경우에
+|KiwoomOpenApiPlusService.proto|_ 파일을 수정해 신규 gRPC 메서드를 추가하는 방식으로도 확장이 가능합니다.
+
+.. |KiwoomOpenApiPlusService.proto| replace:: ``KiwoomOpenApiPlusService.proto``
+.. _`KiwoomOpenApiPlusService.proto`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService.proto
 
 서버 사이드의 이벤트 처리와 관련해서 참고할만한 모듈들입니다.
 
-* :py:mod:`koapy.grpc.KiwoomOpenApiServiceServicer`
-* :py:mod:`koapy.grpc.event.KiwoomOpenApiEventHandlers`
+* :py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer`
+* :py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlers`
 
-아래는 전체적으로 최상단의 :py:class:`~.koapy.context.KiwoomOpenApiContext.KiwoomOpenApiContext` 부터
-최하단의 :py:class:`~.koapy.pyside2.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget` 까지
-어떠한 흐름으로 이어져있는지 도식화한 것입니다.
-
-.. code-block::
-
-    KiwoomOpenApiContext
-    -> KiwoomOpenApiServiceClientStubWrapper + KiwoomOpenApiServiceClientStubCoreWrapper + KiwoomOpenApiControlCommonWrapper
-    -> KiwoomOpenApiServiceStub
-    -> KiwoomOpenApiServiceClient
-    <=gRPC=>
-    -> KiwoomOpenApiServiceServer
-    -> KiwoomOpenApiServiceServicer + KiwoomOpenApiEventHandler
-    -> KiwoomOpenApiControlWrapper + KiwoomOpenApiControlCommonWrapper
-    -> KiwoomOpenApiQAxWidget
 
 CLI (More)
 ----------
@@ -282,26 +266,30 @@ CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는
 .. code-block:: console
 
     (server) $ koapy serve
-    2020-09-24 06:02:55,028 [DEBUG] Starting app -- KiwoomOpenApiTrayApplication.py:176
-    2020-09-24 06:02:55,029 [DEBUG] Starting server -- KiwoomOpenApiTrayApplication.py:177
-    2020-09-24 06:02:55,031 [DEBUG] Started server -- KiwoomOpenApiTrayApplication.py:182
+    2021-02-16 08:45:49,412 [DEBUG] Using PySide2 as Qt backend - __init__.py:10
+    2021-02-16 08:45:54,163 [INFO] Note: NumExpr detected 12 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8. - utils.py:129
+    2021-02-16 08:45:54,163 [INFO] NumExpr defaulting to 8 threads. - utils.py:141
+    2021-02-16 08:45:54,484 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:217
 
 .. code-block:: console
 
     (client) $ koapy login
+    2021-02-16 08:46:16,339 [DEBUG] Using PySide2 as Qt backend - __init__.py:10
+    2021-02-16 08:46:20,680 [INFO] Note: NumExpr detected 12 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8. - utils.py:129
+    2021-02-16 08:46:20,680 [INFO] NumExpr defaulting to 8 threads. - utils.py:141
     Logging in...
     Logged into Simulation server.
 
 .. code-block:: console
 
     (server) $ ...
-    2020-09-24 06:02:55,031 [DEBUG] Started server -- KiwoomOpenApiTrayApplication.py:182
+    2021-02-16 08:45:54,484 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:217
 
     [GetPCIdentity] VER 3.2.0.0  build 2015.8.12
 
     [GetPCIdentity] VER 3.2.0.0  build 2015.8.12
-    2020-09-24 06:03:17,144 [DEBUG] OnEventConnect(0) -- KiwoomOpenApiEventHandler.py:73
-    2020-09-24 06:03:17,145 [DEBUG] Connected to server -- KiwoomOpenApiTrayApplication.py:108
+    2021-02-16 08:46:28,894 [DEBUG] OnEventConnect(0) - KiwoomOpenApiPlusLoggingEventHandler.py:65
+    2021-02-16 08:46:28,894 [DEBUG] Connected to server - KiwoomOpenApiPlusTrayApplication.py:123
 
 .. code-block:: console
 
@@ -312,13 +300,12 @@ CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는
 
     (server) $ ...
     2020-09-24 06:03:17,145 [DEBUG] Connected to server -- KiwoomOpenApiTrayApplication.py:108
-    2020-09-24 06:03:48,742 [DEBUG] CommRqData() was successful; CommRqData('주식기본정보요청', 'opt10001', 0, '0291') with inputs {'종목코드': '005930'} -- KiwoomOpenApiControlWrapper.py:151
-    2020-09-24 06:03:48,756 [DEBUG] OnReceiveTrData('0291', '주식기본정보요청', 'opt10001', '', '0') -- KiwoomOpenApiEventHandler.py:17
+    2021-02-16 08:48:10,993 [DEBUG] OnReceiveTrData('3918', '주식기본정보요청', 'opt10001', '', '0') - KiwoomOpenApiPlusLoggingEventHandler.py:9
 
 Tray icon
 ---------
 
-KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.pyside2.KiwoomOpenApiTrayApplication.KiwoomOpenApiTrayApplication` 이 구동되며
+KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication.KiwoomOpenApiPlusTrayApplication` 이 구동되며
 이것을 직접 확인할 수 있도록 구동되는 동안 우측하단에 트레이 아이콘을 표시하게끔 구현되어있습니다.
 아직 따로 마땅한 아이콘이 없어서 초록색 바탕에 ``Qt`` 가 적혀있는 디폴트 아이콘이 그것입니다.
 
@@ -337,7 +324,7 @@ KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.pyside2.KiwoomO
 * 각종 관련 외부링크
 * 어플리케이션 종료
 
-해당 트레이 아이콘을 더블클릭하는 경우 :py:class:`~.koapy.pyside2.KiwoomOpenApiQAxWidget.KiwoomOpenApiQAxWidget` 에 대응되는 위젯이 뜨는데
+해당 트레이 아이콘을 더블클릭하는 경우 :py:class:`~.koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget.KiwoomOpenApiPlusQAxWidget` 에 대응되는 위젯이 뜨는데
 현재로는 크게 의미있는 요소를 넣거나 한 것은 없어서 그냥 닫으시면 됩니다.
 
 .. _`자동 로그인`:
@@ -390,7 +377,7 @@ Version update
 해당 위키에서는 자동 버전처리에 대한 내용도 설명하고 있는데요.
 KOAPY 에서도 실험적으로 자동 버전처리를 수행하는 관련 스크립트들을 아래에 제공하고 있습니다.
 
-* :py:mod:`koapy.openapi.tools.version_update`
+* :py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater`
 
 사용방식은 아래와 같습니다.
 
@@ -399,10 +386,10 @@ KOAPY 에서도 실험적으로 자동 버전처리를 수행하는 관련 스�
 .. code-block:: hocon
 
     {
-        koapy.backend.kiwoom.login {
-            id = "userid"
-            password = "userpassword"
-            cert = "certpassword"
+        koapy.backend.kiwoom_open_api_plus.credential {
+            user_id = "userid"
+            user_password = "userpassword"
+            cert_password = "certpassword"
             is_simulation = true
             account_passwords {
                 0000000000 = "0000"
@@ -424,7 +411,9 @@ KOAPY 에서도 실험적으로 자동 버전처리를 수행하는 관련 스�
 
 .. code-block:: console
 
-    $ python -m koapy.openapi.tools.version_update
+    $ koapy update version
 
 스크립트를 통해서 자동으로 사용자 입력을 시뮬레이션하여 처리하는 방식이다 보니
 스크립트가 처리되는 도중에 다른 키보드 혹은 마우스 입력이 발생하는 경우 버전처리가 제대로 되지 않을 수 있다는 점 참고 바랍니다.
+
+또한 스크립트를 통해서 자동으로 사용자 입력을 처리하기 위해서는 해당 명령이 관리자 권한으로 실행되어야 하는 점 참고 바랍니다.

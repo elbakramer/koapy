@@ -90,6 +90,8 @@ Python (Anaconda)
 
 Python 을 설치하는데 여러 방법이 있겠지만, 여기서는 Anaconda distribution 을 설치하는 내용을 다룹니다.
 
+글을 쓰는 현재 최신 Python 버전은 3.9 까지 나왔지만, Ananconda 에서 제공하는 기본 최신 버전은 3.8 이기 때문에 해당 버전을 기준으로 설명합니다.
+
 `Anaconda Products`_ 페이지를 방문해서 하단으로 스크롤을 하면 Anaconda Installers 라고 해서 설치 파일들을 다운로드 할 수 있도록 되어있습니다.
 여기서 Windows 하단의 "64-Bit Graphical Installer" 를 다운로드 해 설치합니다.
 설치 시에 그냥 바로 32-Bit Python 을 설치하는 옵션도 있지만.. 개인적으로 권장하진 않습니다.

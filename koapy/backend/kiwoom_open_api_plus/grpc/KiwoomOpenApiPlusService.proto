@@ -1,0 +1,233 @@
+syntax = "proto3";
+
+package koapy.backend.kiwoom_open_api_plus.grpc;
+
+service KiwoomOpenApiPlusService {
+  rpc Call (CallRequest) returns (CallResponse) {};
+  rpc Listen (ListenRequest) returns (stream ListenResponse) {};
+  rpc BidirectionalListen (stream BidirectionalListenRequest) returns (stream ListenResponse) {};
+
+  rpc CustomListen (ListenRequest) returns (stream ListenResponse) {};
+  rpc CustomCallAndListen (CallAndListenRequest) returns (stream CallAndListenResponse) {};
+
+  rpc LoginCall (LoginRequest) returns (stream ListenResponse) {};
+  rpc TransactionCall (TransactionRequest) returns (stream ListenResponse) {};
+  rpc OrderCall (OrderRequest) returns (stream ListenResponse) {};
+  rpc RealCall (RealRequest) returns (stream ListenResponse) {};
+  rpc LoadConditionCall (LoadConditionRequest) returns (stream ListenResponse) {};
+  rpc ConditionCall (ConditionRequest) returns (stream ListenResponse) {};
+
+  rpc BidirectionalRealCall(stream BidirectionalRealRequest) returns (stream ListenResponse) {};
+  rpc OrderListen (ListenRequest) returns (stream ListenResponse) {};
+
+  rpc SetLogLevel (SetLogLevelRequest) returns (SetLogLevelResponse) {};
+}
+
+
+message Argument {
+  oneof value {
+    string string_value = 1;
+    int64 long_value = 2;
+    bool bool_value = 3;
+  }
+}
+
+message CallRequest {
+  string name = 1;
+  repeated Argument arguments = 2;
+}
+
+message ReturnValue {
+  oneof value {
+    string string_value = 1;
+    int64 long_value = 2;
+    bool bool_value = 3;
+  }
+}
+
+message CallResponse {
+  ReturnValue return_value = 1;
+}
+
+
+message ListenRequest {
+  string id = 1;
+  repeated string slots = 2;
+  string code = 3;
+  string class_name = 4;
+}
+
+message SingleData {
+  repeated string names = 1;
+  repeated string values = 2;
+}
+
+message RepeatedString {
+  repeated string values = 1;
+}
+
+message MultiData {
+  repeated string names = 1;
+  repeated RepeatedString values = 2;
+}
+
+
+message HandledRequest {
+}
+
+message StopListenRequest {
+}
+
+message BidirectionalListenRequest {
+  oneof request {
+    ListenRequest listen_request = 1;
+    HandledRequest handled_request = 2;
+    StopListenRequest stop_listen_request = 3;
+  }
+}
+
+
+message ListenResponse {
+  string name = 1;
+  repeated Argument arguments = 2;
+  SingleData single_data = 3;
+  MultiData multi_data = 4;
+}
+
+
+message CallAndListenRequest {
+  CallRequest call_request = 1;
+  ListenRequest listen_request = 2;
+}
+
+message CallAndListenResponse {
+  oneof response {
+    CallResponse call_response = 1;
+    ListenResponse listen_response = 2;
+  }
+}
+
+
+message LoginRequest {
+}
+
+message TransactionSubscriptionTarget {
+  bool RET = 1;
+  bool TR = 2;
+  bool REAL = 3;
+  bool MSG = 4;
+}
+
+enum TransactionStopConditionCompartor {
+  LESS_THAN_OR_EQUAL_TO = 0;
+  LESS_THAN = 1;
+  GREATER_THAN_OR_EQUAL_TO = 2;
+  GREATER_THAN = 3;
+  EQUAL_TO = 4;
+  NOT_EQUAL_TO = 5;
+}
+
+message TransactionStopCondition {
+  string name = 1;
+  string value = 2;
+  TransactionStopConditionCompartor comparator = 3;
+  bool include_equal = 4;
+}
+
+message TransactionRequest {
+  string request_name = 1;
+  string transaction_code = 2;
+  string screen_no = 3;
+  map<string, string> inputs = 4;
+  TransactionSubscriptionTarget output = 5;
+  TransactionStopCondition stop_condition = 6;
+}
+
+message OrderSubscriptionTarget {
+  bool RET = 1;
+  bool TR = 2;
+  bool REAL = 3;
+  bool MSG = 4;
+  bool CHEJAN = 5;
+}
+
+message OrderRequest {
+  string request_name = 1;
+  string screen_no = 2;
+  string account_no = 3;
+  int64 order_type = 4;
+  string code = 5;
+  int64 quantity = 6;
+  int64 price = 7;
+  string quote_type = 8;
+  string original_order_no = 9;
+  OrderSubscriptionTarget target = 10;
+}
+
+message RealRequestFlags {
+  bool infer_fids = 1;
+  bool readable_names = 2;
+  bool fast_parse = 3;
+}
+
+message RealRequest {
+  repeated string screen_no = 1;
+  repeated string code_list = 2;
+  repeated int32 fid_list = 3;
+  string real_type = 4;
+  RealRequestFlags flags = 5;
+}
+
+
+message LoadConditionRequest {
+}
+
+message ConditionRequestFlags {
+  bool with_info = 1;
+  bool is_future_option = 2;
+}
+
+message ConditionRequest {
+  string screen_no = 1;
+  string condition_name = 2;
+  int32 condition_index = 3;
+  int32 search_type = 4;
+  string request_name = 5;
+  ConditionRequestFlags flags = 6;
+}
+
+
+message SetLogLevelRequest {
+  int32 level = 1;
+  string logger = 2;
+}
+
+message SetLogLevelResponse {
+}
+
+
+message BidirectionalRealInitializeRequest {
+  repeated int32 fid_list = 1;
+  RealRequestFlags flags = 2;
+}
+
+message BidirectionalRealRegisterRequest {
+  repeated string code_list = 1;
+  repeated int32 fid_list = 2;
+}
+
+message BidirectionalRealRemoveRequest {
+  repeated string code_list = 1;
+}
+
+message BidirectionalRealStopRequest {
+}
+
+message BidirectionalRealRequest {
+  oneof request {
+    BidirectionalRealInitializeRequest initialize_request = 1;
+    BidirectionalRealRegisterRequest register_request = 2;
+    BidirectionalRealRemoveRequest remove_request = 3;
+    BidirectionalRealStopRequest stop_request = 4;
+  }
+}

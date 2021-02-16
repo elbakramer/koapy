@@ -1,36 +1,94 @@
 import logging
 import logging.config
 
+import inspect
 import threading
 
-class Logging:
+class LoggingMeta(type):
+
+    __config = {
+        "version": 1,
+        "formatters": {
+            "basic": {
+                "format": "%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d",
+            },
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "level": "NOTSET",
+                "formatter": "basic",
+            },
+        },
+        "loggers": {
+            "koapy": {
+                "level": "DEBUG",
+                "propagate": False,
+                "handlers": ["console"],
+            },
+        },
+        "root": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+        },
+        "incremental": False,
+        "disable_existing_loggers": False,
+    }
 
     __initialized = False
     __init_lock = threading.RLock()
 
-    def __init__(self):
-        self.__logger = None
-
-    @classmethod
     def __initialize_if_necessary(cls):
-        if not Logging.__initialized:
-            with Logging.__init_lock:
-                if not Logging.__initialized:
-                    Logging.__initialize()
+        if not LoggingMeta.__initialized:
+            with LoggingMeta.__init_lock:
+                if not LoggingMeta.__initialized:
+                    return LoggingMeta.__initialize(cls)
 
-    @classmethod
     def __initialize(cls):
-        from koapy.config import config
+        logging.config.dictConfig(LoggingMeta.__config)
+        LoggingMeta.__initialized = True
 
-        logging_config = config.get('koapy.utils.logging.config')
-        load_logging_config = config.get_bool('koapy.utils.logging.load_config', True)
+    def __new__(cls, clsname, bases, dct):
+        return super().__new__(cls, clsname, bases, dct)
 
-        if logging_config and load_logging_config:
-            logging.config.dictConfig(logging_config)
+    def __init__(cls, clsname, bases, dct):
+        super().__init__(clsname, bases, dct)
+        cls.__logger = None
+
+    def __class_name(cls):
+        class_name = cls.__name__
+        if hasattr(cls, '__outer_class__'):
+            class_name = '%s.%s' % (LoggingMeta.__class_name(cls.__outer_class__), class_name)
+        return class_name
+
+    def __logger_name(cls):
+        module = inspect.getmodule(cls)
+        module_spec = module.__spec__
+        if module_spec is not None:
+            module_name = module_spec.name
+        else:
+            module_name = module.__name__
+        class_name = LoggingMeta.__class_name(cls)
+        logger_name = '%s.%s' % (module_name, class_name)
+        return logger_name
+
+    @property
+    def logger(cls):
+        if cls.__logger is None:
+            LoggingMeta.__initialize_if_necessary(cls)
+            logger_name = LoggingMeta.__logger_name(cls)
+            cls.__logger = logging.getLogger(logger_name)
+        return cls.__logger
+
+    def get_logger(cls, name=None):
+        if name is None:
+            name = 'koapy'
+        LoggingMeta.__initialize_if_necessary(cls)
+        logger = logging.getLogger(name)
+        return logger
+
+class Logging(metaclass=LoggingMeta):
 
     @property
     def logger(self):
-        if self.__logger is None:
-            Logging.__initialize_if_necessary()
-            self.__logger = logging.getLogger(self.__class__.__module__ + '.' + self.__class__.__name__)
-        return self.__logger
+        return self.__class__.logger

@@ -1,6 +1,7 @@
 import os
 import json
 import datetime
+import itertools
 
 from pandas.tseries.offsets import CustomBusinessDay
 from pandas.tseries.offsets import Day
@@ -8,7 +9,6 @@ from pandas.tseries.offsets import Day
 from koapy.utils.krx.calendar.AbstractHolidayCalendar import AbstractHolidayCalendar
 from koapy.utils.krx.calendar.LunarHoliday import LunarHoliday, SolarHoliday as Holiday
 from koapy.utils.krx.marketdata.holiday import download_entire_holidays_as_dicts
-from koapy.utils.collections import ChainList
 
 original_korean_holiday_datetimes = {}
 
@@ -103,22 +103,16 @@ korean_alternate_regular_holiday_rules = [
 
 korean_holiday_rules = korean_regular_holiday_rules
 
-krx_additional_regular_holiday_rules = [
+krx_additional_holiday_rules = [
     YearEndHoliday,
 ]
 
-krx_additional_adhoc_holiday_rules = []
-
-krx_additional_holiday_rules = ChainList([
-    krx_additional_adhoc_holiday_rules,
-    krx_additional_regular_holiday_rules,
-])
-
-krx_holiday_rules = ChainList([
-    krx_additional_adhoc_holiday_rules,
-    krx_additional_regular_holiday_rules,
+krx_holiday_rules = [
+    krx_additional_holiday_rules,
     korean_regular_holiday_rules,
-])
+]
+krx_holiday_rules = itertools.chain.from_iterable(krx_holiday_rules)
+krx_holiday_rules = list(krx_holiday_rules)
 
 
 class KoreanHolidayCalendar(AbstractHolidayCalendar):
@@ -175,9 +169,9 @@ def load_holidays():
             for line in f:
                 dump = json.loads(line.rstrip())
                 for holiday in dump['block1']:
-                    dt = datetime.datetime.strptime(holiday['calnd_dd_dy'][:10], '%Y-%m-%d')
-                    name = holiday['holdy_nm'].strip() or 'Loaded %s' % dt.strftime('%Y-%m-%d')
+                    dt = datetime.datetime.strptime(holiday['calnd_dd'][:10], '%Y-%m-%d')
+                    name = holiday['holdy_eng_nm'].strip() or 'Loaded %s' % dt.strftime('%Y-%m-%d')
                     new_holiday_rule = Holiday(name, year=dt.year, month=dt.month, day=dt.day)
-                    krx_additional_adhoc_holiday_rules.append(new_holiday_rule)
+                    krx_holiday_rules.insert(0, new_holiday_rule)
 
 load_holidays()

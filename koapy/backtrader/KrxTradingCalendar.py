@@ -17,7 +17,7 @@ class TradingCalendarsTradingCalendar(TradingCalendarBase):
         self._calendar = self.p.calendar # pylint: disable=no-member
 
         if isinstance(self._calendar, string_types):
-            from trading_calendars import get_calendar
+            from exchange_calendars import get_calendar
             self._calendar = get_calendar(self._calendar)
 
         self.dcache = DatetimeIndex([0.0])
@@ -36,9 +36,6 @@ class TradingCalendarsTradingCalendar(TradingCalendarBase):
         """
         session = Timestamp(day, tz=pytz.UTC).normalize()
         opening, closing = self._calendar.open_and_close_for_session(session)
-        # https://github.com/quantopian/trading_calendars#why-are-open-times-one-minute-late
-        if opening.minute % 5 == 1:
-            opening -= datetime.timedelta(minutes=1)
         opening = opening.tz.localize(None).to_pydatetime()
         closing = closing.tz.localize(None).to_pydatetime()
         return opening, closing

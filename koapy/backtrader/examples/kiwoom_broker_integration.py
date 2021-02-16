@@ -3,7 +3,7 @@ import logging
 
 import backtrader as bt
 
-from koapy.backtrader.KiwoomOpenApiStore import KiwoomOpenApiStore
+from koapy.backtrader.KiwoomOpenApiPlusStore import KiwoomOpenApiPlusStore
 
 class TestStrategy(bt.Strategy):
 
@@ -122,7 +122,7 @@ class TestStrategy(bt.Strategy):
 def main():
     cerebro = bt.Cerebro()
 
-    kiwoomstore = KiwoomOpenApiStore()
+    kiwoomstore = KiwoomOpenApiPlusStore()
     cerebro.broker = kiwoomstore.getbroker()
 
     data = kiwoomstore.getdata(dataname='005930', backfill_start=False, timeframe=bt.TimeFrame.Ticks, compression=1)

@@ -46,19 +46,3 @@ def get_logger(name=None):
         name = module_name
     logger = logging.getLogger(name)
     return logger
-
-def get_logger_for(class_or_instance):
-    class_or_instance_type = type(class_or_instance)
-    if isinstance(class_or_instance, object):
-        class_or_instance = class_or_instance.__class__
-    if isinstance(class_or_instance, type) and issubclass(class_or_instance, object):
-        module_name = class_or_instance.__module__
-        class_name = class_or_instance.__name__
-        logger_name = module_name + '.' + class_name
-    else:
-        raise TypeError('Unexpected argument type %s' % class_or_instance_type)
-    logger = logging.getLogger(logger_name)
-    return logger
-
-def initialize_logging():
-    Logging.__initialize_if_necessary() # pylint: disable=protected-access

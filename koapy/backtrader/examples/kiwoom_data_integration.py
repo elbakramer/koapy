@@ -2,15 +2,15 @@ import logging
 
 import backtrader as bt
 
-from koapy.backtrader.KiwoomOpenApiStore import KiwoomOpenApiStore
-from koapy.backtrader.KiwoomOpenApiBroker import KiwoomOpenApiCommInfo
+from koapy.backtrader.KiwoomOpenApiPlusStore import KiwoomOpenApiPlusStore
+from koapy.backtrader.KiwoomOpenApiPlusBroker import KiwoomOpenApiPlusCommInfo
 
 from koapy.backtrader.examples.vanila_quickstart import OrclStrategy
 
 def main():
     cerebro = bt.Cerebro() # pylint: disable=unexpected-keyword-arg
 
-    kiwoomstore = KiwoomOpenApiStore()
+    kiwoomstore = KiwoomOpenApiPlusStore()
 
     historial_data = kiwoomstore.getdata(dataname='005930', historical=True)
     realtime_data = kiwoomstore.getdata(dataname='005930', backfill_start=False, timeframe=bt.TimeFrame.Ticks, compression=1)
@@ -21,7 +21,7 @@ def main():
     cerebro.addtz('Asia/Seoul')
 
     cerebro.broker.setcash(30000000.0)
-    cerebro.broker.addcommissioninfo(KiwoomOpenApiCommInfo())
+    cerebro.broker.addcommissioninfo(KiwoomOpenApiPlusCommInfo())
 
     cerebro.addstrategy(OrclStrategy, printlog=True)
 

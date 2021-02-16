@@ -8,7 +8,6 @@ Welcome to KOAPY's documentation!
    readme
    installation
    usage
-   advanced_usage
    contributing
    authors
    history
