@@ -189,7 +189,7 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
         original_order_no = '' # 원주문번호, 주문 정정/취소 등에서 사용
 
         # 현재는 기본적으로 주문수량이 모두 소진되기 전까지 이벤트를 듣도록 되어있음 (단순 호출 예시)
-        if is_currently_in_session() and False:
+        if is_currently_in_session():
             logging.info('Sending order to buy %s, quantity of 1 stock, at market price...', code)
             for event in context.OrderCall(request_name, screen_no, account_no, order_type, code, quantity, price, quote_type, original_order_no):
                 pp.pprint(MessageToDict(event))

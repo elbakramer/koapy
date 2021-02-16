@@ -722,7 +722,7 @@ class KiwoomOpenApiPlusBaseOrderEventHandler(KiwoomOpenApiPlusEventHandlerForGrp
 
         assert itemcnt == len(fids)
 
-        names = [RealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
+        names = [KiwoomOpenApiPlusRealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
         values = [self.control.GetChejanData(fid).strip() for fid in fids]
 
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
@@ -941,7 +941,7 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
                 fids = self._fid_list
 
             if self._readable_names:
-                names = [RealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
+                names = [KiwoomOpenApiPlusRealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
             else:
                 names = [str(fid) for fid in fids]
 
@@ -1257,7 +1257,7 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(KiwoomOpenApiPlusRealEventH
                 fids = self._fid_list
 
             if self._readable_names:
-                names = [RealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
+                names = [KiwoomOpenApiPlusRealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
             else:
                 names = [str(fid) for fid in fids]
 

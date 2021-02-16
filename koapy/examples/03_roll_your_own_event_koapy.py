@@ -1,8 +1,7 @@
 import sys
 
-from PySide2.QtWidgets import QApplication
-from PySide2.QtCore import QEventLoop
-
+from koapy.compat.pyside2.QtWidgets import QApplication
+from koapy.compat.pyside2.QtCore import QEventLoop
 from koapy import KiwoomOpenApiPlusQAxWidget
 
 app = QApplication(sys.argv)
