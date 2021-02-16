@@ -125,8 +125,14 @@ intersphinx_mapping = {
 from unittest.mock import MagicMock
 
 autodoc_mock_imports = [
-    'PyQt5', 'PySide2', 'sip', 'qtpy',
-    'pythoncom', 'win32com.client',
+    'PyQt5',
+    'PySide2',
+    'sip',
+    'qtpy',
+    'pythoncom',
+    'pywintypes',
+    'win32com',
+    'win32com.client',
 ]
 
 for module in autodoc_mock_imports:
@@ -157,6 +163,7 @@ if 'qtpy' in autodoc_mock_imports:
     qtpy.QtNetwork.QAbstractSocket = MagicMock()
 
     sys.modules.update({
+        'qtpy': qtpy,
         'qtpy.QtWidgets': qtpy.QtWidgets,
         'qtpy.QtCore': qtpy.QtCore,
         'qtpy.QtAxContainer': qtpy.QtAxContainer,
@@ -179,6 +186,7 @@ if 'PySide2' in autodoc_mock_imports:
     PySide2.QtNetwork = MagicMock()
 
     sys.modules.update({
+        'PySide2': PySide2,
         'PySide2.QtWidgets': PySide2.QtWidgets,
         'PySide2.QtCore': PySide2.QtCore,
         'PySide2.QtAxContainer': PySide2.QtAxContainer,
@@ -201,6 +209,7 @@ if 'PyQt5' in autodoc_mock_imports:
     PyQt5.QtNetwork = MagicMock()
 
     sys.modules.update({
+        'PyQt5': PyQt5,
         'PyQt5.QtWidgets': PyQt5.QtWidgets,
         'PyQt5.QtCore': PyQt5.QtCore,
         'PyQt5.QAxContainer': PyQt5.QAxContainer,
