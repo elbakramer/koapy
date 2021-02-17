@@ -1,3 +1,5 @@
+import platform
+
 from koapy.compat.pyside2.QtWidgets import QWidget
 from koapy.compat.pyside2.QtAxContainer import QAxWidget
 from koapy.compat.pyside2.QtCore import QEvent, Qt
@@ -23,6 +25,8 @@ class KiwoomOpenApiPlusQAxWidget(QWidget, KiwoomOpenApiPlusQAxWidgetMixin, Loggi
     EVENT_NAMES = KiwoomOpenApiPlusEventHandlerSignature.names()
 
     def __init__(self, *args, **kwargs):
+        assert platform.architecture() == ('32bit', 'WindowsPE'), 'Contorl object should be created in 32bit environment'
+
         KiwoomOpenApiPlusQAxWidgetMixin.__init__(self)
 
         super_args = args

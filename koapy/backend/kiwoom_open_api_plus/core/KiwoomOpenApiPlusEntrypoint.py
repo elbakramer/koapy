@@ -1,6 +1,7 @@
 import sys
 import threading
 import subprocess
+import platform
 
 from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient import KiwoomOpenApiPlusServiceClient
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin import KiwoomOpenApiPlusEntrypointMixin
@@ -62,9 +63,10 @@ class KiwoomOpenApiPlusEntrypoint(KiwoomOpenApiPlusEntrypointMixin, Logging):
 
         self.logger.debug('Testing if client is ready...')
         if not self._client.is_ready(self._client_check_timeout):
+            assert platform.architecture() == ('32bit', 'WindowsPE'), 'Server should run under 32bit environment'
             self.logger.debug('Client is not ready, creating a new server')
             self._server_proc = subprocess.Popen(self._server_proc_args)
-            assert self._client.is_ready()
+            assert self._client.is_ready(), 'Failed to create server'
             self._stub = self._client.get_stub()
         else:
             self.logger.debug('Client is ready, using existing server')

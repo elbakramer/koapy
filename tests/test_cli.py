@@ -1,16 +1,9 @@
-#!/usr/bin/env python
-
-"""Tests for `koapy` package."""
-
 import re
-import pytest
 
 from click.testing import CliRunner
-
 from koapy import cli
 
-def test_command_line_interface():
-    """Test the CLI."""
+def test_cli():
     runner = CliRunner()
     result = runner.invoke(cli.cli)
     assert result.exit_code == 0
