@@ -30,7 +30,7 @@ class CybosPlusRequestError(CybosPlusError):
         return code
 
     @classmethod
-    def make_check_code_or_raise(cls, func):
+    def wrap_to_check_code_or_raise(cls, func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             return cls.check_code_or_raise(func(*args, **kwargs))
@@ -41,7 +41,7 @@ class CybosPlusRequestError(CybosPlusError):
         if isinstance(arg, int):
             return cls.check_code_or_raise(arg)
         elif callable(arg):
-            return cls.make_check_code_or_raise(arg)
+            return cls.wrap_to_check_code_or_raise(arg)
         else:
             raise TypeError("Expected 'int' or 'callable' but %s found" % type(arg))
 

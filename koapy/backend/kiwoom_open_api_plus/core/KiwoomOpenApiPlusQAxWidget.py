@@ -25,7 +25,7 @@ class KiwoomOpenApiPlusQAxWidget(QWidget, KiwoomOpenApiPlusQAxWidgetMixin, Loggi
     EVENT_NAMES = KiwoomOpenApiPlusEventHandlerSignature.names()
 
     def __init__(self, *args, **kwargs):
-        assert platform.architecture() == ('32bit', 'WindowsPE'), 'Contorl object should be created in 32bit environment'
+        assert platform.architecture()[0] == '32bit', 'Contorl object should be created in 32bit environment'
 
         KiwoomOpenApiPlusQAxWidgetMixin.__init__(self)
 

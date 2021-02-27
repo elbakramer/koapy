@@ -145,7 +145,7 @@ class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
         return code
 
     @classmethod
-    def make_check_code_or_raise(cls, func):
+    def wrap_to_check_code_or_raise(cls, func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             return cls.check_code_or_raise(func(*args, **kwargs))
@@ -156,7 +156,7 @@ class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
         if isinstance(arg, int):
             return cls.check_code_or_raise(arg)
         elif callable(arg):
-            return cls.make_check_code_or_raise(arg)
+            return cls.wrap_to_check_code_or_raise(arg)
         else:
             raise TypeError("Expected 'int' or 'callable' but %s found" % type(arg))
 
@@ -191,7 +191,7 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
         return code
 
     @classmethod
-    def make_check_code_or_raise(cls, func, message=None):
+    def wrap_to_check_code_or_raise(cls, func, message=None):
         @wraps(func)
         def wrapper(*args, **kwargs):
             return cls.check_code_or_raise(func(*args, **kwargs), message)
@@ -202,7 +202,7 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
         if isinstance(arg, (int, bool)):
             return cls.check_code_or_raise(arg, message)
         elif callable(arg):
-            return cls.make_check_code_or_raise(arg, message)
+            return cls.wrap_to_check_code_or_raise(arg, message)
         else:
             raise TypeError("Expected 'int', 'bool' or 'callable' but %s found" % type(arg))
 

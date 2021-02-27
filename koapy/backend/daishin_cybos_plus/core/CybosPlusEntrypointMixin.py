@@ -1,30 +1,31 @@
 import math
 import datetime
+import ctypes
 
 import pytz
 import pandas as pd
 
 from exchange_calendars import get_calendar
 
-from koapy.utils.itertools import chunk
 from koapy.utils.logging.Logging import Logging
+from koapy.utils.itertools import chunk
 
 class CybosPlusEntrypointMixin(Logging):
 
     def GetConnectState(self):
         return self.CpUtil.CpCybos.IsConnect
 
+    def IsAdmin(self):
+        return ctypes.windll.shell32.IsUserAnAdmin() != 0
+
     def Connect(self, credential=None):
         """
         https://github.com/ippoeyeslhw/cppy/blob/master/cp_luncher.py
         """
 
-        # https://github.com/pywinauto/pywinauto/issues/472
-        import sys
-        sys.coinit_flags = 2
-        import warnings
-        warnings.simplefilter("ignore", UserWarning)
         import pywinauto
+
+        assert self.IsAdmin(), 'Connect() method requires to be run as administrator'
 
         is_in_development = False
 
@@ -42,50 +43,74 @@ class CybosPlusEntrypointMixin(Logging):
 
         account_passwords = credential.get('account_passwords')
 
-        _ = pywinauto.Application().start(r'C:\DAISHIN\STARTER\ncStarter.exe /prj:cp')
+        self.logger.info('Starting CYBOS Starter application')
+        app = pywinauto.Application().start(r'C:\DAISHIN\STARTER\ncStarter.exe /prj:cp') # pylint: disable=unused-variable
         desktop = pywinauto.Desktop(allow_magic_lookup=False)
 
         try:
+            self.logger.info('Waiting for possible popup which asks for shutting down existing program')
             ask_stop = desktop.window(title='ncStarter')
             ask_stop.wait('ready', timeout=10)
         except pywinauto.timings.TimeoutError:
-            pass
+            self.logger.info('No existing program found to be shutdown')
         else:
+            self.logger.info('Existing program found, shutting down')
             if is_in_development:
                 ask_stop.print_control_identifiers()
             if ask_stop['Static2'].window_text().endswith('종료하시겠습니까?'):
                 ask_stop['Button1'].click()
                 try:
+                    self.logger.info('Wating for possible failure message on shutdown')
                     ask_stop = desktop.window(title='ncStarter')
                     ask_stop.wait('ready', timeout=10)
                 except pywinauto.timings.TimeoutError:
-                    pass
+                    self.logger.info('Successfully shutdown existing program')
                 else:
+                    self.logger.error('Failed to shutdown existing program')
                     if is_in_development:
                         ask_stop.print_control_identifiers()
                     if ask_stop['Static2'].window_text().endswith('종료할 수 없습니다.'):
                         ask_stop['Button'].click()
-                        raise RuntimeError('cannot stop existing server')
+                        raise RuntimeError('Cannot stop existing program')
 
-        starter = desktop.window(title='CYBOS Starter')
-        starter.wait('ready', timeout=30)
+        try:
+            self.logger.info('Waiting for CYBOS Starter login screen')
+            starter = desktop.window(title='CYBOS Starter')
+            starter.wait('ready', timeout=30)
+        except pywinauto.timings.TimeoutError:
+            self.logger.exception('Failed to find login screen')
+            raise
+
         if is_in_development:
             starter.print_control_identifiers()
 
         if userid:
+            self.logger.info('Putting user id')
             starter['Edit1'].set_text(userid)
         if password:
+            self.logger.info('Putting user password')
             starter['Edit2'].set_text(password)
         else:
-            raise RuntimeError('no password given')
+            raise RuntimeError('No user password given')
+
         if not price_check_only:
             if cert:
+                self.logger.info('Putting cert password')
                 starter['Edit3'].set_text(cert)
             else:
-                raise RuntimeError('no cert password given')
+                raise RuntimeError('No cert password given')
+
+        if price_check_only:
+            if starter['Edit3'].is_enabled():
+                self.logger.info('Checking price check only option')
+                starter['Button6'].check_by_click()
+        else:
+            if not starter['Edit3'].is_enabled():
+                starter['Button6'].uncheck_by_click()
 
         if auto_account_password:
-            starter['Button4'].check()
+            self.logger.info('Checking auto account password option')
+            starter['Button4'].check() # check dosen't work
             try:
                 confirm = desktop.window(title='대신증권')
                 confirm.wait('ready', timeout=5)
@@ -95,55 +120,78 @@ class CybosPlusEntrypointMixin(Logging):
                 if is_in_development:
                     confirm.print_control_identifiers()
                 confirm['Button'].click()
-        if auto_cert_password:
-            starter['Button5'].check()
-            try:
-                confirm = desktop.window(title='대신증권')
-                confirm.wait('ready', timeout=5)
-            except pywinauto.timings.TimeoutError:
-                pass
-            else:
-                if is_in_development:
-                    confirm.print_control_identifiers()
-                confirm['Button'].click()
-        if price_check_only:
-            starter['Button6'].check()
+        else:
+            starter['Button4'].uncheck() # uncheck dosen't work
 
+        if auto_cert_password:
+            self.logger.info('Checking auto cert password option')
+            starter['Button5'].check() # check dosen't work
+            try:
+                confirm = desktop.window(title='대신증권')
+                confirm.wait('ready', timeout=5)
+            except pywinauto.timings.TimeoutError:
+                pass
+            else:
+                if is_in_development:
+                    confirm.print_control_identifiers()
+                confirm['Button'].click()
+        else:
+            starter['Button5'].uncheck() # uncheck dosen't work
+
+        self.logger.info('Clicking login button')
         starter['Button1'].click()
 
+        self.logger.info('Setting account passwords if necessary')
         should_stop = False
         while not should_stop:
             try:
+                self.logger.info('Waiting for account password setting screen')
                 account_password = desktop.window(title='종합계좌 비밀번호 확인 입력')
                 account_password.wait('ready', timeout=5)
             except pywinauto.timings.TimeoutError:
+                self.logger.info('Account password setting screen not found')
                 should_stop = True
             else:
+                self.logger.info('Account password setting screen found')
                 if is_in_development:
                     account_password.print_control_identifiers()
                 account_no = account_password['Static'].window_text().split(':')[-1].strip()
                 if account_no in account_passwords:
                     account_password['Edit'].set_text(account_passwords[account_no])
                 else:
-                    raise RuntimeError('no account password given for account %s' % account_no)
+                    raise RuntimeError('No account password given for account %s' % account_no)
                 account_password['Button1'].click()
 
         try:
+            self.logger.info('Waiting for starter screen to be closed')
             starter.wait_not('visible', timeout=60)
         except pywinauto.timings.TimeoutError:
-            pass
+            self.logger.warning('Could not wait for starter screen to be closed')
         else:
-            notice = desktop.window(title='공지사항')
+            self.logger.info('Starter screen is closed')
             try:
+                self.logger.info('Waiting for notice window')
+                notice = desktop.window(title='공지사항')
                 notice.wait('ready', timeout=60)
             except pywinauto.timings.TimeoutError:
-                pass
+                self.logger.info('No notice window found')
             else:
+                self.logger.info('Closing notice window')
                 notice.close()
                 try:
+                    self.logger.info('Waiting for the notice window to be closed')
                     notice.wait_not('visible', timeout=60)
                 except pywinauto.timings.TimeoutError:
-                    pass
+                    self.logger.warning('Could not wait for notice screen to be closed')
+                else:
+                    self.logger.info('Notice window is closed')
+
+        if self.GetConnectState() == 0:
+            self.logger.error('Failed to start and connect to CYBOS Plus')
+        else:
+            self.logger.info('Succesfully connected to CYBOS Plus')
+
+        return self.GetConnectState()
 
     def CommConnect(self, credential=None):
         return self.Connect(credential)
@@ -153,7 +201,7 @@ class CybosPlusEntrypointMixin(Logging):
         if self.GetConnectState() == 0:
             self.Connect(credential)
         if self.GetConnectState() == 0:
-            raise RuntimeError('Cybos Plus is not running, please start Cybos Plus.')
+            raise RuntimeError('CYBOS Plus is not running, please start CYBOS Plus')
         return errcode
 
     def GetCodeListByMarketAsList(self, market):

@@ -150,11 +150,6 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
             os.remove(autologin_dat)
 
     def LoginUsingCredential(self, credential=None):
-        # https://github.com/pywinauto/pywinauto/issues/472
-        import sys
-        sys.coinit_flags = 2
-        import warnings
-        warnings.simplefilter("ignore", UserWarning)
         import pywinauto
 
         if credential is None:
@@ -205,13 +200,12 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
             else:
                 raise RuntimeError('password not set, please check config file')
 
-            # not working properly
             if is_save_userid:
                 self.logger.info('Checking to save userid')
-                login_window['Button6'].check()
+                login_window['Button6'].check() # check doesn't work
             else:
                 self.logger.info('Unchecking to save userid')
-                login_window['Button6'].uncheck_by_click()
+                login_window['Button6'].uncheck() # uncheck doesn't work
 
             if not is_simulation:
                 if not login_window['Edit3'].is_enabled():

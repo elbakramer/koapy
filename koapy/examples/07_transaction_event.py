@@ -18,7 +18,8 @@ with KiwoomOpenApiPlusEntrypoint() as context:
     inputs = {'종목코드': code}
     output = {}
 
-    # 아래의 함수는 gRPC 서비스의 rpc 함수를 호출함, 따라서 event 메시지의 구조는 KiwoomOpenApiService.proto 파일 참조
+    # 아래의 함수는 gRPC 서비스의 rpc 함수를 직접 호출함
+    # 따라서 event 메시지의 구조는 koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService.proto 파일 참조
     for event in context.TransactionCall(rqname, trcode, screenno, inputs):
         names = event.single_data.names
         values = event.single_data.values

@@ -9,7 +9,7 @@ logger = Logging.get_logger('koapy.compat.pyside2')
 # Set QT_API environment variable for correct Qt backend usage
 os.environ['QT_API'] = config.get('koapy.qtpy.qt_api', 'pyside2')
 
-# Import propert Qt binding using qtpy
+# Import proper Qt binding using qtpy
 from qtpy import *
 from qtpy import PYQT5, PYSIDE2, PythonQtError
 

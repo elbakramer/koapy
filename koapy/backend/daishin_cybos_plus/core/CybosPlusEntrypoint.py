@@ -1,4 +1,5 @@
 import threading
+import platform
 
 import win32com.client
 import pywintypes
@@ -25,23 +26,30 @@ class CybosPlusDispatch:
         else:
             self._rate_limiter = self._entrypoint._lookup_rate_limiter
 
-        self._request_method_names = ['BlockRequest', 'BlockRequest2', 'Request']
+        self._error_checking_request_methods = {}
+        self._rate_limited_request_methods = {}
 
-        for method_name in self._request_method_names:
-            if hasattr(self, method_name):
-                new_method_name = 'RateLimited' + method_name
-                method = getattr(self, method_name)
-                method = self._rate_limiter(method)
-                setattr(self, new_method_name, method)
+        for name in ['BlockRequest', 'BlockRequest2', 'Request']:
+            if hasattr(self._dispatch, name):
+                method = getattr(self._dispatch, name)
+                if callable(method):
+                    method = CybosPlusRequestError.wrap_to_check_code_or_raise(method)
+                    self._error_checking_request_methods['ErrorChecking' + name] = method
+                    method = self._rate_limiter(method)
+                    self._rate_limited_request_methods['RateLimited' + name] = method
 
     def __getattr__(self, name):
-        result = getattr(self._dispatch, name)
-        if name in self._request_method_names and callable(result):
-            result = CybosPlusRequestError.make_check_code_or_raise(result)
-        return result
+        if hasattr(self._dispatch, name):
+            return getattr(self._dispatch, name)
+        elif name in self._rate_limited_request_methods:
+            return self._rate_limited_request_methods[name]
+        elif name in self._error_checking_request_methods:
+            return self._error_checking_request_methods[name]
+        else:
+            raise AttributeError("'%s' object has no attribute '%s'" % (type(self), name))
 
     def __repr__(self):
-        return '%s(%r, %r, %r)' % (self.__class__.__name__, self._entrypoint, self._progid, self._is_trade_related)
+        return '%s(%r, %r)' % (self.__class__.__name__, self._entrypoint, self._progid)
 
 class CybosPlusIncompleteProgID:
 
@@ -74,6 +82,8 @@ class CybosPlusEntrypoint(CybosPlusEntrypointMixin):
     """
 
     def __init__(self):
+        assert platform.architecture()[0] == '32bit', 'Contorl object should be created in 32bit environment'
+
         self._attribute_mapping = {
             'CpDib': 'DsCbo1',
             'CpSysDib': 'CpSysDib',

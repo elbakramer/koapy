@@ -6,7 +6,7 @@ from pandas import Timestamp, DatetimeIndex, DataFrame
 from backtrader.tradingcal import TradingCalendarBase
 from backtrader.utils.py3 import string_types
 
-class TradingCalendarsTradingCalendar(TradingCalendarBase):
+class ExchangeCalendarsTradingCalendar(TradingCalendarBase):
 
     params = (
         ('calendar', None),
@@ -40,7 +40,7 @@ class TradingCalendarsTradingCalendar(TradingCalendarBase):
         closing = closing.tz.localize(None).to_pydatetime()
         return opening, closing
 
-class KrxTradingCalendar(TradingCalendarsTradingCalendar):
+class KrxTradingCalendar(ExchangeCalendarsTradingCalendar):
 
     params = (
         ('calendar', 'XKRX'),

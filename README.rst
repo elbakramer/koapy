@@ -325,8 +325,8 @@ KOAPY 는 다중 라이선스 방식으로 배포되며,
   * 추가로 PySide2_ 대신 PyQt5_ 를 사용하는 경우에도 비슷한 이유로 KOAPY 는 **반드시** GPLv3 로만 배포되어야 합니다.
   * 구체적으로 아래 컴포넌트들에서 PySide2_ 혹은 PyQt5_ 가 필요합니다.
 
-    * |koapy.backend.kiwoom_openapi_plus.core.KiwoomOpenApiPlusQAxWidget|_
-    * |koapy.backend.kiwoom_openapi_plus.grpc.KiwoomOpenApiPlusTrayApplication|_
+    * |koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget|_
+    * |koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication|_
 
   * 설치시 ``pip install koapy[PyQt5]`` 명령으로 설치가 필요합니다.
 
@@ -349,10 +349,10 @@ KOAPY 는 다중 라이선스 방식으로 배포되며,
 .. |koapy.backtrader| replace:: ``koapy.backtrader``
 .. _`koapy.backtrader`: https://github.com/elbakramer/koapy/tree/master/koapy/backtrader
 
-.. |koapy.backend.kiwoom_openapi_plus.core.KiwoomOpenApiPlusQAxWidget| replace:: ``koapy.backend.kiwoom_openapi_plus.core.KiwoomOpenApiPlusQAxWidget``
-.. _`koapy.backend.kiwoom_openapi_plus.core.KiwoomOpenApiPlusQAxWidget`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_openapi_plus/core/KiwoomOpenApiQAxWidget.py
-.. |koapy.backend.kiwoom_openapi_plus.grpc.KiwoomOpenApiPlusTrayApplication| replace:: ``koapy.backend.kiwoom_openapi_plus.grpc.KiwoomOpenApiPlusTrayApplication``
-.. _`koapy.backend.kiwoom_openapi_plus.grpc.KiwoomOpenApiPlusTrayApplication`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_openapi_plus/core/KiwoomOpenApiTrayApplication.py
+.. |koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget| replace:: ``koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget``
+.. _`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidget.py
+.. |koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication| replace:: ``koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication``
+.. _`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrayApplication.py
 
 
 Reference
