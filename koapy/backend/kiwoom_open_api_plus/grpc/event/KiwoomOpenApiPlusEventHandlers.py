@@ -18,16 +18,18 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import Kiwoo
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo import KiwoomOpenApiPlusTrInfo
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import KiwoomOpenApiPlusRealType
 
+from koapy.utils.logging.Logging import Logging
+
 from koapy.utils.notimplemented import isimplemented
 from koapy.utils.itertools import chunk
 
-class KiwoomOpenApiPlusLoggingEventHandler(KiwoomOpenApiPlusEventHandler):
+class KiwoomOpenApiPlusLoggingEventHandler(KiwoomOpenApiPlusEventHandler, Logging):
 
     def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, _datalength, _errorcode, _message, _splmmsg):
-        logging.debug('OnReceiveTrData(%r, %r, %r, %r, %r)', scrnno, rqname, trcode, recordname, prevnext)
+        self.logger.debug('OnReceiveTrData(%r, %r, %r, %r, %r)', scrnno, rqname, trcode, recordname, prevnext)
 
     def OnReceiveRealData(self, code, realtype, realdata):
-        logging.debug('OnReceiveRealData(%r, %r, %r)', code, realtype, realdata)
+        self.logger.debug('OnReceiveRealData(%r, %r, %r)', code, realtype, realdata)
         if code == '09' and realtype == '장시작시간':
             signal_type = self.control.GetCommRealData(code, 215)
             current_time = self.control.GetCommRealData(code, 20)
@@ -54,7 +56,7 @@ class KiwoomOpenApiPlusLoggingEventHandler(KiwoomOpenApiPlusEventHandler):
                 current_time = datetime.datetime.now()
             ert = datetime.datetime.strptime(estimated_remaining_time, '%H%M%S')
             estimated_remaining_time = datetime.timedelta(hours=ert.hour, minutes=ert.minute, seconds=ert.second)
-            logging.debug('%s, %s remaining', signal_type_msg, estimated_remaining_time)
+            self.logger.debug('%s, %s remaining', signal_type_msg, estimated_remaining_time)
 
     def OnReceiveMsg(self, scrnno, rqname, trcode, msg):
         """
@@ -71,27 +73,27 @@ class KiwoomOpenApiPlusLoggingEventHandler(KiwoomOpenApiPlusEventHandler):
           메시지에는 6자리 코드번호가 포함되는데 이 코드번호는 통보없이 수시로 변경될 수 있습니다. 따라서 주문이나 오류관련처리를
           이 코드번호로 분류하시면 안됩니다.
         """
-        logging.debug('OnReceiveMsg(%r, %r, %r, %r)', scrnno, rqname, trcode, msg)
+        self.logger.debug('OnReceiveMsg(%r, %r, %r, %r)', scrnno, rqname, trcode, msg)
 
         if msg == '전문 처리 실패(-22)':
-            logging.warning('Server might have ended connection abruptly')
+            self.logger.warning('Server might have ended connection abruptly')
 
     def OnReceiveChejanData(self, gubun, itemcnt, fidlist):
-        logging.debug('OnReceiveChejanData(%r, %r, %r)', gubun, itemcnt, fidlist)
+        self.logger.debug('OnReceiveChejanData(%r, %r, %r)', gubun, itemcnt, fidlist)
 
     def OnEventConnect(self, errcode):
-        logging.debug('OnEventConnect(%r)', errcode)
+        self.logger.debug('OnEventConnect(%r)', errcode)
 
     def OnReceiveRealCondition(self, code, condition_type, condition_name, condition_index):
-        logging.debug('OnReceiveRealCondition(%r, %r, %r, %r)', code, condition_type, condition_name, condition_index)
+        self.logger.debug('OnReceiveRealCondition(%r, %r, %r, %r)', code, condition_type, condition_name, condition_index)
 
     def OnReceiveTrCondition(self, scrnno, codelist, condition_name, condition_index, prevnext):
-        logging.debug('OnReceiveTrCondition(%r, %r, %r, %r, %r)', scrnno, codelist, condition_name, condition_index, prevnext)
+        self.logger.debug('OnReceiveTrCondition(%r, %r, %r, %r, %r)', scrnno, codelist, condition_name, condition_index, prevnext)
 
     def OnReceiveConditionVer(self, ret, msg):
-        logging.debug('OnReceiveConditionVer(%r, %r)', ret, msg)
+        self.logger.debug('OnReceiveConditionVer(%r, %r)', ret, msg)
 
-class KiwoomOpenApiPlusLazyAllEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
+class KiwoomOpenApiPlusLazyAllEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logging):
 
     def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, _datalength, _errorcode, _message, _splmmsg):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
@@ -160,7 +162,7 @@ class KiwoomOpenApiPlusLazyAllEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc)
         response.arguments.add().string_value = msg # pylint: disable=no-member
         self.observer.on_next(response)
 
-class KiwoomOpenApiPlusEagerAllEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
+class KiwoomOpenApiPlusEagerAllEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logging):
 
     def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, _datalength, _errorcode, _message, _splmmsg):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
@@ -176,7 +178,7 @@ class KiwoomOpenApiPlusEagerAllEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc
         trinfo = KiwoomOpenApiPlusTrInfo.get_trinfo_by_code(trcode)
 
         if trinfo is None:
-            logging.error('Cannot find names for trcode %s', trinfo)
+            self.logger.error('Cannot find names for trcode %s', trinfo)
 
         single_names = trinfo.get_single_output_names()
         multi_names = trinfo.get_multi_output_names()
@@ -204,7 +206,7 @@ class KiwoomOpenApiPlusEagerAllEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc
         fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype(realtype)
 
         if fids is None:
-            logging.error('Cannot find fids for realtype %s', realtype)
+            self.logger.error('Cannot find fids for realtype %s', realtype)
 
         names = [KiwoomOpenApiPlusRealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
         values = [self.control.GetCommRealData(code, fid) for fid in fids]
@@ -379,7 +381,7 @@ class KiwoomOpenApiPlusLoginEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
         self.observer.on_next(response)
         self.observer.on_completed()
 
-class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
+class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logging):
 
     def __init__(self, control, request, context, screen_manager):
         super().__init__(control, context)
@@ -394,7 +396,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
         self._trinfo = KiwoomOpenApiPlusTrInfo.get_trinfo_by_code(self._trcode)
 
         if self._trinfo is None:
-            logging.error('Cannot find names for trcode %s', self._trinfo)
+            self.logger.error('Cannot find names for trcode %s', self._trinfo)
 
         self._input_code = self._inputs.get('종목코드')
 
@@ -464,7 +466,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
                             break
                         response.multi_data.values.add().values.extend(row) # pylint: disable=no-member
                 else:
-                    logging.warning('Repeat count greater than 0, but no multi data names available.')
+                    self.logger.warning('Repeat count greater than 0, but no multi data names available.')
 
             self.observer.on_next(response)
 
@@ -495,7 +497,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
                 self.observer.on_error(error)
                 return
 
-class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
+class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logging):
 
     def __init__(self, control, request, context, screen_manager):
         super().__init__(control, context)
@@ -517,7 +519,7 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
         self._trinfo = KiwoomOpenApiPlusTrInfo.get_trinfo_by_code(self._trcode)
 
         if self._trinfo is None:
-            logging.error('Cannot find names for trcode %s', self._trinfo)
+            self.logger.error('Cannot find names for trcode %s', self._trinfo)
 
         self._input_code = self._inputs.get('종목코드')
 
@@ -601,7 +603,7 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
                             break
                         response.multi_data.values.add().values.extend(row) # pylint: disable=no-member
                 else:
-                    logging.warning('Repeat count greater than 0, but no multi data names available.')
+                    self.logger.warning('Repeat count greater than 0, but no multi data names available.')
 
             self.observer.on_next(response)
 
@@ -634,7 +636,7 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
                 self.observer.on_error(error)
                 return
 
-class KiwoomOpenApiPlusBaseOrderEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
+class KiwoomOpenApiPlusBaseOrderEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logging):
 
     def __init__(self, control, context):
         super().__init__(control, context)
@@ -666,16 +668,16 @@ class KiwoomOpenApiPlusBaseOrderEventHandler(KiwoomOpenApiPlusEventHandlerForGrp
         # 키움에서도 경고하지만 메시지의 코드로 판단하는건 위험함 (게다가 모의투자만 해당)
         if trcode == 'KOA_NORMAL_BUY_KP_ORD':
             if msg == '[00Z218] 모의투자 장종료 상태입니다':
-                logging.warning('Market is closed')
+                self.logger.warning('Market is closed')
             elif msg == '[00Z217] 모의투자 장시작전입니다':
-                logging.warning('Market is before opening')
+                self.logger.warning('Market is before opening')
             elif msg == '[00Z237] 모의투자 단가를 입력하지 않는 호가입니다.':
-                logging.warning('Price is given but should not')
+                self.logger.warning('Price is given but should not')
             elif msg == '[00Z112] 모의투자 정상처리 되었습니다':
-                logging.debug('Order processed successfully')
+                self.logger.debug('Order processed successfully')
         elif trcode == 'KOA_NORMAL_KP_CANCEL':
             if msg == '[00Z924] 모의투자 취소수량이 취소가능수량을 초과합니다':
-                logging.warning('Not enough amount to cancel')
+                self.logger.warning('Not enough amount to cancel')
 
     def ResponseForOnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg): # pylint: disable=unused-argument
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
@@ -713,7 +715,7 @@ class KiwoomOpenApiPlusBaseOrderEventHandler(KiwoomOpenApiPlusEventHandlerForGrp
 
             should_stop = prevnext in ['', '0']
             if not should_stop:
-                logging.warning('Unexpected to have prevnext for order tr data.')
+                self.logger.warning('Unexpected to have prevnext for order tr data.')
 
     def ResponseForOnReceiveChejanData(self, gubun, itemcnt, fidlist):
         fids = fidlist.rstrip(';')
@@ -750,7 +752,7 @@ class KiwoomOpenApiPlusAllOrderEventHandler(KiwoomOpenApiPlusBaseOrderEventHandl
 
     pass
 
-class KiwoomOpenApiPlusOrderEventHandler(KiwoomOpenApiPlusBaseOrderEventHandler):
+class KiwoomOpenApiPlusOrderEventHandler(KiwoomOpenApiPlusBaseOrderEventHandler, Logging):
 
     def __init__(self, control, request, context, screen_manager):
         super().__init__(control, context)
@@ -814,7 +816,7 @@ class KiwoomOpenApiPlusOrderEventHandler(KiwoomOpenApiPlusBaseOrderEventHandler)
 
             should_stop = prevnext in ['', '0']
             if not should_stop:
-                logging.warning('Unexpected to have prevnext for order tr data.')
+                self.logger.warning('Unexpected to have prevnext for order tr data.')
 
     def OnReceiveChejanData(self, gubun, itemcnt, fidlist):
         # TODO: 정정 케이스에 대해 테스트 해보지 않음
@@ -885,7 +887,7 @@ class KiwoomOpenApiPlusOrderEventHandler(KiwoomOpenApiPlusBaseOrderEventHandler)
                 self.observer.on_error(e)
                 return
 
-class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
+class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logging):
 
     _num_codes_per_screen = 100
     _default_real_type = '0'
@@ -909,7 +911,7 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
         if len(self._screen_no) == 0:
             self._screen_nos = [None for i in range(len(self._code_lists))]
         elif len(self._screen_no) < len(self._code_lists):
-            logging.warning('Given screen nos are not sufficient.')
+            self.logger.warning('Given screen nos are not sufficient.')
             self._screen_nos = list(self._screen_no) + [None for i in range(len(self._code_lists) - len(self._screen_no))]
         else:
             self._screen_nos = self._screen_no
@@ -984,7 +986,7 @@ class KiwoomOpenApiPlusLoadConditionEventHandler(KiwoomOpenApiPlusEventHandlerFo
         self.observer.on_next(response) # pylint: disable=no-member
         self.observer.on_completed()
 
-class KiwoomOpenApiPlusConditionEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
+class KiwoomOpenApiPlusConditionEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logging):
 
     def __init__(self, control, request, context, screen_manager):
         super().__init__(control, context)
@@ -1088,7 +1090,7 @@ class KiwoomOpenApiPlusConditionEventHandler(KiwoomOpenApiPlusEventHandlerForGrp
             self._trinfo = KiwoomOpenApiPlusTrInfo.get_trinfo_by_code(trcode)
 
             if self._trinfo is None:
-                logging.error('Cannot find names for trcode %s', self._trinfo)
+                self.logger.error('Cannot find names for trcode %s', self._trinfo)
 
             self._single_names = self._trinfo.get_single_output_names()
             self._multi_names = self._trinfo.get_multi_output_names()
@@ -1105,7 +1107,7 @@ class KiwoomOpenApiPlusConditionEventHandler(KiwoomOpenApiPlusEventHandlerForGrp
                     for row in rows:
                         response.multi_data.values.add().values.extend(row) # pylint: disable=no-member
                 else:
-                    logging.warning('Repeat count greater than 0, but no multi data names available.')
+                    self.logger.warning('Repeat count greater than 0, but no multi data names available.')
 
             self.observer.on_next(response) # pylint: disable=no-member
 
@@ -1120,7 +1122,7 @@ class KiwoomOpenApiPlusConditionEventHandler(KiwoomOpenApiPlusEventHandlerForGrp
                     self.observer.on_error(e)
                     return
 
-class KiwoomOpenApiPlusBidirectionalRealEventHandler(KiwoomOpenApiPlusRealEventHandler):
+class KiwoomOpenApiPlusBidirectionalRealEventHandler(KiwoomOpenApiPlusRealEventHandler, Logging):
 
     def __init__(self, control, request_iterator, context, screen_manager):
         request = KiwoomOpenApiPlusService_pb2.RealRequest()
@@ -1163,20 +1165,20 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(KiwoomOpenApiPlusRealEventH
             fid_list_joined = ';'.join(str(fid) for fid in fid_list)
         else:
             fid_list_joined = self._fid_list_joined
-        logging.debug('Registering code %s to screen %s with type %s', code, screen_no, opt_type)
+        self.logger.debug('Registering code %s to screen %s with type %s', code, screen_no, opt_type)
         KiwoomOpenApiPlusError.try_or_raise(
             self.control.SetRealReg(screen_no, code, fid_list_joined, opt_type))
 
     def remove_code(self, code):
         if code in self._screen_by_code:
             screen_no = self._screen_by_code[code]
-            logging.debug('Removing code %s from screen %s', code, screen_no)
+            self.logger.debug('Removing code %s from screen %s', code, screen_no)
             self.control.SetRealRemove(screen_no, code)
             self._screen_by_code.pop(code)
             self._code_list_by_screen[screen_no].remove(code)
             self._code_list.remove(code)
         else:
-            logging.warning('Given code %s is not in managed code list and cannot be removed', code)
+            self.logger.warning('Given code %s is not in managed code list and cannot be removed', code)
 
     def remove_all_codes(self):
         code_list = list(self._code_list) # copy in order to prevent "modification while iteration"

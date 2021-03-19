@@ -5,13 +5,25 @@ import locale
 import logging
 
 import click
-
 import koapy
 
-from koapy.utils.logging import set_verbosity
+from koapy.utils.logging.Logging import Logging
 
-CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+logger = Logging.get_logger('koapy.cli')
 
+def set_verbosity(verbosity):
+    verbosity = verbosity or 0
+    levels = [
+        logging.WARNING,
+        logging.INFO,
+        logging.DEBUG,
+    ]
+    if verbosity >= len(levels):
+        verbosity = -1
+    level = levels[verbosity]
+    return logger.setLevel(level)
+
+context_settings = dict(help_option_names=['-h', '--help'])
 client_check_timeout = 10
 
 def fail_with_usage(message=None):
@@ -22,12 +34,12 @@ def fail_with_usage(message=None):
     click.echo(ctx.get_help())
     ctx.exit(1)
 
-@click.group(context_settings=CONTEXT_SETTINGS)
+@click.group(context_settings=context_settings)
 @click.version_option(koapy.__version__, '-V', '--version')
 def cli():
     pass
 
-@cli.command(context_settings=CONTEXT_SETTINGS, short_help='Start grpc server with tray application.')
+@cli.command(context_settings=context_settings, short_help='Start grpc server with tray application.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, default=5, help='Verbosity.')
 @click.option('--no-verbose', is_flag=True)
@@ -45,7 +57,7 @@ def serve(port, verbose, no_verbose, args):
     from koapy import KiwoomOpenApiPlusTrayApplication
     KiwoomOpenApiPlusTrayApplication.main(app_args)
 
-@cli.command(context_settings=CONTEXT_SETTINGS, short_help='Ensure logged in when server is up.')
+@cli.command(context_settings=context_settings, short_help='Ensure logged in when server is up.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def login(port, verbose):
@@ -64,11 +76,11 @@ def login(port, verbose):
         else:
             click.echo('Logged into Real server.')
 
-@cli.group(context_settings=CONTEXT_SETTINGS, short_help='Configure many things.')
+@cli.group(context_settings=context_settings, short_help='Configure many things.')
 def config():
     pass
 
-@config.command(context_settings=CONTEXT_SETTINGS, short_help='Configure auto login.')
+@config.command(context_settings=context_settings, short_help='Configure auto login.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def autologin(port, verbose):
@@ -78,25 +90,25 @@ def autologin(port, verbose):
         context.EnsureConnected()
         context.ShowAccountWindow()
 
-@cli.group(context_settings=CONTEXT_SETTINGS, short_help='Update openapi metadata.')
+@cli.group(context_settings=context_settings, short_help='Update openapi metadata.')
 def update():
     pass
 
-@update.command(context_settings=CONTEXT_SETTINGS, short_help='Update openapi TR metadata.')
+@update.command(context_settings=context_settings, short_help='Update openapi TR metadata.')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def trdata(verbose):
     set_verbosity(verbose)
     from koapy import KiwoomOpenApiPlusTrInfo
     KiwoomOpenApiPlusTrInfo.dump_trinfo_by_code()
 
-@update.command(context_settings=CONTEXT_SETTINGS, short_help='Update openapi realtype metadata.')
+@update.command(context_settings=context_settings, short_help='Update openapi realtype metadata.')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def realdata(verbose):
     set_verbosity(verbose)
     from koapy import KiwoomOpenApiPlusRealType
     KiwoomOpenApiPlusRealType.dump_realtype_by_desc()
 
-@update.command(context_settings=CONTEXT_SETTINGS, short_help='Update openapi version.')
+@update.command(context_settings=context_settings, short_help='Update openapi version.')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def version(verbose):
     set_verbosity(verbose)
@@ -106,7 +118,7 @@ def version(verbose):
     updater = KiwoomOpenApiPlusVersionUpdater(credential)
     updater.update_version_if_necessary()
 
-@cli.group(context_settings=CONTEXT_SETTINGS, short_help='Get various types of data.')
+@cli.group(context_settings=context_settings, short_help='Get various types of data.')
 def get():
     pass
 
@@ -124,7 +136,7 @@ market_codes = [
     'all',
 ]
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get stock codes.')
+@get.command(context_settings=context_settings, short_help='Get stock codes.')
 @click.option('-n', '--name', 'names', metavar='NAME', multiple=True, help='Name of stock. Can set multiple times.')
 @click.option('-m', '--market', 'markets', metavar='MARKET', multiple=True, type=click.Choice(market_codes, case_sensitive=False), help='Stock market code to get. Can set multiple times.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
@@ -207,7 +219,7 @@ def stockcode(names, markets, port):
                 else:
                     click.echo('Cannot find code for given name: %s.' % name)
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get name for stock codes.')
+@get.command(context_settings=context_settings, short_help='Get name for stock codes.')
 @click.option('-c', '--code', 'codes', metavar='CODE', multiple=True, help='Stock code to get. Can set multiple times.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 def stockname(codes, port):
@@ -241,7 +253,7 @@ def stockname(codes, port):
             name = context.GetMasterCodeName(code)
             click.echo(name)
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get basic information of stocks.')
+@get.command(context_settings=context_settings, short_help='Get basic information of stocks.')
 @click.option('-c', '--code', metavar='CODE', help='Stock code to get.')
 @click.option('-o', '--output', metavar='FILENAME', type=click.Path(), help="Output filename. Optional for single code (prints to console).")
 @click.option('-f', '--format', metavar='FORMAT', type=click.Choice(['md', 'xlsx', 'json'], case_sensitive=False))
@@ -291,7 +303,7 @@ def stockinfo(code, output, format, port, verbose): # pylint: disable=redefined-
                 with open(output, 'w') as f:
                     click.echo(series.to_json(), file=f)
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get daily OHLCV of stocks.')
+@get.command(context_settings=context_settings, short_help='Get daily OHLCV of stocks.')
 @click.option('-c', '--code', metavar='CODE', help='Stock code to get.')
 @click.option('-o', '--output', metavar='FILENAME', type=click.Path(), help='Output filename for code.')
 @click.option('-f', '--format', metavar='FORMAT', type=click.Choice(['xlsx', 'sqlite3'], case_sensitive=False), default='xlsx', help='Output format. (default: xlsx)')
@@ -331,7 +343,7 @@ minute_intervals = [
     '60',
 ]
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get minute OHLCV of stocks.')
+@get.command(context_settings=context_settings, short_help='Get minute OHLCV of stocks.')
 @click.option('-c', '--code', metavar='CODE', help='Stock code to get.')
 @click.option('-t', '--interval', metavar='INTERVAL', type=click.Choice(minute_intervals, case_sensitive=False), help='Minute interval. Possible values are [%s]' % '|'.join(minute_intervals))
 @click.option('-o', '--output', metavar='FILENAME', type=click.Path(), help='Output filename for code.')
@@ -364,7 +376,7 @@ def minute(code, interval, output, format, start_date, end_date, port, verbose):
         engine = create_engine('sqlite:///' + output)
         df.to_sql('A' + code, engine)
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get TR info.')
+@get.command(context_settings=context_settings, short_help='Get TR info.')
 @click.option('-t', '--trcode', 'trcodes', metavar='TRCODE', multiple=True, help='TR code to get (like opt10001).')
 def trinfo(trcodes):
     from koapy import KiwoomOpenApiPlusTrInfo
@@ -408,7 +420,7 @@ def trinfo(trcodes):
         else:
             click.echo('Given trcode is invalid')
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get real type info.')
+@get.command(context_settings=context_settings, short_help='Get real type info.')
 @click.option('-t', '--realtype', 'realtypes', metavar='REALTYPE', multiple=True, help='Real type name to get (like 주식시세).')
 def realinfo(realtypes):
     from koapy import KiwoomOpenApiPlusRealType
@@ -443,7 +455,7 @@ def realinfo(realtypes):
         else:
             click.echo('Given realtype is invalid')
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get market holidays.')
+@get.command(context_settings=context_settings, short_help='Get market holidays.')
 @click.option('-o', '--output', metavar='FILENAME', type=click.Path(), help='Output filename. (optional)')
 @click.option('-O', '--offline', is_flag=True, help='Do not use krx marketdata api. (default: false)')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
@@ -499,7 +511,7 @@ def holidays(output, offline, verbose):
         else:
             fail_with_usage('Saving to file should come with offline option disabled.')
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get user information.')
+@get.command(context_settings=context_settings, short_help='Get user information.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def userinfo(port, verbose):
@@ -533,7 +545,7 @@ def userinfo(port, verbose):
 
         click.echo(pd.Series(result).to_markdown())
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get account deposit.')
+@get.command(context_settings=context_settings, short_help='Get account deposit.')
 @click.option('-a', '--account', metavar='ACCNO', help='Account number.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
@@ -541,7 +553,7 @@ def deposit(account, port, verbose):
     set_verbosity(verbose)
 
     if account is None:
-        logging.info('Account not given. Using first account available.')
+        logger.info('Account not given. Using first account available.')
 
     from koapy import KiwoomOpenApiPlusEntrypoint
 
@@ -554,7 +566,7 @@ def deposit(account, port, verbose):
         result = context.GetDepositInfo(account)
         click.echo(result.to_markdown(floatfmt='.2f'))
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get account evaluation.')
+@get.command(context_settings=context_settings, short_help='Get account evaluation.')
 @click.option('-a', '--account', metavar='ACCNO', help='Account number.')
 @click.option('-d', '--include-delisted', is_flag=True, help='Include delisted.', default=True)
 @click.option('-D', '--exclude-delisted', is_flag=True, help='Exclude delisted.')
@@ -566,7 +578,7 @@ def evaluation(account, include_delisted, exclude_delisted, for_each, as_summary
     set_verbosity(verbose)
 
     if account is None:
-        logging.info('Account not given. Using first account available.')
+        logger.info('Account not given. Using first account available.')
 
     if exclude_delisted:
         include_delisted = False
@@ -600,7 +612,7 @@ def evaluation(account, include_delisted, exclude_delisted, for_each, as_summary
         click.echo('[계좌평가잔고내역요청] : [계좌평가잔고개별합산]')
         click.echo(multi.to_markdown())
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get order history of a date.')
+@get.command(context_settings=context_settings, short_help='Get order history of a date.')
 @click.option('-a', '--account', metavar='ACCNO', help='Account number.')
 @click.option('-d', '--date', metavar='DATE', help='Date to get.')
 @click.option('-r', '--reverse', is_flag=True)
@@ -618,7 +630,7 @@ def orders(account, date, reverse, executed_only, not_executed_only, stock_only,
     set_verbosity(verbose)
 
     if account is None:
-        logging.info('Account not given. Using first account available.')
+        logger.info('Account not given. Using first account available.')
 
     sort_type = '1'
     if reverse:
@@ -656,7 +668,7 @@ def orders(account, date, reverse, executed_only, not_executed_only, stock_only,
         click.echo('[계좌별주문체결내역상세요청]')
         click.echo(df.to_markdown())
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get OpenApi module installation path.')
+@get.command(context_settings=context_settings, short_help='Get OpenApi module installation path.')
 @click.option('-p', '--port', metavar='PORT', help='Port number of grpc server (optional).')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def modulepath(port, verbose):
@@ -665,7 +677,7 @@ def modulepath(port, verbose):
     with KiwoomOpenApiPlusEntrypoint(port=port, client_check_timeout=client_check_timeout, verbosity=verbose) as context:
         click.echo(context.GetAPIModulePath())
 
-@get.command(context_settings=CONTEXT_SETTINGS, short_help='Get error message for error code.')
+@get.command(context_settings=context_settings, short_help='Get error message for error code.')
 @click.option('-e', '--err-code', metavar='ERR', type=int, help='Error code to check.')
 @click.option('-v', '--verbose', count=True, help='Verbosity.')
 def errmsg(err_code, verbose):
@@ -674,7 +686,7 @@ def errmsg(err_code, verbose):
     err_msg = KiwoomOpenApiError.get_error_message_by_code(err_code)
     click.echo('[%d] %s' % (err_code, err_msg))
 
-@cli.command(context_settings=CONTEXT_SETTINGS, short_help='Watch realtime data.')
+@cli.command(context_settings=context_settings, short_help='Watch realtime data.')
 @click.option('-c', '--code', 'codes', metavar='CODE', multiple=True, help='Stock code to get. Can set multiple times.')
 @click.option('-i', '--input', metavar='FILENAME', type=click.Path(), help='Text or excel file containing codes. Alternative to --codes option.')
 @click.option('-f', '--fid', 'fids', metavar='FID', multiple=True, help='FID to get. Can set multiple times.')
@@ -784,7 +796,7 @@ quote_types = [
     '81',
 ]
 
-@cli.command(context_settings=CONTEXT_SETTINGS, short_help='Place an order.')
+@cli.command(context_settings=context_settings, short_help='Place an order.')
 @click.option('--request-name', metavar='NAME')
 @click.option('--screen-no', metavar='SCRNO')
 @click.option('--account-no', metavar='ACCNO')
@@ -867,7 +879,7 @@ def order(request_name, screen_no, account_no, order_type, code, quantity, price
                         break
 
         if account_no is None:
-            logging.info('Account not given. Using first account available.')
+            logger.info('Account not given. Using first account available.')
             account_no = context.GetFirstAvailableAccount()
 
         responses = context.OrderCall(

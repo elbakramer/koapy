@@ -124,6 +124,10 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
     import logging
     import threading
 
+    logging.basicConfig(
+        format='%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d',
+        level=logging.DEBUG)
+
     import grpc
 
     from koapy import KiwoomOpenApiPlusEntrypoint
@@ -220,9 +224,6 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 
         logging.info('End of example')
 
-
-이외에 사용법과 관련한 다양한 예시들은 examples_ 폴더에서 확인 가능합니다.
-
 .. _`키움증권의 OpenAPI`: https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000
 
 .. _PyQt5: https://www.riverbankcomputing.com/software/pyqt/
@@ -230,7 +231,6 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 .. _매뉴얼: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf
 .. _KOAStudio: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=7
 .. _gRPC: https://grpc.io/
-.. _examples: https://github.com/elbakramer/koapy/tree/master/koapy/examples
 
 .. |QAxWidget| replace:: ``QAxWidget``
 .. _QAxWidget: https://doc.qt.io/qt-5/qaxwidget.html
@@ -253,32 +253,33 @@ Installation
 
     $ pip install koapy
 
-.. _PyPI: https://pypi.org/project/koapy/
-
 만약에 기본 기능 이외에 추가적인 기능들을 사용하고자 하는 경우, 아래처럼 추가적인 의존성까지 같이 설치해주셔야 합니다.
 
 예를 들어 backtrader_ 관련 기능들이 구현된 |koapy.backtrader|_ 모듈 하위의 기능들을 사용하고자 하는 경우,
-관련 의존성을 포함해 설치하기 위해서는 아래 명령을 실행합니다:
+관련 의존성을 포함해 설치하기 위해서는 아래와 같이 설치합니다:
 
 .. code-block:: console
 
     $ pip install koapy[backtrader]
 
+별개로 backtrader_ 와 관련해서는 Licensing_ 옵션과 관련해서 주의가 필요합니다.
+구체적인 내용은 좀 더 아래쪽에 있는 Licensing_ 항목의 내용을 참고하세요.
+
+이외에 자세한 설치방법과 관련해서는 Installation_ 문서를 참고하세요.
+
+.. _PyPI: https://pypi.org/project/koapy/
 .. _backtrader: https://github.com/mementum/backtrader
-
-자세한 설치방법과 관련해서는 Installation_ 을 참고하세요.
-
-..  자세한 설치방법과 관련해서는 :doc:`./installation` 을 참고하세요.
-
+.. |koapy.backtrader| replace:: ``koapy.backtrader``
+.. _`koapy.backtrader`: https://github.com/elbakramer/koapy/tree/master/koapy/backtrader
 .. _Installation: https://koapy.readthedocs.io/en/latest/installation.html
 
 
 Usage
 -----
 
-설치 이후 세부적인 사용법에 대해서는 Usage_ 를 참고하세요.
+설치 이후 일반적인 사용법에 대해서는 Usage_ 를 참고하세요.
 
-.. 설치 이후 세부적인 사용법에 대해서는 :doc:`./usage` 를 참고하세요.
+추가적으로 사용법과 관련된 다양한 예시들은 examples_ 폴더 및 notebooks_ 에서도 확인 가능합니다.
 
 현재 알파 단계이기 때문에 많은 기능들이 실제로 문제없이 동작하는지 충분히 테스트되지 않았습니다.
 만약에 실전 트레이딩에 사용하려는 경우 자체적으로 충분한 테스트를 거친 후 사용하시기 바랍니다.
@@ -287,6 +288,8 @@ Usage
 또한 알파 단계에서 개발이 진행되면서 라이브러리의 구조가 계속 급격하게 변경될 수 있으니 참고 바랍니다.
 
 .. _Usage: https://koapy.readthedocs.io/en/latest/usage.html
+.. _examples: https://github.com/elbakramer/koapy/tree/master/koapy/examples
+.. _notebooks: https://github.com/elbakramer/koapy/tree/master/notebooks
 
 Licensing
 ---------
@@ -300,35 +303,30 @@ KOAPY 는 다중 라이선스 방식으로 배포되며,
 
 라이선스 선택과 관련하여 추천하는 가이드라인은 아래와 같습니다.
 
-* `MIT License`_
+MIT License
+~~~~~~~~~~~
 
-  * 일반적인 사용자에게 알맞습니다.
-  * 짧고 단순한 라이선스를 선호하시면 해당 라이선스를 선택하세요.
+* 일반적인 사용자에게 알맞습니다.
+* 짧고 단순한 라이선스를 선호하시면 해당 라이선스를 선택하세요.
 
-* `Apache License 2.0`_
+Apache License 2.0
+~~~~~~~~~~~~~~~~~~
 
-  * MIT 라이선스와 큰 차이는 없지만, 특허와 관련해서 명시적인 허가조항이 있습니다.
-  * 추후 특허권 침해 소송이 우려되는 경우 MIT 라이선스 대신에 선택하시면 됩니다.
+* MIT 라이선스와 큰 차이는 없지만, 특허와 관련해서 명시적인 허가조항이 있습니다.
+* 추후 특허권 침해 소송이 우려되는 경우 MIT 라이선스 대신에 선택하시면 됩니다.
 
-* `GNU General Public License v3.0`_ or later
+GNU General Public License v3.0 or later
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  * FSF_/GPL_ 이 추구하는 Copyleft_ 의 가치를 따르신다면 선택 가능한 옵션중 하나입니다.
-  * 이외에 backtrader_ 관련 기능들을 활용하시는 경우, KOAPY 는 **반드시** GPLv3+ 로만 배포되어야 합니다.
-  * 구체적으로 아래와 같은 경우들에 하나라도 포함된다면 GPLv3+ 배포 조건에 해당됩니다.
+* FSF_/GPL_ 이 추구하는 Copyleft_ 의 가치를 따르신다면 선택 가능한 옵션중 하나입니다.
+* 이외에 backtrader_ 관련 기능들을 활용하시는 경우, KOAPY 는 **반드시** GPLv3+ 로만 배포되어야 합니다.
+* 구체적으로 아래와 같은 경우들에 하나라도 포함된다면 GPLv3+ 배포 조건에 해당됩니다.
 
-    * 설치시 ``pip install koapy[backtrader]`` 명령으로 설치
-    * 사용시 |koapy.backtrader|_ 모듈 하위의 기능들을 사용
+  * 설치시 ``pip install koapy[backtrader]`` 명령으로 설치
+  * 사용시 |koapy.backtrader|_ 모듈 하위의 기능들을 사용
 
-  * 이것은 backtrader_ 가 GPLv3+ 로 배포되고 있으며,
-    해당 라이선스의 요구사항에 따라 그것을 사용하는 소프트웨어 또한 GPLv3+ 로 배포되어야 하기 때문입니다.
-
-  * 추가로 PySide2_ 대신 PyQt5_ 를 사용하는 경우에도 비슷한 이유로 KOAPY 는 **반드시** GPLv3 로만 배포되어야 합니다.
-  * 구체적으로 아래 컴포넌트들에서 PySide2_ 혹은 PyQt5_ 가 필요합니다.
-
-    * |koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget|_
-    * |koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication|_
-
-  * 설치시 ``pip install koapy[PyQt5]`` 명령으로 설치가 필요합니다.
+* 이것은 backtrader_ 가 GPLv3+ 로 배포되고 있으며,
+  해당 라이선스의 요구사항에 따라 그것을 사용하는 소프트웨어 또한 GPLv3+ 로 배포되어야 하기 때문입니다.
 
 각 라이선스의 허가 및 요구사항과 관련해서 쉽게 정리된 내용은 `tl;drLegal`_ 에서 참고하실 수 있습니다.
 
@@ -342,17 +340,12 @@ KOAPY 는 다중 라이선스 방식으로 배포되며,
 .. _GPL: https://www.gnu.org/licenses/licenses.html#GPL
 .. _Copyleft: https://www.gnu.org/licenses/copyleft.html
 
-.. _backtrader: https://github.com/mementum/backtrader
-
 .. _`tl;drLegal`: https://tldrlegal.com/
-
-.. |koapy.backtrader| replace:: ``koapy.backtrader``
-.. _`koapy.backtrader`: https://github.com/elbakramer/koapy/tree/master/koapy/backtrader
 
 .. |koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget| replace:: ``koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget``
 .. _`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidget.py
 .. |koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication| replace:: ``koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication``
-.. _`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrayApplication.py
+.. _`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusTrayApplication.py
 
 
 Reference

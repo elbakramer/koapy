@@ -3,9 +3,9 @@ import sys
 import datetime
 import logging
 
-import backtrader as bt
+logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d', level=logging.DEBUG)
 
-import koapy # for logging level and format ...
+import backtrader as bt
 
 class OrclStrategy(bt.Strategy):
 

@@ -1,6 +1,8 @@
 import datetime
 import logging
 
+logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d', level=logging.DEBUG)
+
 import backtrader as bt
 
 from koapy.backtrader.KiwoomOpenApiPlusStore import KiwoomOpenApiPlusStore

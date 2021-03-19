@@ -1,18 +1,19 @@
 # core dependencies for testing/documentation
-astroid==2.5
+astroid==2.5.1
 bump2version==1.0.1
 Click==7.1.2
 codecov==2.1.11
-coverage==5.4
-flake8==3.8.4
+coverage==5.5
+flake8==3.9.0
 pip==21.0.1
-Pygments==2.8.0
+Pygments==2.8.1
+pylint==2.7.2
 pytest==6.2.2
 pytest-cov==2.11.1
 pytest-xdist==2.2.1
-Sphinx==3.5.1
+Sphinx==3.5.2
 sphinx-autoapi==1.7.0
-tox==3.22.0
-twine==3.3.0
+tox==3.23.0
+twine==3.4.1
 watchdog==2.0.2
 wheel==0.36.2

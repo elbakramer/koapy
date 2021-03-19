@@ -68,7 +68,7 @@ class CybosPlusIncompleteProgID:
                     try:
                         dispatch = CybosPlusDispatch(self._entrypoint, progid)
                     except pywintypes.com_error as e:
-                        raise AttributeError("'%s' object has no attribute '%s'" % (type(self), name), e)
+                        raise AttributeError("'%s' object has no attribute '%s'" % (type(self), name)) from e
                     self._cache[name] = dispatch
         return self._cache[name]
 

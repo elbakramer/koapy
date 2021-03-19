@@ -27,10 +27,6 @@ class LoggingMeta(type):
                 "handlers": ["console"],
             },
         },
-        "root": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-        },
         "incremental": False,
         "disable_existing_loggers": False,
     }

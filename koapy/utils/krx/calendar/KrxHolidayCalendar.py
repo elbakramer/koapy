@@ -1,7 +1,7 @@
 import os
-import json
 import datetime
 import itertools
+import jsonlines
 
 from pandas.tseries.offsets import CustomBusinessDay
 from pandas.tseries.offsets import Day
@@ -152,22 +152,20 @@ class KrxBusinessDay(CustomBusinessDay):
 
 file_directory = os.path.dirname(os.path.realpath(__file__))
 dumpfile_directory = os.path.join(file_directory, '..', 'data')
-dumpfile_name = 'holiday.json'
+dumpfile_name = 'holiday.jsonl'
 dumpfile_path = os.path.join(dumpfile_directory, dumpfile_name)
 
 def dump_holidays(dump=None):
     if dump is None:
         dump = download_entire_holidays_as_dicts()
-    with open(dumpfile_path, 'w', encoding='utf-8') as f:
+    with jsonlines.open(dumpfile_path, 'w', encoding='utf-8') as writer:
         for d in dump:
-            json.dump(d, f)
-            f.write('\n')
+            writer.write(d) # pylint: disable=no-member
 
 def load_holidays():
     if os.path.exists(dumpfile_path):
-        with open(dumpfile_path, encoding='utf-8') as f:
-            for line in f:
-                dump = json.loads(line.rstrip())
+        with jsonlines.open(dumpfile_path, encoding='utf-8') as reader:
+            for dump in reader:
                 for holiday in dump['block1']:
                     dt = datetime.datetime.strptime(holiday['calnd_dd'][:10], '%Y-%m-%d')
                     name = holiday['holdy_eng_nm'].strip() or 'Loaded %s' % dt.strftime('%Y-%m-%d')

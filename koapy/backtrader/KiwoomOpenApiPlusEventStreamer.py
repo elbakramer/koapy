@@ -9,16 +9,18 @@ from rx.subject import Subject
 from rx.scheduler import ThreadPoolScheduler
 from rx.core.typing import Observer
 
+from exchange_calendars import get_calendar
+
 from koapy.backend.kiwoom_open_api_plus.grpc import KiwoomOpenApiPlusService_pb2
 from koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedIterableObserver import QueueBasedIterableObserver
 from koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedBufferedIterator import QueueBasedBufferedIterator
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import KiwoomOpenApiPlusRealType
 
-from koapy.utils.krx.calendar import get_krx_timezone
+from koapy.utils.logging.Logging import Logging
 
-class KiwoomOpenApiPlusPriceEventChannel:
+class KiwoomOpenApiPlusPriceEventChannel(Logging):
 
-    _krx_timezone = get_krx_timezone()
+    _krx_timezone = get_calendar('XKRX').tz
 
     def __init__(self, stub):
         self._stub = stub
@@ -60,7 +62,7 @@ class KiwoomOpenApiPlusPriceEventChannel:
         request.register_request.code_list.extend(code_list) # pylint: disable=no-member
         request.register_request.fid_list.extend(fid_list) # pylint: disable=no-member
         self._request_observer.on_next(request)
-        logging.debug('Registering code %s for real events', code)
+        self.logger.debug('Registering code %s for real events', code)
 
     def is_for_code(self, response, code):
         return response.arguments[0].string_value == code
@@ -185,7 +187,7 @@ class KiwoomOpenApiPlusOrderEventChannel:
                 elif hoga_type == '시장가':
                     pass
                 else:
-                    logging.warning('Unexpected hoga type %s', hoga_type)
+                    self.logger.warning('Unexpected hoga type %s', hoga_type)
             elif status == '체결':
                 if hoga_type == '보통':
                     order_no = data['주문번호']
@@ -221,9 +223,9 @@ class KiwoomOpenApiPlusOrderEventChannel:
                         'price': abs(float(price)),
                     }
                 else:
-                    logging.warning('Unexpected hoga type %s', hoga_type)
+                    self.logger.warning('Unexpected hoga type %s', hoga_type)
             else:
-                logging.warning('Unexcpected status %s', status)
+                self.logger.warning('Unexcpected status %s', status)
         return result
 
     def convert_to_dict(self):
@@ -232,7 +234,7 @@ class KiwoomOpenApiPlusOrderEventChannel:
     def get_observable(self):
         return self._observable
 
-class KiwoomOpenApiPlusEventStreamer(Observer):
+class KiwoomOpenApiPlusEventStreamer(Observer, Logging):
 
     _price_event_channels_by_stub = {}
     _order_event_channels_by_stub = {}
@@ -248,7 +250,7 @@ class KiwoomOpenApiPlusEventStreamer(Observer):
         self._queue.put(value)
 
     def on_error(self, error):
-        logging.error('Streamer.on_error(%s)', error)
+        self.logger.error('Streamer.on_error(%s)', error)
 
     def on_completed(self):
         pass
@@ -259,7 +261,7 @@ class KiwoomOpenApiPlusEventStreamer(Observer):
                 self._price_event_channels_by_stub[self._stub] = KiwoomOpenApiPlusPriceEventChannel(self._stub)
             event_channel = self._price_event_channels_by_stub[self._stub]
         subscription = event_channel.get_observable_for_code(code).subscribe(self)
-        logging.debug('Subscribing rates for code %s', code)
+        self.logger.debug('Subscribing rates for code %s', code)
         return subscription
 
     def events(self):
@@ -268,5 +270,5 @@ class KiwoomOpenApiPlusEventStreamer(Observer):
                 self._order_event_channels_by_stub[self._stub] = KiwoomOpenApiPlusOrderEventChannel(self._stub)
             event_channel = self._order_event_channels_by_stub[self._stub]
         subscription = event_channel.get_observable().subscribe(self)
-        logging.debug('Subscribing order events')
+        self.logger.debug('Subscribing order events')
         return subscription

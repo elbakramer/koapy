@@ -10,16 +10,18 @@ import backtrader as bt
 import pandas as pd
 import numpy as np
 
+from exchange_calendars import get_calendar
+
 from backtrader import TimeFrame
 from backtrader.metabase import MetaParams
-from backtrader.utils.py3 import queue, with_metaclass
+from backtrader.utils.py3 import queue
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import KiwoomOpenApiPlusEntrypoint
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import KiwoomOpenApiPlusError
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import KiwoomOpenApiPlusNegativeReturnCodeError
 from koapy.backtrader.KiwoomOpenApiPlusEventStreamer import KiwoomOpenApiPlusEventStreamer
 
-from koapy.utils.krx.calendar import get_krx_timezone
+from koapy.utils.logging.Logging import Logging
 
 class KiwoomOpenApiPlusJsonError(KiwoomOpenApiPlusNegativeReturnCodeError):
 
@@ -47,7 +49,7 @@ class HistoricalPriceRecord(collections.namedtuple('HistoricalPriceRecord', ['ti
 
     __slots__ = ()
 
-    _krx_timezone = get_krx_timezone()
+    _krx_timezone = get_calendar('XKRX').tz
 
     @classmethod
     def from_tuple(cls, tup):
@@ -81,7 +83,7 @@ class API:
     # 우선은 최대한 기존 Oanda 구현을 유지한채로 맞춰서 동작할 수 있도록 구현해놓고
     # 추후 동작이 되는게 확인되면 천천히 하단 API 에 맞게 최적화를 하는 방향으로 작업하는 것으로...
 
-    _krx_timezone = get_krx_timezone()
+    _krx_timezone = get_calendar('XKRX').tz
 
     def __init__(self, context):
         self._context = context
@@ -243,8 +245,8 @@ class API:
 
 class MetaSingleton(MetaParams):
 
-    def __init__(cls, name, bases, dct):
-        super().__init__(name, bases, dct)
+    def __init__(cls, clsname, bases, dct):
+        super().__init__(clsname, bases, dct)
         cls._singleton = None
 
     def __call__(cls, *args, **kwargs):
@@ -253,7 +255,9 @@ class MetaSingleton(MetaParams):
 
         return cls._singleton
 
-class KiwoomOpenApiPlusStore(with_metaclass(MetaSingleton, object)):
+class MetaKiwoomOpenApiPlusStore(type(Logging), MetaSingleton): pass
+
+class KiwoomOpenApiPlusStore(Logging, metaclass=MetaKiwoomOpenApiPlusStore):
     # pylint: disable=protected-access
 
     BrokerCls = None  # broker class will auto register
@@ -588,7 +592,7 @@ class KiwoomOpenApiPlusStore(with_metaclass(MetaSingleton, object)):
             try:
                 o = self.api.create_order(self.p.account, **okwargs)
             except Exception as e:
-                logging.exception('Exception while create_order(%s, %s)', self.p.account, okwargs)
+                self.logger.exception('Exception while create_order(%s, %s)', self.p.account, okwargs)
                 self.put_notification(e)
                 self.broker._reject(oref)
                 return
@@ -606,7 +610,7 @@ class KiwoomOpenApiPlusStore(with_metaclass(MetaSingleton, object)):
                         oids.append(suboidfield['id'])
 
             if not oids:
-                logging.warning('Rejecting %s because no oids specified', oref)
+                self.logger.warning('Rejecting %s because no oids specified', oref)
                 self.broker._reject(oref)
                 return
 
@@ -644,7 +648,7 @@ class KiwoomOpenApiPlusStore(with_metaclass(MetaSingleton, object)):
             try:
                 o = self.api.close_order(self.p.account, oid, size, dataname)
             except Exception as e:
-                logging.exception('Failed to close order')
+                self.logger.exception('Failed to close order')
                 continue  # not cancelled - FIXME: notify
 
             self.broker._cancel(oref)
@@ -746,5 +750,5 @@ class KiwoomOpenApiPlusStore(with_metaclass(MetaSingleton, object)):
             elif reason == 'CLIENT_REQUEST':
                 self.broker._cancel(oref)
             else:  # default action ... if nothing else
-                logging.warning('Rejecting %s since it\'s canceled', oref)
+                self.logger.warning('Rejecting %s since it\'s canceled', oref)
                 self.broker._reject(oref)

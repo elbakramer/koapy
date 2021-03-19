@@ -1,6 +1,10 @@
 import logging
 import threading
 
+logging.basicConfig(
+    format='%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d',
+    level=logging.DEBUG)
+
 import grpc
 
 from koapy import KiwoomOpenApiPlusEntrypoint

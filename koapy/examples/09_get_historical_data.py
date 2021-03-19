@@ -1,6 +1,8 @@
 import datetime
 import logging
 
+logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d', level=logging.DEBUG)
+
 from koapy import KiwoomOpenApiPlusEntrypoint
 from exchange_calendars import get_calendar
 

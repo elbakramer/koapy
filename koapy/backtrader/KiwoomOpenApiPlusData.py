@@ -1,21 +1,21 @@
 import datetime
-import logging
 
 from pytz import utc
 
 from backtrader import date2num, num2date
 from backtrader.feed import DataBase
-from backtrader.utils.py3 import queue, with_metaclass
+from backtrader.utils.py3 import queue
 
 from koapy.backtrader.KiwoomOpenApiPlusStore import KiwoomOpenApiPlusStore
+from koapy.utils.logging.Logging import Logging
 
-class MetaKiwoomOpenApiPlusData(DataBase.__class__):
+class MetaKiwoomOpenApiPlusData(type(Logging), type(DataBase)):
 
-    def __init__(cls, name, bases, dct): # pylint: disable=no-self-argument
-        super(MetaKiwoomOpenApiPlusData, cls).__init__(name, bases, dct)
+    def __init__(cls, clsname, bases, dct):
+        super().__init__(clsname, bases, dct)
         KiwoomOpenApiPlusStore.DataCls = cls
 
-class KiwoomOpenApiPlusData(with_metaclass(MetaKiwoomOpenApiPlusData, DataBase)): # pylint: disable=invalid-metaclass
+class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusData):
 
     # pylint: disable=no-member
 
@@ -110,7 +110,7 @@ class KiwoomOpenApiPlusData(with_metaclass(MetaKiwoomOpenApiPlusData, DataBase))
         otf = self.k.get_granularity(self.p.timeframe, self.p.compression)
 
         if otf is None:
-            logging.warning('Given timeframe and compression not supported: (%s, %s)', self.p.timeframe, self.p.compression)
+            self.logger.warning('Given timeframe and compression not supported: (%s, %s)', self.p.timeframe, self.p.compression)
             self.put_notification(self.NOTSUPPORTED_TF)
             self._state = self._ST_OVER
             return
@@ -118,7 +118,7 @@ class KiwoomOpenApiPlusData(with_metaclass(MetaKiwoomOpenApiPlusData, DataBase))
         self.contractdetails = cd = self.k.get_instrument(self.p.dataname)
 
         if cd is None:
-            logging.warning('Given dataname is not supported')
+            self.logger.warning('Given dataname is not supported')
             self.put_notification(self.NOTSUBSCRIBED)
             self._state = self._ST_OVER
             return

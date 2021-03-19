@@ -393,10 +393,6 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         return df
 
     def GetDailyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
-        # 현재 adjusted_price=True 로 설정할 경우 글로벌한 최신 가격 기준이 아니라
-        # 각 내부 트랜젝션 마다의 최신 가격을 기준으로 수정주가가 적용되고 있음
-        # 이걸 보완할 방법 필요
-
         date_format = '%Y%m%d'
         date_column_name = '일자'
 

@@ -4,8 +4,11 @@
 
 import re
 import datetime
-import logging
 import requests
+
+from koapy.utils.logging.Logging import Logging
+
+logger = Logging.get_logger('koapy.utils.krx.marketdata.holiday')
 
 oldest_year_available = 1975
 
@@ -57,7 +60,7 @@ def download_entire_holidays_as_dicts():
     years = range(current_year, oldest_year_available - 1, -1)
     num_years = len(years)
     for i, year in enumerate(years):
-        logging.debug('Downloading holidays for year %d (%d/%d)', year, i + 1, num_years)
+        logger.debug('Downloading holidays for year %d (%d/%d)', year, i + 1, num_years)
         page_first_call = i == 0
         result = download_holidays_as_dict(year, page_first_call=page_first_call)
         results.append(result)

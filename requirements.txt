@@ -1,15 +1,16 @@
 # core dependencies
 Click==7.1.2
 discord.py==1.6.0
-exchange_calendars==3.0.1
-grpcio==1.36.0
-grpcio-tools==1.36.0
+exchange_calendars==3.0.2
+grpcio==1.36.1
+grpcio-tools==1.36.1
+jsonlines==2.0.0
 korean_lunar_calendar==0.2.1
-numpy==1.20.1
-openpyxl==3.0.6
-pandas==1.2.2
+numpy==1.20.1 # downgrade to 1.19.5 if some compatibility issues happen
+openpyxl==3.0.7
+pandas==1.2.3
 pendulum==2.1.2
-protobuf==3.15.3
+protobuf==3.15.6
 pyhocon==0.3.57
 PySide2==5.15.2
 pytz==2021.1
@@ -18,8 +19,9 @@ requests==2.25.1
 Rx==3.1.1
 schedule==1.0.0
 Send2Trash==1.5.0
-SQLAlchemy==1.3.23
+SQLAlchemy==1.4.1
 tabulate==0.8.9
+tqdm==4.59.0
 tzlocal==2.1
 wrapt==1.12.1
 
@@ -32,4 +34,4 @@ backtrader==1.9.76.123
 matplotlib==3.3.4
 
 # dependencies when using pyqt5 related features
-PyQt5==5.15.3
+PyQt5==5.15.4
