@@ -29,7 +29,7 @@ class KrxHistoricalDailyPriceDataLoader:
     def load_or_download(self, symbol, start_date=None, end_date=None, save=True):
         if end_date is None:
             now = pd.Timestamp.now(self._calendar.tz)
-            end_date = self._calendar.previous_close(now).normalize()
+            end_date = self._calendar.previous_close(now).astimezone(self._calendar.tz).normalize()
         if self._inspector.has_table(symbol):
             data = self.load_naive(symbol)
             data = data.sort_index()
@@ -37,7 +37,7 @@ class KrxHistoricalDailyPriceDataLoader:
                 start_date = data.index.max().tz_localize(self._calendar.tz) + self._calendar.day
                 if start_date < end_date:
                     recent_data = self._downloader.download(symbol, start_date, end_date)
-                    if recent_data.shape[0] > 0:
+                    if recent_data is not None and recent_data.shape[0] > 0:
                         data = data.combine_first(recent_data)[data.columns]
                         data = data.convert_dtypes(convert_floating=False)
                         data = data.sort_index()
@@ -48,11 +48,11 @@ class KrxHistoricalDailyPriceDataLoader:
                 Table(symbol, MetaData()).drop(self._engine)
         if not self._inspector.has_table(symbol):
             if start_date is None:
-                start_date = pd.Timestamp(1990, 1, 1)
+                start_date = pd.Timestamp(1980, 1, 1)
             data = self._downloader.download(symbol, start_date, end_date)
-            data = data.convert_dtypes(convert_floating=False)
-            data = data.sort_index()
-            if data.shape[0] > 0:
+            if data is not None and data.shape[0] > 0:
+                data = data.convert_dtypes(convert_floating=False)
+                data = data.sort_index()
                 if save:
                     data.to_sql(symbol, self._engine, if_exists='replace')
                 return data
@@ -80,6 +80,7 @@ class KrxHistoricalDailyPriceDataLoader:
 
         for symbol, _delisted in tqdm(symbols_with_delisted.items(), disable=disable):
             data = self.load_or_download(symbol, end_date=end_date)
-            result[symbol] = data
+            if data is not None:
+                result[symbol] = data
 
         return result

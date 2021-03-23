@@ -1,0 +1,3 @@
+class KiwoomOpenApiWQAxWidgetMixin:
+
+    pass

@@ -28,14 +28,14 @@ def BuildOleItems(clsid):
 
     return oleItems
 
-class KiwoomOpenApiPlusSignature(Signature):
+class KiwoomOpenApiWSignature(Signature):
 
-    MODULE_CLSID = '{6D8C2B4D-EF41-4750-8AD4-C299033833FB}'
+    MODULE_CLSID = '{1F8A15ED-A979-488F-9694-1EDA98188FFC}'
 
     OLE_ITEMS = BuildOleItems(MODULE_CLSID)
 
-    DISPATCH_CLSID = '{CF20FBB6-EDD4-4BE5-A473-FEF91977DEB6}'
-    EVENT_CLSID = '{7335F12D-8973-4BD5-B7F0-12DF03D175B7}'
+    DISPATCH_CLSID = '{85B07632-4F84-4CEF-991D-C79DE781363D}'
+    EVENT_CLSID = '{952B31F8-06FD-4D5A-A021-5FF57F5030AE}'
 
     PYTHONTYPE_TO_QTTYPE = {
         int: 'int',
@@ -98,7 +98,7 @@ class KiwoomOpenApiPlusSignature(Signature):
         )
         return signature
 
-class KiwoomOpenApiPlusDispatchSignature(KiwoomOpenApiPlusSignature):
+class KiwoomOpenApiWDispatchSignature(KiwoomOpenApiWSignature):
 
     DISPATCH_SIGNATURES_BY_NAME = {}
 
@@ -120,15 +120,15 @@ def LoadDispatchSignatures(oleItems, clsId):
         entry.desc[0] == pythoncom.DISPID_NEWENUM])]
     dispatch_signatures_by_name = OrderedDict()
     for func_name, entry in dispatch_funcs:
-        signature = KiwoomOpenApiPlusDispatchSignature._from_entry(func_name, entry) # pylint: disable=protected-access
+        signature = KiwoomOpenApiWDispatchSignature._from_entry(func_name, entry) # pylint: disable=protected-access
         dispatch_signatures_by_name[func_name] = signature
     return dispatch_signatures_by_name
 
-KiwoomOpenApiPlusDispatchSignature.DISPATCH_SIGNATURES_BY_NAME = LoadDispatchSignatures(
-    KiwoomOpenApiPlusSignature.OLE_ITEMS,
-    KiwoomOpenApiPlusSignature.DISPATCH_CLSID)
+KiwoomOpenApiWDispatchSignature.DISPATCH_SIGNATURES_BY_NAME = LoadDispatchSignatures(
+    KiwoomOpenApiWSignature.OLE_ITEMS,
+    KiwoomOpenApiWSignature.DISPATCH_CLSID)
 
-class KiwoomOpenApiPlusEventHandlerSignature(KiwoomOpenApiPlusSignature):
+class KiwoomOpenApiWEventHandlerSignature(KiwoomOpenApiWSignature):
 
     EVENT_HANDLER_SIGNATURES_BY_NAME = {}
 
@@ -147,10 +147,10 @@ def LoadEventHandlerSignatures(oleItems, clsId):
     event_funcs = event.mapFuncs.items()
     event_handler_signatures_by_name = OrderedDict()
     for func_name, entry in event_funcs:
-        signature = KiwoomOpenApiPlusEventHandlerSignature._from_entry(func_name, entry) # pylint: disable=protected-access
+        signature = KiwoomOpenApiWEventHandlerSignature._from_entry(func_name, entry) # pylint: disable=protected-access
         event_handler_signatures_by_name[func_name] = signature
     return event_handler_signatures_by_name
 
-KiwoomOpenApiPlusEventHandlerSignature.EVENT_HANDLER_SIGNATURES_BY_NAME = LoadEventHandlerSignatures(
-    KiwoomOpenApiPlusSignature.OLE_ITEMS,
-    KiwoomOpenApiPlusSignature.EVENT_CLSID)
+KiwoomOpenApiWEventHandlerSignature.EVENT_HANDLER_SIGNATURES_BY_NAME = LoadEventHandlerSignatures(
+    KiwoomOpenApiWSignature.OLE_ITEMS,
+    KiwoomOpenApiWSignature.EVENT_CLSID)

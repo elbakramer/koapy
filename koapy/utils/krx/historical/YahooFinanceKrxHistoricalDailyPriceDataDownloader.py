@@ -11,7 +11,7 @@ class YahooFinanceKrxHistoricalDailyPriceDataDownloader:
 
     def download(self, symbol, start_date=None, end_date=None):
         if start_date is None:
-            start_date = pd.Timestamp(1990, 1, 1)
+            start_date = pd.Timestamp(1980, 1, 1)
         elif not isinstance(start_date, pd.Timestamp):
             start_date = pd.Timestamp(start_date)
         if end_date is None:

@@ -59,7 +59,7 @@ class KrxHistoricalDailyPriceDataDownloader:
 
     def download(self, symbol, start_date=None, end_date=None):
         if start_date is None:
-            start_date = pd.Timestamp(1990, 1, 1)
+            start_date = pd.Timestamp(1980, 1, 1)
         if end_date is None:
             end_date = pd.Timestamp.now().normalize() + pd.Timedelta(1, unit='day')
 
@@ -78,6 +78,9 @@ class KrxHistoricalDailyPriceDataDownloader:
         }
         response = requests.post(url, data, headers=self._headers)
         df = pd.json_normalize(response.json()['output'])
+
+        if df.shape[0] == 0:
+            return None
 
         column_names = {
             'TRD_DD':'Date',
@@ -101,7 +104,7 @@ class KrxHistoricalDailyPriceDataDownloader:
         df = df.rename(columns=column_names)
 
         df['Date'] = pd.to_datetime(df['Date'])
-        df['ChangeRate'] = pd.to_numeric(df['ChangeRate'])
+        df['ChangeRate'] = pd.to_numeric(df['ChangeRate'].str.replace(',', ''))
 
         int_columns = [
             'Close',
@@ -119,5 +122,7 @@ class KrxHistoricalDailyPriceDataDownloader:
         for col in int_columns:
             if col in df.columns:
                 df[col] = pd.to_numeric(df[col].str.replace(',', ''), errors='coerce')
+
+        df.set_index('Date', inplace=True)
 
         return df
