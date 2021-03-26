@@ -1,5 +1,9 @@
 import os
+import json
 import queue
+import ctypes
+import warnings
+import subprocess
 
 from wrapt import synchronized
 
@@ -9,6 +13,9 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter import
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter import KiwoomOpenApiPlusSendConditionRateLimiter
 
 from koapy.utils.logging.Logging import Logging
+from koapy.utils.subprocess import function_to_subprocess_args
+
+warnings.filterwarnings('ignore', category=RuntimeWarning, module='runpy')
 
 class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
 
@@ -143,13 +150,17 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         self._comm_rate_limiter = KiwoomOpenApiPlusCommRqDataRateLimiter()
         self._cond_rate_limiter = KiwoomOpenApiPlusSendConditionRateLimiter(self._comm_rate_limiter)
 
+    def IsAdmin(self):
+        return ctypes.windll.shell32.IsUserAnAdmin() != 0
+
     def DisableAutoLogin(self):
         module_path = self.GetAPIModulePath()
         autologin_dat = os.path.join(module_path, 'system', 'Autologin.dat')
         if os.path.exists(autologin_dat):
             os.remove(autologin_dat)
 
-    def LoginUsingCredential(self, credential=None):
+    @classmethod
+    def LoginUsingPywinauto_Impl(cls, credential=None):
         import pywinauto
 
         if credential is None:
@@ -170,19 +181,19 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         login_window = desktop.window(title='Open API Login')
 
         try:
-            self.logger.info('Waiting for login screen')
+            cls.logger.info('Waiting for login screen')
             timeout_login_screen_ready = 30
             login_window.wait('ready', timeout_login_screen_ready)
         except pywinauto.timings.TimeoutError:
-            self.logger.info('Cannot find login screen')
+            cls.logger.info('Cannot find login screen')
             raise
         else:
-            self.logger.info('Login screen found')
+            cls.logger.info('Login screen found')
             if is_in_development:
                 login_window.print_control_identifiers()
 
             if userid:
-                self.logger.info('Putting userid')
+                cls.logger.info('Putting userid')
                 if use_set_text:
                     login_window['Edit1'].set_text(userid)
                 else:
@@ -190,7 +201,7 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
                     pywinauto.keyboard.send_keys(userid)
                     pywinauto.keyboard.send_keys('{TAB}')
             if password:
-                self.logger.info('Putting password')
+                cls.logger.info('Putting password')
                 if use_set_text:
                     login_window['Edit2'].set_text(password)
                 else:
@@ -198,21 +209,21 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
                     pywinauto.keyboard.send_keys(password)
                     pywinauto.keyboard.send_keys('{TAB}')
             else:
-                raise RuntimeError('password not set, please check config file')
+                raise RuntimeError("'user_password' not set, please check credential")
 
             if is_save_userid:
-                self.logger.info('Checking to save userid')
+                cls.logger.info('Checking to save userid')
                 login_window['Button6'].check() # check doesn't work
             else:
-                self.logger.info('Unchecking to save userid')
+                cls.logger.info('Unchecking to save userid')
                 login_window['Button6'].uncheck() # uncheck doesn't work
 
             if not is_simulation:
                 if not login_window['Edit3'].is_enabled():
-                    self.logger.info('Unchecking to use simulation server')
+                    cls.logger.info('Unchecking to use simulation server')
                     login_window['Button5'].uncheck_by_click()
                 if cert:
-                    self.logger.info('Putting cert password')
+                    cls.logger.info('Putting cert password')
                     if use_set_text:
                         login_window['Edit3'].set_text(cert)
                     else:
@@ -220,16 +231,33 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
                         pywinauto.keyboard.send_keys(cert)
                         pywinauto.keyboard.send_keys('{TAB}')
                 else:
-                    raise RuntimeError('cert passowrd not set, please check config file')
+                    raise RuntimeError("'cert_password' not set, please check credential")
             else:
                 if login_window['Edit3'].is_enabled():
-                    self.logger.info('Checking to use simulation server')
+                    cls.logger.info('Checking to use simulation server')
                     login_window['Button5'].check_by_click()
 
-            self.logger.info('Logging in')
+            cls.logger.info('Logging in')
             login_window['Button1'].click()
 
+    @classmethod
+    def LoginUsingPywinauto_RunScriptInSubprocess(cls, credential=None):
+        def main():
+            # pylint: disable=redefined-outer-name,reimported,import-self
+            import sys
+            import json
+            from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import KiwoomOpenApiPlusQAxWidgetMixin
+            credential = json.load(sys.stdin)
+            KiwoomOpenApiPlusQAxWidgetMixin.LoginUsingPywinauto_Impl(credential)
+        args = function_to_subprocess_args(main)
+        return subprocess.run(args, input=json.dumps(credential), text=True, check=True)
+
+    def LoginUsingPywinauto(self, credential=None):
+        return self.LoginUsingPywinauto_RunScriptInSubprocess(credential)
+
     def Connect(self, credential=None):
+        if credential is not None:
+            assert self.IsAdmin(), 'Connect() method requires to be run as administrator, if credential is given explicitly'
         q = queue.Queue()
         def OnEventConnect(errcode):
             q.put(errcode)
@@ -239,7 +267,7 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
                 self.DisableAutoLogin()
             errcode = KiwoomOpenApiPlusError.try_or_raise(self.CommConnect())
             if credential is not None:
-                self.LoginUsingCredential(credential)
+                self.LoginUsingPywinauto(credential)
             errcode = KiwoomOpenApiPlusError.try_or_raise(q.get())
         finally:
             self.OnEventConnect.disconnect(OnEventConnect)

@@ -7,6 +7,8 @@ import threading
 
 import grpc
 
+from google.protobuf.json_format import MessageToDict
+
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandler import KiwoomOpenApiPlusEventHandler
 from koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlerForGrpc import KiwoomOpenApiPlusEventHandlerForGrpc
 
@@ -203,7 +205,7 @@ class KiwoomOpenApiPlusEagerAllEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc
         response.arguments.add().string_value = realtype # pylint: disable=no-member
         response.arguments.add().string_value = realdata # pylint: disable=no-member
 
-        fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype(realtype)
+        fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name(realtype)
 
         if fids is None:
             self.logger.error('Cannot find fids for realtype %s', realtype)
@@ -368,8 +370,19 @@ class KiwoomOpenApiPlusLoginEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
         super().__init__(control, context)
         self._request = request
 
+        if self._request.HasField('credential'):
+            self._credential = self._request.credential
+            self._credential = MessageToDict(self._credential, preserving_proto_field_name=True)
+        else:
+            self._credential = None
+
     def on_enter(self):
-        KiwoomOpenApiPlusError.try_or_raise(self.control.CommConnect())
+        if self._credential is not None:
+            self.control.DisableAutoLogin()
+            KiwoomOpenApiPlusError.try_or_raise(self.control.CommConnect())
+            self.control.LoginUsingPywinauto(self._credential)
+        else:
+            KiwoomOpenApiPlusError.try_or_raise(self.control.CommConnect())
 
     def OnEventConnect(self, errcode):
         if errcode < 0:
@@ -475,7 +488,8 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                 return
             else:
                 try:
-                    self.control.RateLimitedCommRqData(rqname, trcode, int(prevnext), scrnno, self._inputs)
+                    KiwoomOpenApiPlusError.try_or_raise(
+                        self.control.RateLimitedCommRqData(rqname, trcode, int(prevnext), scrnno, self._inputs))
                 except  KiwoomOpenApiPlusError as e:
                     self.observer.on_error(e)
                     return
@@ -938,7 +952,7 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
             response.arguments.add().string_value = realdata # pylint: disable=no-member
 
             if self._infer_fids:
-                fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype(realtype)
+                fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name(realtype)
             else:
                 fids = self._fid_list
 
@@ -1038,7 +1052,8 @@ class KiwoomOpenApiPlusConditionEventHandler(KiwoomOpenApiPlusEventHandlerForGrp
             if self._with_info:
                 self._codelist = codelist
                 self._codes = codelist.rstrip(';').split(';') if codelist else []
-                self.control.CommKwRqData(self._codelist, 0, len(self._codes), self._type_flag, self._request_name, self._screen_no)
+                KiwoomOpenApiPlusError.try_or_raise(
+                    self.control.RateLimitedCommKwRqData(self._codelist, 0, len(self._codes), self._type_flag, self._request_name, self._screen_no))
 
             should_continue = str(prevnext) not in ['', '0']
             should_not_complete = self._search_type == 1 or self._with_info or should_continue
@@ -1069,7 +1084,8 @@ class KiwoomOpenApiPlusConditionEventHandler(KiwoomOpenApiPlusEventHandlerForGrp
             if self._with_info:
                 self._codelist = code
                 self._codes = [code]
-                self.control.CommKwRqData(self._codelist, 0, len(self._codes), self._type_flag, self._request_name, self._screen_no)
+                KiwoomOpenApiPlusError.try_or_raise(
+                    self.control.RateLimitedCommKwRqData(self._codelist, 0, len(self._codes), self._type_flag, self._request_name, self._screen_no))
 
     def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, _datalength, _errorcode, _message, _splmmsg):
         if (scrnno, rqname) == (self._screen_no, self._request_name):
@@ -1109,15 +1125,18 @@ class KiwoomOpenApiPlusConditionEventHandler(KiwoomOpenApiPlusEventHandlerForGrp
                 else:
                     self.logger.warning('Repeat count greater than 0, but no multi data names available.')
 
+            self.logger.debug('Response: %s', response)
             self.observer.on_next(response) # pylint: disable=no-member
 
+            self.logger.debug('Should complete: %s', should_complete)
             if should_complete:
                 self.observer.on_completed()
                 return
             elif should_continue:
                 try:
                     raise KiwoomOpenApiPlusError('Should not reach here')
-                    self.control.CommKwRqData(self._codelist, int(prevnext), len(self._codes), 3 if self._is_future_option else 0, self._request_name, self._screen_no) # pylint: disable=unreachable
+                    KiwoomOpenApiPlusError.try_or_raise(
+                        self.control.RateLimitedCommKwRqData(self._codelist, int(prevnext), len(self._codes), 3 if self._is_future_option else 0, self._request_name, self._screen_no)) # pylint: disable=unreachable
                 except KiwoomOpenApiPlusError as e:
                     self.observer.on_error(e)
                     return
@@ -1254,7 +1273,7 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(KiwoomOpenApiPlusRealEventH
             response.arguments.add().string_value = realdata # pylint: disable=no-member
 
             if self._infer_fids:
-                fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype(realtype)
+                fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name(realtype)
             else:
                 fids = self._fid_list
 

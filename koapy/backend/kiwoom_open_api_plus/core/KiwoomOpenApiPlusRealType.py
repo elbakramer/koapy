@@ -61,23 +61,27 @@ class KiwoomOpenApiPlusRealType(JsonSerializable):
             self.fids)
 
     @classmethod
-    def get_fids_by_realtype(cls, realtype):
-        result = cls._REALTYPE_BY_DESC.get(realtype)
+    def get_realtype_info_by_realtype_name(cls, realtype):
+        return cls._REALTYPE_BY_DESC.get(realtype)
+
+    @classmethod
+    def get_fids_by_realtype_name(cls, realtype):
+        result = cls.get_realtype_info_by_realtype_name(realtype)
         if result is not None:
             return result.fids
         return None
 
     @classmethod
-    def get_fids_by_realtype_as_string(cls, realtype):
-        fids = cls.get_fids_by_realtype(realtype)
+    def get_fids_by_realtype_name_as_string(cls, realtype):
+        fids = cls.get_fids_by_realtype_name(realtype)
         if fids is not None:
             fids = [str(fid) for fid in fids]
             fids = ';'.join(fids)
         return fids
 
     @classmethod
-    def get_field_names_by_realtype(cls, realtype):
-        fids = cls.get_fids_by_realtype(realtype)
+    def get_field_names_by_realtype_name(cls, realtype):
+        fids = cls.get_fids_by_realtype_name(realtype)
         if fids is not None:
             names = [cls.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
             return names

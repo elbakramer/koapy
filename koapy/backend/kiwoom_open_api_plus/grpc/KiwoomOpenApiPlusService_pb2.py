@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nFkoapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService.proto\x12\'koapy.backend.kiwoom_open_api_plus.grpc\"W\n\x08\x41rgument\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x12\x14\n\nbool_value\x18\x03 \x01(\x08H\x00\x42\x07\n\x05value\"a\n\x0b\x43\x61llRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x44\n\targuments\x18\x02 \x03(\x0b\x32\x31.koapy.backend.kiwoom_open_api_plus.grpc.Argument\"Z\n\x0bReturnValue\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x12\x14\n\nbool_value\x18\x03 \x01(\x08H\x00\x42\x07\n\x05value\"Z\n\x0c\x43\x61llResponse\x12J\n\x0creturn_value\x18\x01 \x01(\x0b\x32\x34.koapy.backend.kiwoom_open_api_plus.grpc.ReturnValue\"L\n\rListenRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05slots\x18\x02 \x03(\t\x12\x0c\n\x04\x63ode\x18\x03 \x01(\t\x12\x12\n\nclass_name\x18\x04 \x01(\t\"+\n\nSingleData\x12\r\n\x05names\x18\x01 \x03(\t\x12\x0e\n\x06values\x18\x02 \x03(\t\" \n\x0eRepeatedString\x12\x0e\n\x06values\x18\x01 \x03(\t\"c\n\tMultiData\x12\r\n\x05names\x18\x01 \x03(\t\x12G\n\x06values\x18\x02 \x03(\x0b\x32\x37.koapy.backend.kiwoom_open_api_plus.grpc.RepeatedString\"\x10\n\x0eHandledRequest\"\x13\n\x11StopListenRequest\"\xa8\x02\n\x1a\x42idirectionalListenRequest\x12P\n\x0elisten_request\x18\x01 \x01(\x0b\x32\x36.koapy.backend.kiwoom_open_api_plus.grpc.ListenRequestH\x00\x12R\n\x0fhandled_request\x18\x02 \x01(\x0b\x32\x37.koapy.backend.kiwoom_open_api_plus.grpc.HandledRequestH\x00\x12Y\n\x13stop_listen_request\x18\x03 \x01(\x0b\x32:.koapy.backend.kiwoom_open_api_plus.grpc.StopListenRequestH\x00\x42\t\n\x07request\"\xf6\x01\n\x0eListenResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x44\n\targuments\x18\x02 \x03(\x0b\x32\x31.koapy.backend.kiwoom_open_api_plus.grpc.Argument\x12H\n\x0bsingle_data\x18\x03 \x01(\x0b\x32\x33.koapy.backend.kiwoom_open_api_plus.grpc.SingleData\x12\x46\n\nmulti_data\x18\x04 \x01(\x0b\x32\x32.koapy.backend.kiwoom_open_api_plus.grpc.MultiData\"\xb2\x01\n\x14\x43\x61llAndListenRequest\x12J\n\x0c\x63\x61ll_request\x18\x01 \x01(\x0b\x32\x34.koapy.backend.kiwoom_open_api_plus.grpc.CallRequest\x12N\n\x0elisten_request\x18\x02 \x01(\x0b\x32\x36.koapy.backend.kiwoom_open_api_plus.grpc.ListenRequest\"\xc7\x01\n\x15\x43\x61llAndListenResponse\x12N\n\rcall_response\x18\x01 \x01(\x0b\x32\x35.koapy.backend.kiwoom_open_api_plus.grpc.CallResponseH\x00\x12R\n\x0flisten_response\x18\x02 \x01(\x0b\x32\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponseH\x00\x42\n\n\x08response\"\x0e\n\x0cLoginRequest\"S\n\x1dTransactionSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\"\xae\x01\n\x18TransactionStopCondition\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x12^\n\ncomparator\x18\x03 \x01(\x0e\x32J.koapy.backend.kiwoom_open_api_plus.grpc.TransactionStopConditionCompartor\x12\x15\n\rinclude_equal\x18\x04 \x01(\x08\"\x92\x03\n\x12TransactionRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x18\n\x10transaction_code\x18\x02 \x01(\t\x12\x11\n\tscreen_no\x18\x03 \x01(\t\x12W\n\x06inputs\x18\x04 \x03(\x0b\x32G.koapy.backend.kiwoom_open_api_plus.grpc.TransactionRequest.InputsEntry\x12V\n\x06output\x18\x05 \x01(\x0b\x32\x46.koapy.backend.kiwoom_open_api_plus.grpc.TransactionSubscriptionTarget\x12Y\n\x0estop_condition\x18\x06 \x01(\x0b\x32\x41.koapy.backend.kiwoom_open_api_plus.grpc.TransactionStopCondition\x1a-\n\x0bInputsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"]\n\x17OrderSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\x12\x0e\n\x06\x43HEJAN\x18\x05 \x01(\x08\"\x8f\x02\n\x0cOrderRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x11\n\tscreen_no\x18\x02 \x01(\t\x12\x12\n\naccount_no\x18\x03 \x01(\t\x12\x12\n\norder_type\x18\x04 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x05 \x01(\t\x12\x10\n\x08quantity\x18\x06 \x01(\x03\x12\r\n\x05price\x18\x07 \x01(\x03\x12\x12\n\nquote_type\x18\x08 \x01(\t\x12\x19\n\x11original_order_no\x18\t \x01(\t\x12P\n\x06target\x18\n \x01(\x0b\x32@.koapy.backend.kiwoom_open_api_plus.grpc.OrderSubscriptionTarget\"R\n\x10RealRequestFlags\x12\x12\n\ninfer_fids\x18\x01 \x01(\x08\x12\x16\n\x0ereadable_names\x18\x02 \x01(\x08\x12\x12\n\nfast_parse\x18\x03 \x01(\x08\"\xa2\x01\n\x0bRealRequest\x12\x11\n\tscreen_no\x18\x01 \x03(\t\x12\x11\n\tcode_list\x18\x02 \x03(\t\x12\x10\n\x08\x66id_list\x18\x03 \x03(\x05\x12\x11\n\treal_type\x18\x04 \x01(\t\x12H\n\x05\x66lags\x18\x05 \x01(\x0b\x32\x39.koapy.backend.kiwoom_open_api_plus.grpc.RealRequestFlags\"\x16\n\x14LoadConditionRequest\"D\n\x15\x43onditionRequestFlags\x12\x11\n\twith_info\x18\x01 \x01(\x08\x12\x18\n\x10is_future_option\x18\x02 \x01(\x08\"\xd0\x01\n\x10\x43onditionRequest\x12\x11\n\tscreen_no\x18\x01 \x01(\t\x12\x16\n\x0e\x63ondition_name\x18\x02 \x01(\t\x12\x17\n\x0f\x63ondition_index\x18\x03 \x01(\x05\x12\x13\n\x0bsearch_type\x18\x04 \x01(\x05\x12\x14\n\x0crequest_name\x18\x05 \x01(\t\x12M\n\x05\x66lags\x18\x06 \x01(\x0b\x32>.koapy.backend.kiwoom_open_api_plus.grpc.ConditionRequestFlags\"3\n\x12SetLogLevelRequest\x12\r\n\x05level\x18\x01 \x01(\x05\x12\x0e\n\x06logger\x18\x02 \x01(\t\"\x15\n\x13SetLogLevelResponse\"\x80\x01\n\"BidirectionalRealInitializeRequest\x12\x10\n\x08\x66id_list\x18\x01 \x03(\x05\x12H\n\x05\x66lags\x18\x02 \x01(\x0b\x32\x39.koapy.backend.kiwoom_open_api_plus.grpc.RealRequestFlags\"G\n BidirectionalRealRegisterRequest\x12\x11\n\tcode_list\x18\x01 \x03(\t\x12\x10\n\x08\x66id_list\x18\x02 \x03(\x05\"3\n\x1e\x42idirectionalRealRemoveRequest\x12\x11\n\tcode_list\x18\x01 \x03(\t\"\x1e\n\x1c\x42idirectionalRealStopRequest\"\xb9\x03\n\x18\x42idirectionalRealRequest\x12i\n\x12initialize_request\x18\x01 \x01(\x0b\x32K.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalRealInitializeRequestH\x00\x12\x65\n\x10register_request\x18\x02 \x01(\x0b\x32I.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalRealRegisterRequestH\x00\x12\x61\n\x0eremove_request\x18\x03 \x01(\x0b\x32G.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalRealRemoveRequestH\x00\x12]\n\x0cstop_request\x18\x04 \x01(\x0b\x32\x45.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalRealStopRequestH\x00\x42\t\n\x07request*\x9d\x01\n!TransactionStopConditionCompartor\x12\x19\n\x15LESS_THAN_OR_EQUAL_TO\x10\x00\x12\r\n\tLESS_THAN\x10\x01\x12\x1c\n\x18GREATER_THAN_OR_EQUAL_TO\x10\x02\x12\x10\n\x0cGREATER_THAN\x10\x03\x12\x0c\n\x08\x45QUAL_TO\x10\x04\x12\x10\n\x0cNOT_EQUAL_TO\x10\x05\x32\xa6\x0f\n\x18KiwoomOpenApiPlusService\x12u\n\x04\x43\x61ll\x12\x34.koapy.backend.kiwoom_open_api_plus.grpc.CallRequest\x1a\x35.koapy.backend.kiwoom_open_api_plus.grpc.CallResponse\"\x00\x12}\n\x06Listen\x12\x36.koapy.backend.kiwoom_open_api_plus.grpc.ListenRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x99\x01\n\x13\x42idirectionalListen\x12\x43.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalListenRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00(\x01\x30\x01\x12\x83\x01\n\x0c\x43ustomListen\x12\x36.koapy.backend.kiwoom_open_api_plus.grpc.ListenRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x98\x01\n\x13\x43ustomCallAndListen\x12=.koapy.backend.kiwoom_open_api_plus.grpc.CallAndListenRequest\x1a>.koapy.backend.kiwoom_open_api_plus.grpc.CallAndListenResponse\"\x00\x30\x01\x12\x7f\n\tLoginCall\x12\x35.koapy.backend.kiwoom_open_api_plus.grpc.LoginRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x8b\x01\n\x0fTransactionCall\x12;.koapy.backend.kiwoom_open_api_plus.grpc.TransactionRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x7f\n\tOrderCall\x12\x35.koapy.backend.kiwoom_open_api_plus.grpc.OrderRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12}\n\x08RealCall\x12\x34.koapy.backend.kiwoom_open_api_plus.grpc.RealRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x8f\x01\n\x11LoadConditionCall\x12=.koapy.backend.kiwoom_open_api_plus.grpc.LoadConditionRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x87\x01\n\rConditionCall\x12\x39.koapy.backend.kiwoom_open_api_plus.grpc.ConditionRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x99\x01\n\x15\x42idirectionalRealCall\x12\x41.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalRealRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00(\x01\x30\x01\x12\x82\x01\n\x0bOrderListen\x12\x36.koapy.backend.kiwoom_open_api_plus.grpc.ListenRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x8a\x01\n\x0bSetLogLevel\x12;.koapy.backend.kiwoom_open_api_plus.grpc.SetLogLevelRequest\x1a<.koapy.backend.kiwoom_open_api_plus.grpc.SetLogLevelResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\nFkoapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService.proto\x12\'koapy.backend.kiwoom_open_api_plus.grpc\"W\n\x08\x41rgument\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x12\x14\n\nbool_value\x18\x03 \x01(\x08H\x00\x42\x07\n\x05value\"a\n\x0b\x43\x61llRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x44\n\targuments\x18\x02 \x03(\x0b\x32\x31.koapy.backend.kiwoom_open_api_plus.grpc.Argument\"Z\n\x0bReturnValue\x12\x16\n\x0cstring_value\x18\x01 \x01(\tH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x03H\x00\x12\x14\n\nbool_value\x18\x03 \x01(\x08H\x00\x42\x07\n\x05value\"Z\n\x0c\x43\x61llResponse\x12J\n\x0creturn_value\x18\x01 \x01(\x0b\x32\x34.koapy.backend.kiwoom_open_api_plus.grpc.ReturnValue\"L\n\rListenRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05slots\x18\x02 \x03(\t\x12\x0c\n\x04\x63ode\x18\x03 \x01(\t\x12\x12\n\nclass_name\x18\x04 \x01(\t\"\x10\n\x0eHandledRequest\"\x13\n\x11StopListenRequest\"\xa8\x02\n\x1a\x42idirectionalListenRequest\x12P\n\x0elisten_request\x18\x01 \x01(\x0b\x32\x36.koapy.backend.kiwoom_open_api_plus.grpc.ListenRequestH\x00\x12R\n\x0fhandled_request\x18\x02 \x01(\x0b\x32\x37.koapy.backend.kiwoom_open_api_plus.grpc.HandledRequestH\x00\x12Y\n\x13stop_listen_request\x18\x03 \x01(\x0b\x32:.koapy.backend.kiwoom_open_api_plus.grpc.StopListenRequestH\x00\x42\t\n\x07request\"+\n\nSingleData\x12\r\n\x05names\x18\x01 \x03(\t\x12\x0e\n\x06values\x18\x02 \x03(\t\" \n\x0eRepeatedString\x12\x0e\n\x06values\x18\x01 \x03(\t\"c\n\tMultiData\x12\r\n\x05names\x18\x01 \x03(\t\x12G\n\x06values\x18\x02 \x03(\x0b\x32\x37.koapy.backend.kiwoom_open_api_plus.grpc.RepeatedString\"\xf6\x01\n\x0eListenResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x44\n\targuments\x18\x02 \x03(\x0b\x32\x31.koapy.backend.kiwoom_open_api_plus.grpc.Argument\x12H\n\x0bsingle_data\x18\x03 \x01(\x0b\x32\x33.koapy.backend.kiwoom_open_api_plus.grpc.SingleData\x12\x46\n\nmulti_data\x18\x04 \x01(\x0b\x32\x32.koapy.backend.kiwoom_open_api_plus.grpc.MultiData\"\xb2\x01\n\x14\x43\x61llAndListenRequest\x12J\n\x0c\x63\x61ll_request\x18\x01 \x01(\x0b\x32\x34.koapy.backend.kiwoom_open_api_plus.grpc.CallRequest\x12N\n\x0elisten_request\x18\x02 \x01(\x0b\x32\x36.koapy.backend.kiwoom_open_api_plus.grpc.ListenRequest\"\xc7\x01\n\x15\x43\x61llAndListenResponse\x12N\n\rcall_response\x18\x01 \x01(\x0b\x32\x35.koapy.backend.kiwoom_open_api_plus.grpc.CallResponseH\x00\x12R\n\x0flisten_response\x18\x02 \x01(\x0b\x32\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponseH\x00\x42\n\n\x08response\"\x8b\x02\n\x0fLoginCredential\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x15\n\ruser_password\x18\x02 \x01(\t\x12\x15\n\rcert_password\x18\x03 \x01(\t\x12\x15\n\ris_simulation\x18\x04 \x01(\x08\x12i\n\x11\x61\x63\x63ount_passwords\x18\x05 \x03(\x0b\x32N.koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential.AccountPasswordsEntry\x1a\x37\n\x15\x41\x63\x63ountPasswordsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\\\n\x0cLoginRequest\x12L\n\ncredential\x18\x01 \x01(\x0b\x32\x38.koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential\"S\n\x1dTransactionSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\"\xae\x01\n\x18TransactionStopCondition\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x12^\n\ncomparator\x18\x03 \x01(\x0e\x32J.koapy.backend.kiwoom_open_api_plus.grpc.TransactionStopConditionCompartor\x12\x15\n\rinclude_equal\x18\x04 \x01(\x08\"\x92\x03\n\x12TransactionRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x18\n\x10transaction_code\x18\x02 \x01(\t\x12\x11\n\tscreen_no\x18\x03 \x01(\t\x12W\n\x06inputs\x18\x04 \x03(\x0b\x32G.koapy.backend.kiwoom_open_api_plus.grpc.TransactionRequest.InputsEntry\x12V\n\x06output\x18\x05 \x01(\x0b\x32\x46.koapy.backend.kiwoom_open_api_plus.grpc.TransactionSubscriptionTarget\x12Y\n\x0estop_condition\x18\x06 \x01(\x0b\x32\x41.koapy.backend.kiwoom_open_api_plus.grpc.TransactionStopCondition\x1a-\n\x0bInputsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"]\n\x17OrderSubscriptionTarget\x12\x0b\n\x03RET\x18\x01 \x01(\x08\x12\n\n\x02TR\x18\x02 \x01(\x08\x12\x0c\n\x04REAL\x18\x03 \x01(\x08\x12\x0b\n\x03MSG\x18\x04 \x01(\x08\x12\x0e\n\x06\x43HEJAN\x18\x05 \x01(\x08\"\x8f\x02\n\x0cOrderRequest\x12\x14\n\x0crequest_name\x18\x01 \x01(\t\x12\x11\n\tscreen_no\x18\x02 \x01(\t\x12\x12\n\naccount_no\x18\x03 \x01(\t\x12\x12\n\norder_type\x18\x04 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x05 \x01(\t\x12\x10\n\x08quantity\x18\x06 \x01(\x03\x12\r\n\x05price\x18\x07 \x01(\x03\x12\x12\n\nquote_type\x18\x08 \x01(\t\x12\x19\n\x11original_order_no\x18\t \x01(\t\x12P\n\x06target\x18\n \x01(\x0b\x32@.koapy.backend.kiwoom_open_api_plus.grpc.OrderSubscriptionTarget\"R\n\x10RealRequestFlags\x12\x12\n\ninfer_fids\x18\x01 \x01(\x08\x12\x16\n\x0ereadable_names\x18\x02 \x01(\x08\x12\x12\n\nfast_parse\x18\x03 \x01(\x08\"\xa2\x01\n\x0bRealRequest\x12\x11\n\tscreen_no\x18\x01 \x03(\t\x12\x11\n\tcode_list\x18\x02 \x03(\t\x12\x10\n\x08\x66id_list\x18\x03 \x03(\x05\x12\x11\n\treal_type\x18\x04 \x01(\t\x12H\n\x05\x66lags\x18\x05 \x01(\x0b\x32\x39.koapy.backend.kiwoom_open_api_plus.grpc.RealRequestFlags\"\x16\n\x14LoadConditionRequest\"D\n\x15\x43onditionRequestFlags\x12\x11\n\twith_info\x18\x01 \x01(\x08\x12\x18\n\x10is_future_option\x18\x02 \x01(\x08\"\xd0\x01\n\x10\x43onditionRequest\x12\x11\n\tscreen_no\x18\x01 \x01(\t\x12\x16\n\x0e\x63ondition_name\x18\x02 \x01(\t\x12\x17\n\x0f\x63ondition_index\x18\x03 \x01(\x05\x12\x13\n\x0bsearch_type\x18\x04 \x01(\x05\x12\x14\n\x0crequest_name\x18\x05 \x01(\t\x12M\n\x05\x66lags\x18\x06 \x01(\x0b\x32>.koapy.backend.kiwoom_open_api_plus.grpc.ConditionRequestFlags\"3\n\x12SetLogLevelRequest\x12\r\n\x05level\x18\x01 \x01(\x05\x12\x0e\n\x06logger\x18\x02 \x01(\t\"\x15\n\x13SetLogLevelResponse\"\x80\x01\n\"BidirectionalRealInitializeRequest\x12\x10\n\x08\x66id_list\x18\x01 \x03(\x05\x12H\n\x05\x66lags\x18\x02 \x01(\x0b\x32\x39.koapy.backend.kiwoom_open_api_plus.grpc.RealRequestFlags\"G\n BidirectionalRealRegisterRequest\x12\x11\n\tcode_list\x18\x01 \x03(\t\x12\x10\n\x08\x66id_list\x18\x02 \x03(\x05\"3\n\x1e\x42idirectionalRealRemoveRequest\x12\x11\n\tcode_list\x18\x01 \x03(\t\"\x1e\n\x1c\x42idirectionalRealStopRequest\"\xb9\x03\n\x18\x42idirectionalRealRequest\x12i\n\x12initialize_request\x18\x01 \x01(\x0b\x32K.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalRealInitializeRequestH\x00\x12\x65\n\x10register_request\x18\x02 \x01(\x0b\x32I.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalRealRegisterRequestH\x00\x12\x61\n\x0eremove_request\x18\x03 \x01(\x0b\x32G.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalRealRemoveRequestH\x00\x12]\n\x0cstop_request\x18\x04 \x01(\x0b\x32\x45.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalRealStopRequestH\x00\x42\t\n\x07request*\x9d\x01\n!TransactionStopConditionCompartor\x12\x19\n\x15LESS_THAN_OR_EQUAL_TO\x10\x00\x12\r\n\tLESS_THAN\x10\x01\x12\x1c\n\x18GREATER_THAN_OR_EQUAL_TO\x10\x02\x12\x10\n\x0cGREATER_THAN\x10\x03\x12\x0c\n\x08\x45QUAL_TO\x10\x04\x12\x10\n\x0cNOT_EQUAL_TO\x10\x05\x32\xa6\x0f\n\x18KiwoomOpenApiPlusService\x12u\n\x04\x43\x61ll\x12\x34.koapy.backend.kiwoom_open_api_plus.grpc.CallRequest\x1a\x35.koapy.backend.kiwoom_open_api_plus.grpc.CallResponse\"\x00\x12}\n\x06Listen\x12\x36.koapy.backend.kiwoom_open_api_plus.grpc.ListenRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x99\x01\n\x13\x42idirectionalListen\x12\x43.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalListenRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00(\x01\x30\x01\x12\x83\x01\n\x0c\x43ustomListen\x12\x36.koapy.backend.kiwoom_open_api_plus.grpc.ListenRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x98\x01\n\x13\x43ustomCallAndListen\x12=.koapy.backend.kiwoom_open_api_plus.grpc.CallAndListenRequest\x1a>.koapy.backend.kiwoom_open_api_plus.grpc.CallAndListenResponse\"\x00\x30\x01\x12\x7f\n\tLoginCall\x12\x35.koapy.backend.kiwoom_open_api_plus.grpc.LoginRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x8b\x01\n\x0fTransactionCall\x12;.koapy.backend.kiwoom_open_api_plus.grpc.TransactionRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x7f\n\tOrderCall\x12\x35.koapy.backend.kiwoom_open_api_plus.grpc.OrderRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12}\n\x08RealCall\x12\x34.koapy.backend.kiwoom_open_api_plus.grpc.RealRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x8f\x01\n\x11LoadConditionCall\x12=.koapy.backend.kiwoom_open_api_plus.grpc.LoadConditionRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x87\x01\n\rConditionCall\x12\x39.koapy.backend.kiwoom_open_api_plus.grpc.ConditionRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x99\x01\n\x15\x42idirectionalRealCall\x12\x41.koapy.backend.kiwoom_open_api_plus.grpc.BidirectionalRealRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00(\x01\x30\x01\x12\x82\x01\n\x0bOrderListen\x12\x36.koapy.backend.kiwoom_open_api_plus.grpc.ListenRequest\x1a\x37.koapy.backend.kiwoom_open_api_plus.grpc.ListenResponse\"\x00\x30\x01\x12\x8a\x01\n\x0bSetLogLevel\x12;.koapy.backend.kiwoom_open_api_plus.grpc.SetLogLevelRequest\x1a<.koapy.backend.kiwoom_open_api_plus.grpc.SetLogLevelResponse\"\x00\x62\x06proto3'
 )
 
 _TRANSACTIONSTOPCONDITIONCOMPARTOR = _descriptor.EnumDescriptor(
@@ -63,8 +63,8 @@ _TRANSACTIONSTOPCONDITIONCOMPARTOR = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=4131,
-  serialized_end=4288,
+  serialized_start=4479,
+  serialized_end=4636,
 )
 _sym_db.RegisterEnumDescriptor(_TRANSACTIONSTOPCONDITIONCOMPARTOR)
 
@@ -304,116 +304,6 @@ _LISTENREQUEST = _descriptor.Descriptor(
 )
 
 
-_SINGLEDATA = _descriptor.Descriptor(
-  name='SingleData',
-  full_name='koapy.backend.kiwoom_open_api_plus.grpc.SingleData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='names', full_name='koapy.backend.kiwoom_open_api_plus.grpc.SingleData.names', index=0,
-      number=1, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='values', full_name='koapy.backend.kiwoom_open_api_plus.grpc.SingleData.values', index=1,
-      number=2, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=565,
-  serialized_end=608,
-)
-
-
-_REPEATEDSTRING = _descriptor.Descriptor(
-  name='RepeatedString',
-  full_name='koapy.backend.kiwoom_open_api_plus.grpc.RepeatedString',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='values', full_name='koapy.backend.kiwoom_open_api_plus.grpc.RepeatedString.values', index=0,
-      number=1, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=610,
-  serialized_end=642,
-)
-
-
-_MULTIDATA = _descriptor.Descriptor(
-  name='MultiData',
-  full_name='koapy.backend.kiwoom_open_api_plus.grpc.MultiData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='names', full_name='koapy.backend.kiwoom_open_api_plus.grpc.MultiData.names', index=0,
-      number=1, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='values', full_name='koapy.backend.kiwoom_open_api_plus.grpc.MultiData.values', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=644,
-  serialized_end=743,
-)
-
-
 _HANDLEDREQUEST = _descriptor.Descriptor(
   name='HandledRequest',
   full_name='koapy.backend.kiwoom_open_api_plus.grpc.HandledRequest',
@@ -434,8 +324,8 @@ _HANDLEDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=745,
-  serialized_end=761,
+  serialized_start=565,
+  serialized_end=581,
 )
 
 
@@ -459,8 +349,8 @@ _STOPLISTENREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=763,
-  serialized_end=782,
+  serialized_start=583,
+  serialized_end=602,
 )
 
 
@@ -510,7 +400,117 @@ _BIDIRECTIONALLISTENREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=785,
+  serialized_start=605,
+  serialized_end=901,
+)
+
+
+_SINGLEDATA = _descriptor.Descriptor(
+  name='SingleData',
+  full_name='koapy.backend.kiwoom_open_api_plus.grpc.SingleData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='names', full_name='koapy.backend.kiwoom_open_api_plus.grpc.SingleData.names', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='values', full_name='koapy.backend.kiwoom_open_api_plus.grpc.SingleData.values', index=1,
+      number=2, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=903,
+  serialized_end=946,
+)
+
+
+_REPEATEDSTRING = _descriptor.Descriptor(
+  name='RepeatedString',
+  full_name='koapy.backend.kiwoom_open_api_plus.grpc.RepeatedString',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='values', full_name='koapy.backend.kiwoom_open_api_plus.grpc.RepeatedString.values', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=948,
+  serialized_end=980,
+)
+
+
+_MULTIDATA = _descriptor.Descriptor(
+  name='MultiData',
+  full_name='koapy.backend.kiwoom_open_api_plus.grpc.MultiData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='names', full_name='koapy.backend.kiwoom_open_api_plus.grpc.MultiData.names', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='values', full_name='koapy.backend.kiwoom_open_api_plus.grpc.MultiData.values', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=982,
   serialized_end=1081,
 )
 
@@ -651,6 +651,104 @@ _CALLANDLISTENRESPONSE = _descriptor.Descriptor(
 )
 
 
+_LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY = _descriptor.Descriptor(
+  name='AccountPasswordsEntry',
+  full_name='koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential.AccountPasswordsEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential.AccountPasswordsEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential.AccountPasswordsEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'8\001',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1928,
+  serialized_end=1983,
+)
+
+_LOGINCREDENTIAL = _descriptor.Descriptor(
+  name='LoginCredential',
+  full_name='koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='user_id', full_name='koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential.user_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='user_password', full_name='koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential.user_password', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='cert_password', full_name='koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential.cert_password', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='is_simulation', full_name='koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential.is_simulation', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_passwords', full_name='koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential.account_passwords', index=4,
+      number=5, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1716,
+  serialized_end=1983,
+)
+
+
 _LOGINREQUEST = _descriptor.Descriptor(
   name='LoginRequest',
   full_name='koapy.backend.kiwoom_open_api_plus.grpc.LoginRequest',
@@ -659,6 +757,13 @@ _LOGINREQUEST = _descriptor.Descriptor(
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='credential', full_name='koapy.backend.kiwoom_open_api_plus.grpc.LoginRequest.credential', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -671,8 +776,8 @@ _LOGINREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1715,
-  serialized_end=1729,
+  serialized_start=1985,
+  serialized_end=2077,
 )
 
 
@@ -724,8 +829,8 @@ _TRANSACTIONSUBSCRIPTIONTARGET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1731,
-  serialized_end=1814,
+  serialized_start=2079,
+  serialized_end=2162,
 )
 
 
@@ -777,8 +882,8 @@ _TRANSACTIONSTOPCONDITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1817,
-  serialized_end=1991,
+  serialized_start=2165,
+  serialized_end=2339,
 )
 
 
@@ -816,8 +921,8 @@ _TRANSACTIONREQUEST_INPUTSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2351,
-  serialized_end=2396,
+  serialized_start=2699,
+  serialized_end=2744,
 )
 
 _TRANSACTIONREQUEST = _descriptor.Descriptor(
@@ -882,8 +987,8 @@ _TRANSACTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1994,
-  serialized_end=2396,
+  serialized_start=2342,
+  serialized_end=2744,
 )
 
 
@@ -942,8 +1047,8 @@ _ORDERSUBSCRIPTIONTARGET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2398,
-  serialized_end=2491,
+  serialized_start=2746,
+  serialized_end=2839,
 )
 
 
@@ -1037,8 +1142,8 @@ _ORDERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2494,
-  serialized_end=2765,
+  serialized_start=2842,
+  serialized_end=3113,
 )
 
 
@@ -1083,8 +1188,8 @@ _REALREQUESTFLAGS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2767,
-  serialized_end=2849,
+  serialized_start=3115,
+  serialized_end=3197,
 )
 
 
@@ -1143,8 +1248,8 @@ _REALREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2852,
-  serialized_end=3014,
+  serialized_start=3200,
+  serialized_end=3362,
 )
 
 
@@ -1168,8 +1273,8 @@ _LOADCONDITIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3016,
-  serialized_end=3038,
+  serialized_start=3364,
+  serialized_end=3386,
 )
 
 
@@ -1207,8 +1312,8 @@ _CONDITIONREQUESTFLAGS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3040,
-  serialized_end=3108,
+  serialized_start=3388,
+  serialized_end=3456,
 )
 
 
@@ -1274,8 +1379,8 @@ _CONDITIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3111,
-  serialized_end=3319,
+  serialized_start=3459,
+  serialized_end=3667,
 )
 
 
@@ -1313,8 +1418,8 @@ _SETLOGLEVELREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3321,
-  serialized_end=3372,
+  serialized_start=3669,
+  serialized_end=3720,
 )
 
 
@@ -1338,8 +1443,8 @@ _SETLOGLEVELRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3374,
-  serialized_end=3395,
+  serialized_start=3722,
+  serialized_end=3743,
 )
 
 
@@ -1377,8 +1482,8 @@ _BIDIRECTIONALREALINITIALIZEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3398,
-  serialized_end=3526,
+  serialized_start=3746,
+  serialized_end=3874,
 )
 
 
@@ -1416,8 +1521,8 @@ _BIDIRECTIONALREALREGISTERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3528,
-  serialized_end=3599,
+  serialized_start=3876,
+  serialized_end=3947,
 )
 
 
@@ -1448,8 +1553,8 @@ _BIDIRECTIONALREALREMOVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3601,
-  serialized_end=3652,
+  serialized_start=3949,
+  serialized_end=4000,
 )
 
 
@@ -1473,8 +1578,8 @@ _BIDIRECTIONALREALSTOPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3654,
-  serialized_end=3684,
+  serialized_start=4002,
+  serialized_end=4032,
 )
 
 
@@ -1531,8 +1636,8 @@ _BIDIRECTIONALREALREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=3687,
-  serialized_end=4128,
+  serialized_start=4035,
+  serialized_end=4476,
 )
 
 _ARGUMENT.oneofs_by_name['value'].fields.append(
@@ -1555,7 +1660,6 @@ _RETURNVALUE.oneofs_by_name['value'].fields.append(
   _RETURNVALUE.fields_by_name['bool_value'])
 _RETURNVALUE.fields_by_name['bool_value'].containing_oneof = _RETURNVALUE.oneofs_by_name['value']
 _CALLRESPONSE.fields_by_name['return_value'].message_type = _RETURNVALUE
-_MULTIDATA.fields_by_name['values'].message_type = _REPEATEDSTRING
 _BIDIRECTIONALLISTENREQUEST.fields_by_name['listen_request'].message_type = _LISTENREQUEST
 _BIDIRECTIONALLISTENREQUEST.fields_by_name['handled_request'].message_type = _HANDLEDREQUEST
 _BIDIRECTIONALLISTENREQUEST.fields_by_name['stop_listen_request'].message_type = _STOPLISTENREQUEST
@@ -1568,6 +1672,7 @@ _BIDIRECTIONALLISTENREQUEST.fields_by_name['handled_request'].containing_oneof =
 _BIDIRECTIONALLISTENREQUEST.oneofs_by_name['request'].fields.append(
   _BIDIRECTIONALLISTENREQUEST.fields_by_name['stop_listen_request'])
 _BIDIRECTIONALLISTENREQUEST.fields_by_name['stop_listen_request'].containing_oneof = _BIDIRECTIONALLISTENREQUEST.oneofs_by_name['request']
+_MULTIDATA.fields_by_name['values'].message_type = _REPEATEDSTRING
 _LISTENRESPONSE.fields_by_name['arguments'].message_type = _ARGUMENT
 _LISTENRESPONSE.fields_by_name['single_data'].message_type = _SINGLEDATA
 _LISTENRESPONSE.fields_by_name['multi_data'].message_type = _MULTIDATA
@@ -1581,6 +1686,9 @@ _CALLANDLISTENRESPONSE.fields_by_name['call_response'].containing_oneof = _CALLA
 _CALLANDLISTENRESPONSE.oneofs_by_name['response'].fields.append(
   _CALLANDLISTENRESPONSE.fields_by_name['listen_response'])
 _CALLANDLISTENRESPONSE.fields_by_name['listen_response'].containing_oneof = _CALLANDLISTENRESPONSE.oneofs_by_name['response']
+_LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY.containing_type = _LOGINCREDENTIAL
+_LOGINCREDENTIAL.fields_by_name['account_passwords'].message_type = _LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY
+_LOGINREQUEST.fields_by_name['credential'].message_type = _LOGINCREDENTIAL
 _TRANSACTIONSTOPCONDITION.fields_by_name['comparator'].enum_type = _TRANSACTIONSTOPCONDITIONCOMPARTOR
 _TRANSACTIONREQUEST_INPUTSENTRY.containing_type = _TRANSACTIONREQUEST
 _TRANSACTIONREQUEST.fields_by_name['inputs'].message_type = _TRANSACTIONREQUEST_INPUTSENTRY
@@ -1611,15 +1719,16 @@ DESCRIPTOR.message_types_by_name['CallRequest'] = _CALLREQUEST
 DESCRIPTOR.message_types_by_name['ReturnValue'] = _RETURNVALUE
 DESCRIPTOR.message_types_by_name['CallResponse'] = _CALLRESPONSE
 DESCRIPTOR.message_types_by_name['ListenRequest'] = _LISTENREQUEST
-DESCRIPTOR.message_types_by_name['SingleData'] = _SINGLEDATA
-DESCRIPTOR.message_types_by_name['RepeatedString'] = _REPEATEDSTRING
-DESCRIPTOR.message_types_by_name['MultiData'] = _MULTIDATA
 DESCRIPTOR.message_types_by_name['HandledRequest'] = _HANDLEDREQUEST
 DESCRIPTOR.message_types_by_name['StopListenRequest'] = _STOPLISTENREQUEST
 DESCRIPTOR.message_types_by_name['BidirectionalListenRequest'] = _BIDIRECTIONALLISTENREQUEST
+DESCRIPTOR.message_types_by_name['SingleData'] = _SINGLEDATA
+DESCRIPTOR.message_types_by_name['RepeatedString'] = _REPEATEDSTRING
+DESCRIPTOR.message_types_by_name['MultiData'] = _MULTIDATA
 DESCRIPTOR.message_types_by_name['ListenResponse'] = _LISTENRESPONSE
 DESCRIPTOR.message_types_by_name['CallAndListenRequest'] = _CALLANDLISTENREQUEST
 DESCRIPTOR.message_types_by_name['CallAndListenResponse'] = _CALLANDLISTENRESPONSE
+DESCRIPTOR.message_types_by_name['LoginCredential'] = _LOGINCREDENTIAL
 DESCRIPTOR.message_types_by_name['LoginRequest'] = _LOGINREQUEST
 DESCRIPTOR.message_types_by_name['TransactionSubscriptionTarget'] = _TRANSACTIONSUBSCRIPTIONTARGET
 DESCRIPTOR.message_types_by_name['TransactionStopCondition'] = _TRANSACTIONSTOPCONDITION
@@ -1676,27 +1785,6 @@ ListenRequest = _reflection.GeneratedProtocolMessageType('ListenRequest', (_mess
   })
 _sym_db.RegisterMessage(ListenRequest)
 
-SingleData = _reflection.GeneratedProtocolMessageType('SingleData', (_message.Message,), {
-  'DESCRIPTOR' : _SINGLEDATA,
-  '__module__' : 'koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2'
-  # @@protoc_insertion_point(class_scope:koapy.backend.kiwoom_open_api_plus.grpc.SingleData)
-  })
-_sym_db.RegisterMessage(SingleData)
-
-RepeatedString = _reflection.GeneratedProtocolMessageType('RepeatedString', (_message.Message,), {
-  'DESCRIPTOR' : _REPEATEDSTRING,
-  '__module__' : 'koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2'
-  # @@protoc_insertion_point(class_scope:koapy.backend.kiwoom_open_api_plus.grpc.RepeatedString)
-  })
-_sym_db.RegisterMessage(RepeatedString)
-
-MultiData = _reflection.GeneratedProtocolMessageType('MultiData', (_message.Message,), {
-  'DESCRIPTOR' : _MULTIDATA,
-  '__module__' : 'koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2'
-  # @@protoc_insertion_point(class_scope:koapy.backend.kiwoom_open_api_plus.grpc.MultiData)
-  })
-_sym_db.RegisterMessage(MultiData)
-
 HandledRequest = _reflection.GeneratedProtocolMessageType('HandledRequest', (_message.Message,), {
   'DESCRIPTOR' : _HANDLEDREQUEST,
   '__module__' : 'koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2'
@@ -1718,6 +1806,27 @@ BidirectionalListenRequest = _reflection.GeneratedProtocolMessageType('Bidirecti
   })
 _sym_db.RegisterMessage(BidirectionalListenRequest)
 
+SingleData = _reflection.GeneratedProtocolMessageType('SingleData', (_message.Message,), {
+  'DESCRIPTOR' : _SINGLEDATA,
+  '__module__' : 'koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2'
+  # @@protoc_insertion_point(class_scope:koapy.backend.kiwoom_open_api_plus.grpc.SingleData)
+  })
+_sym_db.RegisterMessage(SingleData)
+
+RepeatedString = _reflection.GeneratedProtocolMessageType('RepeatedString', (_message.Message,), {
+  'DESCRIPTOR' : _REPEATEDSTRING,
+  '__module__' : 'koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2'
+  # @@protoc_insertion_point(class_scope:koapy.backend.kiwoom_open_api_plus.grpc.RepeatedString)
+  })
+_sym_db.RegisterMessage(RepeatedString)
+
+MultiData = _reflection.GeneratedProtocolMessageType('MultiData', (_message.Message,), {
+  'DESCRIPTOR' : _MULTIDATA,
+  '__module__' : 'koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2'
+  # @@protoc_insertion_point(class_scope:koapy.backend.kiwoom_open_api_plus.grpc.MultiData)
+  })
+_sym_db.RegisterMessage(MultiData)
+
 ListenResponse = _reflection.GeneratedProtocolMessageType('ListenResponse', (_message.Message,), {
   'DESCRIPTOR' : _LISTENRESPONSE,
   '__module__' : 'koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2'
@@ -1738,6 +1847,21 @@ CallAndListenResponse = _reflection.GeneratedProtocolMessageType('CallAndListenR
   # @@protoc_insertion_point(class_scope:koapy.backend.kiwoom_open_api_plus.grpc.CallAndListenResponse)
   })
 _sym_db.RegisterMessage(CallAndListenResponse)
+
+LoginCredential = _reflection.GeneratedProtocolMessageType('LoginCredential', (_message.Message,), {
+
+  'AccountPasswordsEntry' : _reflection.GeneratedProtocolMessageType('AccountPasswordsEntry', (_message.Message,), {
+    'DESCRIPTOR' : _LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY,
+    '__module__' : 'koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2'
+    # @@protoc_insertion_point(class_scope:koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential.AccountPasswordsEntry)
+    })
+  ,
+  'DESCRIPTOR' : _LOGINCREDENTIAL,
+  '__module__' : 'koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2'
+  # @@protoc_insertion_point(class_scope:koapy.backend.kiwoom_open_api_plus.grpc.LoginCredential)
+  })
+_sym_db.RegisterMessage(LoginCredential)
+_sym_db.RegisterMessage(LoginCredential.AccountPasswordsEntry)
 
 LoginRequest = _reflection.GeneratedProtocolMessageType('LoginRequest', (_message.Message,), {
   'DESCRIPTOR' : _LOGINREQUEST,
@@ -1874,6 +1998,7 @@ BidirectionalRealRequest = _reflection.GeneratedProtocolMessageType('Bidirection
 _sym_db.RegisterMessage(BidirectionalRealRequest)
 
 
+_LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY._options = None
 _TRANSACTIONREQUEST_INPUTSENTRY._options = None
 
 _KIWOOMOPENAPIPLUSSERVICE = _descriptor.ServiceDescriptor(
@@ -1883,8 +2008,8 @@ _KIWOOMOPENAPIPLUSSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=4291,
-  serialized_end=6249,
+  serialized_start=4639,
+  serialized_end=6597,
   methods=[
   _descriptor.MethodDescriptor(
     name='Call',

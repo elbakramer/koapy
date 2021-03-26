@@ -11,7 +11,7 @@ pylint==2.7.2
 pytest==6.2.2
 pytest-cov==2.11.1
 pytest-xdist==2.2.1
-Sphinx==3.5.2
+Sphinx==3.5.3
 sphinx-autoapi==1.7.0
 tox==3.23.0
 twine==3.4.1

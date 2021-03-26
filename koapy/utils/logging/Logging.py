@@ -78,7 +78,9 @@ class LoggingMeta(type):
 
     def get_logger(cls, name=None):
         if name is None:
-            name = 'koapy'
+            name = LoggingMeta.__logger_name(cls)
+            if name == '__main__':
+                name = 'koapy'
         LoggingMeta.__initialize_if_necessary(cls)
         logger = logging.getLogger(name)
         return logger

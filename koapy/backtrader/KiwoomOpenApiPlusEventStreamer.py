@@ -24,7 +24,7 @@ class KiwoomOpenApiPlusPriceEventChannel(Logging):
 
     def __init__(self, stub):
         self._stub = stub
-        self._fid_list = KiwoomOpenApiPlusRealType.get_fids_by_realtype('주식시세')
+        self._fid_list = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name('주식시세')
 
         self._request_observer = QueueBasedIterableObserver()
         self._request_iterator = iter(self._request_observer)
@@ -58,7 +58,7 @@ class KiwoomOpenApiPlusPriceEventChannel(Logging):
     def register_code(self, code):
         request = KiwoomOpenApiPlusService_pb2.BidirectionalRealRequest()
         code_list = [code]
-        fid_list = KiwoomOpenApiPlusRealType.get_fids_by_realtype('주식시세')
+        fid_list = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name('주식시세')
         request.register_request.code_list.extend(code_list) # pylint: disable=no-member
         request.register_request.fid_list.extend(fid_list) # pylint: disable=no-member
         self._request_observer.on_next(request)

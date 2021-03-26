@@ -4,6 +4,8 @@ from koapy.compat.pyside2.QtWidgets import QWidget
 from koapy.compat.pyside2.QtAxContainer import QAxWidget
 from koapy.compat.pyside2.QtCore import QEvent, Qt
 
+from koapy.compat.pyside2 import PYQT5, PYSIDE2, PythonQtError
+
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable import KiwoomOpenApiPlusDynamicCallable
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature import KiwoomOpenApiPlusDispatchSignature, KiwoomOpenApiPlusEventHandlerSignature
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector import KiwoomOpenApiPlusSignalConnector
@@ -24,6 +26,13 @@ class KiwoomOpenApiPlusQAxWidget(QWidget, KiwoomOpenApiPlusQAxWidgetMixin, Loggi
 
     def __init__(self, *args, **kwargs):
         assert platform.architecture()[0] == '32bit', 'Contorl object should be created in 32bit environment'
+
+        if PYQT5:
+            self.logger.debug('Using PyQt5 as Qt backend')
+        elif PYSIDE2:
+            self.logger.debug('Using PySide2 as Qt backend')
+        else:
+            raise PythonQtError('No Qt bindings could be found')
 
         super_args = args
         super_kwargs = kwargs

@@ -1,10 +1,9 @@
-import sys
 import math
 import json
+import ctypes
 import logging
 import datetime
 import subprocess
-import ctypes
 
 import pytz
 import pandas as pd
@@ -13,6 +12,7 @@ from exchange_calendars import get_calendar
 
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.itertools import chunk
+from koapy.utils.subprocess import function_to_subprocess_args
 
 class CybosPlusEntrypointMixin(Logging):
 
@@ -23,7 +23,7 @@ class CybosPlusEntrypointMixin(Logging):
         return ctypes.windll.shell32.IsUserAnAdmin() != 0
 
     @classmethod
-    def ConnectUsingPywinauto(cls, credential=None):
+    def ConnectUsingPywinauto_Impl(cls, credential=None):
         """
         https://github.com/ippoeyeslhw/cppy/blob/master/cp_luncher.py
         """
@@ -190,18 +190,24 @@ class CybosPlusEntrypointMixin(Logging):
                     cls.logger.info('Notice window is closed')
 
     @classmethod
-    def ConnectUsingPywinauto_Script(cls):
-        credential = json.load(sys.stdin)
-        cls.ConnectUsingPywinauto(credential)
-
-    @classmethod
     def ConnectUsingPywinauto_RunScriptInSubprocess(cls, credential=None):
-        return subprocess.run([sys.executable, __file__], input=json.dumps(credential), text=True, check=True)
+        def main():
+            # pylint: disable=redefined-outer-name,reimported,import-self
+            import sys
+            import json
+            from koapy import CybosPlusEntrypoint
+            credential = json.load(sys.stdin)
+            CybosPlusEntrypoint.ConnectUsingPywinauto_Impl(credential)
+        args = function_to_subprocess_args(main)
+        return subprocess.run(args, input=json.dumps(credential), text=True, check=True)
+
+    def ConnectUsingPywinauto(self, credential=None):
+        return self.ConnectUsingPywinauto_RunScriptInSubprocess(credential)
 
     def Connect(self, credential=None):
         assert self.IsAdmin(), 'Connect() method requires to be run as administrator'
 
-        self.ConnectUsingPywinauto_RunScriptInSubprocess(credential)
+        self.ConnectUsingPywinauto(credential)
 
         if self.GetConnectState() == 0:
             self.logger.error('Failed to start and connect to CYBOS Plus')
@@ -487,6 +493,3 @@ class CybosPlusEntrypointMixin(Logging):
         df.reset_index(drop=True, inplace=True)
 
         return df
-
-if __name__ == '__main__':
-    CybosPlusEntrypointMixin.ConnectUsingPywinauto_Script()

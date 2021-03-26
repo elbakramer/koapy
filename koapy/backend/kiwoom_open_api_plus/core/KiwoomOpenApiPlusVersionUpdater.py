@@ -1,21 +1,22 @@
 import os
 import sys
 import ctypes
-import subprocess
 import atexit
+import platform
+import subprocess
+
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import KiwoomOpenApiPlusQAxWidgetMixin
 
 from koapy.utils.logging.Logging import Logging
+from koapy.utils.subprocess import function_to_subprocess_args
 
 class KiwoomOpenApiPlusVersionUpdater(Logging):
-
-    __is_in_development = False
-    __use_set_text = False
 
     def __init__(self, credential):
         self._credential = credential
 
     @classmethod
-    def __disable_autologin(cls):
+    def disable_autologin_impl(cls):
         from koapy.compat.pyside2.QtWidgets import QApplication
         from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget import KiwoomOpenApiPlusQAxWidget
         cls.logger.info('Disabling auto login')
@@ -33,11 +34,19 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
             return False
 
     def disable_autologin(self):
-        cmd = [sys.executable, __file__, 'disable_autologin']
+        # creating `KiwoomOpenApiPlusQAxWidget` object in main process locks OpenAPI module file, even after deleting the object,
+        # which prevents version update process from deleting and overwriting the original module file.
+        # so here we are creating the object in subprocess and disables auto login based on the checked module path
+
+        def main():
+            from koapy import KiwoomOpenApiPlusVersionUpdater # pylint: disable=redefined-outer-name
+            KiwoomOpenApiPlusVersionUpdater.disable_autologin_impl()
+
+        cmd = function_to_subprocess_args(main)
         return subprocess.check_call(cmd)
 
     @classmethod
-    def __open_login_window(cls):
+    def open_login_window_impl(cls):
         from koapy.compat.pyside2.QtWidgets import QApplication
         from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget import KiwoomOpenApiPlusQAxWidget
         from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import KiwoomOpenApiPlusError
@@ -54,14 +63,29 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         return app.exec_()
 
     def open_login_window(self):
-        cmd = [sys.executable, __file__, 'open_login_window']
+        # opening login window is a blocking process. (`app.exec_()` is the blocking process and will wait for `app.exit()`)
+        # also it's hard to use both PySide2/PyQt5 and pywinauto at the same time in the same process due to compatibility issue.
+        #
+        # in order to avoid the issues mentioned above we are creating login window in a separate process.
+        # and then will do login using pywinauto in another process using `__login_using_pywinauto()` function.
+        #
+        # this process will stay live until `OnEventConnect` event happens, hopefully a successful login.
+        #
+        # for more information about the compatibility issue between PySide2/PyQt5 and pywinauto, check the following link:
+        #   https://github.com/pywinauto/pywinauto/issues/472
+
+        def main():
+            from koapy import KiwoomOpenApiPlusVersionUpdater # pylint: disable=redefined-outer-name
+            KiwoomOpenApiPlusVersionUpdater.open_login_window_impl()
+
+        cmd = function_to_subprocess_args(main)
         creationflags = subprocess.CREATE_NEW_PROCESS_GROUP
         proc = subprocess.Popen(cmd, creationflags=creationflags)
         atexit.register(proc.kill)
         return proc
 
     @classmethod
-    def __show_account_window(cls):
+    def show_account_window_impl(cls):
         from koapy.compat.pyside2.QtWidgets import QApplication
         from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget import KiwoomOpenApiPlusQAxWidget
         from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import KiwoomOpenApiPlusError
@@ -79,34 +103,45 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         return app.exec_()
 
     def show_account_window(self):
-        cmd = [sys.executable, __file__, 'show_account_window']
+        # this function does pretty much the same job like the `__open_login_window()` function.
+        # but the difference is that it will show up the account setting window after successful login,
+        # so that we can (re-)enable the auto login functionality provided by the OpenAPI itself.
+        #
+        # this process will stay live until the account window is closed in the `OnEventConnect` event,
+        # hopefully after successfully enabling the auto login functionality.
+        #
+        # note that the `control.KOA_Functions('ShowAccountWindow', '')` line is also blocking process.
+        # so it will block until the account window is closed after enabling the auto login.
+
+        def main():
+            from koapy import KiwoomOpenApiPlusVersionUpdater # pylint: disable=redefined-outer-name
+            KiwoomOpenApiPlusVersionUpdater.show_account_window_impl()
+
+        cmd = function_to_subprocess_args(main)
         creationflags = subprocess.CREATE_NEW_PROCESS_GROUP
         proc = subprocess.Popen(cmd, creationflags=creationflags)
         atexit.register(proc.kill)
         return proc
 
     @classmethod
-    def __enable_autologin_using_pywinauto(cls, account_passwords):
-        # https://github.com/pywinauto/pywinauto/issues/472
-        import sys
-        sys.coinit_flags = 2
-        import warnings
-        warnings.simplefilter("ignore", UserWarning)
+    def enable_autologin_using_pywinauto(cls, account_passwords):
         import pywinauto
+
+        is_in_development = False
 
         desktop = pywinauto.Desktop(allow_magic_lookup=False)
         account_window = desktop.window(title_re=r'계좌비밀번호 입력 \(버전: [0-9]+.+[0-9]+\)')
 
         try:
             cls.logger.info('Waiting for account window to show up')
-            timeout_account_window_ready = 5
+            timeout_account_window_ready = 15
             account_window.wait('ready', timeout_account_window_ready)
         except pywinauto.timings.TimeoutError:
             cls.logger.info('Cannot find account window')
             raise
         else:
             cls.logger.info('Account window found')
-            if cls.__is_in_development:
+            if is_in_development:
                 account_window.logging.info_control_identifiers()
 
             cls.logger.info('Enabling auto login')
@@ -139,96 +174,9 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
                 cls.logger.info('Account window closed')
 
     @classmethod
-    def __login_using_pywinauto(cls, credential, wait_closed=False):
-        # https://github.com/pywinauto/pywinauto/issues/472
-        import sys
-        sys.coinit_flags = 2
-        import warnings
-        warnings.simplefilter("ignore", UserWarning)
-        import pywinauto
-
-        userid = credential.get('user_id')
-        password = credential.get('user_password')
-        cert = credential.get('cert_password')
-
-        check_save_userid = credential.get('check_save_userid', False)
-        is_simulation = credential.get('is_simulation', False)
-
-        desktop = pywinauto.Desktop(allow_magic_lookup=False)
-        login_window = desktop.window(title='Open API Login')
-
-        try:
-            cls.logger.info('Waiting for login screen')
-            timeout_login_screen_ready = 30
-            login_window.wait('ready', timeout_login_screen_ready)
-        except pywinauto.timings.TimeoutError:
-            cls.logger.info('Cannot find login screen')
-            raise
-        else:
-            cls.logger.info('Login screen found')
-            if cls.__is_in_development:
-                login_window.print_control_identifiers()
-
-            if userid:
-                cls.logger.info('Putting userid')
-                if cls.__use_set_text:
-                    login_window['Edit1'].set_text(userid)
-                else:
-                    login_window['Edit1'].set_focus()
-                    pywinauto.keyboard.send_keys(userid)
-                    pywinauto.keyboard.send_keys('{TAB}')
-            if password:
-                cls.logger.info('Putting password')
-                if cls.__use_set_text:
-                    login_window['Edit2'].set_text(password)
-                else:
-                    login_window['Edit2'].set_focus()
-                    pywinauto.keyboard.send_keys(password)
-                    pywinauto.keyboard.send_keys('{TAB}')
-            else:
-                raise RuntimeError('Password not set')
-
-            if False:
-                # below does not work properly
-                if check_save_userid:
-                    cls.logger.info('Checking to save userid')
-                    login_window['Button6'].check_by_click()
-                else:
-                    cls.logger.info('Unchecking to save userid')
-                    login_window['Button6'].uncheck_by_click()
-
-            if not is_simulation:
-                if not login_window['Edit3'].is_enabled():
-                    cls.logger.info('Unchecking to use simulation server')
-                    login_window['Button5'].uncheck_by_click()
-                if cert:
-                    cls.logger.info('Putting cert password')
-                    if cls.__use_set_text:
-                        login_window['Edit3'].set_text(cert)
-                    else:
-                        login_window['Edit3'].set_focus()
-                        pywinauto.keyboard.send_keys(cert)
-                        pywinauto.keyboard.send_keys('{TAB}')
-                else:
-                    raise RuntimeError('Cert passowrd not set')
-            else:
-                if login_window['Edit3'].is_enabled():
-                    cls.logger.info('Checking to use simulation server')
-                    login_window['Button5'].check_by_click()
-
-            cls.logger.info('Logging in')
-            login_window['Button1'].click()
-
-        if wait_closed:
-            try:
-                cls.logger.info('Waiting login screen to be closed')
-                timeout_login_screen_closed = 30
-                login_window.wait_not('visible', timeout_login_screen_closed)
-            except pywinauto.timings.TimeoutError:
-                cls.logger.info('Login screen is not closing')
-                raise
-            else:
-                cls.logger.info('Login screen closed')
+    def login_using_pywinauto(cls, credential):
+        # reusing the implementation in the mixin
+        KiwoomOpenApiPlusQAxWidgetMixin.LoginUsingPywinauto_Impl(credential)
 
     def enable_autologin(self):
         self.logger.info('Start enabling auto login')
@@ -238,16 +186,13 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         credential = self._credential
         account_passwords = credential.get('account_passwords')
 
-        self.__login_using_pywinauto(credential)
-        self.__enable_autologin_using_pywinauto(account_passwords)
+        self.login_using_pywinauto(credential)
+        self.enable_autologin_using_pywinauto(account_passwords)
 
-    def try_version_update(self):
-        # https://github.com/pywinauto/pywinauto/issues/472
-        import sys
-        sys.coinit_flags = 2
-        import warnings
-        warnings.simplefilter("ignore", UserWarning)
+    def try_version_update_using_pywinauto(self):
         import pywinauto
+
+        is_in_development = False
 
         self.logger.info('Trying version update')
         self.disable_autologin()
@@ -258,7 +203,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         login_window = desktop.window(title='Open API Login')
 
         credential = self._credential
-        self.__login_using_pywinauto(credential)
+        self.login_using_pywinauto(credential)
 
         version_window = desktop.window(title='opstarter')
 
@@ -274,7 +219,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
             return False
         else:
             self.logger.info('Version update required')
-            if self.__is_in_development:
+            if is_in_development:
                 version_window.print_control_identifiers()
 
             self.logger.info('Closing login app')
@@ -327,38 +272,13 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
 
         return False
 
+    def is_32bit(self):
+        return platform.architecture()[0] == '32bit'
+
     def is_admin(self):
         return ctypes.windll.shell32.IsUserAnAdmin() != 0
 
     def update_version_if_necessary(self):
+        assert self.is_32bit(), 'Automatic version update requires to be run in 32bit environment'
         assert self.is_admin(), 'Automatic version update requires to be run as administrator'
-        return self.try_version_update()
-
-    @classmethod
-    def main(cls, args):
-        import argparse
-        parser = argparse.ArgumentParser()
-        command_choices = [
-            'update_version_if_necessary',
-            'disable_autologin',
-            'open_login_window',
-            'show_account_window',
-        ]
-        default_command = 'update_version_if_necessary'
-        parser.add_argument('command', nargs='?', choices=command_choices, default=default_command)
-        args = parser.parse_args(args)
-        if args.command == 'update_version_if_necessary':
-            from koapy.config import config
-            credential = config.get('koapy.backend.kiwoom_open_api_plus.credential')
-            updater = cls(credential)
-            updater.update_version_if_necessary()
-        elif args.command == 'disable_autologin':
-            cls.__disable_autologin()
-        elif args.command == 'open_login_window':
-            cls.__open_login_window()
-        elif args.command == 'show_account_window':
-            cls.__show_account_window()
-        return 0
-
-if __name__ == '__main__':
-    sys.exit(KiwoomOpenApiPlusVersionUpdater.main(sys.argv[1:]))
+        return self.try_version_update_using_pywinauto()

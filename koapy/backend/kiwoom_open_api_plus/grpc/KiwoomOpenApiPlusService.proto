@@ -57,20 +57,6 @@ message ListenRequest {
   string class_name = 4;
 }
 
-message SingleData {
-  repeated string names = 1;
-  repeated string values = 2;
-}
-
-message RepeatedString {
-  repeated string values = 1;
-}
-
-message MultiData {
-  repeated string names = 1;
-  repeated RepeatedString values = 2;
-}
-
 
 message HandledRequest {
 }
@@ -84,6 +70,21 @@ message BidirectionalListenRequest {
     HandledRequest handled_request = 2;
     StopListenRequest stop_listen_request = 3;
   }
+}
+
+
+message SingleData {
+  repeated string names = 1;
+  repeated string values = 2;
+}
+
+message RepeatedString {
+  repeated string values = 1;
+}
+
+message MultiData {
+  repeated string names = 1;
+  repeated RepeatedString values = 2;
 }
 
 
@@ -108,7 +109,16 @@ message CallAndListenResponse {
 }
 
 
+message LoginCredential {
+  string user_id = 1;
+  string user_password = 2;
+  string cert_password = 3;
+  bool is_simulation = 4;
+  map<string, string> account_passwords = 5;
+}
+
 message LoginRequest {
+  LoginCredential credential = 1;
 }
 
 message TransactionSubscriptionTarget {

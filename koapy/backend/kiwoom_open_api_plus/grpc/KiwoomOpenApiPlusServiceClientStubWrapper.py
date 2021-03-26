@@ -33,17 +33,25 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(KiwoomOpenApiPlusSimpleQAxWi
     def Call(self, name, *args):
         return KiwoomOpenApiPlusServiceClientSideDynamicCallable(self._stub, name)(*args)
 
-    def LoginCall(self):
+    def LoginCall(self, credential=None):
         request = KiwoomOpenApiPlusService_pb2.LoginRequest()
+        if credential is not None:
+            request.credential.user_id = credential.get('user_id') # pylint: disable=no-member
+            request.credential.user_password = credential.get('user_password') # pylint: disable=no-member
+            request.credential.cert_password = credential.get('cert_password') # pylint: disable=no-member
+            request.credential.is_simulation = credential.get('is_simulation') # pylint: disable=no-member
+            account_passwords = credential.get('account_passwords') # pylint: disable=no-member
+            for account_no, account_password in account_passwords.items():
+                request.credential.account_passwords[account_no] = account_password # pylint: disable=no-member
         for response in self._stub.LoginCall(request):
             errcode = response.arguments[0].long_value
         return errcode
 
-    def TransactionCall(self, rqname, trcode, scrnno, inputs, stop_condition=None):
+    def TransactionCall(self, rqname, trcode, scrno, inputs, stop_condition=None):
         request = KiwoomOpenApiPlusService_pb2.TransactionRequest()
         request.request_name = rqname
         request.transaction_code = trcode
-        request.screen_no = scrnno or ''
+        request.screen_no = scrno or ''
         for k, v in inputs.items():
             request.inputs[k] = v # pylint: disable=no-member
         if stop_condition:
@@ -60,7 +68,7 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(KiwoomOpenApiPlusSimpleQAxWi
             request.stop_condition.include_equal = stop_condition.get('include_equal', False) # pylint: disable=no-member
         return self._stub.TransactionCall(request)
 
-    def OrderCall(self, rqname, scrnno, account, order_type, code, quantity, price, quote_type, original_order_no=None):
+    def OrderCall(self, rqname, scrno, account, order_type, code, quantity, price, quote_type, original_order_no=None):
         """
         [거래구분]
           모의투자에서는 지정가 주문과 시장가 주문만 가능합니다.
@@ -85,7 +93,7 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(KiwoomOpenApiPlusSimpleQAxWi
         """
         request = KiwoomOpenApiPlusService_pb2.OrderRequest()
         request.request_name = rqname or ''
-        request.screen_no = str(scrnno).zfill(4) if scrnno else ''
+        request.screen_no = str(scrno).zfill(4) if scrno else ''
         request.account_no = str(account) if account else ''
         request.order_type = int(order_type) if order_type else 0
         request.code = code or ''
@@ -95,18 +103,18 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(KiwoomOpenApiPlusSimpleQAxWi
         request.original_order_no = original_order_no or ''
         return self._stub.OrderCall(request)
 
-    def RealCall(self, scrnno, codes, fids, realtype=None, infer_fids=False, readable_names=False, fast_parse=False):
+    def RealCall(self, scrno, codes, fids, realtype=None, infer_fids=False, readable_names=False, fast_parse=False):
         request = KiwoomOpenApiPlusService_pb2.RealRequest()
-        if scrnno is None:
-            scrnnos = []
-        elif isinstance(scrnno, str):
-            scrnnos = [scrnno]
+        if scrno is None:
+            scrnos = []
+        elif isinstance(scrno, str):
+            scrnos = [scrno]
         else:
-            scrnnos = scrnno
+            scrnos = scrno
         fids = [int(fid) for fid in fids]
         if realtype is None:
             realtype = '0'
-        request.screen_no.extend(scrnnos) # pylint: disable=no-member
+        request.screen_no.extend(scrnos) # pylint: disable=no-member
         request.code_list.extend(codes) # pylint: disable=no-member
         request.fid_list.extend(fids) # pylint: disable=no-member
         request.real_type = realtype
@@ -122,9 +130,9 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(KiwoomOpenApiPlusSimpleQAxWi
             msg = response.arguments[1].string_value
         return (ret, msg)
 
-    def ConditionCall(self, scrnno, condition_name, condition_index, search_type, with_info=False, is_future_option=False, request_name=None):
+    def ConditionCall(self, scrno, condition_name, condition_index, search_type, with_info=False, is_future_option=False, request_name=None):
         request = request = KiwoomOpenApiPlusService_pb2.ConditionRequest()
-        request.screen_no = scrnno or ''
+        request.screen_no = scrno or ''
         request.condition_name = condition_name
         request.condition_index = condition_index
         request.search_type = search_type
@@ -152,23 +160,14 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(KiwoomOpenApiPlusSimpleQAxWi
             errcode = KiwoomOpenApiPlusNegativeReturnCodeError.try_or_raise(q.get())
         return errcode
 
-    def _EnsureConnectedUsingLoginCall(self):
+    def Connect(self, credential=None):
+        return self.LoginCall(credential)
+
+    def EnsureConnected(self, credential=None):
         errcode = 0
         if self.GetConnectState() == 0:
-            errcode = self.LoginCall()
+            errcode = self.Connect(credential)
         return errcode
-
-    def _EnsureConnectedUsingCall(self):
-        return self.Call('EnsureConnected')
-
-    def EnsureConnected(self):
-        return self._EnsureConnectedUsingCall()
-
-    def _ConnectUsingCall(self):
-        return self.Call('Connect')
-
-    def Connect(self):
-        return self._ConnectUsingCall()
 
     def _LoadConditionUsingCall(self):
         return self.Call('LoadCondition')
@@ -182,17 +181,17 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(KiwoomOpenApiPlusSimpleQAxWi
     def EnsureConditionLoaded(self, force=False):
         return self._EnsureConditionLoadedUsingCall(force)
 
-    def _RateLimitedCommRqDataUsingCall(self, rqname, trcode, prevnext, scrnno, inputs=None):
-        return self.Call('RateLimitedCommRqData', rqname, trcode, prevnext, scrnno, inputs)
+    def _RateLimitedCommRqDataUsingCall(self, rqname, trcode, prevnext, scrno, inputs=None):
+        return self.Call('RateLimitedCommRqData', rqname, trcode, prevnext, scrno, inputs)
 
-    def RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
-        self._RateLimitedCommRqDataUsingCall(rqname, trcode, prevnext, scrnno, inputs)
+    def RateLimitedCommRqData(self, rqname, trcode, prevnext, scrno, inputs=None):
+        self._RateLimitedCommRqDataUsingCall(rqname, trcode, prevnext, scrno, inputs)
 
-    def _RateLimitedSendConditionUsingCall(self, scrnno, condition_name, condition_index, search_type):
-        return self.Call('RateLimitedSendCondition', scrnno, condition_name, condition_index, search_type)
+    def _RateLimitedSendConditionUsingCall(self, scrno, condition_name, condition_index, search_type):
+        return self.Call('RateLimitedSendCondition', scrno, condition_name, condition_index, search_type)
 
-    def RateLimitedSendCondition(self, scrnno, condition_name, condition_index, search_type):
-        return self._RateLimitedSendConditionUsingCall(scrnno, condition_name, condition_index, search_type)
+    def RateLimitedSendCondition(self, scrno, condition_name, condition_index, search_type):
+        return self._RateLimitedSendConditionUsingCall(scrno, condition_name, condition_index, search_type)
 
 class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientStubCoreWrapper, Logging):
 
@@ -228,18 +227,23 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         multi = pd.DataFrame.from_records(records, columns=columns)
         return single, multi
 
-    def GetStockBasicInfoAsDict(self, code, rqname=None, scrnno=None):
+    def GetStockBasicInfoAsDict(self, code, rqname=None, scrno=None):
         if rqname is None:
             rqname = '주식기본정보요청'
         trcode = 'opt10001'
         inputs = {'종목코드': code}
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
+        for response in self.TransactionCall(rqname, trcode, scrno, inputs):
             names = response.single_data.names
             values = response.single_data.values
             result = dict(zip(names, values))
         return result
 
-    def GetStockQuoteInfoAsDataFrame(self, codes=None, rqname=None, scrnno=None):
+    def GetStockBasicInfoAsSeries(self, code, rqname=None, scrno=None):
+        dic = self.GetStockBasicInfoAsDict(code, rqname, scrno)
+        series = pd.Series(dic)
+        return series
+
+    def GetStockQuoteInfoAsDataFrame(self, codes=None, rqname=None, scrno=None):
         if codes is None:
             codes = self.GetGeneralCodeList()
         elif isinstance(codes, str):
@@ -250,7 +254,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         columns = []
         records = []
         inputs = {'종목코드': ';'.join(codes)}
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs):
+        for response in self.TransactionCall(rqname, trcode, scrno, inputs):
             if not columns:
                 columns = response.multi_data.names
             for values in response.multi_data.values:
@@ -258,7 +262,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetTickStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
+    def GetTickStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrno=None):
         if interval is not None:
             interval = int(interval)
             interval = str(interval)
@@ -296,7 +300,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         date_column_index = None
         should_compare_start = start_date is not None
 
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
+        for response in self.TransactionCall(rqname, trcode, scrno, inputs, stop_condition=stop_condition):
             if not columns:
                 columns = list(response.multi_data.names)
                 if date_column_name in columns:
@@ -325,7 +329,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetMinuteStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
+    def GetMinuteStockDataAsDataFrame(self, code, interval, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrno=None):
         if interval is not None:
             interval = int(interval)
             interval = str(interval)
@@ -363,7 +367,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         date_column_index = None
         should_compare_start = start_date is not None
 
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
+        for response in self.TransactionCall(rqname, trcode, scrno, inputs, stop_condition=stop_condition):
             if not columns:
                 columns = list(response.multi_data.names)
                 if date_column_name in columns:
@@ -392,7 +396,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetDailyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
+    def GetDailyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrno=None):
         date_format = '%Y%m%d'
         date_column_name = '일자'
 
@@ -427,7 +431,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
 
         date_column_index = None
 
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
+        for response in self.TransactionCall(rqname, trcode, scrno, inputs, stop_condition=stop_condition):
             if not columns:
                 columns = list(response.multi_data.names)
                 if date_column_name in columns:
@@ -447,7 +451,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetWeeklyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
+    def GetWeeklyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrno=None):
         date_format = '%Y%m%d'
         date_column_name = '일자'
 
@@ -483,7 +487,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         records = []
         date_column_index = None
 
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
+        for response in self.TransactionCall(rqname, trcode, scrno, inputs, stop_condition=stop_condition):
             if not columns:
                 columns = list(response.multi_data.names)
                 if date_column_name in columns:
@@ -503,7 +507,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetMonthlyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
+    def GetMonthlyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrno=None):
         date_format = '%Y%m%d'
         date_column_name = '일자'
 
@@ -539,7 +543,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         records = []
         date_column_index = None
 
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
+        for response in self.TransactionCall(rqname, trcode, scrno, inputs, stop_condition=stop_condition):
             if not columns:
                 columns = list(response.multi_data.names)
                 if date_column_name in columns:
@@ -559,7 +563,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetYearlyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrnno=None):
+    def GetYearlyStockDataAsDataFrame(self, code, start_date=None, end_date=None, include_end=False, adjusted_price=False, rqname=None, scrno=None):
         date_format = '%Y%m%d'
         date_column_name = '일자'
 
@@ -595,7 +599,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         records = []
         date_column_index = None
 
-        for response in self.TransactionCall(rqname, trcode, scrnno, inputs, stop_condition=stop_condition):
+        for response in self.TransactionCall(rqname, trcode, scrno, inputs, stop_condition=stop_condition):
             if not columns:
                 columns = list(response.multi_data.names)
                 if date_column_name in columns:
@@ -615,7 +619,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         df = pd.DataFrame.from_records(records, columns=columns)
         return df
 
-    def GetDepositInfo(self, account_no, lookup_type=None, with_multi=False, rqname=None, scrnno=None):
+    def GetDepositInfo(self, account_no, lookup_type=None, with_multi=False, rqname=None, scrno=None):
         """
         조회구분 = 3:추정조회, 2:일반조회
         """
@@ -628,25 +632,25 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
             '비밀번호입력매체구분': '00',
             '조회구분': '2' if lookup_type is None else lookup_type,
         }
-        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        responses = self.TransactionCall(rqname, trcode, scrno, inputs)
         single, multi = self._ParseTransactionCallResponses(responses, [12, 15])
         if with_multi:
             return single, multi
         else:
             return single
 
-    def GetStockQuotes(self, code, rqname=None, scrnno=None):
+    def GetStockQuotes(self, code, rqname=None, scrno=None):
         if rqname is None:
             rqname = '주식호가요청'
         trcode = 'opt10004'
         inputs = {
             '종목코드': code,
         }
-        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        responses = self.TransactionCall(rqname, trcode, scrno, inputs)
         single, _multi = self._ParseTransactionCallResponses(responses, [12, 15])
         return single
 
-    def GetOrderLogAsDataFrame1(self, account_no, order_type=None, status_type=None, code=None, rqname=None, scrnno=None):
+    def GetOrderLogAsDataFrame1(self, account_no, order_type=None, status_type=None, code=None, rqname=None, scrno=None):
         """
        	계좌번호 = 전문 조회할 보유계좌번호
         전체종목구분 = 0:전체, 1:종목
@@ -665,11 +669,11 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
             '종목코드': '' if code is None else code,
             '체결구분': '0' if status_type is None else status_type,
         }
-        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        responses = self.TransactionCall(rqname, trcode, scrno, inputs)
         _single, multi = self._ParseTransactionCallResponses(responses)
         return multi
 
-    def GetOrderLogAsDataFrame2(self, account_no, order_type=None, status_type=None, code=None, order_no=None, rqname=None, scrnno=None):
+    def GetOrderLogAsDataFrame2(self, account_no, order_type=None, status_type=None, code=None, order_no=None, rqname=None, scrno=None):
         """
         종목코드 = 전문 조회할 종목코드
         조회구분 = 0:전체, 1:종목
@@ -692,11 +696,11 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
             '주문번호': '' if order_no is None else order_no,
             '체결구분': '0' if status_type is None else status_type,
         }
-        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        responses = self.TransactionCall(rqname, trcode, scrno, inputs)
         _single, multi = self._ParseTransactionCallResponses(responses)
         return multi
 
-    def GetOrderLogAsDataFrame3(self, account_no, date=None, sort_type=None, asset_type=None, order_type=None, code=None, starting_order_no=None, rqname=None, scrnno=None):
+    def GetOrderLogAsDataFrame3(self, account_no, date=None, sort_type=None, asset_type=None, order_type=None, code=None, starting_order_no=None, rqname=None, scrno=None):
         """
       	주문일자 = YYYYMMDD (20170101 연도4자리, 월 2자리, 일 2자리 형식)
         계좌번호 = 전문 조회할 보유계좌번호
@@ -729,22 +733,22 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
             '종목코드': '' if code is None else code,
             '시작주문번호': '' if starting_order_no is None else starting_order_no,
         }
-        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        responses = self.TransactionCall(rqname, trcode, scrno, inputs)
         _single, multi = self._ParseTransactionCallResponses(responses, 10)
         return multi
 
-    def GetAccountRateOfReturnAsDataFrame(self, account_no, rqname=None, scrnno=None):
+    def GetAccountRateOfReturnAsDataFrame(self, account_no, rqname=None, scrno=None):
         if rqname is None:
             rqname = '계좌수익률요청'
         trcode = 'opt10085'
         inputs = {
             '계좌번호': account_no,
         }
-        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        responses = self.TransactionCall(rqname, trcode, scrno, inputs)
         _single, multi = self._ParseTransactionCallResponses(responses, 10)
         return multi
 
-    def GetAccountEvaluationStatusAsSeriesAndDataFrame(self, account_no, include_delisted=True, rqname=None, scrnno=None):
+    def GetAccountEvaluationStatusAsSeriesAndDataFrame(self, account_no, include_delisted=True, rqname=None, scrno=None):
         if rqname is None:
             rqname = '계좌평가현황요청'
         trcode = 'opw00004'
@@ -754,29 +758,29 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
             '상장폐지조회구분': '0' if include_delisted else '1',
             '비밀번호입력매체구분': '00',
         }
-        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        responses = self.TransactionCall(rqname, trcode, scrno, inputs)
         single, multi = self._ParseTransactionCallResponses(responses, 12)
         return single, multi
 
-    def GetAccountExecutionBalanceAsSeriesAndDataFrame(self, account_no, rqname=None, scrnno=None):
+    def GetAccountExecutionBalanceAsSeriesAndDataFrame(self, account_no, rqname=None, scrno=None):
         server = self.GetServerGubun()
         if server == '1':
             self.logger.warning('Not supported for simulated investment')
         if rqname is None:
             rqname = '체결잔고요청'
-        if scrnno is None:
-            scrnno = '1010'
+        if scrno is None:
+            scrno = '1010'
         trcode = 'opw00005' # 모의투자에서 지원하지 않는 TR
         inputs = {
             '계좌번호': account_no,
             '비밀번호': '',
             '비밀번호입력매체구분': '00',
         }
-        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        responses = self.TransactionCall(rqname, trcode, scrno, inputs)
         single, multi = self._ParseTransactionCallResponses(responses, 0)
         return single, multi
 
-    def GetAccountEvaluationBalanceAsSeriesAndDataFrame(self, account_no, lookup_type=None, rqname=None, scrnno=None):
+    def GetAccountEvaluationBalanceAsSeriesAndDataFrame(self, account_no, lookup_type=None, rqname=None, scrno=None):
         """
         조회구분 = 1:합산, 2:개별
 
@@ -792,18 +796,18 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
             '비밀번호입력매체구분': '00',
             '조회구분': '2' if lookup_type is None else lookup_type,
         }
-        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        responses = self.TransactionCall(rqname, trcode, scrno, inputs)
         single, multi = self._ParseTransactionCallResponses(responses, [12, 15])
         return single, multi
 
-    def GetMarketPriceInfo(self, code, rqname=None, scrnno=None):
+    def GetMarketPriceInfo(self, code, rqname=None, scrno=None):
         if rqname is None:
             rqname = '시세표성정보요청'
         trcode = 'opt10007'
         inputs = {
             '종목코드': code,
         }
-        responses = self.TransactionCall(rqname, trcode, scrnno, inputs)
+        responses = self.TransactionCall(rqname, trcode, scrno, inputs)
         single, _multi = self._ParseTransactionCallResponses(responses)
         return single
 
@@ -811,7 +815,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         if isinstance(codes, str):
             codes = [codes]
         if fids is None:
-            fids = RealType.get_fids_by_realtype('주식시세')
+            fids = RealType.get_fids_by_realtype_name('주식시세')
         if realtype is None:
             realtype = '0'
         responses = self.RealCall(screen_no, codes, fids, realtype, infer_fids, readable_names, fast_parse)
@@ -830,7 +834,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(KiwoomOpenApiPlusServiceClientSt
         single_output = None
         columns = []
         records = []
-        remove_zeros_width=None
+        remove_zeros_width = None
 
         for response in self.ConditionCall(screen_no, condition_name, condition_index, search_type, with_info, is_future_option, request_name):
             if response.name == 'OnReceiveTrCondition':

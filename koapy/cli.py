@@ -447,7 +447,7 @@ def realinfo(realtypes):
                     break
 
     for realtype in get_realtypes():
-        fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype(realtype)
+        fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name(realtype)
         if fids:
             names = [KiwoomOpenApiPlusRealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
             for fid, name in zip(fids, names):
@@ -730,7 +730,7 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
 
     if realtype is not None:
         from koapy import KiwoomOpenApiPlusRealType
-        fids_from_realtype = KiwoomOpenApiPlusRealType.get_fids_by_realtype(realtype)
+        fids_from_realtype = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name(realtype)
         fids = list(set(fids).union(set(fids_from_realtype)))
 
     if not codes:
