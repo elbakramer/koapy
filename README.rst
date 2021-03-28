@@ -82,12 +82,12 @@ Kiwoom Open Api Python
 Features
 --------
 
-KOAPY 는 `키움증권의 OpenAPI`_ 를 Python 에서 쉽게 사용할 수 있도록 만든 라이브러리 패키지 및 툴입니다.
+KOAPY 는 `키움증권의 OpenAPI+`_ 를 Python 에서 쉽게 사용할 수 있도록 만든 라이브러리 패키지 및 툴입니다.
 
-키움에서 제공하는 OpenAPI 를 활용하는데 필요한 아래와 같은 지식들을 알지 못해도,
+키움에서 제공하는 OpenAPI+ 를 활용하는데 필요한 아래와 같은 지식들을 알지 못해도,
 기본적인 Python 에 대한 지식만 어느 정도 있다면 쉽게 사용할 수 있도록 하는 것에 초점을 두었습니다.
 
-* 키움에서 제공하는 OpenAPI 의 OCX 라이브러리 구조
+* 키움에서 제공하는 OpenAPI+ 의 OCX 라이브러리 구조
 * OCX 를 Python 에서 구동하기 위한 PyQt5_/PySide2_ 와 |QAxWidget|_ 생성
 * 컨트롤에서 함수 호출을 위한 |dynamicCall|_ 함수 사용
 * 이벤트 처리를 위해 적절한 |signal|_/|slot|_ 설정 및 처리
@@ -242,11 +242,11 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
     # 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용
     import threading
 
-    def stop_listening():
+    def stop_listening_cond():
         logging.info('Stop listening realtime events...')
         stream.cancel()
 
-    threading.Timer(10.0, stop_listening).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
+    threading.Timer(10.0, stop_listening_cond).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
 
     # 이벤트 불러와서 출력처리
     import grpc
@@ -306,11 +306,11 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
     # 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용
     import threading
 
-    def stop_listening(): # pylint: disable=function-redefined
+    def stop_listening_real():
         logging.info('Stop listening realtime events...')
         stream.cancel()
 
-    threading.Timer(10.0, stop_listening).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
+    threading.Timer(10.0, stop_listening_real).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
 
     # 이벤트 불러와서 출력처리
     import grpc
@@ -321,10 +321,14 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
     except grpc.RpcError as e:
         print(e)
 
+    # 예시 스크립트 끝
     logging.info('End of example')
 
+    # 리소스 해제
+    entrypoint.close()
 
-.. _`키움증권의 OpenAPI`: https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000
+
+.. _`키움증권의 OpenAPI+`: https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000
 
 .. _PyQt5: https://www.riverbankcomputing.com/software/pyqt/
 .. _PySide2: https://doc.qt.io/qtforpython/index.html
@@ -380,6 +384,8 @@ Usage
 설치 이후 일반적인 사용법에 대해서는 Usage_ 를 참고하세요.
 
 추가적으로 사용법과 관련된 다양한 예시들은 examples_ 폴더 및 notebooks_ 폴더에서도 확인 가능합니다.
+혹시나 notebooks_ 폴더의 ``.ipynb`` 파일들을 Github 을 통해서 보는데 문제가 있는 경우,
+해당 노트북 주소를 nbviewer_ 에 입력하여 확인해보세요.
 
 현재 알파 단계이기 때문에 많은 기능들이 실제로 문제없이 동작하는지 충분히 테스트되지 않았습니다.
 만약에 실전 트레이딩에 사용하려는 경우 자체적으로 충분한 테스트를 거친 후 사용하시기 바랍니다.
@@ -390,6 +396,7 @@ Usage
 .. _Usage: https://koapy.readthedocs.io/en/latest/usage.html
 .. _examples: https://github.com/elbakramer/koapy/tree/master/koapy/examples
 .. _notebooks: https://github.com/elbakramer/koapy/tree/master/notebooks
+.. _nbviewer: https://nbviewer.jupyter.org/
 
 Licensing
 ---------

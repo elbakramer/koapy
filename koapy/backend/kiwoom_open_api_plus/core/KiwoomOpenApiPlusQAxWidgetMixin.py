@@ -281,6 +281,9 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         assert status == 1, 'Could not ensure connected'
         return status
 
+    def IsConnected(self):
+        return self.GetConnectState() == 1
+
     def LoadCondition(self):
         q = queue.Queue()
         def OnReceiveConditionVer(ret, msg):

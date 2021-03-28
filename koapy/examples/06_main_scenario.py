@@ -119,11 +119,11 @@ stream = entrypoint.GetCodeListByConditionAsStream(condition_name)
 # 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용
 import threading
 
-def stop_listening():
+def stop_listening_cond():
     logging.info('Stop listening realtime events...')
     stream.cancel()
 
-threading.Timer(10.0, stop_listening).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
+threading.Timer(10.0, stop_listening_cond).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
 
 # 이벤트 불러와서 출력처리
 import grpc
@@ -183,11 +183,11 @@ stream = entrypoint.GetRealDataForCodesAsStream(code_list, fid_list, real_type, 
 # 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용
 import threading
 
-def stop_listening(): # pylint: disable=function-redefined
+def stop_listening_real():
     logging.info('Stop listening realtime events...')
     stream.cancel()
 
-threading.Timer(10.0, stop_listening).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
+threading.Timer(10.0, stop_listening_real).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
 
 # 이벤트 불러와서 출력처리
 import grpc
@@ -198,4 +198,8 @@ try:
 except grpc.RpcError as e:
     print(e)
 
+# 예시 스크립트 끝
 logging.info('End of example')
+
+# 리소스 해제
+entrypoint.close()
