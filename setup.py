@@ -97,6 +97,6 @@ setup(
     packages=find_packages(include=['koapy', 'koapy.*']),
     test_suite='tests',
     url='https://github.com/elbakramer/koapy',
-    version='0.3.3',
+    version='0.3.4',
     zip_safe=False,
 )
