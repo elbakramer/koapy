@@ -2,7 +2,6 @@ import os
 import json
 import queue
 import ctypes
-import warnings
 import subprocess
 
 from wrapt import synchronized
@@ -14,8 +13,6 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter import
 
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.subprocess import function_to_subprocess_args
-
-warnings.filterwarnings('ignore', category=RuntimeWarning, module='runpy')
 
 class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
 
@@ -150,6 +147,8 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         self._comm_rate_limiter = KiwoomOpenApiPlusCommRqDataRateLimiter()
         self._cond_rate_limiter = KiwoomOpenApiPlusSendConditionRateLimiter(self._comm_rate_limiter)
 
+        self._is_condition_loaded = False
+
     def IsAdmin(self):
         return ctypes.windll.shell32.IsUserAnAdmin() != 0
 
@@ -274,10 +273,13 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         return errcode
 
     def EnsureConnected(self, credential=None):
-        errcode = 0
-        if self.GetConnectState() == 0:
+        errcode = 0 # pylint: disable=unused-variable
+        status = self.GetConnectState()
+        if status == 0:
             errcode = self.Connect(credential)
-        return errcode
+            status = self.GetConnectState()
+        assert status == 1, 'Could not ensure connected'
+        return status
 
     def LoadCondition(self):
         q = queue.Queue()
@@ -293,15 +295,33 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
             res = q.get()
             if isinstance(res, KiwoomOpenApiPlusError):
                 raise res
+        except: # pylint: disable=try-except-raise
+            raise
+        else:
+            if return_code == 1:
+                self._is_condition_loaded = True
         finally:
             self.OnReceiveConditionVer.disconnect(OnReceiveConditionVer)
         return return_code
 
+    def IsConditionLoaded(self):
+        # the original implementation of this function was like the following:
+        #   condition_filepath = self.GetConditionFilePath()
+        #   return os.path.exists(condition_filepath)
+        # this implementation was based on the description of `GetConditionLoad()` function in the official documentation
+        # which was like, "the temporary condition file would be deleted on after OCX program exits".
+        # but actually it turned out that existence of this file could not guarantee that the condition is actually loaded or not
+        # so here we are using entrypoint-wide member variable to remember once the condition is loaded
+        return self._is_condition_loaded
+
     def EnsureConditionLoaded(self, force=False):
-        return_code = 1
-        condition_filepath = self.GetConditionFilePath()
-        if not os.path.exists(condition_filepath) or force:
+        return_code = 0
+        is_condition_loaded = self.IsConditionLoaded()
+        if not is_condition_loaded or force:
             return_code = self.LoadCondition()
+        else:
+            return_code = 1
+        assert return_code == 1, 'Could not ensure condition loaded'
         return return_code
 
     @synchronized

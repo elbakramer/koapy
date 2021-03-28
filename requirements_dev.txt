@@ -1,5 +1,5 @@
 # core dependencies for testing/documentation
-astroid==2.5.1
+astroid==2.5.2
 bump2version==1.0.1
 Click==7.1.2
 codecov==2.1.11

@@ -128,8 +128,6 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
         format='%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d',
         level=logging.DEBUG)
 
-    logging.getLogger('matplotlib').setLevel(logging.WARNING)
-
     # KOAPY 임포트
     from koapy import KiwoomOpenApiPlusEntrypoint
 

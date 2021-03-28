@@ -18,7 +18,7 @@ requirements = [
     'grpcio-tools>=1.36.1',
     'jsonlines>=2.0.0',
     'korean_lunar_calendar>=0.2.1',
-    'numpy>=1.20.1',
+    'numpy>=1.20.2',
     'openpyxl>=3.0.7',
     'pandas>=1.2.3',
     'pendulum>=2.1.2',
@@ -31,7 +31,7 @@ requirements = [
     'Rx>=3.1.1',
     'schedule>=1.0.0',
     'Send2Trash>=1.5.0',
-    'SQLAlchemy>=1.4.2',
+    'SQLAlchemy>=1.4.3',
     'tabulate>=0.8.9',
     'tqdm>=4.59.0',
     'tzlocal>=2.1',
@@ -43,7 +43,7 @@ requirements = [
 requirements_extras = {
     'backtrader': [
         'backtrader>=1.9.76.123',
-        'matplotlib>=3.3.4',
+        'matplotlib>=3.4.0',
     ],
     'PyQt5': [
         'PyQt5>=5.15.4',
