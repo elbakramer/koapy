@@ -20,6 +20,8 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import Kiwoo
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo import KiwoomOpenApiPlusTrInfo
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import KiwoomOpenApiPlusRealType
 
+from koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedBufferedIterator import QueueBasedBufferedIterator
+
 from koapy.utils.logging.Logging import Logging
 
 from koapy.utils.notimplemented import isimplemented
