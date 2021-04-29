@@ -1,13 +1,12 @@
-import time
-import threading
 import collections
-
+import threading
+import time
 from functools import wraps
 
 from koapy.utils.logging.Logging import Logging
 
-class RateLimiter:
 
+class RateLimiter:
     def check_sleep_seconds(self):
         return 0
 
@@ -21,10 +20,11 @@ class RateLimiter:
         def wrapper(*args, **kwargs):
             self.sleep_if_necessary()
             return func(*args, **kwargs)
+
         return wrapper
 
-class TimeWindowRateLimiter(RateLimiter, Logging):
 
+class TimeWindowRateLimiter(RateLimiter, Logging):
     def __init__(self, period, calls):
         super().__init__()
 
@@ -34,7 +34,7 @@ class TimeWindowRateLimiter(RateLimiter, Logging):
         self._lock = threading.RLock()
         self._clock = time.time
 
-        if hasattr(time, 'monotonic'):
+        if hasattr(time, "monotonic"):
             self._clock = time.monotonic
 
         self._call_history = collections.deque(maxlen=self._calls)
@@ -64,8 +64,8 @@ class TimeWindowRateLimiter(RateLimiter, Logging):
                 time.sleep(sleep_seconds)
             self.add_call_history()
 
-class CompositeTimeWindowRateLimiter(RateLimiter):
 
+class CompositeTimeWindowRateLimiter(RateLimiter):
     def __init__(self, limiters):
         super().__init__()
 

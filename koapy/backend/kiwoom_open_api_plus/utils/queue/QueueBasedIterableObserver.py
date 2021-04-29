@@ -1,9 +1,13 @@
-from queue import Queue, Empty
+from queue import Empty, Queue
+
 from rx.core.typing import Observer
-from koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator import BufferedQueueIterator
+
+from koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator import (
+    BufferedQueueIterator,
+)
+
 
 class QueueBasedIterableObserverIterator(BufferedQueueIterator):
-
     def __init__(self, queue, sentinel):
         self._queue = queue
         self._sentinel = sentinel
@@ -24,6 +28,7 @@ class QueueBasedIterableObserverIterator(BufferedQueueIterator):
         elif error is not None and isinstance(error, Exception):
             raise error
         return value
+
 
 class QueueBasedIterableObserver(Observer):
 

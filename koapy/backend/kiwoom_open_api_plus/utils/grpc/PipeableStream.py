@@ -1,8 +1,9 @@
 from collections.abc import Iterator
+
 from grpc._channel import _MultiThreadedRendezvous as MultiThreadedRendezvous
 
-class PipeableStream(Iterator):
 
+class PipeableStream(Iterator):
     def __init__(self, stream, generator=None):
         super().__init__()
         self._stream = stream

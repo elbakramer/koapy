@@ -1,4 +1,5 @@
 import threading
+
 import grpc
 
 from koapy import KiwoomOpenApiPlusEntrypoint
@@ -24,7 +25,7 @@ with KiwoomOpenApiPlusEntrypoint() as context:
     # 참고로 조건들을 편집하고 저장하는건 영웅문 HTS 내부에서만 가능함
 
     # 조건검색을 실행할 첫 조건명
-    condition_name = '대형 저평가 우량주'
+    condition_name = "대형 저평가 우량주"
 
     # 조건을 만족하는 코드 리스트를 바로 반환 (단순 조건검색)
     codes, info = context.GetCodeListByCondition(condition_name, with_info=True)
@@ -32,23 +33,23 @@ with KiwoomOpenApiPlusEntrypoint() as context:
     print(info)
 
     # 조건검색을 다시 실행할 조건명 (같은 조건식은 1분에 1건 제한이므로 예시 실행시 제한을 회피하기 위해서 새로 설정)
-    condition_name = '중소형 저평가주'
+    condition_name = "중소형 저평가주"
 
     # 실시간 조건 검색 예시, 편입된/제외된 코드 리스트 쌍을 스트림으로 반환 (실시간 조건 검색)
     stream = context.GetCodeListByConditionAsStream(condition_name)
 
     def stop_listening():
         print()
-        print('Stopping to listen events...')
+        print("Stopping to listen events...")
         stream.cancel()
 
-    threading.Timer(10.0, stop_listening).start() # 10초 이후에 gRPC 커넥션 종료하도록 설정
+    threading.Timer(10.0, stop_listening).start()  # 10초 이후에 gRPC 커넥션 종료하도록 설정
 
     try:
         for i, (inserted, deleted) in enumerate(stream):
             print()
-            print('index: %d' % i)
-            print('inserted: %s' % inserted)
-            print('deleted: %s' % deleted)
+            print("index: %d" % i)
+            print("inserted: %s" % inserted)
+            print("deleted: %s" % deleted)
     except grpc.RpcError as e:
         print(e)

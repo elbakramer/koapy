@@ -1,5 +1,6 @@
 from koapy.utils.rate_limiting.RateLimiter import TimeWindowRateLimiter
 
+
 class CybosPlusLookupRequestRateLimiter(TimeWindowRateLimiter):
 
     """
@@ -11,6 +12,7 @@ class CybosPlusLookupRequestRateLimiter(TimeWindowRateLimiter):
 
     def __init__(self):
         super().__init__(15, 60)
+
 
 class CybosPlusTradeRequestRateLimiter(TimeWindowRateLimiter):
 

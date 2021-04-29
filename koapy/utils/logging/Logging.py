@@ -1,8 +1,8 @@
+import inspect
 import logging
 import logging.config
-
-import inspect
 import threading
+
 
 class LoggingMeta(type):
 
@@ -53,8 +53,11 @@ class LoggingMeta(type):
 
     def __class_name(cls):
         class_name = cls.__name__
-        if hasattr(cls, '__outer_class__'):
-            class_name = '%s.%s' % (LoggingMeta.__class_name(cls.__outer_class__), class_name)
+        if hasattr(cls, "__outer_class__"):
+            class_name = "%s.%s" % (
+                LoggingMeta.__class_name(cls.__outer_class__),
+                class_name,
+            )
         return class_name
 
     def __logger_name(cls):
@@ -65,7 +68,7 @@ class LoggingMeta(type):
         else:
             module_name = module.__name__
         class_name = LoggingMeta.__class_name(cls)
-        logger_name = '%s.%s' % (module_name, class_name)
+        logger_name = "%s.%s" % (module_name, class_name)
         return logger_name
 
     @property
@@ -79,14 +82,14 @@ class LoggingMeta(type):
     def get_logger(cls, name=None):
         if name is None:
             name = LoggingMeta.__logger_name(cls)
-            if name == '__main__':
-                name = 'koapy'
+            if name == "__main__":
+                name = "koapy"
         LoggingMeta.__initialize_if_necessary(cls)
         logger = logging.getLogger(name)
         return logger
 
-class Logging(metaclass=LoggingMeta):
 
+class Logging(metaclass=LoggingMeta):
     @property
     def logger(self):
         return self.__class__.logger

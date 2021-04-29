@@ -1,8 +1,8 @@
 import io
 import json
 
-class JsonSerializable:
 
+class JsonSerializable:
     def to_dict(self):
         return dict(self.__dict__)
 
@@ -17,12 +17,12 @@ class JsonSerializable:
         if f is None:
             return json.dumps(self.to_dict())
         elif isinstance(f, str):
-            with open(f, 'w') as f:
+            with open(f, "w") as f:
                 return json.dump(self.to_dict(), f)
         elif isinstance(f, io.TextIOBase):
             return json.dump(self.to_dict(), f)
         else:
-            raise ValueError('Unsupported argument type: %s' % type(f))
+            raise ValueError("Unsupported argument type: %s" % type(f))
 
     @classmethod
     def from_json(cls, jsn):
@@ -31,5 +31,5 @@ class JsonSerializable:
         elif isinstance(jsn, io.TextIOBase):
             dic = json.load(jsn)
         else:
-            raise ValueError('Unsupported argument type: %s' % type(jsn))
+            raise ValueError("Unsupported argument type: %s" % type(jsn))
         return cls.from_dict(dic)

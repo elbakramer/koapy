@@ -1,7 +1,7 @@
 from functools import wraps
 
-class KiwoomOpenApiWError(Exception):
 
+class KiwoomOpenApiWError(Exception):
     def __init__(self, message=None):
         if message is not None:
             super().__init__(message)
@@ -22,6 +22,7 @@ class KiwoomOpenApiWError(Exception):
     def try_or_raise_boolean(cls, arg, message):
         return KiwoomOpenApiWBooleanReturnCodeError.try_or_raise(arg, message)
 
+
 class KiwoomOpenApiWNegativeReturnCodeError(KiwoomOpenApiWError):
 
     OP_ERR_NONE = 0
@@ -40,21 +41,21 @@ class KiwoomOpenApiWNegativeReturnCodeError(KiwoomOpenApiWError):
     OP_ERR_ORD_WRONG_QTY200 = -303
     OP_ERR_ORD_WRONG_QTY400 = -304
 
-    MSG_ERR_NONE = '정상처리'
-    MSG_ERR_NO_LOGIN = '미접속상태'
-    MSG_ERR_LOGIN = '로그인시 접속 실패 (아이피 오류 또는 접속정보 오류)'
-    MSG_ERR_CONNECT = '서버 접속 실패'
-    MSG_ERR_VERSION = '버전처리가 실패하였습니다.'
-    MSG_ERR_TRCODE = 'TrCode 가 존재하지 않습니다.'
-    MSG_ERR_NO_REGOPENAPI = '해외OpenAPI 미신청'
-    MSG_ERR_SISE_OVERFLOW = '조회과부화'
-    MSG_ERR_ORDER_OVERFLOW = '주문과부화'
-    MSG_ERR_RQ_WRONG_INPUT = '조회입력값(명칭/누락) 오류'
-    MSG_ERR_ORD_WRONG_INPUT = '주문입력갑 오류'
-    MSG_ERR_ORD_WRONG_ACCPWD = '계좌비밀번호를 입력하십시오.'
-    MSG_ERR_ORD_WRONG_ACCNO = '타인 계좌를 사용할 수 없습니다.'
-    MSG_ERR_ORD_WRONG_QTY200 = '경고-주문수량 200개 초과'
-    MSG_ERR_ORD_WRONG_QTY400 = '제한-주문수량 400개 초과'
+    MSG_ERR_NONE = "정상처리"
+    MSG_ERR_NO_LOGIN = "미접속상태"
+    MSG_ERR_LOGIN = "로그인시 접속 실패 (아이피 오류 또는 접속정보 오류)"
+    MSG_ERR_CONNECT = "서버 접속 실패"
+    MSG_ERR_VERSION = "버전처리가 실패하였습니다."
+    MSG_ERR_TRCODE = "TrCode 가 존재하지 않습니다."
+    MSG_ERR_NO_REGOPENAPI = "해외OpenAPI 미신청"
+    MSG_ERR_SISE_OVERFLOW = "조회과부화"
+    MSG_ERR_ORDER_OVERFLOW = "주문과부화"
+    MSG_ERR_RQ_WRONG_INPUT = "조회입력값(명칭/누락) 오류"
+    MSG_ERR_ORD_WRONG_INPUT = "주문입력갑 오류"
+    MSG_ERR_ORD_WRONG_ACCPWD = "계좌비밀번호를 입력하십시오."
+    MSG_ERR_ORD_WRONG_ACCNO = "타인 계좌를 사용할 수 없습니다."
+    MSG_ERR_ORD_WRONG_QTY200 = "경고-주문수량 200개 초과"
+    MSG_ERR_ORD_WRONG_QTY400 = "제한-주문수량 400개 초과"
 
     ERROR_MESSAGE_BY_CODE = {
         OP_ERR_NONE: MSG_ERR_NONE,
@@ -89,6 +90,7 @@ class KiwoomOpenApiWNegativeReturnCodeError(KiwoomOpenApiWError):
         @wraps(func)
         def wrapper(*args, **kwargs):
             return cls.check_code_or_raise(func(*args, **kwargs))
+
         return wrapper
 
     @classmethod
@@ -113,11 +115,12 @@ class KiwoomOpenApiWNegativeReturnCodeError(KiwoomOpenApiWError):
         return self._message
 
     def __repr__(self):
-        return '%s(%r, %r)' % (self.__class__.__name__, self._code, self._message)
+        return "%s(%r, %r)" % (self.__class__.__name__, self._code, self._message)
 
     @property
     def code(self):
         return self._code
+
 
 class KiwoomOpenApiWBooleanReturnCodeError(KiwoomOpenApiWError):
 
@@ -135,6 +138,7 @@ class KiwoomOpenApiWBooleanReturnCodeError(KiwoomOpenApiWError):
         @wraps(func)
         def wrapper(*args, **kwargs):
             return cls.check_code_or_raise(func(*args, **kwargs), message)
+
         return wrapper
 
     @classmethod
@@ -144,7 +148,9 @@ class KiwoomOpenApiWBooleanReturnCodeError(KiwoomOpenApiWError):
         elif callable(arg):
             return cls.wrap_to_check_code_or_raise(arg, message)
         else:
-            raise TypeError("Expected 'int', 'bool' or 'callable' but %s found" % type(arg))
+            raise TypeError(
+                "Expected 'int', 'bool' or 'callable' but %s found" % type(arg)
+            )
 
     def __init__(self, code, message=None):
         super().__init__(message)
@@ -159,7 +165,7 @@ class KiwoomOpenApiWBooleanReturnCodeError(KiwoomOpenApiWError):
             return self.__repr__()
 
     def __repr__(self):
-        return '%s(%r, %r)' % (self.__class__.__name__, self._code, self._message)
+        return "%s(%r, %r)" % (self.__class__.__name__, self._code, self._message)
 
     @property
     def code(self):

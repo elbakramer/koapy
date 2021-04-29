@@ -1,7 +1,7 @@
 from koapy.utils.notimplemented import notimplemented
 
-class KiwoomOpenApiWEventHandlerFunctions:
 
+class KiwoomOpenApiWEventHandlerFunctions:
     @notimplemented
     def OnEventConnect(self, errcode):
         raise NotImplementedError

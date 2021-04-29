@@ -1,5 +1,6 @@
 import itertools
 
+
 def chunk(iterable, n):
     fillvalue = object()
     args = [iter(iterable)] * n

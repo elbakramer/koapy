@@ -2,25 +2,29 @@ import os
 
 from pyhocon import ConfigFactory
 
+
 def read_config(filename):
     return ConfigFactory.parse_file(filename)
 
+
 config_filename_cadidates = [
-    'koapy.conf',
-    '.koapy.conf',
+    "koapy.conf",
+    ".koapy.conf",
 ]
 
 # Load default config
-default_config_filename = 'config.conf'
+default_config_filename = "config.conf"
 default_config_file_directory = os.path.dirname(os.path.realpath(__file__))
-default_config_filepath = os.path.join(default_config_file_directory, default_config_filename)
+default_config_filepath = os.path.join(
+    default_config_file_directory, default_config_filename
+)
 default_config = read_config(default_config_filepath)
 
 # Prepare to load config in cwd and home
 empty_config = ConfigFactory.from_dict({})
 user_config = empty_config
 
-home = os.path.expanduser('~')
+home = os.path.expanduser("~")
 cwd = os.getcwd()
 
 config_folder_candidates = [

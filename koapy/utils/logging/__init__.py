@@ -1,7 +1,8 @@
-import logging
 import inspect
+import logging
 
 from koapy.utils.logging.Logging import Logging
+
 
 def verbosity_to_loglevel(verbosity=0):
     verbosity = verbosity or 0
@@ -15,23 +16,27 @@ def verbosity_to_loglevel(verbosity=0):
     level = levels[verbosity]
     return level
 
+
 def loglevel_to_verbosity(loglevel=logging.WARNING):
     verbosity = 3 - (loglevel + 9) // 10
     if verbosity < 0:
         verbosity = 0
     return verbosity
 
+
 def set_loglevel(loglevel=logging.WARNING, logger=None):
     if logger is None:
-        logger = 'koapy'
+        logger = "koapy"
     return logging.getLogger(logger).setLevel(loglevel)
+
 
 def set_verbosity(verbosity=0, logger=None):
     if logger is None:
-        logger = 'koapy'
+        logger = "koapy"
     loglevel = verbosity_to_loglevel(verbosity)
     set_loglevel(loglevel, logger)
     return loglevel
+
 
 def get_module_name(offset=0):
     frame_infos = inspect.stack()
@@ -39,6 +44,7 @@ def get_module_name(offset=0):
     module = inspect.getmodule(frame[0])
     module_name = module.__name__
     return module_name
+
 
 def get_logger(name=None):
     if name is None:

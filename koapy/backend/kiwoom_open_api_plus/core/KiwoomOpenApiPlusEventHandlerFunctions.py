@@ -1,7 +1,7 @@
 from koapy.utils.notimplemented import notimplemented
 
-class KiwoomOpenApiPlusEventHandlerFunctions:
 
+class KiwoomOpenApiPlusEventHandlerFunctions:
     @notimplemented
     def OnEventConnect(self, errcode):
         raise NotImplementedError
@@ -11,7 +11,18 @@ class KiwoomOpenApiPlusEventHandlerFunctions:
         raise NotImplementedError
 
     @notimplemented
-    def OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg):
+    def OnReceiveTrData(
+        self,
+        scrnno,
+        rqname,
+        trcode,
+        recordname,
+        prevnext,
+        datalength,
+        errorcode,
+        message,
+        splmmsg,
+    ):
         raise NotImplementedError
 
     @notimplemented
@@ -27,9 +38,13 @@ class KiwoomOpenApiPlusEventHandlerFunctions:
         raise NotImplementedError
 
     @notimplemented
-    def OnReceiveTrCondition(self, scrnno, codelist, condition_name, condition_index, prevnext):
+    def OnReceiveTrCondition(
+        self, scrnno, codelist, condition_name, condition_index, prevnext
+    ):
         raise NotImplementedError
 
     @notimplemented
-    def OnReceiveRealCondition(self, code, condition_type, condition_name, condition_index):
+    def OnReceiveRealCondition(
+        self, code, condition_type, condition_name, condition_index
+    ):
         raise NotImplementedError

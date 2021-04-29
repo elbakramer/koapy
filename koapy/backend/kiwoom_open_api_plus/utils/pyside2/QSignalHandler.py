@@ -4,6 +4,7 @@ import socket
 from koapy.compat.pyside2.QtCore import Signal
 from koapy.compat.pyside2.QtNetwork import QAbstractSocket
 
+
 class QSignalHandler(QAbstractSocket):
 
     signalReceived = Signal(int)
@@ -21,9 +22,9 @@ class QSignalHandler(QAbstractSocket):
         self.readyRead.connect(self._readSignal)
 
     def __del__(self):
-        if hasattr(self, '_old_wakeup_fd') and self._old_wakeup_fd is not None:
+        if hasattr(self, "_old_wakeup_fd") and self._old_wakeup_fd is not None:
             signal.set_wakeup_fd(self._old_wakeup_fd)
-        if hasattr(self, '_old_signal_handlers') and self._old_signal_handlers:
+        if hasattr(self, "_old_signal_handlers") and self._old_signal_handlers:
             for signal_, handler in self._old_signal_handlers.items():
                 self.restoreHandler(signal_, handler)
 
@@ -41,4 +42,6 @@ class QSignalHandler(QAbstractSocket):
         if default is None:
             default = signal.SIG_DFL
         if signal_ in self._old_signal_handlers:
-            return signal.signal(signal_, self._old_signal_handlers.pop(signal_, default))
+            return signal.signal(
+                signal_, self._old_signal_handlers.pop(signal_, default)
+            )

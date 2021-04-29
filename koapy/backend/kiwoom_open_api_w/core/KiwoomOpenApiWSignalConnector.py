@@ -1,12 +1,14 @@
-import threading
 import inspect
+import threading
 
-from koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature import KiwoomOpenApiWEventHandlerSignature
+from koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature import (
+    KiwoomOpenApiWEventHandlerSignature,
+)
 from koapy.compat.pyside2 import PYQT5, PYSIDE2, PythonQtError
 from koapy.utils.logging.Logging import Logging
 
-class KiwoomOpenApiWSignalConnector(Logging):
 
+class KiwoomOpenApiWSignalConnector(Logging):
     def __init__(self, name=None):
         super().__init__()
 
@@ -15,13 +17,17 @@ class KiwoomOpenApiWSignalConnector(Logging):
         self._slots = list()
 
         self._signature = KiwoomOpenApiWEventHandlerSignature.from_name(self._name)
-        self._param_types = [(p.annotation) for p in self._signature.parameters.values()]
+        self._param_types = [
+            (p.annotation) for p in self._signature.parameters.values()
+        ]
         self._signal = self._signature.to_pyside2_event_signal()
 
     def is_valid_slot(self, slot):
         slot_signature = inspect.signature(slot)
         slot_types = [(p.annotation) for p in slot_signature.parameters.values()]
-        condition = len(self._param_types) == len(slot_types) # currently only check parameter length
+        condition = len(self._param_types) == len(
+            slot_types
+        )  # currently only check parameter length
         return condition
 
     def connect_to(self, control):
@@ -30,11 +36,11 @@ class KiwoomOpenApiWSignalConnector(Logging):
         elif PYQT5:
             return getattr(control, self._name).connect(self)
         else:
-            raise PythonQtError('Unsupported Qt bindings')
+            raise PythonQtError("Unsupported Qt bindings")
 
     def connect(self, slot):
         if not self.is_valid_slot(slot):
-            raise TypeError('Invalid slot: %s' % slot)
+            raise TypeError("Invalid slot: %s" % slot)
         with self._lock:
             if slot not in self._slots:
                 self._slots.append(slot)

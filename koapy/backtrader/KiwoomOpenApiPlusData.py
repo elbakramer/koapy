@@ -5,33 +5,36 @@ from pytz import utc
 from backtrader import date2num, num2date
 from backtrader.feed import DataBase
 from backtrader.utils.py3 import queue
-
 from koapy.backtrader.KiwoomOpenApiPlusStore import KiwoomOpenApiPlusStore
 from koapy.utils.logging.Logging import Logging
 
-class MetaKiwoomOpenApiPlusData(type(Logging), type(DataBase)):
 
+class MetaKiwoomOpenApiPlusData(type(Logging), type(DataBase)):
     def __init__(cls, clsname, bases, dct):
         super().__init__(clsname, bases, dct)
         KiwoomOpenApiPlusStore.DataCls = cls
+
 
 class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusData):
 
     # pylint: disable=no-member
 
     params = (
-        ('qcheck', 0.5),
-        ('historical', False),  # do backfilling at the start
-        ('backfill_start', True),  # do backfilling at the start
-        ('backfill', True),  # do backfilling when reconnecting
-        ('backfill_from', None),  # additional data source to do backfill from
-        ('useask', False),
-        ('reconnect', True),
-        ('reconnections', -1),  # forever
-        ('reconntimeout', 5.0),
-        ('tz', 'Asia/Seoul'),
-        ('tzinput', None),  # this should be none (utc) since we are already putting datetimes converted to utc
-        ('calendar', None),
+        ("qcheck", 0.5),
+        ("historical", False),  # do backfilling at the start
+        ("backfill_start", True),  # do backfilling at the start
+        ("backfill", True),  # do backfilling when reconnecting
+        ("backfill_from", None),  # additional data source to do backfill from
+        ("useask", False),
+        ("reconnect", True),
+        ("reconnections", -1),  # forever
+        ("reconntimeout", 5.0),
+        ("tz", "Asia/Seoul"),
+        (
+            "tzinput",
+            None,
+        ),  # this should be none (utc) since we are already putting datetimes converted to utc
+        ("calendar", None),
     )
 
     _store = KiwoomOpenApiPlusStore
@@ -72,7 +75,7 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
             dt = dt.replace(tzinfo=None)
         return dt
 
-    def date2num(self, dt, tz=None): # pylint: disable=arguments-differ
+    def date2num(self, dt, tz=None):  # pylint: disable=arguments-differ
         dt = self.asutc(dt, tz)
         return date2num(dt)
 
@@ -110,7 +113,11 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
         otf = self.k.get_granularity(self.p.timeframe, self.p.compression)
 
         if otf is None:
-            self.logger.warning('Given timeframe and compression not supported: (%s, %s)', self.p.timeframe, self.p.compression)
+            self.logger.warning(
+                "Given timeframe and compression not supported: (%s, %s)",
+                self.p.timeframe,
+                self.p.compression,
+            )
             self.put_notification(self.NOTSUPPORTED_TF)
             self._state = self._ST_OVER
             return
@@ -118,7 +125,7 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
         self.contractdetails = cd = self.k.get_instrument(self.p.dataname)
 
         if cd is None:
-            self.logger.warning('Given dataname is not supported')
+            self.logger.warning("Given dataname is not supported")
             self.put_notification(self.NOTSUBSCRIBED)
             self._state = self._ST_OVER
             return
@@ -126,7 +133,7 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
         if self.p.backfill_from is not None:
             self._state = self._ST_FROM
             self.p.backfill_from.setenvironment(self._env)
-            self.p.backfill_from._start() # pylint: disable=protected-access
+            self.p.backfill_from._start()  # pylint: disable=protected-access
         else:
             self._start_finish()
             self._state = self._ST_START
@@ -139,16 +146,16 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
             self.put_notification(self.DELAYED)
 
             dtend = None
-            if self.todate < float('inf'):
+            if self.todate < float("inf"):
                 dtend = self.num2date(self.todate)
 
             dtbegin = None
-            if self.fromdate > float('-inf'):
+            if self.fromdate > float("-inf"):
                 dtbegin = self.num2date(self.fromdate)
 
             self.qhist = self.k.candles(
-                self.p.dataname, dtbegin, dtend,
-                self.p.timeframe, self.p.compression)
+                self.p.dataname, dtbegin, dtend, self.p.timeframe, self.p.compression
+            )
 
             self._state = self._ST_HISTORBACK
 
@@ -195,8 +202,9 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
         while True:
             if self._state == self._ST_LIVE:
                 try:
-                    msg = (self._storedmsg.pop(None, None) or
-                           self.qlive.get(timeout=self._qcheck))
+                    msg = self._storedmsg.pop(None, None) or self.qlive.get(
+                        timeout=self._qcheck
+                    )
                 except queue.Empty:
                     return None
 
@@ -212,10 +220,10 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
                     self._st_start(instart=False, tmout=self.p.reconntimeout)
                     continue
 
-                if 'code' in msg:
+                if "code" in msg:
                     self.put_notification(self.CONNBROKEN)
 
-                    code = msg['code']
+                    code = msg["code"]
 
                     if code not in [599, 598, 596]:
                         self.put_notification(self.DISCONNECTED)
@@ -251,16 +259,20 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
                 dtend = None
                 if len(self) > 1:
                     dtbegin = self.datetime.datetime(-1)
-                elif self.fromdate > float('-inf'):
+                elif self.fromdate > float("-inf"):
                     dtbegin = self.num2date(self.fromdate)
                 else:
                     dtbegin = None
 
-                dtend = self.fromtimestamp(int(msg['time']) / 10 ** 6)
+                dtend = self.fromtimestamp(int(msg["time"]) / 10 ** 6)
 
                 self.qhist = self.k.candles(
-                    self.p.dataname, dtbegin, dtend,
-                    self.p.timeframe, self.p.compression)
+                    self.p.dataname,
+                    dtbegin,
+                    dtend,
+                    self.p.timeframe,
+                    self.p.compression,
+                )
 
                 self._state = self._ST_HISTORBACK
                 self._statelivereconn = False
@@ -273,7 +285,7 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
                     self._state = self._ST_OVER
                     return False
 
-                elif 'code' in msg:
+                elif "code" in msg:
                     self.put_notification(self.NOTSUBSCRIBED)
                     self.put_notification(self.DISCONNECTED)
                     self._state = self._ST_OVER
@@ -312,7 +324,7 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
                     return False
 
     def _load_tick(self, msg):
-        dtobj = self.fromtimestamp(int(msg['time']) / 10 ** 6)
+        dtobj = self.fromtimestamp(int(msg["time"]) / 10 ** 6)
         dt = self.date2num(dtobj)
         if dt <= self.lines.datetime[-1]:
             return False  # time already seen
@@ -323,7 +335,7 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
         self.lines.openinterest[0] = 0.0
 
         # Put the prices into the bar
-        tick = float(msg['ask']) if self.p.useask else float(msg['bid'])
+        tick = float(msg["ask"]) if self.p.useask else float(msg["bid"])
         self.lines.open[0] = tick
         self.lines.high[0] = tick
         self.lines.low[0] = tick
@@ -334,20 +346,20 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
         return True
 
     def _load_history(self, msg):
-        dtobj = self.fromtimestamp(int(msg['time']) / 10 ** 6)
+        dtobj = self.fromtimestamp(int(msg["time"]) / 10 ** 6)
         dt = self.date2num(dtobj)
         if dt <= self.lines.datetime[-1]:
             return False  # time already seen
 
         # Common fields
         self.lines.datetime[0] = dt
-        self.lines.volume[0] = float(msg['volume'])
+        self.lines.volume[0] = float(msg["volume"])
         self.lines.openinterest[0] = 0.0
 
         # Put the prices into the bar
-        self.lines.open[0] = float(msg['open'])
-        self.lines.high[0] = float(msg['high'])
-        self.lines.low[0] = float(msg['low'])
-        self.lines.close[0] = float(msg['close'])
+        self.lines.open[0] = float(msg["open"])
+        self.lines.high[0] = float(msg["high"])
+        self.lines.low[0] = float(msg["low"])
+        self.lines.close[0] = float(msg["close"])
 
         return True

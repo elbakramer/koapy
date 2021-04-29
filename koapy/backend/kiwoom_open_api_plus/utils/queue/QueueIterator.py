@@ -1,6 +1,6 @@
 import atexit
-
 from queue import Empty
+
 
 class QueueIterator:
 
@@ -54,8 +54,8 @@ class QueueIterator:
     def enable(self):
         self._should_stop = False
 
-class BufferedQueueIterator(QueueIterator):
 
+class BufferedQueueIterator(QueueIterator):
     def __init__(self, queue):
         super().__init__(queue)
 
@@ -77,6 +77,6 @@ class BufferedQueueIterator(QueueIterator):
         if self._head is not self._none:
             return self._head
         else:
-            item = self.next_nowait() # raises queue.Empty if queue is empty
+            item = self.next_nowait()  # raises queue.Empty if queue is empty
             self._head = item
             return self._head

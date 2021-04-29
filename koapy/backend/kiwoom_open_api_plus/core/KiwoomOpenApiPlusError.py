@@ -1,7 +1,7 @@
 from functools import wraps
 
-class KiwoomOpenApiPlusError(Exception):
 
+class KiwoomOpenApiPlusError(Exception):
     def __init__(self, message=None):
         if message is not None:
             super().__init__(message)
@@ -21,6 +21,13 @@ class KiwoomOpenApiPlusError(Exception):
     @classmethod
     def try_or_raise_boolean(cls, arg, message):
         return KiwoomOpenApiPlusBooleanReturnCodeError.try_or_raise(arg, message)
+
+    @classmethod
+    def get_error_message_by_code(cls, code, default=None):
+        return KiwoomOpenApiPlusNegativeReturnCodeError.get_error_message_by_code(
+            code, default
+        )
+
 
 class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
 
@@ -60,41 +67,41 @@ class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
     OP_ERR_ORD_WRONG_ACCTINFO = -340
     OP_ERR_ORD_SYMCODE_EMPTY = -500
 
-    MSG_ERR_NONE = '정상처리'
-    MSG_ERR_FAIL = '실패'
-    MSG_ERR_COND_NOTFOUND = '조건번호 없음'
-    MSG_ERR_COND_MISMATCH = '조건번호와 조건식 틀림'
-    MSG_ERR_COND_OVERFLOW = '조건검색 조회요청 초과'
-    MSG_ERR_TR_FAIL = '전문 처리 실패'
-    MSG_ERR_LOGIN = '사용자정보 교환 실패'
-    MSG_ERR_CONNECT = '서버접속 실패'
-    MSG_ERR_VERSION = '버전처리 실패'
-    MSG_ERR_FIREWALL = '개인방화벽 실패'
-    MSG_ERR_MEMORY = '메모리보호 실패'
-    MSG_ERR_INPUT = '함수입력값 오류'
-    MSG_ERR_SOCKET_CLOSED = '통신 연결종료'
-    MSG_ERR_SISE_OVERFLOW = '시세조회 과부하'
-    MSG_ERR_RQ_STRUCT_FAIL = '전문작성 초기화 실패'
-    MSG_ERR_RQ_STRING_FAIL = '전문작성 입력값 오류'
-    MSG_ERR_NO_DATA = '데이터 없음'
-    MSG_ERR_OVER_MAX_DATA = '조회 가능한 종목수 초과'
-    MSG_ERR_DATA_RCV_FAIL = '데이터수신 실패'
-    MSG_ERR_OVER_MAX_FID = '조회 가능한 FID수 초과'
-    MSG_ERR_REAL_CANCEL = '실시간 해제 오류'
-    MSG_ERR_ORD_WRONG_INPUT = '입력값 오류'
-    MSG_ERR_ORD_WRONG_ACCTNO = '계좌 비밀번호 없음'
-    MSG_ERR_OTHER_ACC_USE = '타인계좌사용 오류'
-    MSG_ERR_MIS_2BILL_EXC = '주문가격이 20억원을 초과'
-    MSG_ERR_MIS_5BILL_EXC = '주문가격이 50억원을 초과'
-    MSG_ERR_MIS_1PER_EXC = '주문수량이 총발행주수의 1%초과오류'
-    MSG_ERR_MIS_3PER_EXC = '주문수량이 총발행주수의 3%초과오류'
-    MSG_ERR_SEND_FAIL = '주문전송 실패'
-    MSG_ERR_ORD_OVERFLOW = '주문전송 과부하'
-    MSG_ERR_ORD_OVERFLOW2 = '주문전송 과부하'
-    MSG_ERR_MIS_300CNT_EXC = '주문수량 300계약 초과'
-    MSG_ERR_MIS_500CNT_EXC = '주문수량 500계약 초과'
-    MSG_ERR_ORD_WRONG_ACCTINFO = '계좌정보없음'
-    MSG_ERR_ORD_SYMCODE_EMPTY = '종목코드없음'
+    MSG_ERR_NONE = "정상처리"
+    MSG_ERR_FAIL = "실패"
+    MSG_ERR_COND_NOTFOUND = "조건번호 없음"
+    MSG_ERR_COND_MISMATCH = "조건번호와 조건식 틀림"
+    MSG_ERR_COND_OVERFLOW = "조건검색 조회요청 초과"
+    MSG_ERR_TR_FAIL = "전문 처리 실패"
+    MSG_ERR_LOGIN = "사용자정보 교환 실패"
+    MSG_ERR_CONNECT = "서버접속 실패"
+    MSG_ERR_VERSION = "버전처리 실패"
+    MSG_ERR_FIREWALL = "개인방화벽 실패"
+    MSG_ERR_MEMORY = "메모리보호 실패"
+    MSG_ERR_INPUT = "함수입력값 오류"
+    MSG_ERR_SOCKET_CLOSED = "통신 연결종료"
+    MSG_ERR_SISE_OVERFLOW = "시세조회 과부하"
+    MSG_ERR_RQ_STRUCT_FAIL = "전문작성 초기화 실패"
+    MSG_ERR_RQ_STRING_FAIL = "전문작성 입력값 오류"
+    MSG_ERR_NO_DATA = "데이터 없음"
+    MSG_ERR_OVER_MAX_DATA = "조회 가능한 종목수 초과"
+    MSG_ERR_DATA_RCV_FAIL = "데이터수신 실패"
+    MSG_ERR_OVER_MAX_FID = "조회 가능한 FID수 초과"
+    MSG_ERR_REAL_CANCEL = "실시간 해제 오류"
+    MSG_ERR_ORD_WRONG_INPUT = "입력값 오류"
+    MSG_ERR_ORD_WRONG_ACCTNO = "계좌 비밀번호 없음"
+    MSG_ERR_OTHER_ACC_USE = "타인계좌사용 오류"
+    MSG_ERR_MIS_2BILL_EXC = "주문가격이 20억원을 초과"
+    MSG_ERR_MIS_5BILL_EXC = "주문가격이 50억원을 초과"
+    MSG_ERR_MIS_1PER_EXC = "주문수량이 총발행주수의 1%초과오류"
+    MSG_ERR_MIS_3PER_EXC = "주문수량이 총발행주수의 3%초과오류"
+    MSG_ERR_SEND_FAIL = "주문전송 실패"
+    MSG_ERR_ORD_OVERFLOW = "주문전송 과부하"
+    MSG_ERR_ORD_OVERFLOW2 = "주문전송 과부하"
+    MSG_ERR_MIS_300CNT_EXC = "주문수량 300계약 초과"
+    MSG_ERR_MIS_500CNT_EXC = "주문수량 500계약 초과"
+    MSG_ERR_ORD_WRONG_ACCTINFO = "계좌정보없음"
+    MSG_ERR_ORD_SYMCODE_EMPTY = "종목코드없음"
 
     ERROR_MESSAGE_BY_CODE = {
         OP_ERR_NONE: MSG_ERR_NONE,
@@ -149,6 +156,7 @@ class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
         @wraps(func)
         def wrapper(*args, **kwargs):
             return cls.check_code_or_raise(func(*args, **kwargs))
+
         return wrapper
 
     @classmethod
@@ -173,11 +181,12 @@ class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
         return self._message
 
     def __repr__(self):
-        return '%s(%r, %r)' % (self.__class__.__name__, self._code, self._message)
+        return "%s(%r, %r)" % (self.__class__.__name__, self._code, self._message)
 
     @property
     def code(self):
         return self._code
+
 
 class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
 
@@ -195,6 +204,7 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
         @wraps(func)
         def wrapper(*args, **kwargs):
             return cls.check_code_or_raise(func(*args, **kwargs), message)
+
         return wrapper
 
     @classmethod
@@ -204,7 +214,9 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
         elif callable(arg):
             return cls.wrap_to_check_code_or_raise(arg, message)
         else:
-            raise TypeError("Expected 'int', 'bool' or 'callable' but %s found" % type(arg))
+            raise TypeError(
+                "Expected 'int', 'bool' or 'callable' but %s found" % type(arg)
+            )
 
     def __init__(self, code, message=None):
         super().__init__(message)
@@ -219,7 +231,7 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
             return self.__repr__()
 
     def __repr__(self):
-        return '%s(%r, %r)' % (self.__class__.__name__, self._code, self._message)
+        return "%s(%r, %r)" % (self.__class__.__name__, self._code, self._message)
 
     @property
     def code(self):

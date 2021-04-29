@@ -1,13 +1,16 @@
 from contextlib import ExitStack
 from threading import RLock
 
-from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerFunctions import KiwoomOpenApiPlusEventHandlerFunctions
-from koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedIterableObserver import QueueBasedIterableObserver
-
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerFunctions import (
+    KiwoomOpenApiPlusEventHandlerFunctions,
+)
+from koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedIterableObserver import (
+    QueueBasedIterableObserver,
+)
 from koapy.utils.notimplemented import isimplemented
 
-class KiwoomOpenApiPlusEventHandler(KiwoomOpenApiPlusEventHandlerFunctions):
 
+class KiwoomOpenApiPlusEventHandler(KiwoomOpenApiPlusEventHandlerFunctions):
     def __init__(self, control):
         self._control = control
         self._observer = QueueBasedIterableObserver()
@@ -26,13 +29,19 @@ class KiwoomOpenApiPlusEventHandler(KiwoomOpenApiPlusEventHandlerFunctions):
 
     @classmethod
     def names(cls):
-        names = [name for name in dir(KiwoomOpenApiPlusEventHandlerFunctions) if name.startswith('On')]
+        names = [
+            name
+            for name in dir(KiwoomOpenApiPlusEventHandlerFunctions)
+            if name.startswith("On")
+        ]
         return names
 
     def slots(self):
         names = self.names()
         slots = [getattr(self, name) for name in names]
-        names_and_slots_implemented = [(name, slot) for name, slot in zip(names, slots) if isimplemented(slot)]
+        names_and_slots_implemented = [
+            (name, slot) for name, slot in zip(names, slots) if isimplemented(slot)
+        ]
         return names_and_slots_implemented
 
     def connect(self):

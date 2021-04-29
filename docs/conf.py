@@ -16,32 +16,32 @@
 # directory, add these directories to sys.path here. If the directory is
 # relative to the documentation root, use os.path.abspath to make it
 # absolute, like shown here.
-#
+
 import os
 import sys
 
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+on_rtd = os.environ.get("READTHEDOCS", None) == "True"
 
 # -- Directory and import setting ---
 
 doc_dir = os.path.abspath(os.path.dirname(__file__))
-project_dir = os.path.abspath(os.path.join(doc_dir, '..'))
-module_dir = os.path.abspath(os.path.join(project_dir, 'koapy'))
+project_dir = os.path.abspath(os.path.join(doc_dir, ".."))
+module_dir = os.path.abspath(os.path.join(project_dir, "koapy"))
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.autosectionlabel',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.githubpages',
-    'sphinx.ext.imgconverter',
-    'sphinx.ext.todo',
-    'sphinx.ext.inheritance_diagram',
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.autosectionlabel",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.githubpages",
+    "sphinx.ext.imgconverter",
+    "sphinx.ext.todo",
+    "sphinx.ext.inheritance_diagram",
 ]
 
 autosummary_generate = True
@@ -53,14 +53,16 @@ autosectionlabel_prefix_document = True
 from sphinx.ext import apidoc
 
 apidoc_exclude_patterns = [
-    '**/examples/*.py',
+    "**/examples/*.py",
 ]
 
+
 def run_apidoc(_):
-    args = ['-e', '--force', '--doc-project', 'Koapy', '-o', doc_dir, module_dir]
+    args = ["-e", "--force", "--doc-project", "Koapy", "-o", doc_dir, module_dir]
     if apidoc_exclude_patterns:
         args += [os.path.join(module_dir, p) for p in apidoc_exclude_patterns]
     return apidoc.main(args)
+
 
 generate_apidoc = False
 
@@ -68,13 +70,13 @@ generate_apidoc = False
 # https://github.com/readthedocs/sphinx-autoapi
 # See also if interested, https://github.com/rdb/sphinx-autopackagesummary
 
-extensions.append('autoapi.extension')
+extensions.append("autoapi.extension")
 
-autoapi_type = 'python'
+autoapi_type = "python"
 autoapi_dirs = [module_dir]
-autoapi_file_patterns = ['*.py', '*.pyi']
-autoapi_ignore =[
-    '**/examples/*.py',
+autoapi_file_patterns = ["*.py", "*.pyi"]
+autoapi_ignore = [
+    "**/examples/*.py",
 ]
 autoapi_keep_files = True
 
@@ -83,27 +85,31 @@ autoapi_keep_files = True
 from docutils import nodes
 
 missing_reference_uris = {
-    'PyQt5.QtWidgets.QWidget': 'https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtwidgets/qwidget.html?highlight=qwidget',
-    'PyQt5.QtCore.QObject': 'https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qobject.html?highlight=qobject',
-    'PySide2.QtWidgets.QWidget': 'https://doc.qt.io/qtforpython/PySide2/QtWidgets/QWidget.html',
-    'PySide2.QtCore.QObject': 'https://doc.qt.io/qtforpython/PySide2/QtCore/QObject.html',
+    "PyQt5.QtWidgets.QWidget": "https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtwidgets/qwidget.html?highlight=qwidget",
+    "PyQt5.QtCore.QObject": "https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtcore/qobject.html?highlight=qobject",
+    "PySide2.QtWidgets.QWidget": "https://doc.qt.io/qtforpython/PySide2/QtWidgets/QWidget.html",
+    "PySide2.QtCore.QObject": "https://doc.qt.io/qtforpython/PySide2/QtCore/QObject.html",
 }
 
+
 def missing_reference(_app, _env, node, contnode):
-    target = node['reftarget']
+    target = node["reftarget"]
     uri = missing_reference_uris.get(target)
     if uri:
-        newnode = nodes.reference('', '', internal=False, refuri=uri)
+        newnode = nodes.reference("", "", internal=False, refuri=uri)
         newnode.append(contnode)
         return newnode
     return None
 
+
 # -- Setup hook ---
 
+
 def setup(app):
-    app.connect('missing-reference', missing_reference)
+    app.connect("missing-reference", missing_reference)
     if generate_apidoc:
-        app.connect('builder-inited', run_apidoc)
+        app.connect("builder-inited", run_apidoc)
+
 
 # -- Autodoc configuration ---
 
@@ -115,9 +121,9 @@ else:
 add_function_parentheses = False
 
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/3', None),
-    'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
-    'PyQt5': ('https://www.riverbankcomputing.com/static/Docs/PyQt5/', None),
+    "python": ("https://docs.python.org/3", None),
+    "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
+    "PyQt5": ("https://www.riverbankcomputing.com/static/Docs/PyQt5/", None),
 }
 
 # -- Autodoc mocking configuration ---
@@ -125,25 +131,26 @@ intersphinx_mapping = {
 from unittest.mock import MagicMock
 
 autodoc_mock_imports = [
-    'PyQt5',
-    'PySide2',
-    'sip',
-    'qtpy',
-    'pythoncom',
-    'pywintypes',
-    'win32com',
-    'win32com.client',
+    "PyQt5",
+    "PySide2",
+    "sip",
+    "qtpy",
+    "pythoncom",
+    "pywintypes",
+    "win32com",
+    "win32com.client",
 ]
 
 for module in autodoc_mock_imports:
     sys.modules[module] = MagicMock()
 
-if 'qtpy' in autodoc_mock_imports:
+if "qtpy" in autodoc_mock_imports:
+
     class QWidget:
-        __module__ = 'qtpy.QtWidgets'
+        __module__ = "qtpy.QtWidgets"
 
     class QObject:
-        __module__ = 'qtpy.QtCore'
+        __module__ = "qtpy.QtCore"
 
     qtpy = MagicMock()
     qtpy.QtWidgets.QWidget = QWidget
@@ -162,21 +169,24 @@ if 'qtpy' in autodoc_mock_imports:
     qtpy.QtGui.QDesktopServices = MagicMock()
     qtpy.QtNetwork.QAbstractSocket = MagicMock()
 
-    sys.modules.update({
-        'qtpy': qtpy,
-        'qtpy.QtWidgets': qtpy.QtWidgets,
-        'qtpy.QtCore': qtpy.QtCore,
-        'qtpy.QtAxContainer': qtpy.QtAxContainer,
-        'qtpy.QtGui': qtpy.QtGui,
-        'qtpy.QtNetwork': qtpy.QtNetwork,
-    })
+    sys.modules.update(
+        {
+            "qtpy": qtpy,
+            "qtpy.QtWidgets": qtpy.QtWidgets,
+            "qtpy.QtCore": qtpy.QtCore,
+            "qtpy.QtAxContainer": qtpy.QtAxContainer,
+            "qtpy.QtGui": qtpy.QtGui,
+            "qtpy.QtNetwork": qtpy.QtNetwork,
+        }
+    )
 
-if 'PySide2' in autodoc_mock_imports:
-    class QWidget: # pylint: disable=function-redefined
-        __module__ = 'PySide2.QtWidgets'
+if "PySide2" in autodoc_mock_imports:
 
-    class QObject: # pylint: disable=function-redefined
-        __module__ = 'PySide2.QtCore'
+    class QWidget:  # pylint: disable=function-redefined
+        __module__ = "PySide2.QtWidgets"
+
+    class QObject:  # pylint: disable=function-redefined
+        __module__ = "PySide2.QtCore"
 
     PySide2 = MagicMock()
     PySide2.QtWidgets.QWidget = QWidget
@@ -185,21 +195,24 @@ if 'PySide2' in autodoc_mock_imports:
     PySide2.QtGui.QDesktopServices = MagicMock()
     PySide2.QtNetwork = MagicMock()
 
-    sys.modules.update({
-        'PySide2': PySide2,
-        'PySide2.QtWidgets': PySide2.QtWidgets,
-        'PySide2.QtCore': PySide2.QtCore,
-        'PySide2.QtAxContainer': PySide2.QtAxContainer,
-        'PySide2.QtGui': PySide2.QtGui,
-        'PySide2.QtNetwork': PySide2.QtNetwork,
-    })
+    sys.modules.update(
+        {
+            "PySide2": PySide2,
+            "PySide2.QtWidgets": PySide2.QtWidgets,
+            "PySide2.QtCore": PySide2.QtCore,
+            "PySide2.QtAxContainer": PySide2.QtAxContainer,
+            "PySide2.QtGui": PySide2.QtGui,
+            "PySide2.QtNetwork": PySide2.QtNetwork,
+        }
+    )
 
-if 'PyQt5' in autodoc_mock_imports:
-    class QWidget: # pylint: disable=function-redefined
-        __module__ = 'PyQt5.QtWidgets'
+if "PyQt5" in autodoc_mock_imports:
 
-    class QObject: # pylint: disable=function-redefined
-        __module__ = 'PyQt5.QtCore'
+    class QWidget:  # pylint: disable=function-redefined
+        __module__ = "PyQt5.QtWidgets"
+
+    class QObject:  # pylint: disable=function-redefined
+        __module__ = "PyQt5.QtCore"
 
     PyQt5 = MagicMock()
     PyQt5.QtWidgets.QWidget = QWidget
@@ -208,20 +221,22 @@ if 'PyQt5' in autodoc_mock_imports:
     PyQt5.QtGui.QDesktopServices = MagicMock()
     PyQt5.QtNetwork = MagicMock()
 
-    sys.modules.update({
-        'PyQt5': PyQt5,
-        'PyQt5.QtWidgets': PyQt5.QtWidgets,
-        'PyQt5.QtCore': PyQt5.QtCore,
-        'PyQt5.QAxContainer': PyQt5.QAxContainer,
-        'PyQt5.QtGui': PyQt5.QtGui,
-        'PyQt5.QtNetwork': PyQt5.QtNetwork,
-    })
+    sys.modules.update(
+        {
+            "PyQt5": PyQt5,
+            "PyQt5.QtWidgets": PyQt5.QtWidgets,
+            "PyQt5.QtCore": PyQt5.QtCore,
+            "PyQt5.QAxContainer": PyQt5.QAxContainer,
+            "PyQt5.QtGui": PyQt5.QtGui,
+            "PyQt5.QtNetwork": PyQt5.QtNetwork,
+        }
+    )
 
 # -- Import main package after mocking
 
 sys.path.insert(0, project_dir)
 
-import koapy
+import koapy  # pylint: disable=import-error
 
 # -- Warnings related setting ---
 
@@ -244,19 +259,19 @@ gettext_compact = False
 # needs_sphinx = '1.0'
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-source_suffix = ['.rst', '.md']
+source_suffix = [".rst", ".md"]
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = "index"
 
 # General information about the project.
-project = 'KOAPY'
-copyright = "2020, Yunseong Hwang" # pylint: disable=redefined-builtin
+project = "KOAPY"
+copyright = "2020, Yunseong Hwang"  # pylint: disable=redefined-builtin
 author = "Yunseong Hwang"
 
 # The version info for the project you're documenting, acts as replacement
@@ -278,10 +293,10 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
@@ -292,64 +307,62 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = "alabaster"
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
 # documentation.
 #
 html_theme_options = {
-    'github_user': 'elbakramer',
-    'github_repo': 'koapy',
-    'description': 'Kiwoom Open Api Python Interface',
-    'fixed_sidebar': 'true',
-    'github_banner': 'true',
-    'github_button': 'true',
-    'github_type': 'star',
-    'donate_url': 'https://www.patreon.com/yunseong',
+    "github_user": "elbakramer",
+    "github_repo": "koapy",
+    "description": "Kiwoom Open Api Python Interface",
+    "fixed_sidebar": "true",
+    "github_banner": "true",
+    "github_button": "true",
+    "github_type": "star",
+    "donate_url": "https://www.patreon.com/yunseong",
 }
 
 if not on_rtd:
-    html_theme_options['analytics_id'] = 'UA-179490468-1'
+    html_theme_options["analytics_id"] = "UA-179490468-1"
 
 html_context = {
-    'google_site_verification': 'true',
+    "google_site_verification": "true",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 html_css_files = [
-    'css/style.css',
+    "css/style.css",
 ]
 
 
 # -- Options for HTMLHelp output ---------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'koapydoc'
+htmlhelp_basename = "koapydoc"
 
 
 # -- Options for LaTeX output ------------------------------------------
 
 latex_elements = {
-    'papersize': 'a4paper',
-    'pointsize': '10pt',
-    'preamble': r"""
+    "papersize": "a4paper",
+    "pointsize": "10pt",
+    "preamble": r"""
     \usepackage{kotex}
     """,
-    'figure_align': 'htbp',
+    "figure_align": "htbp",
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass
 # [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'koapy.tex',
-     'KOAPY Documentation',
-     'Yunseong Hwang', 'manual'),
+    (master_doc, "koapy.tex", "KOAPY Documentation", "Yunseong Hwang", "manual"),
 ]
 
 
@@ -357,11 +370,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'koapy',
-     'KOAPY Documentation',
-     [author], 1)
-]
+man_pages = [(master_doc, "koapy", "KOAPY Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------
@@ -370,10 +379,13 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'koapy',
-     'KOAPY Documentation',
-     author,
-     'koapy',
-     'One line description of project.',
-     'Miscellaneous'),
+    (
+        master_doc,
+        "koapy",
+        "KOAPY Documentation",
+        author,
+        "koapy",
+        "One line description of project.",
+        "Miscellaneous",
+    ),
 ]

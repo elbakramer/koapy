@@ -1,8 +1,10 @@
 from functools import wraps
 
+
 class CybosPlusError(Exception):
 
     pass
+
 
 class CybosPlusRequestError(CybosPlusError):
 
@@ -12,11 +14,11 @@ class CybosPlusRequestError(CybosPlusError):
     """
 
     ERROR_MESSAGE_BY_CODE = {
-        0: '정상요청',
-        1: '통신요청 실패',
-        2: '주문확인창에서 취소',
-        3: '그외의 내부 오류',
-        4: '주문요청 제한 개수 초과',
+        0: "정상요청",
+        1: "통신요청 실패",
+        2: "주문확인창에서 취소",
+        3: "그외의 내부 오류",
+        4: "주문요청 제한 개수 초과",
     }
 
     @classmethod
@@ -34,6 +36,7 @@ class CybosPlusRequestError(CybosPlusError):
         @wraps(func)
         def wrapper(*args, **kwargs):
             return cls.check_code_or_raise(func(*args, **kwargs))
+
         return wrapper
 
     @classmethod
@@ -58,7 +61,7 @@ class CybosPlusRequestError(CybosPlusError):
         return self._message
 
     def __repr__(self):
-        return '%s(%r, %r)' % (self.__class__.__name__, self._code, self._message)
+        return "%s(%r, %r)" % (self.__class__.__name__, self._code, self._message)
 
     @property
     def code(self):

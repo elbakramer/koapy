@@ -1,37 +1,40 @@
 import atexit
-import socket
 import ipaddress
-
+import socket
 from concurrent import futures
 
 import grpc
 
 from koapy.backend.kiwoom_open_api_plus.grpc import KiwoomOpenApiPlusService_pb2_grpc
-from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer import KiwoomOpenApiPlusServiceServicer
-
+from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer import (
+    KiwoomOpenApiPlusServiceServicer,
+)
 from koapy.config import config
+from koapy.utils.logging.Logging import Logging
 from koapy.utils.networking import get_free_localhost_port
 
-from koapy.utils.logging.Logging import Logging
 
 class KiwoomOpenApiPlusServiceServer(Logging):
-
     def __init__(self, control, host=None, port=None, max_workers=None):
         if host is None:
-            host = config.get_string('koapy.backend.kiwoom_open_api_plus.grpc.host', 'localhost')
+            host = config.get_string(
+                "koapy.backend.kiwoom_open_api_plus.grpc.host", "localhost"
+            )
         if port is None:
-            port = config.get('koapy.backend.kiwoom_open_api_plus.grpc.port')
+            port = config.get("koapy.backend.kiwoom_open_api_plus.grpc.port")
         if port == 0:
             port = get_free_localhost_port()
         if max_workers is None:
-            max_workers = config.get_int('koapy.backend.kiwoom_open_api_plus.grpc.server.max_workers', 8)
+            max_workers = config.get_int(
+                "koapy.backend.kiwoom_open_api_plus.grpc.server.max_workers", 8
+            )
 
         self._control = control
         self._host = host
         self._port = port
         self._max_workers = max_workers
 
-        self._address = self._host + ':' + str(self._port)
+        self._address = self._host + ":" + str(self._port)
         self._servicer = KiwoomOpenApiPlusServiceServicer(self._control)
         self._executor = futures.ThreadPoolExecutor(max_workers=self._max_workers)
 
@@ -55,10 +58,15 @@ class KiwoomOpenApiPlusServiceServer(Logging):
         self._server_started = False
         self._server_stopped = False
 
-        KiwoomOpenApiPlusService_pb2_grpc.add_KiwoomOpenApiPlusServiceServicer_to_server(self._servicer, self._server)
+        KiwoomOpenApiPlusService_pb2_grpc.add_KiwoomOpenApiPlusServiceServicer_to_server(
+            self._servicer, self._server
+        )
 
         if not ipaddress.ip_address(socket.gethostbyname(self._host)).is_private:
-            self.logger.warning('Adding insecure port %s to server, but the address is not private.', self._address)
+            self.logger.warning(
+                "Adding insecure port %s to server, but the address is not private.",
+                self._address,
+            )
 
         self._server.add_insecure_port(self._address)
 

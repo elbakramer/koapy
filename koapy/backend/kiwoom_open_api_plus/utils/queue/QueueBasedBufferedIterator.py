@@ -1,10 +1,12 @@
 import sys
 import threading
-
 from queue import Queue
 
-from koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator import BufferedQueueIterator
+from koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator import (
+    BufferedQueueIterator,
+)
 from koapy.utils.logging.Logging import Logging
+
 
 class QueueBasedBufferedIterator(BufferedQueueIterator, Logging):
 
@@ -31,8 +33,8 @@ class QueueBasedBufferedIterator(BufferedQueueIterator, Logging):
         try:
             for item in self._iterator:
                 self._queue.put(item)
-        except Exception: # pylint: disable=broad-except
-            self.logger.exception('Exception raised while consuming iterator')
+        except Exception:  # pylint: disable=broad-except
+            self.logger.exception("Exception raised while consuming iterator")
             self._exc_info = sys.exc_info()
 
     def next(self, block=True, timeout=None):

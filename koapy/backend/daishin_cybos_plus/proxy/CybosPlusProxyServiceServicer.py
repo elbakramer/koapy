@@ -1,16 +1,20 @@
-import threading
 import queue
+import threading
 
-import win32com.client
 import pythoncom
+import win32com.client
 
-from koapy.backend.daishin_cybos_plus.proxy import CybosPlusProxyService_pb2
-from koapy.backend.daishin_cybos_plus.proxy import CybosPlusProxyService_pb2_grpc
+from koapy.backend.daishin_cybos_plus.proxy import (
+    CybosPlusProxyService_pb2,
+    CybosPlusProxyService_pb2_grpc,
+)
+from koapy.backend.daishin_cybos_plus.proxy.CybosPlusMessageUtils import (
+    AssignPrimitive,
+    ExtractPrimitive,
+)
 
-from koapy.backend.daishin_cybos_plus.proxy.CybosPlusMessageUtils import AssignPrimitive, ExtractPrimitive
 
 class CybosPlusEvent:
-
     def __init__(self, iterator):
         self._iterator = iterator
         self._done = threading.Event()
@@ -25,8 +29,8 @@ class CybosPlusEvent:
     def wait_for_done(self):
         self._done.wait()
 
-class CybosPlusEventIterator:
 
+class CybosPlusEventIterator:
     def __init__(self, handler):
         self._handler = handler
         self._events = queue.Queue()
@@ -58,8 +62,8 @@ class CybosPlusEventIterator:
             raise StopIteration
         return event
 
-class CybosPlusEventHandler:
 
+class CybosPlusEventHandler:
     def __init__(self):
         self._lock = threading.RLock()
         self._iterators = []
@@ -73,7 +77,10 @@ class CybosPlusEventHandler:
     def __iter__(self):
         return CybosPlusEventIterator(self)
 
-class CybosPlusProxyServiceServicer(CybosPlusProxyService_pb2_grpc.CybosPlusProxyServiceServicer):
+
+class CybosPlusProxyServiceServicer(
+    CybosPlusProxyService_pb2_grpc.CybosPlusProxyServiceServicer
+):
 
     _lock = threading.RLock()
 
@@ -84,11 +91,13 @@ class CybosPlusProxyServiceServicer(CybosPlusProxyService_pb2_grpc.CybosPlusProx
         if prog not in self._dispatches:
             with self._lock:
                 if prog not in self._dispatches:
-                    pythoncom.CoInitialize() # pylint: disable=no-member
+                    pythoncom.CoInitialize()  # pylint: disable=no-member
                     dispatch = win32com.client.gencache.EnsureDispatch(prog)
                     self._dispatches[prog] = dispatch
-                    if False: # TODO: 이벤트 처리 관련해서 아직 개발하지 못함
-                        handler = win32com.client.WithEvents(dispatch, CybosPlusEventHandler)
+                    if False:  # TODO: 이벤트 처리 관련해서 아직 개발하지 못함
+                        handler = win32com.client.WithEvents(
+                            dispatch, CybosPlusEventHandler
+                        )
                         self._handlers[prog] = handler
         dispatch = self._dispatches[prog]
         return dispatch
@@ -104,11 +113,15 @@ class CybosPlusProxyServiceServicer(CybosPlusProxyService_pb2_grpc.CybosPlusProx
         prog = request.prog
         dispatch = self._EnsureDispatch(prog)
         properties = [p for p in dispatch._prop_map_get_.keys()]
-        methods = [m for m in dir(dispatch) if not m.startswith('_') and m not in ['CLSID', 'coclass_clsid']]
+        methods = [
+            m
+            for m in dir(dispatch)
+            if not m.startswith("_") and m not in ["CLSID", "coclass_clsid"]
+        ]
         response = CybosPlusProxyService_pb2.DispatchResponse()
         response.prog = prog
-        response.properties.extend(properties) # pylint: disable=no-member
-        response.methods.extend(methods) # pylint: disable=no-member
+        response.properties.extend(properties)  # pylint: disable=no-member
+        response.methods.extend(methods)  # pylint: disable=no-member
         return response
 
     def Property(self, request, context):
@@ -117,7 +130,7 @@ class CybosPlusProxyServiceServicer(CybosPlusProxyService_pb2_grpc.CybosPlusProx
         name = request.name
         value = getattr(dispatch, name)
         response = CybosPlusProxyService_pb2.PropertyResponse()
-        AssignPrimitive(response.value, value) # pylint: disable=no-member
+        AssignPrimitive(response.value, value)  # pylint: disable=no-member
         return response
 
     def Method(self, request, context):
@@ -128,22 +141,24 @@ class CybosPlusProxyServiceServicer(CybosPlusProxyService_pb2_grpc.CybosPlusProx
         arguments = [ExtractPrimitive(arg.value) for arg in request.arguments]
         return_value = method(*arguments)
         response = CybosPlusProxyService_pb2.MethodResponse()
-        AssignPrimitive(response.return_value, return_value) # pylint: disable=no-member
+        AssignPrimitive(
+            response.return_value, return_value
+        )  # pylint: disable=no-member
         return response
 
     def Event(self, request_iterator, context):
         start_request = next(request_iterator)
-        assert start_request.HasField('start')
+        assert start_request.HasField("start")
         prog = start_request.start.prog
         handler = self._GetHandler(prog)
         response = CybosPlusProxyService_pb2.EventResponse()
-        response.started # pylint: disable=no-member,pointless-statement
+        response.started  # pylint: disable=no-member,pointless-statement
         yield response
         for event in handler:
             response = CybosPlusProxyService_pb2.EventResponse()
-            response.fired # pylint: disable=no-member,pointless-statement
+            response.fired  # pylint: disable=no-member,pointless-statement
             yield response
             done_request = next(request_iterator)
             event.done()
-            if done_request.HasField('stop'):
+            if done_request.HasField("stop"):
                 break

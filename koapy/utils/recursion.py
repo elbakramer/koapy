@@ -30,7 +30,7 @@ For more information, please refer to <http://unlicense.org/>
 
 # https://github.com/andrewp-as-is/recursion-detect.py
 
-__all__ = ['depth']
+__all__ = ["depth"]
 
 
 import inspect

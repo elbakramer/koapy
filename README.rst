@@ -71,6 +71,9 @@ KOAPY
             :alt: Gitter Chat
     .. .. image:: https://img.shields.io/gitter/room/elbakramer/koapy.svg
 
+    .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+            :target: https://github.com/psf/black
+            :alt: Code Style: Black
 
 Kiwoom Open Api Python
 

@@ -5,4 +5,4 @@ if PYQT5:
 elif PYSIDE2:
     from PySide2.QtAxContainer import *
 else:
-    raise PythonQtError('No Qt bindings could be found')
+    raise PythonQtError("No Qt bindings could be found")
