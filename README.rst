@@ -27,9 +27,9 @@ KOAPY
 .. container::
 
     .. image:: https://img.shields.io/travis/elbakramer/koapy.svg
-            :target: https://travis-ci.org/elbakramer/koapy
+            :target: https://travis-ci.com/elbakramer/koapy
             :alt: Travis CI Build Status
-    .. .. image:: https://travis-ci.org/elbakramer/koapy.svg?branch=master
+    .. .. image:: https://travis-ci.com/elbakramer/koapy.svg?branch=master
 
     .. image:: https://img.shields.io/readthedocs/koapy/latest.svg
             :target: https://koapy.readthedocs.io/en/latest/?badge=latest
