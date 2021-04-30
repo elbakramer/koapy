@@ -321,7 +321,7 @@ html_theme_options = {
     "github_banner": "true",
     "github_button": "true",
     "github_type": "star",
-    "donate_url": "https://www.patreon.com/yunseong",
+    "donate_url": "https://toon.at/donate/637521884081401532",
 }
 
 if not on_rtd:
