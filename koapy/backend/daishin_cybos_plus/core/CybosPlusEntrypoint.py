@@ -3,6 +3,7 @@ import threading
 
 import pywintypes
 import win32com.client
+
 from requests.structures import CaseInsensitiveDict
 
 from koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin import (
@@ -51,11 +52,13 @@ class CybosPlusDispatch:
             return self._error_checking_request_methods[name]
         else:
             raise AttributeError(
-                "'%s' object has no attribute '%s'" % (type(self), name)
+                "'{}' object has no attribute '{}'".format(type(self), name)
             )
 
     def __repr__(self):
-        return "%s(%r, %r)" % (self.__class__.__name__, self._entrypoint, self._progid)
+        return "{}({!r}, {!r})".format(
+            self.__class__.__name__, self._entrypoint, self._progid
+        )
 
 
 class CybosPlusIncompleteProgID:
@@ -70,18 +73,20 @@ class CybosPlusIncompleteProgID:
         if name not in self._cache:
             with self._lock:
                 if name not in self._cache:
-                    progid = "%s.%s" % (self._prefix, name)
+                    progid = "{}.{}".format(self._prefix, name)
                     try:
                         dispatch = CybosPlusDispatch(self._entrypoint, progid)
                     except pywintypes.com_error as e:
                         raise AttributeError(
-                            "'%s' object has no attribute '%s'" % (type(self), name)
+                            "'{}' object has no attribute '{}'".format(type(self), name)
                         ) from e
                     self._cache[name] = dispatch
         return self._cache[name]
 
     def __repr__(self):
-        return "%s(%r, %r)" % (self.__class__.__name__, self._entrypoint, self._prefix)
+        return "{}({!r}, {!r})".format(
+            self.__class__.__name__, self._entrypoint, self._prefix
+        )
 
 
 class CybosPlusEntrypoint(CybosPlusEntrypointMixin):
@@ -113,7 +118,7 @@ class CybosPlusEntrypoint(CybosPlusEntrypointMixin):
     def __getattr__(self, name):
         if name not in self._attribute_mapping:
             raise AttributeError(
-                "'%s' object has no attribute '%s'" % (type(self), name)
+                "'{}' object has no attribute '{}'".format(type(self), name)
             )
         name = self._attribute_mapping[name]
         if name not in self._cache:

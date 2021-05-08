@@ -2,7 +2,6 @@
 KOAPY
 =====
 
-
 .. container::
 
     .. image:: https://img.shields.io/pypi/v/koapy.svg
@@ -23,18 +22,17 @@ KOAPY
             :target: https://pypi.python.org/pypi/koapy/
             :alt: PyPI Monthly Donwloads
 
-
 .. container::
 
-    .. image:: https://img.shields.io/travis/elbakramer/koapy.svg
-            :target: https://travis-ci.com/elbakramer/koapy
-            :alt: Travis CI Build Status
-    .. .. image:: https://travis-ci.com/elbakramer/koapy.svg?branch=master
+    .. image:: https://img.shields.io/github/workflow/status/elbakramer/koapy/CI/master
+            :target: https://github.com/elbakramer/koapy/actions/workflows/ci.yml
+            :alt: CI Build Status
+    .. .. image:: https://github.com/elbakramer/koapy/actions/workflows/ci.yml/badge.svg?branch=master
 
-    .. image:: https://img.shields.io/readthedocs/koapy/latest.svg
-            :target: https://koapy.readthedocs.io/en/latest/?badge=latest
-            :alt: ReadTheDocs Documentation Build Status
-    .. .. image:: https://readthedocs.org/projects/koapy/badge/?version=latest
+    .. image:: https://img.shields.io/github/workflow/status/elbakramer/koapy/Documentation/master?label=docs
+            :target: https://elbakramer.github.io/koapy/
+            :alt: Documentation Build Status
+    .. .. image:: https://github.com/elbakramer/koapy/actions/workflows/documentation.yml/badge.svg?branch=master
 
     .. image:: https://img.shields.io/codecov/c/github/elbakramer/koapy.svg
             :target: https://codecov.io/gh/elbakramer/koapy
@@ -48,10 +46,19 @@ KOAPY
 
     .. badges from below are commendted out
 
+    .. .. image:: https://img.shields.io/travis/elbakramer/koapy.svg
+            :target: https://travis-ci.com/elbakramer/koapy
+            :alt: Travis CI Build Status
+    .. .. image:: https://travis-ci.com/elbakramer/koapy.svg?branch=master
+
+    .. .. image:: https://img.shields.io/readthedocs/koapy/latest.svg
+            :target: https://koapy.readthedocs.io/en/latest/?badge=latest
+            :alt: ReadTheDocs Documentation Build Status
+    .. .. image:: https://readthedocs.org/projects/koapy/badge/?version=latest
+
     .. .. image:: https://pyup.io/repos/github/elbakramer/koapy/shield.svg
             :target: https://pyup.io/repos/github/elbakramer/koapy/
             :alt: PyUp Updates
-
 
 .. container::
 
@@ -62,7 +69,6 @@ KOAPY
     .. image:: https://app.fossa.com/api/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy.svg?type=shield
             :target: https://app.fossa.com/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy?ref=badge_shield
             :alt: FOSSA Status
-
 
 .. container::
 
@@ -75,11 +81,15 @@ KOAPY
             :target: https://github.com/psf/black
             :alt: Code Style: Black
 
-Kiwoom Open Api Python
 
+Kiwoom Open Api Plus Python
 
-* Free software: MIT OR Apache-2.0 OR GPL-3.0-or-later
+* Free software: `MIT`_ OR `Apache-2.0`_ OR `GPL-3.0-or-later`_
 * Documentation: https://koapy.readthedocs.io.
+
+.. _`MIT`: https://github.com/elbakramer/koapy/blob/master/LICENSE.MIT
+.. _`Apache-2.0`: https://github.com/elbakramer/koapy/blob/master/LICENSE.APACHE-2.0
+.. _`GPL-3.0-or-later`: https://github.com/elbakramer/koapy/blob/master/LICENSE.GPL-3.0-OR-LATER
 
 
 Features
@@ -372,12 +382,31 @@ Installation
 별개로 backtrader_ 와 관련해서는 Licensing_ 옵션과 관련해서 주의가 필요합니다.
 구체적인 내용은 좀 더 아래쪽에 있는 Licensing_ 항목의 내용을 참고하세요.
 
+만약에 개발환경을 구축하고자 하는 경우에는 아래처럼 |poetry|_ 를 활용해 구성합니다.
+
+.. code-block:: console
+
+    $ # Install poetry using pipx
+    $ python -m pip install pipx
+    $ python -m pipx ensurepath
+    $ pipx install poetry
+
+    $ # Clone repository
+    $ git clone https://github.com/elbakramer/koapy.git
+    $ cd koapy/
+
+    $ # Install dependencies and hooks
+    $ poetry install
+    $ poetry run pre-commit install
+
 이외에 자세한 설치방법과 관련해서는 Installation_ 문서를 참고하세요.
 
 .. _PyPI: https://pypi.org/project/koapy/
 .. _backtrader: https://github.com/mementum/backtrader
 .. |koapy.backtrader| replace:: ``koapy.backtrader``
 .. _`koapy.backtrader`: https://github.com/elbakramer/koapy/tree/master/koapy/backtrader
+.. |poetry| replace:: ``poetry``
+.. _`poetry`: https://python-poetry.org/
 .. _Installation: https://koapy.readthedocs.io/en/latest/installation.html
 
 
@@ -398,8 +427,9 @@ Usage
 
 .. _Usage: https://koapy.readthedocs.io/en/latest/usage.html
 .. _examples: https://github.com/elbakramer/koapy/tree/master/koapy/examples
-.. _notebooks: https://github.com/elbakramer/koapy/tree/master/notebooks
+.. _notebooks: https://github.com/elbakramer/koapy/tree/master/docs/notebooks
 .. _nbviewer: https://nbviewer.jupyter.org/
+
 
 Licensing
 ---------
@@ -477,7 +507,7 @@ Reference
 Credits
 -------
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+This package was created with Cookiecutter_ and the `elbakramer/cookiecutter-poetry`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _`elbakramer/cookiecutter-poetry`: https://github.com/elbakramer/cookiecutter-poetry

@@ -5,7 +5,9 @@ Usage
 Python
 ------
 
-To use KOAPY in a project::
+To use KOAPY in a project:
+
+.. code-block:: python
 
     import koapy
 
@@ -37,12 +39,12 @@ Python (More)
 
 KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다음과 같을 때:
 
-.. literalinclude:: ../koapy/examples/00_roll_your_own_pyside2.py
+.. literalinclude:: ../../koapy/examples/00_roll_your_own_pyside2.py
     :language: python
 
 이것을 KOAPY 에서는 아래처럼 제공하고 있습니다:
 
-.. literalinclude:: ../koapy/examples/01_roll_your_own_koapy.py
+.. literalinclude:: ../../koapy/examples/01_roll_your_own_koapy.py
     :language: python
 
 전체적인 구조에서 큰 차이는 없고, 차이점이라면 함수 호출시 |dynamicCall|_ 함수를 사용하지 않고
@@ -54,7 +56,7 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 예시를 좀 더 복잡하게 해서, 로그인 후 특정 종목의 현재가를 가져오는 시나리오를 가정했을때,
 만약 이것을 KOAPY 없이 직접 짜는 경우에는 다음처럼 됩니다:
 
-.. literalinclude:: ../koapy/examples/02_roll_your_own_event_pyside2.py
+.. literalinclude:: ../../koapy/examples/02_roll_your_own_event_pyside2.py
     :language: python
 
 단순 함수콜에 비해서 추가된 점들을 짚어보면,
@@ -81,7 +83,7 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 .. |disconnect| replace:: ``disconnect``
 .. _disconnect: https://doc.qt.io/qt-5/qobject.html#disconnect
 
-.. literalinclude:: ../koapy/examples/07_transaction_event.py
+.. literalinclude:: ../../koapy/examples/07_transaction_event.py
     :language: python
 
 :py:class:`~.koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint.KiwoomOpenApiPlusEntrypoint` 객체를 통해 사용 가능한 메서드 목록은 기본적으로 OpenAPI 에서 제공하는 모든 메서드들을 기반으로 합니다.

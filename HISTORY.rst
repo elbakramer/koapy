@@ -2,12 +2,7 @@
 History
 =======
 
-0.1.12 (2020-10-11)
--------------------
-
-* Latest release.
-
-0.1.2 (2020-09-19)
+0.3.5 (2021-04-28)
 ------------------
 
-* First release on PyPI.
+* Latest release on PyPI.

@@ -3,14 +3,15 @@ import datetime
 import threading
 import time
 
+import backtrader as bt
 import numpy as np
 import pandas as pd
-from exchange_calendars import get_calendar
 
-import backtrader as bt
 from backtrader import TimeFrame
 from backtrader.metabase import MetaParams
 from backtrader.utils.py3 import queue
+from exchange_calendars import get_calendar
+
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
     KiwoomOpenApiPlusEntrypoint,
 )
@@ -184,7 +185,7 @@ class API:
         return response
 
     def create_order(self, account, **kwargs):
-        request_name = "create_order(%s, %s)" % (account, kwargs)
+        request_name = "create_order({}, {})".format(account, kwargs)
         screen_no = ""
         account_no = account
         order_type = {
@@ -218,7 +219,9 @@ class API:
         return result
 
     def close_order(self, account, oid, size, dataname):
-        request_name = "close_order(%s, %s, %s, %s)" % (account, oid, size, dataname)
+        request_name = "close_order({}, {}, {}, {})".format(
+            account, oid, size, dataname
+        )
         screen_no = ""
         account_no = account
         order_type = 3 if size >= 0 else 4

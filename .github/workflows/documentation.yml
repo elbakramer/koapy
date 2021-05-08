@@ -1,0 +1,54 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - '**.rst'
+    - 'docs/*'
+  workflow_dispatch:
+    inputs:
+      force_orphan:
+        description: Force orphan
+        required: false
+        default: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install poetry
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipx
+        pipx install poetry
+    - name: Get poetry cache dir
+      id: poetry-cache
+      run: |
+        echo "::set-output name=dir::$(poetry config cache-dir)"
+    - name: Restore cache
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.poetry-cache.outputs.dir }}
+        key: ${{ runner.os }}-poetry-py3.8-${{ hashFiles('poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-poetry-py3.8-
+    - name: Install dependencies
+      run: |
+        poetry install
+    - name: Build documentation
+      run: |
+        poetry run make -C docs html
+    - name: Publish documentaion to Github Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/build/html/
+        force_orphan: ${{ github.event.inputs.force_orphan }}
+        commit_message: ${{ github.event.head_commit.message }}

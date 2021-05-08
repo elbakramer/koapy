@@ -1,10 +1,10 @@
 import datetime
 
 import pytz
-from pandas import DataFrame, DatetimeIndex, Timestamp
 
 from backtrader.tradingcal import TradingCalendarBase
 from backtrader.utils.py3 import string_types
+from pandas import DataFrame, DatetimeIndex, Timestamp
 
 
 class ExchangeCalendarsTradingCalendar(TradingCalendarBase):

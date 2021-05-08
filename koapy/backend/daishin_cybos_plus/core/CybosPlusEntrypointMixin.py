@@ -7,6 +7,7 @@ import subprocess
 
 import pandas as pd
 import pytz
+
 from exchange_calendars import get_calendar
 
 from koapy.utils.itertools import chunk

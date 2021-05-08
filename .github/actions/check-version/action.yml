@@ -1,0 +1,76 @@
+name: Check version
+description: Chceck version status
+inputs:
+  vcs:
+    description: vcs
+    required: true
+    default: any
+  metadata:
+    description: metadata
+    required: false
+  no_metadata:
+    description: no metadata
+    required: false
+  dirty:
+    description: dirty
+    required: false
+  tagged_metadata:
+    description: tagged metadata
+    required: false
+  pattern:
+    description: pattern
+    required: false
+  format:
+    description: format
+    required: false
+  style:
+    description: style
+    required: false
+  latest_tag:
+    description: latest tag
+    required: false
+  bump:
+    description: bump
+    required: false
+  tag_dir:
+    description: tag dir
+    required: false
+  is_postrelease:
+    description: is postrelease
+    required: false
+outputs:
+  version:
+    description: version
+  is_finalrelease:
+    description: is final release
+  public:
+    description: public
+  base_version:
+    description: base version
+  epoch:
+    description: epoch
+  release:
+    description: release
+  major:
+    description: major
+  minor:
+    description: minor
+  micro:
+    description: micro
+  local:
+    description: local
+  pre:
+    description: pre
+  is_prerelease:
+    description: is_prerelease
+  dev:
+    description: dev
+  is_devrelease:
+    description: is_devrelease
+  post:
+    description: post
+  is_postrelease:
+    description: is_postrelease
+runs:
+  using: docker
+  image: Dockerfile

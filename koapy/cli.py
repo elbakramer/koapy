@@ -6,6 +6,7 @@ import os
 import click
 
 import koapy
+
 from koapy.utils.logging.Logging import Logging
 
 logger = Logging.get_logger("koapy.cli")
@@ -437,7 +438,7 @@ def daily(
     set_verbosity(verbose)
 
     if output is None:
-        output = "%s.%s" % (code, format)
+        output = "{}.{}".format(code, format)
 
     from koapy import KiwoomOpenApiPlusEntrypoint
 
@@ -528,7 +529,7 @@ def minute(
         fail_with_usage("Interval is not set.")
 
     if output is None:
-        output = "%s.%s" % (code, format)
+        output = "{}.{}".format(code, format)
 
     from koapy import KiwoomOpenApiPlusEntrypoint
 
@@ -583,7 +584,7 @@ def trinfo(trcodes):
     for trcode in get_codes():
         trinfo = KiwoomOpenApiPlusTrInfo.get_trinfo_by_code(trcode)
         if trinfo is not None:
-            click.echo("[%s] : [%s]" % (trinfo.tr_code.upper(), trinfo.name))
+            click.echo("[{}] : [{}]".format(trinfo.tr_code.upper(), trinfo.name))
             click.echo("  [INPUT]")
             for input in trinfo.inputs:
                 click.echo("    %s" % input.name)
@@ -644,7 +645,7 @@ def realinfo(realtypes):
                 for fid in fids
             ]
             for fid, name in zip(fids, names):
-                click.echo("  [%s] = %s" % (fid, name))
+                click.echo("  [{}] = {}".format(fid, name))
         else:
             click.echo("Given realtype is invalid")
 
@@ -1011,11 +1012,9 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
             KiwoomOpenApiPlusRealType.Fid.get_name_by_fid(fid, str(fid)) for fid in fids
         ]
         values = message.single_data.values
-        dic = dict(
-            (name, value)
-            for fid, name, value in zip(fids, names, values)
-            if name != fid
-        )
+        dic = {
+            name: value for fid, name, value in zip(fids, names, values) if name != fid
+        }
         series = pd.Series(dic)
         return series
 
@@ -1029,7 +1028,7 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
         def print_message(message):
             code = message.arguments[0].string_value
             name = message.arguments[1].string_value
-            click.echo("[%s] [%s]" % (code, name), file=output)
+            click.echo("[{}] [{}]".format(code, name), file=output)
             click.echo("[%s]" % datetime.datetime.now(), file=output)
             click.echo(parse_message(message).to_markdown(), file=output)
 

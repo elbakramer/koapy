@@ -1,10 +1,10 @@
 import datetime
 
 import pandas as pd
-from sqlalchemy import MetaData, Table, create_engine, select
 
 from backtrader import date2num
 from backtrader.feed import DataBase
+from sqlalchemy import MetaData, Table, create_engine, select
 
 
 class SQLAlchemyData(DataBase):

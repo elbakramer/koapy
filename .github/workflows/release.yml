@@ -1,0 +1,96 @@
+name: Publish Python distribution to PyPI
+
+on:
+  release:
+    types:
+    - published
+  workflow_dispatch:
+    inputs:
+      new_version:
+        description: New version number
+        required: true
+      skip_test_pypi_publish:
+        desctiption: Skip publish to test PyPI
+        required: false
+        default: false
+      skip_pypi_publish:
+        desctiption: Skip publish to PyPI
+        required: false
+        default: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.release.tag_name }}
+        fetch-depth: 0
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install poetry
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipx
+        pipx install poetry
+    - name: Get poetry cache dir
+      id: poetry-cache
+      run: |
+        echo "::set-output name=dir::$(poetry config cache-dir)"
+    - name: Restore cache
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.poetry-cache.outputs.dir }}
+        key: ${{ runner.os }}-poetry-py3.8-${{ hashFiles('poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-poetry-py3.8-
+    - name: Install dependencies
+      run: |
+        poetry install
+    - name: Check version
+      uses: actions/github-script@v4
+      id: check-version
+      with:
+        script: |
+          const version = (() => {
+            if (context.payload.release) {
+              return context.payload.release.tag_name.slice(1)
+            } else if (context.payload.inputs) {
+              return context.payload.inputs.new_version
+            } else {
+              throw 'Cannot check version to publish'
+            }
+          })()
+          core.setOutput('version', version)
+    - name: Bump version
+      run: |
+        poetry run bump2version --no-commit --no-tag --allow-dirty --new-version=0 patch
+        poetry run bump2version --no-commit --no-tag --allow-dirty --new-version=${{ steps.check-version.outputs.version }} patch
+    - name: Build
+      run: |
+        poetry build
+    - name: Publish distribution to Test PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.TEST_PYPI_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
+        skip_existing: true
+      if: ${{ github.event.inputs.skip_test_pypi_publish != 'true' }}
+    - name: Install from test and test running
+      run: |
+        pip install --extra-index-url https://test.pypi.org/simple koapy
+        python -c 'import koapy;print(koapy.__version__)'
+        pip uninstall -y koapy
+      if: ${{ github.event.inputs.skip_test_pypi_publish != 'true' }}
+    - name: Publish distribution to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_TOKEN }}
+      if: ${{ github.event.inputs.skip_pypi_publish != 'true' }}
+    - name: Install and test running
+      run: |
+        pip install koapy
+        python -c 'import koapy;print(koapy.__version__)'
+      if: ${{ github.event.inputs.skip_pypi_publish != 'true' }}

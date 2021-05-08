@@ -2,6 +2,7 @@ import hashlib
 
 import pandas as pd
 import pytz
+
 from sqlalchemy import select
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.schema import MetaData, Table

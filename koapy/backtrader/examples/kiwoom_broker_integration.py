@@ -2,6 +2,7 @@ import datetime
 import logging
 
 import backtrader as bt
+
 from koapy.backtrader.KiwoomOpenApiPlusStore import KiwoomOpenApiPlusStore
 
 logging.basicConfig(
@@ -35,7 +36,7 @@ class TestStrategy(bt.Strategy):
                 dt = self.datas[0].datetime.datetime(0, naive=False)
             except IndexError:
                 dt = datetime.datetime.now()
-            fmt = "%s, %s" % (dt, fmt)
+            fmt = "{}, {}".format(dt, fmt)
             logging.info(fmt, *args, **kwargs)
 
     def notify_order(self, order):

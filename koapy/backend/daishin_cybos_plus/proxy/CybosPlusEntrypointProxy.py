@@ -1,6 +1,7 @@
 import threading
 
 import grpc
+
 from requests.structures import CaseInsensitiveDict
 
 from koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin import (
@@ -109,7 +110,7 @@ class CybosPlusIncompleteProgIDProxy:
         if name not in self._cache:
             with self._lock:
                 if name not in self._cache:
-                    progid = "%s.%s" % (self._prefix, name)
+                    progid = "{}.{}".format(self._prefix, name)
                     self._cache[name] = CybosPlusDispatchProxy(self._proxy, progid)
         return self._cache[name]
 
@@ -149,7 +150,7 @@ class CybosPlusEntrypointProxy(CybosPlusEntrypointMixin):
     def __getattr__(self, name):
         if name not in self._attribute_mapping:
             raise AttributeError(
-                "'%s' object has no attribute '%s'" % (type(self), name)
+                "'{}' object has no attribute '{}'".format(type(self), name)
             )
         name = self._attribute_mapping[name]
         if name not in self._cache:

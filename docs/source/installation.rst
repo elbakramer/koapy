@@ -1,5 +1,3 @@
-.. highlight:: shell
-
 ============
 Installation
 ============
@@ -52,8 +50,7 @@ Once you have a copy of the source, you can install it with:
 
 .. code-block:: console
 
-    $ python setup.py install
-
+    $ pip install .
 
 .. _Github repo: https://github.com/elbakramer/koapy
 .. _tarball: https://github.com/elbakramer/koapy/tarball/master
@@ -176,7 +173,7 @@ KOAPY
 
 .. _pip: https://pip.pypa.io
 
-맨 위의 :ref:`installation:Stable release` 의 내용과 동일한 내용입니다.
+맨 위의 :ref:`Stable release` 의 내용과 동일한 내용입니다.
 
 만약에 backtrader_ 관련 기능들이 구현된 ``koapy.backtrader`` 모듈 하위의 기능들을 사용하고자 하는 경우,
 관련 의존성을 포함해 설치하기 위해서는 아래 명령을 실행합니다:

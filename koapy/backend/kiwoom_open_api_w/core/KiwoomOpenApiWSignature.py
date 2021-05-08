@@ -2,6 +2,7 @@ from collections import OrderedDict
 from inspect import Parameter, Signature
 
 import pythoncom
+
 from win32com.client import genpy, selecttlb
 
 from koapy.compat.pyside2.QtCore import SIGNAL
@@ -74,7 +75,7 @@ class KiwoomOpenApiWSignature(Signature):
         parameters = self.parameters
         parameters = parameters.values()
         parameters = [self._pythontype_to_qttype(p.annotation) for p in parameters]
-        prototype = "%s(%s)" % (name, ", ".join(parameters))
+        prototype = "{}({})".format(name, ", ".join(parameters))
         return prototype
 
     def to_pyside2_event_signal(self):

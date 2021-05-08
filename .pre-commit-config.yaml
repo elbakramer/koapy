@@ -1,17 +1,59 @@
+# See https://pre-commit.com/ for usage and config
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v3.4.0
   hooks:
-    - id: check-yaml
-    - id: end-of-file-fixer
-    - id: trailing-whitespace
-- repo: https://github.com/pycqa/isort
-  rev: 5.8.0
+  - id: check-yaml
+  - id: check-toml
+- repo: local
   hooks:
-    - id: isort
-      name: isort (python)
-- repo: https://github.com/psf/black
-  rev: 21.4b2
-  hooks:
-    - id: black
-      language_version: python
+  - id: pyupgrade
+    name: pyupgrade
+    stages: [commit]
+    language: system
+    entry: poetry run pyupgrade
+    types: [python]
+  - id: isort
+    name: isort
+    stages: [commit]
+    language: system
+    entry: poetry run isort
+    types_or: [cython, pyi, python]
+    args: [--filter-files]
+    require_serial: true
+  - id: black
+    name: black
+    stages: [commit]
+    language: system
+    entry: poetry run black
+    types_or: [python, pyi]
+    require_serial: true
+  - id: flake8
+    name: flake8
+    stages: [manual]
+    language: system
+    entry: poetry run flake8
+    types: [python]
+    require_serial: true
+  - id: pylint
+    name: pylint
+    stages: [manual]
+    language: system
+    entry: poetry run pylint
+    types: [python]
+    args: [--errors-only]
+    require_serial: true
+  - id: mypy
+    name: mypy
+    stages: [manual]
+    language: system
+    entry: poetry run mypy
+    types: [python]
+    require_serial: true
+  - id: pytest
+    name: pytest
+    stages: [push]
+    language: system
+    entry: poetry run pytest --cov
+    types: [python]
+    pass_filenames: false

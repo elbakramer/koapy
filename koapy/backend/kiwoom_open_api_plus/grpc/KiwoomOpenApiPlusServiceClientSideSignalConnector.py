@@ -1,5 +1,6 @@
 import atexit
 import threading
+
 from concurrent import futures
 
 from koapy.backend.kiwoom_open_api_plus.grpc import KiwoomOpenApiPlusService_pb2

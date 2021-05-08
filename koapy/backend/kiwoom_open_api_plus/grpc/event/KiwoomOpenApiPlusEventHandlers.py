@@ -5,6 +5,7 @@ import re
 import threading
 
 import grpc
+
 from google.protobuf.json_format import MessageToDict
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import (

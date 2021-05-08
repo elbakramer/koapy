@@ -2,6 +2,7 @@ import datetime
 import threading
 
 import rx
+
 from exchange_calendars import get_calendar
 from rx import operators as ops
 from rx.core.typing import Observer

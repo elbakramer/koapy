@@ -1,6 +1,7 @@
 import json
 
 import requests
+
 from discord import RequestsWebhookAdapter, Webhook
 
 from koapy.config import config
