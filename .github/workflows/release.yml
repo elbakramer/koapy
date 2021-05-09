@@ -43,9 +43,9 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ${{ steps.poetry-cache.outputs.dir }}
-        key: ${{ runner.os }}-poetry-py3.8-${{ hashFiles('poetry.lock') }}
+        key: ${{ runner.os }}-poetry-py3.8-x64-${{ hashFiles('poetry.lock') }}
         restore-keys: |
-          ${{ runner.os }}-poetry-py3.8-
+          ${{ runner.os }}-poetry-py3.8-x64-
     - name: Install dependencies
       run: |
         poetry install
