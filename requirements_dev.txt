@@ -39,7 +39,7 @@ greenlet==1.1.0; python_version >= "3" and python_full_version < "3.0.0" or pyth
 grpcio-tools==1.37.1
 grpcio==1.37.1
 identify==2.2.4; python_full_version >= "3.6.1"
-idna==2.10; python_version >= "3.6" and python_full_version >= "3.5.3"
+idna==3.1; python_version >= "3.6" and python_full_version >= "3.5.3"
 imagesize==1.2.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
 importlib-metadata==4.0.1; python_full_version >= "3.6.1" and python_version < "3.8" and python_version >= "3.6" and (python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.8" or python_full_version >= "3.4.0" and python_version >= "3.6" and python_version < "3.8") and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6")
 iniconfig==1.1.1; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
