@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../_static/jquery.js"></script>
+    <script src="../../../../../../_static/underscore.js"></script>
+    <script src="../../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+    <link rel="next" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceMessageUtils" href="../KiwoomOpenApiPlusServiceMessageUtils/index.html" />
+    <link rel="prev" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideSignalConnector" href="../KiwoomOpenApiPlusServiceClientSideSignalConnector/index.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../../index.html">API Reference</a><ul>
+  <li><a href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend</span></code></a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc</span></code></a><ul>
+      <li>Previous: <a href="../KiwoomOpenApiPlusServiceClientSideSignalConnector/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideSignalConnector</span></code></a></li>
+      <li>Next: <a href="../KiwoomOpenApiPlusServiceMessageUtils/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceMessageUtils</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper">
+<span id="koapy-backend-kiwoom-open-api-plus-grpc-kiwoomopenapiplusserviceclientstubwrapper"></span><h1><a class="reference internal" href="#module-koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper</span></code></a><a class="headerlink" href="#module-koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusServiceClientStubCoreWrapper</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusServiceClientStubWrapper</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiPlusServiceClientStubCoreWrapper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stub</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin</span></code></a></p>
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.__getattr__">
+<code class="sig-name descname"><span class="pre">__getattr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.__getattr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.__getattr__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.Call">
+<code class="sig-name descname"><span class="pre">Call</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.Call"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.Call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.LoginCall">
+<code class="sig-name descname"><span class="pre">LoginCall</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credential</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.LoginCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.LoginCall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.TransactionCall">
+<code class="sig-name descname"><span class="pre">TransactionCall</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trcode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_condition</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.TransactionCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.TransactionCall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.OrderCall">
+<code class="sig-name descname"><span class="pre">OrderCall</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">original_order_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.OrderCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.OrderCall" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt>[거래구분]</dt><dd><p>모의투자에서는 지정가 주문과 시장가 주문만 가능합니다.</p>
+<p>00 : 지정가
+03 : 시장가
+05 : 조건부지정가
+06 : 최유리지정가
+07 : 최우선지정가
+10 : 지정가IOC
+13 : 시장가IOC
+16 : 최유리IOC
+20 : 지정가FOK
+23 : 시장가FOK
+26 : 최유리FOK
+61 : 장전시간외종가
+62 : 시간외단일가매매
+81 : 장후시간외종가</p>
+</dd>
+<dt>[주문유형]</dt><dd><p>1:신규매수, 2:신규매도 3:매수취소, 4:매도취소, 5:매수정정, 6:매도정정</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.RealCall">
+<code class="sig-name descname"><span class="pre">RealCall</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">realtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_fids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">readable_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast_parse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.RealCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.RealCall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.LoadConditionCall">
+<code class="sig-name descname"><span class="pre">LoadConditionCall</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.LoadConditionCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.LoadConditionCall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.ConditionCall">
+<code class="sig-name descname"><span class="pre">ConditionCall</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_future_option</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.ConditionCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.ConditionCall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.SetLogLevel">
+<code class="sig-name descname"><span class="pre">SetLogLevel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.SetLogLevel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.SetLogLevel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._EnsureConnectedUsingSignalConnector">
+<code class="sig-name descname"><span class="pre">_EnsureConnectedUsingSignalConnector</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper._EnsureConnectedUsingSignalConnector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._EnsureConnectedUsingSignalConnector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.Connect">
+<code class="sig-name descname"><span class="pre">Connect</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credential</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.Connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.Connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.EnsureConnected">
+<code class="sig-name descname"><span class="pre">EnsureConnected</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credential</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.EnsureConnected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.EnsureConnected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._LoadConditionUsingCall">
+<code class="sig-name descname"><span class="pre">_LoadConditionUsingCall</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper._LoadConditionUsingCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._LoadConditionUsingCall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.LoadCondition">
+<code class="sig-name descname"><span class="pre">LoadCondition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.LoadCondition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.LoadCondition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._EnsureConditionLoadedUsingCall">
+<code class="sig-name descname"><span class="pre">_EnsureConditionLoadedUsingCall</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper._EnsureConditionLoadedUsingCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._EnsureConditionLoadedUsingCall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.EnsureConditionLoaded">
+<code class="sig-name descname"><span class="pre">EnsureConditionLoaded</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.EnsureConditionLoaded"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.EnsureConditionLoaded" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._RateLimitedCommRqDataUsingCall">
+<code class="sig-name descname"><span class="pre">_RateLimitedCommRqDataUsingCall</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trcode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prevnext</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper._RateLimitedCommRqDataUsingCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._RateLimitedCommRqDataUsingCall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.RateLimitedCommRqData">
+<code class="sig-name descname"><span class="pre">RateLimitedCommRqData</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trcode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prevnext</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.RateLimitedCommRqData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.RateLimitedCommRqData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._RateLimitedSendConditionUsingCall">
+<code class="sig-name descname"><span class="pre">_RateLimitedSendConditionUsingCall</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper._RateLimitedSendConditionUsingCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._RateLimitedSendConditionUsingCall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.RateLimitedSendCondition">
+<code class="sig-name descname"><span class="pre">RateLimitedSendCondition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubCoreWrapper.RateLimitedSendCondition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.RateLimitedSendCondition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiPlusServiceClientStubWrapper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stub</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusServiceClientStubCoreWrapper</span></code></a>, <a class="reference internal" href="../../../../utils/logging/Logging/index.html#koapy.utils.logging.Logging.Logging" title="koapy.utils.logging.Logging.Logging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">koapy.utils.logging.Logging.Logging</span></code></a></p>
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper._RemoveLeadingZerosForNumber">
+<code class="sig-name descname"><span class="pre">_RemoveLeadingZerosForNumber</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper._RemoveLeadingZerosForNumber"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper._RemoveLeadingZerosForNumber" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper._RemoveLeadingZerosForNumbersInValues">
+<code class="sig-name descname"><span class="pre">_RemoveLeadingZerosForNumbersInValues</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper._RemoveLeadingZerosForNumbersInValues"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper._RemoveLeadingZerosForNumbersInValues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper._ParseTransactionCallResponses">
+<code class="sig-name descname"><span class="pre">_ParseTransactionCallResponses</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">responses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_zeros_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper._ParseTransactionCallResponses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper._ParseTransactionCallResponses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetStockBasicInfoAsDict">
+<code class="sig-name descname"><span class="pre">GetStockBasicInfoAsDict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetStockBasicInfoAsDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetStockBasicInfoAsDict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetStockBasicInfoAsSeries">
+<code class="sig-name descname"><span class="pre">GetStockBasicInfoAsSeries</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetStockBasicInfoAsSeries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetStockBasicInfoAsSeries" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetStockQuoteInfoAsDataFrame">
+<code class="sig-name descname"><span class="pre">GetStockQuoteInfoAsDataFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetStockQuoteInfoAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetStockQuoteInfoAsDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetTickStockDataAsDataFrame">
+<code class="sig-name descname"><span class="pre">GetTickStockDataAsDataFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjusted_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetTickStockDataAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetTickStockDataAsDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetMinuteStockDataAsDataFrame">
+<code class="sig-name descname"><span class="pre">GetMinuteStockDataAsDataFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjusted_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetMinuteStockDataAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetMinuteStockDataAsDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetDailyStockDataAsDataFrame">
+<code class="sig-name descname"><span class="pre">GetDailyStockDataAsDataFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjusted_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetDailyStockDataAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetDailyStockDataAsDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetWeeklyStockDataAsDataFrame">
+<code class="sig-name descname"><span class="pre">GetWeeklyStockDataAsDataFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjusted_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetWeeklyStockDataAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetWeeklyStockDataAsDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetMonthlyStockDataAsDataFrame">
+<code class="sig-name descname"><span class="pre">GetMonthlyStockDataAsDataFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjusted_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetMonthlyStockDataAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetMonthlyStockDataAsDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetYearlyStockDataAsDataFrame">
+<code class="sig-name descname"><span class="pre">GetYearlyStockDataAsDataFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjusted_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetYearlyStockDataAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetYearlyStockDataAsDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetDepositInfo">
+<code class="sig-name descname"><span class="pre">GetDepositInfo</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_no</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_multi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetDepositInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetDepositInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>조회구분 = 3:추정조회, 2:일반조회</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetStockQuotes">
+<code class="sig-name descname"><span class="pre">GetStockQuotes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetStockQuotes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetStockQuotes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetOrderLogAsDataFrame1">
+<code class="sig-name descname"><span class="pre">GetOrderLogAsDataFrame1</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_no</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetOrderLogAsDataFrame1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetOrderLogAsDataFrame1" title="Permalink to this definition">¶</a></dt>
+<dd><p>계좌번호 = 전문 조회할 보유계좌번호
+전체종목구분 = 0:전체, 1:종목
+매매구분 = 0:전체, 1:매도, 2:매수
+종목코드 = 전문 조회할 종목코드
+체결구분 = 0:전체, 2:체결, 1:미체결</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetOrderLogAsDataFrame2">
+<code class="sig-name descname"><span class="pre">GetOrderLogAsDataFrame2</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_no</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetOrderLogAsDataFrame2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetOrderLogAsDataFrame2" title="Permalink to this definition">¶</a></dt>
+<dd><p>종목코드 = 전문 조회할 종목코드
+조회구분 = 0:전체, 1:종목
+매도수구분 = 0:전체, 1:매도, 2:매수
+계좌번호 = 전문 조회할 보유계좌번호
+비밀번호 = 사용안함(공백)
+주문번호 = 조회할 주문번호
+체결구분 = 0:전체, 2:체결, 1:미체결</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetOrderLogAsDataFrame3">
+<code class="sig-name descname"><span class="pre">GetOrderLogAsDataFrame3</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_no</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_order_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetOrderLogAsDataFrame3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetOrderLogAsDataFrame3" title="Permalink to this definition">¶</a></dt>
+<dd><p>주문일자 = YYYYMMDD (20170101 연도4자리, 월 2자리, 일 2자리 형식)
+계좌번호 = 전문 조회할 보유계좌번호
+비밀번호 = 사용안함(공백)
+비밀번호입력매체구분 = 00
+조회구분 = 1:주문순, 2:역순, 3:미체결, 4:체결내역만
+주식채권구분 = 0:전체, 1:주식, 2:채권
+매도수구분 = 0:전체, 1:매도, 2:매수
+종목코드
+시작주문번호</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountRateOfReturnAsDataFrame">
+<code class="sig-name descname"><span class="pre">GetAccountRateOfReturnAsDataFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_no</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountRateOfReturnAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountRateOfReturnAsDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountEvaluationStatusAsSeriesAndDataFrame">
+<code class="sig-name descname"><span class="pre">GetAccountEvaluationStatusAsSeriesAndDataFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_no</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_delisted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountEvaluationStatusAsSeriesAndDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountEvaluationStatusAsSeriesAndDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountExecutionBalanceAsSeriesAndDataFrame">
+<code class="sig-name descname"><span class="pre">GetAccountExecutionBalanceAsSeriesAndDataFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_no</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountExecutionBalanceAsSeriesAndDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountExecutionBalanceAsSeriesAndDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountEvaluationBalanceAsSeriesAndDataFrame">
+<code class="sig-name descname"><span class="pre">GetAccountEvaluationBalanceAsSeriesAndDataFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_no</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountEvaluationBalanceAsSeriesAndDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetAccountEvaluationBalanceAsSeriesAndDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>조회구분 = 1:합산, 2:개별</p>
+<p>[ 주의 ]
+“수익률%” 데이터는 모의투자에서는 소숫점표현, 실거래서버에서는 소숫점으로 변환 필요 합니다.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetMarketPriceInfo">
+<code class="sig-name descname"><span class="pre">GetMarketPriceInfo</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rqname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scrno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetMarketPriceInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetMarketPriceInfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetRealDataForCodesAsStream">
+<code class="sig-name descname"><span class="pre">GetRealDataForCodesAsStream</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">realtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_fids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">readable_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast_parse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetRealDataForCodesAsStream"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetRealDataForCodesAsStream" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetCodeListByCondition">
+<code class="sig-name descname"><span class="pre">GetCodeListByCondition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_future_option</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetCodeListByCondition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetCodeListByCondition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetCodeListByConditionAsStream">
+<code class="sig-name descname"><span class="pre">GetCodeListByConditionAsStream</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_future_option</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper.html#KiwoomOpenApiPlusServiceClientStubWrapper.GetCodeListByConditionAsStream"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetCodeListByConditionAsStream" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../../../_sources/autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

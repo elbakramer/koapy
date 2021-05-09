@@ -1,0 +1,529 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backtrader.KiwoomOpenApiPlusData &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../../koapy.html">koapy</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.backtrader.KiwoomOpenApiPlusData</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="kn">from</span> <span class="nn">pytz</span> <span class="kn">import</span> <span class="n">utc</span>
+
+<span class="kn">from</span> <span class="nn">backtrader</span> <span class="kn">import</span> <span class="n">date2num</span><span class="p">,</span> <span class="n">num2date</span>
+<span class="kn">from</span> <span class="nn">backtrader.feed</span> <span class="kn">import</span> <span class="n">DataBase</span>
+<span class="kn">from</span> <span class="nn">backtrader.utils.py3</span> <span class="kn">import</span> <span class="n">queue</span>
+<span class="kn">from</span> <span class="nn">koapy.backtrader.KiwoomOpenApiPlusStore</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusStore</span>
+<span class="kn">from</span> <span class="nn">koapy.utils.logging.Logging</span> <span class="kn">import</span> <span class="n">Logging</span>
+
+
+<div class="viewcode-block" id="MetaKiwoomOpenApiPlusData"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.MetaKiwoomOpenApiPlusData">[docs]</a><span class="k">class</span> <span class="nc">MetaKiwoomOpenApiPlusData</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Logging</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">DataBase</span><span class="p">)):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">clsname</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">clsname</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+        <span class="n">KiwoomOpenApiPlusStore</span><span class="o">.</span><span class="n">DataCls</span> <span class="o">=</span> <span class="bp">cls</span></div>
+
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusData</span><span class="p">(</span><span class="n">DataBase</span><span class="p">,</span> <span class="n">Logging</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">MetaKiwoomOpenApiPlusData</span><span class="p">):</span>
+
+    <span class="c1"># pylint: disable=no-member</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData.params"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData.params">[docs]</a>    <span class="n">params</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s2">&quot;qcheck&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;historical&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>  <span class="c1"># do backfilling at the start</span>
+        <span class="p">(</span><span class="s2">&quot;backfill_start&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>  <span class="c1"># do backfilling at the start</span>
+        <span class="p">(</span><span class="s2">&quot;backfill&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>  <span class="c1"># do backfilling when reconnecting</span>
+        <span class="p">(</span><span class="s2">&quot;backfill_from&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>  <span class="c1"># additional data source to do backfill from</span>
+        <span class="p">(</span><span class="s2">&quot;useask&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;reconnect&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;reconnections&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>  <span class="c1"># forever</span>
+        <span class="p">(</span><span class="s2">&quot;reconntimeout&quot;</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;tz&quot;</span><span class="p">,</span> <span class="s2">&quot;Asia/Seoul&quot;</span><span class="p">),</span>
+        <span class="p">(</span>
+            <span class="s2">&quot;tzinput&quot;</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+        <span class="p">),</span>  <span class="c1"># this should be none (utc) since we are already putting datetimes converted to utc</span>
+        <span class="p">(</span><span class="s2">&quot;calendar&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span></div>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData._store"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData._store">[docs]</a>    <span class="n">_store</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusStore</span></div>
+
+    <span class="n">_ST_FROM</span><span class="p">,</span> <span class="n">_ST_START</span><span class="p">,</span> <span class="n">_ST_LIVE</span><span class="p">,</span> <span class="n">_ST_HISTORBACK</span><span class="p">,</span> <span class="n">_ST_OVER</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_store</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">dataname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">datanames</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">datanames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">dataname</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">qlive</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qhist</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">contractdetails</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_statelivereconn</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_storedmsg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reconns</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gettz</span><span class="p">()</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData._timeoffset"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData._timeoffset">[docs]</a>    <span class="k">def</span> <span class="nf">_timeoffset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">timeoffset</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData.isnaive"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData.isnaive">[docs]</a>    <span class="k">def</span> <span class="nf">isnaive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span><span class="o">.</span><span class="n">utcoffset</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData.asutc"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData.asutc">[docs]</a>    <span class="k">def</span> <span class="nf">asutc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">naive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tz</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isnaive</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="ow">and</span> <span class="n">tz</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">tz</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">utc</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">naive</span><span class="p">:</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dt</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData.date2num"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData.date2num">[docs]</a>    <span class="k">def</span> <span class="nf">date2num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># pylint: disable=arguments-differ</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asutc</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">tz</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">date2num</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData.num2date"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData.num2date">[docs]</a>    <span class="k">def</span> <span class="nf">num2date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">naive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">datetime</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">tz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tz</span>
+        <span class="k">return</span> <span class="n">num2date</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">tz</span><span class="p">,</span> <span class="n">naive</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData.fromtimestamp"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData.fromtimestamp">[docs]</a>    <span class="k">def</span> <span class="nf">fromtimestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tz</span>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData.islive"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData.islive">[docs]</a>    <span class="k">def</span> <span class="nf">islive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">historical</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData.setenvironment"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData.setenvironment">[docs]</a>    <span class="k">def</span> <span class="nf">setenvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">setenvironment</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">addstore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData.start"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">qlive</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qhist</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_statelivereconn</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_storedmsg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">otf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">get_granularity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">timeframe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">compression</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">otf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Given timeframe and compression not supported: (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">timeframe</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">compression</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">NOTSUPPORTED_TF</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">contractdetails</span> <span class="o">=</span> <span class="n">cd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">get_instrument</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">dataname</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Given dataname is not supported&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">NOTSUBSCRIBED</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">backfill_from</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_FROM</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">backfill_from</span><span class="o">.</span><span class="n">setenvironment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">backfill_from</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>  <span class="c1"># pylint: disable=protected-access</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_start_finish</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_START</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_st_start</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reconns</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData._st_start"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData._st_start">[docs]</a>    <span class="k">def</span> <span class="nf">_st_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instart</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tmout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">historical</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DELAYED</span><span class="p">)</span>
+
+            <span class="n">dtend</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">todate</span> <span class="o">&lt;</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
+                <span class="n">dtend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">todate</span><span class="p">)</span>
+
+            <span class="n">dtbegin</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromdate</span> <span class="o">&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>
+                <span class="n">dtbegin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fromdate</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">qhist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">candles</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">dataname</span><span class="p">,</span> <span class="n">dtbegin</span><span class="p">,</span> <span class="n">dtend</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">timeframe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">compression</span>
+            <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_HISTORBACK</span>
+
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">qlive</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">streaming_prices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">dataname</span><span class="p">,</span> <span class="n">tmout</span><span class="o">=</span><span class="n">tmout</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">instart</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_statelivereconn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">backfill_start</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_statelivereconn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">backfill</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_statelivereconn</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DELAYED</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_LIVE</span>
+
+            <span class="k">if</span> <span class="n">instart</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_reconns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">reconnections</span>
+
+            <span class="k">if</span> <span class="n">instart</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">backfill_start</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DELAYED</span><span class="p">)</span>
+
+                <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">initial_today_historical_msg</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">qhist</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">qhist</span><span class="o">.</span><span class="n">put</span><span class="p">({})</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_HISTORBACK</span>
+
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData.stop"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData.haslivedata"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData.haslivedata">[docs]</a>    <span class="k">def</span> <span class="nf">haslivedata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_storedmsg</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">qlive</span><span class="o">.</span><span class="n">empty</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData._load"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData._load">[docs]</a>    <span class="k">def</span> <span class="nf">_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_LIVE</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storedmsg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">qlive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                        <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qcheck</span>
+                    <span class="p">)</span>
+                <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+
+                <span class="k">if</span> <span class="n">msg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CONNBROKEN</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">reconnect</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reconns</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DISCONNECTED</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span>
+                        <span class="k">return</span> <span class="kc">False</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_reconns</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_st_start</span><span class="p">(</span><span class="n">instart</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tmout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">reconntimeout</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="s2">&quot;code&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CONNBROKEN</span><span class="p">)</span>
+
+                    <span class="n">code</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">]</span>
+
+                    <span class="k">if</span> <span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">599</span><span class="p">,</span> <span class="mi">598</span><span class="p">,</span> <span class="mi">596</span><span class="p">]:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DISCONNECTED</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span>
+                        <span class="k">return</span> <span class="kc">False</span>
+
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">reconnect</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reconns</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DISCONNECTED</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span>
+                        <span class="k">return</span> <span class="kc">False</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_reconns</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_st_start</span><span class="p">(</span><span class="n">instart</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tmout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">reconntimeout</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_reconns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">reconnections</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_statelivereconn</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laststatus</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">LIVE</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">qlive</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">LIVE</span><span class="p">)</span>
+
+                    <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_tick</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">ret</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="kc">True</span>
+                    <span class="k">continue</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_storedmsg</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laststatus</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DELAYED</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DELAYED</span><span class="p">)</span>
+
+                <span class="n">dtend</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">dtbegin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromdate</span> <span class="o">&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>
+                    <span class="n">dtbegin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fromdate</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">dtbegin</span> <span class="o">=</span> <span class="kc">None</span>
+
+                <span class="n">dtend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">qhist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">candles</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">dataname</span><span class="p">,</span>
+                    <span class="n">dtbegin</span><span class="p">,</span>
+                    <span class="n">dtend</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">timeframe</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">compression</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_HISTORBACK</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_statelivereconn</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">continue</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_HISTORBACK</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qhist</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">msg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DISCONNECTED</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+                <span class="k">elif</span> <span class="s2">&quot;code&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">NOTSUBSCRIBED</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DISCONNECTED</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+                <span class="k">if</span> <span class="n">msg</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_history</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+                        <span class="k">return</span> <span class="kc">True</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">historical</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">put_notification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DISCONNECTED</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span>
+                        <span class="k">return</span> <span class="kc">False</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_LIVE</span>
+                <span class="k">continue</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_FROM</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">backfill_from</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_START</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># copy lines of the same name</span>
+                <span class="k">for</span> <span class="n">alias</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">getlinealiases</span><span class="p">():</span>
+                    <span class="n">lsrc</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">backfill_from</span><span class="o">.</span><span class="n">lines</span><span class="p">,</span> <span class="n">alias</span><span class="p">)</span>
+                    <span class="n">ldst</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">,</span> <span class="n">alias</span><span class="p">)</span>
+
+                    <span class="n">ldst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lsrc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="k">return</span> <span class="kc">True</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_START</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_st_start</span><span class="p">(</span><span class="n">instart</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ST_OVER</span>
+                    <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData._load_tick"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData._load_tick">[docs]</a>    <span class="k">def</span> <span class="nf">_load_tick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">dtobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">dtobj</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dt</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">datetime</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># time already seen</span>
+
+        <span class="c1"># Common fields</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">datetime</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">volume</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">openinterest</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="c1"># Put the prices into the bar</span>
+        <span class="n">tick</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;ask&quot;</span><span class="p">])</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">useask</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;bid&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">open</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tick</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">high</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tick</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">low</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tick</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">close</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tick</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">volume</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">openinterest</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusData._load_history"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusData/index.html#koapy.backtrader.KiwoomOpenApiPlusData.KiwoomOpenApiPlusData._load_history">[docs]</a>    <span class="k">def</span> <span class="nf">_load_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">dtobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">dtobj</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dt</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">datetime</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># time already seen</span>
+
+        <span class="c1"># Common fields</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">datetime</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">volume</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;volume&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">openinterest</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="c1"># Put the prices into the bar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">open</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">high</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;high&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">low</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;low&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">close</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;close&quot;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

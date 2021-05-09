@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.config &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="koapy.cli" href="../cli/index.html" />
+  
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">API Reference</a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+      <li>Previous: <a href="../cli/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.config">
+<span id="koapy-config"></span><h1><a class="reference internal" href="#module-koapy.config" title="koapy.config"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.config</span></code></a><a class="headerlink" href="#module-koapy.config" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.read_config" title="koapy.config.read_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_config</span></code></a>(filename)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.config_filename_cadidates" title="koapy.config.config_filename_cadidates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_filename_cadidates</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.default_config_filename" title="koapy.config.default_config_filename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config_filename</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.default_config_file_directory" title="koapy.config.default_config_file_directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config_file_directory</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.default_config_filepath" title="koapy.config.default_config_filepath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config_filepath</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.default_config" title="koapy.config.default_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.empty_config" title="koapy.config.empty_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_config</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.user_config" title="koapy.config.user_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">user_config</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.home" title="koapy.config.home"><code class="xref py py-obj docutils literal notranslate"><span class="pre">home</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.cwd" title="koapy.config.cwd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cwd</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.config_folder_candidates" title="koapy.config.config_folder_candidates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_folder_candidates</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.config_path" title="koapy.config.config_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_path</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.config" title="koapy.config.config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="koapy.config.read_config">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">read_config</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/config.html#read_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.read_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.config_filename_cadidates">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">config_filename_cadidates</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['koapy.conf',</span> <span class="pre">'.koapy.conf']</span></em><a class="reference internal" href="../../../_modules/koapy/config.html#config_filename_cadidates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.config_filename_cadidates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.default_config_filename">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">default_config_filename</span></code><em class="property"> <span class="pre">=</span> <span class="pre">config.conf</span></em><a class="reference internal" href="../../../_modules/koapy/config.html#default_config_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.default_config_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.default_config_file_directory">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">default_config_file_directory</span></code><a class="reference internal" href="../../../_modules/koapy/config.html#default_config_file_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.default_config_file_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.default_config_filepath">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">default_config_filepath</span></code><a class="reference internal" href="../../../_modules/koapy/config.html#default_config_filepath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.default_config_filepath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.default_config">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">default_config</span></code><a class="reference internal" href="../../../_modules/koapy/config.html#default_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.default_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.empty_config">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">empty_config</span></code><a class="reference internal" href="../../../_modules/koapy/config.html#empty_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.empty_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.user_config">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">user_config</span></code><a class="reference internal" href="../../../_modules/koapy/config.html#user_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.user_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.home">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">home</span></code><a class="reference internal" href="../../../_modules/koapy/config.html#home"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.home" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.cwd">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">cwd</span></code><a class="reference internal" href="../../../_modules/koapy/config.html#cwd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.cwd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.config_folder_candidates">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">config_folder_candidates</span></code><a class="reference internal" href="../../../_modules/koapy/config.html#config_folder_candidates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.config_folder_candidates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.config_path">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">config_path</span></code><a class="reference internal" href="../../../_modules/koapy/config.html#config_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.config_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.config.config">
+<code class="sig-prename descclassname"><span class="pre">koapy.config.</span></code><code class="sig-name descname"><span class="pre">config</span></code><a class="reference internal" href="../../../_modules/koapy/config.html#config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/autoapi/koapy/config/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

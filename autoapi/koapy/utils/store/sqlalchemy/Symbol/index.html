@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.utils.store.sqlalchemy.Symbol &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../_static/jquery.js"></script>
+    <script src="../../../../../../_static/underscore.js"></script>
+    <script src="../../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+    <link rel="next" title="koapy.utils.store.sqlalchemy.Timestamp" href="../Timestamp/index.html" />
+    <link rel="prev" title="koapy.utils.store.sqlalchemy.SnapshotAssociation" href="../SnapshotAssociation/index.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../../index.html">API Reference</a><ul>
+  <li><a href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils</span></code></a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy</span></code></a><ul>
+      <li>Previous: <a href="../SnapshotAssociation/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.SnapshotAssociation</span></code></a></li>
+      <li>Next: <a href="../Timestamp/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Timestamp</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.utils.store.sqlalchemy.Symbol">
+<span id="koapy-utils-store-sqlalchemy-symbol"></span><h1><a class="reference internal" href="#module-koapy.utils.store.sqlalchemy.Symbol" title="koapy.utils.store.sqlalchemy.Symbol"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Symbol</span></code></a><a class="headerlink" href="#module-koapy.utils.store.sqlalchemy.Symbol" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol" title="koapy.utils.store.sqlalchemy.Symbol.Symbol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Symbol</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.utils.store.sqlalchemy.Symbol.</span></code><code class="sig-name descname"><span class="pre">Symbol</span></code><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../Base/index.html#koapy.utils.store.sqlalchemy.Base.Base" title="koapy.utils.store.sqlalchemy.Base.Base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Base.Base</span></code></a></p>
+<dl class="py attribute">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.__tablename__">
+<code class="sig-name descname"><span class="pre">__tablename__</span></code><em class="property"> <span class="pre">=</span> <span class="pre">symbols</span></em><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.__tablename__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.__tablename__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.id">
+<code class="sig-name descname"><span class="pre">id</span></code><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.name">
+<code class="sig-name descname"><span class="pre">name</span></code><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.library_id">
+<code class="sig-name descname"><span class="pre">library_id</span></code><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.library_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.library_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.library">
+<code class="sig-name descname"><span class="pre">library</span></code><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.library"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.library" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.versions">
+<code class="sig-name descname"><span class="pre">versions</span></code><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.versions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.__table_args__">
+<code class="sig-name descname"><span class="pre">__table_args__</span></code><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.__table_args__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.__table_args__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.get_versions">
+<code class="sig-name descname"><span class="pre">get_versions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.get_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.get_versions" title="Permalink to this definition">¶</a></dt>
+<dd><p>versions = self.versions
+if not deleted:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/utils/store/sqlalchemy/Symbol/index.rst</span>, line 63)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<div><p>versions = [version for version in versions if not version.deleted]</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.get_latest_version">
+<code class="sig-name descname"><span class="pre">get_latest_version</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.get_latest_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.get_latest_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>versions = self.versions
+if len(versions) == 0:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/utils/store/sqlalchemy/Symbol/index.rst</span>, line 70)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<div><p>raise NoResultFound</p>
+</div></blockquote>
+<div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/utils/store/sqlalchemy/Symbol/index.rst</span>, line 71)</p>
+<p>Block quote ends without a blank line; unexpected unindent.</p>
+</div>
+<p>latest_version = self.versions[-1]
+if not deleted and latest_version.deleted:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/utils/store/sqlalchemy/Symbol/index.rst</span>, line 73)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<div><p>raise NoResultFound</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.create_new_version">
+<code class="sig-name descname"><span class="pre">create_new_version</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pandas_metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.create_new_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.create_new_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.get_version_by_number">
+<code class="sig-name descname"><span class="pre">get_version_by_number</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.get_version_by_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.get_version_by_number" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.store.sqlalchemy.Symbol.Symbol.get_prunable_versions">
+<code class="sig-name descname"><span class="pre">get_prunable_versions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_mins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">120</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Symbol.html#Symbol.get_prunable_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Symbol.Symbol.get_prunable_versions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../../../_sources/autoapi/koapy/utils/store/sqlalchemy/Symbol/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

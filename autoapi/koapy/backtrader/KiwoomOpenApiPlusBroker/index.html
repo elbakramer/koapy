@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backtrader.KiwoomOpenApiPlusBroker &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="koapy.backtrader.KiwoomOpenApiPlusData" href="../KiwoomOpenApiPlusData/index.html" />
+    <link rel="prev" title="koapy.backtrader" href="../index.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">API Reference</a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader</span></code></a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader</span></code></a></li>
+      <li>Next: <a href="../KiwoomOpenApiPlusData/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusData</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.backtrader.KiwoomOpenApiPlusBroker">
+<span id="koapy-backtrader-kiwoomopenapiplusbroker"></span><h1><a class="reference internal" href="#module-koapy.backtrader.KiwoomOpenApiPlusBroker" title="koapy.backtrader.KiwoomOpenApiPlusBroker"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusBroker</span></code></a><a class="headerlink" href="#module-koapy.backtrader.KiwoomOpenApiPlusBroker" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo" title="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusCommInfo</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.MetaKiwoomOpenApiPlusBroker" title="koapy.backtrader.KiwoomOpenApiPlusBroker.MetaKiwoomOpenApiPlusBroker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MetaKiwoomOpenApiPlusBroker</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker" title="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusBroker</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusBroker.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiPlusCommInfo</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusCommInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">backtrader.comminfo.CommInfoBase</span></code></p>
+<dl class="py attribute">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo.params">
+<code class="sig-name descname"><span class="pre">params</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[['stocklike',</span> <span class="pre">True],</span> <span class="pre">None,</span> <span class="pre">['percabs',</span> <span class="pre">False],</span> <span class="pre">['commission',</span> <span class="pre">0.015],</span> <span class="pre">['tax',</span> <span class="pre">0.25],</span> <span class="pre">['mult',</span> <span class="pre">1.0]]</span></em><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusCommInfo.params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo.params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo._getcommissionbuy">
+<code class="sig-name descname"><span class="pre">_getcommissionbuy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pseudoexec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusCommInfo._getcommissionbuy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo._getcommissionbuy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo._getcommissionsell">
+<code class="sig-name descname"><span class="pre">_getcommissionsell</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pseudoexec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusCommInfo._getcommissionsell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo._getcommissionsell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo._getcommission">
+<code class="sig-name descname"><span class="pre">_getcommission</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pseudoexec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusCommInfo._getcommission"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusCommInfo._getcommission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.MetaKiwoomOpenApiPlusBroker">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusBroker.</span></code><code class="sig-name descname"><span class="pre">MetaKiwoomOpenApiPlusBroker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#MetaKiwoomOpenApiPlusBroker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.MetaKiwoomOpenApiPlusBroker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">backtrader.BrokerBase.__class__</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusBroker.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiPlusBroker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">with_metaclass</span></code>(<a class="reference internal" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.MetaKiwoomOpenApiPlusBroker" title="koapy.backtrader.KiwoomOpenApiPlusBroker.MetaKiwoomOpenApiPlusBroker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MetaKiwoomOpenApiPlusBroker</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">BrokerBase</span></code>)</p>
+<dl class="py attribute">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.params">
+<code class="sig-name descname"><span class="pre">params</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[['use_positions',</span> <span class="pre">True],</span> <span class="pre">None]</span></em><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._store">
+<code class="sig-name descname"><span class="pre">_store</span></code><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker._store"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._store" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.start">
+<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.data_started">
+<code class="sig-name descname"><span class="pre">data_started</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.data_started"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.data_started" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.stop">
+<code class="sig-name descname"><span class="pre">stop</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.getcash">
+<code class="sig-name descname"><span class="pre">getcash</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.getcash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.getcash" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.getvalue">
+<code class="sig-name descname"><span class="pre">getvalue</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.getvalue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.getvalue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.getposition">
+<code class="sig-name descname"><span class="pre">getposition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.getposition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.getposition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.orderstatus">
+<code class="sig-name descname"><span class="pre">orderstatus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.orderstatus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.orderstatus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._submit">
+<code class="sig-name descname"><span class="pre">_submit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oref</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker._submit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._reject">
+<code class="sig-name descname"><span class="pre">_reject</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oref</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker._reject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._reject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._accept">
+<code class="sig-name descname"><span class="pre">_accept</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oref</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker._accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._accept" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._cancel">
+<code class="sig-name descname"><span class="pre">_cancel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oref</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker._cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._expire">
+<code class="sig-name descname"><span class="pre">_expire</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oref</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker._expire"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._expire" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._bracketnotif">
+<code class="sig-name descname"><span class="pre">_bracketnotif</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker._bracketnotif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._bracketnotif" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._bracketize">
+<code class="sig-name descname"><span class="pre">_bracketize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cancel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker._bracketize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._bracketize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._fill">
+<code class="sig-name descname"><span class="pre">_fill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttype</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker._fill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._fill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._transmit">
+<code class="sig-name descname"><span class="pre">_transmit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker._transmit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker._transmit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.buy">
+<code class="sig-name descname"><span class="pre">buy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plimit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exectype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tradeid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oco</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trailamount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trailpercent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transmit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.buy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.buy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.sell">
+<code class="sig-name descname"><span class="pre">sell</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plimit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exectype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tradeid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oco</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trailamount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trailpercent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transmit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.sell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.sell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.cancel">
+<code class="sig-name descname"><span class="pre">cancel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.notify">
+<code class="sig-name descname"><span class="pre">notify</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.notify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.notify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.get_notification">
+<code class="sig-name descname"><span class="pre">get_notification</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.get_notification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.get_notification" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.next">
+<code class="sig-name descname"><span class="pre">next</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.next" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.submit">
+<code class="sig-name descname"><span class="pre">submit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.submit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.add_order_history">
+<code class="sig-name descname"><span class="pre">add_order_history</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.add_order_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.add_order_history" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.set_fund_history">
+<code class="sig-name descname"><span class="pre">set_fund_history</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fund</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusBroker.html#KiwoomOpenApiPlusBroker.set_fund_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusBroker.KiwoomOpenApiPlusBroker.set_fund_history" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../_sources/autoapi/koapy/backtrader/KiwoomOpenApiPlusBroker/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

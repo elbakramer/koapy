@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backtrader.KiwoomOpenApiPlusEventStreamer &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../../koapy.html">koapy</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.backtrader.KiwoomOpenApiPlusEventStreamer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="kn">import</span> <span class="nn">rx</span>
+
+<span class="kn">from</span> <span class="nn">exchange_calendars</span> <span class="kn">import</span> <span class="n">get_calendar</span>
+<span class="kn">from</span> <span class="nn">rx</span> <span class="kn">import</span> <span class="n">operators</span> <span class="k">as</span> <span class="n">ops</span>
+<span class="kn">from</span> <span class="nn">rx.core.typing</span> <span class="kn">import</span> <span class="n">Observer</span>
+<span class="kn">from</span> <span class="nn">rx.scheduler</span> <span class="kn">import</span> <span class="n">ThreadPoolScheduler</span>
+<span class="kn">from</span> <span class="nn">rx.subject</span> <span class="kn">import</span> <span class="n">Subject</span>
+
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">KiwoomOpenApiPlusRealType</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.grpc</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusService_pb2</span>
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedBufferedIterator</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QueueBasedBufferedIterator</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedIterableObserver</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QueueBasedIterableObserver</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.utils.logging.Logging</span> <span class="kn">import</span> <span class="n">Logging</span>
+
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusPriceEventChannel</span><span class="p">(</span><span class="n">Logging</span><span class="p">):</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel._krx_timezone"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel._krx_timezone">[docs]</a>    <span class="n">_krx_timezone</span> <span class="o">=</span> <span class="n">get_calendar</span><span class="p">(</span><span class="s2">&quot;XKRX&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tz</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stub</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="n">stub</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_fids_by_realtype_name</span><span class="p">(</span><span class="s2">&quot;주식시세&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_observer</span> <span class="o">=</span> <span class="n">QueueBasedIterableObserver</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_observer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_iterator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="o">.</span><span class="n">BidirectionalRealCall</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_subject</span> <span class="o">=</span> <span class="n">Subject</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_scheduler_max_workers</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_scheduler</span> <span class="o">=</span> <span class="n">ThreadPoolScheduler</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_response_scheduler_max_workers</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffered_response_iterator</span> <span class="o">=</span> <span class="n">QueueBasedBufferedIterator</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_response_iterator</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_observable</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_buffered_response_iterator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_scheduler</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_subscription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_observable</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_response_subject</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subjects_by_code</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.close"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_code</span><span class="p">,</span> <span class="p">(</span><span class="n">_subject</span><span class="p">,</span> <span class="n">subscription</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subjects_by_code</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">subscription</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_subscription</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffered_response_iterator</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_iterator</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.__del__"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.__del__">[docs]</a>    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.initialize"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusService_pb2</span><span class="o">.</span><span class="n">BidirectionalRealRequest</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">initialize_request</span><span class="o">.</span><span class="n">fid_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list</span>
+        <span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.register_code"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.register_code">[docs]</a>    <span class="k">def</span> <span class="nf">register_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusService_pb2</span><span class="o">.</span><span class="n">BidirectionalRealRequest</span><span class="p">()</span>
+        <span class="n">code_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">code</span><span class="p">]</span>
+        <span class="n">fid_list</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_fids_by_realtype_name</span><span class="p">(</span><span class="s2">&quot;주식시세&quot;</span><span class="p">)</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">register_request</span><span class="o">.</span><span class="n">code_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="n">code_list</span>
+        <span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">register_request</span><span class="o">.</span><span class="n">fid_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">fid_list</span><span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Registering code </span><span class="si">%s</span><span class="s2"> for real events&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.is_for_code"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.is_for_code">[docs]</a>    <span class="k">def</span> <span class="nf">is_for_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">string_value</span> <span class="o">==</span> <span class="n">code</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.filter_for_code"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.filter_for_code">[docs]</a>    <span class="k">def</span> <span class="nf">filter_for_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ops</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">response</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_for_code</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">code</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.is_valid_price_event"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.is_valid_price_event">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid_price_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">name</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;20&quot;</span><span class="p">,</span> <span class="s2">&quot;27&quot;</span><span class="p">,</span> <span class="s2">&quot;28&quot;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.filter_price_event"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.filter_price_event">[docs]</a>    <span class="k">def</span> <span class="nf">filter_price_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ops</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">is_valid_price_event</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.time_to_timestamp"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.time_to_timestamp">[docs]</a>    <span class="k">def</span> <span class="nf">time_to_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fid20</span><span class="p">):</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_krx_timezone</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+        <span class="n">tm</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">fid20</span><span class="p">,</span> <span class="s2">&quot;%H%M%S&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">tm</span><span class="p">)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_krx_timezone</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.event_to_dict"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.event_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">event_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="n">single_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_to_timestamp</span><span class="p">(</span><span class="n">single_data</span><span class="p">[</span><span class="s2">&quot;20&quot;</span><span class="p">]),</span>
+            <span class="s2">&quot;bid&quot;</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">single_data</span><span class="p">[</span><span class="s2">&quot;28&quot;</span><span class="p">])),</span>
+            <span class="s2">&quot;ask&quot;</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">single_data</span><span class="p">[</span><span class="s2">&quot;27&quot;</span><span class="p">])),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.convert_to_dict"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.convert_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event_to_dict</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.get_observable_for_code"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.get_observable_for_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_observable_for_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_code</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subjects_by_code</span><span class="p">:</span>
+            <span class="n">subject</span> <span class="o">=</span> <span class="n">Subject</span><span class="p">()</span>
+            <span class="n">subscription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_subject</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">filter_for_code</span><span class="p">(</span><span class="n">code</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">filter_price_event</span><span class="p">(),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_dict</span><span class="p">(),</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_subjects_by_code</span><span class="p">[</span><span class="n">code</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">subscription</span><span class="p">)</span>
+        <span class="n">subject</span><span class="p">,</span> <span class="n">subscription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subjects_by_code</span><span class="p">[</span><span class="n">code</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">subject</span></div></div>
+
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOrderEventChannel"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusOrderEventChannel</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stub</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="n">stub</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusService_pb2</span><span class="o">.</span><span class="n">ListenRequest</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_iterator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="o">.</span><span class="n">OrderListen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_subject</span> <span class="o">=</span> <span class="n">Subject</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_scheduler_max_workers</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_scheduler</span> <span class="o">=</span> <span class="n">ThreadPoolScheduler</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_response_scheduler_max_workers</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffered_response_iterator</span> <span class="o">=</span> <span class="n">QueueBasedBufferedIterator</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_response_iterator</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_observable</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_buffered_response_iterator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_scheduler</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_subscription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_observable</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_response_subject</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_observable</span> <span class="o">=</span> <span class="n">Subject</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subscription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_subject</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filter_chejan_response</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_dict</span><span class="p">(),</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_observable</span><span class="p">)</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOrderEventChannel.close"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subscription</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_subscription</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffered_response_iterator</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_iterator</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOrderEventChannel.__del__"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.__del__">[docs]</a>    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOrderEventChannel.is_chejan_response"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.is_chejan_response">[docs]</a>    <span class="k">def</span> <span class="nf">is_chejan_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">gubun</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">string_value</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;OnReceiveChejanData&quot;</span> <span class="ow">and</span> <span class="n">gubun</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+            <span class="n">order_type</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;주문구분&quot;</span><span class="p">]</span>
+            <span class="n">hoga_type</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;매매구분&quot;</span><span class="p">]</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;주문상태&quot;</span><span class="p">]</span>
+            <span class="n">market_order_created_and_filled</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">order_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;+매수&quot;</span><span class="p">,</span> <span class="s2">&quot;-매도&quot;</span><span class="p">]</span>
+                <span class="ow">and</span> <span class="n">hoga_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;시장가&quot;</span><span class="p">]</span>
+                <span class="ow">and</span> <span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;체결&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">limit_order_created</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">order_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;+매수&quot;</span><span class="p">,</span> <span class="s2">&quot;-매도&quot;</span><span class="p">]</span>
+                <span class="ow">and</span> <span class="n">hoga_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;보통&quot;</span><span class="p">]</span>
+                <span class="ow">and</span> <span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;접수&quot;</span><span class="p">]</span>
+                <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;819&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;0&quot;</span><span class="p">]</span>
+            <span class="p">)</span>  <span class="c1"># 취소 확인 뒤에 오는 원주문 이벤트는 819 가 1 로 들어오는 것 같음</span>
+            <span class="n">order_filled</span> <span class="o">=</span> <span class="n">order_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;+매수&quot;</span><span class="p">,</span> <span class="s2">&quot;-매도&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;체결&quot;</span><span class="p">]</span>
+            <span class="n">order_canceled</span> <span class="o">=</span> <span class="n">order_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;매수취소&quot;</span><span class="p">,</span> <span class="s2">&quot;매도취소&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;확인&quot;</span><span class="p">]</span>
+            <span class="n">condition</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="n">market_order_created_and_filled</span><span class="p">,</span>
+                    <span class="n">limit_order_created</span><span class="p">,</span>
+                    <span class="n">order_filled</span><span class="p">,</span>
+                    <span class="n">order_canceled</span><span class="p">,</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">condition</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOrderEventChannel.filter_chejan_response"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.filter_chejan_response">[docs]</a>    <span class="k">def</span> <span class="nf">filter_chejan_response</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ops</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">is_chejan_response</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOrderEventChannel.event_to_dict"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.event_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">event_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+        <span class="n">original_order_no</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;원주문번호&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">original_order_no</span><span class="p">):</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;주문상태&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;확인&quot;</span><span class="p">:</span>
+                <span class="n">reject_reason</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;거부사유&quot;</span><span class="p">]</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ORDER_CANCEL&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;orderId&quot;</span><span class="p">:</span> <span class="n">original_order_no</span><span class="p">,</span>
+                    <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="n">reject_reason</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">reject_reason</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;ORDER_FILLED&quot;</span><span class="p">,</span>
+                <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;주문상태&quot;</span><span class="p">]</span>
+            <span class="n">hoga_type</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;매매구분&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;접수&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">hoga_type</span> <span class="o">==</span> <span class="s2">&quot;보통&quot;</span><span class="p">:</span>
+                    <span class="n">order_no</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;주문번호&quot;</span><span class="p">]</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LIMIT_ORDER_CREATE&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">order_no</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="k">elif</span> <span class="n">hoga_type</span> <span class="o">==</span> <span class="s2">&quot;시장가&quot;</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unexpected hoga type </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">hoga_type</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;체결&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">hoga_type</span> <span class="o">==</span> <span class="s2">&quot;보통&quot;</span><span class="p">:</span>
+                    <span class="n">order_no</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;주문번호&quot;</span><span class="p">]</span>
+                    <span class="n">units</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;단위체결량&quot;</span><span class="p">]</span>
+                    <span class="n">buy_or_sell</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;주문구분&quot;</span><span class="p">]</span>
+                    <span class="n">side</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;+매수&quot;</span><span class="p">:</span> <span class="s2">&quot;buy&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;-매도&quot;</span><span class="p">:</span> <span class="s2">&quot;sell&quot;</span><span class="p">,</span>
+                    <span class="p">}[</span><span class="n">buy_or_sell</span><span class="p">]</span>
+                    <span class="n">price</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;단위체결가&quot;</span><span class="p">]</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ORDER_FILLED&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;orderId&quot;</span><span class="p">:</span> <span class="n">order_no</span><span class="p">,</span>
+                        <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">units</span><span class="p">),</span>
+                        <span class="s2">&quot;side&quot;</span><span class="p">:</span> <span class="n">side</span><span class="p">,</span>
+                        <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">price</span><span class="p">)),</span>
+                    <span class="p">}</span>
+                <span class="k">elif</span> <span class="n">hoga_type</span> <span class="o">==</span> <span class="s2">&quot;시장가&quot;</span><span class="p">:</span>
+                    <span class="n">order_no</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;주문번호&quot;</span><span class="p">]</span>
+                    <span class="n">units</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;단위체결량&quot;</span><span class="p">]</span>
+                    <span class="n">buy_or_sell</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;주문구분&quot;</span><span class="p">]</span>
+                    <span class="n">side</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;+매수&quot;</span><span class="p">:</span> <span class="s2">&quot;buy&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;-매도&quot;</span><span class="p">:</span> <span class="s2">&quot;sell&quot;</span><span class="p">,</span>
+                    <span class="p">}[</span><span class="n">buy_or_sell</span><span class="p">]</span>
+                    <span class="n">price</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;단위체결가&quot;</span><span class="p">]</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MARKET_ORDER_CREATE&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">order_no</span><span class="p">,</span>
+                        <span class="s2">&quot;tradeOpened&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">order_no</span><span class="p">},</span>
+                        <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">units</span><span class="p">),</span>
+                        <span class="s2">&quot;side&quot;</span><span class="p">:</span> <span class="n">side</span><span class="p">,</span>
+                        <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">price</span><span class="p">)),</span>
+                    <span class="p">}</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unexpected hoga type </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">hoga_type</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unexcpected status </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOrderEventChannel.convert_to_dict"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.convert_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event_to_dict</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOrderEventChannel.get_observable"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.get_observable">[docs]</a>    <span class="k">def</span> <span class="nf">get_observable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_observable</span></div></div>
+
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventStreamer"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusEventStreamer</span><span class="p">(</span><span class="n">Observer</span><span class="p">,</span> <span class="n">Logging</span><span class="p">):</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventStreamer._price_event_channels_by_stub"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer._price_event_channels_by_stub">[docs]</a>    <span class="n">_price_event_channels_by_stub</span> <span class="o">=</span> <span class="p">{}</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventStreamer._order_event_channels_by_stub"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer._order_event_channels_by_stub">[docs]</a>    <span class="n">_order_event_channels_by_stub</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventStreamer._lock"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer._lock">[docs]</a>    <span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stub</span><span class="p">,</span> <span class="n">queue</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="n">stub</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">queue</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventStreamer.on_next"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.on_next">[docs]</a>    <span class="k">def</span> <span class="nf">on_next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventStreamer.on_error"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.on_error">[docs]</a>    <span class="k">def</span> <span class="nf">on_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Streamer.on_error(</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventStreamer.on_completed"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.on_completed">[docs]</a>    <span class="k">def</span> <span class="nf">on_completed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventStreamer.rates"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.rates">[docs]</a>    <span class="k">def</span> <span class="nf">rates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_price_event_channels_by_stub</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_price_event_channels_by_stub</span><span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span>
+                <span class="p">]</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusPriceEventChannel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">)</span>
+            <span class="n">event_channel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_price_event_channels_by_stub</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">]</span>
+        <span class="n">subscription</span> <span class="o">=</span> <span class="n">event_channel</span><span class="o">.</span><span class="n">get_observable_for_code</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Subscribing rates for code </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">subscription</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventStreamer.events"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.events">[docs]</a>    <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order_event_channels_by_stub</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_order_event_channels_by_stub</span><span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span>
+                <span class="p">]</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusOrderEventChannel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">)</span>
+            <span class="n">event_channel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order_event_channels_by_stub</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">]</span>
+        <span class="n">subscription</span> <span class="o">=</span> <span class="n">event_channel</span><span class="o">.</span><span class="n">get_observable</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Subscribing order events&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">subscription</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

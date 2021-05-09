@@ -1,0 +1,663 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../_static/jquery.js"></script>
+    <script src="../../../../../../_static/underscore.js"></script>
+    <script src="../../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+    <link rel="next" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandler" href="../KiwoomOpenApiPlusEventHandler/index.html" />
+    <link rel="prev" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin" href="../KiwoomOpenApiPlusEntrypointMixin/index.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../../index.html">API Reference</a><ul>
+  <li><a href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend</span></code></a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core</span></code></a><ul>
+      <li>Previous: <a href="../KiwoomOpenApiPlusEntrypointMixin/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin</span></code></a></li>
+      <li>Next: <a href="../KiwoomOpenApiPlusEventHandler/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandler</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError">
+<span id="koapy-backend-kiwoom-open-api-plus-core-kiwoomopenapipluserror"></span><h1><a class="reference internal" href="#module-koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError</span></code></a><a class="headerlink" href="#module-koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<dl class="py exception">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiPlusError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Common base class for all non-exit exceptions.</p>
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError.message">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusError.message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError.message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError.try_or_raise">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">try_or_raise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusError.try_or_raise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError.try_or_raise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError.try_or_raise_boolean">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">try_or_raise_boolean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusError.try_or_raise_boolean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError.try_or_raise_boolean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError.get_error_message_by_code">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_error_message_by_code</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusError.get_error_message_by_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError.get_error_message_by_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiPlusNegativeReturnCodeError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusError</span></code></a></p>
+<p>Common base class for all non-exit exceptions.</p>
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_NONE">
+<code class="sig-name descname"><span class="pre">OP_ERR_NONE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_NONE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_NONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_FAIL">
+<code class="sig-name descname"><span class="pre">OP_ERR_FAIL</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_COND_NOTFOUND">
+<code class="sig-name descname"><span class="pre">OP_ERR_COND_NOTFOUND</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_COND_NOTFOUND"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_COND_NOTFOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_COND_MISMATCH">
+<code class="sig-name descname"><span class="pre">OP_ERR_COND_MISMATCH</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_COND_MISMATCH"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_COND_MISMATCH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_COND_OVERFLOW">
+<code class="sig-name descname"><span class="pre">OP_ERR_COND_OVERFLOW</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_COND_OVERFLOW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_COND_OVERFLOW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_TR_FAIL">
+<code class="sig-name descname"><span class="pre">OP_ERR_TR_FAIL</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_TR_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_TR_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_LOGIN">
+<code class="sig-name descname"><span class="pre">OP_ERR_LOGIN</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_LOGIN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_LOGIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_CONNECT">
+<code class="sig-name descname"><span class="pre">OP_ERR_CONNECT</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_CONNECT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_CONNECT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_VERSION">
+<code class="sig-name descname"><span class="pre">OP_ERR_VERSION</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_VERSION"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_FIREWALL">
+<code class="sig-name descname"><span class="pre">OP_ERR_FIREWALL</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_FIREWALL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_FIREWALL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MEMORY">
+<code class="sig-name descname"><span class="pre">OP_ERR_MEMORY</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MEMORY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MEMORY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_INPUT">
+<code class="sig-name descname"><span class="pre">OP_ERR_INPUT</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_INPUT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_INPUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SOCKET_CLOSED">
+<code class="sig-name descname"><span class="pre">OP_ERR_SOCKET_CLOSED</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SOCKET_CLOSED"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SOCKET_CLOSED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SISE_OVERFLOW">
+<code class="sig-name descname"><span class="pre">OP_ERR_SISE_OVERFLOW</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SISE_OVERFLOW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SISE_OVERFLOW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_RQ_STRUCT_FAIL">
+<code class="sig-name descname"><span class="pre">OP_ERR_RQ_STRUCT_FAIL</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_RQ_STRUCT_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_RQ_STRUCT_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_RQ_STRING_FAIL">
+<code class="sig-name descname"><span class="pre">OP_ERR_RQ_STRING_FAIL</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_RQ_STRING_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_RQ_STRING_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_NO_DATA">
+<code class="sig-name descname"><span class="pre">OP_ERR_NO_DATA</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_NO_DATA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_NO_DATA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_OVER_MAX_DATA">
+<code class="sig-name descname"><span class="pre">OP_ERR_OVER_MAX_DATA</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_OVER_MAX_DATA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_OVER_MAX_DATA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_DATA_RCV_FAIL">
+<code class="sig-name descname"><span class="pre">OP_ERR_DATA_RCV_FAIL</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_DATA_RCV_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_DATA_RCV_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_OVER_MAX_FID">
+<code class="sig-name descname"><span class="pre">OP_ERR_OVER_MAX_FID</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_OVER_MAX_FID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_OVER_MAX_FID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_REAL_CANCEL">
+<code class="sig-name descname"><span class="pre">OP_ERR_REAL_CANCEL</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_REAL_CANCEL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_REAL_CANCEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_WRONG_INPUT">
+<code class="sig-name descname"><span class="pre">OP_ERR_ORD_WRONG_INPUT</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_WRONG_INPUT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_WRONG_INPUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_WRONG_ACCTNO">
+<code class="sig-name descname"><span class="pre">OP_ERR_ORD_WRONG_ACCTNO</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_WRONG_ACCTNO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_WRONG_ACCTNO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_OTHER_ACC_USE">
+<code class="sig-name descname"><span class="pre">OP_ERR_OTHER_ACC_USE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_OTHER_ACC_USE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_OTHER_ACC_USE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_2BILL_EXC">
+<code class="sig-name descname"><span class="pre">OP_ERR_MIS_2BILL_EXC</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_2BILL_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_2BILL_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_5BILL_EXC">
+<code class="sig-name descname"><span class="pre">OP_ERR_MIS_5BILL_EXC</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_5BILL_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_5BILL_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_1PER_EXC">
+<code class="sig-name descname"><span class="pre">OP_ERR_MIS_1PER_EXC</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_1PER_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_1PER_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_3PER_EXC">
+<code class="sig-name descname"><span class="pre">OP_ERR_MIS_3PER_EXC</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_3PER_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_3PER_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SEND_FAIL">
+<code class="sig-name descname"><span class="pre">OP_ERR_SEND_FAIL</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SEND_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SEND_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_OVERFLOW">
+<code class="sig-name descname"><span class="pre">OP_ERR_ORD_OVERFLOW</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_OVERFLOW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_OVERFLOW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_OVERFLOW2">
+<code class="sig-name descname"><span class="pre">OP_ERR_ORD_OVERFLOW2</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_OVERFLOW2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_OVERFLOW2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_300CNT_EXC">
+<code class="sig-name descname"><span class="pre">OP_ERR_MIS_300CNT_EXC</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_300CNT_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_300CNT_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_500CNT_EXC">
+<code class="sig-name descname"><span class="pre">OP_ERR_MIS_500CNT_EXC</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_500CNT_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_MIS_500CNT_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_WRONG_ACCTINFO">
+<code class="sig-name descname"><span class="pre">OP_ERR_ORD_WRONG_ACCTINFO</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_WRONG_ACCTINFO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_WRONG_ACCTINFO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_SYMCODE_EMPTY">
+<code class="sig-name descname"><span class="pre">OP_ERR_ORD_SYMCODE_EMPTY</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_SYMCODE_EMPTY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_SYMCODE_EMPTY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_NONE">
+<code class="sig-name descname"><span class="pre">MSG_ERR_NONE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">정상처리</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_NONE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_NONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_FAIL">
+<code class="sig-name descname"><span class="pre">MSG_ERR_FAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">실패</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_COND_NOTFOUND">
+<code class="sig-name descname"><span class="pre">MSG_ERR_COND_NOTFOUND</span></code><em class="property"> <span class="pre">=</span> <span class="pre">조건번호</span> <span class="pre">없음</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_COND_NOTFOUND"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_COND_NOTFOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_COND_MISMATCH">
+<code class="sig-name descname"><span class="pre">MSG_ERR_COND_MISMATCH</span></code><em class="property"> <span class="pre">=</span> <span class="pre">조건번호와</span> <span class="pre">조건식</span> <span class="pre">틀림</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_COND_MISMATCH"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_COND_MISMATCH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_COND_OVERFLOW">
+<code class="sig-name descname"><span class="pre">MSG_ERR_COND_OVERFLOW</span></code><em class="property"> <span class="pre">=</span> <span class="pre">조건검색</span> <span class="pre">조회요청</span> <span class="pre">초과</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_COND_OVERFLOW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_COND_OVERFLOW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_TR_FAIL">
+<code class="sig-name descname"><span class="pre">MSG_ERR_TR_FAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">전문</span> <span class="pre">처리</span> <span class="pre">실패</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_TR_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_TR_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_LOGIN">
+<code class="sig-name descname"><span class="pre">MSG_ERR_LOGIN</span></code><em class="property"> <span class="pre">=</span> <span class="pre">사용자정보</span> <span class="pre">교환</span> <span class="pre">실패</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_LOGIN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_LOGIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_CONNECT">
+<code class="sig-name descname"><span class="pre">MSG_ERR_CONNECT</span></code><em class="property"> <span class="pre">=</span> <span class="pre">서버접속</span> <span class="pre">실패</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_CONNECT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_CONNECT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_VERSION">
+<code class="sig-name descname"><span class="pre">MSG_ERR_VERSION</span></code><em class="property"> <span class="pre">=</span> <span class="pre">버전처리</span> <span class="pre">실패</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_VERSION"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_FIREWALL">
+<code class="sig-name descname"><span class="pre">MSG_ERR_FIREWALL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">개인방화벽</span> <span class="pre">실패</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_FIREWALL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_FIREWALL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MEMORY">
+<code class="sig-name descname"><span class="pre">MSG_ERR_MEMORY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">메모리보호</span> <span class="pre">실패</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MEMORY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MEMORY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_INPUT">
+<code class="sig-name descname"><span class="pre">MSG_ERR_INPUT</span></code><em class="property"> <span class="pre">=</span> <span class="pre">함수입력값</span> <span class="pre">오류</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_INPUT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_INPUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_SOCKET_CLOSED">
+<code class="sig-name descname"><span class="pre">MSG_ERR_SOCKET_CLOSED</span></code><em class="property"> <span class="pre">=</span> <span class="pre">통신</span> <span class="pre">연결종료</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_SOCKET_CLOSED"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_SOCKET_CLOSED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_SISE_OVERFLOW">
+<code class="sig-name descname"><span class="pre">MSG_ERR_SISE_OVERFLOW</span></code><em class="property"> <span class="pre">=</span> <span class="pre">시세조회</span> <span class="pre">과부하</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_SISE_OVERFLOW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_SISE_OVERFLOW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_RQ_STRUCT_FAIL">
+<code class="sig-name descname"><span class="pre">MSG_ERR_RQ_STRUCT_FAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">전문작성</span> <span class="pre">초기화</span> <span class="pre">실패</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_RQ_STRUCT_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_RQ_STRUCT_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_RQ_STRING_FAIL">
+<code class="sig-name descname"><span class="pre">MSG_ERR_RQ_STRING_FAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">전문작성</span> <span class="pre">입력값</span> <span class="pre">오류</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_RQ_STRING_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_RQ_STRING_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_NO_DATA">
+<code class="sig-name descname"><span class="pre">MSG_ERR_NO_DATA</span></code><em class="property"> <span class="pre">=</span> <span class="pre">데이터</span> <span class="pre">없음</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_NO_DATA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_NO_DATA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_OVER_MAX_DATA">
+<code class="sig-name descname"><span class="pre">MSG_ERR_OVER_MAX_DATA</span></code><em class="property"> <span class="pre">=</span> <span class="pre">조회</span> <span class="pre">가능한</span> <span class="pre">종목수</span> <span class="pre">초과</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_OVER_MAX_DATA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_OVER_MAX_DATA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_DATA_RCV_FAIL">
+<code class="sig-name descname"><span class="pre">MSG_ERR_DATA_RCV_FAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">데이터수신</span> <span class="pre">실패</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_DATA_RCV_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_DATA_RCV_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_OVER_MAX_FID">
+<code class="sig-name descname"><span class="pre">MSG_ERR_OVER_MAX_FID</span></code><em class="property"> <span class="pre">=</span> <span class="pre">조회</span> <span class="pre">가능한</span> <span class="pre">FID수</span> <span class="pre">초과</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_OVER_MAX_FID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_OVER_MAX_FID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_REAL_CANCEL">
+<code class="sig-name descname"><span class="pre">MSG_ERR_REAL_CANCEL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">실시간</span> <span class="pre">해제</span> <span class="pre">오류</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_REAL_CANCEL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_REAL_CANCEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_WRONG_INPUT">
+<code class="sig-name descname"><span class="pre">MSG_ERR_ORD_WRONG_INPUT</span></code><em class="property"> <span class="pre">=</span> <span class="pre">입력값</span> <span class="pre">오류</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_WRONG_INPUT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_WRONG_INPUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_WRONG_ACCTNO">
+<code class="sig-name descname"><span class="pre">MSG_ERR_ORD_WRONG_ACCTNO</span></code><em class="property"> <span class="pre">=</span> <span class="pre">계좌</span> <span class="pre">비밀번호</span> <span class="pre">없음</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_WRONG_ACCTNO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_WRONG_ACCTNO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_OTHER_ACC_USE">
+<code class="sig-name descname"><span class="pre">MSG_ERR_OTHER_ACC_USE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">타인계좌사용</span> <span class="pre">오류</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_OTHER_ACC_USE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_OTHER_ACC_USE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_2BILL_EXC">
+<code class="sig-name descname"><span class="pre">MSG_ERR_MIS_2BILL_EXC</span></code><em class="property"> <span class="pre">=</span> <span class="pre">주문가격이</span> <span class="pre">20억원을</span> <span class="pre">초과</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_2BILL_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_2BILL_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_5BILL_EXC">
+<code class="sig-name descname"><span class="pre">MSG_ERR_MIS_5BILL_EXC</span></code><em class="property"> <span class="pre">=</span> <span class="pre">주문가격이</span> <span class="pre">50억원을</span> <span class="pre">초과</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_5BILL_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_5BILL_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_1PER_EXC">
+<code class="sig-name descname"><span class="pre">MSG_ERR_MIS_1PER_EXC</span></code><em class="property"> <span class="pre">=</span> <span class="pre">주문수량이</span> <span class="pre">총발행주수의</span> <span class="pre">1%초과오류</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_1PER_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_1PER_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_3PER_EXC">
+<code class="sig-name descname"><span class="pre">MSG_ERR_MIS_3PER_EXC</span></code><em class="property"> <span class="pre">=</span> <span class="pre">주문수량이</span> <span class="pre">총발행주수의</span> <span class="pre">3%초과오류</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_3PER_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_3PER_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_SEND_FAIL">
+<code class="sig-name descname"><span class="pre">MSG_ERR_SEND_FAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">주문전송</span> <span class="pre">실패</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_SEND_FAIL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_SEND_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_OVERFLOW">
+<code class="sig-name descname"><span class="pre">MSG_ERR_ORD_OVERFLOW</span></code><em class="property"> <span class="pre">=</span> <span class="pre">주문전송</span> <span class="pre">과부하</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_OVERFLOW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_OVERFLOW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_OVERFLOW2">
+<code class="sig-name descname"><span class="pre">MSG_ERR_ORD_OVERFLOW2</span></code><em class="property"> <span class="pre">=</span> <span class="pre">주문전송</span> <span class="pre">과부하</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_OVERFLOW2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_OVERFLOW2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_300CNT_EXC">
+<code class="sig-name descname"><span class="pre">MSG_ERR_MIS_300CNT_EXC</span></code><em class="property"> <span class="pre">=</span> <span class="pre">주문수량</span> <span class="pre">300계약</span> <span class="pre">초과</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_300CNT_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_300CNT_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_500CNT_EXC">
+<code class="sig-name descname"><span class="pre">MSG_ERR_MIS_500CNT_EXC</span></code><em class="property"> <span class="pre">=</span> <span class="pre">주문수량</span> <span class="pre">500계약</span> <span class="pre">초과</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_500CNT_EXC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_MIS_500CNT_EXC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_WRONG_ACCTINFO">
+<code class="sig-name descname"><span class="pre">MSG_ERR_ORD_WRONG_ACCTINFO</span></code><em class="property"> <span class="pre">=</span> <span class="pre">계좌정보없음</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_WRONG_ACCTINFO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_WRONG_ACCTINFO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_SYMCODE_EMPTY">
+<code class="sig-name descname"><span class="pre">MSG_ERR_ORD_SYMCODE_EMPTY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">종목코드없음</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_SYMCODE_EMPTY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.MSG_ERR_ORD_SYMCODE_EMPTY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.ERROR_MESSAGE_BY_CODE">
+<code class="sig-name descname"><span class="pre">ERROR_MESSAGE_BY_CODE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.ERROR_MESSAGE_BY_CODE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.ERROR_MESSAGE_BY_CODE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.get_error_message_by_code">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_error_message_by_code</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.get_error_message_by_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.get_error_message_by_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.check_code_or_raise">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">check_code_or_raise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.check_code_or_raise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.check_code_or_raise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.wrap_to_check_code_or_raise">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">wrap_to_check_code_or_raise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.wrap_to_check_code_or_raise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.wrap_to_check_code_or_raise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.try_or_raise">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">try_or_raise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.try_or_raise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.try_or_raise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.__str__">
+<code class="sig-name descname"><span class="pre">__str__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.code">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">code</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusNegativeReturnCodeError.code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiPlusBooleanReturnCodeError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusBooleanReturnCodeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusError</span></code></a></p>
+<p>Common base class for all non-exit exceptions.</p>
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.OP_ERR_SUCCESS">
+<code class="sig-name descname"><span class="pre">OP_ERR_SUCCESS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusBooleanReturnCodeError.OP_ERR_SUCCESS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.OP_ERR_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.OP_ERR_FAILURE">
+<code class="sig-name descname"><span class="pre">OP_ERR_FAILURE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusBooleanReturnCodeError.OP_ERR_FAILURE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.OP_ERR_FAILURE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.check_code_or_raise">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">check_code_or_raise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusBooleanReturnCodeError.check_code_or_raise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.check_code_or_raise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.wrap_to_check_code_or_raise">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">wrap_to_check_code_or_raise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusBooleanReturnCodeError.wrap_to_check_code_or_raise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.wrap_to_check_code_or_raise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.try_or_raise">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">try_or_raise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusBooleanReturnCodeError.try_or_raise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.try_or_raise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.__str__">
+<code class="sig-name descname"><span class="pre">__str__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusBooleanReturnCodeError.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusBooleanReturnCodeError.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.code">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">code</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError.html#KiwoomOpenApiPlusBooleanReturnCodeError.code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../../../_sources/autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

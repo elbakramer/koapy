@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.utils.calendar.exchange_calendar &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="koapy.utils.calendar.exchange_calendar_xkrx" href="../exchange_calendar_xkrx/index.html" />
+    <link rel="prev" title="koapy.utils.calendar.pandas_extensions.offsets" href="../pandas_extensions/offsets/index.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../index.html">API Reference</a><ul>
+  <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar</span></code></a><ul>
+      <li>Previous: <a href="../pandas_extensions/offsets/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.pandas_extensions.offsets</span></code></a></li>
+      <li>Next: <a href="../exchange_calendar_xkrx/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.exchange_calendar_xkrx</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.utils.calendar.exchange_calendar">
+<span id="koapy-utils-calendar-exchange-calendar"></span><h1><a class="reference internal" href="#module-koapy.utils.calendar.exchange_calendar" title="koapy.utils.calendar.exchange_calendar"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.exchange_calendar</span></code></a><a class="headerlink" href="#module-koapy.utils.calendar.exchange_calendar" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.calendar.exchange_calendar.ExchangeCalendar" title="koapy.utils.calendar.exchange_calendar.ExchangeCalendar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExchangeCalendar</span></code></a></p></td>
+<td><p>An ExchangeCalendar represents the timing information of a single market</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.calendar.exchange_calendar.selection" title="koapy.utils.calendar.exchange_calendar.selection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection</span></code></a>(arr, start, end)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.utils.calendar.exchange_calendar.days_at_time" title="koapy.utils.calendar.exchange_calendar.days_at_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">days_at_time</span></code></a>(days, t, tz, day_offset=0)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.calendar.exchange_calendar._group_times" title="koapy.utils.calendar.exchange_calendar._group_times"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_group_times</span></code></a>(all_days, times, tz, offset=0)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="koapy.utils.calendar.exchange_calendar.selection">
+<code class="sig-prename descclassname"><span class="pre">koapy.utils.calendar.exchange_calendar.</span></code><code class="sig-name descname"><span class="pre">selection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/calendar/exchange_calendar.html#selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.calendar.exchange_calendar.selection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.utils.calendar.exchange_calendar.days_at_time">
+<code class="sig-prename descclassname"><span class="pre">koapy.utils.calendar.exchange_calendar.</span></code><code class="sig-name descname"><span class="pre">days_at_time</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">days</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/calendar/exchange_calendar.html#days_at_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.calendar.exchange_calendar.days_at_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="koapy.utils.calendar.exchange_calendar._group_times">
+<code class="sig-prename descclassname"><span class="pre">koapy.utils.calendar.exchange_calendar.</span></code><code class="sig-name descname"><span class="pre">_group_times</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_days</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/calendar/exchange_calendar.html#_group_times"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.calendar.exchange_calendar._group_times" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="koapy.utils.calendar.exchange_calendar.ExchangeCalendar">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.utils.calendar.exchange_calendar.</span></code><code class="sig-name descname"><span class="pre">ExchangeCalendar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">start_default</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">end_default</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/calendar/exchange_calendar.html#ExchangeCalendar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.calendar.exchange_calendar.ExchangeCalendar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">exchange_calendars.exchange_calendar.ExchangeCalendar</span></code></p>
+<p>An ExchangeCalendar represents the timing information of a single market
+exchange.</p>
+<p>The timing information is made up of two parts: sessions, and opens/closes.</p>
+<p>A session represents a contiguous set of minutes, and has a label that is
+midnight UTC. It is important to note that a session label should not be
+considered a specific point in time, and that midnight UTC is just being
+used for convenience.</p>
+<p>For each session, we store the open and close time in UTC time.</p>
+<dl class="py method">
+<dt id="koapy.utils.calendar.exchange_calendar.ExchangeCalendar.day">
+<code class="sig-name descname"><span class="pre">day</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/calendar/exchange_calendar.html#ExchangeCalendar.day"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.calendar.exchange_calendar.ExchangeCalendar.day" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.calendar.exchange_calendar.ExchangeCalendar.special_weekmasks">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">special_weekmasks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/calendar/exchange_calendar.html#ExchangeCalendar.special_weekmasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.calendar.exchange_calendar.ExchangeCalendar.special_weekmasks" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>list</strong> – weekmasks that applies between dates.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List of (date, date, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>) tuples that represent special</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.calendar.exchange_calendar.ExchangeCalendar.special_offsets">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">special_offsets</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/calendar/exchange_calendar.html#ExchangeCalendar.special_offsets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.calendar.exchange_calendar.ExchangeCalendar.special_offsets" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>list</strong> – that represent special open, break_start, break_end, close offsets
+and corresponding HolidayCalendars.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List of (timedelta, timedelta, timedelta, timedelta, <a class="reference internal" href="../pandas_extensions/holiday/index.html#koapy.utils.calendar.pandas_extensions.holiday.AbstractHolidayCalendar" title="koapy.utils.calendar.pandas_extensions.holiday.AbstractHolidayCalendar">AbstractHolidayCalendar</a>) tuples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.calendar.exchange_calendar.ExchangeCalendar.special_offsets_adhoc">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">special_offsets_adhoc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/calendar/exchange_calendar.html#ExchangeCalendar.special_offsets_adhoc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.calendar.exchange_calendar.ExchangeCalendar.special_offsets_adhoc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>list</strong> – that represent special open, break_start, break_end, close offsets
+and corresponding DatetimeIndexes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List of (timedelta, timedelta, timedelta, timedelta, DatetimeIndex) tuples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.calendar.exchange_calendar.ExchangeCalendar._overwrite_special_offsets">
+<code class="sig-name descname"><span class="pre">_overwrite_special_offsets</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opens_or_closes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_hoc_dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/calendar/exchange_calendar.html#ExchangeCalendar._overwrite_special_offsets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.calendar.exchange_calendar.ExchangeCalendar._overwrite_special_offsets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.calendar.exchange_calendar.ExchangeCalendar._calculate_and_overwrite_special_offsets">
+<code class="sig-name descname"><span class="pre">_calculate_and_overwrite_special_offsets</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/calendar/exchange_calendar.html#ExchangeCalendar._calculate_and_overwrite_special_offsets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.calendar.exchange_calendar.ExchangeCalendar._calculate_and_overwrite_special_offsets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../../_sources/autoapi/koapy/utils/calendar/exchange_calendar/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

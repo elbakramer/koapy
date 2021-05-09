@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Reference &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="koapy" href="koapy/index.html" />
+    <link rel="prev" title="과거 주식 가격 데이터 확보를 위해 지금까지 삽질해 본 것들" href="../notebooks/getting-historical-stock-price-data.html" />
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="koapy/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="koapy/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../notebooks/getting-historical-stock-price-data.html" title="previous chapter">과거 주식 가격 데이터 확보를 위해 지금까지 삽질해 본 것들</a></li>
+      <li>Next: <a href="koapy/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<p>This page contains auto-generated API reference documentation <a class="footnote-reference brackets" href="#f1" id="id1">1</a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="koapy/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="koapy/backend/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.core</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypoint/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypointMixin/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/core/CybosPlusError/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.core.CybosPlusError</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/core/CybosPlusRateLimiter/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.core.CybosPlusRateLimiter</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/proxy/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.proxy</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/proxy/CybosPlusEntrypointProxy/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusEntrypointProxy</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceMessageUtils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceMessageUtils</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2_grpc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2_grpc</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEntrypoint/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEntrypointMixin/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventHandler/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandler</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventHandlerFunctions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerFunctions</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusLoggingEventHandler/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusLoggingEventHandler</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidget/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRateLimiter/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusScreenManager/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusScreenManager</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignature/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusVersionUpdater/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/event/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.event</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusEventHandlerForGrpc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlerForGrpc</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusEventHandlers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlers</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/tools/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.tools</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/tools/compile_proto/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.tools.compile_proto</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClient/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientSideDynamicCallable/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideDynamicCallable</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientSideSignalConnector/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideSignalConnector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceMessageUtils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceMessageUtils</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceServer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServer</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceServicer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusTrayApplication/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/utils/grpc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.grpc</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/utils/grpc/PipeableStream/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.grpc.PipeableStream</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/utils/pyside2/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.pyside2</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/utils/queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.queue</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/utils/queue/QueueBasedBufferedIterator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedBufferedIterator</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/utils/queue/QueueBasedIterableObserver/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedIterableObserver</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWDynamicCallable/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWDynamicCallable</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWEntrypoint/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWEntrypoint</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWEventHandler/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWEventHandler</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWEventHandlerFunctions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWEventHandlerFunctions</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWLoggingEventHandler/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWLoggingEventHandler</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWQAxWidget/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWQAxWidget</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWQAxWidgetMixin/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWQAxWidgetMixin</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignalConnector/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignalConnector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="koapy/backtrader/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backtrader/KiwoomOpenApiPlusBroker/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusBroker</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backtrader/KiwoomOpenApiPlusData/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusEventStreamer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backtrader/KiwoomOpenApiPlusStore/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusStore</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backtrader/KrxHistoricalDailyPriceData/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KrxHistoricalDailyPriceData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backtrader/KrxHistoricalDailyPriceDataFromSQLite/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KrxHistoricalDailyPriceDataFromSQLite</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backtrader/KrxTradingCalendar/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KrxTradingCalendar</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backtrader/SQLAlchemyData/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.SQLAlchemyData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backtrader/SQLAlchemySQLiteData/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.SQLAlchemySQLiteData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/backtrader/SQLiteData/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.SQLiteData</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="koapy/compat/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.compat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="koapy/compat/pyside2/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.compat.pyside2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="koapy/compat/pyside2/QtAxContainer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.compat.pyside2.QtAxContainer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/compat/pyside2/QtCore/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.compat.pyside2.QtCore</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/compat/pyside2/QtGui/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.compat.pyside2.QtGui</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/compat/pyside2/QtNetwork/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.compat.pyside2.QtNetwork</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/compat/pyside2/QtWidgets/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.compat.pyside2.QtWidgets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/compat/pywinauto/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.compat.pywinauto</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="koapy/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/calendar/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/calendar/etc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.etc</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/calendar/etc/update_xkrx_holidays/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.etc.update_xkrx_holidays</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/calendar/pandas_extensions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.pandas_extensions</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/calendar/pandas_extensions/holiday/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.pandas_extensions.holiday</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/calendar/pandas_extensions/korean_holiday/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.pandas_extensions.korean_holiday</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/calendar/pandas_extensions/offsets/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.pandas_extensions.offsets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/calendar/exchange_calendar/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.exchange_calendar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/calendar/exchange_calendar_xkrx/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.exchange_calendar_xkrx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/calendar/xkrx_holidays/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.calendar.xkrx_holidays</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.data</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/data/KrxHistoricalDailyPriceDataDownloader/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.data.KrxHistoricalDailyPriceDataDownloader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/data/KrxHistoricalDailyPriceDataForBacktestLoader/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/data/KrxHistoricalDailyPriceDataLoader/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.data.KrxHistoricalDailyPriceDataLoader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/data/YahooFinanceKrxHistoricalDailyPriceDataDownloader/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.data.YahooFinanceKrxHistoricalDailyPriceDataDownloader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/logging/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.logging</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/logging/Logging/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.logging.Logging</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/messaging/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.messaging</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/messaging/DiscordMessenger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.messaging.DiscordMessenger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/messaging/Messenger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.messaging.Messenger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/rate_limiting/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.rate_limiting</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/rate_limiting/RateLimiter/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.rate_limiting.RateLimiter</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/store/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/store/misc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.misc</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/store/misc/VersionedItem/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.misc.VersionedItem</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/store/sqlalchemy/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/store/sqlalchemy/Base/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Base</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/store/sqlalchemy/Library/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Library</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/store/sqlalchemy/Session/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Session</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/store/sqlalchemy/Snapshot/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Snapshot</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/store/sqlalchemy/SnapshotAssociation/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.SnapshotAssociation</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/store/sqlalchemy/Symbol/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Symbol</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/store/sqlalchemy/Timestamp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Timestamp</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="koapy/utils/store/sqlalchemy/Version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/store/SQLiteFileLibrary/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.SQLiteFileLibrary</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/store/SQLiteStore/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.SQLiteStore</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="koapy/utils/store/SQLiteStoreLibrary/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.SQLiteStoreLibrary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/datetime/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.datetime</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/itertools/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.itertools</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/networking/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.networking</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/notimplemented/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.notimplemented</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/recursion/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.recursion</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/serialization/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.serialization</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/subprocess/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.subprocess</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="koapy/utils/threading/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.threading</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="koapy/cli/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="koapy/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Created with <a class="reference external" href="https://github.com/readthedocs/sphinx-autoapi">sphinx-autoapi</a></p>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/autoapi/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

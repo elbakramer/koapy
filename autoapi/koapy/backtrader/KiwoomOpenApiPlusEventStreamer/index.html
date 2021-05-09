@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backtrader.KiwoomOpenApiPlusEventStreamer &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="koapy.backtrader.KiwoomOpenApiPlusStore" href="../KiwoomOpenApiPlusStore/index.html" />
+    <link rel="prev" title="koapy.backtrader.KiwoomOpenApiPlusData" href="../KiwoomOpenApiPlusData/index.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">API Reference</a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader</span></code></a><ul>
+      <li>Previous: <a href="../KiwoomOpenApiPlusData/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusData</span></code></a></li>
+      <li>Next: <a href="../KiwoomOpenApiPlusStore/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusStore</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.backtrader.KiwoomOpenApiPlusEventStreamer">
+<span id="koapy-backtrader-kiwoomopenapipluseventstreamer"></span><h1><a class="reference internal" href="#module-koapy.backtrader.KiwoomOpenApiPlusEventStreamer" title="koapy.backtrader.KiwoomOpenApiPlusEventStreamer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusEventStreamer</span></code></a><a class="headerlink" href="#module-koapy.backtrader.KiwoomOpenApiPlusEventStreamer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel" title="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusPriceEventChannel</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel" title="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusOrderEventChannel</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer" title="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusEventStreamer</span></code></a></p></td>
+<td><p>Observer abstract base class</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusEventStreamer.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiPlusPriceEventChannel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stub</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/logging/Logging/index.html#koapy.utils.logging.Logging.Logging" title="koapy.utils.logging.Logging.Logging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">koapy.utils.logging.Logging.Logging</span></code></a></p>
+<dl class="py attribute">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel._krx_timezone">
+<code class="sig-name descname"><span class="pre">_krx_timezone</span></code><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel._krx_timezone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel._krx_timezone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.close">
+<code class="sig-name descname"><span class="pre">close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.__del__">
+<code class="sig-name descname"><span class="pre">__del__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.__del__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.__del__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.initialize">
+<code class="sig-name descname"><span class="pre">initialize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.register_code">
+<code class="sig-name descname"><span class="pre">register_code</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.register_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.register_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.is_for_code">
+<code class="sig-name descname"><span class="pre">is_for_code</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.is_for_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.is_for_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.filter_for_code">
+<code class="sig-name descname"><span class="pre">filter_for_code</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.filter_for_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.filter_for_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.is_valid_price_event">
+<code class="sig-name descname"><span class="pre">is_valid_price_event</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.is_valid_price_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.is_valid_price_event" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.filter_price_event">
+<code class="sig-name descname"><span class="pre">filter_price_event</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.filter_price_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.filter_price_event" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.time_to_timestamp">
+<code class="sig-name descname"><span class="pre">time_to_timestamp</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fid20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.time_to_timestamp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.time_to_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.event_to_dict">
+<code class="sig-name descname"><span class="pre">event_to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.event_to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.event_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.convert_to_dict">
+<code class="sig-name descname"><span class="pre">convert_to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.convert_to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.convert_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.get_observable_for_code">
+<code class="sig-name descname"><span class="pre">get_observable_for_code</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusPriceEventChannel.get_observable_for_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.get_observable_for_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusEventStreamer.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiPlusOrderEventChannel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stub</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusOrderEventChannel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.close">
+<code class="sig-name descname"><span class="pre">close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusOrderEventChannel.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.__del__">
+<code class="sig-name descname"><span class="pre">__del__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusOrderEventChannel.__del__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.__del__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.is_chejan_response">
+<code class="sig-name descname"><span class="pre">is_chejan_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusOrderEventChannel.is_chejan_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.is_chejan_response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.filter_chejan_response">
+<code class="sig-name descname"><span class="pre">filter_chejan_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusOrderEventChannel.filter_chejan_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.filter_chejan_response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.event_to_dict">
+<code class="sig-name descname"><span class="pre">event_to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusOrderEventChannel.event_to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.event_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.convert_to_dict">
+<code class="sig-name descname"><span class="pre">convert_to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusOrderEventChannel.convert_to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.convert_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.get_observable">
+<code class="sig-name descname"><span class="pre">get_observable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusOrderEventChannel.get_observable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusOrderEventChannel.get_observable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backtrader.KiwoomOpenApiPlusEventStreamer.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiPlusEventStreamer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusEventStreamer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">rx.core.typing.Observer</span></code>, <a class="reference internal" href="../../utils/logging/Logging/index.html#koapy.utils.logging.Logging.Logging" title="koapy.utils.logging.Logging.Logging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">koapy.utils.logging.Logging.Logging</span></code></a></p>
+<p>Observer abstract base class</p>
+<p>An Observer is the entity that receives all emissions of a subscribed
+Observable.</p>
+<dl class="py attribute">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer._price_event_channels_by_stub">
+<code class="sig-name descname"><span class="pre">_price_event_channels_by_stub</span></code><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusEventStreamer._price_event_channels_by_stub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer._price_event_channels_by_stub" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer._order_event_channels_by_stub">
+<code class="sig-name descname"><span class="pre">_order_event_channels_by_stub</span></code><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusEventStreamer._order_event_channels_by_stub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer._order_event_channels_by_stub" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer._lock">
+<code class="sig-name descname"><span class="pre">_lock</span></code><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusEventStreamer._lock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer._lock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.on_next">
+<code class="sig-name descname"><span class="pre">on_next</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusEventStreamer.on_next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.on_next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notifies the observer of a new element in the sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – The received element.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.on_error">
+<code class="sig-name descname"><span class="pre">on_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusEventStreamer.on_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.on_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notifies the observer that an exception has occurred.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>error</strong> – The error that has occurred.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.on_completed">
+<code class="sig-name descname"><span class="pre">on_completed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusEventStreamer.on_completed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.on_completed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notifies the observer of the end of the sequence.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.rates">
+<code class="sig-name descname"><span class="pre">rates</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusEventStreamer.rates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.rates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.events">
+<code class="sig-name descname"><span class="pre">events</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/backtrader/KiwoomOpenApiPlusEventStreamer.html#KiwoomOpenApiPlusEventStreamer.events"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusEventStreamer.events" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../_sources/autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

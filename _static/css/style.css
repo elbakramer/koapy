@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Noto+Serif+KR:wght@300;400&display=swap');
+
+body {
+    font-family: 'Noto Serif KR', Georgia, 'Times New Roman', Times, serif;
+}
+
+pre, tt, code {
+    font-family: 'Nanum Gothic Coding', 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    font-size: 0.9em;
+}
+
+code {
+    display: inline-block;
+    padding: 0 0.2em;
+}
+
+dl dd {
+    margin-left: 0;
+}
+
+div.document {
+    width: 100%;
+    max-width: 1000px;
+}
+
+@media screen and (max-width: 875px) {
+    div.sphinxsidebar {
+        width: calc(100% + 20px);
+        margin: -20px 0 20px -30px;
+    }
+
+    div.body {
+        min-width: 0;
+    }
+}
+
+@media screen and (max-width: 870px) {
+    ul {
+        margin-left: 30px;
+    }
+}

@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../index.html">Module code</a><ul>
+  <li><a href="../../../../koapy.html">koapy</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+
+<div class="viewcode-block" id="KiwoomOpenApiWError"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWError">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiWError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="KiwoomOpenApiWError.message"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWError.message">[docs]</a>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiWError.try_or_raise"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWError.try_or_raise">[docs]</a>    <span class="k">def</span> <span class="nf">try_or_raise</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">KiwoomOpenApiWNegativeReturnCodeError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiWError.try_or_raise_boolean"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWError.try_or_raise_boolean">[docs]</a>    <span class="k">def</span> <span class="nf">try_or_raise_boolean</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">KiwoomOpenApiWBooleanReturnCodeError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiWNegativeReturnCodeError</span><span class="p">(</span><span class="n">KiwoomOpenApiWError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_NONE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_NONE">[docs]</a>    <span class="n">OP_ERR_NONE</span> <span class="o">=</span> <span class="mi">0</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_NO_LOGIN"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_NO_LOGIN">[docs]</a>    <span class="n">OP_ERR_NO_LOGIN</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_LOGIN"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_LOGIN">[docs]</a>    <span class="n">OP_ERR_LOGIN</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_CONNECT"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_CONNECT">[docs]</a>    <span class="n">OP_ERR_CONNECT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">101</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_VERSION"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_VERSION">[docs]</a>    <span class="n">OP_ERR_VERSION</span> <span class="o">=</span> <span class="o">-</span><span class="mi">102</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_TRCODE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_TRCODE">[docs]</a>    <span class="n">OP_ERR_TRCODE</span> <span class="o">=</span> <span class="o">-</span><span class="mi">103</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_NO_REGOPENAPI"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_NO_REGOPENAPI">[docs]</a>    <span class="n">OP_ERR_NO_REGOPENAPI</span> <span class="o">=</span> <span class="o">-</span><span class="mi">104</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_SISE_OVERFLOW"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_SISE_OVERFLOW">[docs]</a>    <span class="n">OP_ERR_SISE_OVERFLOW</span> <span class="o">=</span> <span class="o">-</span><span class="mi">200</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORDER_OVERFLOW"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORDER_OVERFLOW">[docs]</a>    <span class="n">OP_ERR_ORDER_OVERFLOW</span> <span class="o">=</span> <span class="o">-</span><span class="mi">201</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_RQ_WRONG_INPUT"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_RQ_WRONG_INPUT">[docs]</a>    <span class="n">OP_ERR_RQ_WRONG_INPUT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">202</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORD_WRONG_INPUT"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORD_WRONG_INPUT">[docs]</a>    <span class="n">OP_ERR_ORD_WRONG_INPUT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">300</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORD_WRONG_ACCPWD"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORD_WRONG_ACCPWD">[docs]</a>    <span class="n">OP_ERR_ORD_WRONG_ACCPWD</span> <span class="o">=</span> <span class="o">-</span><span class="mi">301</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORD_WRONG_ACCNO"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORD_WRONG_ACCNO">[docs]</a>    <span class="n">OP_ERR_ORD_WRONG_ACCNO</span> <span class="o">=</span> <span class="o">-</span><span class="mi">302</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORD_WRONG_QTY200"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORD_WRONG_QTY200">[docs]</a>    <span class="n">OP_ERR_ORD_WRONG_QTY200</span> <span class="o">=</span> <span class="o">-</span><span class="mi">303</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORD_WRONG_QTY400"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.OP_ERR_ORD_WRONG_QTY400">[docs]</a>    <span class="n">OP_ERR_ORD_WRONG_QTY400</span> <span class="o">=</span> <span class="o">-</span><span class="mi">304</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_NONE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_NONE">[docs]</a>    <span class="n">MSG_ERR_NONE</span> <span class="o">=</span> <span class="s2">&quot;정상처리&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_NO_LOGIN"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_NO_LOGIN">[docs]</a>    <span class="n">MSG_ERR_NO_LOGIN</span> <span class="o">=</span> <span class="s2">&quot;미접속상태&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_LOGIN"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_LOGIN">[docs]</a>    <span class="n">MSG_ERR_LOGIN</span> <span class="o">=</span> <span class="s2">&quot;로그인시 접속 실패 (아이피 오류 또는 접속정보 오류)&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_CONNECT"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_CONNECT">[docs]</a>    <span class="n">MSG_ERR_CONNECT</span> <span class="o">=</span> <span class="s2">&quot;서버 접속 실패&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_VERSION"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_VERSION">[docs]</a>    <span class="n">MSG_ERR_VERSION</span> <span class="o">=</span> <span class="s2">&quot;버전처리가 실패하였습니다.&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_TRCODE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_TRCODE">[docs]</a>    <span class="n">MSG_ERR_TRCODE</span> <span class="o">=</span> <span class="s2">&quot;TrCode 가 존재하지 않습니다.&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_NO_REGOPENAPI"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_NO_REGOPENAPI">[docs]</a>    <span class="n">MSG_ERR_NO_REGOPENAPI</span> <span class="o">=</span> <span class="s2">&quot;해외OpenAPI 미신청&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_SISE_OVERFLOW"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_SISE_OVERFLOW">[docs]</a>    <span class="n">MSG_ERR_SISE_OVERFLOW</span> <span class="o">=</span> <span class="s2">&quot;조회과부화&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORDER_OVERFLOW"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORDER_OVERFLOW">[docs]</a>    <span class="n">MSG_ERR_ORDER_OVERFLOW</span> <span class="o">=</span> <span class="s2">&quot;주문과부화&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_RQ_WRONG_INPUT"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_RQ_WRONG_INPUT">[docs]</a>    <span class="n">MSG_ERR_RQ_WRONG_INPUT</span> <span class="o">=</span> <span class="s2">&quot;조회입력값(명칭/누락) 오류&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORD_WRONG_INPUT"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORD_WRONG_INPUT">[docs]</a>    <span class="n">MSG_ERR_ORD_WRONG_INPUT</span> <span class="o">=</span> <span class="s2">&quot;주문입력갑 오류&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORD_WRONG_ACCPWD"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORD_WRONG_ACCPWD">[docs]</a>    <span class="n">MSG_ERR_ORD_WRONG_ACCPWD</span> <span class="o">=</span> <span class="s2">&quot;계좌비밀번호를 입력하십시오.&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORD_WRONG_ACCNO"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORD_WRONG_ACCNO">[docs]</a>    <span class="n">MSG_ERR_ORD_WRONG_ACCNO</span> <span class="o">=</span> <span class="s2">&quot;타인 계좌를 사용할 수 없습니다.&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORD_WRONG_QTY200"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORD_WRONG_QTY200">[docs]</a>    <span class="n">MSG_ERR_ORD_WRONG_QTY200</span> <span class="o">=</span> <span class="s2">&quot;경고-주문수량 200개 초과&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORD_WRONG_QTY400"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.MSG_ERR_ORD_WRONG_QTY400">[docs]</a>    <span class="n">MSG_ERR_ORD_WRONG_QTY400</span> <span class="o">=</span> <span class="s2">&quot;제한-주문수량 400개 초과&quot;</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.ERROR_MESSAGE_BY_CODE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.ERROR_MESSAGE_BY_CODE">[docs]</a>    <span class="n">ERROR_MESSAGE_BY_CODE</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">OP_ERR_NONE</span><span class="p">:</span> <span class="n">MSG_ERR_NONE</span><span class="p">,</span>
+        <span class="n">OP_ERR_NO_LOGIN</span><span class="p">:</span> <span class="n">MSG_ERR_NO_LOGIN</span><span class="p">,</span>
+        <span class="n">OP_ERR_LOGIN</span><span class="p">:</span> <span class="n">MSG_ERR_LOGIN</span><span class="p">,</span>
+        <span class="n">OP_ERR_CONNECT</span><span class="p">:</span> <span class="n">MSG_ERR_CONNECT</span><span class="p">,</span>
+        <span class="n">OP_ERR_VERSION</span><span class="p">:</span> <span class="n">MSG_ERR_VERSION</span><span class="p">,</span>
+        <span class="n">OP_ERR_TRCODE</span><span class="p">:</span> <span class="n">MSG_ERR_TRCODE</span><span class="p">,</span>
+        <span class="n">OP_ERR_NO_REGOPENAPI</span><span class="p">:</span> <span class="n">MSG_ERR_NO_REGOPENAPI</span><span class="p">,</span>
+        <span class="n">OP_ERR_SISE_OVERFLOW</span><span class="p">:</span> <span class="n">MSG_ERR_SISE_OVERFLOW</span><span class="p">,</span>
+        <span class="n">OP_ERR_ORDER_OVERFLOW</span><span class="p">:</span> <span class="n">MSG_ERR_ORDER_OVERFLOW</span><span class="p">,</span>
+        <span class="n">OP_ERR_RQ_WRONG_INPUT</span><span class="p">:</span> <span class="n">MSG_ERR_RQ_WRONG_INPUT</span><span class="p">,</span>
+        <span class="n">OP_ERR_ORD_WRONG_INPUT</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_WRONG_INPUT</span><span class="p">,</span>
+        <span class="n">OP_ERR_ORD_WRONG_ACCPWD</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_WRONG_ACCPWD</span><span class="p">,</span>
+        <span class="n">OP_ERR_ORD_WRONG_ACCNO</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_WRONG_ACCNO</span><span class="p">,</span>
+        <span class="n">OP_ERR_ORD_WRONG_QTY200</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_WRONG_QTY200</span><span class="p">,</span>
+        <span class="n">OP_ERR_ORD_WRONG_QTY400</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_WRONG_QTY400</span><span class="p">,</span></div>
+    <span class="p">}</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.get_error_message_by_code"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.get_error_message_by_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_error_message_by_code</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">ERROR_MESSAGE_BY_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.check_code_or_raise"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.check_code_or_raise">[docs]</a>    <span class="k">def</span> <span class="nf">check_code_or_raise</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="bp">cls</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">code</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.wrap_to_check_code_or_raise"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.wrap_to_check_code_or_raise">[docs]</a>    <span class="k">def</span> <span class="nf">wrap_to_check_code_or_raise</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">check_code_or_raise</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">wrapper</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.try_or_raise"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.try_or_raise">[docs]</a>    <span class="k">def</span> <span class="nf">try_or_raise</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">check_code_or_raise</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">callable</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">wrap_to_check_code_or_raise</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Expected &#39;int&#39; or &#39;callable&#39; but </span><span class="si">%s</span><span class="s2"> found&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_error_message_by_code</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_code</span> <span class="o">=</span> <span class="n">code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.__str__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.__repr__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.code"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.code">[docs]</a>    <span class="k">def</span> <span class="nf">code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span></div></div>
+
+
+<div class="viewcode-block" id="KiwoomOpenApiWBooleanReturnCodeError"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWBooleanReturnCodeError">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiWBooleanReturnCodeError</span><span class="p">(</span><span class="n">KiwoomOpenApiWError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiWBooleanReturnCodeError.OP_ERR_SUCCESS"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWBooleanReturnCodeError.OP_ERR_SUCCESS">[docs]</a>    <span class="n">OP_ERR_SUCCESS</span> <span class="o">=</span> <span class="mi">1</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiWBooleanReturnCodeError.OP_ERR_FAILURE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWBooleanReturnCodeError.OP_ERR_FAILURE">[docs]</a>    <span class="n">OP_ERR_FAILURE</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiWBooleanReturnCodeError.check_code_or_raise"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWBooleanReturnCodeError.check_code_or_raise">[docs]</a>    <span class="k">def</span> <span class="nf">check_code_or_raise</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">code</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="bp">cls</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">code</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiWBooleanReturnCodeError.wrap_to_check_code_or_raise"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWBooleanReturnCodeError.wrap_to_check_code_or_raise">[docs]</a>    <span class="k">def</span> <span class="nf">wrap_to_check_code_or_raise</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">check_code_or_raise</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">message</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">wrapper</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiWBooleanReturnCodeError.try_or_raise"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWBooleanReturnCodeError.try_or_raise">[docs]</a>    <span class="k">def</span> <span class="nf">try_or_raise</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">check_code_or_raise</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">callable</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">wrap_to_check_code_or_raise</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">&quot;Expected &#39;int&#39;, &#39;bool&#39; or &#39;callable&#39; but </span><span class="si">%s</span><span class="s2"> found&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span></div>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_code</span> <span class="o">=</span> <span class="n">code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiWBooleanReturnCodeError.__str__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWBooleanReturnCodeError.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiWBooleanReturnCodeError.__repr__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWBooleanReturnCodeError.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="KiwoomOpenApiWBooleanReturnCodeError.code"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWBooleanReturnCodeError.code">[docs]</a>    <span class="k">def</span> <span class="nf">code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

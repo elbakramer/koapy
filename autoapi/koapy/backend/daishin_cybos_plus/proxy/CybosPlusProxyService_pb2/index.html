@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2 &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../_static/jquery.js"></script>
+    <script src="../../../../../../_static/underscore.js"></script>
+    <script src="../../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+    <link rel="next" title="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2_grpc" href="../CybosPlusProxyService_pb2_grpc/index.html" />
+    <link rel="prev" title="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer" href="../CybosPlusProxyServiceServicer/index.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../../index.html">API Reference</a><ul>
+  <li><a href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend</span></code></a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.proxy</span></code></a><ul>
+      <li>Previous: <a href="../CybosPlusProxyServiceServicer/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer</span></code></a></li>
+      <li>Next: <a href="../CybosPlusProxyService_pb2_grpc/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2_grpc</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2">
+<span id="koapy-backend-daishin-cybos-plus-proxy-cybosplusproxyservice-pb2"></span><h1><a class="reference internal" href="#module-koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2" title="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2</span></code></a><a class="headerlink" href="#module-koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2" title="Permalink to this headline">¶</a></h1>
+<p>Generated protocol buffer code.</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._sym_db">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_sym_db</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_sym_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._sym_db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.DESCRIPTOR">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">DESCRIPTOR</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#DESCRIPTOR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.DESCRIPTOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._DISPATCHREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_DISPATCHREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_DISPATCHREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._DISPATCHREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._DISPATCHRESPONSE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_DISPATCHRESPONSE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_DISPATCHRESPONSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._DISPATCHRESPONSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._PROPERTYREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_PROPERTYREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_PROPERTYREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._PROPERTYREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._PRIMITIVEVALUEARRAY">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_PRIMITIVEVALUEARRAY</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_PRIMITIVEVALUEARRAY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._PRIMITIVEVALUEARRAY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._PRIMITIVEVALUE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_PRIMITIVEVALUE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_PRIMITIVEVALUE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._PRIMITIVEVALUE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._PROPERTYRESPONSE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_PROPERTYRESPONSE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_PROPERTYRESPONSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._PROPERTYRESPONSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._ARGUMENT">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_ARGUMENT</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_ARGUMENT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._ARGUMENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._METHODREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_METHODREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_METHODREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._METHODREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._METHODRESPONSE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_METHODRESPONSE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_METHODRESPONSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._METHODRESPONSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTSTARTREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_EVENTSTARTREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_EVENTSTARTREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTSTARTREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTDONEREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_EVENTDONEREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_EVENTDONEREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTDONEREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTSTOPREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_EVENTSTOPREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_EVENTSTOPREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTSTOPREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_EVENTREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_EVENTREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTSTARTEDRESPONSE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_EVENTSTARTEDRESPONSE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_EVENTSTARTEDRESPONSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTSTARTEDRESPONSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTFIREDRESPONSE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_EVENTFIREDRESPONSE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_EVENTFIREDRESPONSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTFIREDRESPONSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTRESPONSE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_EVENTRESPONSE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_EVENTRESPONSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._EVENTRESPONSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.message_type">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.message_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id0">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id1">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.containing_oneof">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.containing_oneof" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id2">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id3">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id4">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id5">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id6">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id7">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id8">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id9">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id10">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id11">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id12">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id12" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id13">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id13" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id14">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id14" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id15">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id15" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id16">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id16" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id17">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id17" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id18">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id18" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.DispatchRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">DispatchRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#DispatchRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.DispatchRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.DispatchResponse">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">DispatchResponse</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#DispatchResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.DispatchResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.PropertyRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">PropertyRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#PropertyRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.PropertyRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.PrimitiveValueArray">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">PrimitiveValueArray</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#PrimitiveValueArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.PrimitiveValueArray" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.PrimitiveValue">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">PrimitiveValue</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#PrimitiveValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.PrimitiveValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.PropertyResponse">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">PropertyResponse</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#PropertyResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.PropertyResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.Argument">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">Argument</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#Argument"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.Argument" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.MethodRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">MethodRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#MethodRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.MethodRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.MethodResponse">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">MethodResponse</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#MethodResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.MethodResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventStartRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">EventStartRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#EventStartRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventStartRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventDoneRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">EventDoneRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#EventDoneRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventDoneRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventStopRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">EventStopRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#EventStopRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventStopRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">EventRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#EventRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventStartedResponse">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">EventStartedResponse</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#EventStartedResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventStartedResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventFiredResponse">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">EventFiredResponse</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#EventFiredResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventFiredResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventResponse">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">EventResponse</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#EventResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.EventResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._CYBOSPLUSPROXYSERVICE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2.</span></code><code class="sig-name descname"><span class="pre">_CYBOSPLUSPROXYSERVICE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2.html#_CYBOSPLUSPROXYSERVICE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2._CYBOSPLUSPROXYSERVICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../../../_sources/autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyService_pb2/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../../koapy.html">koapy</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">exchange_calendars</span> <span class="kn">import</span> <span class="n">get_calendar</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">from</span> <span class="nn">..store</span> <span class="kn">import</span> <span class="n">SQLiteStore</span>
+<span class="kn">from</span> <span class="nn">.KrxHistoricalDailyPriceDataLoader</span> <span class="kn">import</span> <span class="n">KrxHistoricalDailyPriceDataLoader</span>
+
+
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataForBacktestLoader"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader.KrxHistoricalDailyPriceDataForBacktestLoader">[docs]</a><span class="k">class</span> <span class="nc">KrxHistoricalDailyPriceDataForBacktestLoader</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loader</span> <span class="o">=</span> <span class="n">KrxHistoricalDailyPriceDataLoader</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_store</span> <span class="o">=</span> <span class="n">SQLiteStore</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span> <span class="o">=</span> <span class="n">get_calendar</span><span class="p">(</span><span class="s2">&quot;XKRX&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">library</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">library</span> <span class="o">=</span> <span class="s2">&quot;XKRX-ALL-BACKTEST&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_library</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_store</span><span class="o">.</span><span class="n">get_or_create_library</span><span class="p">(</span><span class="n">library</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataForBacktestLoader.get_adjust_ratios"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataForBacktestLoader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader.KrxHistoricalDailyPriceDataForBacktestLoader.get_adjust_ratios">[docs]</a>    <span class="k">def</span> <span class="nf">get_adjust_ratios</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">adjust_ratios</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">last_close</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">last_adjust_ratio</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">adjust_ratios</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">last_adjust_ratio</span><span class="p">)</span>
+        <span class="n">eleven_days</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">eleven_days</span><span class="p">:</span>
+                <span class="n">last_close</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">last_adjust_ratio</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">last_close</span> <span class="o">=</span> <span class="n">last_close</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Change&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">last_adjust_ratio</span>
+                <span class="n">last_adjust_ratio</span> <span class="o">=</span> <span class="n">last_close</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">adjust_ratios</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">last_adjust_ratio</span><span class="p">)</span>
+        <span class="n">adjust_ratios</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">adjust_ratios</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">adjust_ratios</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataForBacktestLoader.adjust_data"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataForBacktestLoader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader.KrxHistoricalDailyPriceDataForBacktestLoader.adjust_data">[docs]</a>    <span class="k">def</span> <span class="nf">adjust_data</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">adjust_ratios</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_adjust_ratios</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Open&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Open&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">adjust_ratios</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;High&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;High&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">adjust_ratios</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Low&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Low&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">adjust_ratios</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">adjust_ratios</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Volume&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Volume&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">adjust_ratios</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataForBacktestLoader.get_symbols"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataForBacktestLoader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader.KrxHistoricalDailyPriceDataForBacktestLoader.get_symbols">[docs]</a>    <span class="k">def</span> <span class="nf">get_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">list_symbols</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataForBacktestLoader.update"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataForBacktestLoader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader.KrxHistoricalDailyPriceDataForBacktestLoader.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">previous_close</span><span class="p">(</span><span class="n">now</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="n">symbols_with_delisted</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loader</span><span class="o">.</span><span class="n">symbols</span><span class="p">:</span>
+            <span class="n">symbols_with_delisted</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loader</span><span class="o">.</span><span class="n">symbols_delisted</span><span class="p">:</span>
+            <span class="n">symbols_with_delisted</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">entire_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">([],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
+
+        <span class="n">entire_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">entire_data_converted</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">progress</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">symbols_with_delisted</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">progress_bar</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">is_delisted</span> <span class="ow">in</span> <span class="n">progress</span><span class="p">:</span>
+            <span class="n">progress</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="s2">&quot;Loading Symbol [</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="n">symbol</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">download</span><span class="p">:</span>
+                <span class="n">versioned_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loader</span><span class="o">.</span><span class="n">load_or_download</span><span class="p">(</span>
+                    <span class="n">symbol</span><span class="p">,</span> <span class="n">is_delisted</span><span class="o">=</span><span class="n">is_delisted</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">versioned_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loader</span><span class="o">.</span><span class="n">load_from_database</span><span class="p">(</span>
+                    <span class="n">symbol</span><span class="p">,</span> <span class="n">is_delisted</span><span class="o">=</span><span class="n">is_delisted</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">versioned_item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">entire_data</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">versioned_item</span><span class="o">.</span><span class="n">data</span>
+
+        <span class="n">progress</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">entire_data</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">progress_bar</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">progress</span><span class="p">:</span>
+            <span class="n">progress</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="s2">&quot;Adjusting Symbol [</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="n">symbol</span><span class="p">)</span>
+            <span class="n">entire_index</span> <span class="o">=</span> <span class="n">entire_index</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjust_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+                <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="s2">&quot;Open&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;High&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Low&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Close&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Volume&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Amount&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;MarCap&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Shares&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span>
+                <span class="n">entire_data_converted</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="n">progress</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">entire_data_converted</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">progress_bar</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">progress</span><span class="p">:</span>
+            <span class="n">progress</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="s2">&quot;Saving Symbol [</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="n">symbol</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">entire_index</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataForBacktestLoader.load"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataForBacktestLoader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader.KrxHistoricalDailyPriceDataForBacktestLoader.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">has_symbol</span><span class="p">(</span><span class="n">symbol</span><span class="p">):</span>
+            <span class="n">versioned_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
+                <span class="n">symbol</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">versioned_item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="ow">and</span> <span class="n">versioned_item</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="ow">and</span> <span class="n">versioned_item</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="n">versioned_item</span><span class="o">.</span><span class="n">data</span></div>
+
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataForBacktestLoader.load_as_cursor"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataForBacktestLoader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader.KrxHistoricalDailyPriceDataForBacktestLoader.load_as_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">load_as_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">has_symbol</span><span class="p">(</span><span class="n">symbol</span><span class="p">):</span>
+            <span class="n">versioned_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">read_as_cursor</span><span class="p">(</span>
+                <span class="n">symbol</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">versioned_item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">versioned_item</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">versioned_item</span><span class="o">.</span><span class="n">data</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

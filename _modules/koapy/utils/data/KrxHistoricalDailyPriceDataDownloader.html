@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.utils.data.KrxHistoricalDailyPriceDataDownloader &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../../koapy.html">koapy</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.utils.data.KrxHistoricalDailyPriceDataDownloader</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">from</span> <span class="nn">exchange_calendars</span> <span class="kn">import</span> <span class="n">get_calendar</span>
+
+
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataDownloader"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataDownloader.KrxHistoricalDailyPriceDataDownloader">[docs]</a><span class="k">class</span> <span class="nc">KrxHistoricalDailyPriceDataDownloader</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_headers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stocks</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stocks_delisted</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bld</span> <span class="o">=</span> <span class="s2">&quot;dbms/MDC/STAT/standard/MDCSTAT01701&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span> <span class="o">=</span> <span class="n">get_calendar</span><span class="p">(</span><span class="s2">&quot;XKRX&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">first_session</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">tz</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataDownloader.get_stocks"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataDownloader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataDownloader.KrxHistoricalDailyPriceDataDownloader.get_stocks">[docs]</a>    <span class="k">def</span> <span class="nf">get_stocks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;mktsel&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;typeNo&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;searchText&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bld&quot;</span><span class="p">:</span> <span class="s2">&quot;dbms/comm/finder/finder_stkisu&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_headers</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;block1&quot;</span><span class="p">])</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;short_code&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataDownloader.get_stocks_delisted"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataDownloader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataDownloader.KrxHistoricalDailyPriceDataDownloader.get_stocks_delisted">[docs]</a>    <span class="k">def</span> <span class="nf">get_stocks_delisted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;mktsel&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;searchText&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bld&quot;</span><span class="p">:</span> <span class="s2">&quot;dbms/comm/finder/finder_listdelisu&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_headers</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;block1&quot;</span><span class="p">])</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;short_code&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataDownloader.stocks"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataDownloader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataDownloader.KrxHistoricalDailyPriceDataDownloader.stocks">[docs]</a>    <span class="k">def</span> <span class="nf">stocks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stocks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stocks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_stocks</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stocks</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataDownloader.stocks_delisted"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataDownloader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataDownloader.KrxHistoricalDailyPriceDataDownloader.stocks_delisted">[docs]</a>    <span class="k">def</span> <span class="nf">stocks_delisted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stocks_delisted</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stocks_delisted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_stocks_delisted</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stocks_delisted</span></div>
+
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataDownloader.get_full_code"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataDownloader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataDownloader.KrxHistoricalDailyPriceDataDownloader.get_full_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_full_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stocks</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stocks</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">symbol</span><span class="p">][</span><span class="s2">&quot;full_code&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stocks_delisted</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stocks_delisted</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">symbol</span><span class="p">][</span><span class="s2">&quot;full_code&quot;</span><span class="p">]</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No full_code found for given symbol </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">symbol</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataDownloader.download"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataDownloader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataDownloader.KrxHistoricalDailyPriceDataDownloader.download">[docs]</a>    <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_date</span>
+        <span class="k">if</span> <span class="n">end_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
+            <span class="n">end_date</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">previous_close</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+            <span class="p">)</span>
+
+        <span class="n">full_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_code</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;bld&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bld</span><span class="p">,</span>
+            <span class="s2">&quot;isuCd&quot;</span><span class="p">:</span> <span class="n">full_code</span><span class="p">,</span>
+            <span class="s2">&quot;isuCd2&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;strtDd&quot;</span><span class="p">:</span> <span class="n">start_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;endDd&quot;</span><span class="p">:</span> <span class="n">end_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;share&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;money&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;csvxls_isNo&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_headers</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;output&quot;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">column_names</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;TRD_DD&quot;</span><span class="p">:</span> <span class="s2">&quot;Date&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ISU_CD&quot;</span><span class="p">:</span> <span class="s2">&quot;Code&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ISU_NM&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;MKT_NM&quot;</span><span class="p">:</span> <span class="s2">&quot;Market&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;SECUGRP_NM&quot;</span><span class="p">:</span> <span class="s2">&quot;SecuGroup&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TDD_CLSPRC&quot;</span><span class="p">:</span> <span class="s2">&quot;Close&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;FLUC_TP_CD&quot;</span><span class="p">:</span> <span class="s2">&quot;UpDown&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;CMPPRVDD_PRC&quot;</span><span class="p">:</span> <span class="s2">&quot;Change&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;FLUC_RT&quot;</span><span class="p">:</span> <span class="s2">&quot;ChangeRate&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TDD_OPNPRC&quot;</span><span class="p">:</span> <span class="s2">&quot;Open&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TDD_HGPRC&quot;</span><span class="p">:</span> <span class="s2">&quot;High&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TDD_LWPRC&quot;</span><span class="p">:</span> <span class="s2">&quot;Low&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ACC_TRDVOL&quot;</span><span class="p">:</span> <span class="s2">&quot;Volume&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ACC_TRDVAL&quot;</span><span class="p">:</span> <span class="s2">&quot;Amount&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;MKTCAP&quot;</span><span class="p">:</span> <span class="s2">&quot;MarCap&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;CMPPREVDD_PRC&quot;</span><span class="p">:</span> <span class="s2">&quot;Change&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;LIST_SHRS&quot;</span><span class="p">:</span> <span class="s2">&quot;Shares&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">column_names</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">int_columns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;Close&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;UpDown&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Change&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ChangeRate&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Open&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;High&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Low&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Volume&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Amount&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;MarCap&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Shares&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">int_columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">])</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">df</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.utils.store.sqlalchemy.Timestamp &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../_static/jquery.js"></script>
+    <script src="../../../../../../_static/underscore.js"></script>
+    <script src="../../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+    <link rel="next" title="koapy.utils.store.sqlalchemy.Version" href="../Version/index.html" />
+    <link rel="prev" title="koapy.utils.store.sqlalchemy.Symbol" href="../Symbol/index.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../../index.html">API Reference</a><ul>
+  <li><a href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils</span></code></a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy</span></code></a><ul>
+      <li>Previous: <a href="../Symbol/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Symbol</span></code></a></li>
+      <li>Next: <a href="../Version/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Version</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.utils.store.sqlalchemy.Timestamp">
+<span id="koapy-utils-store-sqlalchemy-timestamp"></span><h1><a class="reference internal" href="#module-koapy.utils.store.sqlalchemy.Timestamp" title="koapy.utils.store.sqlalchemy.Timestamp"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.utils.store.sqlalchemy.Timestamp</span></code></a><a class="headerlink" href="#module-koapy.utils.store.sqlalchemy.Timestamp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.store.sqlalchemy.Timestamp.Timestamp" title="koapy.utils.store.sqlalchemy.Timestamp.Timestamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Timestamp</span></code></a></p></td>
+<td><p>Allows the creation of types which add additional functionality</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="koapy.utils.store.sqlalchemy.Timestamp.Timestamp">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.utils.store.sqlalchemy.Timestamp.</span></code><code class="sig-name descname"><span class="pre">Timestamp</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Timestamp.html#Timestamp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Timestamp.Timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">sqlalchemy.types.TypeDecorator</span></code></p>
+<p>Allows the creation of types which add additional functionality
+to an existing type.</p>
+<p>This method is preferred to direct subclassing of SQLAlchemy’s
+built-in types as it ensures that all required functionality of
+the underlying type is kept in place.</p>
+<p>Typical usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy.types</span> <span class="k">as</span> <span class="nn">types</span>
+
+<span class="k">class</span> <span class="nc">MyType</span><span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">TypeDecorator</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Prefixes Unicode values with &quot;PREFIX:&quot; on the way in and</span>
+<span class="sd">    strips it off on the way out.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">impl</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">Unicode</span>
+
+    <span class="n">cache_ok</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">process_bind_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">dialect</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;PREFIX:&quot;</span> <span class="o">+</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">process_result_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">dialect</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">value</span><span class="p">[</span><span class="mi">7</span><span class="p">:]</span>
+
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">MyType</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The class-level <code class="docutils literal notranslate"><span class="pre">impl</span></code> attribute is required, and can reference any
+<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeEngine</span></code> class.  Alternatively, the <code class="xref py py-meth docutils literal notranslate"><span class="pre">load_dialect_impl</span></code>
+method can be used to provide different type classes based on the dialect
+given; in this case, the <code class="docutils literal notranslate"><span class="pre">impl</span></code> variable can reference
+<code class="docutils literal notranslate"><span class="pre">TypeEngine</span></code> as a placeholder.</p>
+<p>The <code class="xref py py-attr docutils literal notranslate"><span class="pre">TypeDecorator.cache_ok</span></code> class-level flag indicates if this
+custom <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeDecorator</span></code> is safe to be used as part of a cache key.
+This flag defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code> which will initially generate a warning
+when the SQL compiler attempts to generate a cache key for a statement
+that uses this type.  If the <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeDecorator</span></code> is not guaranteed
+to produce the same bind/result behavior and SQL generation
+every time, this flag should be set to <code class="docutils literal notranslate"><span class="pre">False</span></code>; otherwise if the
+class produces the same behavior each time, it may be set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+See <code class="xref py py-attr docutils literal notranslate"><span class="pre">TypeDecorator.cache_ok</span></code> for further notes on how this works.</p>
+<p>Types that receive a Python type that isn’t similar to the ultimate type
+used may want to define the <code class="xref py py-meth docutils literal notranslate"><span class="pre">TypeDecorator.coerce_compared_value</span></code>
+method. This is used to give the expression system a hint when coercing
+Python objects into bind parameters within expressions. Consider this
+expression:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mytable</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">somecol</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Above, if “somecol” is an <code class="docutils literal notranslate"><span class="pre">Integer</span></code> variant, it makes sense that
+we’re doing date arithmetic, where above is usually interpreted
+by databases as adding a number of days to the given date.
+The expression system does the right thing by not attempting to
+coerce the “date()” value into an integer-oriented bind parameter.</p>
+<p>However, in the case of <code class="docutils literal notranslate"><span class="pre">TypeDecorator</span></code>, we are usually changing an
+incoming Python type to something new - <code class="docutils literal notranslate"><span class="pre">TypeDecorator</span></code> by default will
+“coerce” the non-typed side to be the same type as itself. Such as below,
+we define an “epoch” type that stores a date value as an integer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyEpochType</span><span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">TypeDecorator</span><span class="p">):</span>
+    <span class="n">impl</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">Integer</span>
+
+    <span class="n">epoch</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1970</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">process_bind_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">dialect</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span><span class="p">)</span><span class="o">.</span><span class="n">days</span>
+
+    <span class="k">def</span> <span class="nf">process_result_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">dialect</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Our expression of <code class="docutils literal notranslate"><span class="pre">somecol</span> <span class="pre">+</span> <span class="pre">date</span></code> with the above type will coerce the
+“date” on the right side to also be treated as <code class="docutils literal notranslate"><span class="pre">MyEpochType</span></code>.</p>
+<p>This behavior can be overridden via the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">coerce_compared_value</span></code> method, which returns a type
+that should be used for the value of the expression. Below we set it such
+that an integer value will be treated as an <code class="docutils literal notranslate"><span class="pre">Integer</span></code>, and any other
+value is assumed to be a date and will be treated as a <code class="docutils literal notranslate"><span class="pre">MyEpochType</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">coerce_compared_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Integer</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that the <strong>behavior of coerce_compared_value is not inherited
+by default from that of the base type</strong>.
+If the <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeDecorator</span></code> is augmenting a
+type that requires special logic for certain types of operators,
+this method <strong>must</strong> be overridden.  A key example is when decorating
+the <code class="xref py py-class docutils literal notranslate"><span class="pre">_postgresql.JSON</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">_postgresql.JSONB</span></code> types;
+the default rules of <code class="xref py py-meth docutils literal notranslate"><span class="pre">TypeEngine.coerce_compared_value</span></code> should
+be used in order to deal with operators like index operations:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyJsonType</span><span class="p">(</span><span class="n">TypeDecorator</span><span class="p">):</span>
+    <span class="n">impl</span> <span class="o">=</span> <span class="n">postgresql</span><span class="o">.</span><span class="n">JSON</span>
+
+    <span class="n">cache_ok</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">coerce_compared_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="n">coerce_compared_value</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Without the above step, index operations such as <code class="docutils literal notranslate"><span class="pre">mycol['foo']</span></code>
+will cause the index value <code class="docutils literal notranslate"><span class="pre">'foo'</span></code> to be JSON encoded.</p>
+</div>
+<dl class="py attribute">
+<dt id="koapy.utils.store.sqlalchemy.Timestamp.Timestamp.impl">
+<code class="sig-name descname"><span class="pre">impl</span></code><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Timestamp.html#Timestamp.impl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Timestamp.Timestamp.impl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.utils.store.sqlalchemy.Timestamp.Timestamp.signature">
+<code class="sig-name descname"><span class="pre">signature</span></code><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Timestamp.html#Timestamp.signature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Timestamp.Timestamp.signature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.utils.store.sqlalchemy.Timestamp.Timestamp.utc">
+<code class="sig-name descname"><span class="pre">utc</span></code><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Timestamp.html#Timestamp.utc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Timestamp.Timestamp.utc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.utils.store.sqlalchemy.Timestamp.Timestamp.local_timezone">
+<code class="sig-name descname"><span class="pre">local_timezone</span></code><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Timestamp.html#Timestamp.local_timezone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Timestamp.Timestamp.local_timezone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.store.sqlalchemy.Timestamp.Timestamp.is_naive">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">is_naive</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Timestamp.html#Timestamp.is_naive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Timestamp.Timestamp.is_naive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.store.sqlalchemy.Timestamp.Timestamp.process_bind_param">
+<code class="sig-name descname"><span class="pre">process_bind_param</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialect</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Timestamp.html#Timestamp.process_bind_param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Timestamp.Timestamp.process_bind_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive a bound parameter value to be converted.</p>
+<p>Subclasses override this method to return the
+value that should be passed along to the underlying
+<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeEngine</span></code> object, and from there to the
+DBAPI <code class="docutils literal notranslate"><span class="pre">execute()</span></code> method.</p>
+<p>The operation could be anything desired to perform custom
+behavior, such as transforming or serializing data.
+This could also be used as a hook for validating logic.</p>
+<p>This operation should be designed with the reverse operation
+in mind, which would be the process_result_value method of
+this class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – Data to operate upon, of any type expected by
+this method in the subclass.  Can be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>dialect</strong> – the <code class="xref py py-class docutils literal notranslate"><span class="pre">Dialect</span></code> in use.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="koapy.utils.store.sqlalchemy.Timestamp.Timestamp.process_result_value">
+<code class="sig-name descname"><span class="pre">process_result_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialect</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/utils/store/sqlalchemy/Timestamp.html#Timestamp.process_result_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.store.sqlalchemy.Timestamp.Timestamp.process_result_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive a result-row column value to be converted.</p>
+<p>Subclasses should implement this method to operate on data
+fetched from the database.</p>
+<p>Subclasses override this method to return the
+value that should be passed back to the application,
+given a value that is already processed by
+the underlying <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeEngine</span></code> object, originally
+from the DBAPI cursor method <code class="docutils literal notranslate"><span class="pre">fetchone()</span></code> or similar.</p>
+<p>The operation could be anything desired to perform custom
+behavior, such as transforming or serializing data.
+This could also be used as a hook for validating logic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – Data to operate upon, of any type expected by
+this method in the subclass.  Can be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>dialect</strong> – the <code class="xref py py-class docutils literal notranslate"><span class="pre">Dialect</span></code> in use.</p></li>
+</ul>
+</dd>
+</dl>
+<p>This operation should be designed to be reversible by
+the “process_bind_param” method of this class.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../../../_sources/autoapi/koapy/utils/store/sqlalchemy/Timestamp/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

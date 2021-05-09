@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../_static/jquery.js"></script>
+    <script src="../../../../../../_static/underscore.js"></script>
+    <script src="../../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+    <link rel="next" title="koapy.backtrader" href="../../../../backtrader/index.html" />
+    <link rel="prev" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignalConnector" href="../KiwoomOpenApiWSignalConnector/index.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../../index.html">API Reference</a><ul>
+  <li><a href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend</span></code></a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core</span></code></a><ul>
+      <li>Previous: <a href="../KiwoomOpenApiWSignalConnector/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignalConnector</span></code></a></li>
+      <li>Next: <a href="../../../../backtrader/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backtrader</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature">
+<span id="koapy-backend-kiwoom-open-api-w-core-kiwoomopenapiwsignature"></span><h1><a class="reference internal" href="#module-koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature</span></code></a><a class="headerlink" href="#module-koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiWSignature</span></code></a></p></td>
+<td><p>A Signature object represents the overall signature of a function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWDispatchSignature" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWDispatchSignature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiWDispatchSignature</span></code></a></p></td>
+<td><p>A Signature object represents the overall signature of a function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWEventHandlerSignature" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWEventHandlerSignature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiWEventHandlerSignature</span></code></a></p></td>
+<td><p>A Signature object represents the overall signature of a function.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.BuildOleItems" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.BuildOleItems"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BuildOleItems</span></code></a>(clsid)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.LoadDispatchSignatures" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.LoadDispatchSignatures"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LoadDispatchSignatures</span></code></a>(oleItems, clsId)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.LoadEventHandlerSignatures" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.LoadEventHandlerSignatures"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LoadEventHandlerSignatures</span></code></a>(oleItems, clsId)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.DISPATCH_SIGNATURES_BY_NAME" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.DISPATCH_SIGNATURES_BY_NAME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DISPATCH_SIGNATURES_BY_NAME</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.EVENT_HANDLER_SIGNATURES_BY_NAME" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.EVENT_HANDLER_SIGNATURES_BY_NAME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EVENT_HANDLER_SIGNATURES_BY_NAME</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.BuildOleItems">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.</span></code><code class="sig-name descname"><span class="pre">BuildOleItems</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clsid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#BuildOleItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.BuildOleItems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiWSignature</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Signature.empty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/inspect.html#inspect.Signature" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inspect.Signature</span></code></a></p>
+<p>A Signature object represents the overall signature of a function.
+It stores a Parameter object for each parameter accepted by the
+function, as well as information specific to the function itself.</p>
+<p>A Signature object has the following public attributes and methods:</p>
+<ul>
+<li><dl class="simple">
+<dt>parameters<span class="classifier">OrderedDict</span></dt><dd><p>An ordered mapping of parameters’ names to the corresponding
+Parameter objects (keyword-only arguments are in the same order
+as listed in <cite>code.co_varnames</cite>).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>return_annotation<span class="classifier">object</span></dt><dd><p>The annotation for the return type of the function if specified.
+If the function has no annotation for its return type, this
+attribute is set to <cite>Signature.empty</cite>.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>bind(<a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs) -&gt; BoundArguments</dt><dd><div class="system-message" id="id1">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 64); <em><a href="#id2">backlink</a></em></p>
+<p>Inline emphasis start-string without end-string.</p>
+</div>
+<div class="system-message" id="id3">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 64); <em><a href="#id4">backlink</a></em></p>
+<p>Inline strong start-string without end-string.</p>
+</div>
+<p>Creates a mapping from positional and keyword arguments to
+parameters.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>bind_partial(<a href="#id5"><span class="problematic" id="id6">*</span></a>args, <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs) -&gt; BoundArguments</dt><dd><div class="system-message" id="id5">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 68); <em><a href="#id6">backlink</a></em></p>
+<p>Inline emphasis start-string without end-string.</p>
+</div>
+<div class="system-message" id="id7">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 68); <em><a href="#id8">backlink</a></em></p>
+<p>Inline strong start-string without end-string.</p>
+</div>
+<p>Creates a partial mapping from positional and keyword arguments
+to parameters (simulating ‘functools.partial’ behavior.)</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.MODULE_CLSID">
+<code class="sig-name descname"><span class="pre">MODULE_CLSID</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{1F8A15ED-A979-488F-9694-1EDA98188FFC}</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature.MODULE_CLSID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.MODULE_CLSID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.OLE_ITEMS">
+<code class="sig-name descname"><span class="pre">OLE_ITEMS</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature.OLE_ITEMS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.OLE_ITEMS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.DISPATCH_CLSID">
+<code class="sig-name descname"><span class="pre">DISPATCH_CLSID</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{85B07632-4F84-4CEF-991D-C79DE781363D}</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature.DISPATCH_CLSID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.DISPATCH_CLSID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.EVENT_CLSID">
+<code class="sig-name descname"><span class="pre">EVENT_CLSID</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{952B31F8-06FD-4D5A-A021-5FF57F5030AE}</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature.EVENT_CLSID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.EVENT_CLSID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.PYTHONTYPE_TO_QTTYPE">
+<code class="sig-name descname"><span class="pre">PYTHONTYPE_TO_QTTYPE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature.PYTHONTYPE_TO_QTTYPE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.PYTHONTYPE_TO_QTTYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.COMTYPE_TO_PYTHONTYPE">
+<code class="sig-name descname"><span class="pre">COMTYPE_TO_PYTHONTYPE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature.COMTYPE_TO_PYTHONTYPE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.COMTYPE_TO_PYTHONTYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.name">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature.name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature._pythontype_to_qttype">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">_pythontype_to_qttype</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature._pythontype_to_qttype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature._pythontype_to_qttype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.to_pyside2_function_prototype">
+<code class="sig-name descname"><span class="pre">to_pyside2_function_prototype</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature.to_pyside2_function_prototype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.to_pyside2_function_prototype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.to_pyside2_event_signal">
+<code class="sig-name descname"><span class="pre">to_pyside2_event_signal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature.to_pyside2_event_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.to_pyside2_event_signal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature._comtype_to_pythontype">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">_comtype_to_pythontype</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature._comtype_to_pythontype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature._comtype_to_pythontype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature._from_entry">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">_from_entry</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWSignature._from_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature._from_entry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWDispatchSignature">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiWDispatchSignature</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Signature.empty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWDispatchSignature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWDispatchSignature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiWSignature</span></code></a></p>
+<p>A Signature object represents the overall signature of a function.
+It stores a Parameter object for each parameter accepted by the
+function, as well as information specific to the function itself.</p>
+<p>A Signature object has the following public attributes and methods:</p>
+<ul>
+<li><dl class="simple">
+<dt>parameters<span class="classifier">OrderedDict</span></dt><dd><p>An ordered mapping of parameters’ names to the corresponding
+Parameter objects (keyword-only arguments are in the same order
+as listed in <cite>code.co_varnames</cite>).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>return_annotation<span class="classifier">object</span></dt><dd><p>The annotation for the return type of the function if specified.
+If the function has no annotation for its return type, this
+attribute is set to <cite>Signature.empty</cite>.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>bind(<a href="#id9"><span class="problematic" id="id10">*</span></a>args, <a href="#id11"><span class="problematic" id="id12">**</span></a>kwargs) -&gt; BoundArguments</dt><dd><div class="system-message" id="id9">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 143); <em><a href="#id10">backlink</a></em></p>
+<p>Inline emphasis start-string without end-string.</p>
+</div>
+<div class="system-message" id="id11">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 143); <em><a href="#id12">backlink</a></em></p>
+<p>Inline strong start-string without end-string.</p>
+</div>
+<p>Creates a mapping from positional and keyword arguments to
+parameters.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>bind_partial(<a href="#id13"><span class="problematic" id="id14">*</span></a>args, <a href="#id15"><span class="problematic" id="id16">**</span></a>kwargs) -&gt; BoundArguments</dt><dd><div class="system-message" id="id13">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 147); <em><a href="#id14">backlink</a></em></p>
+<p>Inline emphasis start-string without end-string.</p>
+</div>
+<div class="system-message" id="id15">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 147); <em><a href="#id16">backlink</a></em></p>
+<p>Inline strong start-string without end-string.</p>
+</div>
+<p>Creates a partial mapping from positional and keyword arguments
+to parameters (simulating ‘functools.partial’ behavior.)</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWDispatchSignature.DISPATCH_SIGNATURES_BY_NAME">
+<code class="sig-name descname"><span class="pre">DISPATCH_SIGNATURES_BY_NAME</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWDispatchSignature.DISPATCH_SIGNATURES_BY_NAME"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWDispatchSignature.DISPATCH_SIGNATURES_BY_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWDispatchSignature.from_name">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWDispatchSignature.from_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWDispatchSignature.from_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWDispatchSignature.names">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">names</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWDispatchSignature.names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWDispatchSignature.names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.LoadDispatchSignatures">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.</span></code><code class="sig-name descname"><span class="pre">LoadDispatchSignatures</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oleItems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clsId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#LoadDispatchSignatures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.LoadDispatchSignatures" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.DISPATCH_SIGNATURES_BY_NAME">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.</span></code><code class="sig-name descname"><span class="pre">DISPATCH_SIGNATURES_BY_NAME</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#DISPATCH_SIGNATURES_BY_NAME"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.DISPATCH_SIGNATURES_BY_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWEventHandlerSignature">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.</span></code><code class="sig-name descname"><span class="pre">KiwoomOpenApiWEventHandlerSignature</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Signature.empty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWEventHandlerSignature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWEventHandlerSignature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature" title="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiWSignature</span></code></a></p>
+<p>A Signature object represents the overall signature of a function.
+It stores a Parameter object for each parameter accepted by the
+function, as well as information specific to the function itself.</p>
+<p>A Signature object has the following public attributes and methods:</p>
+<ul>
+<li><dl class="simple">
+<dt>parameters<span class="classifier">OrderedDict</span></dt><dd><p>An ordered mapping of parameters’ names to the corresponding
+Parameter objects (keyword-only arguments are in the same order
+as listed in <cite>code.co_varnames</cite>).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>return_annotation<span class="classifier">object</span></dt><dd><p>The annotation for the return type of the function if specified.
+If the function has no annotation for its return type, this
+attribute is set to <cite>Signature.empty</cite>.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>bind(<a href="#id17"><span class="problematic" id="id18">*</span></a>args, <a href="#id19"><span class="problematic" id="id20">**</span></a>kwargs) -&gt; BoundArguments</dt><dd><div class="system-message" id="id17">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 191); <em><a href="#id18">backlink</a></em></p>
+<p>Inline emphasis start-string without end-string.</p>
+</div>
+<div class="system-message" id="id19">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 191); <em><a href="#id20">backlink</a></em></p>
+<p>Inline strong start-string without end-string.</p>
+</div>
+<p>Creates a mapping from positional and keyword arguments to
+parameters.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>bind_partial(<a href="#id21"><span class="problematic" id="id22">*</span></a>args, <a href="#id23"><span class="problematic" id="id24">**</span></a>kwargs) -&gt; BoundArguments</dt><dd><div class="system-message" id="id21">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 195); <em><a href="#id22">backlink</a></em></p>
+<p>Inline emphasis start-string without end-string.</p>
+</div>
+<div class="system-message" id="id23">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst</span>, line 195); <em><a href="#id24">backlink</a></em></p>
+<p>Inline strong start-string without end-string.</p>
+</div>
+<p>Creates a partial mapping from positional and keyword arguments
+to parameters (simulating ‘functools.partial’ behavior.)</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="py attribute">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWEventHandlerSignature.EVENT_HANDLER_SIGNATURES_BY_NAME">
+<code class="sig-name descname"><span class="pre">EVENT_HANDLER_SIGNATURES_BY_NAME</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWEventHandlerSignature.EVENT_HANDLER_SIGNATURES_BY_NAME"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWEventHandlerSignature.EVENT_HANDLER_SIGNATURES_BY_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWEventHandlerSignature.from_name">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWEventHandlerSignature.from_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWEventHandlerSignature.from_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWEventHandlerSignature.names">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">names</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#KiwoomOpenApiWEventHandlerSignature.names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWEventHandlerSignature.names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.LoadEventHandlerSignatures">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.</span></code><code class="sig-name descname"><span class="pre">LoadEventHandlerSignatures</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oleItems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clsId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#LoadEventHandlerSignatures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.LoadEventHandlerSignatures" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.EVENT_HANDLER_SIGNATURES_BY_NAME">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.</span></code><code class="sig-name descname"><span class="pre">EVENT_HANDLER_SIGNATURES_BY_NAME</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature.html#EVENT_HANDLER_SIGNATURES_BY_NAME"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.EVENT_HANDLER_SIGNATURES_BY_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../../../_sources/autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

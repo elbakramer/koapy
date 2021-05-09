@@ -1,0 +1,814 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2 &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../_static/jquery.js"></script>
+    <script src="../../../../../../_static/underscore.js"></script>
+    <script src="../../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+    <link rel="next" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc" href="../KiwoomOpenApiPlusService_pb2_grpc/index.html" />
+    <link rel="prev" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer" href="../KiwoomOpenApiPlusServiceServicer/index.html" />
+  
+   
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../notebook.html">Notebook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../../index.html">API Reference</a><ul>
+  <li><a href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
+  <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend</span></code></a><ul>
+  <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus</span></code></a><ul>
+  <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc</span></code></a><ul>
+      <li>Previous: <a href="../KiwoomOpenApiPlusServiceServicer/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer</span></code></a></li>
+      <li>Next: <a href="../KiwoomOpenApiPlusService_pb2_grpc/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2">
+<span id="koapy-backend-kiwoom-open-api-plus-grpc-kiwoomopenapiplusservice-pb2"></span><h1><a class="reference internal" href="#module-koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2</span></code></a><a class="headerlink" href="#module-koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2" title="Permalink to this headline">¶</a></h1>
+<p>Generated protocol buffer code.</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._sym_db">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_sym_db</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_sym_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._sym_db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.DESCRIPTOR">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">DESCRIPTOR</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#DESCRIPTOR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.DESCRIPTOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._TRANSACTIONSTOPCONDITIONCOMPARTOR">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_TRANSACTIONSTOPCONDITIONCOMPARTOR</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_TRANSACTIONSTOPCONDITIONCOMPARTOR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._TRANSACTIONSTOPCONDITIONCOMPARTOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.TransactionStopConditionCompartor">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">TransactionStopConditionCompartor</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#TransactionStopConditionCompartor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.TransactionStopConditionCompartor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.LESS_THAN_OR_EQUAL_TO">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">LESS_THAN_OR_EQUAL_TO</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#LESS_THAN_OR_EQUAL_TO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.LESS_THAN_OR_EQUAL_TO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.LESS_THAN">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">LESS_THAN</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#LESS_THAN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.LESS_THAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.GREATER_THAN_OR_EQUAL_TO">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">GREATER_THAN_OR_EQUAL_TO</span></code><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#GREATER_THAN_OR_EQUAL_TO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.GREATER_THAN_OR_EQUAL_TO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.GREATER_THAN">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">GREATER_THAN</span></code><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#GREATER_THAN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.GREATER_THAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.EQUAL_TO">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">EQUAL_TO</span></code><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#EQUAL_TO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.EQUAL_TO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.NOT_EQUAL_TO">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">NOT_EQUAL_TO</span></code><em class="property"> <span class="pre">=</span> <span class="pre">5</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#NOT_EQUAL_TO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.NOT_EQUAL_TO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._ARGUMENT">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_ARGUMENT</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_ARGUMENT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._ARGUMENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CALLREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_CALLREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_CALLREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CALLREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._RETURNVALUE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_RETURNVALUE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_RETURNVALUE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._RETURNVALUE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CALLRESPONSE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_CALLRESPONSE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_CALLRESPONSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CALLRESPONSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LISTENREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_LISTENREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_LISTENREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LISTENREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._HANDLEDREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_HANDLEDREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_HANDLEDREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._HANDLEDREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._STOPLISTENREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_STOPLISTENREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_STOPLISTENREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._STOPLISTENREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALLISTENREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_BIDIRECTIONALLISTENREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_BIDIRECTIONALLISTENREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALLISTENREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._SINGLEDATA">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_SINGLEDATA</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_SINGLEDATA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._SINGLEDATA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._REPEATEDSTRING">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_REPEATEDSTRING</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_REPEATEDSTRING"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._REPEATEDSTRING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._MULTIDATA">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_MULTIDATA</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_MULTIDATA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._MULTIDATA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LISTENRESPONSE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_LISTENRESPONSE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_LISTENRESPONSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LISTENRESPONSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CALLANDLISTENREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_CALLANDLISTENREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_CALLANDLISTENREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CALLANDLISTENREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CALLANDLISTENRESPONSE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_CALLANDLISTENRESPONSE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_CALLANDLISTENRESPONSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CALLANDLISTENRESPONSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LOGINCREDENTIAL">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_LOGINCREDENTIAL</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_LOGINCREDENTIAL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LOGINCREDENTIAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LOGINREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_LOGINREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_LOGINREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LOGINREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._TRANSACTIONSUBSCRIPTIONTARGET">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_TRANSACTIONSUBSCRIPTIONTARGET</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_TRANSACTIONSUBSCRIPTIONTARGET"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._TRANSACTIONSUBSCRIPTIONTARGET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._TRANSACTIONSTOPCONDITION">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_TRANSACTIONSTOPCONDITION</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_TRANSACTIONSTOPCONDITION"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._TRANSACTIONSTOPCONDITION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._TRANSACTIONREQUEST_INPUTSENTRY">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_TRANSACTIONREQUEST_INPUTSENTRY</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_TRANSACTIONREQUEST_INPUTSENTRY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._TRANSACTIONREQUEST_INPUTSENTRY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._TRANSACTIONREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_TRANSACTIONREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_TRANSACTIONREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._TRANSACTIONREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._ORDERSUBSCRIPTIONTARGET">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_ORDERSUBSCRIPTIONTARGET</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_ORDERSUBSCRIPTIONTARGET"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._ORDERSUBSCRIPTIONTARGET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._ORDERREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_ORDERREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_ORDERREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._ORDERREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._REALREQUESTFLAGS">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_REALREQUESTFLAGS</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_REALREQUESTFLAGS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._REALREQUESTFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._REALREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_REALREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_REALREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._REALREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LOADCONDITIONREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_LOADCONDITIONREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_LOADCONDITIONREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._LOADCONDITIONREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CONDITIONREQUESTFLAGS">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_CONDITIONREQUESTFLAGS</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_CONDITIONREQUESTFLAGS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CONDITIONREQUESTFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CONDITIONREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_CONDITIONREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_CONDITIONREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._CONDITIONREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._SETLOGLEVELREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_SETLOGLEVELREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_SETLOGLEVELREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._SETLOGLEVELREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._SETLOGLEVELRESPONSE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_SETLOGLEVELRESPONSE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_SETLOGLEVELRESPONSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._SETLOGLEVELRESPONSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALREALINITIALIZEREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_BIDIRECTIONALREALINITIALIZEREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_BIDIRECTIONALREALINITIALIZEREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALREALINITIALIZEREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALREALREGISTERREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_BIDIRECTIONALREALREGISTERREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_BIDIRECTIONALREALREGISTERREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALREALREGISTERREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALREALREMOVEREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_BIDIRECTIONALREALREMOVEREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_BIDIRECTIONALREALREMOVEREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALREALREMOVEREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALREALSTOPREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_BIDIRECTIONALREALSTOPREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_BIDIRECTIONALREALSTOPREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALREALSTOPREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALREALREQUEST">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_BIDIRECTIONALREALREQUEST</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_BIDIRECTIONALREALREQUEST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._BIDIRECTIONALREALREQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.containing_oneof">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.containing_oneof" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id0">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id1">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.message_type">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.message_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id2">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id3">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id4">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id5">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id6">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id7">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id8">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id9">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id10">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id11">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id12">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id12" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id13">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id13" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id14">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id14" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id15">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id15" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id16">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id16" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id17">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id17" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id18">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id18" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id19">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id19" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id20">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id20" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id21">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id21" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.containing_type">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.containing_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id22">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id22" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id23">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id23" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.enum_type">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">enum_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#enum_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.enum_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id24">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id24" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id25">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id25" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id26">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id26" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id27">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id27" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id28">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id28" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id29">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id29" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id30">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id30" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id31">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id31" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id32">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id32" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id33">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id33" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id34">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id34" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id35">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">message_type</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#message_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id35" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id36">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id36" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id37">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id37" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id38">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id38" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id39">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">containing_oneof</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#containing_oneof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id39" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.Argument">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">Argument</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#Argument"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.Argument" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.CallRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">CallRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#CallRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.CallRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.ReturnValue">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">ReturnValue</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#ReturnValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.ReturnValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.CallResponse">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">CallResponse</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#CallResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.CallResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.ListenRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">ListenRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#ListenRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.ListenRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.HandledRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">HandledRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#HandledRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.HandledRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.StopListenRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">StopListenRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#StopListenRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.StopListenRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalListenRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">BidirectionalListenRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#BidirectionalListenRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalListenRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.SingleData">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">SingleData</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#SingleData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.SingleData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.RepeatedString">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">RepeatedString</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#RepeatedString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.RepeatedString" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.MultiData">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">MultiData</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#MultiData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.MultiData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.ListenResponse">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">ListenResponse</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#ListenResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.ListenResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.CallAndListenRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">CallAndListenRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#CallAndListenRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.CallAndListenRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.CallAndListenResponse">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">CallAndListenResponse</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#CallAndListenResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.CallAndListenResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.LoginCredential">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">LoginCredential</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#LoginCredential"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.LoginCredential" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.LoginRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">LoginRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#LoginRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.LoginRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.TransactionSubscriptionTarget">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">TransactionSubscriptionTarget</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#TransactionSubscriptionTarget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.TransactionSubscriptionTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.TransactionStopCondition">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">TransactionStopCondition</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#TransactionStopCondition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.TransactionStopCondition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.TransactionRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">TransactionRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#TransactionRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.TransactionRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.OrderSubscriptionTarget">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">OrderSubscriptionTarget</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#OrderSubscriptionTarget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.OrderSubscriptionTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.OrderRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">OrderRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#OrderRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.OrderRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.RealRequestFlags">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">RealRequestFlags</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#RealRequestFlags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.RealRequestFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.RealRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">RealRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#RealRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.RealRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.LoadConditionRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">LoadConditionRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#LoadConditionRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.LoadConditionRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.ConditionRequestFlags">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">ConditionRequestFlags</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#ConditionRequestFlags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.ConditionRequestFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.ConditionRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">ConditionRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#ConditionRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.ConditionRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.SetLogLevelRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">SetLogLevelRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#SetLogLevelRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.SetLogLevelRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.SetLogLevelResponse">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">SetLogLevelResponse</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#SetLogLevelResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.SetLogLevelResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalRealInitializeRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">BidirectionalRealInitializeRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#BidirectionalRealInitializeRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalRealInitializeRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalRealRegisterRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">BidirectionalRealRegisterRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#BidirectionalRealRegisterRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalRealRegisterRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalRealRemoveRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">BidirectionalRealRemoveRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#BidirectionalRealRemoveRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalRealRemoveRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalRealStopRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">BidirectionalRealStopRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#BidirectionalRealStopRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalRealStopRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalRealRequest">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">BidirectionalRealRequest</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#BidirectionalRealRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.BidirectionalRealRequest" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._options">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_options</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="id40">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_options</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id40" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._KIWOOMOPENAPIPLUSSERVICE">
+<code class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2.</span></code><code class="sig-name descname"><span class="pre">_KIWOOMOPENAPIPLUSSERVICE</span></code><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2.html#_KIWOOMOPENAPIPLUSSERVICE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2._KIWOOMOPENAPIPLUSSERVICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../../../../_sources/autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2/index.rst"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

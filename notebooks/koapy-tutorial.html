@@ -1,0 +1,3307 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>키움증권 OpenAPI+ 사용 예시 &#8212; KOAPY 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/style.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="과거 주식 가격 데이터 확보를 위해 지금까지 삽질해 본 것들" href="getting-historical-stock-price-data.html" />
+    <link rel="prev" title="Notebook" href="../notebook.html" />
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../notebook.html">Notebook</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">키움증권 OpenAPI+ 사용 예시</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-historical-stock-price-data.html">과거 주식 가격 데이터 확보를 위해 지금까지 삽질해 본 것들</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../notebook.html">Notebook</a><ul>
+      <li>Previous: <a href="../notebook.html" title="previous chapter">Notebook</a></li>
+      <li>Next: <a href="getting-historical-stock-price-data.html" title="next chapter">과거 주식 가격 데이터 확보를 위해 지금까지 삽질해 본 것들</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="키움증권-OpenAPI+-사용-예시">
+<h1>키움증권 OpenAPI+ 사용 예시<a class="headerlink" href="#키움증권-OpenAPI+-사용-예시" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> [</span><span class="si">%(levelname)s</span><span class="s1">] </span><span class="si">%(message)s</span><span class="s1"> - </span><span class="si">%(filename)s</span><span class="s1">:</span><span class="si">%(lineno)d</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="1.-엔트리포인트-객체-생성">
+<h2>1. 엔트리포인트 객체 생성<a class="headerlink" href="#1.-엔트리포인트-객체-생성" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2021-03-26 15:51:23,859 [INFO] Note: NumExpr detected 12 cores but &#34;NUMEXPR_MAX_THREADS&#34; not set, so enforcing safe limit of 8. - utils.py:129
+2021-03-26 15:51:23,861 [INFO] NumExpr defaulting to 8 threads. - utils.py:141
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">entrypoint</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2021-03-26 15:51:23,951 [DEBUG] Testing if client is ready... - KiwoomOpenApiPlusEntrypoint.py:64
+2021-03-26 15:51:23,959 [DEBUG] Client is ready, using existing server - KiwoomOpenApiPlusEntrypoint.py:72
+</pre></div></div>
+</div>
+<p>주요한 기능들은 해당 엔트리포인트의 멤버함수로써 제공된다.</p>
+<p>예를 들어 아래와 같이 서버 접속 이전에도 실행 가능한 아래 함수를 활용하면 OpenAPI 가 정상적으로 로드되었는지 간접적으로 확인 가능하다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">module_path</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetAPIModulePath</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">module_path</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;C:\\OpenAPI&#39;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="2.-서버-접속">
+<h2>2. 서버 접속<a class="headerlink" href="#2.-서버-접속" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>자동 로그인 설정이 되어있는 경우 로그인이 자동으로 처리되며, 그렇지 않은 경우에는 수동으로 아이디, 비밀번호 등 로그인 정보를 입력해 처리해주어야 한다.</p>
+<p>만약에 함수 인자로 <code class="docutils literal notranslate"><span class="pre">credential</span></code> 정보를 주는 경우 <code class="docutils literal notranslate"><span class="pre">`pywinauto</span></code> &lt;<a class="reference external" href="https://github.com/pywinauto/pywinauto">https://github.com/pywinauto/pywinauto</a>&gt;`__ 를 활용하여 자동으로 로그인 처리를 진행한다. 앞서 언급한 키움증권에서 기본으로 제공하는 자동 로그인이 아니라 기존에 수동으로 처리하던 과정을 매크로 형태로 자동으로 처리하는 방식이다. 참고로 <code class="docutils literal notranslate"><span class="pre">`pywinauto</span></code> &lt;<a class="reference external" href="https://github.com/pywinauto/pywinauto">https://github.com/pywinauto/pywinauto</a>&gt;`__ 사용을 위해서는 <strong>관리자 권한</strong>이 필요하다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">credential</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;user_password&#39;</span><span class="p">:</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;cert_password&#39;</span><span class="p">:</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;is_simulation&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;account_passwords&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;0000000000&#39;</span><span class="p">:</span> <span class="s1">&#39;0000&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>참고로 여기서는 이미 로그인이 되어있는 상황이므로 위의 함수가 추가적인 로그인처리를 진행하지는 않게 된다.</p>
+</div>
+<div class="section" id="3.-기본-함수-실행">
+<h2>3. 기본 함수 실행<a class="headerlink" href="#3.-기본-함수-실행" title="Permalink to this headline">¶</a></h2>
+<p>다시 한번 기본 함수를 통해 접속상태를 확인해보자. 아래 값이 1 인 경우 정상 접속 상태이다. 접속되어 있지 않은 경우라면 0 을 반환한다.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">entrypoint</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+</pre></div></div>
+</div>
+<p>이후 예시들에서 사용하기 위해 삼성전자의 코드를 확인한다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">codes</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetCodeListByMarketAsList</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">entrypoint</span><span class="o">.</span><span class="n">GetMasterCodeName</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">codes</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">codes_by_name</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">codes</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>위에서 <code class="docutils literal notranslate"><span class="pre">GetCodeListByMarketAsList()</span></code> 함수는 기존의 <code class="docutils literal notranslate"><span class="pre">GetCodeListByMarket()</span></code> 함수 호출시 나오는 문자열 형태의 결과를 편의를 위해 리스트 형태로 변환해서 제공한다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">code</span> <span class="o">=</span> <span class="n">samsung_code</span> <span class="o">=</span> <span class="n">codes_by_name</span><span class="p">[</span><span class="s1">&#39;삼성전자&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">code</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;005930&#39;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="4.-TR-요청-예시">
+<h2>4. TR 요청 예시<a class="headerlink" href="#4.-TR-요청-예시" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="상위-함수-사용-예시">
+<h3>상위 함수 사용 예시<a class="headerlink" href="#상위-함수-사용-예시" title="Permalink to this headline">¶</a></h3>
+<p>몇가지 자주 쓰이는 TR 들에 대해서는 요청 및 결과 이벤트 처리까지 완료해서 결과물만 반환하는 상위함수를 제공하고 있다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">info</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetStockBasicInfoAsDict</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="c1"># opt10001</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">info</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;종목코드&#39;: &#39;005930&#39;,
+ &#39;종목명&#39;: &#39;삼성전자&#39;,
+ &#39;결산월&#39;: &#39;12&#39;,
+ &#39;액면가&#39;: &#39;100&#39;,
+ &#39;자본금&#39;: &#39;7780&#39;,
+ &#39;상장주식&#39;: &#39;5969783&#39;,
+ &#39;신용비율&#39;: &#39;+0.15&#39;,
+ &#39;연중최고&#39;: &#39;+96800&#39;,
+ &#39;연중최저&#39;: &#39;-80200&#39;,
+ &#39;시가총액&#39;: &#39;4865373&#39;,
+ &#39;시가총액비중&#39;: &#39;&#39;,
+ &#39;외인소진률&#39;: &#39;+54.69&#39;,
+ &#39;대용가&#39;: &#39;64960&#39;,
+ &#39;PER&#39;: &#39;21.22&#39;,
+ &#39;EPS&#39;: &#39;3841&#39;,
+ &#39;ROE&#39;: &#39;10.0&#39;,
+ &#39;PBR&#39;: &#39;2.07&#39;,
+ &#39;EV&#39;: &#39;5.76&#39;,
+ &#39;BPS&#39;: &#39;39406&#39;,
+ &#39;매출액&#39;: &#39;2368070&#39;,
+ &#39;영업이익&#39;: &#39;359939&#39;,
+ &#39;당기순이익&#39;: &#39;264078&#39;,
+ &#39;250최고&#39;: &#39;+96800&#39;,
+ &#39;250최저&#39;: &#39;-42400&#39;,
+ &#39;시가&#39;: &#39;+81400&#39;,
+ &#39;고가&#39;: &#39;+81600&#39;,
+ &#39;저가&#39;: &#39;-81000&#39;,
+ &#39;상한가&#39;: &#39;+105500&#39;,
+ &#39;하한가&#39;: &#39;-56900&#39;,
+ &#39;기준가&#39;: &#39;81200&#39;,
+ &#39;예상체결가&#39;: &#39;-0&#39;,
+ &#39;예상체결수량&#39;: &#39;0&#39;,
+ &#39;250최고가일&#39;: &#39;20210111&#39;,
+ &#39;250최고가대비율&#39;: &#39;-15.81&#39;,
+ &#39;250최저가일&#39;: &#39;20200323&#39;,
+ &#39;250최저가대비율&#39;: &#39;+92.22&#39;,
+ &#39;현재가&#39;: &#39;+81500&#39;,
+ &#39;대비기호&#39;: &#39;2&#39;,
+ &#39;전일대비&#39;: &#39;+300&#39;,
+ &#39;등락율&#39;: &#39;+0.37&#39;,
+ &#39;거래량&#39;: &#39;12724127&#39;,
+ &#39;거래대비&#39;: &#39;-86.21&#39;,
+ &#39;액면가단위&#39;: &#39;원&#39;,
+ &#39;유통주식&#39;: &#39;4706477&#39;,
+ &#39;유통비율&#39;: &#39;78.8&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="c1"># opt10081</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2021-03-26 15:51:25,211 [DEBUG] Received 600 records from 2021-03-26 00:00:00 to 2018-10-22 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:51:43,168 [DEBUG] Received 600 records from 2018-10-19 00:00:00 to 2016-05-10 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:51:43,532 [DEBUG] Received 600 records from 2016-05-09 00:00:00 to 2013-11-27 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:51:43,888 [DEBUG] Received 600 records from 2013-11-26 00:00:00 to 2011-06-29 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:52:01,195 [DEBUG] Received 600 records from 2011-06-28 00:00:00 to 2009-02-09 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:52:55,164 [DEBUG] Received 600 records from 2009-02-06 00:00:00 to 2006-08-31 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:53:13,204 [DEBUG] Received 600 records from 2006-08-30 00:00:00 to 2004-04-07 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:53:13,567 [DEBUG] Received 600 records from 2004-04-06 00:00:00 to 2001-10-25 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:53:13,938 [DEBUG] Received 600 records from 2001-10-24 00:00:00 to 1999-05-18 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:53:14,300 [DEBUG] Received 600 records from 1999-05-17 00:00:00 to 1997-04-03 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:53:31,243 [DEBUG] Received 600 records from 1997-04-02 00:00:00 to 1995-03-18 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:53:31,966 [DEBUG] Received 600 records from 1995-03-17 00:00:00 to 1993-03-09 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:53:32,313 [DEBUG] Received 600 records from 1993-03-08 00:00:00 to 1991-02-20 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:54:25,174 [DEBUG] Received 600 records from 1991-02-19 00:00:00 to 1989-01-25 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:54:25,537 [DEBUG] Received 600 records from 1989-01-24 00:00:00 to 1987-01-08 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:54:43,158 [DEBUG] Received 589 records from 1987-01-07 00:00:00 to 1985-01-04 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>종목코드</th>
+      <th>현재가</th>
+      <th>거래량</th>
+      <th>거래대금</th>
+      <th>일자</th>
+      <th>시가</th>
+      <th>고가</th>
+      <th>저가</th>
+      <th>수정주가구분</th>
+      <th>수정비율</th>
+      <th>대업종구분</th>
+      <th>소업종구분</th>
+      <th>종목정보</th>
+      <th>수정주가이벤트</th>
+      <th>전일종가</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>005930</td>
+      <td>81500</td>
+      <td>12724127</td>
+      <td>1034348</td>
+      <td>20210326</td>
+      <td>81400</td>
+      <td>81600</td>
+      <td>81000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td></td>
+      <td>81200</td>
+      <td>14758826</td>
+      <td>1200699</td>
+      <td>20210325</td>
+      <td>81000</td>
+      <td>82100</td>
+      <td>80800</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td></td>
+      <td>81000</td>
+      <td>17926638</td>
+      <td>1454204</td>
+      <td>20210324</td>
+      <td>81000</td>
+      <td>81600</td>
+      <td>80700</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td></td>
+      <td>81800</td>
+      <td>13299907</td>
+      <td>1092867</td>
+      <td>20210323</td>
+      <td>82600</td>
+      <td>82900</td>
+      <td>81800</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td></td>
+      <td>82000</td>
+      <td>12670506</td>
+      <td>1039543</td>
+      <td>20210322</td>
+      <td>82000</td>
+      <td>82300</td>
+      <td>81700</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>9584</th>
+      <td></td>
+      <td>8010</td>
+      <td>4970</td>
+      <td>1</td>
+      <td>19850109</td>
+      <td>8240</td>
+      <td>8240</td>
+      <td>7950</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>9585</th>
+      <td></td>
+      <td>8300</td>
+      <td>12930</td>
+      <td>4</td>
+      <td>19850108</td>
+      <td>8400</td>
+      <td>8400</td>
+      <td>8300</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>9586</th>
+      <td></td>
+      <td>8410</td>
+      <td>11810</td>
+      <td>3</td>
+      <td>19850107</td>
+      <td>8400</td>
+      <td>8500</td>
+      <td>8390</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>9587</th>
+      <td></td>
+      <td>8390</td>
+      <td>1660</td>
+      <td>0</td>
+      <td>19850105</td>
+      <td>8400</td>
+      <td>8440</td>
+      <td>8390</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>9588</th>
+      <td></td>
+      <td>8450</td>
+      <td>1710</td>
+      <td>0</td>
+      <td>19850104</td>
+      <td>8500</td>
+      <td>8500</td>
+      <td>8450</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<p>9589 rows × 15 columns</p>
+</div></div>
+</div>
+<p>데이터가 최대한 있는 그대로 (주로 문자열 형태로) 반환되기 때문에 필요하다면 타입 변환을 거쳐 사용한다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;일자&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">closes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;현재가&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">closes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&lt;matplotlib.lines.Line2D at 0x1ae834f0&gt;]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_koapy-tutorial_35_1.png" src="../_images/notebooks_koapy-tutorial_35_1.png" />
+</div>
+</div>
+<p>주가 데이터에서 수정주가가 필요한 경우에는 <code class="docutils literal notranslate"><span class="pre">adjusted_price=True</span></code> 파라미터를 설정해 호출한다.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data_adjusted</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">adjusted_price</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2021-03-26 15:54:43,900 [DEBUG] Received 600 records from 2021-03-26 00:00:00 to 2018-10-22 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:54:44,330 [DEBUG] Received 600 records from 2018-10-19 00:00:00 to 2016-05-10 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:55:01,151 [DEBUG] Received 600 records from 2016-05-09 00:00:00 to 2013-11-27 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:55:01,507 [DEBUG] Received 600 records from 2013-11-26 00:00:00 to 2011-06-29 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:55:02,279 [DEBUG] Received 600 records from 2011-06-28 00:00:00 to 2009-02-09 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:55:02,644 [DEBUG] Received 600 records from 2009-02-06 00:00:00 to 2006-08-31 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:55:19,158 [DEBUG] Received 600 records from 2006-08-30 00:00:00 to 2004-04-07 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:55:20,278 [DEBUG] Received 600 records from 2004-04-06 00:00:00 to 2001-10-25 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:55:55,150 [DEBUG] Received 600 records from 2001-10-24 00:00:00 to 1999-05-18 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:56:13,191 [DEBUG] Received 600 records from 1999-05-17 00:00:00 to 1997-04-03 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:56:13,558 [DEBUG] Received 600 records from 1997-04-02 00:00:00 to 1995-03-18 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:56:13,929 [DEBUG] Received 600 records from 1995-03-17 00:00:00 to 1993-03-09 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:56:14,278 [DEBUG] Received 600 records from 1993-03-08 00:00:00 to 1991-02-20 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:56:31,229 [DEBUG] Received 600 records from 1991-02-19 00:00:00 to 1989-01-25 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:56:31,952 [DEBUG] Received 600 records from 1989-01-24 00:00:00 to 1987-01-08 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2021-03-26 15:56:32,309 [DEBUG] Received 589 records from 1987-01-07 00:00:00 to 1985-01-04 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data_adjusted</span><span class="p">[</span><span class="s1">&#39;일자&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">closes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">data_adjusted</span><span class="p">[</span><span class="s1">&#39;현재가&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">closes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&lt;matplotlib.lines.Line2D at 0x1ab6298&gt;]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_koapy-tutorial_39_1.png" src="../_images/notebooks_koapy-tutorial_39_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="하위-함수-사용-예시">
+<h3>하위 함수 사용 예시<a class="headerlink" href="#하위-함수-사용-예시" title="Permalink to this headline">¶</a></h3>
+<p>만약에 필요한 TR 에 대한 편의함수가 제공되지 않는 경우라면 아래처럼 직접 TR 요청에 필요한 입력값을 설정해 요청하고, 이후 스트림 형태로 들어오는 이벤트 또한 직접 처리해주는 방식으로 사용할 수 있다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;주식기본정보요청&#39;</span>
+<span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10001&#39;</span>
+<span class="n">screen_no</span> <span class="o">=</span> <span class="s1">&#39;0001&#39;</span> <span class="c1"># 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;종목코드&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Requesting data for request name: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">rqname</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Got event for request: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">rqname</span><span class="p">)</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="n">output</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2021-03-26 15:56:32,566 [INFO] Requesting data for request name: 주식기본정보요청 - &lt;ipython-input-27-84e17a5232d0&gt;:1
+2021-03-26 15:56:48,836 [INFO] Got event for request: 주식기본정보요청 - &lt;ipython-input-27-84e17a5232d0&gt;:3
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">output</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;종목코드&#39;: &#39;005930&#39;,
+ &#39;종목명&#39;: &#39;삼성전자&#39;,
+ &#39;결산월&#39;: &#39;12&#39;,
+ &#39;액면가&#39;: &#39;100&#39;,
+ &#39;자본금&#39;: &#39;7780&#39;,
+ &#39;상장주식&#39;: &#39;5969783&#39;,
+ &#39;신용비율&#39;: &#39;+0.15&#39;,
+ &#39;연중최고&#39;: &#39;+96800&#39;,
+ &#39;연중최저&#39;: &#39;-80200&#39;,
+ &#39;시가총액&#39;: &#39;4865373&#39;,
+ &#39;시가총액비중&#39;: &#39;&#39;,
+ &#39;외인소진률&#39;: &#39;+54.69&#39;,
+ &#39;대용가&#39;: &#39;64960&#39;,
+ &#39;PER&#39;: &#39;21.22&#39;,
+ &#39;EPS&#39;: &#39;3841&#39;,
+ &#39;ROE&#39;: &#39;10.0&#39;,
+ &#39;PBR&#39;: &#39;2.07&#39;,
+ &#39;EV&#39;: &#39;5.76&#39;,
+ &#39;BPS&#39;: &#39;39406&#39;,
+ &#39;매출액&#39;: &#39;2368070&#39;,
+ &#39;영업이익&#39;: &#39;359939&#39;,
+ &#39;당기순이익&#39;: &#39;264078&#39;,
+ &#39;250최고&#39;: &#39;+96800&#39;,
+ &#39;250최저&#39;: &#39;-42400&#39;,
+ &#39;시가&#39;: &#39;+81400&#39;,
+ &#39;고가&#39;: &#39;+81600&#39;,
+ &#39;저가&#39;: &#39;-81000&#39;,
+ &#39;상한가&#39;: &#39;+105500&#39;,
+ &#39;하한가&#39;: &#39;-56900&#39;,
+ &#39;기준가&#39;: &#39;81200&#39;,
+ &#39;예상체결가&#39;: &#39;-0&#39;,
+ &#39;예상체결수량&#39;: &#39;0&#39;,
+ &#39;250최고가일&#39;: &#39;20210111&#39;,
+ &#39;250최고가대비율&#39;: &#39;-15.81&#39;,
+ &#39;250최저가일&#39;: &#39;20200323&#39;,
+ &#39;250최저가대비율&#39;: &#39;+92.22&#39;,
+ &#39;현재가&#39;: &#39;+81500&#39;,
+ &#39;대비기호&#39;: &#39;2&#39;,
+ &#39;전일대비&#39;: &#39;+300&#39;,
+ &#39;등락율&#39;: &#39;+0.37&#39;,
+ &#39;거래량&#39;: &#39;12730239&#39;,
+ &#39;거래대비&#39;: &#39;-86.26&#39;,
+ &#39;액면가단위&#39;: &#39;원&#39;,
+ &#39;유통주식&#39;: &#39;4706477&#39;,
+ &#39;유통비율&#39;: &#39;78.8&#39;}
+</pre></div></div>
+</div>
+<p>위의 코드에서 <code class="docutils literal notranslate"><span class="pre">TransactionCall()</span></code> 함수의 경우 반환되는 스트림의 <code class="docutils literal notranslate"><span class="pre">event</span></code> 객체는 <code class="docutils literal notranslate"><span class="pre">ListenResponse</span></code> 타입의 gRPC 메시지 형태로 반환된다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">PrettyPrinter</span>
+<span class="kn">from</span> <span class="nn">google.protobuf.json_format</span> <span class="kn">import</span> <span class="n">MessageToDict</span>
+
+<span class="n">pp</span> <span class="o">=</span> <span class="n">PrettyPrinter</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">pprint_event</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="n">pp</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">MessageToDict</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">preserving_proto_field_name</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pprint_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;arguments&#39;: [{&#39;string_value&#39;: &#39;0001&#39;},
+               {&#39;string_value&#39;: &#39;주식기본정보요청&#39;},
+               {&#39;string_value&#39;: &#39;opt10001&#39;},
+               {&#39;string_value&#39;: &#39;&#39;},
+               {&#39;string_value&#39;: &#39;0&#39;}],
+ &#39;name&#39;: &#39;OnReceiveTrData&#39;,
+ &#39;single_data&#39;: {&#39;names&#39;: [&#39;종목코드&#39;,
+                           &#39;종목명&#39;,
+                           &#39;결산월&#39;,
+                           &#39;액면가&#39;,
+                           &#39;자본금&#39;,
+                           &#39;상장주식&#39;,
+                           &#39;신용비율&#39;,
+                           &#39;연중최고&#39;,
+                           &#39;연중최저&#39;,
+                           &#39;시가총액&#39;,
+                           &#39;시가총액비중&#39;,
+                           &#39;외인소진률&#39;,
+                           &#39;대용가&#39;,
+                           &#39;PER&#39;,
+                           &#39;EPS&#39;,
+                           &#39;ROE&#39;,
+                           &#39;PBR&#39;,
+                           &#39;EV&#39;,
+                           &#39;BPS&#39;,
+                           &#39;매출액&#39;,
+                           &#39;영업이익&#39;,
+                           &#39;당기순이익&#39;,
+                           &#39;250최고&#39;,
+                           &#39;250최저&#39;,
+                           &#39;시가&#39;,
+                           &#39;고가&#39;,
+                           &#39;저가&#39;,
+                           &#39;상한가&#39;,
+                           &#39;하한가&#39;,
+                           &#39;기준가&#39;,
+                           &#39;예상체결가&#39;,
+                           &#39;예상체결수량&#39;,
+                           &#39;250최고가일&#39;,
+                           &#39;250최고가대비율&#39;,
+                           &#39;250최저가일&#39;,
+                           &#39;250최저가대비율&#39;,
+                           &#39;현재가&#39;,
+                           &#39;대비기호&#39;,
+                           &#39;전일대비&#39;,
+                           &#39;등락율&#39;,
+                           &#39;거래량&#39;,
+                           &#39;거래대비&#39;,
+                           &#39;액면가단위&#39;,
+                           &#39;유통주식&#39;,
+                           &#39;유통비율&#39;],
+                 &#39;values&#39;: [&#39;005930&#39;,
+                            &#39;삼성전자&#39;,
+                            &#39;12&#39;,
+                            &#39;100&#39;,
+                            &#39;7780&#39;,
+                            &#39;5969783&#39;,
+                            &#39;+0.15&#39;,
+                            &#39;+96800&#39;,
+                            &#39;-80200&#39;,
+                            &#39;4865373&#39;,
+                            &#39;&#39;,
+                            &#39;+54.69&#39;,
+                            &#39;64960&#39;,
+                            &#39;21.22&#39;,
+                            &#39;3841&#39;,
+                            &#39;10.0&#39;,
+                            &#39;2.07&#39;,
+                            &#39;5.76&#39;,
+                            &#39;39406&#39;,
+                            &#39;2368070&#39;,
+                            &#39;359939&#39;,
+                            &#39;264078&#39;,
+                            &#39;+96800&#39;,
+                            &#39;-42400&#39;,
+                            &#39;+81400&#39;,
+                            &#39;+81600&#39;,
+                            &#39;-81000&#39;,
+                            &#39;+105500&#39;,
+                            &#39;-56900&#39;,
+                            &#39;81200&#39;,
+                            &#39;-0&#39;,
+                            &#39;0&#39;,
+                            &#39;20210111&#39;,
+                            &#39;-15.81&#39;,
+                            &#39;20200323&#39;,
+                            &#39;+92.22&#39;,
+                            &#39;+81500&#39;,
+                            &#39;2&#39;,
+                            &#39;+300&#39;,
+                            &#39;+0.37&#39;,
+                            &#39;12730239&#39;,
+                            &#39;-86.26&#39;,
+                            &#39;원&#39;,
+                            &#39;4706477&#39;,
+                            &#39;78.8&#39;]}}
+</pre></div></div>
+</div>
+<p>해당 메시지의 형태는 <code class="docutils literal notranslate"><span class="pre">`koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService.proto</span></code> &lt;<a class="reference external" href="https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService.proto">https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService.proto</a>&gt;`__ 파일의 내용, 구체적으로 아래와 같은 메시지의 정의 부분을 참고하기 바란다.</p>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">SingleData</span> <span class="p">{</span>
+  <span class="k">repeated</span> <span class="kt">string</span> <span class="na">names</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">repeated</span> <span class="kt">string</span> <span class="na">values</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">RepeatedString</span> <span class="p">{</span>
+  <span class="k">repeated</span> <span class="kt">string</span> <span class="na">values</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">MultiData</span> <span class="p">{</span>
+  <span class="k">repeated</span> <span class="kt">string</span> <span class="na">names</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">repeated</span> <span class="n">RepeatedString</span> <span class="na">values</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">ListenResponse</span> <span class="p">{</span>
+  <span class="kt">string</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">repeated</span> <span class="n">Argument</span> <span class="na">arguments</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="n">SingleData</span> <span class="na">single_data</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="n">MultiData</span> <span class="na">multi_data</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>각 TR 에 따라 싱글데이터/멀티데이터가 선택적으로 설정되어 반환되는데, 그러한 입력/출력과 관련된 정보들은 <a class="reference external" href="https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=7">KOAStudio</a> 프로그램을 활용하거나 아니면 아래처럼 <code class="docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusTrInfo</span></code> 를 통해 확인할 수 있다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusTrInfo</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">tr_info</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusTrInfo</span><span class="o">.</span><span class="n">get_trinfo_by_code</span><span class="p">(</span><span class="s1">&#39;opt10001&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">tr_info</span><span class="o">.</span><span class="n">inputs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 6, 9001)]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">tr_info</span><span class="o">.</span><span class="n">single_outputs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 20, 389),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;종목명&#39;, 20, 50, 302),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;결산월&#39;, 40, 20, 315),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;액면가&#39;, 60, 20, 310),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;자본금&#39;, 80, 20, 309),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;상장주식&#39;, 100, 20, 312),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;신용비율&#39;, 120, 20, 329),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;연중최고&#39;, 140, 20, 1006),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;연중최저&#39;, 160, 20, 1009),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;시가총액&#39;, 180, 20, 311),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;시가총액비중&#39;, 200, 20, 336),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;외인소진률&#39;, 220, 20, 314),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;대용가&#39;, 240, 20, 308),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;PER&#39;, 260, 20, 1600),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;EPS&#39;, 280, 20, 1604),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;ROE&#39;, 300, 20, 1630),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;PBR&#39;, 320, 20, 1601),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;EV&#39;, 340, 20, 1608),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;BPS&#39;, 360, 20, 1605),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;매출액&#39;, 380, 20, 1610),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;영업이익&#39;, 400, 20, 1611),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;당기순이익&#39;, 420, 20, 1614),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;250최고&#39;, 440, 20, 1000),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;250최저&#39;, 460, 20, 1003),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;시가&#39;, 480, 20, 16),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;고가&#39;, 500, 20, 17),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;저가&#39;, 520, 20, 18),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;상한가&#39;, 540, 20, 305),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;하한가&#39;, 560, 20, 306),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;기준가&#39;, 580, 20, 307),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;예상체결가&#39;, 600, 20, 10023),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;예상체결수량&#39;, 620, 20, 10024),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;250최고가일&#39;, 640, 20, 1001),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;250최고가대비율&#39;, 660, 20, 1002),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;250최저가일&#39;, 680, 20, 1004),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;250최저가대비율&#39;, 700, 20, 1005),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;현재가&#39;, 720, 20, 10),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;대비기호&#39;, 740, 20, 25),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;전일대비&#39;, 760, 20, 11),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;등락율&#39;, 780, 20, 12),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;거래량&#39;, 800, 20, 13),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;거래대비&#39;, 820, 20, 30),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;액면가단위&#39;, 840, 20, 796),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;유통주식&#39;, 840, 20, 1683),
+ KiwoomOpenApiPlusTrInfo.Field(&#39;유통비율&#39;, 840, 20, 1684)]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">tr_info</span><span class="o">.</span><span class="n">multi_outputs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[]
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="5.-조건검색-예시">
+<h2>5. 조건검색 예시<a class="headerlink" href="#5.-조건검색-예시" title="Permalink to this headline">¶</a></h2>
+<p>조건검색을 사용하기 위해서는 먼저 서버에 저장된 조건들을 불러와야 한다.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">entrypoint</span><span class="o">.</span><span class="n">EnsureConditionLoaded</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+</pre></div></div>
+</div>
+<p>불러온 조건들의 목록은 아래 함수로 확인이 가능하다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">conditions</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetConditionNameListAsList</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">conditions</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[(0, &#39;대형 저평가 우량주&#39;), (1, &#39;중소형 저평가주&#39;)]
+</pre></div></div>
+</div>
+<p>이후 예시의 정상동작을 위해서는 아래에서 사용되는 조건들과 같은 이름을 가지는 조건들이 미리 저장되어 있어야 한다.</p>
+<ul class="simple">
+<li><p>대형 저평가 우량주</p></li>
+<li><p>중소형 저평가주</p></li>
+</ul>
+<p>위의 조건식들은 키움에서 예시로 제공하는 추천식들을 그대로 이름을 똑같이 해서 저장한 것들이다. 참고로 조건들을 편집하고 저장하는건 영웅문 HTS 내부에서만 가능하기 때문에 따로 HTS 를 열어 편집해주어야 한다.</p>
+<p>조건식이 편집된 이후에 해당 조건식을 기존에 동작중인 OpenAPI 에도 갱신하고 싶은 경우, 아래 함수를 통해 편집된 조건식을 새로 불러온다.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">entrypoint</span><span class="o">.</span><span class="n">LoadCondition</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+</pre></div></div>
+</div>
+<div class="section" id="일반-조건검색-예시">
+<h3>일반 조건검색 예시<a class="headerlink" href="#일반-조건검색-예시" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">condition_name</span> <span class="o">=</span> <span class="s1">&#39;대형 저평가 우량주&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">codes</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetCodeListByCondition</span><span class="p">(</span><span class="n">condition_name</span><span class="p">,</span> <span class="n">with_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>위의 함수에서 <code class="docutils literal notranslate"><span class="pre">with_info=True</span></code> 로 호출하게 되면 조건을 만족하는 코드 목록 (<code class="docutils literal notranslate"><span class="pre">codes</span></code>) 뿐만 아니라 해당 종목들에 대한 기본정보들도 (<code class="docutils literal notranslate"><span class="pre">info</span></code>) 같이 가져와 DataFrame 형태로 제공한다.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">info</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>종목코드</th>
+      <th>종목명</th>
+      <th>현재가</th>
+      <th>기준가</th>
+      <th>전일대비</th>
+      <th>전일대비기호</th>
+      <th>등락율</th>
+      <th>거래량</th>
+      <th>거래대금</th>
+      <th>체결량</th>
+      <th>...</th>
+      <th>ELW만기일</th>
+      <th>미결제약정</th>
+      <th>미결제전일대비</th>
+      <th>이론가</th>
+      <th>내재변동성</th>
+      <th>델타</th>
+      <th>감마</th>
+      <th>쎄타</th>
+      <th>베가</th>
+      <th>로</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>000240</td>
+      <td>한국앤컴퍼니</td>
+      <td>+18750</td>
+      <td>17950</td>
+      <td>+800</td>
+      <td>2</td>
+      <td>+4.46</td>
+      <td>425081</td>
+      <td>7862</td>
+      <td>+50</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>001630</td>
+      <td>종근당홀딩스</td>
+      <td>+102500</td>
+      <td>101000</td>
+      <td>+1500</td>
+      <td>2</td>
+      <td>+1.49</td>
+      <td>20206</td>
+      <td>2073</td>
+      <td>+3</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>001800</td>
+      <td>오리온홀딩스</td>
+      <td>+14150</td>
+      <td>14000</td>
+      <td>+150</td>
+      <td>2</td>
+      <td>+1.07</td>
+      <td>150613</td>
+      <td>2126</td>
+      <td>+9</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>001880</td>
+      <td>대림건설</td>
+      <td>+34050</td>
+      <td>33650</td>
+      <td>+400</td>
+      <td>2</td>
+      <td>+1.19</td>
+      <td>84120</td>
+      <td>2860</td>
+      <td>-2</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>003230</td>
+      <td>삼양식품</td>
+      <td>-88500</td>
+      <td>89400</td>
+      <td>-900</td>
+      <td>5</td>
+      <td>-1.01</td>
+      <td>34488</td>
+      <td>3059</td>
+      <td>-76</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>003240</td>
+      <td>태광산업</td>
+      <td>-931000</td>
+      <td>946000</td>
+      <td>-15000</td>
+      <td>5</td>
+      <td>-1.59</td>
+      <td>1142</td>
+      <td>1072</td>
+      <td>1</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>003550</td>
+      <td>LG</td>
+      <td>+89200</td>
+      <td>88000</td>
+      <td>+1200</td>
+      <td>2</td>
+      <td>+1.36</td>
+      <td>370970</td>
+      <td>33092</td>
+      <td>-9</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>003800</td>
+      <td>에이스침대</td>
+      <td>+46250</td>
+      <td>44400</td>
+      <td>+1850</td>
+      <td>2</td>
+      <td>+4.17</td>
+      <td>8140</td>
+      <td>371</td>
+      <td>-1</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>004000</td>
+      <td>롯데정밀화학</td>
+      <td>+57400</td>
+      <td>57000</td>
+      <td>+400</td>
+      <td>2</td>
+      <td>+0.70</td>
+      <td>140777</td>
+      <td>8121</td>
+      <td>-5</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>006040</td>
+      <td>동원산업</td>
+      <td>-261000</td>
+      <td>263000</td>
+      <td>-2000</td>
+      <td>5</td>
+      <td>-0.76</td>
+      <td>3687</td>
+      <td>960</td>
+      <td>+1</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>006390</td>
+      <td>한일현대시멘트</td>
+      <td>+41450</td>
+      <td>39950</td>
+      <td>+1500</td>
+      <td>2</td>
+      <td>+3.75</td>
+      <td>118225</td>
+      <td>4849</td>
+      <td>+3</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>008490</td>
+      <td>서흥</td>
+      <td>+51400</td>
+      <td>51200</td>
+      <td>+200</td>
+      <td>2</td>
+      <td>+0.39</td>
+      <td>43153</td>
+      <td>2217</td>
+      <td>+2</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>009970</td>
+      <td>영원무역홀딩스</td>
+      <td>40400</td>
+      <td>40400</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0.00</td>
+      <td>13571</td>
+      <td>549</td>
+      <td>833</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>010130</td>
+      <td>고려아연</td>
+      <td>+405500</td>
+      <td>401000</td>
+      <td>+4500</td>
+      <td>2</td>
+      <td>+1.12</td>
+      <td>34629</td>
+      <td>14034</td>
+      <td>-1</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>011780</td>
+      <td>금호석유</td>
+      <td>+239000</td>
+      <td>225500</td>
+      <td>+13500</td>
+      <td>2</td>
+      <td>+5.99</td>
+      <td>1287738</td>
+      <td>298514</td>
+      <td>-10</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>012630</td>
+      <td>HDC</td>
+      <td>+11250</td>
+      <td>11150</td>
+      <td>+100</td>
+      <td>2</td>
+      <td>+0.90</td>
+      <td>333426</td>
+      <td>3725</td>
+      <td>+5</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>014830</td>
+      <td>유니드</td>
+      <td>+65800</td>
+      <td>65600</td>
+      <td>+200</td>
+      <td>2</td>
+      <td>+0.30</td>
+      <td>31670</td>
+      <td>2089</td>
+      <td>457</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>017670</td>
+      <td>SK텔레콤</td>
+      <td>+274000</td>
+      <td>253500</td>
+      <td>+20500</td>
+      <td>2</td>
+      <td>+8.09</td>
+      <td>1097585</td>
+      <td>295820</td>
+      <td>-1</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>020000</td>
+      <td>한섬</td>
+      <td>41750</td>
+      <td>41750</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0.00</td>
+      <td>89632</td>
+      <td>3734</td>
+      <td>+6</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>023890</td>
+      <td>한국아트라스비엑스</td>
+      <td>+60400</td>
+      <td>58500</td>
+      <td>+1900</td>
+      <td>2</td>
+      <td>+3.25</td>
+      <td>14260</td>
+      <td>848</td>
+      <td>40</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>024720</td>
+      <td>한국콜마홀딩스</td>
+      <td>+29100</td>
+      <td>29050</td>
+      <td>+50</td>
+      <td>2</td>
+      <td>+0.17</td>
+      <td>92463</td>
+      <td>2678</td>
+      <td>+2</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>025540</td>
+      <td>한국단자</td>
+      <td>+71200</td>
+      <td>70600</td>
+      <td>+600</td>
+      <td>2</td>
+      <td>+0.85</td>
+      <td>31086</td>
+      <td>2211</td>
+      <td>884</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>028150</td>
+      <td>GS홈쇼핑</td>
+      <td>-150000</td>
+      <td>151000</td>
+      <td>-1000</td>
+      <td>5</td>
+      <td>-0.66</td>
+      <td>18198</td>
+      <td>2729</td>
+      <td>-42</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>033290</td>
+      <td>코웰패션</td>
+      <td>+6140</td>
+      <td>6130</td>
+      <td>+10</td>
+      <td>2</td>
+      <td>+0.16</td>
+      <td>402273</td>
+      <td>2446</td>
+      <td>+300</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>033780</td>
+      <td>KT&amp;G</td>
+      <td>-80400</td>
+      <td>80500</td>
+      <td>-100</td>
+      <td>5</td>
+      <td>-0.12</td>
+      <td>338784</td>
+      <td>27291</td>
+      <td>-1</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>036830</td>
+      <td>솔브레인홀딩스</td>
+      <td>-42150</td>
+      <td>42400</td>
+      <td>-250</td>
+      <td>5</td>
+      <td>-0.59</td>
+      <td>25086</td>
+      <td>1058</td>
+      <td>+6</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>056190</td>
+      <td>에스에프에이</td>
+      <td>-40600</td>
+      <td>40700</td>
+      <td>-100</td>
+      <td>5</td>
+      <td>-0.25</td>
+      <td>114965</td>
+      <td>4685</td>
+      <td>+53</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>060150</td>
+      <td>인선이엔티</td>
+      <td>13000</td>
+      <td>13000</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0.00</td>
+      <td>619279</td>
+      <td>8005</td>
+      <td>-2</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>078930</td>
+      <td>GS</td>
+      <td>38950</td>
+      <td>38950</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0.00</td>
+      <td>262013</td>
+      <td>10188</td>
+      <td>-2</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>081660</td>
+      <td>휠라홀딩스</td>
+      <td>+44650</td>
+      <td>44000</td>
+      <td>+650</td>
+      <td>2</td>
+      <td>+1.48</td>
+      <td>603054</td>
+      <td>26960</td>
+      <td>-10</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>090460</td>
+      <td>비에이치</td>
+      <td>-18000</td>
+      <td>18150</td>
+      <td>-150</td>
+      <td>5</td>
+      <td>-0.83</td>
+      <td>186566</td>
+      <td>3363</td>
+      <td>-30</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>095660</td>
+      <td>네오위즈</td>
+      <td>-23300</td>
+      <td>23500</td>
+      <td>-200</td>
+      <td>5</td>
+      <td>-0.85</td>
+      <td>140313</td>
+      <td>3274</td>
+      <td>-1</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>096530</td>
+      <td>씨젠</td>
+      <td>-130900</td>
+      <td>132600</td>
+      <td>-1700</td>
+      <td>5</td>
+      <td>-1.28</td>
+      <td>657660</td>
+      <td>87954</td>
+      <td>+50</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>102710</td>
+      <td>이엔에프테크놀로지</td>
+      <td>+40500</td>
+      <td>40200</td>
+      <td>+300</td>
+      <td>2</td>
+      <td>+0.75</td>
+      <td>122795</td>
+      <td>4938</td>
+      <td>-20</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>111770</td>
+      <td>영원무역</td>
+      <td>+40150</td>
+      <td>39200</td>
+      <td>+950</td>
+      <td>2</td>
+      <td>+2.42</td>
+      <td>141748</td>
+      <td>5658</td>
+      <td>+8</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>161390</td>
+      <td>한국타이어앤테크놀로지</td>
+      <td>+45800</td>
+      <td>45700</td>
+      <td>+100</td>
+      <td>2</td>
+      <td>+0.22</td>
+      <td>241282</td>
+      <td>10995</td>
+      <td>+1</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>161890</td>
+      <td>한국콜마</td>
+      <td>+57100</td>
+      <td>56900</td>
+      <td>+200</td>
+      <td>2</td>
+      <td>+0.35</td>
+      <td>108689</td>
+      <td>6188</td>
+      <td>-1</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>192080</td>
+      <td>더블유게임즈</td>
+      <td>+66500</td>
+      <td>64100</td>
+      <td>+2400</td>
+      <td>2</td>
+      <td>+3.74</td>
+      <td>464774</td>
+      <td>30960</td>
+      <td>-32</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>192400</td>
+      <td>쿠쿠홀딩스</td>
+      <td>+122500</td>
+      <td>121500</td>
+      <td>+1000</td>
+      <td>2</td>
+      <td>+0.82</td>
+      <td>5515</td>
+      <td>679</td>
+      <td>-10</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>204270</td>
+      <td>제이앤티씨</td>
+      <td>+10000</td>
+      <td>9920</td>
+      <td>+80</td>
+      <td>2</td>
+      <td>+0.81</td>
+      <td>122502</td>
+      <td>1224</td>
+      <td>+4</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>243070</td>
+      <td>휴온스</td>
+      <td>+56100</td>
+      <td>55900</td>
+      <td>+200</td>
+      <td>2</td>
+      <td>+0.36</td>
+      <td>30282</td>
+      <td>1689</td>
+      <td>+200</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>272290</td>
+      <td>이녹스첨단소재</td>
+      <td>+52700</td>
+      <td>52400</td>
+      <td>+300</td>
+      <td>2</td>
+      <td>+0.57</td>
+      <td>190523</td>
+      <td>9968</td>
+      <td>9</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>281820</td>
+      <td>케이씨텍</td>
+      <td>-26750</td>
+      <td>27050</td>
+      <td>-300</td>
+      <td>5</td>
+      <td>-1.11</td>
+      <td>54097</td>
+      <td>1449</td>
+      <td>-91</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>284740</td>
+      <td>쿠쿠홈시스</td>
+      <td>-43150</td>
+      <td>43350</td>
+      <td>-200</td>
+      <td>5</td>
+      <td>-0.46</td>
+      <td>44218</td>
+      <td>1902</td>
+      <td>-4</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>294870</td>
+      <td>HDC현대산업개발</td>
+      <td>+30050</td>
+      <td>29200</td>
+      <td>+850</td>
+      <td>2</td>
+      <td>+2.91</td>
+      <td>913391</td>
+      <td>27305</td>
+      <td>-200</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>300720</td>
+      <td>한일시멘트</td>
+      <td>+141000</td>
+      <td>132500</td>
+      <td>+8500</td>
+      <td>2</td>
+      <td>+6.42</td>
+      <td>29378</td>
+      <td>4099</td>
+      <td>+4</td>
+      <td>...</td>
+      <td>00000000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<p>46 rows × 63 columns</p>
+</div></div>
+</div>
+</div>
+<div class="section" id="실시간-조건검색-예시">
+<h3>실시간 조건검색 예시<a class="headerlink" href="#실시간-조건검색-예시" title="Permalink to this headline">¶</a></h3>
+<p>같은 조건식은 1분에 1건 제한이므로 예시 실행시 제한을 회피하기 위해서 새로 설정한다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">condition_name</span> <span class="o">=</span> <span class="s1">&#39;중소형 저평가주&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Start listening realtime condition stream...&#39;</span><span class="p">)</span>
+<span class="n">stream</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetCodeListByConditionAsStream</span><span class="p">(</span><span class="n">condition_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2021-03-26 15:56:49,556 [INFO] Start listening realtime condition stream... - &lt;ipython-input-44-f04b6a919f1c&gt;:1
+</pre></div></div>
+</div>
+<p>실시간 조건검색의 경우 조건에 만족/불만족하는 종목이 편입/이탈할때마다 계속해서 이벤트를 반환한다. 예시에서는 10초 동안만 이벤트를 확인해본다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="k">def</span> <span class="nf">stop_listening</span><span class="p">():</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Stop listening realtime condition stream...&#39;</span><span class="p">)</span>
+    <span class="n">stream</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+
+<span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">stop_listening</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="c1"># 10초 이후에 gRPC 커넥션 종료하도록 설정</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">grpc</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">inserted</span><span class="p">,</span> <span class="n">deleted</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;index: </span><span class="si">%d</span><span class="s1">, inserted: </span><span class="si">%s</span><span class="s1">, deleted: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">inserted</span><span class="p">,</span> <span class="n">deleted</span><span class="p">))</span>
+<span class="k">except</span> <span class="n">grpc</span><span class="o">.</span><span class="n">RpcError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+index: 0, inserted: [&#39;900270&#39;, &#39;900290&#39;, &#39;900310&#39;, &#39;900340&#39;, &#39;002170&#39;, &#39;005190&#39;, &#39;036190&#39;, &#39;037710&#39;, &#39;049430&#39;, &#39;052790&#39;, &#39;073560&#39;, &#39;225220&#39;, &#39;248170&#39;, &#39;352700&#39;, &#39;900280&#39;, &#39;900250&#39;], deleted: []
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2021-03-26 15:56:59,576 [INFO] Stop listening realtime condition stream... - &lt;ipython-input-45-d6e01d9f3b07&gt;:4
+</pre></div></div>
+</div>
+<p>위에서 <code class="docutils literal notranslate"><span class="pre">stream</span></code> 결과는 <code class="docutils literal notranslate"><span class="pre">`grpc</span></code> &lt;<a class="reference external" href="https://github.com/grpc/grpc">https://github.com/grpc/grpc</a>&gt;`__ 의 <code class="docutils literal notranslate"><span class="pre">`_MultiThreadedRendezvous</span></code> &lt;<a class="reference external" href="https://github.com/grpc/grpc/blob/53ba4a101e80e1a67d4ec741b7e1aad6ea8d790f/src/python/grpcio/grpc/_channel.py#L652">https://github.com/grpc/grpc/blob/53ba4a101e80e1a67d4ec741b7e1aad6ea8d790f/src/python/grpcio/grpc/_channel.py#L652</a>&gt;`__ 객체인데 사실 해당 타입은 직접적으로 외부에 노출되는 타입은 아님. 대신에 해당 타입은 내부적으로 <code class="docutils literal notranslate"><span class="pre">`grpc.RpcError</span></code> &lt;<a class="reference external" href="https://grpc.github.io/grpc/python/grpc.html?highlight=rpcerror#grpc.RpcError">https://grpc.github.io/grpc/python/grpc.html?highlight=rpcerror#grpc.RpcError</a>&gt;`__,
+<code class="docutils literal notranslate"><span class="pre">`grpc.RpcContext</span></code> &lt;<a class="reference external" href="https://grpc.github.io/grpc/python/grpc.html?highlight=rpccontext#grpc.RpcContext">https://grpc.github.io/grpc/python/grpc.html?highlight=rpccontext#grpc.RpcContext</a>&gt;`__, <code class="docutils literal notranslate"><span class="pre">`grpc.Call</span></code> &lt;<a class="reference external" href="https://grpc.github.io/grpc/python/grpc.html?highlight=call#grpc.Call">https://grpc.github.io/grpc/python/grpc.html?highlight=call#grpc.Call</a>&gt;`__, <code class="docutils literal notranslate"><span class="pre">`grpc.Future</span></code> &lt;&gt;`__ 인터페이스를 구현하고 있으므로 해당 객체의 사용법과 관련해서는 각각의 인터페이스를 참고하기 바람.</p>
+</div>
+</div>
+<div class="section" id="6.-주문처리-예시">
+<h2>6. 주문처리 예시<a class="headerlink" href="#6.-주문처리-예시" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">first_account_no</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetFirstAvailableAccount</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">request_name</span> <span class="o">=</span> <span class="s1">&#39;삼성전자 1주 시장가 신규 매수&#39;</span> <span class="c1"># 사용자 구분명, 구분가능한 임의의 문자열</span>
+<span class="n">screen_no</span> <span class="o">=</span> <span class="s1">&#39;0001&#39;</span>                           <span class="c1"># 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정</span>
+<span class="n">account_no</span> <span class="o">=</span> <span class="n">first_account_no</span>                <span class="c1"># 계좌번호 10자리, 여기서는 계좌번호 목록에서 첫번째로 발견한 계좌번호로 매수처리</span>
+<span class="n">order_type</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># 주문유형, 1 : 신규매수</span>
+<span class="n">code</span> <span class="o">=</span> <span class="n">samsung_code</span>    <span class="c1"># 종목코드, 앞의 삼성전자 종목코드</span>
+<span class="n">quantity</span> <span class="o">=</span> <span class="mi">1</span>           <span class="c1"># 주문수량, 1주 매수</span>
+<span class="n">price</span> <span class="o">=</span> <span class="mi">0</span>              <span class="c1"># 주문가격, 시장가 매수는 가격설정 의미없음</span>
+<span class="n">quote_type</span> <span class="o">=</span> <span class="s1">&#39;03&#39;</span>      <span class="c1"># 거래구분, 03 : 시장가</span>
+<span class="n">original_order_no</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1"># 원주문번호, 주문 정정/취소 등에서 사용</span>
+</pre></div>
+</div>
+</div>
+<p>주문유형 및 거래구분 등과 관련된 자세한 정보들은 <a class="reference external" href="https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=7">KOAStudio</a> 프로그램에서 확인할 수 있다.</p>
+<p>주문처리는 실제 시장이 열려있는 동안에만 테스트해볼 수 있기 때문에, 현재 장이 열려 있는지 먼저 확인하고 해당 경우에 한정해서 테스트를 진행한다.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Timestamp</span>
+<span class="kn">from</span> <span class="nn">exchange_calendars</span> <span class="kn">import</span> <span class="n">get_calendar</span>
+
+<span class="n">krx_calendar</span> <span class="o">=</span> <span class="n">get_calendar</span><span class="p">(</span><span class="s1">&#39;XKRX&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">is_currently_in_session</span><span class="p">():</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">Timestamp</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">krx_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
+    <span class="n">previous_open</span> <span class="o">=</span> <span class="n">krx_calendar</span><span class="o">.</span><span class="n">previous_open</span><span class="p">(</span><span class="n">now</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">krx_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
+    <span class="n">next_close</span> <span class="o">=</span> <span class="n">krx_calendar</span><span class="o">.</span><span class="n">next_close</span><span class="p">(</span><span class="n">previous_open</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">krx_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">previous_open</span> <span class="o">&lt;=</span> <span class="n">now</span> <span class="o">&lt;=</span> <span class="n">next_close</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">if</span> <span class="n">is_currently_in_session</span><span class="p">():</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Sending order to buy </span><span class="si">%s</span><span class="s1">, quantity of 1 stock, at market price...&#39;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">OrderCall</span><span class="p">(</span><span class="n">request_name</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">order_type</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">quantity</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">quote_type</span><span class="p">,</span> <span class="n">original_order_no</span><span class="p">):</span>
+        <span class="n">pprint_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Cannot send an order while market is not open, skipping...&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2021-03-26 15:56:59,845 [INFO] Cannot send an order while market is not open, skipping... - &lt;ipython-input-50-37048f99b24d&gt;:6
+</pre></div></div>
+</div>
+<p>주문 이벤트는 기본적으로 주문수량이 모두 소진되기 전까지 이벤트를 듣도록 되어있으며, 다른 이벤트 스트림과 동일하게 <code class="docutils literal notranslate"><span class="pre">stream.cancel()</span></code> 의 형태로 이벤트 스트림을 더이상 듣지 않도록 하는것이 가능하다. 다만 이벤트 스트림을 취소하는 것이 기존 주문까지 취소하는 것은 아니기 때문에 주문취소나 정정등을 위해서는 별도의 취소/정정 주문을 넣어줘야 한다.</p>
+<p>여기서 반환되는 이벤트 객체 역시 앞선 TR 예시에서와 동일하게 <code class="docutils literal notranslate"><span class="pre">ListenResponse</span></code> 타입의 gRPC 메시지 형태로 반환된다.</p>
+</div>
+<div class="section" id="7.-실시간-데이터-처리-예시">
+<h2>7. 실시간 데이터 처리 예시<a class="headerlink" href="#7.-실시간-데이터-처리-예시" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusRealType</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">code_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">code</span><span class="p">]</span>
+<span class="n">fid_list</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_fids_by_realtype_name</span><span class="p">(</span><span class="s1">&#39;주식시세&#39;</span><span class="p">)</span>
+<span class="n">real_type</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="c1"># 기존 화면에 추가가 아니라 신규 생성, 1 의 경우 기존 화면번호에 추가</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Start listening realtime stock data for code: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+<span class="n">stream</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetRealDataForCodesAsStream</span><span class="p">(</span><span class="n">code_list</span><span class="p">,</span> <span class="n">fid_list</span><span class="p">,</span> <span class="n">real_type</span><span class="p">,</span> <span class="n">screen_no</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">infer_fids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">readable_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fast_parse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2021-03-26 15:56:59,892 [INFO] Start listening realtime stock data for code: 005930 - &lt;ipython-input-53-d908d1a08033&gt;:1
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="k">def</span> <span class="nf">stop_listening</span><span class="p">():</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Stop listening realtime events...&#39;</span><span class="p">)</span>
+    <span class="n">stream</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+
+<span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">stop_listening</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="c1"># 10초 이후에 gRPC 커넥션 종료하도록 설정</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">grpc</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">event</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">pprint_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="c1"># 노트북 출력이 너무 길어질 수 있어 최초 10개만 출력</span>
+<span class="k">except</span> <span class="n">grpc</span><span class="o">.</span><span class="n">RpcError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;arguments&#39;: [{&#39;string_value&#39;: &#39;005930&#39;},
+               {&#39;string_value&#39;: &#39;주식체결&#39;},
+               {&#39;string_value&#39;: &#39;155715\t+81500\t+300\t+0.37\t+81500\t+81400\t&#39;
+                                &#39;+1\t12730286\t1034850\t+81400\t+81600\t&#39;
+                                &#39;-81000\t2\t-2028540\t-165849570723\t-86.26\t&#39;
+                                &#39;0.21\t213\t73.14\t4865373\t3\t0\t-86.19\t&#39;
+                                &#39;000000\t000000\t8688\t090029\t123005\t105538\t&#39;
+                                &#39;6521016\t4769428\t-42.24\t48237\t58428\t+81\t &#39;
+                                &#39;0\t+1\t+1\t8150\t6520\t81290\t434&#39;}],
+ &#39;name&#39;: &#39;OnReceiveRealData&#39;,
+ &#39;single_data&#39;: {&#39;names&#39;: [&#39;체결시간&#39;,
+                           &#39;현재가&#39;,
+                           &#39;전일대비&#39;,
+                           &#39;등락율&#39;,
+                           &#39;매도호가&#39;,
+                           &#39;매수호가&#39;,
+                           &#39;거래량&#39;,
+                           &#39;누적거래량&#39;,
+                           &#39;누적거래대금&#39;,
+                           &#39;시가&#39;,
+                           &#39;고가&#39;,
+                           &#39;저가&#39;,
+                           &#39;전일대비기호&#39;,
+                           &#39;거래량전일대비&#39;,
+                           &#39;거래대금증감&#39;,
+                           &#39;전일거래량대비율&#39;,
+                           &#39;거래회전율&#39;,
+                           &#39;거래비용&#39;,
+                           &#39;체결강도&#39;,
+                           &#39;시가총액&#39;,
+                           &#39;장구분&#39;,
+                           &#39;KO접근도&#39;,
+                           &#39;822&#39;,
+                           &#39;상한가발생시간&#39;,
+                           &#39;하한가발생시간&#39;,
+                           &#39;851&#39;,
+                           &#39;1890&#39;,
+                           &#39;1891&#39;,
+                           &#39;1892&#39;,
+                           &#39;1030&#39;,
+                           &#39;1031&#39;,
+                           &#39;1032&#39;,
+                           &#39;1071&#39;,
+                           &#39;1072&#39;,
+                           &#39;1313&#39;,
+                           &#39;1315&#39;,
+                           &#39;1316&#39;,
+                           &#39;1314&#39;,
+                           &#39;1497&#39;,
+                           &#39;1498&#39;,
+                           &#39;620&#39;,
+                           &#39;732&#39;],
+                 &#39;values&#39;: [&#39;155715&#39;,
+                            &#39;+81500&#39;,
+                            &#39;+300&#39;,
+                            &#39;+0.37&#39;,
+                            &#39;+81500&#39;,
+                            &#39;+81400&#39;,
+                            &#39;+1&#39;,
+                            &#39;12730286&#39;,
+                            &#39;1034850&#39;,
+                            &#39;+81400&#39;,
+                            &#39;+81600&#39;,
+                            &#39;-81000&#39;,
+                            &#39;2&#39;,
+                            &#39;-2028540&#39;,
+                            &#39;-165849570723&#39;,
+                            &#39;-86.26&#39;,
+                            &#39;0.21&#39;,
+                            &#39;213&#39;,
+                            &#39;73.14&#39;,
+                            &#39;4865373&#39;,
+                            &#39;3&#39;,
+                            &#39;0&#39;,
+                            &#39;-86.19&#39;,
+                            &#39;000000&#39;,
+                            &#39;000000&#39;,
+                            &#39;8688&#39;,
+                            &#39;090029&#39;,
+                            &#39;123005&#39;,
+                            &#39;105538&#39;,
+                            &#39;6521016&#39;,
+                            &#39;4769428&#39;,
+                            &#39;-42.24&#39;,
+                            &#39;48237&#39;,
+                            &#39;58428&#39;,
+                            &#39;+81&#39;,
+                            &#39; 0&#39;,
+                            &#39;+1&#39;,
+                            &#39;+1&#39;,
+                            &#39;8150&#39;,
+                            &#39;6520&#39;,
+                            &#39;81290&#39;,
+                            &#39;434&#39;]}}
+{&#39;arguments&#39;: [{&#39;string_value&#39;: &#39;005930&#39;},
+               {&#39;string_value&#39;: &#39;주식체결&#39;},
+               {&#39;string_value&#39;: &#39;155716\t+81500\t+300\t+0.37\t+81500\t+81400\t&#39;
+                                &#39;+5\t12730291\t1034850\t+81400\t+81600\t&#39;
+                                &#39;-81000\t2\t-2028535\t-165849163223\t-86.26\t&#39;
+                                &#39;0.21\t213\t73.14\t4865373\t3\t0\t-86.19\t&#39;
+                                &#39;000000\t000000\t8688\t090029\t123005\t105538\t&#39;
+                                &#39;6521016\t4769433\t-42.24\t48237\t58429\t&#39;
+                                &#39;+407\t 0\t+5\t+5\t8150\t6520\t81290\t434&#39;}],
+ &#39;name&#39;: &#39;OnReceiveRealData&#39;,
+ &#39;single_data&#39;: {&#39;names&#39;: [&#39;체결시간&#39;,
+                           &#39;현재가&#39;,
+                           &#39;전일대비&#39;,
+                           &#39;등락율&#39;,
+                           &#39;매도호가&#39;,
+                           &#39;매수호가&#39;,
+                           &#39;거래량&#39;,
+                           &#39;누적거래량&#39;,
+                           &#39;누적거래대금&#39;,
+                           &#39;시가&#39;,
+                           &#39;고가&#39;,
+                           &#39;저가&#39;,
+                           &#39;전일대비기호&#39;,
+                           &#39;거래량전일대비&#39;,
+                           &#39;거래대금증감&#39;,
+                           &#39;전일거래량대비율&#39;,
+                           &#39;거래회전율&#39;,
+                           &#39;거래비용&#39;,
+                           &#39;체결강도&#39;,
+                           &#39;시가총액&#39;,
+                           &#39;장구분&#39;,
+                           &#39;KO접근도&#39;,
+                           &#39;822&#39;,
+                           &#39;상한가발생시간&#39;,
+                           &#39;하한가발생시간&#39;,
+                           &#39;851&#39;,
+                           &#39;1890&#39;,
+                           &#39;1891&#39;,
+                           &#39;1892&#39;,
+                           &#39;1030&#39;,
+                           &#39;1031&#39;,
+                           &#39;1032&#39;,
+                           &#39;1071&#39;,
+                           &#39;1072&#39;,
+                           &#39;1313&#39;,
+                           &#39;1315&#39;,
+                           &#39;1316&#39;,
+                           &#39;1314&#39;,
+                           &#39;1497&#39;,
+                           &#39;1498&#39;,
+                           &#39;620&#39;,
+                           &#39;732&#39;],
+                 &#39;values&#39;: [&#39;155716&#39;,
+                            &#39;+81500&#39;,
+                            &#39;+300&#39;,
+                            &#39;+0.37&#39;,
+                            &#39;+81500&#39;,
+                            &#39;+81400&#39;,
+                            &#39;+5&#39;,
+                            &#39;12730291&#39;,
+                            &#39;1034850&#39;,
+                            &#39;+81400&#39;,
+                            &#39;+81600&#39;,
+                            &#39;-81000&#39;,
+                            &#39;2&#39;,
+                            &#39;-2028535&#39;,
+                            &#39;-165849163223&#39;,
+                            &#39;-86.26&#39;,
+                            &#39;0.21&#39;,
+                            &#39;213&#39;,
+                            &#39;73.14&#39;,
+                            &#39;4865373&#39;,
+                            &#39;3&#39;,
+                            &#39;0&#39;,
+                            &#39;-86.19&#39;,
+                            &#39;000000&#39;,
+                            &#39;000000&#39;,
+                            &#39;8688&#39;,
+                            &#39;090029&#39;,
+                            &#39;123005&#39;,
+                            &#39;105538&#39;,
+                            &#39;6521016&#39;,
+                            &#39;4769433&#39;,
+                            &#39;-42.24&#39;,
+                            &#39;48237&#39;,
+                            &#39;58429&#39;,
+                            &#39;+407&#39;,
+                            &#39; 0&#39;,
+                            &#39;+5&#39;,
+                            &#39;+5&#39;,
+                            &#39;8150&#39;,
+                            &#39;6520&#39;,
+                            &#39;81290&#39;,
+                            &#39;434&#39;]}}
+{&#39;arguments&#39;: [{&#39;string_value&#39;: &#39;005930&#39;},
+               {&#39;string_value&#39;: &#39;주식체결&#39;},
+               {&#39;string_value&#39;: &#39;155721\t+81500\t+300\t+0.37\t+81500\t+81400\t&#39;
+                                &#39;+2\t12730293\t1034850\t+81400\t+81600\t&#39;
+                                &#39;-81000\t2\t-2028533\t-165849000223\t-86.26\t&#39;
+                                &#39;0.21\t213\t73.14\t4865373\t3\t0\t-86.19\t&#39;
+                                &#39;000000\t000000\t8688\t090029\t123005\t105538\t&#39;
+                                &#39;6521016\t4769435\t-42.24\t48237\t58430\t&#39;
+                                &#39;+163\t 0\t+2\t+2\t8150\t6520\t81290\t434&#39;}],
+ &#39;name&#39;: &#39;OnReceiveRealData&#39;,
+ &#39;single_data&#39;: {&#39;names&#39;: [&#39;체결시간&#39;,
+                           &#39;현재가&#39;,
+                           &#39;전일대비&#39;,
+                           &#39;등락율&#39;,
+                           &#39;매도호가&#39;,
+                           &#39;매수호가&#39;,
+                           &#39;거래량&#39;,
+                           &#39;누적거래량&#39;,
+                           &#39;누적거래대금&#39;,
+                           &#39;시가&#39;,
+                           &#39;고가&#39;,
+                           &#39;저가&#39;,
+                           &#39;전일대비기호&#39;,
+                           &#39;거래량전일대비&#39;,
+                           &#39;거래대금증감&#39;,
+                           &#39;전일거래량대비율&#39;,
+                           &#39;거래회전율&#39;,
+                           &#39;거래비용&#39;,
+                           &#39;체결강도&#39;,
+                           &#39;시가총액&#39;,
+                           &#39;장구분&#39;,
+                           &#39;KO접근도&#39;,
+                           &#39;822&#39;,
+                           &#39;상한가발생시간&#39;,
+                           &#39;하한가발생시간&#39;,
+                           &#39;851&#39;,
+                           &#39;1890&#39;,
+                           &#39;1891&#39;,
+                           &#39;1892&#39;,
+                           &#39;1030&#39;,
+                           &#39;1031&#39;,
+                           &#39;1032&#39;,
+                           &#39;1071&#39;,
+                           &#39;1072&#39;,
+                           &#39;1313&#39;,
+                           &#39;1315&#39;,
+                           &#39;1316&#39;,
+                           &#39;1314&#39;,
+                           &#39;1497&#39;,
+                           &#39;1498&#39;,
+                           &#39;620&#39;,
+                           &#39;732&#39;],
+                 &#39;values&#39;: [&#39;155721&#39;,
+                            &#39;+81500&#39;,
+                            &#39;+300&#39;,
+                            &#39;+0.37&#39;,
+                            &#39;+81500&#39;,
+                            &#39;+81400&#39;,
+                            &#39;+2&#39;,
+                            &#39;12730293&#39;,
+                            &#39;1034850&#39;,
+                            &#39;+81400&#39;,
+                            &#39;+81600&#39;,
+                            &#39;-81000&#39;,
+                            &#39;2&#39;,
+                            &#39;-2028533&#39;,
+                            &#39;-165849000223&#39;,
+                            &#39;-86.26&#39;,
+                            &#39;0.21&#39;,
+                            &#39;213&#39;,
+                            &#39;73.14&#39;,
+                            &#39;4865373&#39;,
+                            &#39;3&#39;,
+                            &#39;0&#39;,
+                            &#39;-86.19&#39;,
+                            &#39;000000&#39;,
+                            &#39;000000&#39;,
+                            &#39;8688&#39;,
+                            &#39;090029&#39;,
+                            &#39;123005&#39;,
+                            &#39;105538&#39;,
+                            &#39;6521016&#39;,
+                            &#39;4769435&#39;,
+                            &#39;-42.24&#39;,
+                            &#39;48237&#39;,
+                            &#39;58430&#39;,
+                            &#39;+163&#39;,
+                            &#39; 0&#39;,
+                            &#39;+2&#39;,
+                            &#39;+2&#39;,
+                            &#39;8150&#39;,
+                            &#39;6520&#39;,
+                            &#39;81290&#39;,
+                            &#39;434&#39;]}}
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2021-03-26 15:57:09,910 [INFO] Stop listening realtime events... - &lt;ipython-input-54-f9a2c4046337&gt;:4
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;_MultiThreadedRendezvous of RPC that terminated with:
+        status = StatusCode.CANCELLED
+        details = &#34;Locally cancelled by application!&#34;
+        debug_error_string = &#34;None&#34;
+&gt;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/notebooks/koapy-tutorial.ipynb"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>
