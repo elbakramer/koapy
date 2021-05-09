@@ -34,7 +34,7 @@ et-xmlfile==1.1.0; python_version >= "3.6"
 exchange-calendars==3.0.2
 execnet==1.8.0; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.5"
 filelock==3.0.12; python_full_version >= "3.6.1"
-flake8==3.9.1; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
+flake8==3.9.2; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
 greenlet==1.1.0; python_version >= "3" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3"
 grpcio-tools==1.37.1
 grpcio==1.37.1
