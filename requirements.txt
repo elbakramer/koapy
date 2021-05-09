@@ -11,7 +11,7 @@ exchange-calendars==3.0.2
 greenlet==1.1.0; python_version >= "3" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3"
 grpcio-tools==1.37.1
 grpcio==1.37.1
-idna==2.10; python_version >= "3.6" and python_full_version >= "3.5.3"
+idna==3.1; python_version >= "3.6" and python_full_version >= "3.5.3"
 importlib-metadata==4.0.1; python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.8" or python_full_version >= "3.6.0" and python_version < "3.8" and python_version >= "3.6"
 korean-lunar-calendar==0.2.1
 multidict==5.1.0; python_version >= "3.6" and python_full_version >= "3.5.3"
