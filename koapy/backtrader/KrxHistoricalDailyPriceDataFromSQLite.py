@@ -4,10 +4,10 @@ from backtrader import TimeFrame, date2num
 from sqlalchemy import create_engine, inspect
 from tqdm import tqdm
 
+from koapy.backtrader.SQLiteData import SQLiteData
 from koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader import (
     KrxHistoricalDailyPriceDataForBacktestLoader,
 )
-from koapy.utils.store.SQLiteData import SQLiteData
 
 
 class KrxHistoricalDailyPriceDataFromSQLite(SQLiteData):
