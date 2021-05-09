@@ -427,7 +427,7 @@ Usage
 
 .. _Usage: https://koapy.readthedocs.io/en/latest/usage.html
 .. _examples: https://github.com/elbakramer/koapy/tree/master/koapy/examples
-.. _notebooks: https://github.com/elbakramer/koapy/tree/master/docs/notebooks
+.. _notebooks: https://github.com/elbakramer/koapy/tree/master/docs/source/notebooks
 .. _nbviewer: https://nbviewer.jupyter.org/
 
 
