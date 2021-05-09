@@ -1,5 +1,5 @@
 [flake8]
-extend-exclude = docs
+extend-exclude = docs,*_pb2.py,*_pb2_grpc.py
 max-line-length = 88
 extend-ignore = E203
 count = true

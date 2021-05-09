@@ -18,7 +18,7 @@ Welcome to KOAPY's documentation!
 
       autoapi/index
 
-.. .. ifconfig:: "nbsphinx" not in extensions
+.. ifconfig:: "nbsphinx" not in extensions
 
    .. toctree::
       :maxdepth: 2

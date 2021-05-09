@@ -2,7 +2,7 @@
 name = "koapy"
 version = "0.3.5"
 description = "Kiwoom Open Api Plus Python"
-license = "MIT"
+license = "MIT OR Apache-2.0 OR GPL-3.0-or-later"
 authors = ["Yunseong Hwang <kika1492@gmail.com>"]
 maintainers = ["Yunseong Hwang <kika1492@gmail.com>"]
 readme = "README.rst"
@@ -14,11 +14,18 @@ classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: Apache Software License",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Natural Language :: English",
+    "Natural Language :: Korean",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Operating System :: Microsoft :: Windows :: Windows 10",
+    "Environment :: Console",
+    "Environment :: X11 Applications :: Qt",
+    "Topic :: Office/Business :: Financial",
 ]
 include = [
     "docs",

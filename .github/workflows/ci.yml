@@ -21,9 +21,7 @@ jobs:
         architecture: [x86, x64]
         exclude:
         - os: ubuntu-latest
-          architecture: x86
         - os: macos-latest
-          architecture: x86
 
     steps:
     - uses: actions/checkout@v2
@@ -50,9 +48,6 @@ jobs:
     - name: Install dependencies
       run: |
         poetry install
-    - name: Lint with flake8
-      run: |
-        poetry run flake8
     - name: Test with pytest
       run: |
         poetry run pytest -n auto --dist loadscope --doctest-modules --junit-xml=junit/test-results.xml --cov --cov-report=xml --cov-report=html

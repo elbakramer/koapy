@@ -14,6 +14,9 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerFuncti
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import (
     KiwoomOpenApiPlusSimpleQAxWidgetMixin,
 )
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import (
+    KiwoomOpenApiPlusRealType,
+)
 from koapy.backend.kiwoom_open_api_plus.grpc import KiwoomOpenApiPlusService_pb2
 from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideDynamicCallable import (
     KiwoomOpenApiPlusServiceClientSideDynamicCallable,
@@ -1062,7 +1065,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
         if isinstance(codes, str):
             codes = [codes]
         if fids is None:
-            fids = RealType.get_fids_by_realtype_name("주식시세")
+            fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name("주식시세")
         if realtype is None:
             realtype = "0"
         responses = self.RealCall(

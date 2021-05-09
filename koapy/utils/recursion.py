@@ -30,9 +30,6 @@ For more information, please refer to <http://unlicense.org/>
 
 # https://github.com/andrewp-as-is/recursion-detect.py
 
-__all__ = ["depth"]
-
-
 import inspect
 
 
@@ -46,3 +43,6 @@ def depth():
         if path == top_frame[0] and func_name == top_frame[2]:
             counter += 1
     return counter
+
+
+__all__ = ["depth"]

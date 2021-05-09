@@ -83,10 +83,10 @@ class KiwoomOpenApiPlusServiceServicer(
         code = request.code
         class_name = request.class_name
         if code and class_name:
-            g = {}
-            l = {}
-            exec(code, g, l)  # pylint: disable=exec-used
-            handler = eval(class_name, g, l)(
+            global_vars = {}
+            local_vars = {}
+            exec(code, global_vars, local_vars)  # pylint: disable=exec-used
+            handler = eval(class_name, global_vars, local_vars)(
                 self.control, request, context
             )  # pylint: disable=eval-used
             assert isinstance(handler, KiwoomOpenApiPlusEventHandler)
@@ -103,10 +103,10 @@ class KiwoomOpenApiPlusServiceServicer(
         code = request.listen_request.code
         class_name = request.listen_request.class_name
         if code and class_name:
-            g = {}
-            l = {}
-            exec(code, g, l)  # pylint: disable=exec-used
-            handler = eval(class_name, g, l)(
+            global_vars = {}
+            local_vars = {}
+            exec(code, global_vars, local_vars)  # pylint: disable=exec-used
+            handler = eval(class_name, global_vars, local_vars)(
                 self.control, request, context
             )  # pylint: disable=eval-used
             assert isinstance(handler, KiwoomOpenApiPlusEventHandler)
