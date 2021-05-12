@@ -50,7 +50,7 @@ jobs:
       run: |
         poetry install
     - name: Check version
-      uses: actions/github-script@v4
+      uses: actions/github-script@v4.0.2
       id: check-version
       with:
         script: |
