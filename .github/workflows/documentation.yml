@@ -33,7 +33,7 @@ jobs:
       run: |
         echo "::set-output name=dir::$(poetry config cache-dir)"
     - name: Restore cache
-      uses: actions/cache@v2
+      uses: actions/cache@v2.1.5
       with:
         path: ${{ steps.poetry-cache.outputs.dir }}
         key: ${{ runner.os }}-poetry-py3.8-x64-${{ hashFiles('poetry.lock') }}
