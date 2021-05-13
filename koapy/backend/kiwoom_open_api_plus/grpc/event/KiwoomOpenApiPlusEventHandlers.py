@@ -1377,12 +1377,14 @@ class KiwoomOpenApiPlusConditionEventHandler(
         self._is_future_option = request.flags.is_future_option
         self._type_flag = 3 if self._is_future_option else 0
 
-        self._trinfo = None
-        self._single_names = []
-        self._multi_names = []
+        self._trcode = "OPTKWFID"
+        self._trinfo = KiwoomOpenApiPlusTrInfo.get_trinfo_by_code(self._trcode)
 
-        self._codelist = ""
-        self._codes = []
+        if self._trinfo is None:
+            self.logger.error("Cannot find names for trcode %s", self._trinfo)
+
+        self._single_names = self._trinfo.get_single_output_names()
+        self._multi_names = self._trinfo.get_multi_output_names()
 
     def on_enter(self):
         self.control.EnsureConditionLoaded()
@@ -1432,13 +1434,12 @@ class KiwoomOpenApiPlusConditionEventHandler(
             self.observer.on_next(response)  # pylint: disable=no-member
 
             if self._with_info:
-                self._codelist = codelist
-                self._codes = codelist.rstrip(";").split(";") if codelist else []
+                codes = codelist.rstrip(";").split(";") if codelist else []
                 KiwoomOpenApiPlusError.try_or_raise(
                     self.control.RateLimitedCommKwRqData(
-                        self._codelist,
+                        codelist,
                         0,
-                        len(self._codes),
+                        len(codes),
                         self._type_flag,
                         self._request_name,
                         self._screen_no,
@@ -1490,13 +1491,13 @@ class KiwoomOpenApiPlusConditionEventHandler(
             self.observer.on_next(response)  # pylint: disable=no-member
 
             if self._with_info:
-                self._codelist = code
-                self._codes = [code]
+                codelist = code
+                codes = [code]
                 KiwoomOpenApiPlusError.try_or_raise(
                     self.control.RateLimitedCommKwRqData(
-                        self._codelist,
+                        codelist,
                         0,
-                        len(self._codes),
+                        codes,
                         self._type_flag,
                         self._request_name,
                         self._screen_no,
@@ -1534,13 +1535,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
 
             repeat_cnt = self.control.GetRepeatCnt(trcode, recordname)
 
-            self._trinfo = KiwoomOpenApiPlusTrInfo.get_trinfo_by_code(trcode)
-
-            if self._trinfo is None:
-                self.logger.error("Cannot find names for trcode %s", self._trinfo)
-
-            self._single_names = self._trinfo.get_single_output_names()
-            self._multi_names = self._trinfo.get_multi_output_names()
+            assert trcode.upper() == self._trcode
 
             if len(self._single_names) > 0:
                 values = [
@@ -1575,10 +1570,8 @@ class KiwoomOpenApiPlusConditionEventHandler(
                         "Repeat count greater than 0, but no multi data names available."
                     )
 
-            self.logger.debug("Response: %s", response)
             self.observer.on_next(response)  # pylint: disable=no-member
 
-            self.logger.debug("Should complete: %s", should_complete)
             if should_complete:
                 self.observer.on_completed()
                 return

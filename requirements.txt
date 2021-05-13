@@ -3,7 +3,8 @@ async-timeout==3.0.1; python_version >= "3.6" and python_full_version >= "3.5.3"
 attrs==21.2.0; python_version >= "3.6" and python_full_version >= "3.5.3"
 certifi==2020.12.5; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 chardet==4.0.0; python_version >= "3.6" and python_full_version >= "3.5.3"
-click==7.1.2; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
+click==8.0.0; python_version >= "3.6"
+colorama==0.4.4; python_version >= "3.6" and python_full_version < "3.0.0" and platform_system == "Windows" or platform_system == "Windows" and python_version >= "3.6" and python_full_version >= "3.5.0"
 comtypes==1.1.10; sys_platform == "win32"
 discord.py==1.7.2; python_full_version >= "3.5.3"
 et-xmlfile==1.1.0; python_version >= "3.6"
@@ -15,10 +16,10 @@ idna==2.10; python_version >= "3.6" and python_full_version >= "3.5.3"
 importlib-metadata==4.0.1; python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.8" or python_full_version >= "3.6.0" and python_version < "3.8" and python_version >= "3.6"
 korean-lunar-calendar==0.2.1
 multidict==5.1.0; python_version >= "3.6" and python_full_version >= "3.5.3"
-numpy==1.20.2; python_version >= "3.7"
+numpy==1.20.3; python_version >= "3.7"
 openpyxl==3.0.7; python_version >= "3.6"
 pandas==1.2.4; python_full_version >= "3.7.1"
-protobuf==3.16.0
+protobuf==3.17.0
 pyhocon==0.3.57
 pyluach==1.2.1; python_version >= "3.4"
 pyparsing==2.4.7; python_version >= "2.6" and python_full_version < "3.0.0" or python_full_version >= "3.3.0"
@@ -34,7 +35,7 @@ schedule==1.1.0; python_version >= "3.6"
 send2trash==1.5.0
 shiboken2==5.15.2; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "3.10"
 six==1.16.0; python_version >= "2.7" and python_full_version < "3.0.0" and sys_platform == "win32" or python_full_version >= "3.3.0" and sys_platform == "win32"
-sqlalchemy==1.4.14; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.6.0")
+sqlalchemy==1.4.15; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.6.0")
 tabulate==0.8.9
 toolz==0.11.1; python_version >= "3.5"
 tqdm==4.60.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")

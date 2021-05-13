@@ -24,7 +24,9 @@ from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideD
 from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideSignalConnector import (
     KiwoomOpenApiPlusServiceClientSideSignalConnector,
 )
-from koapy.backend.kiwoom_open_api_plus.utils.grpc.PipeableStream import PipeableStream
+from koapy.backend.kiwoom_open_api_plus.utils.grpc.PipeableMultiThreadedRendezvous import (
+    PipeableMultiThreadedRendezvous,
+)
 from koapy.utils.logging.Logging import Logging
 
 
@@ -1138,6 +1140,70 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
         else:
             return codes
 
+    def _GetCodeListByConditionAsStream_GeneratorFunc(self, responses, with_info=False):
+        for response in responses:
+            if response.name == "OnReceiveTrCondition":
+                code_list = response.arguments[1].string_value
+                code_list = code_list.rstrip(";").split(";") if code_list else []
+                inserted = code_list
+                deleted = []
+                if with_info:
+                    info = None
+                    yield inserted, deleted, info
+                else:
+                    yield inserted, deleted
+            elif response.name == "OnReceiveRealCondition":
+                code = response.arguments[0].string_value
+                condition_type = response.arguments[1].string_value
+                inserted = []
+                deleted = []
+                if condition_type == "I":
+                    inserted.append(code)
+                elif condition_type == "D":
+                    deleted.append(code)
+                else:
+                    raise ValueError("Unexpected condition type %s" % condition_type)
+                if with_info:
+                    info = None
+                    yield inserted, deleted, info
+                else:
+                    yield inserted, deleted
+            elif response.name == "OnReceiveTrData":
+                single_output = None
+                columns = []
+                records = []
+                remove_zeros_width = None
+                if single_output is None:
+                    single_output = dict(
+                        zip(
+                            response.single_data.names,
+                            self._RemoveLeadingZerosForNumbersInValues(
+                                response.single_data.values, remove_zeros_width
+                            ),
+                        )
+                    )
+                if not columns:
+                    columns = response.multi_data.names
+                for values in response.multi_data.values:
+                    records.append(
+                        self._RemoveLeadingZerosForNumbersInValues(
+                            values.values, remove_zeros_width
+                        )
+                    )
+                _single = pd.Series(single_output)
+                multi = pd.DataFrame.from_records(records, columns=columns)
+                inserted = []
+                deleted = []
+                if with_info:
+                    info = multi
+                    yield inserted, deleted, info
+                else:
+                    raise RuntimeError(
+                        "Unexpected, OnReceiveTrData event with with_info=False ???"
+                    )
+            else:
+                raise ValueError("Unexpected event handler name %s" % response.name)
+
     def GetCodeListByConditionAsStream(
         self,
         condition_name,
@@ -1146,6 +1212,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
         is_future_option=False,
         request_name=None,
         screen_no=None,
+        old_behavior=False,
     ):
         search_type = 1
 
@@ -1154,7 +1221,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
             condition_indices = {item[1]: item[0] for item in condition_names}
             condition_index = condition_indices[condition_name]
 
-        stream = self.ConditionCall(
+        responses = self.ConditionCall(
             screen_no,
             condition_name,
             condition_index,
@@ -1163,73 +1230,15 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
             is_future_option,
             request_name,
         )
-        stream = PipeableStream(stream)
 
-        def converter(stream):
-            for response in stream:
-                if response.name == "OnReceiveTrCondition":
-                    code_list = response.arguments[1].string_value
-                    code_list = code_list.rstrip(";").split(";") if code_list else []
-                    inserted = code_list
-                    deleted = []
-                    if with_info:
-                        info = None
-                        yield inserted, deleted, info
-                    else:
-                        yield inserted, deleted
-                elif response.name == "OnReceiveRealCondition":
-                    code = response.arguments[0].string_value
-                    condition_type = response.arguments[1].string_value
-                    inserted = []
-                    deleted = []
-                    if condition_type == "I":
-                        inserted.append(code)
-                    elif condition_type == "D":
-                        deleted.append(code)
-                    else:
-                        raise ValueError(
-                            "Unexpected condition type %s" % condition_type
-                        )
-                    if with_info:
-                        info = None
-                        yield inserted, deleted, info
-                    else:
-                        yield inserted, deleted
-                elif response.name == "OnReceiveTrData":
-                    single_output = None
-                    columns = []
-                    records = []
-                    remove_zeros_width = None
-                    if single_output is None:
-                        single_output = dict(
-                            zip(
-                                response.single_data.names,
-                                self._RemoveLeadingZerosForNumbersInValues(
-                                    response.single_data.values, remove_zeros_width
-                                ),
-                            )
-                        )
-                    if not columns:
-                        columns = response.multi_data.names
-                    for values in response.multi_data.values:
-                        records.append(
-                            self._RemoveLeadingZerosForNumbersInValues(
-                                values.values, remove_zeros_width
-                            )
-                        )
-                    _single = pd.Series(single_output)
-                    multi = pd.DataFrame.from_records(records, columns=columns)
-                    inserted = []
-                    deleted = []
-                    if with_info:
-                        info = multi
-                        yield inserted, deleted, info
-                    else:
-                        raise RuntimeError(
-                            "Unexpected, OnReceiveTrData event with with_info=False ???"
-                        )
-                else:
-                    raise ValueError("Unexpected event handler name %s" % response.name)
+        if not old_behavior:
+            return responses
 
-        generator = stream.pipe(converter)
-        return generator
+        stream = PipeableMultiThreadedRendezvous(responses)
+        stream = stream.pipe(
+            lambda responses: self._GetCodeListByConditionAsStream_GeneratorFunc(
+                responses, with_info=with_info
+            )
+        )
+
+        return stream

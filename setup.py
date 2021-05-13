@@ -13,16 +13,16 @@ with open("HISTORY.rst", encoding="utf-8") as history_file:
     history = history_file.read()
 
 requirements = [
-    "click>=7.1.2",
+    "click>=8.0.0",
     "discord.py>=1.7.2",
     "exchange-calendars>=3.0.2",
     "grpcio>=1.37.1",
     "grpcio-tools>=1.37.1",
     "korean-lunar-calendar>=0.2.1",
-    "numpy>=1.20.2",
+    "numpy>=1.20.3",
     "openpyxl>=3.0.7",
     "pandas>=1.2.4",
-    "protobuf>=3.16.0",
+    "protobuf>=3.17.0",
     "pyhocon>=0.3.57",
     "PySide2>=5.15.2",
     "pytz>=2021.1",
@@ -31,7 +31,7 @@ requirements = [
     "Rx>=3.2.0",
     "schedule>=1.1.0",
     "Send2Trash>=1.5.0",
-    "SQLAlchemy>=1.4.14",
+    "SQLAlchemy>=1.4.15",
     "tabulate>=0.8.9",
     "tqdm>=4.60.0",
     "tzlocal>=2.1",
@@ -42,12 +42,12 @@ requirements = [
 
 requirements_dev = [
     "actions-toolkit>=0.0.5",
-    "black>=21.5b0",
+    "black>=21.5b1",
     "bump2version>=1.0.1",
     "codecov>=2.1.11",
     "coverage>=5.5",
     "dunamai>=1.5.5",
-    "flake8>=3.9.1",
+    "flake8>=3.9.2",
     "isort>=5.8.0",
     "mypy>=0.812",
     "pip-tools>=6.1.0",
@@ -59,9 +59,9 @@ requirements_dev = [
 ]
 
 requirements_docs = [
-    "Sphinx>=3.5.4",
+    "Sphinx>=4.0.1",
     "sphinx-autoapi>=1.8.1",
-    "nbsphinx>=0.8.4",
+    "nbsphinx>=0.8.5",
     "ipython>=7.23.1",
 ]
 

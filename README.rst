@@ -265,8 +265,8 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
     import grpc
 
     try:
-        for i, (inserted, deleted) in enumerate(stream):
-            print('index: %d, inserted: %s, deleted: %s' % (i, inserted, deleted))
+        for event in stream:
+            pprint_event(event)
     except grpc.RpcError as e:
         pass
 

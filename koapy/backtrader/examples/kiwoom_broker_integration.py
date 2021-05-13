@@ -1,14 +1,15 @@
-import datetime
 import logging
-
-import backtrader as bt
-
-from koapy.backtrader.KiwoomOpenApiPlusStore import KiwoomOpenApiPlusStore
 
 logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d",
     level=logging.DEBUG,
 )
+
+import datetime
+
+import backtrader as bt
+
+from koapy.backtrader.KiwoomOpenApiPlusStore import KiwoomOpenApiPlusStore
 
 
 class TestStrategy(bt.Strategy):

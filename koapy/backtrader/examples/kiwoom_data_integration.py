@@ -1,15 +1,15 @@
 import logging
 
+logging.basicConfig(
+    format="%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d",
+    level=logging.DEBUG,
+)
+
 import backtrader as bt
 
 from koapy.backtrader.examples.vanila_quickstart import OrclStrategy
 from koapy.backtrader.KiwoomOpenApiPlusBroker import KiwoomOpenApiPlusCommInfo
 from koapy.backtrader.KiwoomOpenApiPlusStore import KiwoomOpenApiPlusStore
-
-logging.basicConfig(
-    format="%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d",
-    level=logging.DEBUG,
-)
 
 
 def main():

@@ -1,37 +1,13 @@
 # 로깅 설정
 import logging
 
-# 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용
-# 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용
-import threading
-
-# (디버깅을 위한) 이벤트 메시지 출력 함수
-from pprint import PrettyPrinter
-
-# 이벤트 불러와서 출력처리
-# 이벤트 불러와서 출력처리
-import grpc
-
-from exchange_calendars import get_calendar
-from google.protobuf.json_format import MessageToDict
-
-# 현재 시장이 열려 있는지 (주문이 가능한지) 확인하는 함수
-from pandas import Timestamp
-
-# 7. 실시간 데이터 처리 예시
-# TR 관련 메타정보 확인
-# KOAPY 임포트
-from koapy import (
-    KiwoomOpenApiPlusEntrypoint,
-    KiwoomOpenApiPlusRealType,
-    KiwoomOpenApiPlusTrInfo,
-)
-
 logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d",
     level=logging.DEBUG,
 )
 
+# KOAPY 임포트
+from koapy import KiwoomOpenApiPlusEntrypoint
 
 # 1. 엔트리포인트 객체 생성
 entrypoint = KiwoomOpenApiPlusEntrypoint()
@@ -96,6 +72,10 @@ for event in entrypoint.TransactionCall(rqname, trcode, screen_no, inputs):
 logging.info("Got basic info data (using TransactionCall):")
 print(output)
 
+# (디버깅을 위한) 이벤트 메시지 출력 함수
+from pprint import PrettyPrinter
+
+from google.protobuf.json_format import MessageToDict
 
 pp = PrettyPrinter()
 
@@ -107,6 +87,8 @@ def pprint_event(event):
 logging.info("Last event message was:")
 pprint_event(event)
 
+# TR 관련 메타정보 확인
+from koapy import KiwoomOpenApiPlusTrInfo
 
 logging.info("Checking TR info of opt10001")
 tr_info = KiwoomOpenApiPlusTrInfo.get_trinfo_by_code("opt10001")
@@ -138,23 +120,32 @@ condition_name = "중소형 저평가주"
 logging.info("Start listening realtime condition stream...")
 stream = entrypoint.GetCodeListByConditionAsStream(condition_name)
 
+# 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용
+import threading
+
 
 def stop_listening_cond():
-    logging.info("Stop listening realtime events...")
+    logging.info("Stop listening realtime condition events...")
     stream.cancel()
 
 
 threading.Timer(10.0, stop_listening_cond).start()  # 10초 이후에 gRPC 커넥션 종료하도록 설정
 
+# 이벤트 불러와서 출력처리
+import grpc
 
 try:
-    for i, (inserted, deleted) in enumerate(stream):
-        print("index: %d, inserted: %s, deleted: %s" % (i, inserted, deleted))
+    for event in stream:
+        pprint_event(event)
 except grpc.RpcError as e:
     pass
 
 # 6.주문처리 예시
 
+from exchange_calendars import get_calendar
+
+# 현재 시장이 열려 있는지 (주문이 가능한지) 확인하는 함수
+from pandas import Timestamp
 
 krx_calendar = get_calendar("XKRX")
 
@@ -199,6 +190,8 @@ if is_currently_in_session():
 else:
     logging.info("Cannot send an order while market is not open, skipping...")
 
+# 7. 실시간 데이터 처리 예시
+from koapy import KiwoomOpenApiPlusRealType
 
 code_list = [code]
 fid_list = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name("주식시세")
@@ -216,6 +209,9 @@ stream = entrypoint.GetRealDataForCodesAsStream(
     fast_parse=False,
 )
 
+# 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용
+import threading
+
 
 def stop_listening_real():
     logging.info("Stop listening realtime events...")
@@ -224,6 +220,8 @@ def stop_listening_real():
 
 threading.Timer(10.0, stop_listening_real).start()  # 10초 이후에 gRPC 커넥션 종료하도록 설정
 
+# 이벤트 불러와서 출력처리
+import grpc
 
 try:
     for event in stream:
