@@ -7,6 +7,7 @@ on:
     paths:
     - '**.rst'
     - 'docs/*'
+    - '.github/workflows/documentation.yml'
   workflow_dispatch:
     inputs:
       force_orphan:
