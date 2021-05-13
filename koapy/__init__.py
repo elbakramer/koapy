@@ -2,7 +2,7 @@
 
 __author__ = """Yunseong Hwang"""
 __email__ = "kika1492@gmail.com"
-__version__ = "0.3.5"
+__version__ = "0.4.0"
 
 from koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint import (
     CybosPlusEntrypoint,

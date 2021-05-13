@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "koapy"
-version = "0.3.5"
+version = "0.4.0"
 description = "Kiwoom Open Api Plus Python"
 license = "MIT OR Apache-2.0 OR GPL-3.0-or-later"
 authors = ["Yunseong Hwang <kika1492@gmail.com>"]
