@@ -216,7 +216,7 @@ autoapi_dirs = [package_dir]
 autoapi_ignore = [
     "**/examples/*.py",
 ]
-autoapi_keep_files = True
+autoapi_keep_files = False
 
 # -- Nbsphinx configuration --------------------------------------------------
 
@@ -247,19 +247,12 @@ def missing_reference(_app, _env, node, contnode):
     return None
 
 
-# -- Setup hook ---
+# -- Setup event hooks ---
 
 
 def setup(app):
     app.connect("missing-reference", missing_reference)
 
-
-# -- Nbsphinx configuration --------------------------------------------------
-
-if not on_rtd:
-    extensions.append("nbsphinx")
-
-html_sourcelink_suffix = ""
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -282,6 +275,9 @@ html_theme_options = {
     "github_button": "true",
     "github_type": "star",
     "donate_url": "https://toon.at/donate/637521884081401532",
+    "font_family": "'Noto Serif KR', Georgia, 'Times New Roman', Times, serif",
+    "head_font_family": "'Noto Serif KR', Georgia, 'Times New Roman', Times, serif",
+    "code_font_family": "'D2Coding', 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace",
 }
 
 if not on_rtd:

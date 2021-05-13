@@ -98,6 +98,7 @@ pytest-cov = "^2.11.1"
 pytest-xdist = "^2.2.1"
 Sphinx = "^4.0.1"
 sphinx-autoapi = "^1.8.1"
+nbconvert = "^6.0.7"
 nbsphinx = "^0.8.5"
 
 [tool.poetry.scripts]

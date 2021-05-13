@@ -415,7 +415,7 @@ Usage
 
 설치 이후 일반적인 사용법에 대해서는 Usage_ 를 참고하세요.
 
-추가적으로 사용법과 관련된 다양한 예시들은 examples_ 폴더 및 notebooks_ 폴더에서도 확인 가능합니다.
+추가적으로 사용법과 관련된 다양한 예시들은 examples_ 폴더 및 notebooks_ipynb_ 폴더에서도 확인 가능합니다.
 혹시나 notebooks_ 폴더의 ``.ipynb`` 파일들을 Github 을 통해서 보는데 문제가 있는 경우,
 해당 노트북 주소를 nbviewer_ 에 입력하여 확인해보세요.
 
@@ -427,7 +427,7 @@ Usage
 
 .. _Usage: https://koapy.readthedocs.io/en/latest/usage.html
 .. _examples: https://github.com/elbakramer/koapy/tree/master/koapy/examples
-.. _notebooks: https://github.com/elbakramer/koapy/tree/master/docs/source/notebooks
+.. _notebooks_ipynb: https://github.com/elbakramer/koapy/tree/master/docs/source/notebooks_ipynb
 .. _nbviewer: https://nbviewer.jupyter.org/
 
 

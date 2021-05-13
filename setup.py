@@ -61,6 +61,7 @@ requirements_dev = [
 requirements_docs = [
     "Sphinx>=4.0.1",
     "sphinx-autoapi>=1.8.1",
+    "nbconvert>=6.0.7",
     "nbsphinx>=0.8.5",
     "ipython>=7.23.1",
 ]

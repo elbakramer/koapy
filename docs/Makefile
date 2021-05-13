@@ -12,6 +12,9 @@ BUILDDIR      = build
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
+static_html_notebooks:
+	jupyter nbconvert --to html --output-dir=source/_static/html/notebooks/ source/notebooks/*.ipynb
+
 .PHONY: help Makefile
 
 # Catch-all target: route all unknown targets to Sphinx using the new
