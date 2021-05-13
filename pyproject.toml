@@ -32,6 +32,7 @@ include = [
     "tests",
     "*.rst",
     "LICENSE",
+    "LICENSE.*",
 ]
 
 [tool.poetry.urls]
