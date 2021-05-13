@@ -45,11 +45,18 @@ with KiwoomOpenApiPlusEntrypoint() as context:
 
     threading.Timer(10.0, stop_listening).start()  # 10초 이후에 gRPC 커넥션 종료하도록 설정
 
+    # (디버깅을 위한) 이벤트 메시지 출력 함수
+    from pprint import PrettyPrinter
+
+    from google.protobuf.json_format import MessageToDict
+
+    pp = PrettyPrinter()
+
+    def pprint_event(event):
+        pp.pprint(MessageToDict(event, preserving_proto_field_name=True))
+
     try:
-        for i, (inserted, deleted) in enumerate(stream):
-            print()
-            print("index: %d" % i)
-            print("inserted: %s" % inserted)
-            print("deleted: %s" % deleted)
+        for event in stream:
+            pprint_event(event)
     except grpc.RpcError as e:
         print(e)
