@@ -4,13 +4,14 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>KOAPY &#8212; KOAPY 0.3.5 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/style.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -135,7 +136,7 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="koapy">
+  <section id="koapy">
 <h1>KOAPY<a class="headerlink" href="#koapy" title="Permalink to this headline">¶</a></h1>
 <div class="docutils container">
 <a class="reference external image-reference" href="https://pypi.python.org/pypi/koapy"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/koapy.svg" /></a>
@@ -161,7 +162,7 @@
 <li><p>Free software: <a class="reference external" href="https://github.com/elbakramer/koapy/blob/master/LICENSE.MIT">MIT</a> OR <a class="reference external" href="https://github.com/elbakramer/koapy/blob/master/LICENSE.APACHE-2.0">Apache-2.0</a> OR <a class="reference external" href="https://github.com/elbakramer/koapy/blob/master/LICENSE.GPL-3.0-OR-LATER">GPL-3.0-or-later</a></p></li>
 <li><p>Documentation: <a class="reference external" href="https://koapy.readthedocs.io">https://koapy.readthedocs.io</a>.</p></li>
 </ul>
-<div class="section" id="features">
+<section id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <p>KOAPY 는 <a class="reference external" href="https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000">키움증권의 OpenAPI+</a> 를 Python 에서 쉽게 사용할 수 있도록 만든 라이브러리 패키지 및 툴입니다.</p>
 <p>키움에서 제공하는 OpenAPI+ 를 활용하는데 필요한 아래와 같은 지식들을 알지 못해도,
@@ -326,8 +327,8 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인,
 <span class="kn">import</span> <span class="nn">grpc</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">inserted</span><span class="p">,</span> <span class="n">deleted</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;index: </span><span class="si">%d</span><span class="s1">, inserted: </span><span class="si">%s</span><span class="s1">, deleted: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">inserted</span><span class="p">,</span> <span class="n">deleted</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="n">pprint_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">grpc</span><span class="o">.</span><span class="n">RpcError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="k">pass</span>
 
@@ -402,8 +403,8 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인,
 <span class="n">entrypoint</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="installation">
+</section>
+<section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>해당 라이브러리는 <a class="reference external" href="https://pypi.org/project/koapy/">PyPI</a> 를 통해서 설치 가능합니다:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install koapy
@@ -433,8 +434,8 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인,
 </pre></div>
 </div>
 <p>이외에 자세한 설치방법과 관련해서는 <a class="reference external" href="https://koapy.readthedocs.io/en/latest/installation.html">Installation</a> 문서를 참고하세요.</p>
-</div>
-<div class="section" id="usage">
+</section>
+<section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>설치 이후 일반적인 사용법에 대해서는 <a class="reference external" href="https://koapy.readthedocs.io/en/latest/usage.html">Usage</a> 를 참고하세요.</p>
 <p>추가적으로 사용법과 관련된 다양한 예시들은 <a class="reference external" href="https://github.com/elbakramer/koapy/tree/master/koapy/examples">examples</a> 폴더 및 <a class="reference external" href="https://github.com/elbakramer/koapy/tree/master/docs/source/notebooks">notebooks</a> 폴더에서도 확인 가능합니다.
@@ -444,8 +445,8 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인,
 만약에 실전 트레이딩에 사용하려는 경우 자체적으로 충분한 테스트를 거친 후 사용하시기 바랍니다.
 개발자는 라이브러리 사용으로 인해 발생하는 손실에 대해 어떠한 책임도 지지 않습니다.</p>
 <p>또한 알파 단계에서 개발이 진행되면서 라이브러리의 구조가 계속 급격하게 변경될 수 있으니 참고 바랍니다.</p>
-</div>
-<div class="section" id="licensing">
+</section>
+<section id="licensing">
 <h2>Licensing<a class="headerlink" href="#licensing" title="Permalink to this headline">¶</a></h2>
 <p>KOAPY 는 다중 라이선스 방식으로 배포되며,
 사용자는 자신의 의도 및 사용 방식에 따라 아래 라이선스 옵션들 중 하나를 선택해 사용할 수 있습니다.</p>
@@ -455,21 +456,21 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인,
 <li><p><a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a> or later</p></li>
 </ul>
 <p>라이선스 선택과 관련하여 추천하는 가이드라인은 아래와 같습니다.</p>
-<div class="section" id="mit-license">
+<section id="mit-license">
 <h3>MIT License<a class="headerlink" href="#mit-license" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>일반적인 사용자에게 알맞습니다.</p></li>
 <li><p>짧고 단순한 라이선스를 선호하시면 해당 라이선스를 선택하세요.</p></li>
 </ul>
-</div>
-<div class="section" id="apache-license-2-0">
+</section>
+<section id="apache-license-2-0">
 <h3>Apache License 2.0<a class="headerlink" href="#apache-license-2-0" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>MIT 라이선스와 큰 차이는 없지만, 특허와 관련해서 명시적인 허가조항이 있습니다.</p></li>
 <li><p>추후 특허권 침해 소송이 우려되는 경우 MIT 라이선스 대신에 선택하시면 됩니다.</p></li>
 </ul>
-</div>
-<div class="section" id="gnu-general-public-license-v3-0-or-later">
+</section>
+<section id="gnu-general-public-license-v3-0-or-later">
 <h3>GNU General Public License v3.0 or later<a class="headerlink" href="#gnu-general-public-license-v3-0-or-later" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.fsf.org/">FSF</a>/<a class="reference external" href="https://www.gnu.org/licenses/licenses.html#GPL">GPL</a> 이 추구하는 <a class="reference external" href="https://www.gnu.org/licenses/copyleft.html">Copyleft</a> 의 가치를 따르신다면 선택 가능한 옵션중 하나입니다.</p></li>
@@ -485,9 +486,9 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인,
 </ul>
 <p>각 라이선스의 허가 및 요구사항과 관련해서 쉽게 정리된 내용은 <a class="reference external" href="https://tldrlegal.com/">tl;drLegal</a> 에서 참고하실 수 있습니다.</p>
 <p>다만 위의 내용이 법률적 조언은 아닌 점 참고 바랍니다.</p>
-</div>
-</div>
-<div class="section" id="reference">
+</section>
+</section>
+<section id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <p>개발과정에 있어서 참고하거나 전체적인 투자과정에서 같이 보면 좋을 것 같아 보이는 자료들을 모아봤습니다.</p>
 <ul class="simple">
@@ -496,12 +497,12 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인,
 <li><p><a class="reference external" href="https://igotit.tistory.com/840">시스템 트레이딩</a></p></li>
 <li><p><a class="reference external" href="https://stock79.tistory.com/">systrader79의 왕초보를 위한 주식투자</a></p></li>
 </ul>
-</div>
-<div class="section" id="credits">
+</section>
+<section id="credits">
 <h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
 <p>This package was created with <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> and the <a class="reference external" href="https://github.com/elbakramer/cookiecutter-poetry">elbakramer/cookiecutter-poetry</a> project template.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -514,7 +515,7 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인,
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

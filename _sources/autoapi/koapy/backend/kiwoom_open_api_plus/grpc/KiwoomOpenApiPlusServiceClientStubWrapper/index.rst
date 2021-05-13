@@ -213,7 +213,10 @@ Classes
    .. method:: GetCodeListByCondition(self, condition_name, condition_index=None, with_info=False, is_future_option=False, request_name=None, screen_no=None)
 
 
-   .. method:: GetCodeListByConditionAsStream(self, condition_name, condition_index=None, with_info=False, is_future_option=False, request_name=None, screen_no=None)
+   .. method:: _GetCodeListByConditionAsStream_GeneratorFunc(self, responses, with_info=False)
+
+
+   .. method:: GetCodeListByConditionAsStream(self, condition_name, condition_index=None, with_info=False, is_future_option=False, request_name=None, screen_no=None, old_behavior=False)
 
 
 

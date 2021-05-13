@@ -20,7 +20,7 @@ Classes
 .. class:: KrxHistoricalDailyPriceDataFromSQLite
 
 
-   Bases: :py:obj:`koapy.utils.store.SQLiteData.SQLiteData`
+   Bases: :py:obj:`koapy.backtrader.SQLiteData.SQLiteData`
 
    .. attribute:: params
       :annotation: = [['engine', None], ['symbol', None], ['name', None], ['fromdate', None], ['todate', None],...

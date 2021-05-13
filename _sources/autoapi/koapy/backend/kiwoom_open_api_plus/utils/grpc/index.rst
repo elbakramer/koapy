@@ -10,6 +10,6 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
-   PipeableStream/index.rst
+   PipeableMultiThreadedRendezvous/index.rst
 
 
