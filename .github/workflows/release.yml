@@ -78,7 +78,16 @@ jobs:
         password: ${{ secrets.TEST_PYPI_TOKEN }}
         repository_url: https://test.pypi.org/legacy/
         skip_existing: true
-      if: ${{ github.event.inputs.skip_test_pypi_publish != 'true' }}
+      if: ${{ github.event.inputs.skip_test_pypi_publish != 'true' && runner.os != 'Windows' }}
+    - name: Publish distribution to Test PyPI
+      shell: bash
+      env:
+        POETRY_PYPI_TOKEN_PYPI_TEST: ${{ secrets.TEST_PYPI_TOKEN }}
+      run: |
+        poetry config repositories.pypi-test https://test.pypi.org/legacy/
+        poetry config pypi-token.pypi-test ${POETRY_PYPI_TOKEN_PYPI_TEST}
+        poetry publish -n -r pypi-test
+      if: ${{ github.event.inputs.skip_test_pypi_publish != 'true' && runner.os == 'Windows' }}
     - name: Install from test and test running
       run: |
         pip install --extra-index-url https://test.pypi.org/simple koapy
@@ -89,7 +98,15 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_TOKEN }}
-      if: ${{ github.event.inputs.skip_pypi_publish != 'true' }}
+      if: ${{ github.event.inputs.skip_pypi_publish != 'true' && runner.os != 'Windows' }}
+    - name: Publish distribution to PyPI
+      shell: bash
+      env:
+        POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+      run: |
+        poetry config pypi-token.pypi ${POETRY_PYPI_TOKEN_PYPI}
+        poetry publish -n
+      if: ${{ github.event.inputs.skip_pypi_publish != 'true' && runner.os == 'Windows' }}
     - name: Install and test running
       run: |
         pip install koapy
