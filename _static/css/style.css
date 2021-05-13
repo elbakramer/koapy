@@ -1,17 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Noto+Serif+KR:wght@300;400&display=swap');
-
-body {
-    font-family: 'Noto Serif KR', Georgia, 'Times New Roman', Times, serif;
-}
-
-pre, tt, code {
-    font-family: 'Nanum Gothic Coding', 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
-    font-size: 0.9em;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&display=swap');
+@import url("//cdn.jsdelivr.net/gh/wan2land/d2coding/d2coding-full.css");
 
 code {
-    display: inline-block;
-    padding: 0 0.2em;
+    vertical-align: text-bottom;
 }
 
 dl dd {
@@ -20,7 +11,7 @@ dl dd {
 
 div.document {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
 }
 
 @media screen and (max-width: 875px) {
@@ -38,4 +29,31 @@ div.document {
     ul {
         margin-left: 30px;
     }
+}
+
+/* Jupyter notebook related overrides */
+
+:root {
+    --jp-ui-font-family: 'Noto Serif KR', Georgia, 'Times New Roman', Times, serif !important;
+    --jp-content-font-family: 'Noto Serif KR', Georgia, 'Times New Roman', Times, serif !important;
+    --jp-code-font-family: 'D2Coding', 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace !important;
+    --jp-content-font-size1: 17px !important;
+    --jp-code-font-size: 0.9em !important;
+}
+
+div.jp-Cell div.highlight {
+    background: transparent;
+}
+
+div.jp-Cell pre {
+    background: transparent;
+}
+
+div.jp-Cell div.highlight pre {
+    margin: 1em 0px;
+}
+
+body.jp-Notebook {
+    padding: 0;
+    font-size: var(--jp-content-font-size1);
 }
