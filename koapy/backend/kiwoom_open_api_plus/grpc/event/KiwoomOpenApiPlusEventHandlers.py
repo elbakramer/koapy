@@ -655,6 +655,11 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                 response.single_data.values.extend(values)  # pylint: disable=no-member
 
             if repeat_cnt > 0:
+                if len(self._multi_names) == 0:
+                    self.logger.warning(
+                        "Repeat count greater than 0, but no multi data names available, fallback to sigle data names"
+                    )
+                    self._multi_names = self._single_names
                 if len(self._multi_names) > 0:
                     rows = [
                         [
@@ -679,10 +684,6 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                         response.multi_data.values.add().values.extend(
                             row
                         )  # pylint: disable=no-member
-                else:
-                    self.logger.warning(
-                        "Repeat count greater than 0, but no multi data names available."
-                    )
 
             self.observer.on_next(response)
 

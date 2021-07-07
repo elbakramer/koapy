@@ -20,7 +20,7 @@ class KiwoomOpenApiPlusRealType(JsonSerializable):
             self.name = name
 
         def __repr__(self):
-            return "%s.%s(%r, %r)" % (
+            return "{}.{}({!r}, {!r})".format(
                 self.__outer_class__.__name__,
                 self.__class__.__name__,
                 self.fid,
@@ -57,7 +57,7 @@ class KiwoomOpenApiPlusRealType(JsonSerializable):
         self.fids = fids
 
     def __repr__(self):
-        return "%s(%r, %r, %r, %r)" % (
+        return "{}({!r}, {!r}, {!r}, {!r})".format(
             self.__class__.__name__,
             self.gidc,
             self.desc,
@@ -154,11 +154,17 @@ class KiwoomOpenApiPlusRealType(JsonSerializable):
             )
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
-                dump_file = stack.enter_context(open(dump_file, "w"))
+                dump_file = stack.enter_context(open(dump_file, "w", encoding="utf-8"))
             result = cls.realtype_by_desc_from_datfile(dat_file)
             for tr_code in result:
                 result[tr_code] = result[tr_code].to_dict()
-            return json.dump(result, dump_file)
+            return json.dump(
+                result,
+                dump_file,
+                indent=4,
+                sort_keys=True,
+                ensure_ascii=False,
+            )
 
     @classmethod
     def realtype_by_desc_from_dump_file(cls, dump_file=None):
@@ -172,7 +178,9 @@ class KiwoomOpenApiPlusRealType(JsonSerializable):
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
                 if os.path.exists(dump_file) and os.path.getsize(dump_file) > 0:
-                    dump_file = stack.enter_context(open(dump_file, "r"))
+                    dump_file = stack.enter_context(
+                        open(dump_file, "r", encoding="utf-8")
+                    )
                 else:
                     return {}
             result = json.load(dump_file)

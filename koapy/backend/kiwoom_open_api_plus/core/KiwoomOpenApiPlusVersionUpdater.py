@@ -234,6 +234,17 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         credential = self._credential
         self.login_using_pywinauto(credential)
 
+        apply_simulation_widow = desktop.window(title="모의투자 참가신청")
+
+        try:
+            timeout_apply_simulation = 10
+            apply_simulation_widow.wait("ready", timeout_apply_simulation)
+        except pywinauto.timings.TimeoutError:
+            pass
+        else:
+            self.logger.warning("Please apply simulation server before using it")
+            raise RuntimeError("Please apply simulation server before using it")
+
         version_window = desktop.window(title="opstarter")
 
         try:
@@ -279,7 +290,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
                     self.logger.info("Cannot find failure confirmation popup")
                 else:
                     self.logger.info("Failed update")
-                    raise RuntimeError
+                    raise RuntimeError("Failed update")
 
                 try:
                     self.logger.info("Wating for confirmation popup after update")

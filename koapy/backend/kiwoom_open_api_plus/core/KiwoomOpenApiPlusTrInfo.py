@@ -24,7 +24,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             self.fid = fid
 
         def __repr__(self):
-            return "%s.%s(%r, %r, %r, %r)" % (
+            return "{}.{}({!r}, {!r}, {!r}, {!r})".format(
                 self.__outer_class__.__name__,
                 self.__class__.__name__,
                 self.name,
@@ -60,7 +60,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         self.multi_outputs = multi_outputs
 
     def __repr__(self):
-        return "%s(%r, %r, %r, %r, %r, %r, %r, %r, %r, %r, %r)" % (
+        return "{}({!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r})".format(
             self.__class__.__name__,
             self.tr_code,
             self.name,
@@ -251,7 +251,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
                 dump_filename = dump_file
-                dump_file = stack.enter_context(open(dump_file, "w"))
+                dump_file = stack.enter_context(open(dump_file, "w", encoding="utf-8"))
             else:
                 dump_filename = None
             result = cls.trinfo_by_code_from_data_dir(data_dir)
@@ -259,9 +259,17 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                 result[tr_code] = result[tr_code].to_dict()
             if dump_filename is not None:
                 cls.logger.debug("Saving trinfo to %s", dump_filename)
-            return json.dump(result, dump_file)
+            return json.dump(
+                result,
+                dump_file,
+                indent=4,
+                sort_keys=True,
+                ensure_ascii=False,
+            )
 
     _SINGLE_TO_MULTI_TRCODES = [
+        "opt10072",
+        "opt10073",
         "opt10075",
         "opt10076",
         "opt10085",
@@ -292,7 +300,9 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
                 if os.path.exists(dump_file) and os.path.getsize(dump_file) > 0:
-                    dump_file = stack.enter_context(open(dump_file, "r"))
+                    dump_file = stack.enter_context(
+                        open(dump_file, "r", encoding="utf-8")
+                    )
                 else:
                     return {}
             result = json.load(dump_file)
