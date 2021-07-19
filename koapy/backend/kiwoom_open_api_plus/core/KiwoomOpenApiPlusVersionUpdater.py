@@ -191,7 +191,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
             account_window["닫기"].click()
 
             try:
-                cls.logger.info("Wating account window to be closed")
+                cls.logger.info("waiting account window to be closed")
                 timeout_account_window_done = 5
                 account_window.wait_not("visible", timeout_account_window_done)
             except pywinauto.timings.TimeoutError:
@@ -242,73 +242,87 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         except pywinauto.timings.TimeoutError:
             pass
         else:
-            self.logger.warning("Please apply simulation server before using it")
-            raise RuntimeError("Please apply simulation server before using it")
-
-        version_window = desktop.window(title="opstarter")
+            self.logger.warning("Please apply for simulation server before using it")
+            raise RuntimeError("Please apply for simulation server before using it")
 
         try:
-            self.logger.info("Wating for possible version update")
-            timeout_version_update = 30
-            version_window.wait("ready", timeout_version_update)
+            self.logger.info("Waiting for successful login")
+            timeout_login_successful = 30
+            login_window.wait_not("visible", timeout_login_successful)
         except pywinauto.timings.TimeoutError:
+            self.logger.info("Login screen is still open")
+            self.logger.info("Check for possible version update")
+
+            version_window = desktop.window(title="opstarter")
+
+            try:
+                timeout_version_update = 30
+                version_window.wait("ready", timeout_version_update)
+            except pywinauto.timings.TimeoutError:
+                self.logger.info("No version update required")
+                self.logger.info("Enabling auto login back")
+                self.enable_autologin()
+                self.logger.info("There was no version update, enabled auto login")
+                return False
+            else:
+                self.logger.info("Version update required")
+                if is_in_development:
+                    version_window.print_control_identifiers()
+
+                self.logger.info("Closing login app")
+                login_window_proc.kill()
+                login_window_proc.wait()
+                self.logger.info("Killed login app process")
+                timeout_login_screen_closed = 30
+                login_window.close(timeout_login_screen_closed)
+                try:
+                    login_window.wait_not("visible", timeout_login_screen_closed)
+                except pywinauto.timings.TimeoutError:
+                    self.logger.info("Cannot close login window")
+                    raise
+                else:
+                    self.logger.info("Closed login window")
+
+                    self.logger.info("Starting to update version")
+                    version_window["Button"].click()
+
+                    versionup_window = desktop.window(title="opversionup")
+                    confirm_window = desktop.window(title="업그레이드 확인")
+
+                    try:
+                        self.logger.info("waiting for possible failure")
+                        timeout_confirm_update = 10
+                        versionup_window.wait("ready", timeout_confirm_update)
+                    except pywinauto.timings.TimeoutError:
+                        self.logger.info("Cannot find failure confirmation popup")
+                    else:
+                        self.logger.info("Failed update")
+                        raise RuntimeError("Failed update")
+
+                    try:
+                        self.logger.info("waiting for confirmation popup after update")
+                        timeout_confirm_update = 10
+                        confirm_window.wait("ready", timeout_confirm_update)
+                    except pywinauto.timings.TimeoutError:
+                        self.logger.info("Cannot find confirmation popup")
+                        raise
+                    else:
+                        self.logger.info("Confirming update")
+                        confirm_window["Button"].click()
+
+                    self.logger.info("Done update")
+                    self.logger.info("Enabling auto login back")
+                    self.enable_autologin()
+                    self.logger.info("Done update, enabled auto login")
+
+                    return True
+        else:
+            self.logger.info("Login ended successfully")
             self.logger.info("No version update required")
             self.logger.info("Enabling auto login back")
             self.enable_autologin()
             self.logger.info("There was no version update, enabled auto login")
             return False
-        else:
-            self.logger.info("Version update required")
-            if is_in_development:
-                version_window.print_control_identifiers()
-
-            self.logger.info("Closing login app")
-            login_window_proc.kill()
-            login_window_proc.wait()
-            self.logger.info("Killed login app process")
-            timeout_login_screen_closed = 30
-            login_window.close(timeout_login_screen_closed)
-            try:
-                login_window.wait_not("visible", timeout_login_screen_closed)
-            except pywinauto.timings.TimeoutError:
-                self.logger.info("Cannot close login window")
-                raise
-            else:
-                self.logger.info("Closed login window")
-
-                self.logger.info("Starting to update version")
-                version_window["Button"].click()
-
-                versionup_window = desktop.window(title="opversionup")
-                confirm_window = desktop.window(title="업그레이드 확인")
-
-                try:
-                    self.logger.info("Wating for possible failure")
-                    timeout_confirm_update = 10
-                    versionup_window.wait("ready", timeout_confirm_update)
-                except pywinauto.timings.TimeoutError:
-                    self.logger.info("Cannot find failure confirmation popup")
-                else:
-                    self.logger.info("Failed update")
-                    raise RuntimeError("Failed update")
-
-                try:
-                    self.logger.info("Wating for confirmation popup after update")
-                    timeout_confirm_update = 10
-                    confirm_window.wait("ready", timeout_confirm_update)
-                except pywinauto.timings.TimeoutError:
-                    self.logger.info("Cannot find confirmation popup")
-                    raise
-                else:
-                    self.logger.info("Confirming update")
-                    confirm_window["Button"].click()
-
-                self.logger.info("Done update")
-                self.logger.info("Enabling auto login back")
-                self.enable_autologin()
-                self.logger.info("Done update, enabled auto login")
-
-                return True
 
         return False
 
