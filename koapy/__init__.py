@@ -4,6 +4,7 @@ __author__ = """Yunseong Hwang"""
 __email__ = "kika1492@gmail.com"
 __version__ = "0.4.0"
 
+"""
 from koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint import (
     CybosPlusEntrypoint,
 )
@@ -40,3 +41,79 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater imp
 from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication import (
     KiwoomOpenApiPlusTrayApplication,
 )
+"""
+
+__classes_to_export__ = {
+    "koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint": [
+        "KiwoomOpenApiPlusEntrypoint"
+    ],
+    "koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget": [
+        "KiwoomOpenApiPlusQAxWidget"
+    ],
+    "koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication": [
+        "KiwoomOpenApiPlusTrayApplication"
+    ],
+    "koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError": [
+        "KiwoomOpenApiPlusError",
+        "KiwoomOpenApiPlusNegativeReturnCodeError",
+        "KiwoomOpenApiPlusBooleanReturnCodeError",
+    ],
+    "koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo": [
+        "KiwoomOpenApiPlusTrInfo"
+    ],
+    "koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType": [
+        "KiwoomOpenApiPlusRealType"
+    ],
+    "koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusScreenManager": [
+        "KiwoomOpenApiPlusScreenManager"
+    ],
+    "koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater": [
+        "KiwoomOpenApiPlusVersionUpdater"
+    ],
+    "koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint": [
+        "CybosPlusEntrypoint"
+    ],
+    "koapy.backend.daishin_cybos_plus.core.CybosPlusError": [
+        "CybosPlusError",
+        "CybosPlusRequestError",
+    ],
+    "koapy.backend.daishin_cybos_plus.proxy.CybosPlusEntrypointProxy": [
+        "CybosPlusEntrypointProxy"
+    ],
+}
+
+__module_for_each_class_to_export__ = {
+    name: module
+    for module in __classes_to_export__
+    for name in __classes_to_export__[module]
+}
+
+# pylint: disable=undefined-all-variable
+__all__ = [
+    "KiwoomOpenApiPlusEntrypoint",
+    "KiwoomOpenApiPlusQAxWidget",
+    "KiwoomOpenApiPlusTrayApplication",
+    "KiwoomOpenApiPlusError",
+    "KiwoomOpenApiPlusNegativeReturnCodeError",
+    "KiwoomOpenApiPlusBooleanReturnCodeError",
+    "KiwoomOpenApiPlusTrInfo",
+    "KiwoomOpenApiPlusRealType",
+    "KiwoomOpenApiPlusScreenManager",
+    "KiwoomOpenApiPlusVersionUpdater",
+    "CybosPlusEntrypoint",
+    "CybosPlusError",
+    "CybosPlusRequestError",
+    "CybosPlusEntrypointProxy",
+]
+
+# lazily import classes on attribute access
+# https://www.python.org/dev/peps/pep-0562/
+def __getattr__(name):
+    if name in __all__:
+        if name in __module_for_each_class_to_export__:
+            module_name = __module_for_each_class_to_export__[name]
+            import importlib
+
+            module = importlib.import_module(module_name)
+            return getattr(module, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
