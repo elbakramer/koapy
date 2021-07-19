@@ -207,7 +207,11 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     def infos_from_data_dir(cls, data_dir=None, encoding=None, module_path=None):
         if data_dir is None:
             if module_path is None:
-                module_path = r"C:\OpenAPI"
+                from koapy.backend.kiwoom_open_api_plus.utils.GetAPIModulePath import (
+                    GetAPIModulePath,
+                )
+
+                module_path = GetAPIModulePath()
             data_dir = os.path.join(module_path, "data")
         if encoding is None:
             encoding = "euc-kr"
@@ -220,13 +224,13 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         ]
         results = []
         for filename in enc_filenames:
-            cls.logger.debug("Opening file %s", filename)
-            with zipfile.ZipFile(os.path.join(data_dir, filename)) as z:
+            full_filename = os.path.join(data_dir, filename)
+            with zipfile.ZipFile(full_filename) as z:
                 for info in z.infolist():
                     inner_filename = info.filename
                     tr_code = os.path.splitext(inner_filename.lower())[0]
                     cls.logger.debug(
-                        "Reading file %s inside %s", inner_filename, filename
+                        "Reading file %s inside %s", inner_filename, full_filename
                     )
                     with z.open(info) as b:
                         with io.TextIOWrapper(b, encoding=encoding) as f:
@@ -317,9 +321,20 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     def load_from_dump_file(cls, dump_file=None):
         cls._TRINFO_BY_CODE = cls.trinfo_by_code_from_dump_file(dump_file)
 
+    @classmethod
+    def load_from_data_dir(cls, data_dir=None):
+        cls._TRINFO_BY_CODE = cls.trinfo_by_code_from_data_dir(data_dir)
+
+    @classmethod
+    def load(cls):
+        try:
+            cls.load_from_data_dir()
+        except FileNotFoundError:
+            cls.load_from_dump_file()
+
 
 KiwoomOpenApiPlusTrInfo.Field.__outer_class__ = KiwoomOpenApiPlusTrInfo
-KiwoomOpenApiPlusTrInfo.load_from_dump_file()
+KiwoomOpenApiPlusTrInfo.load()
 
 
 def main():

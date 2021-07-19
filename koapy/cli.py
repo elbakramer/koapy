@@ -1,32 +1,22 @@
 """Console script for koapy."""
 
-import logging
 import os
 
 import click
 
 import koapy
 
+from koapy.utils.logging import set_verbosity
 from koapy.utils.logging.Logging import Logging
 
 logger = Logging.get_logger("koapy.cli")
 
 
-def set_verbosity(verbosity):
-    verbosity = verbosity or 0
-    levels = [
-        logging.WARNING,
-        logging.INFO,
-        logging.DEBUG,
-    ]
-    if verbosity >= len(levels):
-        verbosity = -1
-    level = levels[verbosity]
-    return logger.setLevel(level)
-
-
 context_settings = dict(help_option_names=["-h", "--help"])
 client_check_timeout = 10
+
+default_verbosity = 0
+default_verbosity_no_output = 5
 
 
 def fail_with_usage(message=None):
@@ -51,20 +41,25 @@ def cli():
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, default=5, help="Verbosity.")
+@click.option(
+    "-v",
+    "--verbose",
+    count=True,
+    default=default_verbosity_no_output,
+    help="Verbosity.",
+)
 @click.option("--no-verbose", is_flag=True)
 @click.argument("args", nargs=-1)
 def serve(port, verbose, no_verbose, args):
-    """
-    ARGS are passed to QApplication.
-    """
     app_args = []
     if port:
         app_args += ["--port", port]
     if not no_verbose and verbose > 0:
         app_args.append("-" + "v" * verbose)
     app_args += list(args)
-    from koapy import KiwoomOpenApiPlusTrayApplication
+    from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication import (
+        KiwoomOpenApiPlusTrayApplication,
+    )
 
     KiwoomOpenApiPlusTrayApplication.main(app_args)
 
@@ -78,7 +73,9 @@ def serve(port, verbose, no_verbose, args):
 @click.option("-v", "--verbose", count=True, help="Verbosity.")
 def login(port, verbose):
     set_verbosity(verbose)
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     with KiwoomOpenApiPlusEntrypoint(
         port=port, client_check_timeout=client_check_timeout
@@ -108,7 +105,9 @@ def config():
 @click.option("-v", "--verbose", count=True, help="Verbosity.")
 def autologin(port, verbose):
     set_verbosity(verbose)
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     with KiwoomOpenApiPlusEntrypoint(
         port=port, client_check_timeout=client_check_timeout
@@ -128,7 +127,9 @@ def update():
 @click.option("-v", "--verbose", count=True, help="Verbosity.")
 def trdata(verbose):
     set_verbosity(verbose)
-    from koapy import KiwoomOpenApiPlusTrInfo
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo import (
+        KiwoomOpenApiPlusTrInfo,
+    )
 
     KiwoomOpenApiPlusTrInfo.dump_trinfo_by_code()
 
@@ -139,16 +140,29 @@ def trdata(verbose):
 @click.option("-v", "--verbose", count=True, help="Verbosity.")
 def realdata(verbose):
     set_verbosity(verbose)
-    from koapy import KiwoomOpenApiPlusRealType
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import (
+        KiwoomOpenApiPlusRealType,
+    )
 
     KiwoomOpenApiPlusRealType.dump_realtype_by_desc()
 
 
 @update.command(context_settings=context_settings, short_help="Update openapi version.")
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
-def version(verbose):
+@click.option(
+    "-v",
+    "--verbose",
+    count=True,
+    default=default_verbosity_no_output,
+    help="Verbosity.",
+)
+@click.option("--no-verbose", is_flag=True)
+def version(verbose, no_verbose):
+    if no_verbose:
+        verbose = 0
     set_verbosity(verbose)
-    from koapy import KiwoomOpenApiPlusVersionUpdater
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
+        KiwoomOpenApiPlusVersionUpdater,
+    )
     from koapy.config import config
 
     credential = config.get("koapy.backend.kiwoom_open_api_plus.credential")
@@ -223,7 +237,9 @@ def stockcode(names, markets, port):
         # fail_with_usage()
         pass
 
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     with KiwoomOpenApiPlusEntrypoint(
         port=port, client_check_timeout=client_check_timeout
@@ -293,7 +309,9 @@ def stockcode(names, markets, port):
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
 def stockname(codes, port):
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     with KiwoomOpenApiPlusEntrypoint(
         port=port, client_check_timeout=client_check_timeout
@@ -372,7 +390,9 @@ def stockinfo(code, output, format, port, verbose):  # pylint: disable=redefined
 
     import pandas as pd
 
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     with KiwoomOpenApiPlusEntrypoint(
         port=port, client_check_timeout=client_check_timeout, verbosity=verbose
@@ -440,7 +460,9 @@ def daily(
     if output is None:
         output = "{}.{}".format(code, format)
 
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     with KiwoomOpenApiPlusEntrypoint(
         port=port, client_check_timeout=client_check_timeout, verbosity=verbose
@@ -531,7 +553,9 @@ def minute(
     if output is None:
         output = "{}.{}".format(code, format)
 
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     with KiwoomOpenApiPlusEntrypoint(
         port=port, client_check_timeout=client_check_timeout, verbosity=verbose
@@ -558,7 +582,9 @@ def minute(
     help="TR code to get (like opt10001).",
 )
 def trinfo(trcodes):
-    from koapy import KiwoomOpenApiPlusTrInfo
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo import (
+        KiwoomOpenApiPlusTrInfo,
+    )
 
     def get_codes():
         if trcodes:
@@ -614,7 +640,9 @@ def trinfo(trcodes):
     help="Real type name to get (like 주식시세).",
 )
 def realinfo(realtypes):
-    from koapy import KiwoomOpenApiPlusRealType
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import (
+        KiwoomOpenApiPlusRealType,
+    )
 
     def get_realtypes():
         if realtypes:
@@ -679,7 +707,9 @@ def userinfo(port, verbose):
 
     import pandas as pd
 
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     with KiwoomOpenApiPlusEntrypoint(
         port=port, client_check_timeout=client_check_timeout, verbosity=verbose
@@ -721,7 +751,9 @@ def deposit(account, port, verbose):
     if account is None:
         logger.info("Account not given. Using first account available.")
 
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     with KiwoomOpenApiPlusEntrypoint(
         port=port, client_check_timeout=client_check_timeout, verbosity=verbose
@@ -766,7 +798,9 @@ def evaluation(
     elif for_each:
         lookup_type = "2"
 
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     with KiwoomOpenApiPlusEntrypoint(
         port=port, client_check_timeout=client_check_timeout, verbosity=verbose
@@ -852,7 +886,9 @@ def orders(
     if buy_only:
         order_type = "2"
 
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     with KiwoomOpenApiPlusEntrypoint(
         port=port, client_check_timeout=client_check_timeout, verbosity=verbose
@@ -879,18 +915,14 @@ def orders(
     context_settings=context_settings,
     short_help="Get OpenApi module installation path.",
 )
-@click.option(
-    "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
-)
 @click.option("-v", "--verbose", count=True, help="Verbosity.")
-def modulepath(port, verbose):
+def modulepath(verbose):
     set_verbosity(verbose)
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.utils.GetAPIModulePath import (
+        GetAPIModulePath,
+    )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout, verbosity=verbose
-    ) as context:
-        click.echo(context.GetAPIModulePath())
+    click.echo(GetAPIModulePath())
 
 
 @get.command(
@@ -900,7 +932,9 @@ def modulepath(port, verbose):
 @click.option("-v", "--verbose", count=True, help="Verbosity.")
 def errmsg(err_code, verbose):
     set_verbosity(verbose)
-    from koapy import KiwoomOpenApiPlusError
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import (
+        KiwoomOpenApiPlusError,
+    )
 
     err_msg = KiwoomOpenApiPlusError.get_error_message_by_code(err_code)
     click.echo("[%d] %s" % (err_code, err_msg))
@@ -987,7 +1021,9 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
             fail_with_usage("Unrecognized input type.")
 
     if realtype is not None:
-        from koapy import KiwoomOpenApiPlusRealType
+        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import (
+            KiwoomOpenApiPlusRealType,
+        )
 
         fids_from_realtype = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name(
             realtype
@@ -1004,7 +1040,12 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
 
     import pandas as pd
 
-    from koapy import KiwoomOpenApiPlusEntrypoint, KiwoomOpenApiPlusRealType
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import (
+        KiwoomOpenApiPlusRealType,
+    )
 
     def parse_message(message):
         fids = message.single_data.names
@@ -1150,7 +1191,9 @@ def order(
 
     from google.protobuf.json_format import MessageToDict
 
-    from koapy import KiwoomOpenApiPlusEntrypoint
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
 
     if format == "json":
         import json

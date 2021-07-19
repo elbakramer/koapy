@@ -44,7 +44,9 @@ class KiwoomOpenApiPlusTrayApplication(
         self._port = self._parsed_args.port
         self._verbose = self._parsed_args.verbose
 
-        self._app = QApplication(remaining_args)
+        self._app = QApplication.instance()
+        if not self._app:
+            self._app = QApplication(remaining_args)
         self._control = KiwoomOpenApiPlusQAxWidget()
         self._server = KiwoomOpenApiPlusServiceServer(self._control)
 

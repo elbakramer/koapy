@@ -1,4 +1,3 @@
-import ctypes
 import datetime
 import json
 import logging
@@ -10,6 +9,7 @@ import pytz
 
 from exchange_calendars import get_calendar
 
+from koapy.utils.ctypes import is_admin
 from koapy.utils.itertools import chunk
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.subprocess import function_to_subprocess_args
@@ -18,9 +18,6 @@ from koapy.utils.subprocess import function_to_subprocess_args
 class CybosPlusEntrypointMixin(Logging):
     def GetConnectState(self):
         return self.CpUtil.CpCybos.IsConnect
-
-    def IsAdmin(self):
-        return ctypes.windll.shell32.IsUserAnAdmin() != 0
 
     @classmethod
     def ConnectUsingPywinauto_Impl(cls, credential=None):
@@ -217,7 +214,7 @@ class CybosPlusEntrypointMixin(Logging):
         return self.ConnectUsingPywinauto_RunScriptInSubprocess(credential)
 
     def Connect(self, credential=None):
-        assert self.IsAdmin(), "Connect() method requires to be run as administrator"
+        assert is_admin(), "Connect() method requires to be run as administrator"
 
         self.ConnectUsingPywinauto(credential)
 

@@ -1,5 +1,3 @@
-import platform
-
 from koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWDynamicCallable import (
     KiwoomOpenApiWDynamicCallable,
 )
@@ -20,6 +18,7 @@ from koapy.compat.pyside2.QtAxContainer import QAxWidget
 from koapy.compat.pyside2.QtCore import QEvent, Qt
 from koapy.compat.pyside2.QtWidgets import QWidget
 from koapy.utils.logging.Logging import Logging
+from koapy.utils.platform import is_32bit
 
 
 class QWidgetWithLoggingMeta(type(Logging), type(QWidget)):
@@ -36,9 +35,7 @@ class KiwoomOpenApiWQAxWidget(
     EVENT_NAMES = KiwoomOpenApiWEventHandlerSignature.names()
 
     def __init__(self, *args, **kwargs):
-        assert (
-            platform.architecture()[0] == "32bit"
-        ), "Contorl object should be created in 32bit environment"
+        assert is_32bit(), "Contorl object should be created in 32bit environment"
 
         super_args = args
         super_kwargs = kwargs
@@ -92,7 +89,7 @@ class KiwoomOpenApiWQAxWidget(
         except AttributeError:
             pass
         raise AttributeError(
-            "'%s' object has not attribute '%s'" % (self.__class__.__name__, name)
+            "'{}' object has not attribute '{}'".format(self.__class__.__name__, name)
         )
 
     def changeEvent(self, event):

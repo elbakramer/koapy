@@ -1,6 +1,4 @@
-import platform
 import subprocess
-import sys
 import threading
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin import (
@@ -17,6 +15,7 @@ from koapy.utils.logging import (
 )
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.networking import get_free_localhost_port
+from koapy.utils.subprocess import get_32bit_executable
 
 
 class KiwoomOpenApiPlusEntrypoint(KiwoomOpenApiPlusEntrypointMixin, Logging):
@@ -42,44 +41,7 @@ class KiwoomOpenApiPlusEntrypoint(KiwoomOpenApiPlusEntrypointMixin, Logging):
         if self._log_level is not None:
             set_loglevel(self._log_level)
 
-        self._server_executable = config.get("koapy.context.server.executable", None)
-        if not isinstance(self._server_executable, str):
-            self._server_executable = None
-        if self._server_executable is None:
-            envpath = config.get("koapy.context.server.executable.conda.envpath", None)
-            if envpath is not None and isinstance(envpath, str):
-                self._server_executable = subprocess.check_output(
-                    [  # pylint: disable=unexpected-keyword-arg
-                        "conda",
-                        "run",
-                        "-p",
-                        envpath,
-                        "python",
-                        "-c",
-                        "import sys; print(sys.executable)",
-                    ],
-                    encoding=sys.stdout.encoding,
-                    creationflags=subprocess.CREATE_NO_WINDOW,
-                ).strip()
-        if self._server_executable is None:
-            envname = config.get("koapy.context.server.executable.conda.envname", None)
-            if envname is not None and isinstance(envname, str):
-                self._server_executable = subprocess.check_output(
-                    [  # pylint: disable=unexpected-keyword-arg
-                        "conda",
-                        "run",
-                        "-n",
-                        envname,
-                        "python",
-                        "-c",
-                        "import sys; print(sys.executable)",
-                    ],
-                    encoding=sys.stdout.encoding,
-                    creationflags=subprocess.CREATE_NO_WINDOW,
-                ).strip()
-        if self._server_executable is None:
-            self._server_executable = sys.executable
-
+        self._server_executable = get_32bit_executable()
         self._server_proc_args = [self._server_executable, "-m", "koapy.cli", "serve"]
         if self._port is not None:
             self._server_proc_args.extend(["-p", str(self._port)])
@@ -87,17 +49,12 @@ class KiwoomOpenApiPlusEntrypoint(KiwoomOpenApiPlusEntrypointMixin, Logging):
             self._server_proc_args.extend(["-" + "v" * self._verbosity])
 
         self._server_proc = None
-        self._server_proc_terminate_timeout = config.get_int(
-            "koapy.context.server.terminate.timeout", 10
-        )
+        self._server_proc_terminate_timeout = 10
 
         self._client = KiwoomOpenApiPlusServiceClient(port=self._port)
 
         self.logger.debug("Testing if client is ready...")
         if not self._client.is_ready(self._client_check_timeout):
-            assert (
-                platform.architecture()[0] == "32bit"
-            ), "Server should run under 32bit environment"
             self.logger.debug("Client is not ready, creating a new server")
             self._server_proc = subprocess.Popen(self._server_proc_args)
             assert self._client.is_ready(), "Failed to create server"

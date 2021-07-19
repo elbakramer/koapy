@@ -1,4 +1,3 @@
-import ctypes
 import json
 import os
 import queue
@@ -15,6 +14,7 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter import
     KiwoomOpenApiPlusSendConditionRateLimiter,
     KiwoomOpenApiPlusSendOrderRateLimiter,
 )
+from koapy.utils.ctypes import is_admin
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.subprocess import function_to_subprocess_args
 
@@ -137,10 +137,10 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
         return "감리종목" in self.GetMasterStockStateAsList(code)
 
     def GetConditionFilePath(self):
-        modulepath = self.GetAPIModulePath()
+        module_path = self.GetAPIModulePath()
         userid = self.GetUserId()
         condition_filepath = os.path.join(
-            modulepath, "system", "%s_NewSaveIndex.dat" % userid
+            module_path, "system", "%s_NewSaveIndex.dat" % userid
         )
         return condition_filepath
 
@@ -162,9 +162,6 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         self._send_order_limiter = KiwoomOpenApiPlusSendOrderRateLimiter()
 
         self._is_condition_loaded = False
-
-    def IsAdmin(self):
-        return ctypes.windll.shell32.IsUserAnAdmin() != 0
 
     def DisableAutoLogin(self):
         module_path = self.GetAPIModulePath()
@@ -279,7 +276,7 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
     def Connect(self, credential=None):
         if credential is not None:
             assert (
-                self.IsAdmin()
+                is_admin()
             ), "Connect() method requires to be run as administrator, if credential is given explicitly"
         q = queue.Queue()
 

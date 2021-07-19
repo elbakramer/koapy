@@ -4,10 +4,11 @@ import os
 
 import pandas as pd
 
+from koapy.utils.logging.Logging import Logging
 from koapy.utils.serialization import JsonSerializable
 
 
-class KiwoomOpenApiPlusRealType(JsonSerializable):
+class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
     class Fid(JsonSerializable):
 
         __outer_class__ = None
@@ -96,7 +97,11 @@ class KiwoomOpenApiPlusRealType(JsonSerializable):
     def realtypes_from_datfile(cls, dat_file=None, encoding=None, module_path=None):
         if dat_file is None:
             if module_path is None:
-                module_path = r"C:\OpenAPI"
+                from koapy.backend.kiwoom_open_api_plus.utils.GetAPIModulePath import (
+                    GetAPIModulePath,
+                )
+
+                module_path = GetAPIModulePath()
             dat_file = os.path.join(module_path, "data", "nkrealtime.dat")
         if encoding is None:
             encoding = "euc-kr"
@@ -108,6 +113,7 @@ class KiwoomOpenApiPlusRealType(JsonSerializable):
 
         with contextlib.ExitStack() as stack:
             if isinstance(dat_file, str):
+                cls.logger.debug("Reading file %s", dat_file)
                 dat_file = stack.enter_context(open(dat_file, "rb"))
             lines = iter(dat_file)
             lines = map(lambda line: line.rstrip(b"\r\n"), lines)
@@ -154,10 +160,15 @@ class KiwoomOpenApiPlusRealType(JsonSerializable):
             )
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
+                dump_filename = dump_file
                 dump_file = stack.enter_context(open(dump_file, "w", encoding="utf-8"))
+            else:
+                dump_filename = None
             result = cls.realtype_by_desc_from_datfile(dat_file)
             for tr_code in result:
                 result[tr_code] = result[tr_code].to_dict()
+            if dump_filename is not None:
+                cls.logger.debug("Saving realtype to %s", dump_filename)
             return json.dump(
                 result,
                 dump_file,
@@ -193,9 +204,21 @@ class KiwoomOpenApiPlusRealType(JsonSerializable):
         cls._REALTYPE_BY_DESC = cls.realtype_by_desc_from_dump_file(dump_file)
         cls.Fid.load_from_dump_file()
 
+    @classmethod
+    def load_from_datfile(cls, dat_file=None):
+        cls._REALTYPE_BY_DESC = cls.realtype_by_desc_from_datfile(dat_file)
+        cls.Fid.load_from_dump_file()
+
+    @classmethod
+    def load(cls):
+        try:
+            cls.load_from_datfile()
+        except FileNotFoundError:
+            cls.load_from_dump_file()
+
 
 KiwoomOpenApiPlusRealType.Fid.__outer_class__ = KiwoomOpenApiPlusRealType
-KiwoomOpenApiPlusRealType.load_from_dump_file()
+KiwoomOpenApiPlusRealType.load()
 
 
 def main():

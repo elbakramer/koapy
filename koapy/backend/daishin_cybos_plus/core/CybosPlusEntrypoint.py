@@ -1,4 +1,3 @@
-import platform
 import threading
 
 import pywintypes
@@ -14,6 +13,7 @@ from koapy.backend.daishin_cybos_plus.core.CybosPlusRateLimiter import (
     CybosPlusLookupRequestRateLimiter,
     CybosPlusTradeRequestRateLimiter,
 )
+from koapy.utils.platform import is_32bit
 
 
 class CybosPlusDispatch:
@@ -76,7 +76,7 @@ class CybosPlusIncompleteProgID:
                     progid = "{}.{}".format(self._prefix, name)
                     try:
                         dispatch = CybosPlusDispatch(self._entrypoint, progid)
-                    except pywintypes.com_error as e:
+                    except pywintypes.com_error as e:  # pylint: disable=no-member
                         raise AttributeError(
                             "'{}' object has no attribute '{}'".format(type(self), name)
                         ) from e
@@ -96,9 +96,7 @@ class CybosPlusEntrypoint(CybosPlusEntrypointMixin):
     """
 
     def __init__(self):
-        assert (
-            platform.architecture()[0] == "32bit"
-        ), "Contorl object should be created in 32bit environment"
+        assert is_32bit(), "Contorl object should be created in 32bit environment"
 
         self._attribute_mapping = {
             "CpDib": "DsCbo1",

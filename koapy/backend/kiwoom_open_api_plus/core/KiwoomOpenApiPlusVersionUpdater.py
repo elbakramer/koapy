@@ -1,14 +1,14 @@
 import atexit
-import ctypes
 import os
-import platform
 import subprocess
 import sys
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import (
     KiwoomOpenApiPlusQAxWidgetMixin,
 )
+from koapy.utils.ctypes import is_admin
 from koapy.utils.logging.Logging import Logging
+from koapy.utils.platform import is_32bit
 from koapy.utils.subprocess import function_to_subprocess_args
 
 
@@ -43,7 +43,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         # so here we are creating the object in subprocess and disables auto login based on the checked module path
 
         def main():
-            from koapy import (  # pylint: disable=redefined-outer-name
+            from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
                 KiwoomOpenApiPlusVersionUpdater,
             )
 
@@ -89,7 +89,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         #   https://github.com/pywinauto/pywinauto/issues/472
 
         def main():
-            from koapy import (  # pylint: disable=redefined-outer-name
+            from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
                 KiwoomOpenApiPlusVersionUpdater,
             )
 
@@ -138,7 +138,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         # so it will block until the account window is closed after enabling the auto login.
 
         def main():
-            from koapy import (  # pylint: disable=redefined-outer-name
+            from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
                 KiwoomOpenApiPlusVersionUpdater,
             )
 
@@ -312,17 +312,11 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
 
         return False
 
-    def is_32bit(self):
-        return platform.architecture()[0] == "32bit"
-
-    def is_admin(self):
-        return ctypes.windll.shell32.IsUserAnAdmin() != 0
-
     def update_version_if_necessary(self):
         assert (
-            self.is_32bit()
+            is_32bit()
         ), "Automatic version update requires to be run in 32bit environment"
         assert (
-            self.is_admin()
+            is_admin()
         ), "Automatic version update requires to be run as administrator"
         return self.try_version_update_using_pywinauto()
