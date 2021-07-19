@@ -435,7 +435,7 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
 
         return code
 
-    def RatedLimitedSendOrder(
+    def RateLimitedSendOrder(
         self, rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno
     ):
         self._send_order_limiter.sleep_if_necessary()
