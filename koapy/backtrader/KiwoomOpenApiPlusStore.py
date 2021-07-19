@@ -46,7 +46,7 @@ class KiwoomOpenApiPlusJsonError(KiwoomOpenApiPlusNegativeReturnCodeError):
 
 class KiwoomOpenApiPlusTimeFrameError(KiwoomOpenApiPlusJsonError):
     def __init__(self):
-        super().__init__(code=597, message="Not supported TimeFrame")
+        super().__init__(code=597, message="Given TimeFrame is not supported")
 
 
 class HistoricalPriceRecord(

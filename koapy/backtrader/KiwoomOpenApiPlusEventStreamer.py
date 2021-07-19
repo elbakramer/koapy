@@ -272,7 +272,13 @@ class KiwoomOpenApiPlusOrderEventChannel:
         return self._observable
 
 
-class KiwoomOpenApiPlusEventStreamer(Observer, Logging):
+class MetaKiwoomOpenApiPlusEventStreamer(type(Logging), type(Observer)):
+    pass
+
+
+class KiwoomOpenApiPlusEventStreamer(
+    Observer, Logging, metaclass=MetaKiwoomOpenApiPlusEventStreamer
+):
 
     _price_event_channels_by_stub = {}
     _order_event_channels_by_stub = {}
