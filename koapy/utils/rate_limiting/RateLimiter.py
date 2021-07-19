@@ -44,15 +44,9 @@ class TimeWindowRateLimiter(RateLimiter, Logging):
         with self._lock:
             if len(self._call_history) < self._calls:
                 return 0
-            else:
-                clock = self._clock()
-                while len(self._call_history) > 0:
-                    remaining = self._call_history[0] - clock + self._period
-                    if remaining < 0:
-                        self._call_history.popleft()
-                    else:
-                        break
-                return remaining
+            clock = self._clock()
+            remaining = self._call_history[0] + self._period - clock
+            return remaining
 
     def add_call_history(self):
         with self._lock:

@@ -13,6 +13,7 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import (
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter import (
     KiwoomOpenApiPlusCommRqDataRateLimiter,
     KiwoomOpenApiPlusSendConditionRateLimiter,
+    KiwoomOpenApiPlusSendOrderRateLimiter,
 )
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.subprocess import function_to_subprocess_args
@@ -158,6 +159,7 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         self._cond_rate_limiter = KiwoomOpenApiPlusSendConditionRateLimiter(
             self._comm_rate_limiter
         )
+        self._send_order_limiter = KiwoomOpenApiPlusSendOrderRateLimiter()
 
         self._is_condition_loaded = False
 
@@ -396,7 +398,9 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
     ):
         code = self.RateLimitedCommRqData(rqname, trcode, prevnext, scrnno)
 
-        spec = "CommRqData(%r, %r, %r, %r)" % (rqname, trcode, prevnext, scrnno)
+        spec = "CommRqData({!r}, {!r}, {!r}, {!r})".format(
+            rqname, trcode, prevnext, scrnno
+        )
 
         if inputs is not None:
             spec += " with inputs %r" % inputs
@@ -437,7 +441,7 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
     def RatedLimitedSendOrder(
         self, rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno
     ):
-        self._comm_rate_limiter.sleep_if_necessary()
+        self._send_order_limiter.sleep_if_necessary()
         return self.SendOrder(
             rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno
         )

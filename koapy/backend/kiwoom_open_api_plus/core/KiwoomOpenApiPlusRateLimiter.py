@@ -35,6 +35,11 @@ class KiwoomOpenApiPlusCommRqDataRateLimiter(CompositeTimeWindowRateLimiter):
         super().__init__(limiters)
 
 
+class KiwoomOpenApiPlusSendOrderRateLimiter(TimeWindowRateLimiter):
+    def __init__(self):
+        super().__init__(1, 5)
+
+
 class KiwoomOpenApiPlusSendConditionRateLimiter(RateLimiter):
 
     """
