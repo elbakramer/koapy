@@ -10,6 +10,8 @@ from sqlalchemy.types import TypeDecorator
 class Timestamp(TypeDecorator):  # pylint: disable=abstract-method
 
     impl = DateTime
+    cache_ok = True
+
     signature = inspect.signature(impl)
 
     utc = datetime.timezone.utc
