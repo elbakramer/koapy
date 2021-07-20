@@ -13,7 +13,7 @@ help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 static_html_notebooks:
-	jupyter nbconvert --to html --output-dir=source/_static/html/notebooks/ source/notebooks/*.ipynb
+	jupyter nbconvert --to html --output-dir=source/_static/html/notebooks/ source/notebooks_ipynb/*.ipynb
 
 .PHONY: help Makefile
 
