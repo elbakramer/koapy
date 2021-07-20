@@ -9455,10 +9455,7 @@
                 "start": 40
             }
         ],
-        "multi_outputs": [],
-        "multi_outputs_name": "",
-        "name": "일자별종목별실현손익요청",
-        "single_outputs": [
+        "multi_outputs": [
             {
                 "fid": 22,
                 "name": "일자",
@@ -9556,7 +9553,10 @@
                 "start": 380
             }
         ],
-        "single_outputs_name": "일자별종목별실현손익",
+        "multi_outputs_name": "일자별종목별실현손익",
+        "name": "일자별종목별실현손익요청",
+        "single_outputs": [],
+        "single_outputs_name": "",
         "tr_code": "opt10072",
         "tr_name": "SRJANGO",
         "tr_names_svr": "",
@@ -9590,10 +9590,7 @@
                 "start": 60
             }
         ],
-        "multi_outputs": [],
-        "multi_outputs_name": "",
-        "name": "일자별종목별실현손익요청",
-        "single_outputs": [
+        "multi_outputs": [
             {
                 "fid": 22,
                 "name": "일자",
@@ -9679,7 +9676,10 @@
                 "start": 340
             }
         ],
-        "single_outputs_name": "일자별종목별실현손익",
+        "multi_outputs_name": "일자별종목별실현손익",
+        "name": "일자별종목별실현손익요청",
+        "single_outputs": [],
+        "single_outputs_name": "",
         "tr_code": "opt10073",
         "tr_name": "SRJANGO",
         "tr_names_svr": "",
@@ -9819,10 +9819,7 @@
                 "start": 180
             }
         ],
-        "multi_outputs": [],
-        "multi_outputs_name": "",
-        "name": "미체결요청",
-        "single_outputs": [
+        "multi_outputs": [
             {
                 "fid": 9201,
                 "name": "계좌번호",
@@ -9980,7 +9977,10 @@
                 "start": 600
             }
         ],
-        "single_outputs_name": "미체결",
+        "multi_outputs_name": "미체결",
+        "name": "미체결요청",
+        "single_outputs": [],
+        "single_outputs_name": "",
         "tr_code": "opt10075",
         "tr_name": "SRJANGO",
         "tr_names_svr": "",
@@ -10032,10 +10032,7 @@
                 "start": 180
             }
         ],
-        "multi_outputs": [],
-        "multi_outputs_name": "",
-        "name": "체결요청",
-        "single_outputs": [
+        "multi_outputs": [
             {
                 "fid": 9203,
                 "name": "주문번호",
@@ -10127,7 +10124,10 @@
                 "start": 360
             }
         ],
-        "single_outputs_name": "체결",
+        "multi_outputs_name": "체결",
+        "name": "체결요청",
+        "single_outputs": [],
+        "single_outputs_name": "",
         "tr_code": "opt10076",
         "tr_name": "SRJANGO",
         "tr_names_svr": "",
@@ -11067,10 +11067,7 @@
                 "start": 0
             }
         ],
-        "multi_outputs": [],
-        "multi_outputs_name": "",
-        "name": "계좌수익률요청",
-        "single_outputs": [
+        "multi_outputs": [
             {
                 "fid": 22,
                 "name": "일자",
@@ -11174,7 +11171,10 @@
                 "start": 100
             }
         ],
-        "single_outputs_name": "계좌수익률",
+        "multi_outputs_name": "계좌수익률",
+        "name": "계좌수익률요청",
+        "single_outputs": [],
+        "single_outputs_name": "",
         "tr_code": "opt10085",
         "tr_name": "SRJANGO",
         "tr_names_svr": "",
@@ -24541,10 +24541,7 @@
                 "start": 0
             }
         ],
-        "multi_outputs": [],
-        "multi_outputs_name": "",
-        "name": "관심종목정보요청",
-        "single_outputs": [
+        "multi_outputs": [
             {
                 "fid": 9001,
                 "name": "종목코드",
@@ -24924,7 +24921,10 @@
                 "start": 1320
             }
         ],
-        "single_outputs_name": "관심종목정보",
+        "multi_outputs_name": "관심종목정보",
+        "name": "관심종목정보요청",
+        "single_outputs": [],
+        "single_outputs_name": "",
         "tr_code": "optkwfid",
         "tr_name": "STOCKG",
         "tr_names_svr": "",
@@ -24940,10 +24940,7 @@
                 "start": 0
             }
         ],
-        "multi_outputs": [],
-        "multi_outputs_name": "",
-        "name": "관심종목투자자정보요청",
-        "single_outputs": [
+        "multi_outputs": [
             {
                 "fid": 302,
                 "name": "종목명",
@@ -24987,7 +24984,10 @@
                 "start": 200
             }
         ],
-        "single_outputs_name": "관심종목투자자정보",
+        "multi_outputs_name": "관심종목투자자정보",
+        "name": "관심종목투자자정보요청",
+        "single_outputs": [],
+        "single_outputs_name": "",
         "tr_code": "optkwinv",
         "tr_name": "STOCKG",
         "tr_names_svr": "",
@@ -25003,10 +25003,7 @@
                 "start": 0
             }
         ],
-        "multi_outputs": [],
-        "multi_outputs_name": "",
-        "name": "관심종목프로그램정보요청",
-        "single_outputs": [
+        "multi_outputs": [
             {
                 "fid": 502,
                 "name": "차익매도량",
@@ -25122,7 +25119,10 @@
                 "start": 360
             }
         ],
-        "single_outputs_name": "관심종목프로그램정보",
+        "multi_outputs_name": "관심종목프로그램정보",
+        "name": "관심종목프로그램정보요청",
+        "single_outputs": [],
+        "single_outputs_name": "",
         "tr_code": "optkwpro",
         "tr_name": "STOCKG",
         "tr_names_svr": "",

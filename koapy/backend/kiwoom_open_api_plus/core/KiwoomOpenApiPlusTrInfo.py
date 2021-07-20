@@ -237,10 +237,37 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                             results.append(cls.from_encfile(f, tr_code))
         return results
 
+    _SINGLE_TO_MULTI_TRCODES = [
+        "opt10072",
+        "opt10073",
+        "opt10075",
+        "opt10076",
+        "opt10085",
+        "optkwfid",
+        "optkwinv",
+        "optkwpro",
+    ]
+
     @classmethod
-    def trinfo_by_code_from_data_dir(cls, data_dir=None):
+    def _single_outputs_are_actually_multi_outputs(cls, item):
+        multi_outputs_name = item.multi_outputs_name
+        multi_outputs = item.multi_outputs
+        item.multi_outputs_name = item.single_outputs_name
+        item.multi_outputs = item.single_outputs
+        item.single_outputs_name = multi_outputs_name
+        item.single_outputs = multi_outputs
+        return item
+
+    @classmethod
+    def trinfo_by_code_from_data_dir(cls, data_dir=None, post_process=True):
         infos = cls.infos_from_data_dir(data_dir)
         result = {info.tr_code: info for info in infos}
+        if post_process:
+            for tr_code in result:
+                if tr_code in cls._SINGLE_TO_MULTI_TRCODES:
+                    item = result[tr_code]
+                    item = cls._single_outputs_are_actually_multi_outputs(item)
+                    result[tr_code] = item
         return result
 
     @classmethod
@@ -271,27 +298,6 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                 ensure_ascii=False,
             )
 
-    _SINGLE_TO_MULTI_TRCODES = [
-        "opt10072",
-        "opt10073",
-        "opt10075",
-        "opt10076",
-        "opt10085",
-        "optkwfid",
-        "optkwinv",
-        "optkwpro",
-    ]
-
-    @classmethod
-    def _single_outputs_are_actually_multi_outputs(cls, item):
-        single_outputs_name = item.single_outputs_name
-        single_outputs = item.single_outputs
-        item.single_outputs_name = item.multi_outputs_name
-        item.single_outputs = item.multi_outputs
-        item.multi_outputs_name = single_outputs_name
-        item.multi_outputs = single_outputs
-        return item
-
     @classmethod
     def trinfo_by_code_from_dump_file(cls, dump_file=None):
         if dump_file is None:
@@ -312,8 +318,6 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             result = json.load(dump_file)
         for tr_code in result:
             item = cls.from_dict(result[tr_code])
-            if item.tr_code in cls._SINGLE_TO_MULTI_TRCODES:
-                item = cls._single_outputs_are_actually_multi_outputs(item)
             result[tr_code] = item
         return result
 

@@ -387,7 +387,7 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         [조건검색 제한]
           조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
         """
-        self._comm_rate_limiter.sleep_if_necessary()
+        self._cond_rate_limiter.sleep_if_necessary()
         return self.CommKwRqData(codes, prevnext, codecnt, typeflag, rqname, scrnno)
 
     def RateLimitedCommRqDataAndCheck(
@@ -455,7 +455,7 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         [조건검색 제한]
           조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
         """
-        self._cond_rate_limiter.sleep_if_necessary()
+        self._cond_rate_limiter.sleep_if_necessary(condition_name, condition_index)
         return self.SendCondition(scrnno, condition_name, condition_index, search_type)
 
 

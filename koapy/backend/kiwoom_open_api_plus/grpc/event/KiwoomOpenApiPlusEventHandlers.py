@@ -644,22 +644,14 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
             should_stop = prevnext in ["", "0"]
             repeat_cnt = self.control.GetRepeatCnt(trcode, recordname)
 
-            if len(self._single_names) > 0:
-                values = [
-                    self.control.GetCommData(trcode, recordname, 0, name).strip()
-                    for name in self._single_names
-                ]
-                response.single_data.names.extend(
-                    self._single_names
-                )  # pylint: disable=no-member
-                response.single_data.values.extend(values)  # pylint: disable=no-member
-
             if repeat_cnt > 0:
                 if len(self._multi_names) == 0:
                     self.logger.warning(
                         "Repeat count greater than 0, but no multi data names available, fallback to sigle data names"
                     )
+                    multi_names = self._multi_names
                     self._multi_names = self._single_names
+                    self._single_name = multi_names
                 if len(self._multi_names) > 0:
                     rows = [
                         [
@@ -674,16 +666,19 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                         self._multi_names
                     )  # pylint: disable=no-member
                     for row in rows:
-                        if self._is_stop_condition(row):
-                            should_stop = True
-                            if self._include_equal:
-                                response.multi_data.values.add().values.extend(
-                                    row
-                                )  # pylint: disable=no-member
-                            break
                         response.multi_data.values.add().values.extend(
                             row
                         )  # pylint: disable=no-member
+
+            if len(self._single_names) > 0:
+                values = [
+                    self.control.GetCommData(trcode, recordname, 0, name).strip()
+                    for name in self._single_names
+                ]
+                response.single_data.names.extend(
+                    self._single_names
+                )  # pylint: disable=no-member
+                response.single_data.values.extend(values)  # pylint: disable=no-member
 
             self.observer.on_next(response)
 
@@ -833,17 +828,14 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
             should_stop = prevnext in ["", "0"]
             repeat_cnt = self.control.GetRepeatCnt(trcode, recordname)
 
-            if len(self._single_names) > 0:
-                values = [
-                    self.control.GetCommData(trcode, recordname, 0, name).strip()
-                    for name in self._single_names
-                ]
-                response.single_data.names.extend(
-                    self._single_names
-                )  # pylint: disable=no-member
-                response.single_data.values.extend(values)  # pylint: disable=no-member
-
             if repeat_cnt > 0:
+                if len(self._multi_names) == 0:
+                    self.logger.warning(
+                        "Repeat count greater than 0, but no multi data names available, fallback to sigle data names"
+                    )
+                    multi_names = self._multi_names
+                    self._multi_names = self._single_names
+                    self._single_name = multi_names
                 if len(self._multi_names) > 0:
                     rows = [
                         [
@@ -858,20 +850,19 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
                         self._multi_names
                     )  # pylint: disable=no-member
                     for row in rows:
-                        if self._is_stop_condition(row):
-                            should_stop = True
-                            if self._include_equal:
-                                response.multi_data.values.add().values.extend(
-                                    row
-                                )  # pylint: disable=no-member
-                            break
                         response.multi_data.values.add().values.extend(
                             row
                         )  # pylint: disable=no-member
-                else:
-                    self.logger.warning(
-                        "Repeat count greater than 0, but no multi data names available."
-                    )
+
+            if len(self._single_names) > 0:
+                values = [
+                    self.control.GetCommData(trcode, recordname, 0, name).strip()
+                    for name in self._single_names
+                ]
+                response.single_data.names.extend(
+                    self._single_names
+                )  # pylint: disable=no-member
+                response.single_data.values.extend(values)  # pylint: disable=no-member
 
             self.observer.on_next(response)
 
@@ -1401,7 +1392,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
             self._condition_index,
         )
         KiwoomOpenApiPlusError.try_or_raise_boolean(
-            self.control.SendCondition(
+            self.control.RateLimitedSendCondition(
                 self._screen_no,
                 self._condition_name,
                 self._condition_index,
@@ -1459,7 +1450,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
             elif should_continue:
                 try:
                     raise KiwoomOpenApiPlusError("Should not reach here")
-                    self.control.SendCondition(
+                    self.control.RateLimitedSendCondition(
                         self._screen_no,
                         self._condition_name,
                         self._condition_index,
@@ -1538,17 +1529,14 @@ class KiwoomOpenApiPlusConditionEventHandler(
 
             assert trcode.upper() == self._trcode
 
-            if len(self._single_names) > 0:
-                values = [
-                    self.control.GetCommData(trcode, recordname, 0, name).strip()
-                    for name in self._single_names
-                ]
-                response.single_data.names.extend(
-                    self._single_names
-                )  # pylint: disable=no-member
-                response.single_data.values.extend(values)  # pylint: disable=no-member
-
             if repeat_cnt > 0:
+                if len(self._multi_names) == 0:
+                    self.logger.warning(
+                        "Repeat count greater than 0, but no multi data names available, fallback to sigle data names"
+                    )
+                    multi_names = self._multi_names
+                    self._multi_names = self._single_names
+                    self._single_name = multi_names
                 if len(self._multi_names) > 0:
                     rows = [
                         [
@@ -1566,10 +1554,16 @@ class KiwoomOpenApiPlusConditionEventHandler(
                         response.multi_data.values.add().values.extend(
                             row
                         )  # pylint: disable=no-member
-                else:
-                    self.logger.warning(
-                        "Repeat count greater than 0, but no multi data names available."
-                    )
+
+            if len(self._single_names) > 0:
+                values = [
+                    self.control.GetCommData(trcode, recordname, 0, name).strip()
+                    for name in self._single_names
+                ]
+                response.single_data.names.extend(
+                    self._single_names
+                )  # pylint: disable=no-member
+                response.single_data.values.extend(values)  # pylint: disable=no-member
 
             self.observer.on_next(response)  # pylint: disable=no-member
 
