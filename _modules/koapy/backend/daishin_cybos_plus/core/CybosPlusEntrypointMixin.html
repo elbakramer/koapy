@@ -52,7 +52,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
@@ -69,8 +69,6 @@
 <ul>
   <li><a href="../../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../../index.html">Module code</a><ul>
-  <li><a href="../../../../koapy.html">koapy</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -79,7 +77,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -110,8 +108,7 @@
           <div class="body" role="main">
             
   <h1>Source code for koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">ctypes</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">math</span>
@@ -122,6 +119,7 @@
 
 <span class="kn">from</span> <span class="nn">exchange_calendars</span> <span class="kn">import</span> <span class="n">get_calendar</span>
 
+<span class="kn">from</span> <span class="nn">koapy.utils.ctypes</span> <span class="kn">import</span> <span class="n">is_admin</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.itertools</span> <span class="kn">import</span> <span class="n">chunk</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.logging.Logging</span> <span class="kn">import</span> <span class="n">Logging</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.subprocess</span> <span class="kn">import</span> <span class="n">function_to_subprocess_args</span>
@@ -130,9 +128,6 @@
 <div class="viewcode-block" id="CybosPlusEntrypointMixin"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypointMixin/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin">[docs]</a><span class="k">class</span> <span class="nc">CybosPlusEntrypointMixin</span><span class="p">(</span><span class="n">Logging</span><span class="p">):</span>
 <div class="viewcode-block" id="CybosPlusEntrypointMixin.GetConnectState"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypointMixin/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin.GetConnectState">[docs]</a>    <span class="k">def</span> <span class="nf">GetConnectState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CpUtil</span><span class="o">.</span><span class="n">CpCybos</span><span class="o">.</span><span class="n">IsConnect</span></div>
-
-<div class="viewcode-block" id="CybosPlusEntrypointMixin.IsAdmin"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypointMixin/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin.IsAdmin">[docs]</a>    <span class="k">def</span> <span class="nf">IsAdmin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">windll</span><span class="o">.</span><span class="n">shell32</span><span class="o">.</span><span class="n">IsUserAnAdmin</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="CybosPlusEntrypointMixin.ConnectUsingPywinauto_Impl"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypointMixin/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin.ConnectUsingPywinauto_Impl">[docs]</a>    <span class="k">def</span> <span class="nf">ConnectUsingPywinauto_Impl</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -329,7 +324,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ConnectUsingPywinauto_RunScriptInSubprocess</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CybosPlusEntrypointMixin.Connect"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypointMixin/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin.Connect">[docs]</a>    <span class="k">def</span> <span class="nf">Connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">IsAdmin</span><span class="p">(),</span> <span class="s2">&quot;Connect() method requires to be run as administrator&quot;</span>
+        <span class="k">assert</span> <span class="n">is_admin</span><span class="p">(),</span> <span class="s2">&quot;Connect() method requires to be run as administrator&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ConnectUsingPywinauto</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
 
@@ -683,7 +678,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

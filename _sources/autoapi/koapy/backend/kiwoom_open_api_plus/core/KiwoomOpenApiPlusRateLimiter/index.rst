@@ -13,6 +13,7 @@ Classes
 .. autoapisummary::
 
    koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter.KiwoomOpenApiPlusCommRqDataRateLimiter
+   koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter.KiwoomOpenApiPlusSendOrderRateLimiter
    koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter.KiwoomOpenApiPlusSendConditionRateLimiter
 
 
@@ -27,6 +28,12 @@ Classes
    - 1초당 5회 조회를 1번 발생시킨 경우 : 17초대기
    - 1초당 5회 조회를 5연속 발생시킨 경우 : 90초대기
    - 1초당 5회 조회를 10연속 발생시킨 경우 : 3분(180초)대기
+
+
+.. class:: KiwoomOpenApiPlusSendOrderRateLimiter
+
+
+   Bases: :py:obj:`koapy.utils.rate_limiting.RateLimiter.TimeWindowRateLimiter`
 
 
 .. class:: KiwoomOpenApiPlusSendConditionRateLimiter(comm_rate_limiter)

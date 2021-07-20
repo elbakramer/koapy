@@ -52,7 +52,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
@@ -69,8 +69,6 @@
 <ul>
   <li><a href="../../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../../index.html">Module code</a><ul>
-  <li><a href="../../../../koapy.html">koapy</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -79,7 +77,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -116,10 +114,11 @@
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
+<span class="kn">from</span> <span class="nn">koapy.utils.logging.Logging</span> <span class="kn">import</span> <span class="n">Logging</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.serialization</span> <span class="kn">import</span> <span class="n">JsonSerializable</span>
 
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusRealType"><a class="viewcode-back" href="../../../../../autoapi/koapy/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusRealType</span><span class="p">(</span><span class="n">JsonSerializable</span><span class="p">):</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusRealType"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusRealType</span><span class="p">(</span><span class="n">JsonSerializable</span><span class="p">,</span> <span class="n">Logging</span><span class="p">):</span>
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.Fid"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.Fid">[docs]</a>    <span class="k">class</span> <span class="nc">Fid</span><span class="p">(</span><span class="n">JsonSerializable</span><span class="p">):</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.Fid.__outer_class__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.Fid.__outer_class__">[docs]</a>        <span class="n">__outer_class__</span> <span class="o">=</span> <span class="kc">None</span></div>
@@ -132,7 +131,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.Fid.__repr__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.Fid.__repr__">[docs]</a>        <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">(</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">(</span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__outer_class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">fid</span><span class="p">,</span>
@@ -169,7 +168,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">fids</span> <span class="o">=</span> <span class="n">fids</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.__repr__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">(</span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">gidc</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">desc</span><span class="p">,</span>
@@ -208,7 +207,11 @@
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.realtypes_from_datfile"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.realtypes_from_datfile">[docs]</a>    <span class="k">def</span> <span class="nf">realtypes_from_datfile</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dat_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">module_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">dat_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">module_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">module_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\OpenAPI&quot;</span>
+                <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.utils.GetAPIModulePath</span> <span class="kn">import</span> <span class="p">(</span>
+                    <span class="n">GetAPIModulePath</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="n">module_path</span> <span class="o">=</span> <span class="n">GetAPIModulePath</span><span class="p">()</span>
             <span class="n">dat_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">module_path</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;nkrealtime.dat&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">encoding</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">encoding</span> <span class="o">=</span> <span class="s2">&quot;euc-kr&quot;</span>
@@ -220,6 +223,7 @@
 
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dat_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Reading file </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dat_file</span><span class="p">)</span>
                 <span class="n">dat_file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">dat_file</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">))</span>
             <span class="n">lines</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">dat_file</span><span class="p">)</span>
             <span class="n">lines</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">),</span> <span class="n">lines</span><span class="p">)</span>
@@ -266,11 +270,22 @@
             <span class="p">)</span>
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">dump_file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">))</span>
+                <span class="n">dump_filename</span> <span class="o">=</span> <span class="n">dump_file</span>
+                <span class="n">dump_file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dump_filename</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">realtype_by_desc_from_datfile</span><span class="p">(</span><span class="n">dat_file</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">tr_code</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
                 <span class="n">result</span><span class="p">[</span><span class="n">tr_code</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">tr_code</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">dump_file</span><span class="p">)</span></div>
+            <span class="k">if</span> <span class="n">dump_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saving realtype to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dump_filename</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
+                <span class="n">result</span><span class="p">,</span>
+                <span class="n">dump_file</span><span class="p">,</span>
+                <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span></div>
+            <span class="p">)</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.realtype_by_desc_from_dump_file"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.realtype_by_desc_from_dump_file">[docs]</a>    <span class="k">def</span> <span class="nf">realtype_by_desc_from_dump_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dump_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -284,7 +299,9 @@
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">dump_file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+                    <span class="n">dump_file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span>
+                        <span class="nb">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                    <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="p">{}</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span>
@@ -295,11 +312,23 @@
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.load_from_dump_file"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.load_from_dump_file">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_dump_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dump_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_REALTYPE_BY_DESC</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">realtype_by_desc_from_dump_file</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">Fid</span><span class="o">.</span><span class="n">load_from_dump_file</span><span class="p">()</span></div></div>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">Fid</span><span class="o">.</span><span class="n">load_from_dump_file</span><span class="p">()</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusRealType.load_from_datfile"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.load_from_datfile">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_datfile</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dat_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_REALTYPE_BY_DESC</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">realtype_by_desc_from_datfile</span><span class="p">(</span><span class="n">dat_file</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">Fid</span><span class="o">.</span><span class="n">load_from_dump_file</span><span class="p">()</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusRealType.load"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">load_from_datfile</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">load_from_dump_file</span><span class="p">()</span></div></div>
 
 
 <div class="viewcode-block" id="__outer_class__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.__outer_class__">[docs]</a><span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">Fid</span><span class="o">.</span><span class="n">__outer_class__</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span></div>
-<span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">load_from_dump_file</span><span class="p">()</span>
+<span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -320,7 +349,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

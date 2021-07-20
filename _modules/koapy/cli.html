@@ -52,7 +52,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
@@ -69,8 +69,6 @@
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Module code</a><ul>
-  <li><a href="../koapy.html">koapy</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -79,7 +77,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -112,33 +110,23 @@
   <h1>Source code for koapy.cli</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Console script for koapy.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">import</span> <span class="nn">click</span>
 
 <span class="kn">import</span> <span class="nn">koapy</span>
 
+<span class="kn">from</span> <span class="nn">koapy.utils.logging</span> <span class="kn">import</span> <span class="n">set_verbosity</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.logging.Logging</span> <span class="kn">import</span> <span class="n">Logging</span>
 
 <div class="viewcode-block" id="logger"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.logger">[docs]</a><span class="n">logger</span> <span class="o">=</span> <span class="n">Logging</span><span class="o">.</span><span class="n">get_logger</span><span class="p">(</span><span class="s2">&quot;koapy.cli&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_verbosity"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.set_verbosity">[docs]</a><span class="k">def</span> <span class="nf">set_verbosity</span><span class="p">(</span><span class="n">verbosity</span><span class="p">):</span>
-    <span class="n">verbosity</span> <span class="o">=</span> <span class="n">verbosity</span> <span class="ow">or</span> <span class="mi">0</span>
-    <span class="n">levels</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
-    <span class="p">]</span>
-    <span class="k">if</span> <span class="n">verbosity</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">):</span>
-        <span class="n">verbosity</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="n">level</span> <span class="o">=</span> <span class="n">levels</span><span class="p">[</span><span class="n">verbosity</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span></div>
-
-
 <div class="viewcode-block" id="context_settings"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.context_settings">[docs]</a><span class="n">context_settings</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">help_option_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-h&quot;</span><span class="p">,</span> <span class="s2">&quot;--help&quot;</span><span class="p">])</span></div>
 <div class="viewcode-block" id="client_check_timeout"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.client_check_timeout">[docs]</a><span class="n">client_check_timeout</span> <span class="o">=</span> <span class="mi">10</span></div>
+
+<div class="viewcode-block" id="default_verbosity"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.default_verbosity">[docs]</a><span class="n">default_verbosity</span> <span class="o">=</span> <span class="mi">0</span></div>
+<div class="viewcode-block" id="default_verbosity_no_output"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.default_verbosity_no_output">[docs]</a><span class="n">default_verbosity_no_output</span> <span class="o">=</span> <span class="mi">5</span></div>
 
 
 <div class="viewcode-block" id="fail_with_usage"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.fail_with_usage">[docs]</a><span class="k">def</span> <span class="nf">fail_with_usage</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -163,20 +151,25 @@
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of grpc server (optional).&quot;</span>
 <span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Verbosity.&quot;</span><span class="p">)</span>
-<div class="viewcode-block" id="serve"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.serve">[docs]</a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--no-verbose&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;-v&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span>
+    <span class="n">count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="n">default_verbosity_no_output</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Verbosity.&quot;</span><span class="p">,</span>
+<div class="viewcode-block" id="serve"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.serve">[docs]</a><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--no-verbose&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;args&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">serve</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">no_verbose</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ARGS are passed to QApplication.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">app_args</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="n">port</span><span class="p">:</span>
         <span class="n">app_args</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">no_verbose</span> <span class="ow">and</span> <span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">app_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="s2">&quot;v&quot;</span> <span class="o">*</span> <span class="n">verbose</span><span class="p">)</span>
     <span class="n">app_args</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusTrayApplication</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusTrayApplication</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="n">KiwoomOpenApiPlusTrayApplication</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">app_args</span><span class="p">)</span></div>
 
@@ -190,7 +183,9 @@
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Verbosity.&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
     <span class="n">set_verbosity</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span>
@@ -220,7 +215,9 @@
 <div class="viewcode-block" id="autologin"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.autologin">[docs]</a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Verbosity.&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">autologin</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
     <span class="n">set_verbosity</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span>
@@ -240,7 +237,9 @@
 <div class="viewcode-block" id="trdata"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.trdata">[docs]</a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Verbosity.&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">trdata</span><span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
     <span class="n">set_verbosity</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusTrInfo</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusTrInfo</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="n">KiwoomOpenApiPlusTrInfo</span><span class="o">.</span><span class="n">dump_trinfo_by_code</span><span class="p">()</span></div>
 
@@ -251,16 +250,29 @@
 <div class="viewcode-block" id="realdata"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.realdata">[docs]</a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Verbosity.&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">realdata</span><span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
     <span class="n">set_verbosity</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusRealType</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusRealType</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">dump_realtype_by_desc</span><span class="p">()</span></div>
 
 
 <span class="nd">@update</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">context_settings</span><span class="o">=</span><span class="n">context_settings</span><span class="p">,</span> <span class="n">short_help</span><span class="o">=</span><span class="s2">&quot;Update openapi version.&quot;</span><span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Verbosity.&quot;</span><span class="p">)</span>
-<div class="viewcode-block" id="version"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.version">[docs]</a><span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;-v&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span>
+    <span class="n">count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="n">default_verbosity_no_output</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Verbosity.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<div class="viewcode-block" id="version"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.version">[docs]</a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--no-verbose&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span> <span class="n">no_verbose</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">no_verbose</span><span class="p">:</span>
+        <span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">set_verbosity</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusVersionUpdater</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusVersionUpdater</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="kn">from</span> <span class="nn">koapy.config</span> <span class="kn">import</span> <span class="n">config</span>
 
     <span class="n">credential</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;koapy.backend.kiwoom_open_api_plus.credential&quot;</span><span class="p">)</span>
@@ -335,7 +347,9 @@
         <span class="c1"># fail_with_usage()</span>
         <span class="k">pass</span>
 
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span>
@@ -405,7 +419,9 @@
 <div class="viewcode-block" id="stockname"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.stockname">[docs]</a>    <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of grpc server (optional).&quot;</span>
 <span class="p">)</span>
 <span class="k">def</span> <span class="nf">stockname</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span>
@@ -484,7 +500,9 @@
 
     <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">verbose</span>
@@ -552,7 +570,9 @@
     <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
 
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">verbose</span>
@@ -643,7 +663,9 @@
     <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
 
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">verbose</span>
@@ -670,7 +692,9 @@
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;TR code to get (like opt10001).&quot;</span><span class="p">,</span>
 <div class="viewcode-block" id="trinfo"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.trinfo">[docs]</a><span class="p">)</span>
 <span class="k">def</span> <span class="nf">trinfo</span><span class="p">(</span><span class="n">trcodes</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusTrInfo</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusTrInfo</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_codes</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">trcodes</span><span class="p">:</span>
@@ -726,7 +750,9 @@
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Real type name to get (like 주식시세).&quot;</span><span class="p">,</span>
 <div class="viewcode-block" id="realinfo"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.realinfo">[docs]</a><span class="p">)</span>
 <span class="k">def</span> <span class="nf">realinfo</span><span class="p">(</span><span class="n">realtypes</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusRealType</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusRealType</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_realtypes</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">realtypes</span><span class="p">:</span>
@@ -791,7 +817,9 @@
 
     <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">verbose</span>
@@ -833,7 +861,9 @@
     <span class="k">if</span> <span class="n">account</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Account not given. Using first account available.&quot;</span><span class="p">)</span>
 
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">verbose</span>
@@ -878,7 +908,9 @@
     <span class="k">elif</span> <span class="n">for_each</span><span class="p">:</span>
         <span class="n">lookup_type</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">verbose</span>
@@ -964,7 +996,9 @@
     <span class="k">if</span> <span class="n">buy_only</span><span class="p">:</span>
         <span class="n">order_type</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">verbose</span>
@@ -991,18 +1025,14 @@
     <span class="n">context_settings</span><span class="o">=</span><span class="n">context_settings</span><span class="p">,</span>
     <span class="n">short_help</span><span class="o">=</span><span class="s2">&quot;Get OpenApi module installation path.&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-    <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of grpc server (optional).&quot;</span>
-<div class="viewcode-block" id="modulepath"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.modulepath">[docs]</a><span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Verbosity.&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">modulepath</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
+<div class="viewcode-block" id="modulepath"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.modulepath">[docs]</a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Verbosity.&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">modulepath</span><span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
     <span class="n">set_verbosity</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.utils.GetAPIModulePath</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">GetAPIModulePath</span><span class="p">,</span>
+    <span class="p">)</span>
 
-    <span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">(</span>
-        <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">client_check_timeout</span><span class="o">=</span><span class="n">client_check_timeout</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">verbose</span>
-    <span class="p">)</span> <span class="k">as</span> <span class="n">context</span><span class="p">:</span>
-        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">GetAPIModulePath</span><span class="p">())</span></div>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">GetAPIModulePath</span><span class="p">())</span></div>
 
 
 <span class="nd">@get</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
@@ -1012,7 +1042,9 @@
 <div class="viewcode-block" id="errmsg"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.errmsg">[docs]</a><span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Verbosity.&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">errmsg</span><span class="p">(</span><span class="n">err_code</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
     <span class="n">set_verbosity</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusError</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusError</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="n">err_msg</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusError</span><span class="o">.</span><span class="n">get_error_message_by_code</span><span class="p">(</span><span class="n">err_code</span><span class="p">)</span>
     <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">%d</span><span class="s2">] </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">err_code</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">))</span></div>
@@ -1099,7 +1131,9 @@
             <span class="n">fail_with_usage</span><span class="p">(</span><span class="s2">&quot;Unrecognized input type.&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">realtype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusRealType</span>
+        <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">KiwoomOpenApiPlusRealType</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="n">fids_from_realtype</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_fids_by_realtype_name</span><span class="p">(</span>
             <span class="n">realtype</span>
@@ -1116,7 +1150,12 @@
 
     <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span> <span class="n">KiwoomOpenApiPlusRealType</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusRealType</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">parse_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
         <span class="n">fids</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span>
@@ -1262,7 +1301,9 @@
 
     <span class="kn">from</span> <span class="nn">google.protobuf.json_format</span> <span class="kn">import</span> <span class="n">MessageToDict</span>
 
-    <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+    <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
         <span class="kn">import</span> <span class="nn">json</span>
@@ -1333,7 +1374,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

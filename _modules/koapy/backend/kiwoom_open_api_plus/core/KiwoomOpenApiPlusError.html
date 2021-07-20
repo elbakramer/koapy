@@ -52,7 +52,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
@@ -69,8 +69,6 @@
 <ul>
   <li><a href="../../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../../index.html">Module code</a><ul>
-  <li><a href="../../../../koapy.html">koapy</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -79,7 +77,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -113,7 +111,7 @@
 <span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusError"><a class="viewcode-back" href="../../../../../autoapi/koapy/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusError"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -141,7 +139,7 @@
         <span class="p">)</span>
 
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusNegativeReturnCodeError"><a class="viewcode-back" href="../../../../../autoapi/koapy/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusNegativeReturnCodeError</span><span class="p">(</span><span class="n">KiwoomOpenApiPlusError</span><span class="p">):</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusNegativeReturnCodeError"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusNegativeReturnCodeError</span><span class="p">(</span><span class="n">KiwoomOpenApiPlusError</span><span class="p">):</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_NONE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_NONE">[docs]</a>    <span class="n">OP_ERR_NONE</span> <span class="o">=</span> <span class="mi">0</span></div>
 <div class="viewcode-block" id="KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_FAIL"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_FAIL">[docs]</a>    <span class="n">OP_ERR_FAIL</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span></div>
@@ -300,7 +298,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span></div></div>
 
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusBooleanReturnCodeError"><a class="viewcode-back" href="../../../../../autoapi/koapy/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusBooleanReturnCodeError</span><span class="p">(</span><span class="n">KiwoomOpenApiPlusError</span><span class="p">):</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusBooleanReturnCodeError"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusBooleanReturnCodeError</span><span class="p">(</span><span class="n">KiwoomOpenApiPlusError</span><span class="p">):</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusBooleanReturnCodeError.OP_ERR_SUCCESS"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.OP_ERR_SUCCESS">[docs]</a>    <span class="n">OP_ERR_SUCCESS</span> <span class="o">=</span> <span class="mi">1</span></div>
 <div class="viewcode-block" id="KiwoomOpenApiPlusBooleanReturnCodeError.OP_ERR_FAILURE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusBooleanReturnCodeError.OP_ERR_FAILURE">[docs]</a>    <span class="n">OP_ERR_FAILURE</span> <span class="o">=</span> <span class="mi">0</span></div>
@@ -360,7 +358,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

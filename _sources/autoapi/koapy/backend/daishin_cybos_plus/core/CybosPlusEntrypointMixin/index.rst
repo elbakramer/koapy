@@ -24,9 +24,6 @@ Classes
    .. method:: GetConnectState(self)
 
 
-   .. method:: IsAdmin(self)
-
-
    .. method:: ConnectUsingPywinauto_Impl(cls, credential=None)
       :classmethod:
 

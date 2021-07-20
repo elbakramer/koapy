@@ -10,7 +10,6 @@ Subpackages
    :titlesonly:
    :maxdepth: 3
 
-   calendar/index.rst
    data/index.rst
    logging/index.rst
    messaging/index.rst
@@ -24,10 +23,12 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
+   ctypes/index.rst
    datetime/index.rst
    itertools/index.rst
    networking/index.rst
    notimplemented/index.rst
+   platform/index.rst
    recursion/index.rst
    serialization/index.rst
    subprocess/index.rst

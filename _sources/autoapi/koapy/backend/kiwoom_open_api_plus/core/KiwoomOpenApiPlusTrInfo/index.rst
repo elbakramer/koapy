@@ -66,7 +66,7 @@ Attributes
       
 
    .. attribute:: _SINGLE_TO_MULTI_TRCODES
-      :annotation: = ['opt10075', 'opt10076', 'opt10085', 'optkwfid', 'optkwinv', 'optkwpro']
+      :annotation: = ['opt10072', 'opt10073', 'opt10075', 'opt10076', 'opt10085', 'optkwfid', 'optkwinv', 'optkwpro']
 
       
 
@@ -103,15 +103,15 @@ Attributes
       :classmethod:
 
 
-   .. method:: trinfo_by_code_from_data_dir(cls, data_dir=None)
+   .. method:: _single_outputs_are_actually_multi_outputs(cls, item)
+      :classmethod:
+
+
+   .. method:: trinfo_by_code_from_data_dir(cls, data_dir=None, post_process=True)
       :classmethod:
 
 
    .. method:: dump_trinfo_by_code(cls, dump_file=None, data_dir=None)
-      :classmethod:
-
-
-   .. method:: _single_outputs_are_actually_multi_outputs(cls, item)
       :classmethod:
 
 
@@ -120,6 +120,14 @@ Attributes
 
 
    .. method:: load_from_dump_file(cls, dump_file=None)
+      :classmethod:
+
+
+   .. method:: load_from_data_dir(cls, data_dir=None)
+      :classmethod:
+
+
+   .. method:: load(cls)
       :classmethod:
 
 

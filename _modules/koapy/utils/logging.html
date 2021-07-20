@@ -52,7 +52,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
@@ -69,8 +69,6 @@
 <ul>
   <li><a href="../../../index.html">Documentation overview</a><ul>
   <li><a href="../../index.html">Module code</a><ul>
-  <li><a href="../../koapy.html">koapy</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -79,7 +77,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -111,59 +109,16 @@
             
   <h1>Source code for koapy.utils.logging</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">koapy.utils.logging.Logging</span> <span class="kn">import</span> <span class="n">Logging</span>
 
+<div class="viewcode-block" id="get_logger"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.utils.logging.get_logger">[docs]</a><span class="n">get_logger</span> <span class="o">=</span> <span class="n">Logging</span><span class="o">.</span><span class="n">get_logger</span></div>
 
-<div class="viewcode-block" id="verbosity_to_loglevel"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.utils.logging.verbosity_to_loglevel">[docs]</a><span class="k">def</span> <span class="nf">verbosity_to_loglevel</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="n">verbosity</span> <span class="o">=</span> <span class="n">verbosity</span> <span class="ow">or</span> <span class="mi">0</span>
-    <span class="n">levels</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
-    <span class="p">]</span>
-    <span class="k">if</span> <span class="n">verbosity</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">):</span>
-        <span class="n">verbosity</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="n">level</span> <span class="o">=</span> <span class="n">levels</span><span class="p">[</span><span class="n">verbosity</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">level</span></div>
+<div class="viewcode-block" id="verbosity_to_loglevel"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.utils.logging.verbosity_to_loglevel">[docs]</a><span class="n">verbosity_to_loglevel</span> <span class="o">=</span> <span class="n">Logging</span><span class="o">.</span><span class="n">verbosity_to_loglevel</span></div>
+<div class="viewcode-block" id="loglevel_to_verbosity"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.utils.logging.loglevel_to_verbosity">[docs]</a><span class="n">loglevel_to_verbosity</span> <span class="o">=</span> <span class="n">Logging</span><span class="o">.</span><span class="n">loglevel_to_verbosity</span></div>
 
-
-<div class="viewcode-block" id="loglevel_to_verbosity"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.utils.logging.loglevel_to_verbosity">[docs]</a><span class="k">def</span> <span class="nf">loglevel_to_verbosity</span><span class="p">(</span><span class="n">loglevel</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">):</span>
-    <span class="n">verbosity</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">-</span> <span class="p">(</span><span class="n">loglevel</span> <span class="o">+</span> <span class="mi">9</span><span class="p">)</span> <span class="o">//</span> <span class="mi">10</span>
-    <span class="k">if</span> <span class="n">verbosity</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">verbosity</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">return</span> <span class="n">verbosity</span></div>
-
-
-<div class="viewcode-block" id="set_loglevel"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.utils.logging.set_loglevel">[docs]</a><span class="k">def</span> <span class="nf">set_loglevel</span><span class="p">(</span><span class="n">loglevel</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="s2">&quot;koapy&quot;</span>
-    <span class="k">return</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">loglevel</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="set_verbosity"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.utils.logging.set_verbosity">[docs]</a><span class="k">def</span> <span class="nf">set_verbosity</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="s2">&quot;koapy&quot;</span>
-    <span class="n">loglevel</span> <span class="o">=</span> <span class="n">verbosity_to_loglevel</span><span class="p">(</span><span class="n">verbosity</span><span class="p">)</span>
-    <span class="n">set_loglevel</span><span class="p">(</span><span class="n">loglevel</span><span class="p">,</span> <span class="n">logger</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">loglevel</span></div>
-
-
-<div class="viewcode-block" id="get_module_name"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.utils.logging.get_module_name">[docs]</a><span class="k">def</span> <span class="nf">get_module_name</span><span class="p">(</span><span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="n">frame_infos</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span>
-    <span class="n">frame</span> <span class="o">=</span> <span class="n">frame_infos</span><span class="p">[</span><span class="mi">1</span> <span class="o">+</span> <span class="n">offset</span><span class="p">]</span>
-    <span class="n">module</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">module_name</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="vm">__name__</span>
-    <span class="k">return</span> <span class="n">module_name</span></div>
-
-
-<div class="viewcode-block" id="get_logger"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.utils.logging.get_logger">[docs]</a><span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">module_name</span> <span class="o">=</span> <span class="n">get_module_name</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">module_name</span>
-    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">logger</span></div>
+<div class="viewcode-block" id="set_loglevel"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.utils.logging.set_loglevel">[docs]</a><span class="n">set_loglevel</span> <span class="o">=</span> <span class="n">Logging</span><span class="o">.</span><span class="n">set_loglevel</span></div>
+<div class="viewcode-block" id="set_verbosity"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.utils.logging.set_verbosity">[docs]</a><span class="n">set_verbosity</span> <span class="o">=</span> <span class="n">Logging</span><span class="o">.</span><span class="n">set_verbosity</span></div>
 </pre></div>
 
           </div>
@@ -176,7 +131,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

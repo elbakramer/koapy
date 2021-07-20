@@ -52,7 +52,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
@@ -69,9 +69,7 @@
 <ul>
   <li><a href="../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../index.html">Module code</a><ul>
-  <li><a href="../../../koapy.html">koapy</a><ul>
   <li><a href="../logging.html">koapy.utils.logging</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
   </ul></li>
@@ -81,7 +79,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -120,10 +118,10 @@
 
 <div class="viewcode-block" id="LoggingMeta"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta">[docs]</a><span class="k">class</span> <span class="nc">LoggingMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
 
-<div class="viewcode-block" id="LoggingMeta.__config"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.__config">[docs]</a>    <span class="n">__config</span> <span class="o">=</span> <span class="p">{</span>
+<div class="viewcode-block" id="LoggingMeta.__default_config"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.__default_config">[docs]</a>    <span class="n">__default_config</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">&quot;formatters&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;basic&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> [</span><span class="si">%(levelname)s</span><span class="s2">] </span><span class="si">%(message)s</span><span class="s2"> - </span><span class="si">%(filename)s</span><span class="s2">:</span><span class="si">%(lineno)d</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="p">},</span>
         <span class="p">},</span>
@@ -131,7 +129,7 @@
             <span class="s2">&quot;console&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;logging.StreamHandler&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;NOTSET&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;formatter&quot;</span><span class="p">:</span> <span class="s2">&quot;basic&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;formatter&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
             <span class="p">},</span>
         <span class="p">},</span>
         <span class="s2">&quot;loggers&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -145,6 +143,8 @@
         <span class="s2">&quot;disable_existing_loggers&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span></div>
     <span class="p">}</span>
 
+<div class="viewcode-block" id="LoggingMeta.__config_key"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.__config_key">[docs]</a>    <span class="n">__config_key</span> <span class="o">=</span> <span class="s2">&quot;koapy.utils.logging.config&quot;</span></div>
+
 <div class="viewcode-block" id="LoggingMeta.__initialized"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.__initialized">[docs]</a>    <span class="n">__initialized</span> <span class="o">=</span> <span class="kc">False</span></div>
 <div class="viewcode-block" id="LoggingMeta.__init_lock"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.__init_lock">[docs]</a>    <span class="n">__init_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span></div>
 
@@ -152,10 +152,17 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__initialized</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__init_lock</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__initialized</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__initialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span></div>
+                    <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__initialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LoggingMeta.__initialize"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.__initialize">[docs]</a>    <span class="k">def</span> <span class="nf">__initialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dictConfig</span><span class="p">(</span><span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__config</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">koapy.config</span> <span class="kn">import</span> <span class="n">config</span>
+
+        <span class="n">logging_config_dict</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__config_key</span><span class="p">,</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__default_config</span>
+        <span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dictConfig</span><span class="p">(</span><span class="n">logging_config_dict</span><span class="p">)</span>
         <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__initialized</span> <span class="o">=</span> <span class="kc">True</span></div>
 
     <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">clsname</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
@@ -165,48 +172,88 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">clsname</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">__logger</span> <span class="o">=</span> <span class="kc">None</span>
 
+<div class="viewcode-block" id="LoggingMeta.__get_name_from_module"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.__get_name_from_module">[docs]</a>    <span class="k">def</span> <span class="nf">__get_name_from_module</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+        <span class="n">module_name</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">module_spec</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">__spec__</span>
+        <span class="k">if</span> <span class="n">module_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">module_name</span> <span class="o">=</span> <span class="n">module_spec</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">return</span> <span class="n">module_name</span></div>
+
+<div class="viewcode-block" id="LoggingMeta.__module_name"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.__module_name">[docs]</a>    <span class="k">def</span> <span class="nf">__module_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="n">module_name</span> <span class="o">=</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__get_name_from_module</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">module_name</span></div>
+
 <div class="viewcode-block" id="LoggingMeta.__class_name"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.__class_name">[docs]</a>    <span class="k">def</span> <span class="nf">__class_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="n">class_name</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s2">&quot;__outer_class__&quot;</span><span class="p">):</span>
-            <span class="n">class_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">class_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__class_name</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">__outer_class__</span><span class="p">),</span>
                 <span class="n">class_name</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">class_name</span></div>
 
 <div class="viewcode-block" id="LoggingMeta.__logger_name"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.__logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">__logger_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="n">module</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
-        <span class="n">module_spec</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">__spec__</span>
-        <span class="k">if</span> <span class="n">module_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">module_name</span> <span class="o">=</span> <span class="n">module_spec</span><span class="o">.</span><span class="n">name</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">module_name</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">module_name</span> <span class="o">=</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__module_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
         <span class="n">class_name</span> <span class="o">=</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__class_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
-        <span class="n">logger_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
+        <span class="n">logger_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">logger_name</span></div>
 
-    <span class="nd">@property</span>
-<div class="viewcode-block" id="LoggingMeta.logger"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.logger">[docs]</a>    <span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="LoggingMeta._get_logger"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta._get_logger">[docs]</a>    <span class="k">def</span> <span class="nf">_get_logger</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__initialize_if_necessary</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
             <span class="n">logger_name</span> <span class="o">=</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__logger_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">__logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">logger_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__logger</span></div>
 
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="LoggingMeta.logger"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.logger">[docs]</a>    <span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">_get_logger</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="LoggingMeta.get_logger"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.get_logger">[docs]</a>    <span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__logger_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;koapy&quot;</span>
+            <span class="n">caller_frameinfo</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">caller_module</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="n">caller_frameinfo</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__get_name_from_module</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">caller_module</span><span class="p">)</span>
         <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">__initialize_if_necessary</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
         <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">logger</span></div></div>
+        <span class="k">return</span> <span class="n">logger</span></div>
+
+<div class="viewcode-block" id="LoggingMeta.verbosity_to_loglevel"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.verbosity_to_loglevel">[docs]</a>    <span class="k">def</span> <span class="nf">verbosity_to_loglevel</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">verbosity</span> <span class="o">=</span> <span class="n">verbosity</span> <span class="ow">or</span> <span class="mi">0</span>
+        <span class="n">levels</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="n">verbosity</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">):</span>
+            <span class="n">verbosity</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">levels</span><span class="p">[</span><span class="n">verbosity</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">level</span></div>
+
+<div class="viewcode-block" id="LoggingMeta.loglevel_to_verbosity"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.loglevel_to_verbosity">[docs]</a>    <span class="k">def</span> <span class="nf">loglevel_to_verbosity</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">loglevel</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">):</span>
+        <span class="n">verbosity</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">-</span> <span class="p">(</span><span class="n">loglevel</span> <span class="o">+</span> <span class="mi">9</span><span class="p">)</span> <span class="o">//</span> <span class="mi">10</span>
+        <span class="k">if</span> <span class="n">verbosity</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">verbosity</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">verbosity</span></div>
+
+<div class="viewcode-block" id="LoggingMeta.set_loglevel"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.set_loglevel">[docs]</a>    <span class="k">def</span> <span class="nf">set_loglevel</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">loglevel</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span> <span class="o">=</span> <span class="s2">&quot;koapy&quot;</span>
+        <span class="k">return</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">loglevel</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LoggingMeta.set_verbosity"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.LoggingMeta.set_verbosity">[docs]</a>    <span class="k">def</span> <span class="nf">set_verbosity</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span> <span class="o">=</span> <span class="s2">&quot;koapy&quot;</span>
+        <span class="n">loglevel</span> <span class="o">=</span> <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">verbosity_to_loglevel</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">verbosity</span><span class="p">)</span>
+        <span class="n">LoggingMeta</span><span class="o">.</span><span class="n">set_loglevel</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">loglevel</span><span class="p">,</span> <span class="n">logger</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">loglevel</span></div></div>
 
 
 <div class="viewcode-block" id="Logging"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.Logging">[docs]</a><span class="k">class</span> <span class="nc">Logging</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">LoggingMeta</span><span class="p">):</span>
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Logging.logger"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/logging/Logging/index.html#koapy.utils.logging.Logging.Logging.logger">[docs]</a>    <span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">logger</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_get_logger</span><span class="p">()</span></div></div>
 </pre></div>
 
           </div>
@@ -219,7 +266,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

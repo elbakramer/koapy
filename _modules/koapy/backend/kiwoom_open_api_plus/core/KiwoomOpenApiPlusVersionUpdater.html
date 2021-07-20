@@ -52,7 +52,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
@@ -69,8 +69,6 @@
 <ul>
   <li><a href="../../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../../index.html">Module code</a><ul>
-  <li><a href="../../../../koapy.html">koapy</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -79,7 +77,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -111,20 +109,20 @@
             
   <h1>Source code for koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">atexit</span>
-<span class="kn">import</span> <span class="nn">ctypes</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">KiwoomOpenApiPlusQAxWidgetMixin</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.utils.ctypes</span> <span class="kn">import</span> <span class="n">is_admin</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.logging.Logging</span> <span class="kn">import</span> <span class="n">Logging</span>
+<span class="kn">from</span> <span class="nn">koapy.utils.platform</span> <span class="kn">import</span> <span class="n">is_32bit</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.subprocess</span> <span class="kn">import</span> <span class="n">function_to_subprocess_args</span>
 
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusVersionUpdater"><a class="viewcode-back" href="../../../../../autoapi/koapy/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater.KiwoomOpenApiPlusVersionUpdater">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusVersionUpdater</span><span class="p">(</span><span class="n">Logging</span><span class="p">):</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusVersionUpdater"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusVersionUpdater/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater.KiwoomOpenApiPlusVersionUpdater">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusVersionUpdater</span><span class="p">(</span><span class="n">Logging</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_credential</span> <span class="o">=</span> <span class="n">credential</span>
 
@@ -155,7 +153,7 @@
         <span class="c1"># so here we are creating the object in subprocess and disables auto login based on the checked module path</span>
 
         <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-            <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># pylint: disable=redefined-outer-name</span>
+            <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater</span> <span class="kn">import</span> <span class="p">(</span>
                 <span class="n">KiwoomOpenApiPlusVersionUpdater</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -201,7 +199,7 @@
         <span class="c1">#   https://github.com/pywinauto/pywinauto/issues/472</span>
 
         <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-            <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># pylint: disable=redefined-outer-name</span>
+            <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater</span> <span class="kn">import</span> <span class="p">(</span>
                 <span class="n">KiwoomOpenApiPlusVersionUpdater</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -250,7 +248,7 @@
         <span class="c1"># so it will block until the account window is closed after enabling the auto login.</span>
 
         <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-            <span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># pylint: disable=redefined-outer-name</span>
+            <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater</span> <span class="kn">import</span> <span class="p">(</span>
                 <span class="n">KiwoomOpenApiPlusVersionUpdater</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -303,7 +301,7 @@
             <span class="n">account_window</span><span class="p">[</span><span class="s2">&quot;닫기&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
 
             <span class="k">try</span><span class="p">:</span>
-                <span class="bp">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Wating account window to be closed&quot;</span><span class="p">)</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;waiting account window to be closed&quot;</span><span class="p">)</span>
                 <span class="n">timeout_account_window_done</span> <span class="o">=</span> <span class="mi">5</span>
                 <span class="n">account_window</span><span class="o">.</span><span class="n">wait_not</span><span class="p">(</span><span class="s2">&quot;visible&quot;</span><span class="p">,</span> <span class="n">timeout_account_window_done</span><span class="p">)</span>
             <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
@@ -346,85 +344,104 @@
         <span class="n">credential</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credential</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">login_using_pywinauto</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
 
-        <span class="n">version_window</span> <span class="o">=</span> <span class="n">desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;opstarter&quot;</span><span class="p">)</span>
+        <span class="n">apply_simulation_widow</span> <span class="o">=</span> <span class="n">desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;모의투자 참가신청&quot;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Wating for possible version update&quot;</span><span class="p">)</span>
-            <span class="n">timeout_version_update</span> <span class="o">=</span> <span class="mi">30</span>
-            <span class="n">version_window</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="n">timeout_version_update</span><span class="p">)</span>
+            <span class="n">timeout_apply_simulation</span> <span class="o">=</span> <span class="mi">10</span>
+            <span class="n">apply_simulation_widow</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="n">timeout_apply_simulation</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Please apply for simulation server before using it&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Please apply for simulation server before using it&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Waiting for successful login&quot;</span><span class="p">)</span>
+            <span class="n">timeout_login_successful</span> <span class="o">=</span> <span class="mi">30</span>
+            <span class="n">login_window</span><span class="o">.</span><span class="n">wait_not</span><span class="p">(</span><span class="s2">&quot;visible&quot;</span><span class="p">,</span> <span class="n">timeout_login_successful</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Login screen is still open&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Check for possible version update&quot;</span><span class="p">)</span>
+
+            <span class="n">version_window</span> <span class="o">=</span> <span class="n">desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;opstarter&quot;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">timeout_version_update</span> <span class="o">=</span> <span class="mi">30</span>
+                <span class="n">version_window</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="n">timeout_version_update</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No version update required&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Enabling auto login back&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">enable_autologin</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;There was no version update, enabled auto login&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Version update required&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">is_in_development</span><span class="p">:</span>
+                    <span class="n">version_window</span><span class="o">.</span><span class="n">print_control_identifiers</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Closing login app&quot;</span><span class="p">)</span>
+                <span class="n">login_window_proc</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+                <span class="n">login_window_proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Killed login app process&quot;</span><span class="p">)</span>
+                <span class="n">timeout_login_screen_closed</span> <span class="o">=</span> <span class="mi">30</span>
+                <span class="n">login_window</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">timeout_login_screen_closed</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">login_window</span><span class="o">.</span><span class="n">wait_not</span><span class="p">(</span><span class="s2">&quot;visible&quot;</span><span class="p">,</span> <span class="n">timeout_login_screen_closed</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Cannot close login window&quot;</span><span class="p">)</span>
+                    <span class="k">raise</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Closed login window&quot;</span><span class="p">)</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting to update version&quot;</span><span class="p">)</span>
+                    <span class="n">version_window</span><span class="p">[</span><span class="s2">&quot;Button&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+                    <span class="n">versionup_window</span> <span class="o">=</span> <span class="n">desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;opversionup&quot;</span><span class="p">)</span>
+                    <span class="n">confirm_window</span> <span class="o">=</span> <span class="n">desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;업그레이드 확인&quot;</span><span class="p">)</span>
+
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;waiting for possible failure&quot;</span><span class="p">)</span>
+                        <span class="n">timeout_confirm_update</span> <span class="o">=</span> <span class="mi">10</span>
+                        <span class="n">versionup_window</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="n">timeout_confirm_update</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Cannot find failure confirmation popup&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Failed update&quot;</span><span class="p">)</span>
+                        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Failed update&quot;</span><span class="p">)</span>
+
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;waiting for confirmation popup after update&quot;</span><span class="p">)</span>
+                        <span class="n">timeout_confirm_update</span> <span class="o">=</span> <span class="mi">10</span>
+                        <span class="n">confirm_window</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="n">timeout_confirm_update</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Cannot find confirmation popup&quot;</span><span class="p">)</span>
+                        <span class="k">raise</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Confirming update&quot;</span><span class="p">)</span>
+                        <span class="n">confirm_window</span><span class="p">[</span><span class="s2">&quot;Button&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Done update&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Enabling auto login back&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">enable_autologin</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Done update, enabled auto login&quot;</span><span class="p">)</span>
+
+                    <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Login ended successfully&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No version update required&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Enabling auto login back&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">enable_autologin</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;There was no version update, enabled auto login&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Version update required&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">is_in_development</span><span class="p">:</span>
-                <span class="n">version_window</span><span class="o">.</span><span class="n">print_control_identifiers</span><span class="p">()</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Closing login app&quot;</span><span class="p">)</span>
-            <span class="n">login_window_proc</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
-            <span class="n">login_window_proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Killed login app process&quot;</span><span class="p">)</span>
-            <span class="n">timeout_login_screen_closed</span> <span class="o">=</span> <span class="mi">30</span>
-            <span class="n">login_window</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">timeout_login_screen_closed</span><span class="p">)</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">login_window</span><span class="o">.</span><span class="n">wait_not</span><span class="p">(</span><span class="s2">&quot;visible&quot;</span><span class="p">,</span> <span class="n">timeout_login_screen_closed</span><span class="p">)</span>
-            <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Cannot close login window&quot;</span><span class="p">)</span>
-                <span class="k">raise</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Closed login window&quot;</span><span class="p">)</span>
-
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting to update version&quot;</span><span class="p">)</span>
-                <span class="n">version_window</span><span class="p">[</span><span class="s2">&quot;Button&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-
-                <span class="n">versionup_window</span> <span class="o">=</span> <span class="n">desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;opversionup&quot;</span><span class="p">)</span>
-                <span class="n">confirm_window</span> <span class="o">=</span> <span class="n">desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;업그레이드 확인&quot;</span><span class="p">)</span>
-
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Wating for possible failure&quot;</span><span class="p">)</span>
-                    <span class="n">timeout_confirm_update</span> <span class="o">=</span> <span class="mi">10</span>
-                    <span class="n">versionup_window</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="n">timeout_confirm_update</span><span class="p">)</span>
-                <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Cannot find failure confirmation popup&quot;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Failed update&quot;</span><span class="p">)</span>
-                    <span class="k">raise</span> <span class="ne">RuntimeError</span>
-
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Wating for confirmation popup after update&quot;</span><span class="p">)</span>
-                    <span class="n">timeout_confirm_update</span> <span class="o">=</span> <span class="mi">10</span>
-                    <span class="n">confirm_window</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="n">timeout_confirm_update</span><span class="p">)</span>
-                <span class="k">except</span> <span class="n">pywinauto</span><span class="o">.</span><span class="n">timings</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Cannot find confirmation popup&quot;</span><span class="p">)</span>
-                    <span class="k">raise</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Confirming update&quot;</span><span class="p">)</span>
-                    <span class="n">confirm_window</span><span class="p">[</span><span class="s2">&quot;Button&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Done update&quot;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Enabling auto login back&quot;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">enable_autologin</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Done update, enabled auto login&quot;</span><span class="p">)</span>
-
-                <span class="k">return</span> <span class="kc">True</span>
 
         <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusVersionUpdater.is_32bit"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusVersionUpdater/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater.KiwoomOpenApiPlusVersionUpdater.is_32bit">[docs]</a>    <span class="k">def</span> <span class="nf">is_32bit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">platform</span><span class="o">.</span><span class="n">architecture</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;32bit&quot;</span></div>
-
-<div class="viewcode-block" id="KiwoomOpenApiPlusVersionUpdater.is_admin"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusVersionUpdater/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater.KiwoomOpenApiPlusVersionUpdater.is_admin">[docs]</a>    <span class="k">def</span> <span class="nf">is_admin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">windll</span><span class="o">.</span><span class="n">shell32</span><span class="o">.</span><span class="n">IsUserAnAdmin</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span></div>
-
 <div class="viewcode-block" id="KiwoomOpenApiPlusVersionUpdater.update_version_if_necessary"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusVersionUpdater/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater.KiwoomOpenApiPlusVersionUpdater.update_version_if_necessary">[docs]</a>    <span class="k">def</span> <span class="nf">update_version_if_necessary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">assert</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">is_32bit</span><span class="p">()</span>
+            <span class="n">is_32bit</span><span class="p">()</span>
         <span class="p">),</span> <span class="s2">&quot;Automatic version update requires to be run in 32bit environment&quot;</span>
         <span class="k">assert</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">is_admin</span><span class="p">()</span>
+            <span class="n">is_admin</span><span class="p">()</span>
         <span class="p">),</span> <span class="s2">&quot;Automatic version update requires to be run as administrator&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">try_version_update_using_pywinauto</span><span class="p">()</span></div></div>
 </pre></div>
@@ -439,7 +456,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

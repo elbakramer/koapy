@@ -55,7 +55,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
@@ -91,7 +91,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -146,8 +146,13 @@
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">koapy.utils.logging.Logging.</span></span><span class="sig-name descname"><span class="pre">LoggingMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clsname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code></a></p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.__config">
-<span class="sig-name descname"><span class="pre">__config</span></span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.__config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.__config" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.__default_config">
+<span class="sig-name descname"><span class="pre">__default_config</span></span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.__default_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.__default_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.__config_key">
+<span class="sig-name descname"><span class="pre">__config_key</span></span><em class="property"> <span class="pre">=</span> <span class="pre">koapy.utils.logging.config</span></em><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.__config_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.__config_key" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -171,6 +176,16 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.__get_name_from_module">
+<span class="sig-name descname"><span class="pre">__get_name_from_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.__get_name_from_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.__get_name_from_module" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.__module_name">
+<span class="sig-name descname"><span class="pre">__module_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.__module_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.__module_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.__class_name">
 <span class="sig-name descname"><span class="pre">__class_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.__class_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.__class_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -181,6 +196,11 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta._get_logger">
+<span class="sig-name descname"><span class="pre">_get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta._get_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta._get_logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.logger">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.logger" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -188,6 +208,26 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.get_logger">
 <span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.get_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.get_logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.verbosity_to_loglevel">
+<span class="sig-name descname"><span class="pre">verbosity_to_loglevel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.verbosity_to_loglevel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.verbosity_to_loglevel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.loglevel_to_verbosity">
+<span class="sig-name descname"><span class="pre">loglevel_to_verbosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loglevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">logging.WARNING</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.loglevel_to_verbosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.loglevel_to_verbosity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.set_loglevel">
+<span class="sig-name descname"><span class="pre">set_loglevel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loglevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">logging.WARNING</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.set_loglevel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.set_loglevel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.utils.logging.Logging.LoggingMeta.set_verbosity">
+<span class="sig-name descname"><span class="pre">set_verbosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/utils/logging/Logging.html#LoggingMeta.set_verbosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.logging.Logging.LoggingMeta.set_verbosity" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -217,7 +257,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

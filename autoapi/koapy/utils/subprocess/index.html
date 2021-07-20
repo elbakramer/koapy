@@ -55,7 +55,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
@@ -89,7 +89,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -134,7 +134,31 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.subprocess.function_to_script" title="koapy.utils.subprocess.function_to_script"><code class="xref py py-obj docutils literal notranslate"><span class="pre">function_to_script</span></code></a>(func)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.utils.subprocess.function_to_subprocess_args" title="koapy.utils.subprocess.function_to_subprocess_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">function_to_subprocess_args</span></code></a>(func)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.utils.subprocess.function_to_subprocess_args" title="koapy.utils.subprocess.function_to_subprocess_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">function_to_subprocess_args</span></code></a>(func, executable=None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.subprocess.get_executable_from_conda_envname" title="koapy.utils.subprocess.get_executable_from_conda_envname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_executable_from_conda_envname</span></code></a>(envname)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.utils.subprocess.get_executable_from_conda_envpath" title="koapy.utils.subprocess.get_executable_from_conda_envpath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_executable_from_conda_envpath</span></code></a>(envpath)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.subprocess.get_executable_from_executable_config" title="koapy.utils.subprocess.get_executable_from_executable_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_executable_from_executable_config</span></code></a>(executable_config)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.utils.subprocess.get_32bit_executable" title="koapy.utils.subprocess.get_32bit_executable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_32bit_executable</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.subprocess.get_64bit_executable" title="koapy.utils.subprocess.get_64bit_executable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_64bit_executable</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.utils.subprocess.run_file" title="koapy.utils.subprocess.run_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_file</span></code></a>(filename, *args, executable=None, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.utils.subprocess.run_script" title="koapy.utils.subprocess.run_script"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_script</span></code></a>(script, *args, executable=None, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.utils.subprocess.run_function" title="koapy.utils.subprocess.run_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_function</span></code></a>(function, *args, executable=None, **kwargs)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -146,7 +170,47 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="koapy.utils.subprocess.function_to_subprocess_args">
-<span class="sig-prename descclassname"><span class="pre">koapy.utils.subprocess.</span></span><span class="sig-name descname"><span class="pre">function_to_subprocess_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/utils/subprocess.html#function_to_subprocess_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.subprocess.function_to_subprocess_args" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.utils.subprocess.</span></span><span class="sig-name descname"><span class="pre">function_to_subprocess_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/utils/subprocess.html#function_to_subprocess_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.subprocess.function_to_subprocess_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.utils.subprocess.get_executable_from_conda_envname">
+<span class="sig-prename descclassname"><span class="pre">koapy.utils.subprocess.</span></span><span class="sig-name descname"><span class="pre">get_executable_from_conda_envname</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/utils/subprocess.html#get_executable_from_conda_envname"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.subprocess.get_executable_from_conda_envname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.utils.subprocess.get_executable_from_conda_envpath">
+<span class="sig-prename descclassname"><span class="pre">koapy.utils.subprocess.</span></span><span class="sig-name descname"><span class="pre">get_executable_from_conda_envpath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envpath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/utils/subprocess.html#get_executable_from_conda_envpath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.subprocess.get_executable_from_conda_envpath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.utils.subprocess.get_executable_from_executable_config">
+<span class="sig-prename descclassname"><span class="pre">koapy.utils.subprocess.</span></span><span class="sig-name descname"><span class="pre">get_executable_from_executable_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">executable_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/utils/subprocess.html#get_executable_from_executable_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.subprocess.get_executable_from_executable_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.utils.subprocess.get_32bit_executable">
+<span class="sig-prename descclassname"><span class="pre">koapy.utils.subprocess.</span></span><span class="sig-name descname"><span class="pre">get_32bit_executable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/utils/subprocess.html#get_32bit_executable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.subprocess.get_32bit_executable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.utils.subprocess.get_64bit_executable">
+<span class="sig-prename descclassname"><span class="pre">koapy.utils.subprocess.</span></span><span class="sig-name descname"><span class="pre">get_64bit_executable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/utils/subprocess.html#get_64bit_executable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.subprocess.get_64bit_executable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.utils.subprocess.run_file">
+<span class="sig-prename descclassname"><span class="pre">koapy.utils.subprocess.</span></span><span class="sig-name descname"><span class="pre">run_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/utils/subprocess.html#run_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.subprocess.run_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.utils.subprocess.run_script">
+<span class="sig-prename descclassname"><span class="pre">koapy.utils.subprocess.</span></span><span class="sig-name descname"><span class="pre">run_script</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/utils/subprocess.html#run_script"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.subprocess.run_script" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.utils.subprocess.run_function">
+<span class="sig-prename descclassname"><span class="pre">koapy.utils.subprocess.</span></span><span class="sig-name descname"><span class="pre">run_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/koapy/utils/subprocess.html#run_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.utils.subprocess.run_function" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
@@ -164,7 +228,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

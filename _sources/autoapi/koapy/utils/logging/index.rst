@@ -25,18 +25,17 @@ Classes
 
 
 
-Functions
-~~~~~~~~~
+
+Attributes
+~~~~~~~~~~
 
 .. autoapisummary::
 
+   koapy.utils.logging.get_logger
    koapy.utils.logging.verbosity_to_loglevel
    koapy.utils.logging.loglevel_to_verbosity
    koapy.utils.logging.set_loglevel
    koapy.utils.logging.set_verbosity
-   koapy.utils.logging.get_module_name
-   koapy.utils.logging.get_logger
-
 
 
 .. class:: Logging
@@ -46,21 +45,28 @@ Functions
 
 
 
-.. function:: verbosity_to_loglevel(verbosity=0)
+.. data:: get_logger
+   
 
+   
 
-.. function:: loglevel_to_verbosity(loglevel=logging.WARNING)
+.. data:: verbosity_to_loglevel
+   
 
+   
 
-.. function:: set_loglevel(loglevel=logging.WARNING, logger=None)
+.. data:: loglevel_to_verbosity
+   
 
+   
 
-.. function:: set_verbosity(verbosity=0, logger=None)
+.. data:: set_loglevel
+   
 
+   
 
-.. function:: get_module_name(offset=0)
+.. data:: set_verbosity
+   
 
-
-.. function:: get_logger(name=None)
-
+   
 

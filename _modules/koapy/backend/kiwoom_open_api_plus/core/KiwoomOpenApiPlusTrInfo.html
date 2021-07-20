@@ -52,7 +52,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
@@ -69,8 +69,6 @@
 <ul>
   <li><a href="../../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../../index.html">Module code</a><ul>
-  <li><a href="../../../../koapy.html">koapy</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -79,7 +77,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -120,7 +118,7 @@
 <span class="kn">from</span> <span class="nn">koapy.utils.serialization</span> <span class="kn">import</span> <span class="n">JsonSerializable</span>
 
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo"><a class="viewcode-back" href="../../../../../autoapi/koapy/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusTrInfo</span><span class="p">(</span><span class="n">JsonSerializable</span><span class="p">,</span> <span class="n">Logging</span><span class="p">):</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusTrInfo</span><span class="p">(</span><span class="n">JsonSerializable</span><span class="p">,</span> <span class="n">Logging</span><span class="p">):</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo._TRINFO_BY_CODE_DUMP_FILENAME"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._TRINFO_BY_CODE_DUMP_FILENAME">[docs]</a>    <span class="n">_TRINFO_BY_CODE_DUMP_FILENAME</span> <span class="o">=</span> <span class="s2">&quot;trinfo_by_code.json&quot;</span></div>
 <div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo._TRINFO_BY_CODE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._TRINFO_BY_CODE">[docs]</a>    <span class="n">_TRINFO_BY_CODE</span> <span class="o">=</span> <span class="p">{}</span></div>
@@ -136,7 +134,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">fid</span> <span class="o">=</span> <span class="n">fid</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo.Field.__repr__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.Field.__repr__">[docs]</a>        <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">(</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">(</span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__outer_class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
@@ -172,7 +170,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">multi_outputs</span> <span class="o">=</span> <span class="n">multi_outputs</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo.__repr__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">(</span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tr_code</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
@@ -319,7 +317,11 @@
 <div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo.infos_from_data_dir"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.infos_from_data_dir">[docs]</a>    <span class="k">def</span> <span class="nf">infos_from_data_dir</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">module_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">data_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">module_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">module_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\OpenAPI&quot;</span>
+                <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.utils.GetAPIModulePath</span> <span class="kn">import</span> <span class="p">(</span>
+                    <span class="n">GetAPIModulePath</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="n">module_path</span> <span class="o">=</span> <span class="n">GetAPIModulePath</span><span class="p">()</span>
             <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">module_path</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">encoding</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">encoding</span> <span class="o">=</span> <span class="s2">&quot;euc-kr&quot;</span>
@@ -332,23 +334,50 @@
         <span class="p">]</span>
         <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">enc_filenames</span><span class="p">:</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Opening file </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-            <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
+            <span class="n">full_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">full_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">z</span><span class="o">.</span><span class="n">infolist</span><span class="p">():</span>
                     <span class="n">inner_filename</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">filename</span>
                     <span class="n">tr_code</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">inner_filename</span><span class="o">.</span><span class="n">lower</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="bp">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                        <span class="s2">&quot;Reading file </span><span class="si">%s</span><span class="s2"> inside </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">inner_filename</span><span class="p">,</span> <span class="n">filename</span>
+                        <span class="s2">&quot;Reading file </span><span class="si">%s</span><span class="s2"> inside </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">inner_filename</span><span class="p">,</span> <span class="n">full_filename</span>
                     <span class="p">)</span>
                     <span class="k">with</span> <span class="n">z</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
                         <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">TextIOWrapper</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                             <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">from_encfile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tr_code</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">results</span></div>
 
+<div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo._SINGLE_TO_MULTI_TRCODES"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._SINGLE_TO_MULTI_TRCODES">[docs]</a>    <span class="n">_SINGLE_TO_MULTI_TRCODES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;opt10072&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;opt10073&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;opt10075&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;opt10076&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;opt10085&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;optkwfid&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;optkwinv&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;optkwpro&quot;</span><span class="p">,</span></div>
+    <span class="p">]</span>
+
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo.trinfo_by_code_from_data_dir"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.trinfo_by_code_from_data_dir">[docs]</a>    <span class="k">def</span> <span class="nf">trinfo_by_code_from_data_dir</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo._single_outputs_are_actually_multi_outputs"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._single_outputs_are_actually_multi_outputs">[docs]</a>    <span class="k">def</span> <span class="nf">_single_outputs_are_actually_multi_outputs</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="n">multi_outputs_name</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">multi_outputs_name</span>
+        <span class="n">multi_outputs</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">multi_outputs</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">multi_outputs_name</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">single_outputs_name</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">multi_outputs</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">single_outputs</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">single_outputs_name</span> <span class="o">=</span> <span class="n">multi_outputs_name</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">single_outputs</span> <span class="o">=</span> <span class="n">multi_outputs</span>
+        <span class="k">return</span> <span class="n">item</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo.trinfo_by_code_from_data_dir"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.trinfo_by_code_from_data_dir">[docs]</a>    <span class="k">def</span> <span class="nf">trinfo_by_code_from_data_dir</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">post_process</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">infos</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">infos_from_data_dir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="n">info</span><span class="o">.</span><span class="n">tr_code</span><span class="p">:</span> <span class="n">info</span> <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">infos</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">post_process</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">tr_code</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">tr_code</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_SINGLE_TO_MULTI_TRCODES</span><span class="p">:</span>
+                    <span class="n">item</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">tr_code</span><span class="p">]</span>
+                    <span class="n">item</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_single_outputs_are_actually_multi_outputs</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                    <span class="n">result</span><span class="p">[</span><span class="n">tr_code</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@classmethod</span>
@@ -363,7 +392,7 @@
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                 <span class="n">dump_filename</span> <span class="o">=</span> <span class="n">dump_file</span>
-                <span class="n">dump_file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">))</span>
+                <span class="n">dump_file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">dump_filename</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">trinfo_by_code_from_data_dir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
@@ -371,26 +400,13 @@
                 <span class="n">result</span><span class="p">[</span><span class="n">tr_code</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">tr_code</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">dump_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saving trinfo to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dump_filename</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">dump_file</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo._SINGLE_TO_MULTI_TRCODES"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._SINGLE_TO_MULTI_TRCODES">[docs]</a>    <span class="n">_SINGLE_TO_MULTI_TRCODES</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;opt10075&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;opt10076&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;opt10085&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;optkwfid&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;optkwinv&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;optkwpro&quot;</span><span class="p">,</span></div>
-    <span class="p">]</span>
-
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo._single_outputs_are_actually_multi_outputs"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._single_outputs_are_actually_multi_outputs">[docs]</a>    <span class="k">def</span> <span class="nf">_single_outputs_are_actually_multi_outputs</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="n">single_outputs_name</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">single_outputs_name</span>
-        <span class="n">single_outputs</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">single_outputs</span>
-        <span class="n">item</span><span class="o">.</span><span class="n">single_outputs_name</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">multi_outputs_name</span>
-        <span class="n">item</span><span class="o">.</span><span class="n">single_outputs</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">multi_outputs</span>
-        <span class="n">item</span><span class="o">.</span><span class="n">multi_outputs_name</span> <span class="o">=</span> <span class="n">single_outputs_name</span>
-        <span class="n">item</span><span class="o">.</span><span class="n">multi_outputs</span> <span class="o">=</span> <span class="n">single_outputs</span>
-        <span class="k">return</span> <span class="n">item</span></div>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
+                <span class="n">result</span><span class="p">,</span>
+                <span class="n">dump_file</span><span class="p">,</span>
+                <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span></div>
+            <span class="p">)</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo.trinfo_by_code_from_dump_file"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.trinfo_by_code_from_dump_file">[docs]</a>    <span class="k">def</span> <span class="nf">trinfo_by_code_from_dump_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dump_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -404,24 +420,35 @@
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">dump_file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+                    <span class="n">dump_file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span>
+                        <span class="nb">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                    <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="p">{}</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">tr_code</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
             <span class="n">item</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">tr_code</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">tr_code</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_SINGLE_TO_MULTI_TRCODES</span><span class="p">:</span>
-                <span class="n">item</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_single_outputs_are_actually_multi_outputs</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
             <span class="n">result</span><span class="p">[</span><span class="n">tr_code</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo.load_from_dump_file"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.load_from_dump_file">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_dump_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dump_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_TRINFO_BY_CODE</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">trinfo_by_code_from_dump_file</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span></div></div>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_TRINFO_BY_CODE</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">trinfo_by_code_from_dump_file</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo.load_from_data_dir"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.load_from_data_dir">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_data_dir</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_TRINFO_BY_CODE</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">trinfo_by_code_from_data_dir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusTrInfo.load"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">load_from_data_dir</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">load_from_dump_file</span><span class="p">()</span></div></div>
 
 
 <div class="viewcode-block" id="__outer_class__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.__outer_class__">[docs]</a><span class="n">KiwoomOpenApiPlusTrInfo</span><span class="o">.</span><span class="n">Field</span><span class="o">.</span><span class="n">__outer_class__</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusTrInfo</span></div>
-<span class="n">KiwoomOpenApiPlusTrInfo</span><span class="o">.</span><span class="n">load_from_dump_file</span><span class="p">()</span>
+<span class="n">KiwoomOpenApiPlusTrInfo</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -470,7 +497,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

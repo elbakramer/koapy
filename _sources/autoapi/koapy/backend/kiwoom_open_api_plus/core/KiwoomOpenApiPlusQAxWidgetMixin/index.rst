@@ -87,9 +87,6 @@ Classes
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. method:: IsAdmin(self)
-
-
    .. method:: DisableAutoLogin(self)
 
 
@@ -150,7 +147,7 @@ Classes
    .. method:: RateLimitedCommRqDataAndCheck(self, rqname, trcode, prevnext, scrnno, inputs=None)
 
 
-   .. method:: RatedLimitedSendOrder(self, rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno)
+   .. method:: RateLimitedSendOrder(self, rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno)
 
 
    .. method:: RateLimitedSendCondition(self, scrnno, condition_name, condition_index, search_type)

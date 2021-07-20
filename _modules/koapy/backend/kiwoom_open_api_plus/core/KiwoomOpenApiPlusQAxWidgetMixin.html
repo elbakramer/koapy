@@ -52,7 +52,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
@@ -69,8 +69,6 @@
 <ul>
   <li><a href="../../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../../index.html">Module code</a><ul>
-  <li><a href="../../../../koapy.html">koapy</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -79,7 +77,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -110,8 +108,7 @@
           <div class="body" role="main">
             
   <h1>Source code for koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">ctypes</span>
-<span class="kn">import</span> <span class="nn">json</span>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">queue</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
@@ -125,7 +122,9 @@
 <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">KiwoomOpenApiPlusCommRqDataRateLimiter</span><span class="p">,</span>
     <span class="n">KiwoomOpenApiPlusSendConditionRateLimiter</span><span class="p">,</span>
+    <span class="n">KiwoomOpenApiPlusSendOrderRateLimiter</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.utils.ctypes</span> <span class="kn">import</span> <span class="n">is_admin</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.logging.Logging</span> <span class="kn">import</span> <span class="n">Logging</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.subprocess</span> <span class="kn">import</span> <span class="n">function_to_subprocess_args</span>
 
@@ -248,10 +247,10 @@
         <span class="k">return</span> <span class="s2">&quot;감리종목&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetMasterStockStateAsList</span><span class="p">(</span><span class="n">code</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetConditionFilePath"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetConditionFilePath">[docs]</a>    <span class="k">def</span> <span class="nf">GetConditionFilePath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">modulepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetAPIModulePath</span><span class="p">()</span>
+        <span class="n">module_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetAPIModulePath</span><span class="p">()</span>
         <span class="n">userid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetUserId</span><span class="p">()</span>
         <span class="n">condition_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">modulepath</span><span class="p">,</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_NewSaveIndex.dat&quot;</span> <span class="o">%</span> <span class="n">userid</span>
+            <span class="n">module_path</span><span class="p">,</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_NewSaveIndex.dat&quot;</span> <span class="o">%</span> <span class="n">userid</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">condition_filepath</span></div>
 
@@ -270,11 +269,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cond_rate_limiter</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusSendConditionRateLimiter</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_comm_rate_limiter</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_order_limiter</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusSendOrderRateLimiter</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_condition_loaded</span> <span class="o">=</span> <span class="kc">False</span>
-
-<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.IsAdmin"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.IsAdmin">[docs]</a>    <span class="k">def</span> <span class="nf">IsAdmin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">windll</span><span class="o">.</span><span class="n">shell32</span><span class="o">.</span><span class="n">IsUserAnAdmin</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.DisableAutoLogin"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.DisableAutoLogin">[docs]</a>    <span class="k">def</span> <span class="nf">DisableAutoLogin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">module_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetAPIModulePath</span><span class="p">()</span>
@@ -389,7 +386,7 @@
 <div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.Connect"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.Connect">[docs]</a>    <span class="k">def</span> <span class="nf">Connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">credential</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">assert</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">IsAdmin</span><span class="p">()</span>
+                <span class="n">is_admin</span><span class="p">()</span>
             <span class="p">),</span> <span class="s2">&quot;Connect() method requires to be run as administrator, if credential is given explicitly&quot;</span>
         <span class="n">q</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
 
@@ -500,7 +497,7 @@
 <span class="sd">        [조건검색 제한]</span>
 <span class="sd">          조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_comm_rate_limiter</span><span class="o">.</span><span class="n">sleep_if_necessary</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cond_rate_limiter</span><span class="o">.</span><span class="n">sleep_if_necessary</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CommKwRqData</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">prevnext</span><span class="p">,</span> <span class="n">codecnt</span><span class="p">,</span> <span class="n">typeflag</span><span class="p">,</span> <span class="n">rqname</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.RateLimitedCommRqDataAndCheck"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.RateLimitedCommRqDataAndCheck">[docs]</a>    <span class="k">def</span> <span class="nf">RateLimitedCommRqDataAndCheck</span><span class="p">(</span>
@@ -508,7 +505,9 @@
     <span class="p">):</span>
         <span class="n">code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RateLimitedCommRqData</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">prevnext</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">)</span>
 
-        <span class="n">spec</span> <span class="o">=</span> <span class="s2">&quot;CommRqData(</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">prevnext</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">)</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="s2">&quot;CommRqData(</span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">prevnext</span><span class="p">,</span> <span class="n">scrnno</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">inputs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">spec</span> <span class="o">+=</span> <span class="s2">&quot; with inputs </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">inputs</span>
@@ -546,10 +545,10 @@
 
         <span class="k">return</span> <span class="n">code</span></div>
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.RatedLimitedSendOrder"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.RatedLimitedSendOrder">[docs]</a>    <span class="k">def</span> <span class="nf">RatedLimitedSendOrder</span><span class="p">(</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.RateLimitedSendOrder"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.RateLimitedSendOrder">[docs]</a>    <span class="k">def</span> <span class="nf">RateLimitedSendOrder</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">rqname</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">accno</span><span class="p">,</span> <span class="n">ordertype</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">qty</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">hogagb</span><span class="p">,</span> <span class="n">orgorderno</span>
     <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_comm_rate_limiter</span><span class="o">.</span><span class="n">sleep_if_necessary</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_order_limiter</span><span class="o">.</span><span class="n">sleep_if_necessary</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">SendOrder</span><span class="p">(</span>
             <span class="n">rqname</span><span class="p">,</span> <span class="n">scrnno</span><span class="p">,</span> <span class="n">accno</span><span class="p">,</span> <span class="n">ordertype</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">qty</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">hogagb</span><span class="p">,</span> <span class="n">orgorderno</span></div>
         <span class="p">)</span>
@@ -566,7 +565,7 @@
 <span class="sd">        [조건검색 제한]</span>
 <span class="sd">          조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cond_rate_limiter</span><span class="o">.</span><span class="n">sleep_if_necessary</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cond_rate_limiter</span><span class="o">.</span><span class="n">sleep_if_necessary</span><span class="p">(</span><span class="n">condition_name</span><span class="p">,</span> <span class="n">condition_index</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">SendCondition</span><span class="p">(</span><span class="n">scrnno</span><span class="p">,</span> <span class="n">condition_name</span><span class="p">,</span> <span class="n">condition_index</span><span class="p">,</span> <span class="n">search_type</span><span class="p">)</span></div></div>
 
 
@@ -587,7 +586,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

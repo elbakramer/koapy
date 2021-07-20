@@ -18,7 +18,6 @@ Functions
 
 .. autoapisummary::
 
-   koapy.cli.set_verbosity
    koapy.cli.fail_with_usage
    koapy.cli.cli
    koapy.cli.serve
@@ -58,6 +57,8 @@ Attributes
    koapy.cli.logger
    koapy.cli.context_settings
    koapy.cli.client_check_timeout
+   koapy.cli.default_verbosity
+   koapy.cli.default_verbosity_no_output
    koapy.cli.market_codes
    koapy.cli.minute_intervals
    koapy.cli.order_types
@@ -69,9 +70,6 @@ Attributes
 
    
 
-.. function:: set_verbosity(verbosity)
-
-
 .. data:: context_settings
    
 
@@ -82,6 +80,16 @@ Attributes
 
    
 
+.. data:: default_verbosity
+   :annotation: = 0
+
+   
+
+.. data:: default_verbosity_no_output
+   :annotation: = 5
+
+   
+
 .. function:: fail_with_usage(message=None)
 
 
@@ -89,8 +97,6 @@ Attributes
 
 
 .. function:: serve(port, verbose, no_verbose, args)
-
-   ARGS are passed to QApplication.
 
 
 .. function:: login(port, verbose)
@@ -111,7 +117,7 @@ Attributes
 .. function:: realdata(verbose)
 
 
-.. function:: version(verbose)
+.. function:: version(verbose, no_verbose)
 
 
 .. function:: get()
@@ -180,7 +186,7 @@ Attributes
 .. function:: orders(account, date, reverse, executed_only, not_executed_only, stock_only, bond_only, sell_only, buy_only, code, starting_order_no, port, verbose)
 
 
-.. function:: modulepath(port, verbose)
+.. function:: modulepath(verbose)
 
 
 .. function:: errmsg(err_code, verbose)

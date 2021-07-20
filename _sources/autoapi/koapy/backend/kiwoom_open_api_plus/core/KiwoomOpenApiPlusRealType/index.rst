@@ -36,7 +36,7 @@ Attributes
 .. class:: KiwoomOpenApiPlusRealType(gidc=None, desc=None, nfid=None, fids=None)
 
 
-   Bases: :py:obj:`koapy.utils.serialization.JsonSerializable`
+   Bases: :py:obj:`koapy.utils.serialization.JsonSerializable`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
    .. class:: Fid(fid=None, name=None)
 
@@ -124,6 +124,14 @@ Attributes
 
 
    .. method:: load_from_dump_file(cls, dump_file=None)
+      :classmethod:
+
+
+   .. method:: load_from_datfile(cls, dat_file=None)
+      :classmethod:
+
+
+   .. method:: load(cls)
       :classmethod:
 
 

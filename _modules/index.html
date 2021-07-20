@@ -52,7 +52,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
@@ -75,7 +75,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -106,7 +106,6 @@
           <div class="body" role="main">
             
   <h1>All modules for which code is available</h1>
-<ul><li><a href="koapy.html">koapy</a></li>
 <ul><li><a href="koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypoint.html">koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint</a></li>
 <li><a href="koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypointMixin.html">koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin</a></li>
 <li><a href="koapy/backend/daishin_cybos_plus/core/CybosPlusError.html">koapy.backend.daishin_cybos_plus.core.CybosPlusError</a></li>
@@ -146,6 +145,7 @@
 <li><a href="koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusEventHandlerForGrpc.html">koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlerForGrpc</a></li>
 <li><a href="koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusEventHandlers.html">koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlers</a></li>
 <li><a href="koapy/backend/kiwoom_open_api_plus/grpc/tools/compile_proto.html">koapy.backend.kiwoom_open_api_plus.grpc.tools.compile_proto</a></li>
+<li><a href="koapy/backend/kiwoom_open_api_plus/utils/GetAPIModulePath.html">koapy.backend.kiwoom_open_api_plus.utils.GetAPIModulePath</a></li>
 <li><a href="koapy/backend/kiwoom_open_api_plus/utils/grpc/PipeableMultiThreadedRendezvous.html">koapy.backend.kiwoom_open_api_plus.utils.grpc.PipeableMultiThreadedRendezvous</a></li>
 <li><a href="koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html">koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler</a></li>
 <li><a href="koapy/backend/kiwoom_open_api_plus/utils/queue/QueueBasedBufferedIterator.html">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedBufferedIterator</a></li>
@@ -174,15 +174,8 @@
 <li><a href="koapy/compat/pyside2.html">koapy.compat.pyside2</a></li>
 <li><a href="koapy/compat/pywinauto.html">koapy.compat.pywinauto</a></li>
 <li><a href="koapy/config.html">koapy.config</a></li>
-<li><a href="koapy/utils/calendar.html">koapy.utils.calendar</a></li>
-<ul><li><a href="koapy/utils/calendar/etc/update_xkrx_holidays.html">koapy.utils.calendar.etc.update_xkrx_holidays</a></li>
-<li><a href="koapy/utils/calendar/exchange_calendar.html">koapy.utils.calendar.exchange_calendar</a></li>
-<li><a href="koapy/utils/calendar/exchange_calendar_xkrx.html">koapy.utils.calendar.exchange_calendar_xkrx</a></li>
-<li><a href="koapy/utils/calendar/pandas_extensions/holiday.html">koapy.utils.calendar.pandas_extensions.holiday</a></li>
-<li><a href="koapy/utils/calendar/pandas_extensions/korean_holiday.html">koapy.utils.calendar.pandas_extensions.korean_holiday</a></li>
-<li><a href="koapy/utils/calendar/pandas_extensions/offsets.html">koapy.utils.calendar.pandas_extensions.offsets</a></li>
-<li><a href="koapy/utils/calendar/xkrx_holidays.html">koapy.utils.calendar.xkrx_holidays</a></li>
-</ul><li><a href="koapy/utils/data/KrxHistoricalDailyPriceDataDownloader.html">koapy.utils.data.KrxHistoricalDailyPriceDataDownloader</a></li>
+<li><a href="koapy/utils/ctypes.html">koapy.utils.ctypes</a></li>
+<li><a href="koapy/utils/data/KrxHistoricalDailyPriceDataDownloader.html">koapy.utils.data.KrxHistoricalDailyPriceDataDownloader</a></li>
 <li><a href="koapy/utils/data/KrxHistoricalDailyPriceDataForBacktestLoader.html">koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader</a></li>
 <li><a href="koapy/utils/data/KrxHistoricalDailyPriceDataLoader.html">koapy.utils.data.KrxHistoricalDailyPriceDataLoader</a></li>
 <li><a href="koapy/utils/data/YahooFinanceKrxHistoricalDailyPriceDataDownloader.html">koapy.utils.data.YahooFinanceKrxHistoricalDailyPriceDataDownloader</a></li>
@@ -194,6 +187,7 @@
 <li><a href="koapy/utils/messaging/Messenger.html">koapy.utils.messaging.Messenger</a></li>
 <li><a href="koapy/utils/networking.html">koapy.utils.networking</a></li>
 <li><a href="koapy/utils/notimplemented.html">koapy.utils.notimplemented</a></li>
+<li><a href="koapy/utils/platform.html">koapy.utils.platform</a></li>
 <li><a href="koapy/utils/rate_limiting/RateLimiter.html">koapy.utils.rate_limiting.RateLimiter</a></li>
 <li><a href="koapy/utils/recursion.html">koapy.utils.recursion</a></li>
 <li><a href="koapy/utils/serialization.html">koapy.utils.serialization</a></li>
@@ -211,7 +205,7 @@
 <li><a href="koapy/utils/store/sqlalchemy/Version.html">koapy.utils.store.sqlalchemy.Version</a></li>
 <li><a href="koapy/utils/subprocess.html">koapy.utils.subprocess</a></li>
 <li><a href="koapy/utils/threading.html">koapy.utils.threading</a></li>
-</ul></ul>
+</ul>
 
           </div>
           
@@ -223,7 +217,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

@@ -55,7 +55,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
@@ -93,7 +93,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -204,7 +204,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._SINGLE_TO_MULTI_TRCODES">
-<span class="sig-name descname"><span class="pre">_SINGLE_TO_MULTI_TRCODES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['opt10075',</span> <span class="pre">'opt10076',</span> <span class="pre">'opt10085',</span> <span class="pre">'optkwfid',</span> <span class="pre">'optkwinv',</span> <span class="pre">'optkwpro']</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo.html#KiwoomOpenApiPlusTrInfo._SINGLE_TO_MULTI_TRCODES"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._SINGLE_TO_MULTI_TRCODES" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_SINGLE_TO_MULTI_TRCODES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['opt10072',</span> <span class="pre">'opt10073',</span> <span class="pre">'opt10075',</span> <span class="pre">'opt10076',</span> <span class="pre">'opt10085',</span> <span class="pre">'optkwfid',</span> <span class="pre">'optkwinv',</span> <span class="pre">'optkwpro']</span></em><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo.html#KiwoomOpenApiPlusTrInfo._SINGLE_TO_MULTI_TRCODES"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._SINGLE_TO_MULTI_TRCODES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -254,18 +254,18 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._single_outputs_are_actually_multi_outputs">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">_single_outputs_are_actually_multi_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo.html#KiwoomOpenApiPlusTrInfo._single_outputs_are_actually_multi_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._single_outputs_are_actually_multi_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.trinfo_by_code_from_data_dir">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">trinfo_by_code_from_data_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo.html#KiwoomOpenApiPlusTrInfo.trinfo_by_code_from_data_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.trinfo_by_code_from_data_dir" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">trinfo_by_code_from_data_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_process</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo.html#KiwoomOpenApiPlusTrInfo.trinfo_by_code_from_data_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.trinfo_by_code_from_data_dir" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.dump_trinfo_by_code">
 <em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">dump_trinfo_by_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo.html#KiwoomOpenApiPlusTrInfo.dump_trinfo_by_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.dump_trinfo_by_code" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._single_outputs_are_actually_multi_outputs">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">_single_outputs_are_actually_multi_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo.html#KiwoomOpenApiPlusTrInfo._single_outputs_are_actually_multi_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo._single_outputs_are_actually_multi_outputs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -276,6 +276,16 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.load_from_dump_file">
 <em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">load_from_dump_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo.html#KiwoomOpenApiPlusTrInfo.load_from_dump_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.load_from_dump_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.load_from_data_dir">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">load_from_data_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo.html#KiwoomOpenApiPlusTrInfo.load_from_data_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.load_from_data_dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.load">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusTrInfo.html#KiwoomOpenApiPlusTrInfo.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo.KiwoomOpenApiPlusTrInfo.load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -310,7 +320,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

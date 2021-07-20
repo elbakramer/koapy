@@ -57,12 +57,6 @@ Classes
    .. method:: try_version_update_using_pywinauto(self)
 
 
-   .. method:: is_32bit(self)
-
-
-   .. method:: is_admin(self)
-
-
    .. method:: update_version_if_necessary(self)
 
 

@@ -52,7 +52,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
@@ -69,8 +69,6 @@
 <ul>
   <li><a href="../../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../../../index.html">Module code</a><ul>
-  <li><a href="../../../../koapy.html">koapy</a><ul>
-  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -79,7 +77,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -110,8 +108,7 @@
           <div class="body" role="main">
             
   <h1>Source code for koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">threading</span>
+<span></span><span class="kn">import</span> <span class="nn">threading</span>
 
 <span class="kn">import</span> <span class="nn">pywintypes</span>
 <span class="kn">import</span> <span class="nn">win32com.client</span>
@@ -126,6 +123,7 @@
     <span class="n">CybosPlusLookupRequestRateLimiter</span><span class="p">,</span>
     <span class="n">CybosPlusTradeRequestRateLimiter</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.utils.platform</span> <span class="kn">import</span> <span class="n">is_32bit</span>
 
 
 <div class="viewcode-block" id="CybosPlusDispatch"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypoint/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint.CybosPlusDispatch">[docs]</a><span class="k">class</span> <span class="nc">CybosPlusDispatch</span><span class="p">:</span>
@@ -188,7 +186,7 @@
                     <span class="n">progid</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">dispatch</span> <span class="o">=</span> <span class="n">CybosPlusDispatch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_entrypoint</span><span class="p">,</span> <span class="n">progid</span><span class="p">)</span>
-                    <span class="k">except</span> <span class="n">pywintypes</span><span class="o">.</span><span class="n">com_error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">except</span> <span class="n">pywintypes</span><span class="o">.</span><span class="n">com_error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pylint: disable=no-member</span>
                         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
                             <span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; object has no attribute &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">name</span><span class="p">)</span>
                         <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
@@ -201,16 +199,14 @@
         <span class="p">)</span>
 
 
-<div class="viewcode-block" id="CybosPlusEntrypoint"><a class="viewcode-back" href="../../../../../autoapi/koapy/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint.CybosPlusEntrypoint">[docs]</a><span class="k">class</span> <span class="nc">CybosPlusEntrypoint</span><span class="p">(</span><span class="n">CybosPlusEntrypointMixin</span><span class="p">):</span>
+<div class="viewcode-block" id="CybosPlusEntrypoint"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypoint/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint.CybosPlusEntrypoint">[docs]</a><span class="k">class</span> <span class="nc">CybosPlusEntrypoint</span><span class="p">(</span><span class="n">CybosPlusEntrypointMixin</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    http://cybosplus.github.io/</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="p">(</span>
-            <span class="n">platform</span><span class="o">.</span><span class="n">architecture</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;32bit&quot;</span>
-        <span class="p">),</span> <span class="s2">&quot;Contorl object should be created in 32bit environment&quot;</span>
+        <span class="k">assert</span> <span class="n">is_32bit</span><span class="p">(),</span> <span class="s2">&quot;Contorl object should be created in 32bit environment&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_attribute_mapping</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;CpDib&quot;</span><span class="p">:</span> <span class="s2">&quot;DsCbo1&quot;</span><span class="p">,</span>
@@ -250,7 +246,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

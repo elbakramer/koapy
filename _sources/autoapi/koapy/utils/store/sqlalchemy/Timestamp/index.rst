@@ -139,6 +139,11 @@ Classes
 
       
 
+   .. attribute:: cache_ok
+      :annotation: = True
+
+      
+
    .. attribute:: signature
       
 
