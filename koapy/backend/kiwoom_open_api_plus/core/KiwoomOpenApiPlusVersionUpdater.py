@@ -290,7 +290,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
                     confirm_window = desktop.window(title="업그레이드 확인")
 
                     try:
-                        self.logger.info("waiting for possible failure")
+                        self.logger.info("Waiting for possible failure")
                         timeout_confirm_update = 10
                         versionup_window.wait("ready", timeout_confirm_update)
                     except pywinauto.timings.TimeoutError:
@@ -300,7 +300,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
                         raise RuntimeError("Failed update")
 
                     try:
-                        self.logger.info("waiting for confirmation popup after update")
+                        self.logger.info("Waiting for confirmation popup after update")
                         timeout_confirm_update = 10
                         confirm_window.wait("ready", timeout_confirm_update)
                     except pywinauto.timings.TimeoutError:

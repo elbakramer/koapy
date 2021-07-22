@@ -20,7 +20,12 @@ from koapy.utils.subprocess import get_32bit_executable
 
 class KiwoomOpenApiPlusEntrypoint(KiwoomOpenApiPlusEntrypointMixin, Logging):
     def __init__(
-        self, port=None, client_check_timeout=None, verbosity=None, log_level=None
+        self,
+        port=None,
+        client_check_timeout=None,
+        client_only=None,
+        verbosity=None,
+        log_level=None,
     ):
         if port is None:
             port = (
@@ -35,6 +40,7 @@ class KiwoomOpenApiPlusEntrypoint(KiwoomOpenApiPlusEntrypointMixin, Logging):
 
         self._port = port
         self._client_check_timeout = client_check_timeout
+        self._client_only = client_only
         self._verbosity = verbosity
         self._log_level = log_level
 
@@ -55,7 +61,10 @@ class KiwoomOpenApiPlusEntrypoint(KiwoomOpenApiPlusEntrypointMixin, Logging):
 
         self.logger.debug("Testing if client is ready...")
         if not self._client.is_ready(self._client_check_timeout):
-            self.logger.debug("Client is not ready, creating a new server")
+            self.logger.debug("Client is not ready")
+            if client_only:
+                raise RuntimeError("Client is not ready and client_only set to True")
+            self.logger.debug("Creating a new server")
             self._server_proc = subprocess.Popen(self._server_proc_args)
             assert self._client.is_ready(), "Failed to create server"
             self._stub = self._client.get_stub()

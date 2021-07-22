@@ -207,7 +207,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     def infos_from_data_dir(cls, data_dir=None, encoding=None, module_path=None):
         if data_dir is None:
             if module_path is None:
-                from koapy.backend.kiwoom_open_api_plus.utils.GetAPIModulePath import (
+                from koapy.backend.kiwoom_open_api_plus.utils.module_path import (
                     GetAPIModulePath,
                 )
 

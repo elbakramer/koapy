@@ -4,10 +4,10 @@ from subprocess import CalledProcessError
 
 from pyhocon.exceptions import ConfigMissingException
 
-from koapy.utils.logging.Logging import Logging
+from koapy.utils.logging import get_logger
 from koapy.utils.platform import is_32bit, is_64bit
 
-logger = Logging.get_logger()
+logger = get_logger(__name__)
 
 
 def GetAPIModulePathFromConfig():
@@ -15,6 +15,20 @@ def GetAPIModulePathFromConfig():
     from koapy.config import config
 
     APIModulePath = config.get("koapy.backend.kiwoom_open_api_plus.module_path")
+
+    return APIModulePath
+
+
+def GetAPIModulePathFromServer():
+    logger.debug("Checking module path from existing server if applicable")
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
+        KiwoomOpenApiPlusEntrypoint,
+    )
+
+    with KiwoomOpenApiPlusEntrypoint(
+        client_only=True, client_check_timeout=1
+    ) as entrypoint:
+        APIModulePath = entrypoint.GetAPIModulePath()
 
     return APIModulePath
 
@@ -49,7 +63,7 @@ def GetAPIModulePathIn64Bit():
     from koapy.utils.subprocess import function_to_subprocess_args, get_32bit_executable
 
     def main():
-        from koapy.backend.kiwoom_open_api_plus.utils.GetAPIModulePath import (
+        from koapy.backend.kiwoom_open_api_plus.utils.module_path import (
             GetAPIModulePathIn32Bit,
         )
 
@@ -81,21 +95,27 @@ def GetAPIModulePath():
     except ConfigMissingException:
         pass
 
-    # 2. directly check in 32bit environment
+    # 2. use server if exists
+    try:
+        return GetAPIModulePathFromServer()
+    except RuntimeError:
+        pass
+
+    # 3. directly check in 32bit environment
     if is_32bit():
         try:
             return GetAPIModulePathIn32Bit()
         except (CalledProcessError, FileNotFoundError):
             pass
 
-    # 3. in-directly check in 64bit environment
+    # 4. in-directly check in 64bit environment
     if is_64bit():
         try:
             return GetAPIModulePathIn64Bit()
         except (CalledProcessError, FileNotFoundError):
             pass
 
-    # 4. fallback to default installation path
+    # 5. fallback to default installation path
     return GetAPIModulePathForDefaultInstallation()
 
 

@@ -19,6 +19,7 @@ from koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler import (
 from koapy.compat.pyside2.QtCore import QObject, QTimer, QUrl, Signal
 from koapy.compat.pyside2.QtGui import QDesktopServices
 from koapy.compat.pyside2.QtWidgets import QApplication, QMenu, QStyle, QSystemTrayIcon
+from koapy.utils.logging import set_verbosity
 from koapy.utils.logging.Logging import Logging
 
 
@@ -38,15 +39,17 @@ class KiwoomOpenApiPlusTrayApplication(
 
         self._parser = argparse.ArgumentParser()
         self._parser.add_argument("-p", "--port")
-        self._parser.add_argument("--verbose", "-v", action="count", default=0)
-        self._parsed_args, remaining_args = self._parser.parse_known_args(args)
+        self._parser.add_argument("-v", "--verbose", action="count", default=0)
+        self._parsed_args, self._remaining_args = self._parser.parse_known_args(args)
 
         self._port = self._parsed_args.port
         self._verbose = self._parsed_args.verbose
 
+        set_verbosity(self._verbose)
+
         self._app = QApplication.instance()
         if not self._app:
-            self._app = QApplication(remaining_args)
+            self._app = QApplication(self._remaining_args)
         self._control = KiwoomOpenApiPlusQAxWidget()
         self._server = KiwoomOpenApiPlusServiceServer(self._control)
 

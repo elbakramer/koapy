@@ -1,11 +1,24 @@
-import inspect
+from .Logging import Logging
 
-from koapy.utils.logging.Logging import Logging
 
-get_logger = Logging.get_logger
+def get_logger(name=None):
+    return Logging.get_logger(name)
 
-verbosity_to_loglevel = Logging.verbosity_to_loglevel
-loglevel_to_verbosity = Logging.loglevel_to_verbosity
 
-set_loglevel = Logging.set_loglevel
-set_verbosity = Logging.set_verbosity
+def verbosity_to_loglevel(verbosity):
+    return Logging.verbosity_to_loglevel(verbosity)
+
+
+def loglevel_to_verbosity(loglevel):
+    return Logging.loglevel_to_verbosity(loglevel)
+
+
+def set_loglevel(loglevel):
+    root_package_name = __name__.split(".", maxsplit=1)[0]
+    logger = get_logger(root_package_name)
+    logger.setLevel(loglevel)
+
+
+def set_verbosity(verbosity):
+    loglevel = verbosity_to_loglevel(verbosity)
+    set_loglevel(loglevel)

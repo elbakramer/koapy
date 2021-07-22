@@ -16,12 +16,13 @@ requirements = [
     "click>=8.0.1",
     "discord.py>=1.7.3",
     "exchange-calendars>=3.2",
-    "grpcio>=1.38.1",
-    "grpcio-tools>=1.38.1",
+    "grpcio>=1.39.0",
+    "grpcio-tools>=1.39.0",
     "numpy>=1.21.1",
     "openpyxl>=3.0.7",
     "pandas>=1.3.0",
     "protobuf>=3.17.3",
+    "pygtrie>=2.4.2",
     "pyhocon>=0.3.58",
     "PySide2>=5.15.2",
     "pytz>=2021.1",
@@ -30,13 +31,14 @@ requirements = [
     "Rx>=3.2.0",
     "schedule>=1.1.0",
     "Send2Trash>=1.7.1",
-    "SQLAlchemy>=1.4.21",
+    "SQLAlchemy>=1.4.22",
     "tabulate>=0.8.9",
     "tqdm>=4.61.2",
     "tzlocal>=2.1",
     "wrapt>=1.12.1",
-    "pywin32>=301;sys_platform=='win32'",
+    "pywin32>=227,<=300;sys_platform=='win32'",
     "pywinauto>=0.6.8;sys_platform=='win32'",
+    "windows-curses>=2.2.0;sys_platform=='win32'",
 ]
 
 requirements_dev = [
@@ -51,10 +53,11 @@ requirements_dev = [
     "mypy>=0.910",
     "pip-tools>=6.1.0",
     "pre-commit>=2.13.0",
-    "pylint>=2.9.3",
+    "pylint>=2.9.5",
     "pytest>=6.2.4",
     "pytest-cov>=2.11.1",
     "pytest-xdist>=2.2.1",
+    "pyupgrade>=2.21.2",
 ]
 
 requirements_docs = [

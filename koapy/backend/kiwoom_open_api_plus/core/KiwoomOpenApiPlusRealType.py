@@ -97,7 +97,7 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
     def realtypes_from_datfile(cls, dat_file=None, encoding=None, module_path=None):
         if dat_file is None:
             if module_path is None:
-                from koapy.backend.kiwoom_open_api_plus.utils.GetAPIModulePath import (
+                from koapy.backend.kiwoom_open_api_plus.utils.module_path import (
                     GetAPIModulePath,
                 )
 

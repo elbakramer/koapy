@@ -52,6 +52,7 @@ class LoggingMeta(type):
         logging.basicConfig()
         logging.config.dictConfig(logging_config_dict)
         LoggingMeta.__initialized = True
+        # logging.getLogger(__name__).debug("Initialized logging")
 
     def __new__(cls, clsname, bases, dct):
         return super().__new__(cls, clsname, bases, dct)
@@ -60,16 +61,14 @@ class LoggingMeta(type):
         super().__init__(clsname, bases, dct)
         cls.__logger = None
 
-    def __get_name_from_module(cls, module):
-        module_name = module.__name__
-        module_spec = module.__spec__
-        if module_spec is not None:
-            module_name = module_spec.name
-        return module_name
+    def get_logger(cls, name=None):
+        LoggingMeta.__initialize_if_necessary(cls)
+        logger = logging.getLogger(name)
+        return logger
 
     def __module_name(cls):
         module = inspect.getmodule(cls)
-        module_name = LoggingMeta.__get_name_from_module(cls, module)
+        module_name = module.__spec__ and module.__spec__.name or module.__name__
         return module_name
 
     def __class_name(cls):
@@ -87,27 +86,32 @@ class LoggingMeta(type):
         logger_name = "{}.{}".format(module_name, class_name)
         return logger_name
 
-    def _get_logger(cls):
+    def get_class_logger(cls):
+        name = LoggingMeta.__logger_name(cls)
+        logger = LoggingMeta.get_logger(cls, name)
+        return logger
+
+    def get_module_logger(cls):
+        name = LoggingMeta.__module_name(cls)
+        logger = LoggingMeta.get_logger(cls, name)
+        return logger
+
+    def get_package_logger(cls):
+        name = LoggingMeta.__module_name(cls)
+        name = name.split(".", maxsplit=1)[0]
+        logger = LoggingMeta.get_logger(cls, name)
+        return logger
+
+    def _logger(cls):
         if cls.__logger is None:
-            LoggingMeta.__initialize_if_necessary(cls)
-            logger_name = LoggingMeta.__logger_name(cls)
-            cls.__logger = logging.getLogger(logger_name)
+            cls.__logger = LoggingMeta.get_class_logger(cls)
         return cls.__logger
 
     @property
     def logger(cls):
-        return LoggingMeta._get_logger(cls)
+        return LoggingMeta._logger(cls)
 
-    def get_logger(cls, name=None):
-        if name is None:
-            caller_frameinfo = inspect.stack()[1]
-            caller_module = inspect.getmodule(caller_frameinfo.frame)
-            name = LoggingMeta.__get_name_from_module(cls, caller_module)
-        LoggingMeta.__initialize_if_necessary(cls)
-        logger = logging.getLogger(name)
-        return logger
-
-    def verbosity_to_loglevel(cls, verbosity=0):
+    def verbosity_to_loglevel(cls, verbosity):
         verbosity = verbosity or 0
         levels = [
             logging.WARNING,
@@ -119,26 +123,22 @@ class LoggingMeta(type):
         level = levels[verbosity]
         return level
 
-    def loglevel_to_verbosity(cls, loglevel=logging.WARNING):
+    def loglevel_to_verbosity(cls, loglevel):
         verbosity = 3 - (loglevel + 9) // 10
         if verbosity < 0:
             verbosity = 0
         return verbosity
 
-    def set_loglevel(cls, loglevel=logging.WARNING, logger=None):
-        if logger is None:
-            logger = "koapy"
-        return logging.getLogger(logger).setLevel(loglevel)
+    def set_loglevel(cls, loglevel=logging.WARNING):
+        return LoggingMeta._logger(cls).setLevel(loglevel)
 
-    def set_verbosity(cls, verbosity=0, logger=None):
-        if logger is None:
-            logger = "koapy"
+    def set_verbosity(cls, verbosity=0):
         loglevel = LoggingMeta.verbosity_to_loglevel(cls, verbosity)
-        LoggingMeta.set_loglevel(cls, loglevel, logger)
+        LoggingMeta.set_loglevel(cls, loglevel)
         return loglevel
 
 
 class Logging(metaclass=LoggingMeta):
     @property
     def logger(self):
-        return self.__class__._get_logger()
+        return self.__class__._logger()

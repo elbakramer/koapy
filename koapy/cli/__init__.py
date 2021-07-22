@@ -4,57 +4,32 @@ import os
 
 import click
 
-import koapy
+from koapy.cli.commands.get.codelist import codelist
+from koapy.cli.utils import fail_with_usage, verbose_option
+from koapy.utils.logging import get_logger
 
-from koapy.utils.logging import set_verbosity
-from koapy.utils.logging.Logging import Logging
-
-logger = Logging.get_logger("koapy.cli")
-
+logger = get_logger(__name__)
 
 context_settings = dict(help_option_names=["-h", "--help"])
-client_check_timeout = 10
-
-default_verbosity = 0
-default_verbosity_no_output = 5
-
-
-def fail_with_usage(message=None):
-    ctx = click.get_current_context()
-    if message is not None:
-        click.UsageError(message).show()
-        click.echo()
-    click.echo(ctx.get_help())
-    ctx.exit(1)
 
 
 @click.group(context_settings=context_settings)
-@click.version_option(koapy.__version__, "-V", "--version")
+@click.version_option(message="%(version)s")
 def cli():
     pass
 
 
-@cli.command(
-    context_settings=context_settings,
-    short_help="Start grpc server with tray application.",
-)
+@cli.command(short_help="Start grpc server with tray application.")
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option(
-    "-v",
-    "--verbose",
-    count=True,
-    default=default_verbosity_no_output,
-    help="Verbosity.",
-)
-@click.option("--no-verbose", is_flag=True)
 @click.argument("args", nargs=-1)
-def serve(port, verbose, no_verbose, args):
+@verbose_option(default=5)
+def serve(port, args, verbose):
     app_args = []
     if port:
         app_args += ["--port", port]
-    if not no_verbose and verbose > 0:
+    if verbose > 0:
         app_args.append("-" + "v" * verbose)
     app_args += list(args)
     from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication import (
@@ -64,21 +39,18 @@ def serve(port, verbose, no_verbose, args):
     KiwoomOpenApiPlusTrayApplication.main(app_args)
 
 
-@cli.command(
-    context_settings=context_settings, short_help="Ensure logged in when server is up."
-)
+@cli.command(short_help="Ensure logged in when server is up.")
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def login(port, verbose):
-    set_verbosity(verbose)
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
         KiwoomOpenApiPlusEntrypoint,
     )
 
     with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout
+        port=port, verbosity=verbose, client_only=True
     ) as context:
         state = context.GetConnectState()
         if state == 0:
@@ -93,40 +65,34 @@ def login(port, verbose):
             click.echo("Logged into Real server.")
 
 
-@cli.group(context_settings=context_settings, short_help="Configure many things.")
+@cli.group(short_help="Configure many things.")
 def config():
     pass
 
 
-@config.command(context_settings=context_settings, short_help="Configure auto login.")
+@config.command(short_help="Configure auto login.")
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def autologin(port, verbose):
-    set_verbosity(verbose)
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
         context.ShowAccountWindow()
 
 
-@cli.group(context_settings=context_settings, short_help="Update openapi metadata.")
+@cli.group(short_help="Update openapi metadata.")
 def update():
     pass
 
 
-@update.command(
-    context_settings=context_settings, short_help="Update openapi TR metadata."
-)
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@update.command(short_help="Update openapi TR metadata.")
+@verbose_option()
 def trdata(verbose):
-    set_verbosity(verbose)
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo import (
         KiwoomOpenApiPlusTrInfo,
     )
@@ -134,12 +100,9 @@ def trdata(verbose):
     KiwoomOpenApiPlusTrInfo.dump_trinfo_by_code()
 
 
-@update.command(
-    context_settings=context_settings, short_help="Update openapi realtype metadata."
-)
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@update.command(short_help="Update openapi realtype metadata.")
+@verbose_option()
 def realdata(verbose):
-    set_verbosity(verbose)
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import (
         KiwoomOpenApiPlusRealType,
     )
@@ -147,19 +110,9 @@ def realdata(verbose):
     KiwoomOpenApiPlusRealType.dump_realtype_by_desc()
 
 
-@update.command(context_settings=context_settings, short_help="Update openapi version.")
-@click.option(
-    "-v",
-    "--verbose",
-    count=True,
-    default=default_verbosity_no_output,
-    help="Verbosity.",
-)
-@click.option("--no-verbose", is_flag=True)
-def version(verbose, no_verbose):
-    if no_verbose:
-        verbose = 0
-    set_verbosity(verbose)
+@update.command(short_help="Update openapi version.")
+@verbose_option(default=5)
+def version(verbose):
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
         KiwoomOpenApiPlusVersionUpdater,
     )
@@ -170,10 +123,12 @@ def version(verbose, no_verbose):
     updater.update_version_if_necessary()
 
 
-@cli.group(context_settings=context_settings, short_help="Get various types of data.")
+@cli.group(short_help="Get various types of data.")
 def get():
     pass
 
+
+get.add_command(codelist)
 
 market_codes = [
     "0",
@@ -190,7 +145,7 @@ market_codes = [
 ]
 
 
-@get.command(context_settings=context_settings, short_help="Get stock codes.")
+@get.command(short_help="Get stock codes.")
 @click.option(
     "-n",
     "--name",
@@ -211,7 +166,8 @@ market_codes = [
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-def stockcode(names, markets, port):
+@verbose_option()
+def stockcode(names, markets, port, verbose):
     """
     \b
     Possible market codes are:
@@ -225,32 +181,19 @@ def stockcode(names, markets, port):
       6 : 리츠
       9 : 하이얼펀드
       30 : K-OTC
-
-    \b
-    Possible market code aliases are:
-      all: All possible market codes.
     """
 
     markets_option = markets
-
-    if (markets, names) == (tuple(), tuple()):
-        # fail_with_usage()
-        pass
 
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
 
-        if not names and not markets:
+        if not markets:
             markets = ["0"]
-
-        if "all" in markets:
-            markets = market_codes
 
         codes = set()
 
@@ -296,7 +239,7 @@ def stockcode(names, markets, port):
                     click.echo("Cannot find code for given name: %s." % name)
 
 
-@get.command(context_settings=context_settings, short_help="Get name for stock codes.")
+@get.command(short_help="Get name for stock codes.")
 @click.option(
     "-c",
     "--code",
@@ -308,14 +251,13 @@ def stockcode(names, markets, port):
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-def stockname(codes, port):
+@verbose_option()
+def stockname(codes, port, verbose):
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
 
         def get_codes():
@@ -344,9 +286,7 @@ def stockname(codes, port):
             click.echo(name)
 
 
-@get.command(
-    context_settings=context_settings, short_help="Get basic information of stocks."
-)
+@get.command(short_help="Get basic information of stocks.")
 @click.option("-c", "--code", metavar="CODE", help="Stock code to get.")
 @click.option(
     "-o",
@@ -364,13 +304,10 @@ def stockname(codes, port):
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def stockinfo(code, output, format, port, verbose):  # pylint: disable=redefined-builtin
-
     if (code, output) == (None, None):
         fail_with_usage()
-
-    set_verbosity(verbose)
 
     if output is None:
         if format is None:
@@ -394,9 +331,7 @@ def stockinfo(code, output, format, port, verbose):  # pylint: disable=redefined
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout, verbosity=verbose
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
         dic = context.GetStockBasicInfoAsDict(code)
         series = pd.Series(dic)
@@ -414,7 +349,7 @@ def stockinfo(code, output, format, port, verbose):  # pylint: disable=redefined
                     click.echo(series.to_json(), file=f)
 
 
-@get.command(context_settings=context_settings, short_help="Get daily OHLCV of stocks.")
+@get.command(short_help="Get daily OHLCV of stocks.")
 @click.option("-c", "--code", metavar="CODE", help="Stock code to get.")
 @click.option(
     "-o",
@@ -448,14 +383,12 @@ def stockinfo(code, output, format, port, verbose):  # pylint: disable=redefined
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def daily(
     code, output, format, start_date, end_date, port, verbose
 ):  # pylint: disable=redefined-builtin
     if (code, output, start_date, end_date) == (None, None, None, None):
         fail_with_usage()
-
-    set_verbosity(verbose)
 
     if output is None:
         output = "{}.{}".format(code, format)
@@ -464,9 +397,7 @@ def daily(
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout, verbosity=verbose
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
         df = context.GetDailyStockDataAsDataFrame(code, start_date, end_date)
 
@@ -491,9 +422,7 @@ minute_intervals = [
 ]
 
 
-@get.command(
-    context_settings=context_settings, short_help="Get minute OHLCV of stocks."
-)
+@get.command(short_help="Get minute OHLCV of stocks.")
 @click.option("-c", "--code", metavar="CODE", help="Stock code to get.")
 @click.option(
     "-t",
@@ -538,14 +467,12 @@ minute_intervals = [
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def minute(
     code, interval, output, format, start_date, end_date, port, verbose
 ):  # pylint: disable=redefined-builtin
     if (code, interval, output, start_date, end_date) == (None, None, None, None, None):
         fail_with_usage()
-
-    set_verbosity(verbose)
 
     if interval is None:
         fail_with_usage("Interval is not set.")
@@ -557,9 +484,7 @@ def minute(
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout, verbosity=verbose
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
         df = context.GetMinuteStockDataAsDataFrame(code, interval, start_date, end_date)
 
@@ -572,7 +497,7 @@ def minute(
         df.to_sql("A" + code, engine)
 
 
-@get.command(context_settings=context_settings, short_help="Get TR info.")
+@get.command(short_help="Get TR info.")
 @click.option(
     "-t",
     "--trcode",
@@ -581,7 +506,8 @@ def minute(
     multiple=True,
     help="TR code to get (like opt10001).",
 )
-def trinfo(trcodes):
+@verbose_option()
+def trinfo(trcodes, verbose):
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo import (
         KiwoomOpenApiPlusTrInfo,
     )
@@ -630,7 +556,7 @@ def trinfo(trcodes):
             click.echo("Given trcode is invalid")
 
 
-@get.command(context_settings=context_settings, short_help="Get real type info.")
+@get.command(short_help="Get real type info.")
 @click.option(
     "-t",
     "--realtype",
@@ -639,7 +565,8 @@ def trinfo(trcodes):
     multiple=True,
     help="Real type name to get (like 주식시세).",
 )
-def realinfo(realtypes):
+@verbose_option()
+def realinfo(realtypes, verbose):
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import (
         KiwoomOpenApiPlusRealType,
     )
@@ -678,42 +605,19 @@ def realinfo(realtypes):
             click.echo("Given realtype is invalid")
 
 
-@get.command(context_settings=context_settings, short_help="Get market holidays.")
-@click.option(
-    "-o",
-    "--output",
-    metavar="FILENAME",
-    type=click.Path(),
-    help="Output filename. (optional)",
-)
-@click.option(
-    "-O",
-    "--offline",
-    is_flag=True,
-    help="Do not use krx marketdata api. (default: false)",
-)
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
-def holidays(output, offline, verbose):
-    raise NotImplementedError
-
-
-@get.command(context_settings=context_settings, short_help="Get user information.")
+@get.command(short_help="Get user information.")
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def userinfo(port, verbose):
-    set_verbosity(verbose)
-
     import pandas as pd
 
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout, verbosity=verbose
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
 
         result = {}
@@ -739,15 +643,13 @@ def userinfo(port, verbose):
         click.echo(pd.Series(result).to_markdown())
 
 
-@get.command(context_settings=context_settings, short_help="Get account deposit.")
+@get.command(short_help="Get account deposit.")
 @click.option("-a", "--account", metavar="ACCNO", help="Account number.")
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def deposit(account, port, verbose):
-    set_verbosity(verbose)
-
     if account is None:
         logger.info("Account not given. Using first account available.")
 
@@ -755,9 +657,7 @@ def deposit(account, port, verbose):
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout, verbosity=verbose
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
 
         if account is None:
@@ -767,7 +667,7 @@ def deposit(account, port, verbose):
         click.echo(result.to_markdown(floatfmt=".2f"))
 
 
-@get.command(context_settings=context_settings, short_help="Get account evaluation.")
+@get.command(short_help="Get account evaluation.")
 @click.option("-a", "--account", metavar="ACCNO", help="Account number.")
 @click.option(
     "-d", "--include-delisted", is_flag=True, help="Include delisted.", default=True
@@ -780,12 +680,10 @@ def deposit(account, port, verbose):
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def evaluation(
     account, include_delisted, exclude_delisted, for_each, as_summary, port, verbose
 ):
-    set_verbosity(verbose)
-
     if account is None:
         logger.info("Account not given. Using first account available.")
 
@@ -802,9 +700,7 @@ def evaluation(
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout, verbosity=verbose
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
 
         if account is None:
@@ -830,9 +726,7 @@ def evaluation(
         click.echo(multi.to_markdown())
 
 
-@get.command(
-    context_settings=context_settings, short_help="Get order history of a date."
-)
+@get.command(short_help="Get order history of a date.")
 @click.option("-a", "--account", metavar="ACCNO", help="Account number.")
 @click.option("-d", "--date", metavar="DATE", help="Date to get.")
 @click.option("-r", "--reverse", is_flag=True)
@@ -847,7 +741,7 @@ def evaluation(
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def orders(
     account,
     date,
@@ -863,8 +757,6 @@ def orders(
     port,
     verbose,
 ):
-    set_verbosity(verbose)
-
     if account is None:
         logger.info("Account not given. Using first account available.")
 
@@ -890,9 +782,7 @@ def orders(
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout, verbosity=verbose
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
         if account is None:
             account = context.GetFirstAvailableAccount()
@@ -915,23 +805,20 @@ def orders(
     context_settings=context_settings,
     short_help="Get OpenApi module installation path.",
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def modulepath(verbose):
-    set_verbosity(verbose)
-    from koapy.backend.kiwoom_open_api_plus.utils.GetAPIModulePath import (
-        GetAPIModulePath,
-    )
+    from koapy.backend.kiwoom_open_api_plus.utils.module_path import GetAPIModulePath
 
     click.echo(GetAPIModulePath())
 
 
-@get.command(
-    context_settings=context_settings, short_help="Get error message for error code."
-)
+@get.command(short_help="Get error message for error code.")
 @click.option("-e", "--err-code", metavar="ERR", type=int, help="Error code to check.")
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def errmsg(err_code, verbose):
-    set_verbosity(verbose)
+    if err_code is None:
+        fail_with_usage()
+
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import (
         KiwoomOpenApiPlusError,
     )
@@ -940,7 +827,7 @@ def errmsg(err_code, verbose):
     click.echo("[%d] %s" % (err_code, err_msg))
 
 
-@cli.command(context_settings=context_settings, short_help="Watch realtime data.")
+@cli.command(short_help="Watch realtime data.")
 @click.option(
     "-c",
     "--code",
@@ -985,12 +872,10 @@ def errmsg(err_code, verbose):
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def watch(codes, input, fids, realtype, output, format, port, verbose):
     if (codes, fids, realtype) == (tuple(), tuple(), None):
         fail_with_usage()
-
-    set_verbosity(verbose)
 
     codes_len = len(codes)
 
@@ -1073,9 +958,7 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
             click.echo("[%s]" % datetime.datetime.now(), file=output)
             click.echo(parse_message(message).to_markdown(), file=output)
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout, verbosity=verbose
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
 
         for event in context.GetRealDataForCodesAsStream(codes, fids, infer_fids=True):
@@ -1109,7 +992,7 @@ quote_types = [
 ]
 
 
-@cli.command(context_settings=context_settings, short_help="Place an order.")
+@cli.command(short_help="Place an order.")
 @click.option("--request-name", metavar="NAME")
 @click.option("--screen-no", metavar="SCRNO")
 @click.option("--account-no", metavar="ACCNO")
@@ -1128,7 +1011,7 @@ quote_types = [
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.option("-v", "--verbose", count=True, help="Verbosity.")
+@verbose_option()
 def order(
     request_name,
     screen_no,
@@ -1187,8 +1070,6 @@ def order(
     if order_type is None:
         fail_with_usage()
 
-    set_verbosity(verbose)
-
     from google.protobuf.json_format import MessageToDict
 
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
@@ -1209,9 +1090,7 @@ def order(
         def print_message(message):
             click.echo(pp.pformat(MessageToDict(message)))
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, client_check_timeout=client_check_timeout, verbosity=verbose
-    ) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
 
         if order_type in ["3", "4"] and (account_no is None or code is None):
