@@ -48,7 +48,7 @@ def codelist(markets, port, verbose):
       30 : K-OTC
     """
 
-    if not markets:
+    if not markets and click.get_text_stream("stdin").isatty():
         return codelist_interactive()
 
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
