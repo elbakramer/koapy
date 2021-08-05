@@ -24,6 +24,7 @@ def is_in_private_network(host):
     ip_address = ipaddress.ip_address(host)
     private_networks = [
         "10.0.0.0/8",
+        "127.0.0.0/8",
         "172.16.0.0/12",
         "192.168.0.0/16",
     ]
