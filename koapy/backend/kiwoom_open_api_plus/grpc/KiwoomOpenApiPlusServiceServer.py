@@ -15,7 +15,13 @@ from koapy.utils.networking import find_free_port_for_host, is_in_private_networ
 
 class KiwoomOpenApiPlusServiceServer(Logging):
     def __init__(
-        self, control, host=None, port=None, max_workers=None, credentials=None
+        self,
+        control,
+        host=None,
+        port=None,
+        max_workers=None,
+        credentials=None,
+        **kwargs,
     ):
         if host is None:
             host = config.get_string(
@@ -46,10 +52,15 @@ class KiwoomOpenApiPlusServiceServer(Logging):
         self._port = port
         self._max_workers = max_workers
         self._credentials = credentials
+        self._kwargs = kwargs
 
-        self._address = self._host + ":" + str(self._port)
         self._servicer = KiwoomOpenApiPlusServiceServicer(self._control)
-        self._executor = futures.ThreadPoolExecutor(max_workers=self._max_workers)
+        self._address = self._host + ":" + str(self._port)
+
+        if "thread_pool" in self._kwargs:
+            self._executor = self._kwargs.pop("thread_pool")
+        else:
+            self._executor = futures.ThreadPoolExecutor(max_workers=self._max_workers)
 
         self._server = None
         self._server_started = False
@@ -67,7 +78,7 @@ class KiwoomOpenApiPlusServiceServer(Logging):
             self.stop()
             self.wait_for_termination()
 
-        self._server = grpc.server(self._executor)
+        self._server = grpc.server(self._executor, **self._kwargs)
         self._server_started = False
         self._server_stopped = False
 

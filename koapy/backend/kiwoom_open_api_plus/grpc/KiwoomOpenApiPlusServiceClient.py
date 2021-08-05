@@ -25,14 +25,15 @@ class KiwoomOpenApiPlusServiceClient:
         self._host = host
         self._port = port
         self._credentials = credentials
+        self._kwargs = kwargs
 
         self._target = self._host + ":" + str(self._port)
 
         if self._credentials is None:
-            self._channel = grpc.insecure_channel(self._target, **kwargs)
+            self._channel = grpc.insecure_channel(self._target, **self._kwargs)
         else:
             self._channel = grpc.secure_channel(
-                self._target, self._credentials, **kwargs
+                self._target, self._credentials, **self._kwargs
             )
 
         self._stub = KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceStub(
