@@ -10,7 +10,7 @@ from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer im
 )
 from koapy.config import config
 from koapy.utils.logging.Logging import Logging
-from koapy.utils.networking import get_free_localhost_port, is_in_private_network
+from koapy.utils.networking import find_free_port_for_host, is_in_private_network
 
 
 class KiwoomOpenApiPlusServiceServer(Logging):
@@ -21,10 +21,20 @@ class KiwoomOpenApiPlusServiceServer(Logging):
             host = config.get_string(
                 "koapy.backend.kiwoom_open_api_plus.grpc.host", "localhost"
             )
+            host = config.get_string(
+                "koapy.backend.kiwoom_open_api_plus.grpc.server.host", host
+            )
         if port is None:
             port = config.get_int("koapy.backend.kiwoom_open_api_plus.grpc.port", 0)
+            port = config.get_int(
+                "koapy.backend.kiwoom_open_api_plus.grpc.server.port", port
+            )
+
         if port == 0:
-            port = get_free_localhost_port()
+            port = find_free_port_for_host(host)
+            self.logger.info(
+                "Using one of the free ports, final address would be %s:%d", host, port
+            )
 
         if max_workers is None:
             max_workers = config.get_int(

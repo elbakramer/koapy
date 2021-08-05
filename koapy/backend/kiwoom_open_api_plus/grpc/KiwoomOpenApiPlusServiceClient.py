@@ -13,8 +13,14 @@ class KiwoomOpenApiPlusServiceClient:
             host = config.get_string(
                 "koapy.backend.kiwoom_open_api_plus.grpc.host", "localhost"
             )
+            host = config.get_string(
+                "koapy.backend.kiwoom_open_api_plus.grpc.client.host", host
+            )
         if port is None:
             port = config.get_int("koapy.backend.kiwoom_open_api_plus.grpc.port")
+            port = config.get_int(
+                "koapy.backend.kiwoom_open_api_plus.grpc.client.port", port
+            )
 
         self._host = host
         self._port = port
