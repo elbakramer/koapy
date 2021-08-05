@@ -1,1 +1,1 @@
-docs/notebooks/*.ipynb linguist-documentation
+docs/**/*.ipynb linguist-documentation
