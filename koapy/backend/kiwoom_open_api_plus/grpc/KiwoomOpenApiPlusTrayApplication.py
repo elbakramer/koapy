@@ -51,7 +51,7 @@ class KiwoomOpenApiPlusTrayApplication(
         if not self._app:
             self._app = QApplication(self._remaining_args)
         self._control = KiwoomOpenApiPlusQAxWidget()
-        self._server = KiwoomOpenApiPlusServiceServer(self._control)
+        self._server = KiwoomOpenApiPlusServiceServer(self._control, port=self._port)
 
         self._should_restart.connect(self._exit)
         self._startRestartNotifier()
