@@ -20,7 +20,9 @@ class KiwoomOpenApiPlusSignalConnector(Logging):
         self._param_types = [
             (p.annotation) for p in self._signature.parameters.values()
         ]
-        self._signal = self._signature.to_pyside2_event_signal()
+
+        if PYSIDE2:
+            self._signal = self._signature.to_pyside2_event_signal()
 
     def is_valid_slot(self, slot):
         slot_signature = inspect.signature(slot)

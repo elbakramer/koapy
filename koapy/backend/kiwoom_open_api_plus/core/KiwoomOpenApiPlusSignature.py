@@ -5,7 +5,10 @@ import pythoncom
 
 from win32com.client import genpy, selecttlb
 
-from koapy.compat.pyside2.QtCore import SIGNAL
+from koapy.compat.pyside2 import PYSIDE2
+
+if PYSIDE2:
+    from koapy.compat.pyside2.QtCore import SIGNAL
 
 
 def BuildOleItems(clsid):
@@ -79,7 +82,12 @@ class KiwoomOpenApiPlusSignature(Signature):
         return prototype
 
     def to_pyside2_event_signal(self):
-        return SIGNAL(self.to_pyside2_function_prototype())
+        if PYSIDE2:
+            return SIGNAL(self.to_pyside2_function_prototype())
+        else:
+            raise RuntimeError(
+                "Not using PySide2 as Qt backend but tried to use its feature"
+            )
 
     @classmethod
     def _comtype_to_pythontype(cls, typ):
