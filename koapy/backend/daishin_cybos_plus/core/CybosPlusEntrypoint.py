@@ -96,7 +96,7 @@ class CybosPlusEntrypoint(CybosPlusEntrypointMixin):
     """
 
     def __init__(self):
-        assert is_32bit(), "Contorl object should be created in 32bit environment"
+        assert is_32bit(), "Control object should be created in 32bit environment"
 
         self._attribute_mapping = {
             "CpDib": "DsCbo1",

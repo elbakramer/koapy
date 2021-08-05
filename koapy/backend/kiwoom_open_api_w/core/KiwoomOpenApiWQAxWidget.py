@@ -35,7 +35,7 @@ class KiwoomOpenApiWQAxWidget(
     EVENT_NAMES = KiwoomOpenApiWEventHandlerSignature.names()
 
     def __init__(self, *args, **kwargs):
-        assert is_32bit(), "Contorl object should be created in 32bit environment"
+        assert is_32bit(), "Control object should be created in 32bit environment"
 
         super_args = args
         super_kwargs = kwargs

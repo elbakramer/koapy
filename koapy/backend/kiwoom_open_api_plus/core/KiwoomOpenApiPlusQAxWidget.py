@@ -37,7 +37,7 @@ class KiwoomOpenApiPlusQAxWidget(
     EVENT_NAMES = KiwoomOpenApiPlusEventHandlerSignature.names()
 
     def __init__(self, *args, **kwargs):
-        assert is_32bit(), "Contorl object should be created in 32bit environment"
+        assert is_32bit(), "Control object should be created in 32bit environment"
 
         if PYQT5:
             self.logger.debug("Using PyQt5 as Qt backend")
