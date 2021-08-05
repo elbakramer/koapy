@@ -234,11 +234,11 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         credential = self._credential
         self.login_using_pywinauto(credential)
 
-        apply_simulation_widow = desktop.window(title="모의투자 참가신청")
+        apply_simulation_window = desktop.window(title="모의투자 참가신청")
 
         try:
             timeout_apply_simulation = 10
-            apply_simulation_widow.wait("ready", timeout_apply_simulation)
+            apply_simulation_window.wait("ready", timeout_apply_simulation)
         except pywinauto.timings.TimeoutError:
             pass
         else:
