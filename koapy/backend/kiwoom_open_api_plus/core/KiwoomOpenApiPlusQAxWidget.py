@@ -98,7 +98,7 @@ class KiwoomOpenApiPlusQAxWidget(
         except AttributeError:
             pass
         raise AttributeError(
-            "'{}' object has not attribute '{}'".format(self.__class__.__name__, name)
+            "'{}' object has no attribute '{}'".format(self.__class__.__name__, name)
         )
 
     def changeEvent(self, event):
