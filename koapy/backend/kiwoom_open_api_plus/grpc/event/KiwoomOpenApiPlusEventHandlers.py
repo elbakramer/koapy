@@ -1252,8 +1252,7 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
         self._fast_parse = request.flags.fast_parse
 
         self._code_lists = [
-            ";".join(codes)
-            for codes in chunk(self._code_list, self._num_codes_per_screen)
+            codes for codes in chunk(self._code_list, self._num_codes_per_screen)
         ]
 
         if len(self._screen_no) == 0:
@@ -1274,12 +1273,13 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
             screen_no = self._screen_manager.borrow_screen(screen_no)
             self.add_callback(self._screen_manager.return_screen, screen_no)
             self.add_callback(self.control.DisconnectRealData, screen_no)
-            self.add_callback(self.control.SetRealRemove, screen_no, code_list)
+            for code in code_list:
+                self.add_callback(self.control.SetRealRemove, screen_no, code)
 
             KiwoomOpenApiPlusError.try_or_raise(
                 self.control.SetRealReg(
                     screen_no,
-                    code_list,
+                    ";".join(code_list),
                     self._fid_list_joined,
                     self._real_type_explicit,
                 )
