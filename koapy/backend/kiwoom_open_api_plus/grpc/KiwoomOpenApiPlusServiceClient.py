@@ -8,17 +8,27 @@ from koapy.config import config
 
 
 class KiwoomOpenApiPlusServiceClient:
-    def __init__(self, host=None, port=None):
-        self._host = host or config.get_string(
-            "koapy.backend.kiwoom_open_api_plus.grpc.host", "localhost"
-        )
-        self._port = port or config.get("koapy.backend.kiwoom_open_api_plus.grpc.port")
+    def __init__(self, host=None, port=None, credentials=None, **kwargs):
+        if host is None:
+            host = config.get_string(
+                "koapy.backend.kiwoom_open_api_plus.grpc.host", "localhost"
+            )
+        if port is None:
+            port = config.get_int("koapy.backend.kiwoom_open_api_plus.grpc.port")
 
-        if self._port is None:
-            raise ValueError("Port is None")
+        self._host = host
+        self._port = port
+        self._credentials = credentials
 
         self._target = self._host + ":" + str(self._port)
-        self._channel = grpc.insecure_channel(self._target)
+
+        if self._credentials is None:
+            self._channel = grpc.insecure_channel(self._target, **kwargs)
+        else:
+            self._channel = grpc.secure_channel(
+                self._target, self._credentials, **kwargs
+            )
+
         self._stub = KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceStub(
             self._channel
         )

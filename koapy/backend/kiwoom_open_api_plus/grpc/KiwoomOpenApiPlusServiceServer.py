@@ -1,6 +1,4 @@
 import atexit
-import ipaddress
-import socket
 
 from concurrent import futures
 
@@ -12,19 +10,22 @@ from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer im
 )
 from koapy.config import config
 from koapy.utils.logging.Logging import Logging
-from koapy.utils.networking import get_free_localhost_port
+from koapy.utils.networking import get_free_localhost_port, is_in_private_network
 
 
 class KiwoomOpenApiPlusServiceServer(Logging):
-    def __init__(self, control, host=None, port=None, max_workers=None):
+    def __init__(
+        self, control, host=None, port=None, max_workers=None, credentials=None
+    ):
         if host is None:
             host = config.get_string(
                 "koapy.backend.kiwoom_open_api_plus.grpc.host", "localhost"
             )
         if port is None:
-            port = config.get("koapy.backend.kiwoom_open_api_plus.grpc.port")
+            port = config.get_int("koapy.backend.kiwoom_open_api_plus.grpc.port", 0)
         if port == 0:
             port = get_free_localhost_port()
+
         if max_workers is None:
             max_workers = config.get_int(
                 "koapy.backend.kiwoom_open_api_plus.grpc.server.max_workers", 8
@@ -34,6 +35,7 @@ class KiwoomOpenApiPlusServiceServer(Logging):
         self._host = host
         self._port = port
         self._max_workers = max_workers
+        self._credentials = credentials
 
         self._address = self._host + ":" + str(self._port)
         self._servicer = KiwoomOpenApiPlusServiceServicer(self._control)
@@ -63,13 +65,15 @@ class KiwoomOpenApiPlusServiceServer(Logging):
             self._servicer, self._server
         )
 
-        if not ipaddress.ip_address(socket.gethostbyname(self._host)).is_private:
-            self.logger.warning(
-                "Adding insecure port %s to server, but the address is not private.",
-                self._address,
-            )
-
-        self._server.add_insecure_port(self._address)
+        if self._credentials is None:
+            if not is_in_private_network(self._host):
+                self.logger.warning(
+                    "Adding insecure port %s to server, but the address is not private.",
+                    self._address,
+                )
+            self._server.add_insecure_port(self._address)
+        else:
+            self._server.add_secure_port(self._address, self._credentials)
 
     def get_host(self):
         return self._host
