@@ -194,16 +194,33 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
                 cls.logger.info("waiting account window to be closed")
                 timeout_account_window_done = 5
                 account_window.wait_not("visible", timeout_account_window_done)
-            except pywinauto.timings.TimeoutError:
+            except pywinauto.timings.TimeoutError as e:
                 cls.logger.info("Cannot sure account window is closed")
-                raise
+                raise RuntimeError("Cannot sure account window is closed") from e
             else:
                 cls.logger.info("Account window closed")
+
+    @classmethod
+    def check_apply_simulation_window(cls):
+        import pywinauto
+
+        desktop = pywinauto.Desktop(allow_magic_lookup=False)
+        apply_simulation_window = desktop.window(title="모의투자 참가신청")
+
+        try:
+            timeout_apply_simulation = 10
+            apply_simulation_window.wait("ready", timeout_apply_simulation)
+        except pywinauto.timings.TimeoutError:
+            pass
+        else:
+            cls.logger.warning("Please apply for simulation server before using it")
+            raise RuntimeError("Please apply for simulation server before using it")
 
     @classmethod
     def login_using_pywinauto(cls, credential):
         # reusing the implementation in the mixin
         KiwoomOpenApiPlusQAxWidgetMixin.LoginUsingPywinauto_Impl(credential)
+        cls.check_apply_simulation_window()
 
     def enable_autologin(self):
         self.logger.info("Start enabling auto login")
@@ -233,17 +250,6 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
 
         credential = self._credential
         self.login_using_pywinauto(credential)
-
-        apply_simulation_window = desktop.window(title="모의투자 참가신청")
-
-        try:
-            timeout_apply_simulation = 10
-            apply_simulation_window.wait("ready", timeout_apply_simulation)
-        except pywinauto.timings.TimeoutError:
-            pass
-        else:
-            self.logger.warning("Please apply for simulation server before using it")
-            raise RuntimeError("Please apply for simulation server before using it")
 
         try:
             self.logger.info("Waiting for successful login")
@@ -277,9 +283,9 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
                 login_window.close(timeout_login_screen_closed)
                 try:
                     login_window.wait_not("visible", timeout_login_screen_closed)
-                except pywinauto.timings.TimeoutError:
+                except pywinauto.timings.TimeoutError as e:
                     self.logger.info("Cannot close login window")
-                    raise
+                    raise RuntimeError("Cannot close login window") from e
                 else:
                     self.logger.info("Closed login window")
 
@@ -296,16 +302,16 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
                     except pywinauto.timings.TimeoutError:
                         self.logger.info("Cannot find failure confirmation popup")
                     else:
-                        self.logger.info("Failed update")
-                        raise RuntimeError("Failed update")
+                        self.logger.info("Failed to update")
+                        raise RuntimeError("Failed to update")
 
                     try:
                         self.logger.info("Waiting for confirmation popup after update")
                         timeout_confirm_update = 10
                         confirm_window.wait("ready", timeout_confirm_update)
-                    except pywinauto.timings.TimeoutError:
+                    except pywinauto.timings.TimeoutError as e:
                         self.logger.info("Cannot find confirmation popup")
-                        raise
+                        raise RuntimeError("Cannot find confirmation popup") from e
                     else:
                         self.logger.info("Confirming update")
                         confirm_window["Button"].click()
