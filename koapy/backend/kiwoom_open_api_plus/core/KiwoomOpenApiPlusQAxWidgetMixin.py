@@ -14,6 +14,7 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter import
     KiwoomOpenApiPlusSendConditionRateLimiter,
     KiwoomOpenApiPlusSendOrderRateLimiter,
 )
+from koapy.config import config
 from koapy.utils.ctypes import is_admin
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.subprocess import function_to_subprocess_args
@@ -22,6 +23,12 @@ from koapy.utils.subprocess import function_to_subprocess_args
 class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
     def GetServerGubun(self):
         return self.GetLoginInfo("GetServerGubun")
+
+    def IsSimulationServer(self):
+        return self.GetServerGubun() == "1"
+
+    def IsRealServer(self):
+        return not self.IsSimulationServer()
 
     def ShowAccountWindow(self):
         return self.KOA_Functions("ShowAccountWindow", "")
@@ -163,9 +170,17 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
 
         self._is_condition_loaded = False
 
-    def DisableAutoLogin(self):
+    def GetAutoLoginDatPath(self):
         module_path = self.GetAPIModulePath()
         autologin_dat = os.path.join(module_path, "system", "Autologin.dat")
+        return autologin_dat
+
+    def IsAutoLoginEnabled(self):
+        autologin_dat = self.GetAutoLoginDatPath()
+        return os.path.exists(autologin_dat)
+
+    def DisableAutoLogin(self):
+        autologin_dat = self.GetAutoLoginDatPath()
         if os.path.exists(autologin_dat):
             os.remove(autologin_dat)
 
@@ -174,8 +189,6 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         import pywinauto
 
         if credential is None:
-            from koapy.config import config
-
             credential = config.get("koapy.backend.kiwoom_open_api_plus.credential")
 
         is_in_development = False
@@ -271,28 +284,35 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         return subprocess.run(args, input=json.dumps(credential), text=True, check=True)
 
     def LoginUsingPywinauto(self, credential=None):
+        assert is_admin(), "Using pywinauto requires administrator permission"
         return self.LoginUsingPywinauto_RunScriptInSubprocess(credential)
 
     def Connect(self, credential=None):
         if credential is not None:
             assert (
                 is_admin()
-            ), "Connect() method requires to be run as administrator, if credential is given explicitly"
+            ), "Connect() method requires to be run as administrator if credential is given explicitly"
+            self.DisableAutoLogin()
+        elif not self.IsAutoLoginEnabled() and is_admin():
+            credential = config.get(
+                "koapy.backend.kiwoom_open_api_plus.credential", None
+            )
+
         q = queue.Queue()
 
         def OnEventConnect(errcode):
             q.put(errcode)
 
         self.OnEventConnect.connect(OnEventConnect)
+
         try:
-            if credential is not None:
-                self.DisableAutoLogin()
             errcode = KiwoomOpenApiPlusError.try_or_raise(self.CommConnect())
             if credential is not None:
                 self.LoginUsingPywinauto(credential)
             errcode = KiwoomOpenApiPlusError.try_or_raise(q.get())
         finally:
             self.OnEventConnect.disconnect(OnEventConnect)
+
         return errcode
 
     def EnsureConnected(self, credential=None):
