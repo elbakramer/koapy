@@ -62,7 +62,13 @@ class KiwoomOpenApiPlusQAxWidget(
         KiwoomOpenApiPlusQAxWidgetMixin.__init__(self)
         Logging.__init__(self)
 
-        self._ax = QAxWidget(clsid_or_progid, self)
+        self._ax = QAxWidget(self)
+        successful = self._ax.setControl(clsid_or_progid)
+
+        if not successful:
+            raise RuntimeError(
+                "Requested control {} could not be instantiated".format(clsid_or_progid)
+            )
 
         self._methods = {}
         self._signals = {}
