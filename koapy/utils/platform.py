@@ -1,4 +1,9 @@
 import platform
+import sys
+
+
+def is_windows():
+    return sys.platform == "win32"
 
 
 def is_32bit():
