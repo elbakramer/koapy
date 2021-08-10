@@ -20,7 +20,7 @@ requirements = [
     "grpcio-tools>=1.39.0",
     "numpy>=1.21.1",
     "openpyxl>=3.0.7",
-    "pandas>=1.3.0",
+    "pandas>=1.3.1",
     "protobuf>=3.17.3",
     "pygtrie>=2.4.2",
     "pyhocon>=0.3.58",
@@ -30,13 +30,13 @@ requirements = [
     "requests>=2.26.0",
     "Rx>=3.2.0",
     "schedule>=1.1.0",
-    "Send2Trash>=1.7.1",
+    "Send2Trash>=1.8.0",
     "SQLAlchemy>=1.4.22",
     "tabulate>=0.8.9",
-    "tqdm>=4.61.2",
+    "tqdm>=4.62.0",
     "tzlocal>=2.1",
     "wrapt>=1.12.1",
-    "pywin32>=227,<=300;sys_platform=='win32'",
+    "pywin32>=301;sys_platform=='win32'",
     "pywinauto>=0.6.8;sys_platform=='win32'",
     "windows-curses>=2.2.0;sys_platform=='win32'",
 ]
@@ -45,27 +45,27 @@ requirements_dev = [
     "actions-toolkit>=0.0.5",
     "black>=21.7b0",
     "bump2version>=1.0.1",
-    "codecov>=2.1.11",
+    "codecov>=2.1.12",
     "coverage>=5.5",
-    "dunamai>=1.5.5",
+    "dunamai>=1.6.0",
     "flake8>=3.9.2",
-    "isort>=5.9.2",
+    "isort>=5.9.3",
     "mypy>=0.910",
     "pip-tools>=6.1.0",
-    "pre-commit>=2.13.0",
+    "pre-commit>=2.14.0",
     "pylint>=2.9.5",
     "pytest>=6.2.4",
     "pytest-cov>=2.11.1",
     "pytest-xdist>=2.2.1",
-    "pyupgrade>=2.21.2",
+    "pyupgrade>=2.23.3",
 ]
 
 requirements_docs = [
-    "Sphinx>=4.1.1",
-    "sphinx-autoapi>=1.8.1",
+    "Sphinx>=4.1.2",
+    "sphinx-autoapi>=1.8.3",
     "nbconvert>=6.1.0",
-    "nbsphinx>=0.8.6",
-    "ipython>=7.25.0",
+    "nbsphinx>=0.8.7",
+    "ipython>=7.26.0",
 ]
 
 requirements_dev += requirements_docs
@@ -91,15 +91,9 @@ setup(
         "Environment :: X11 Applications :: Qt",
         "Topic :: Office/Business :: Financial",
     ],
-    description="Kiwoom Open Api Plus Python",  # noqa: E501
-    entry_points={
-        "console_scripts": [
-            "koapy=koapy.cli:main",
-        ],
-    },
-    setup_requires=[
-        "setuptools-git",
-    ],
+    description="Kiwoom Open Api Plus Python",
+    entry_points={"console_scripts": ["koapy=koapy.cli:main"]},
+    setup_requires=["setuptools-git"],
     install_requires=requirements,
     extras_require={
         "dev": requirements_dev,
