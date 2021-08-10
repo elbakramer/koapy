@@ -5,7 +5,7 @@ import subprocess
 def compile_proto():
     proto_filename = "KiwoomOpenApiPlusService.proto"
     file_dir = os.path.dirname(os.path.realpath(__file__))
-    project_dir = os.path.realpath(os.path.join(file_dir, "..", "..", "..", "..", ".."))
+    project_dir = os.path.realpath(os.path.join(file_dir, "../../../../.."))
     proto_path = project_dir
     proto_filepath = os.path.join(
         proto_path, "koapy", "backend", "kiwoom_open_api_plus", "grpc", proto_filename

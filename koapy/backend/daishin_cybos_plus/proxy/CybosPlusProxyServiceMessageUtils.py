@@ -42,7 +42,7 @@ def ExtractPrimitive(message):
 def Protoc():
     proto_filename = "CybosPlusProxyService.proto"
     proto_filedir = os.path.dirname(os.path.realpath(__file__))
-    project_dir = os.path.realpath(os.path.join(proto_filedir, "..", "..", ".."))
+    project_dir = os.path.realpath(os.path.join(proto_filedir, "../../.."))
     proto_path = project_dir
     python_out = project_dir
     grpc_python_out = python_out
