@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication`
-===============================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication`
+==================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication
 
@@ -18,28 +18,26 @@ Classes
 
 
 
-.. class:: QObjectWithLoggingMeta(cls, clsname, bases, dct)
-
+.. py:class:: QObjectWithLoggingMeta(cls, clsname, bases, dct)
 
    Bases: :py:obj:`type`\ (\ :py:obj:`Logging`\ ), :py:obj:`type`\ (\ :py:obj:`QObject`\ )
 
 
-.. class:: KiwoomOpenApiPlusTrayApplication(args=())
-
+.. py:class:: KiwoomOpenApiPlusTrayApplication(args=())
 
    Bases: :py:obj:`koapy.compat.pyside2.QtCore.QObject`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. attribute:: _should_restart
+   .. py:attribute:: _should_restart
       
 
       
 
-   .. attribute:: _should_restart_exit_code
+   .. py:attribute:: _should_restart_exit_code
       :annotation: = 1
 
       
 
-   .. method:: _checkAndWaitForMaintananceAndThen(self, callback=None, args=None, kwargs=None)
+   .. py:method:: _checkAndWaitForMaintananceAndThen(self, callback=None, args=None, kwargs=None)
 
       # 시스템 점검 안내
 
@@ -52,77 +50,77 @@ Classes
       참고하시기 바랍니다.
 
 
-   .. method:: _onEventConnect(self, errcode)
+   .. py:method:: _onEventConnect(self, errcode)
 
 
-   .. method:: _activate(self, reason)
+   .. py:method:: _activate(self, reason)
 
 
-   .. method:: _ensureConnectedAndThen(self, callback=None, args=None, kwargs=None)
+   .. py:method:: _ensureConnectedAndThen(self, callback=None, args=None, kwargs=None)
 
 
-   .. method:: _connect(self)
+   .. py:method:: _connect(self)
 
 
-   .. method:: _showAccountWindow(self)
+   .. py:method:: _showAccountWindow(self)
 
 
-   .. method:: _configureAutoLogin(self)
+   .. py:method:: _configureAutoLogin(self)
 
 
-   .. method:: _openOpenApiHome(self)
+   .. py:method:: _openOpenApiHome(self)
 
 
-   .. method:: _openOpenApiDocument(self)
+   .. py:method:: _openOpenApiDocument(self)
 
 
-   .. method:: _openOpenApiQna(self)
+   .. py:method:: _openOpenApiQna(self)
 
 
-   .. method:: _openGithub(self)
+   .. py:method:: _openGithub(self)
 
 
-   .. method:: _openReadTheDocs(self)
+   .. py:method:: _openReadTheDocs(self)
 
 
-   .. method:: _onSignal(self, signum, _frame)
+   .. py:method:: _onSignal(self, signum, _frame)
 
 
-   .. method:: _exec(self)
+   .. py:method:: _exec(self)
 
 
-   .. method:: _exit(self, return_code=0)
+   .. py:method:: _exit(self, return_code=0)
 
 
-   .. method:: _nextRestartTime(self)
+   .. py:method:: _nextRestartTime(self)
 
 
-   .. method:: _startRestartNotifier(self)
+   .. py:method:: _startRestartNotifier(self)
 
 
-   .. method:: _exitForRestart(self)
+   .. py:method:: _exitForRestart(self)
 
 
-   .. method:: __getattr__(self, name)
+   .. py:method:: __getattr__(self, name)
 
 
-   .. method:: control(self)
+   .. py:method:: control(self)
       :property:
 
 
-   .. method:: exec_(self)
+   .. py:method:: exec_(self)
 
 
-   .. method:: exit(self, return_code=0)
+   .. py:method:: exit(self, return_code=0)
 
 
-   .. method:: execAndExit(self)
+   .. py:method:: execAndExit(self)
 
 
-   .. method:: execAndExitWithAutomaticRestart(self)
+   .. py:method:: execAndExitWithAutomaticRestart(self)
 
 
-   .. method:: main(cls, args)
+   .. py:method:: main(cls, args)
       :classmethod:
 
 

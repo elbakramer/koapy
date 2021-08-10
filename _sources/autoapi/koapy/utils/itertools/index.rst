@@ -1,5 +1,5 @@
-:mod:`koapy.utils.itertools`
-============================
+:py:mod:`koapy.utils.itertools`
+===============================
 
 .. py:module:: koapy.utils.itertools
 
@@ -17,6 +17,6 @@ Functions
 
 
 
-.. function:: chunk(iterable, n)
+.. py:function:: chunk(iterable, n)
 
 

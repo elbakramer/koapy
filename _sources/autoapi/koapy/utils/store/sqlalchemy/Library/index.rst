@@ -1,5 +1,5 @@
-:mod:`koapy.utils.store.sqlalchemy.Library`
-===========================================
+:py:mod:`koapy.utils.store.sqlalchemy.Library`
+==============================================
 
 .. py:module:: koapy.utils.store.sqlalchemy.Library
 
@@ -17,57 +17,57 @@ Classes
 
 
 
-.. class:: Library
+.. py:class:: Library
 
    Bases: :py:obj:`koapy.utils.store.sqlalchemy.Base.Base`
 
-   .. attribute:: __tablename__
+   .. py:attribute:: __tablename__
       :annotation: = libraries
 
       
 
-   .. attribute:: id
+   .. py:attribute:: id
       
 
       
 
-   .. attribute:: name
+   .. py:attribute:: name
       
 
       
 
-   .. attribute:: symbols
+   .. py:attribute:: symbols
       
 
       
 
-   .. attribute:: snapshots
+   .. py:attribute:: snapshots
       
 
       
 
-   .. method:: get_symbol(self, symbol, deleted=False)
+   .. py:method:: get_symbol(self, symbol, deleted=False)
 
 
-   .. method:: get_or_create_symbol(self, symbol)
+   .. py:method:: get_or_create_symbol(self, symbol)
 
 
-   .. method:: get_symbols(self, deleted=False)
+   .. py:method:: get_symbols(self, deleted=False)
 
 
-   .. method:: get_versions(self, deleted=False)
+   .. py:method:: get_versions(self, deleted=False)
 
 
-   .. method:: get_latest_versions(self, deleted=False)
+   .. py:method:: get_latest_versions(self, deleted=False)
 
 
-   .. method:: get_snapshot(self, snapshot)
+   .. py:method:: get_snapshot(self, snapshot)
 
 
-   .. method:: create_snapshot(self, snapshot)
+   .. py:method:: create_snapshot(self, snapshot)
 
 
-   .. method:: delete(self)
+   .. py:method:: delete(self)
 
 
 

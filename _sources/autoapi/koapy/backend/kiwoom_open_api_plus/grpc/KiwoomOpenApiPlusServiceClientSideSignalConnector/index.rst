@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideSignalConnector`
-================================================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideSignalConnector`
+===================================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideSignalConnector
 
@@ -17,50 +17,49 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusServiceClientSideSignalConnector(stub, name)
+.. py:class:: KiwoomOpenApiPlusServiceClientSideSignalConnector(stub, name)
 
-
-   .. attribute:: _lock
+   .. py:attribute:: _lock
       
 
       
 
-   .. attribute:: _observers
+   .. py:attribute:: _observers
       
 
       
 
-   .. attribute:: _max_workers
+   .. py:attribute:: _max_workers
       
 
       
 
-   .. attribute:: _executor
+   .. py:attribute:: _executor
       
 
       
 
-   .. method:: _stop_observer(cls, observer)
+   .. py:method:: _stop_observer(cls, observer)
       :classmethod:
 
 
-   .. method:: _get_observer(self, callback, default=None)
+   .. py:method:: _get_observer(self, callback, default=None)
 
 
-   .. method:: _remove_observer(self, callback)
+   .. py:method:: _remove_observer(self, callback)
 
 
-   .. method:: _add_observer(self, callback)
+   .. py:method:: _add_observer(self, callback)
 
 
-   .. method:: shutdown(cls)
+   .. py:method:: shutdown(cls)
       :classmethod:
 
 
-   .. method:: connect(self, callback)
+   .. py:method:: connect(self, callback)
 
 
-   .. method:: disconnect(self, callback)
+   .. py:method:: disconnect(self, callback)
 
 
 

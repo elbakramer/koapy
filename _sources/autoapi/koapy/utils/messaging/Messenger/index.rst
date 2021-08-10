@@ -1,5 +1,5 @@
-:mod:`koapy.utils.messaging.Messenger`
-======================================
+:py:mod:`koapy.utils.messaging.Messenger`
+=========================================
 
 .. py:module:: koapy.utils.messaging.Messenger
 
@@ -17,11 +17,11 @@ Classes
 
 
 
-.. class:: Messenger
+.. py:class:: Messenger
 
    Bases: :py:obj:`abc.ABC`
 
-   .. method:: send_message(self, content)
+   .. py:method:: send_message(self, content)
       :abstractmethod:
 
 

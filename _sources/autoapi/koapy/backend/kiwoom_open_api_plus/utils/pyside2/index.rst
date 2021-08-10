@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.utils.pyside2`
-=======================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.utils.pyside2`
+==========================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.utils.pyside2
 

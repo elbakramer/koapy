@@ -1,5 +1,5 @@
-:mod:`koapy.compat`
-===================
+:py:mod:`koapy.compat`
+======================
 
 .. py:module:: koapy.compat
 

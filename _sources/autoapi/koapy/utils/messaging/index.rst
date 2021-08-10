@@ -1,5 +1,5 @@
-:mod:`koapy.utils.messaging`
-============================
+:py:mod:`koapy.utils.messaging`
+===============================
 
 .. py:module:: koapy.utils.messaging
 

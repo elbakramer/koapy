@@ -1,5 +1,5 @@
-:mod:`koapy.backtrader.SQLAlchemySQLiteData`
-============================================
+:py:mod:`koapy.backtrader.SQLAlchemySQLiteData`
+===============================================
 
 .. py:module:: koapy.backtrader.SQLAlchemySQLiteData
 
@@ -17,12 +17,11 @@ Classes
 
 
 
-.. class:: SQLAlchemySQLiteData
-
+.. py:class:: SQLAlchemySQLiteData
 
    Bases: :py:obj:`koapy.backtrader.SQLAlchemyData.SQLAlchemyData`
 
-   .. attribute:: params
+   .. py:attribute:: params
       :annotation: = [['filename', None]]
 
       

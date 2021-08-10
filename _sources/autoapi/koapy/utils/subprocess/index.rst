@@ -1,5 +1,5 @@
-:mod:`koapy.utils.subprocess`
-=============================
+:py:mod:`koapy.utils.subprocess`
+================================
 
 .. py:module:: koapy.utils.subprocess
 
@@ -15,44 +15,45 @@ Functions
 
    koapy.utils.subprocess.function_to_script
    koapy.utils.subprocess.function_to_subprocess_args
-   koapy.utils.subprocess.get_executable_from_conda_envname
-   koapy.utils.subprocess.get_executable_from_conda_envpath
-   koapy.utils.subprocess.get_executable_from_executable_config
-   koapy.utils.subprocess.get_32bit_executable
-   koapy.utils.subprocess.get_64bit_executable
    koapy.utils.subprocess.run_file
    koapy.utils.subprocess.run_script
    koapy.utils.subprocess.run_function
+   koapy.utils.subprocess.quote
+   koapy.utils.subprocess.run_as_admin
 
 
 
-.. function:: function_to_script(func)
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   koapy.utils.subprocess.logger
 
 
-.. function:: function_to_subprocess_args(func, executable=None)
+.. py:data:: logger
+   
+
+   
+
+.. py:function:: function_to_script(func)
 
 
-.. function:: get_executable_from_conda_envname(envname)
+.. py:function:: function_to_subprocess_args(func, executable=None)
 
 
-.. function:: get_executable_from_conda_envpath(envpath)
+.. py:function:: run_file(filename, *args, executable=None, **kwargs)
 
 
-.. function:: get_executable_from_executable_config(executable_config)
+.. py:function:: run_script(script, *args, executable=None, **kwargs)
 
 
-.. function:: get_32bit_executable()
+.. py:function:: run_function(function, *args, executable=None, **kwargs)
 
 
-.. function:: get_64bit_executable()
+.. py:function:: quote(s)
 
 
-.. function:: run_file(filename, *args, executable=None, **kwargs)
-
-
-.. function:: run_script(script, *args, executable=None, **kwargs)
-
-
-.. function:: run_function(function, *args, executable=None, **kwargs)
+.. py:function:: run_as_admin(cmd, cwd=None, check=True, wait=True)
 
 

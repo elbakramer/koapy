@@ -1,5 +1,5 @@
-:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2_grpc`
-============================================================================
+:py:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2_grpc`
+===============================================================================
 
 .. py:module:: koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2_grpc
 
@@ -32,63 +32,62 @@ Functions
 
 
 
-.. class:: CybosPlusProxyServiceStub(channel)
-
-
-   Bases: :py:obj:`object`
-
-   Missing associated documentation comment in .proto file.
-
-
-.. class:: CybosPlusProxyServiceServicer
+.. py:class:: CybosPlusProxyServiceStub(channel)
 
    Bases: :py:obj:`object`
 
    Missing associated documentation comment in .proto file.
 
-   .. method:: Dispatch(self, request, context)
 
-      Missing associated documentation comment in .proto file.
-
-
-   .. method:: Property(self, request, context)
-
-      Missing associated documentation comment in .proto file.
-
-
-   .. method:: Method(self, request, context)
-
-      Missing associated documentation comment in .proto file.
-
-
-   .. method:: Event(self, request_iterator, context)
-
-      Missing associated documentation comment in .proto file.
-
-
-
-.. function:: add_CybosPlusProxyServiceServicer_to_server(servicer, server)
-
-
-.. class:: CybosPlusProxyService
+.. py:class:: CybosPlusProxyServiceServicer
 
    Bases: :py:obj:`object`
 
    Missing associated documentation comment in .proto file.
 
-   .. method:: Dispatch(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+   .. py:method:: Dispatch(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. py:method:: Property(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. py:method:: Method(self, request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. py:method:: Event(self, request_iterator, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+
+.. py:function:: add_CybosPlusProxyServiceServicer_to_server(servicer, server)
+
+
+.. py:class:: CybosPlusProxyService
+
+   Bases: :py:obj:`object`
+
+   Missing associated documentation comment in .proto file.
+
+   .. py:method:: Dispatch(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
       :staticmethod:
 
 
-   .. method:: Property(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+   .. py:method:: Property(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
       :staticmethod:
 
 
-   .. method:: Method(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+   .. py:method:: Method(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
       :staticmethod:
 
 
-   .. method:: Event(request_iterator, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+   .. py:method:: Event(request_iterator, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
       :staticmethod:
 
 

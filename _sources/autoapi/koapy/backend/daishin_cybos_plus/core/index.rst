@@ -1,5 +1,5 @@
-:mod:`koapy.backend.daishin_cybos_plus.core`
-============================================
+:py:mod:`koapy.backend.daishin_cybos_plus.core`
+===============================================
 
 .. py:module:: koapy.backend.daishin_cybos_plus.core
 

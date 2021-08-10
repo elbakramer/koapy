@@ -1,5 +1,5 @@
-:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer`
-===========================================================================
+:py:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer`
+==============================================================================
 
 .. py:module:: koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer
 
@@ -20,85 +20,82 @@ Classes
 
 
 
-.. class:: CybosPlusEvent(iterator)
+.. py:class:: CybosPlusEvent(iterator)
+
+   .. py:method:: __del__(self)
 
 
-   .. method:: __del__(self)
+   .. py:method:: done(self)
 
 
-   .. method:: done(self)
-
-
-   .. method:: wait_for_done(self)
-
-
-
-.. class:: CybosPlusEventIterator(handler)
-
-
-   .. method:: __del__(self)
-
-
-   .. method:: notify(self)
-
-
-   .. method:: __next__(self)
+   .. py:method:: wait_for_done(self)
 
 
 
-.. class:: CybosPlusEventHandler
+.. py:class:: CybosPlusEventIterator(handler)
+
+   .. py:method:: __del__(self)
 
 
-   .. method:: OnRecieved(self)
+   .. py:method:: notify(self)
 
 
-   .. method:: __iter__(self)
+   .. py:method:: __next__(self)
 
 
 
-.. class:: CybosPlusProxyServiceServicer
+.. py:class:: CybosPlusEventHandler
+
+   .. py:method:: OnRecieved(self)
+
+
+   .. py:method:: __iter__(self)
+
+
+
+.. py:class:: CybosPlusProxyServiceServicer
 
    Bases: :py:obj:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2_grpc.CybosPlusProxyServiceServicer`
 
    Missing associated documentation comment in .proto file.
 
-   .. attribute:: _lock
+   .. py:attribute:: _lock
       
 
       
 
-   .. attribute:: _dispatches
+   .. py:attribute:: _dispatches
       
 
       
 
-   .. attribute:: _handlers
+   .. py:attribute:: _handlers
       
 
       
 
-   .. method:: _EnsureDispatch(self, prog)
+   .. py:method:: _EnsureDispatch(self, prog)
 
 
-   .. method:: _GetHandler(self, prog)
+   .. py:method:: _GetHandler(self, prog)
 
 
-   .. method:: Dispatch(self, request, context)
+   .. py:method:: Dispatch(self, request, context)
 
       Missing associated documentation comment in .proto file.
 
 
-   .. method:: Property(self, request, context)
+   .. py:method:: Property(self, request, context)
 
       Missing associated documentation comment in .proto file.
 
 
-   .. method:: Method(self, request, context)
+   .. py:method:: Method(self, request, context)
 
       Missing associated documentation comment in .proto file.
 
 
-   .. method:: Event(self, request_iterator, context)
+   .. py:method:: Event(self, request_iterator, context)
 
       Missing associated documentation comment in .proto file.
 

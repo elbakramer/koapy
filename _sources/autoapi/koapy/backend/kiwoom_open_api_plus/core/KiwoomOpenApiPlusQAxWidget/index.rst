@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget`
-=========================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget`
+============================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget
 
@@ -18,47 +18,45 @@ Classes
 
 
 
-.. class:: QWidgetWithLoggingMeta(cls, clsname, bases, dct)
-
+.. py:class:: QWidgetWithLoggingMeta(cls, clsname, bases, dct)
 
    Bases: :py:obj:`type`\ (\ :py:obj:`Logging`\ ), :py:obj:`type`\ (\ :py:obj:`QWidget`\ )
 
 
-.. class:: KiwoomOpenApiPlusQAxWidget(*args, **kwargs)
-
+.. py:class:: KiwoomOpenApiPlusQAxWidget(*args, **kwargs)
 
    Bases: :py:obj:`koapy.compat.pyside2.QtWidgets.QWidget`, :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusQAxWidgetMixin`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. attribute:: CLSID
+   .. py:attribute:: CLSID
       :annotation: = {A1574A0D-6BFA-4BD7-9020-DED88711818D}
 
       
 
-   .. attribute:: PROGID
+   .. py:attribute:: PROGID
       :annotation: = KHOPENAPI.KHOpenApiCtrl.1
 
       
 
-   .. attribute:: METHOD_NAMES
+   .. py:attribute:: METHOD_NAMES
       
 
       
 
-   .. attribute:: EVENT_NAMES
+   .. py:attribute:: EVENT_NAMES
       
 
       
 
-   .. method:: _onException(self, code, source, desc, help)
+   .. py:method:: _onException(self, code, source, desc, help)
 
 
-   .. method:: __getattr__(self, name)
+   .. py:method:: __getattr__(self, name)
 
 
-   .. method:: changeEvent(self, event)
+   .. py:method:: changeEvent(self, event)
 
 
-   .. method:: closeEvent(self, event)
+   .. py:method:: closeEvent(self, event)
 
 
 

@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.utils.grpc.PipeableMultiThreadedRendezvous`
-====================================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.utils.grpc.PipeableMultiThreadedRendezvous`
+=======================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.utils.grpc.PipeableMultiThreadedRendezvous
 
@@ -17,20 +17,19 @@ Classes
 
 
 
-.. class:: PipeableMultiThreadedRendezvous(rendezvous, iterator=None)
-
+.. py:class:: PipeableMultiThreadedRendezvous(rendezvous, iterator=None)
 
    Bases: :py:obj:`collections.abc.Iterator`
 
-   .. method:: __next__(self)
+   .. py:method:: __next__(self)
 
       Return the next item from the iterator. When exhausted, raise StopIteration
 
 
-   .. method:: pipe(self, func)
+   .. py:method:: pipe(self, func)
 
 
-   .. method:: __getattr__(self, name)
+   .. py:method:: __getattr__(self, name)
 
 
 

@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.grpc`
-==============================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.grpc`
+=================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.grpc
 

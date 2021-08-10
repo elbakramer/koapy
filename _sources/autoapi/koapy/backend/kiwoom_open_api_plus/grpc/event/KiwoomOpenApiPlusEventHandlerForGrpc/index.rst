@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlerForGrpc`
-=========================================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlerForGrpc`
+============================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlerForGrpc
 
@@ -17,12 +17,11 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusEventHandlerForGrpc(control, context)
-
+.. py:class:: KiwoomOpenApiPlusEventHandlerForGrpc(control, context)
 
    Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandler.KiwoomOpenApiPlusEventHandler`
 
-   .. method:: context(self)
+   .. py:method:: context(self)
       :property:
 
 

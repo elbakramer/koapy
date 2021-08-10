@@ -1,5 +1,5 @@
-:mod:`koapy`
-============
+:py:mod:`koapy`
+===============
 
 .. py:module:: koapy
 
@@ -17,6 +17,7 @@ Subpackages
 
    backend/index.rst
    backtrader/index.rst
+   cli/index.rst
    compat/index.rst
    utils/index.rst
 
@@ -27,7 +28,6 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
-   cli/index.rst
    config/index.rst
 
 

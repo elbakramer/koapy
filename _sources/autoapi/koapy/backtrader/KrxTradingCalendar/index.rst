@@ -1,5 +1,5 @@
-:mod:`koapy.backtrader.KrxTradingCalendar`
-==========================================
+:py:mod:`koapy.backtrader.KrxTradingCalendar`
+=============================================
 
 .. py:module:: koapy.backtrader.KrxTradingCalendar
 
@@ -18,20 +18,19 @@ Classes
 
 
 
-.. class:: ExchangeCalendarsTradingCalendar
-
+.. py:class:: ExchangeCalendarsTradingCalendar
 
    Bases: :py:obj:`backtrader.tradingcal.TradingCalendarBase`
 
-   .. attribute:: params
+   .. py:attribute:: params
       :annotation: = [['calendar', None], ['cachesize', 365]]
 
       
 
-   .. method:: _nextday(self, day)
+   .. py:method:: _nextday(self, day)
 
 
-   .. method:: schedule(self, day, tz=None)
+   .. py:method:: schedule(self, day, tz=None)
 
       day: expecting naive datetime.datetime day in utc timezone
       tz: treat/localize internal naive datetimes to this timezone
@@ -39,12 +38,11 @@ Classes
 
 
 
-.. class:: KrxTradingCalendar
-
+.. py:class:: KrxTradingCalendar
 
    Bases: :py:obj:`ExchangeCalendarsTradingCalendar`
 
-   .. attribute:: params
+   .. py:attribute:: params
       :annotation: = [['calendar', 'XKRX'], ['cachesize', 365]]
 
       

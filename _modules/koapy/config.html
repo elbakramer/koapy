@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.config &#8212; KOAPY 0.4.0 documentation</title>
+    <title>koapy.config &#8212; KOAPY 0.4.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -109,49 +109,149 @@
             
   <h1>Source code for koapy.config</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">from</span> <span class="nn">pyhocon</span> <span class="kn">import</span> <span class="n">ConfigFactory</span>
+<span class="kn">from</span> <span class="nn">pyhocon.converter</span> <span class="kn">import</span> <span class="n">HOCONConverter</span>
+
+<span class="kn">from</span> <span class="nn">koapy.utils.platform</span> <span class="kn">import</span> <span class="n">is_32bit</span><span class="p">,</span> <span class="n">is_64bit</span>
 
 
-<div class="viewcode-block" id="read_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.read_config">[docs]</a><span class="k">def</span> <span class="nf">read_config</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="c1"># Read config function</span>
+<div class="viewcode-block" id="read_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.read_config">[docs]</a><span class="k">def</span> <span class="nf">read_config</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">ConfigFactory</span><span class="o">.</span><span class="n">parse_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="config_filename_cadidates"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.config_filename_cadidates">[docs]</a><span class="n">config_filename_cadidates</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;koapy.conf&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;.koapy.conf&quot;</span><span class="p">,</span></div>
-<span class="p">]</span>
-
 <span class="c1"># Load default config</span>
-<div class="viewcode-block" id="default_config_filename"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.default_config_filename">[docs]</a><span class="n">default_config_filename</span> <span class="o">=</span> <span class="s2">&quot;config.conf&quot;</span></div>
-<div class="viewcode-block" id="default_config_file_directory"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.default_config_file_directory">[docs]</a><span class="n">default_config_file_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span></div>
-<div class="viewcode-block" id="default_config_filepath"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.default_config_filepath">[docs]</a><span class="n">default_config_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+<div class="viewcode-block" id="default_config_filename"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_config_filename">[docs]</a><span class="n">default_config_filename</span> <span class="o">=</span> <span class="s2">&quot;config.conf&quot;</span></div>
+<div class="viewcode-block" id="default_config_file_directory"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_config_file_directory">[docs]</a><span class="n">default_config_file_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span></div>
+<div class="viewcode-block" id="default_config_filepath"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_config_filepath">[docs]</a><span class="n">default_config_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
     <span class="n">default_config_file_directory</span><span class="p">,</span> <span class="n">default_config_filename</span></div>
 <span class="p">)</span>
-<div class="viewcode-block" id="default_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.default_config">[docs]</a><span class="n">default_config</span> <span class="o">=</span> <span class="n">read_config</span><span class="p">(</span><span class="n">default_config_filepath</span><span class="p">)</span></div>
+<div class="viewcode-block" id="default_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_config">[docs]</a><span class="n">default_config</span> <span class="o">=</span> <span class="n">read_config</span><span class="p">(</span><span class="n">default_config_filepath</span><span class="p">)</span></div>
 
 <span class="c1"># Prepare to load config in cwd and home</span>
-<div class="viewcode-block" id="empty_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.empty_config">[docs]</a><span class="n">empty_config</span> <span class="o">=</span> <span class="n">ConfigFactory</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({})</span></div>
-<div class="viewcode-block" id="user_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.user_config">[docs]</a><span class="n">user_config</span> <span class="o">=</span> <span class="n">empty_config</span></div>
+<div class="viewcode-block" id="empty_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.empty_config">[docs]</a><span class="n">empty_config</span> <span class="o">=</span> <span class="n">ConfigFactory</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({})</span></div>
+<div class="viewcode-block" id="user_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.user_config">[docs]</a><span class="n">user_config</span> <span class="o">=</span> <span class="n">empty_config</span></div>
 
-<div class="viewcode-block" id="home"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.home">[docs]</a><span class="n">home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">)</span></div>
-<div class="viewcode-block" id="cwd"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.cwd">[docs]</a><span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></div>
+<div class="viewcode-block" id="home"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.home">[docs]</a><span class="n">home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="cwd"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.cwd">[docs]</a><span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="config_folder_candidates"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.config_folder_candidates">[docs]</a><span class="n">config_folder_candidates</span> <span class="o">=</span> <span class="p">[</span>
+<div class="viewcode-block" id="config_folder_candidates"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.config_folder_candidates">[docs]</a><span class="n">config_folder_candidates</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">cwd</span><span class="p">,</span>
     <span class="n">home</span><span class="p">,</span></div>
 <span class="p">]</span>
 
+<div class="viewcode-block" id="config_filename_cadidates"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.config_filename_cadidates">[docs]</a><span class="n">config_filename_cadidates</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;koapy.conf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.koapy.conf&quot;</span><span class="p">,</span></div>
+<span class="p">]</span>
+
+<div class="viewcode-block" id="default_user_config_path"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_user_config_path">[docs]</a><span class="n">default_user_config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">config_folder_candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">config_filename_cadidates</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span></div>
+<span class="p">)</span>
+
 <span class="c1"># Try to load config in cwd and home</span>
 <span class="k">for</span> <span class="n">config_folder</span> <span class="ow">in</span> <span class="n">config_folder_candidates</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">config_filename</span> <span class="ow">in</span> <span class="n">config_filename_cadidates</span><span class="p">:</span>
-<div class="viewcode-block" id="config_path"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.config_path">[docs]</a>        <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config_folder</span><span class="p">,</span> <span class="n">config_filename</span><span class="p">)</span></div>
+<div class="viewcode-block" id="config_path"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.config_path">[docs]</a>        <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config_folder</span><span class="p">,</span> <span class="n">config_filename</span><span class="p">)</span></div>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">config_path</span><span class="p">):</span>
             <span class="n">user_config</span> <span class="o">=</span> <span class="n">read_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
             <span class="k">break</span>
 
 <span class="c1"># Fallback to default config if not applicable</span>
-<div class="viewcode-block" id="config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.compat.pyside2.config">[docs]</a><span class="n">config</span> <span class="o">=</span> <span class="n">user_config</span><span class="o">.</span><span class="n">with_fallback</span><span class="p">(</span><span class="n">default_config</span><span class="p">)</span></div>
+<div class="viewcode-block" id="config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.config">[docs]</a><span class="n">config</span> <span class="o">=</span> <span class="n">user_config</span><span class="o">.</span><span class="n">with_fallback</span><span class="p">(</span><span class="n">default_config</span><span class="p">)</span></div>
+
+
+<span class="c1"># Just to mitigate redefined outer name issue</span>
+<div class="viewcode-block" id="_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli._config">[docs]</a><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span></div>
+<div class="viewcode-block" id="_user_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli._user_config">[docs]</a><span class="n">_user_config</span> <span class="o">=</span> <span class="n">user_config</span></div>
+
+
+<span class="c1"># Save config functions</span>
+<div class="viewcode-block" id="save_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.save_config">[docs]</a><span class="k">def</span> <span class="nf">save_config</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_config</span>
+    <span class="n">hocon</span> <span class="o">=</span> <span class="n">HOCONConverter</span><span class="o">.</span><span class="n">to_hocon</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="n">compact</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="n">indent</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">hocon</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="save_user_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.save_user_config">[docs]</a><span class="k">def</span> <span class="nf">save_user_config</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">default_user_config_path</span>
+    <span class="k">if</span> <span class="n">user_config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">user_config</span> <span class="o">=</span> <span class="n">_user_config</span>
+    <span class="n">save_config</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">user_config</span><span class="p">)</span></div>
+
+
+<span class="c1"># Helper functions below</span>
+<div class="viewcode-block" id="get_executable_from_conda_envname"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.get_executable_from_conda_envname">[docs]</a><span class="k">def</span> <span class="nf">get_executable_from_conda_envname</span><span class="p">(</span><span class="n">envname</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;conda&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;run&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;-n&quot;</span><span class="p">,</span>
+            <span class="n">envname</span><span class="p">,</span>
+            <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;-c&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;import sys; print(sys.executable)&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
+        <span class="n">creationflags</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CREATE_NO_WINDOW</span><span class="p">,</span></div>
+    <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="get_executable_from_conda_envpath"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.get_executable_from_conda_envpath">[docs]</a><span class="k">def</span> <span class="nf">get_executable_from_conda_envpath</span><span class="p">(</span><span class="n">envpath</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;conda&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;run&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;-p&quot;</span><span class="p">,</span>
+            <span class="n">envpath</span><span class="p">,</span>
+            <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;-c&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;import sys; print(sys.executable)&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
+        <span class="n">creationflags</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CREATE_NO_WINDOW</span><span class="p">,</span></div>
+    <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="get_executable_from_executable_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.get_executable_from_executable_config">[docs]</a><span class="k">def</span> <span class="nf">get_executable_from_executable_config</span><span class="p">(</span><span class="n">executable_config</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">executable_config</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">executable_config</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">executable_config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;path&quot;</span> <span class="ow">in</span> <span class="n">executable_config</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">executable_config</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;conda&quot;</span> <span class="ow">in</span> <span class="n">executable_config</span><span class="p">:</span>
+            <span class="n">conda_config</span> <span class="o">=</span> <span class="n">executable_config</span><span class="p">[</span><span class="s2">&quot;conda&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">conda_config</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">envname</span> <span class="o">=</span> <span class="n">conda_config</span>
+                <span class="k">return</span> <span class="n">get_executable_from_conda_envname</span><span class="p">(</span><span class="n">envname</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">conda_config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="n">conda_config</span><span class="p">:</span>
+                    <span class="n">envname</span> <span class="o">=</span> <span class="n">conda_config</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+                    <span class="k">return</span> <span class="n">get_executable_from_conda_envname</span><span class="p">(</span><span class="n">envname</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">&quot;path&quot;</span> <span class="ow">in</span> <span class="n">conda_config</span><span class="p">:</span>
+                    <span class="n">envpath</span> <span class="o">=</span> <span class="n">conda_config</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+                    <span class="k">return</span> <span class="n">get_executable_from_conda_envpath</span><span class="p">(</span><span class="n">envpath</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_32bit_executable"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.get_32bit_executable">[docs]</a><span class="k">def</span> <span class="nf">get_32bit_executable</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">is_32bit</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span>
+    <span class="n">executable_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;koapy.python.executable.32bit&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">get_executable_from_executable_config</span><span class="p">(</span><span class="n">executable_config</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_64bit_executable"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.get_64bit_executable">[docs]</a><span class="k">def</span> <span class="nf">get_64bit_executable</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">is_64bit</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span>
+    <span class="n">executable_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;koapy.python.executable.64bit&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">get_executable_from_executable_config</span><span class="p">(</span><span class="n">executable_config</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
@@ -164,7 +264,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

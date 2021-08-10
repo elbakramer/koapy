@@ -1,5 +1,5 @@
-:mod:`koapy.utils.messaging.DiscordMessenger`
-=============================================
+:py:mod:`koapy.utils.messaging.DiscordMessenger`
+================================================
 
 .. py:module:: koapy.utils.messaging.DiscordMessenger
 
@@ -18,21 +18,19 @@ Classes
 
 
 
-.. class:: DiscordWebhookMessenger(url=None)
-
-
-   Bases: :py:obj:`koapy.utils.messaging.Messenger.Messenger`
-
-   .. method:: send_message(self, content)
-
-
-
-.. class:: DoItYourselfDiscordWebhookMessenger(url=None)
-
+.. py:class:: DiscordWebhookMessenger(url=None)
 
    Bases: :py:obj:`koapy.utils.messaging.Messenger.Messenger`
 
-   .. method:: send_message(self, content)
+   .. py:method:: send_message(self, content)
+
+
+
+.. py:class:: DoItYourselfDiscordWebhookMessenger(url=None)
+
+   Bases: :py:obj:`koapy.utils.messaging.Messenger.Messenger`
+
+   .. py:method:: send_message(self, content)
 
 
 

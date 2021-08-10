@@ -1,5 +1,5 @@
-:mod:`koapy.utils.store.SQLiteFileLibrary`
-==========================================
+:py:mod:`koapy.utils.store.SQLiteFileLibrary`
+=============================================
 
 .. py:module:: koapy.utils.store.SQLiteFileLibrary
 
@@ -17,28 +17,27 @@ Classes
 
 
 
-.. class:: SQLiteFileLibrary(filename)
+.. py:class:: SQLiteFileLibrary(filename)
+
+   .. py:method:: list_symbols(self)
 
 
-   .. method:: list_symbols(self)
+   .. py:method:: has_symbol(self, symbol)
 
 
-   .. method:: has_symbol(self, symbol)
+   .. py:method:: write(self, symbol, data)
 
 
-   .. method:: write(self, symbol, data)
+   .. py:method:: read_as_dataframe(self, symbol, time_column=None, start_time=None, end_time=None)
 
 
-   .. method:: read_as_dataframe(self, symbol, time_column=None, start_time=None, end_time=None)
+   .. py:method:: read_as_cursor(self, symbol, time_column=None, start_time=None, end_time=None)
 
 
-   .. method:: read_as_cursor(self, symbol, time_column=None, start_time=None, end_time=None)
+   .. py:method:: read(self, *args, **kwargs)
 
 
-   .. method:: read(self, *args, **kwargs)
-
-
-   .. method:: delete(self, symbol)
+   .. py:method:: delete(self, symbol)
 
 
 

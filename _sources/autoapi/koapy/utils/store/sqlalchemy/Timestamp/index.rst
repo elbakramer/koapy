@@ -1,5 +1,5 @@
-:mod:`koapy.utils.store.sqlalchemy.Timestamp`
-=============================================
+:py:mod:`koapy.utils.store.sqlalchemy.Timestamp`
+================================================
 
 .. py:module:: koapy.utils.store.sqlalchemy.Timestamp
 
@@ -17,8 +17,7 @@ Classes
 
 
 
-.. class:: Timestamp(*args, **kwargs)
-
+.. py:class:: Timestamp(*args, **kwargs)
 
    Bases: :py:obj:`sqlalchemy.types.TypeDecorator`
 
@@ -134,36 +133,37 @@ Classes
       Without the above step, index operations such as ``mycol['foo']``
       will cause the index value ``'foo'`` to be JSON encoded.
 
-   .. attribute:: impl
+
+   .. py:attribute:: impl
       
 
       
 
-   .. attribute:: cache_ok
+   .. py:attribute:: cache_ok
       :annotation: = True
 
       
 
-   .. attribute:: signature
+   .. py:attribute:: signature
       
 
       
 
-   .. attribute:: utc
+   .. py:attribute:: utc
       
 
       
 
-   .. attribute:: local_timezone
+   .. py:attribute:: local_timezone
       
 
       
 
-   .. method:: is_naive(cls, value)
+   .. py:method:: is_naive(cls, value)
       :classmethod:
 
 
-   .. method:: process_bind_param(self, value, dialect)
+   .. py:method:: process_bind_param(self, value, dialect)
 
       Receive a bound parameter value to be converted.
 
@@ -185,7 +185,8 @@ Classes
       :param dialect: the :class:`.Dialect` in use.
 
 
-   .. method:: process_result_value(self, value, dialect)
+
+   .. py:method:: process_result_value(self, value, dialect)
 
       Receive a result-row column value to be converted.
 
@@ -208,6 +209,7 @@ Classes
 
       This operation should be designed to be reversible by
       the "process_bind_param" method of this class.
+
 
 
 

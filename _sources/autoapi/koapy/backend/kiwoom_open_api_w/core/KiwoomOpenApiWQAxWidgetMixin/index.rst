@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWQAxWidgetMixin`
-========================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWQAxWidgetMixin`
+===========================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWQAxWidgetMixin
 
@@ -17,6 +17,6 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiWQAxWidgetMixin
+.. py:class:: KiwoomOpenApiWQAxWidgetMixin
 
 

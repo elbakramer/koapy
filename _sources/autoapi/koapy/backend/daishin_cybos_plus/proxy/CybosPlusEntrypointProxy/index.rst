@@ -1,5 +1,5 @@
-:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusEntrypointProxy`
-======================================================================
+:py:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusEntrypointProxy`
+=========================================================================
 
 .. py:module:: koapy.backend.daishin_cybos_plus.proxy.CybosPlusEntrypointProxy
 
@@ -20,41 +20,37 @@ Classes
 
 
 
-.. class:: CybosPlusDispatchProxyMethod(proxy, name)
+.. py:class:: CybosPlusDispatchProxyMethod(proxy, name)
+
+   .. py:method:: __call__(self, *args, **kwargs)
 
 
-   .. method:: __call__(self, *args, **kwargs)
 
-
-
-.. class:: CybosPlusDispatchProxy(proxy, progid)
-
+.. py:class:: CybosPlusDispatchProxy(proxy, progid)
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. method:: _GetProperty(self, name)
+   .. py:method:: _GetProperty(self, name)
 
 
-   .. method:: _InvokeMethod(self, name, args)
+   .. py:method:: _InvokeMethod(self, name, args)
 
 
-   .. method:: __getattr__(self, name)
-
-
-
-.. class:: CybosPlusIncompleteProgIDProxy(proxy, prefix)
-
-
-   .. method:: __getattr__(self, name)
+   .. py:method:: __getattr__(self, name)
 
 
 
-.. class:: CybosPlusEntrypointProxy(host=None, port=None)
+.. py:class:: CybosPlusIncompleteProgIDProxy(proxy, prefix)
 
+   .. py:method:: __getattr__(self, name)
+
+
+
+.. py:class:: CybosPlusEntrypointProxy(host=None, port=None)
 
    Bases: :py:obj:`koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin`
 
-   .. method:: __getattr__(self, name)
+   .. py:method:: __getattr__(self, name)
 
 
 

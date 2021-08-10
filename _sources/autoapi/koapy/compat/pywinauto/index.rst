@@ -1,5 +1,5 @@
-:mod:`koapy.compat.pywinauto`
-=============================
+:py:mod:`koapy.compat.pywinauto`
+================================
 
 .. py:module:: koapy.compat.pywinauto
 
@@ -18,38 +18,37 @@ Classes
 
 
 
-.. class:: PyWinAutoFinder
+.. py:class:: PyWinAutoFinder
 
    Bases: :py:obj:`importlib.abc.MetaPathFinder`
 
    Abstract base class for import finders on sys.meta_path.
 
-   .. method:: find_spec(self, fullname, path, target=None)
+   .. py:method:: find_spec(self, fullname, path, target=None)
 
 
-   .. method:: register(cls)
+   .. py:method:: register(cls)
       :classmethod:
 
 
-   .. method:: unregister(cls)
+   .. py:method:: unregister(cls)
       :classmethod:
 
 
 
-.. class:: PyWinAutoLoader
-
+.. py:class:: PyWinAutoLoader
 
    Bases: :py:obj:`importlib.abc.Loader`
 
    Abstract base class for import loaders.
 
-   .. method:: set_sys_coinit_flags(self)
+   .. py:method:: set_sys_coinit_flags(self)
 
 
-   .. method:: reset_sys_coinit_flags(self)
+   .. py:method:: reset_sys_coinit_flags(self)
 
 
-   .. method:: create_module(self, spec)
+   .. py:method:: create_module(self, spec)
 
       Return a module to initialize and into which to load.
 
@@ -58,7 +57,7 @@ Classes
       that the spec should create the new module.
 
 
-   .. method:: exec_module(self, module)
+   .. py:method:: exec_module(self, module)
 
 
 

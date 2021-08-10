@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector`
-===============================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector`
+==================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector
 
@@ -17,27 +17,26 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusSignalConnector(name=None)
-
+.. py:class:: KiwoomOpenApiPlusSignalConnector(name=None)
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. method:: is_valid_slot(self, slot)
+   .. py:method:: is_valid_slot(self, slot)
 
 
-   .. method:: connect_to(self, control)
+   .. py:method:: connect_to(self, control)
 
 
-   .. method:: connect(self, slot)
+   .. py:method:: connect(self, slot)
 
 
-   .. method:: disconnect(self, slot=None)
+   .. py:method:: disconnect(self, slot=None)
 
 
-   .. method:: call(self, *args, **kwargs)
+   .. py:method:: call(self, *args, **kwargs)
 
 
-   .. method:: __call__(self, *args, **kwargs)
+   .. py:method:: __call__(self, *args, **kwargs)
 
 
 

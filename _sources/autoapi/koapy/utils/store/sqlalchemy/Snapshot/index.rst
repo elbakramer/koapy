@@ -1,5 +1,5 @@
-:mod:`koapy.utils.store.sqlalchemy.Snapshot`
-============================================
+:py:mod:`koapy.utils.store.sqlalchemy.Snapshot`
+===============================================
 
 .. py:module:: koapy.utils.store.sqlalchemy.Snapshot
 
@@ -17,60 +17,60 @@ Classes
 
 
 
-.. class:: Snapshot
+.. py:class:: Snapshot
 
    Bases: :py:obj:`koapy.utils.store.sqlalchemy.Base.Base`
 
-   .. attribute:: __tablename__
+   .. py:attribute:: __tablename__
       :annotation: = snapshots
 
       
 
-   .. attribute:: id
+   .. py:attribute:: id
       
 
       
 
-   .. attribute:: name
+   .. py:attribute:: name
       
 
       
 
-   .. attribute:: timestamp
+   .. py:attribute:: timestamp
       
 
       
 
-   .. attribute:: library_id
+   .. py:attribute:: library_id
       
 
       
 
-   .. attribute:: library
+   .. py:attribute:: library
       
 
       
 
-   .. attribute:: versions
+   .. py:attribute:: versions
       
 
       
 
-   .. attribute:: __table_args__
+   .. py:attribute:: __table_args__
       
 
       
 
-   .. method:: get_symbols(self)
+   .. py:method:: get_symbols(self)
 
 
-   .. method:: get_versions(self)
+   .. py:method:: get_versions(self)
 
 
-   .. method:: get_version_of_symbol(self, symbol)
+   .. py:method:: get_version_of_symbol(self, symbol)
 
 
-   .. method:: delete(self)
+   .. py:method:: delete(self)
 
 
 

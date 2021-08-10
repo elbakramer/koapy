@@ -1,5 +1,5 @@
-:mod:`koapy.backend.daishin_cybos_plus.proxy`
-=============================================
+:py:mod:`koapy.backend.daishin_cybos_plus.proxy`
+================================================
 
 .. py:module:: koapy.backend.daishin_cybos_plus.proxy
 

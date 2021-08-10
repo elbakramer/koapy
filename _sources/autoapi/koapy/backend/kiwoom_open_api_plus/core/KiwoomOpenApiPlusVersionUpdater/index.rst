@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater`
-==============================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater`
+=================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater
 
@@ -17,47 +17,50 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusVersionUpdater(credential)
-
+.. py:class:: KiwoomOpenApiPlusVersionUpdater(credential)
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. method:: disable_autologin_impl(cls)
+   .. py:method:: disable_autologin_impl(cls)
       :classmethod:
 
 
-   .. method:: disable_autologin(self)
+   .. py:method:: disable_autologin(self)
 
 
-   .. method:: open_login_window_impl(cls)
+   .. py:method:: open_login_window_impl(cls)
       :classmethod:
 
 
-   .. method:: open_login_window(self)
+   .. py:method:: open_login_window(self)
 
 
-   .. method:: show_account_window_impl(cls)
+   .. py:method:: show_account_window_impl(cls)
       :classmethod:
 
 
-   .. method:: show_account_window(self)
+   .. py:method:: show_account_window(self)
 
 
-   .. method:: enable_autologin_using_pywinauto(cls, account_passwords)
+   .. py:method:: enable_autologin_using_pywinauto(cls, account_passwords)
       :classmethod:
 
 
-   .. method:: login_using_pywinauto(cls, credential)
+   .. py:method:: check_apply_simulation_window(cls)
       :classmethod:
 
 
-   .. method:: enable_autologin(self)
+   .. py:method:: login_using_pywinauto(cls, credential)
+      :classmethod:
 
 
-   .. method:: try_version_update_using_pywinauto(self)
+   .. py:method:: enable_autologin(self)
 
 
-   .. method:: update_version_if_necessary(self)
+   .. py:method:: try_version_update_using_pywinauto(self)
+
+
+   .. py:method:: update_version_if_necessary(self)
 
 
 

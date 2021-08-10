@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusScreenManager`
-=============================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusScreenManager`
+================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusScreenManager
 
@@ -17,40 +17,39 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusScreenManager(control=None)
-
+.. py:class:: KiwoomOpenApiPlusScreenManager(control=None)
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. attribute:: _maximum_num
+   .. py:attribute:: _maximum_num
       :annotation: = 200
 
       
 
-   .. method:: _number_to_screen_no(number)
+   .. py:method:: _number_to_screen_no(number)
       :staticmethod:
 
 
-   .. method:: _screen_no_to_number(screen_no)
+   .. py:method:: _screen_no_to_number(screen_no)
       :staticmethod:
 
 
-   .. method:: is_inuse(self, screen_no)
+   .. py:method:: is_inuse(self, screen_no)
 
 
-   .. method:: get_single_free_screen(self, exclude=None)
+   .. py:method:: get_single_free_screen(self, exclude=None)
 
 
-   .. method:: get_multiple_free_screens(self, count)
+   .. py:method:: get_multiple_free_screens(self, count)
 
 
-   .. method:: get_free_screen(self, count=None)
+   .. py:method:: get_free_screen(self, count=None)
 
 
-   .. method:: borrow_screen(self, screen_no=None, reuse=True, pop=True)
+   .. py:method:: borrow_screen(self, screen_no=None, reuse=True, pop=True)
 
 
-   .. method:: return_screen(self, screen_no)
+   .. py:method:: return_screen(self, screen_no)
 
 
 

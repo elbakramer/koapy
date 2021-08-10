@@ -1,5 +1,5 @@
-:mod:`koapy.backend.daishin_cybos_plus.core.CybosPlusRateLimiter`
-=================================================================
+:py:mod:`koapy.backend.daishin_cybos_plus.core.CybosPlusRateLimiter`
+====================================================================
 
 .. py:module:: koapy.backend.daishin_cybos_plus.core.CybosPlusRateLimiter
 
@@ -18,8 +18,7 @@ Classes
 
 
 
-.. class:: CybosPlusLookupRequestRateLimiter
-
+.. py:class:: CybosPlusLookupRequestRateLimiter
 
    Bases: :py:obj:`koapy.utils.rate_limiting.RateLimiter.TimeWindowRateLimiter`
 
@@ -29,8 +28,7 @@ Classes
    http://money2.daishin.com/e5/mboard/ptype_accordion/plusFAQ/DW_Basic_List.aspx?boardseq=298&m=9508&p=8835&v=8640
 
 
-.. class:: CybosPlusTradeRequestRateLimiter
-
+.. py:class:: CybosPlusTradeRequestRateLimiter
 
    Bases: :py:obj:`koapy.utils.rate_limiting.RateLimiter.TimeWindowRateLimiter`
 

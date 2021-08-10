@@ -1,5 +1,5 @@
-:mod:`koapy.utils.serialization`
-================================
+:py:mod:`koapy.utils.serialization`
+===================================
 
 .. py:module:: koapy.utils.serialization
 
@@ -17,19 +17,19 @@ Classes
 
 
 
-.. class:: JsonSerializable
+.. py:class:: JsonSerializable
 
-   .. method:: to_dict(self)
+   .. py:method:: to_dict(self)
 
 
-   .. method:: from_dict(cls, dic)
+   .. py:method:: from_dict(cls, dic)
       :classmethod:
 
 
-   .. method:: to_json(self, f=None)
+   .. py:method:: to_json(self, f=None)
 
 
-   .. method:: from_json(cls, jsn)
+   .. py:method:: from_json(cls, jsn)
       :classmethod:
 
 

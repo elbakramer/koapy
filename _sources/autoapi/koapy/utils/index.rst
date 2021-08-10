@@ -1,5 +1,5 @@
-:mod:`koapy.utils`
-==================
+:py:mod:`koapy.utils`
+=====================
 
 .. py:module:: koapy.utils
 
@@ -25,6 +25,7 @@ Submodules
 
    ctypes/index.rst
    datetime/index.rst
+   exchange_calendars/index.rst
    itertools/index.rst
    networking/index.rst
    notimplemented/index.rst

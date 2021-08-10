@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.utils`
-===============================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.utils`
+==================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.utils
 
@@ -21,6 +21,6 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
-   GetAPIModulePath/index.rst
+   module_path/index.rst
 
 

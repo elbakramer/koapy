@@ -1,5 +1,5 @@
-:mod:`koapy.utils.rate_limiting`
-================================
+:py:mod:`koapy.utils.rate_limiting`
+===================================
 
 .. py:module:: koapy.utils.rate_limiting
 

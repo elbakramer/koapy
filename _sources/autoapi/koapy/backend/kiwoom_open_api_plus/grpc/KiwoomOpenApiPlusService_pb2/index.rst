@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2`
-===========================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2`
+==============================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2
 
@@ -12,627 +12,627 @@
 Module Contents
 ---------------
 
-.. data:: _sym_db
+.. py:data:: _sym_db
    
 
    
 
-.. data:: DESCRIPTOR
+.. py:data:: DESCRIPTOR
    
 
    
 
-.. data:: _TRANSACTIONSTOPCONDITIONCOMPARTOR
+.. py:data:: _TRANSACTIONSTOPCONDITIONCOMPARTOR
    
 
    
 
-.. data:: TransactionStopConditionCompartor
+.. py:data:: TransactionStopConditionCompartor
    
 
    
 
-.. data:: LESS_THAN_OR_EQUAL_TO
+.. py:data:: LESS_THAN_OR_EQUAL_TO
    :annotation: = 0
 
    
 
-.. data:: LESS_THAN
+.. py:data:: LESS_THAN
    :annotation: = 1
 
    
 
-.. data:: GREATER_THAN_OR_EQUAL_TO
+.. py:data:: GREATER_THAN_OR_EQUAL_TO
    :annotation: = 2
 
    
 
-.. data:: GREATER_THAN
+.. py:data:: GREATER_THAN
    :annotation: = 3
 
    
 
-.. data:: EQUAL_TO
+.. py:data:: EQUAL_TO
    :annotation: = 4
 
    
 
-.. data:: NOT_EQUAL_TO
+.. py:data:: NOT_EQUAL_TO
    :annotation: = 5
 
    
 
-.. data:: _ARGUMENT
+.. py:data:: _ARGUMENT
    
 
    
 
-.. data:: _CALLREQUEST
+.. py:data:: _CALLREQUEST
    
 
    
 
-.. data:: _RETURNVALUE
+.. py:data:: _RETURNVALUE
    
 
    
 
-.. data:: _CALLRESPONSE
+.. py:data:: _CALLRESPONSE
    
 
    
 
-.. data:: _LISTENREQUEST
+.. py:data:: _LISTENREQUEST
    
 
    
 
-.. data:: _HANDLEDREQUEST
+.. py:data:: _HANDLEDREQUEST
    
 
    
 
-.. data:: _STOPLISTENREQUEST
+.. py:data:: _STOPLISTENREQUEST
    
 
    
 
-.. data:: _BIDIRECTIONALLISTENREQUEST
+.. py:data:: _BIDIRECTIONALLISTENREQUEST
    
 
    
 
-.. data:: _SINGLEDATA
+.. py:data:: _SINGLEDATA
    
 
    
 
-.. data:: _REPEATEDSTRING
+.. py:data:: _REPEATEDSTRING
    
 
    
 
-.. data:: _MULTIDATA
+.. py:data:: _MULTIDATA
    
 
    
 
-.. data:: _LISTENRESPONSE
+.. py:data:: _LISTENRESPONSE
    
 
    
 
-.. data:: _CALLANDLISTENREQUEST
+.. py:data:: _CALLANDLISTENREQUEST
    
 
    
 
-.. data:: _CALLANDLISTENRESPONSE
+.. py:data:: _CALLANDLISTENRESPONSE
    
 
    
 
-.. data:: _LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY
+.. py:data:: _LOGINCREDENTIAL_ACCOUNTPASSWORDSENTRY
    
 
    
 
-.. data:: _LOGINCREDENTIAL
+.. py:data:: _LOGINCREDENTIAL
    
 
    
 
-.. data:: _LOGINREQUEST
+.. py:data:: _LOGINREQUEST
    
 
    
 
-.. data:: _TRANSACTIONSUBSCRIPTIONTARGET
+.. py:data:: _TRANSACTIONSUBSCRIPTIONTARGET
    
 
    
 
-.. data:: _TRANSACTIONSTOPCONDITION
+.. py:data:: _TRANSACTIONSTOPCONDITION
    
 
    
 
-.. data:: _TRANSACTIONREQUEST_INPUTSENTRY
+.. py:data:: _TRANSACTIONREQUEST_INPUTSENTRY
    
 
    
 
-.. data:: _TRANSACTIONREQUEST
+.. py:data:: _TRANSACTIONREQUEST
    
 
    
 
-.. data:: _ORDERSUBSCRIPTIONTARGET
+.. py:data:: _ORDERSUBSCRIPTIONTARGET
    
 
    
 
-.. data:: _ORDERREQUEST
+.. py:data:: _ORDERREQUEST
    
 
    
 
-.. data:: _REALREQUESTFLAGS
+.. py:data:: _REALREQUESTFLAGS
    
 
    
 
-.. data:: _REALREQUEST
+.. py:data:: _REALREQUEST
    
 
    
 
-.. data:: _LOADCONDITIONREQUEST
+.. py:data:: _LOADCONDITIONREQUEST
    
 
    
 
-.. data:: _CONDITIONREQUESTFLAGS
+.. py:data:: _CONDITIONREQUESTFLAGS
    
 
    
 
-.. data:: _CONDITIONREQUEST
+.. py:data:: _CONDITIONREQUEST
    
 
    
 
-.. data:: _SETLOGLEVELREQUEST
+.. py:data:: _SETLOGLEVELREQUEST
    
 
    
 
-.. data:: _SETLOGLEVELRESPONSE
+.. py:data:: _SETLOGLEVELRESPONSE
    
 
    
 
-.. data:: _BIDIRECTIONALREALINITIALIZEREQUEST
+.. py:data:: _BIDIRECTIONALREALINITIALIZEREQUEST
    
 
    
 
-.. data:: _BIDIRECTIONALREALREGISTERREQUEST
+.. py:data:: _BIDIRECTIONALREALREGISTERREQUEST
    
 
    
 
-.. data:: _BIDIRECTIONALREALREMOVEREQUEST
+.. py:data:: _BIDIRECTIONALREALREMOVEREQUEST
    
 
    
 
-.. data:: _BIDIRECTIONALREALSTOPREQUEST
+.. py:data:: _BIDIRECTIONALREALSTOPREQUEST
    
 
    
 
-.. data:: _BIDIRECTIONALREALREQUEST
+.. py:data:: _BIDIRECTIONALREALREQUEST
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_type
+.. py:data:: containing_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: enum_type
+.. py:data:: enum_type
    
 
    
 
-.. data:: containing_type
+.. py:data:: containing_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: Argument
+.. py:data:: Argument
    
 
    
 
-.. data:: CallRequest
+.. py:data:: CallRequest
    
 
    
 
-.. data:: ReturnValue
+.. py:data:: ReturnValue
    
 
    
 
-.. data:: CallResponse
+.. py:data:: CallResponse
    
 
    
 
-.. data:: ListenRequest
+.. py:data:: ListenRequest
    
 
    
 
-.. data:: HandledRequest
+.. py:data:: HandledRequest
    
 
    
 
-.. data:: StopListenRequest
+.. py:data:: StopListenRequest
    
 
    
 
-.. data:: BidirectionalListenRequest
+.. py:data:: BidirectionalListenRequest
    
 
    
 
-.. data:: SingleData
+.. py:data:: SingleData
    
 
    
 
-.. data:: RepeatedString
+.. py:data:: RepeatedString
    
 
    
 
-.. data:: MultiData
+.. py:data:: MultiData
    
 
    
 
-.. data:: ListenResponse
+.. py:data:: ListenResponse
    
 
    
 
-.. data:: CallAndListenRequest
+.. py:data:: CallAndListenRequest
    
 
    
 
-.. data:: CallAndListenResponse
+.. py:data:: CallAndListenResponse
    
 
    
 
-.. data:: LoginCredential
+.. py:data:: LoginCredential
    
 
    
 
-.. data:: LoginRequest
+.. py:data:: LoginRequest
    
 
    
 
-.. data:: TransactionSubscriptionTarget
+.. py:data:: TransactionSubscriptionTarget
    
 
    
 
-.. data:: TransactionStopCondition
+.. py:data:: TransactionStopCondition
    
 
    
 
-.. data:: TransactionRequest
+.. py:data:: TransactionRequest
    
 
    
 
-.. data:: OrderSubscriptionTarget
+.. py:data:: OrderSubscriptionTarget
    
 
    
 
-.. data:: OrderRequest
+.. py:data:: OrderRequest
    
 
    
 
-.. data:: RealRequestFlags
+.. py:data:: RealRequestFlags
    
 
    
 
-.. data:: RealRequest
+.. py:data:: RealRequest
    
 
    
 
-.. data:: LoadConditionRequest
+.. py:data:: LoadConditionRequest
    
 
    
 
-.. data:: ConditionRequestFlags
+.. py:data:: ConditionRequestFlags
    
 
    
 
-.. data:: ConditionRequest
+.. py:data:: ConditionRequest
    
 
    
 
-.. data:: SetLogLevelRequest
+.. py:data:: SetLogLevelRequest
    
 
    
 
-.. data:: SetLogLevelResponse
+.. py:data:: SetLogLevelResponse
    
 
    
 
-.. data:: BidirectionalRealInitializeRequest
+.. py:data:: BidirectionalRealInitializeRequest
    
 
    
 
-.. data:: BidirectionalRealRegisterRequest
+.. py:data:: BidirectionalRealRegisterRequest
    
 
    
 
-.. data:: BidirectionalRealRemoveRequest
+.. py:data:: BidirectionalRealRemoveRequest
    
 
    
 
-.. data:: BidirectionalRealStopRequest
+.. py:data:: BidirectionalRealStopRequest
    
 
    
 
-.. data:: BidirectionalRealRequest
+.. py:data:: BidirectionalRealRequest
    
 
    
 
-.. data:: _options
+.. py:data:: _options
    
 
    
 
-.. data:: _options
+.. py:data:: _options
    
 
    
 
-.. data:: _KIWOOMOPENAPIPLUSSERVICE
+.. py:data:: _KIWOOMOPENAPIPLUSSERVICE
    
 
    

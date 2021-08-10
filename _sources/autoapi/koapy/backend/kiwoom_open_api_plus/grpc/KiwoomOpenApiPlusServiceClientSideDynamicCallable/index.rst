@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideDynamicCallable`
-================================================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideDynamicCallable`
+===================================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideDynamicCallable
 
@@ -17,18 +17,17 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusServiceClientSideDynamicCallable(stub, name)
+.. py:class:: KiwoomOpenApiPlusServiceClientSideDynamicCallable(stub, name)
 
-
-   .. method:: _create_call_request(cls, name, args)
+   .. py:method:: _create_call_request(cls, name, args)
       :classmethod:
 
 
-   .. method:: _unpack_response(cls, response)
+   .. py:method:: _unpack_response(cls, response)
       :classmethod:
 
 
-   .. method:: __call__(self, *args)
+   .. py:method:: __call__(self, *args)
 
 
 

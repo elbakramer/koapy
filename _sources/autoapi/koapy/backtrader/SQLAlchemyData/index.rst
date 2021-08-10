@@ -1,5 +1,5 @@
-:mod:`koapy.backtrader.SQLAlchemyData`
-======================================
+:py:mod:`koapy.backtrader.SQLAlchemyData`
+=========================================
 
 .. py:module:: koapy.backtrader.SQLAlchemyData
 
@@ -17,35 +17,34 @@ Classes
 
 
 
-.. class:: SQLAlchemyData
-
+.. py:class:: SQLAlchemyData
 
    Bases: :py:obj:`backtrader.feed.DataBase`
 
-   .. attribute:: params
+   .. py:attribute:: params
       :annotation: = [['url', None], ['engine', None], ['connection', None], ['tablename', None], ['timestampcolumn',...
 
       
 
-   .. method:: _dispose_engine(self)
+   .. py:method:: _dispose_engine(self)
 
 
-   .. method:: _initialize_engine(self)
+   .. py:method:: _initialize_engine(self)
 
 
-   .. method:: _close_cursor(self)
+   .. py:method:: _close_cursor(self)
 
 
-   .. method:: _initialize_cursor(self)
+   .. py:method:: _initialize_cursor(self)
 
 
-   .. method:: start(self)
+   .. py:method:: start(self)
 
 
-   .. method:: stop(self)
+   .. py:method:: stop(self)
 
 
-   .. method:: _load(self)
+   .. py:method:: _load(self)
 
 
 

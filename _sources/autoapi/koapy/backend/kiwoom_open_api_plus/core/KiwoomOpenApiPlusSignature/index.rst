@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature`
-=========================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature`
+============================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature
 
@@ -38,11 +38,10 @@ Attributes
    koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature.EVENT_HANDLER_SIGNATURES_BY_NAME
 
 
-.. function:: BuildOleItems(clsid)
+.. py:function:: BuildOleItems(clsid)
 
 
-.. class:: KiwoomOpenApiPlusSignature(name, parameters=None, return_annotation=Signature.empty, entry=None)
-
+.. py:class:: KiwoomOpenApiPlusSignature(name, parameters=None, return_annotation=Signature.empty, entry=None)
 
    Bases: :py:obj:`inspect.Signature`
 
@@ -67,61 +66,60 @@ Attributes
        Creates a partial mapping from positional and keyword arguments
        to parameters (simulating 'functools.partial' behavior.)
 
-   .. attribute:: MODULE_CLSID
+   .. py:attribute:: MODULE_CLSID
       :annotation: = {6D8C2B4D-EF41-4750-8AD4-C299033833FB}
 
       
 
-   .. attribute:: OLE_ITEMS
+   .. py:attribute:: OLE_ITEMS
       
 
       
 
-   .. attribute:: DISPATCH_CLSID
+   .. py:attribute:: DISPATCH_CLSID
       :annotation: = {CF20FBB6-EDD4-4BE5-A473-FEF91977DEB6}
 
       
 
-   .. attribute:: EVENT_CLSID
+   .. py:attribute:: EVENT_CLSID
       :annotation: = {7335F12D-8973-4BD5-B7F0-12DF03D175B7}
 
       
 
-   .. attribute:: PYTHONTYPE_TO_QTTYPE
+   .. py:attribute:: PYTHONTYPE_TO_QTTYPE
       
 
       
 
-   .. attribute:: COMTYPE_TO_PYTHONTYPE
+   .. py:attribute:: COMTYPE_TO_PYTHONTYPE
       
 
       
 
-   .. method:: name(self)
+   .. py:method:: name(self)
       :property:
 
 
-   .. method:: _pythontype_to_qttype(cls, typ)
+   .. py:method:: _pythontype_to_qttype(cls, typ)
       :classmethod:
 
 
-   .. method:: to_pyside2_function_prototype(self)
+   .. py:method:: to_pyside2_function_prototype(self)
 
 
-   .. method:: to_pyside2_event_signal(self)
+   .. py:method:: to_pyside2_event_signal(self)
 
 
-   .. method:: _comtype_to_pythontype(cls, typ)
+   .. py:method:: _comtype_to_pythontype(cls, typ)
       :classmethod:
 
 
-   .. method:: _from_entry(cls, name, entry)
+   .. py:method:: _from_entry(cls, name, entry)
       :classmethod:
 
 
 
-.. class:: KiwoomOpenApiPlusDispatchSignature(name, parameters=None, return_annotation=Signature.empty, entry=None)
-
+.. py:class:: KiwoomOpenApiPlusDispatchSignature(name, parameters=None, return_annotation=Signature.empty, entry=None)
 
    Bases: :py:obj:`KiwoomOpenApiPlusSignature`
 
@@ -146,30 +144,29 @@ Attributes
        Creates a partial mapping from positional and keyword arguments
        to parameters (simulating 'functools.partial' behavior.)
 
-   .. attribute:: DISPATCH_SIGNATURES_BY_NAME
+   .. py:attribute:: DISPATCH_SIGNATURES_BY_NAME
       
 
       
 
-   .. method:: from_name(cls, name)
+   .. py:method:: from_name(cls, name)
       :classmethod:
 
 
-   .. method:: names(cls)
+   .. py:method:: names(cls)
       :classmethod:
 
 
 
-.. function:: LoadDispatchSignatures(oleItems, clsId)
+.. py:function:: LoadDispatchSignatures(oleItems, clsId)
 
 
-.. data:: DISPATCH_SIGNATURES_BY_NAME
+.. py:data:: DISPATCH_SIGNATURES_BY_NAME
    
 
    
 
-.. class:: KiwoomOpenApiPlusEventHandlerSignature(name, parameters=None, return_annotation=Signature.empty, entry=None)
-
+.. py:class:: KiwoomOpenApiPlusEventHandlerSignature(name, parameters=None, return_annotation=Signature.empty, entry=None)
 
    Bases: :py:obj:`KiwoomOpenApiPlusSignature`
 
@@ -194,24 +191,24 @@ Attributes
        Creates a partial mapping from positional and keyword arguments
        to parameters (simulating 'functools.partial' behavior.)
 
-   .. attribute:: EVENT_HANDLER_SIGNATURES_BY_NAME
+   .. py:attribute:: EVENT_HANDLER_SIGNATURES_BY_NAME
       
 
       
 
-   .. method:: from_name(cls, name)
+   .. py:method:: from_name(cls, name)
       :classmethod:
 
 
-   .. method:: names(cls)
+   .. py:method:: names(cls)
       :classmethod:
 
 
 
-.. function:: LoadEventHandlerSignatures(oleItems, clsId)
+.. py:function:: LoadEventHandlerSignatures(oleItems, clsId)
 
 
-.. data:: EVENT_HANDLER_SIGNATURES_BY_NAME
+.. py:data:: EVENT_HANDLER_SIGNATURES_BY_NAME
    
 
    

@@ -1,5 +1,5 @@
-:mod:`koapy.utils.threading`
-============================
+:py:mod:`koapy.utils.threading`
+===============================
 
 .. py:module:: koapy.utils.threading
 
@@ -17,23 +17,23 @@ Classes
 
 
 
-.. class:: Singleton
+.. py:class:: Singleton
 
-   .. attribute:: _instance
+   .. py:attribute:: _instance
       
 
       
 
-   .. attribute:: _lock
+   .. py:attribute:: _lock
       
 
       
 
-   .. method:: _get_instance_without_check(cls, *args, **kwargs)
+   .. py:method:: _get_instance_without_check(cls, *args, **kwargs)
       :classmethod:
 
 
-   .. method:: get_instance(cls, *args, **kwargs)
+   .. py:method:: get_instance(cls, *args, **kwargs)
       :classmethod:
 
 

@@ -1,5 +1,5 @@
-:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2`
-=======================================================================
+:py:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2`
+==========================================================================
 
 .. py:module:: koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2
 
@@ -12,282 +12,282 @@
 Module Contents
 ---------------
 
-.. data:: _sym_db
+.. py:data:: _sym_db
    
 
    
 
-.. data:: DESCRIPTOR
+.. py:data:: DESCRIPTOR
    
 
    
 
-.. data:: _DISPATCHREQUEST
+.. py:data:: _DISPATCHREQUEST
    
 
    
 
-.. data:: _DISPATCHRESPONSE
+.. py:data:: _DISPATCHRESPONSE
    
 
    
 
-.. data:: _PROPERTYREQUEST
+.. py:data:: _PROPERTYREQUEST
    
 
    
 
-.. data:: _PRIMITIVEVALUEARRAY
+.. py:data:: _PRIMITIVEVALUEARRAY
    
 
    
 
-.. data:: _PRIMITIVEVALUE
+.. py:data:: _PRIMITIVEVALUE
    
 
    
 
-.. data:: _PROPERTYRESPONSE
+.. py:data:: _PROPERTYRESPONSE
    
 
    
 
-.. data:: _ARGUMENT
+.. py:data:: _ARGUMENT
    
 
    
 
-.. data:: _METHODREQUEST
+.. py:data:: _METHODREQUEST
    
 
    
 
-.. data:: _METHODRESPONSE
+.. py:data:: _METHODRESPONSE
    
 
    
 
-.. data:: _EVENTSTARTREQUEST
+.. py:data:: _EVENTSTARTREQUEST
    
 
    
 
-.. data:: _EVENTDONEREQUEST
+.. py:data:: _EVENTDONEREQUEST
    
 
    
 
-.. data:: _EVENTSTOPREQUEST
+.. py:data:: _EVENTSTOPREQUEST
    
 
    
 
-.. data:: _EVENTREQUEST
+.. py:data:: _EVENTREQUEST
    
 
    
 
-.. data:: _EVENTSTARTEDRESPONSE
+.. py:data:: _EVENTSTARTEDRESPONSE
    
 
    
 
-.. data:: _EVENTFIREDRESPONSE
+.. py:data:: _EVENTFIREDRESPONSE
    
 
    
 
-.. data:: _EVENTRESPONSE
+.. py:data:: _EVENTRESPONSE
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: message_type
+.. py:data:: message_type
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: containing_oneof
+.. py:data:: containing_oneof
    
 
    
 
-.. data:: DispatchRequest
+.. py:data:: DispatchRequest
    
 
    
 
-.. data:: DispatchResponse
+.. py:data:: DispatchResponse
    
 
    
 
-.. data:: PropertyRequest
+.. py:data:: PropertyRequest
    
 
    
 
-.. data:: PrimitiveValueArray
+.. py:data:: PrimitiveValueArray
    
 
    
 
-.. data:: PrimitiveValue
+.. py:data:: PrimitiveValue
    
 
    
 
-.. data:: PropertyResponse
+.. py:data:: PropertyResponse
    
 
    
 
-.. data:: Argument
+.. py:data:: Argument
    
 
    
 
-.. data:: MethodRequest
+.. py:data:: MethodRequest
    
 
    
 
-.. data:: MethodResponse
+.. py:data:: MethodResponse
    
 
    
 
-.. data:: EventStartRequest
+.. py:data:: EventStartRequest
    
 
    
 
-.. data:: EventDoneRequest
+.. py:data:: EventDoneRequest
    
 
    
 
-.. data:: EventStopRequest
+.. py:data:: EventStopRequest
    
 
    
 
-.. data:: EventRequest
+.. py:data:: EventRequest
    
 
    
 
-.. data:: EventStartedResponse
+.. py:data:: EventStartedResponse
    
 
    
 
-.. data:: EventFiredResponse
+.. py:data:: EventFiredResponse
    
 
    
 
-.. data:: EventResponse
+.. py:data:: EventResponse
    
 
    
 
-.. data:: _CYBOSPLUSPROXYSERVICE
+.. py:data:: _CYBOSPLUSPROXYSERVICE
    
 
    

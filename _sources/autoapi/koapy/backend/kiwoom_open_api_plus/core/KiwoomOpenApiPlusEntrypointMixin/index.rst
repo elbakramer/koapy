@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin`
-===============================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin`
+==================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin
 
@@ -17,6 +17,6 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusEntrypointMixin
+.. py:class:: KiwoomOpenApiPlusEntrypointMixin
 
 

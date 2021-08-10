@@ -1,5 +1,5 @@
-:mod:`koapy.compat.pyside2`
-===========================
+:py:mod:`koapy.compat.pyside2`
+==============================
 
 .. py:module:: koapy.compat.pyside2
 
@@ -20,12 +20,12 @@ Submodules
 Package Contents
 ----------------
 
-.. data:: config
+.. py:data:: config
    
 
    
 
-.. data:: QT_QPA_PLATFORM_PLUGIN_PATH
+.. py:data:: QT_QPA_PLATFORM_PLUGIN_PATH
    
 
    

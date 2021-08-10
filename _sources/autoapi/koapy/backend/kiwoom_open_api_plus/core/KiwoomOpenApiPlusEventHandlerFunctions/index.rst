@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerFunctions`
-=====================================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerFunctions`
+========================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerFunctions
 
@@ -17,37 +17,37 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusEventHandlerFunctions
+.. py:class:: KiwoomOpenApiPlusEventHandlerFunctions
 
-   .. method:: OnEventConnect(self, errcode)
+   .. py:method:: OnEventConnect(self, errcode)
       :abstractmethod:
 
 
-   .. method:: OnReceiveMsg(self, scrnno, rqname, trcode, msg)
+   .. py:method:: OnReceiveMsg(self, scrnno, rqname, trcode, msg)
       :abstractmethod:
 
 
-   .. method:: OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg)
+   .. py:method:: OnReceiveTrData(self, scrnno, rqname, trcode, recordname, prevnext, datalength, errorcode, message, splmmsg)
       :abstractmethod:
 
 
-   .. method:: OnReceiveRealData(self, code, realtype, realdata)
+   .. py:method:: OnReceiveRealData(self, code, realtype, realdata)
       :abstractmethod:
 
 
-   .. method:: OnReceiveChejanData(self, gubun, itemcnt, fidlist)
+   .. py:method:: OnReceiveChejanData(self, gubun, itemcnt, fidlist)
       :abstractmethod:
 
 
-   .. method:: OnReceiveConditionVer(self, ret, msg)
+   .. py:method:: OnReceiveConditionVer(self, ret, msg)
       :abstractmethod:
 
 
-   .. method:: OnReceiveTrCondition(self, scrnno, codelist, condition_name, condition_index, prevnext)
+   .. py:method:: OnReceiveTrCondition(self, scrnno, codelist, condition_name, condition_index, prevnext)
       :abstractmethod:
 
 
-   .. method:: OnReceiveRealCondition(self, code, condition_type, condition_name, condition_index)
+   .. py:method:: OnReceiveRealCondition(self, code, condition_type, condition_name, condition_index)
       :abstractmethod:
 
 

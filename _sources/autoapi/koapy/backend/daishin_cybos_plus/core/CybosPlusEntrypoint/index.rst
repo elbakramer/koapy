@@ -1,5 +1,5 @@
-:mod:`koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint`
-================================================================
+:py:mod:`koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint`
+===================================================================
 
 .. py:module:: koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint
 
@@ -19,38 +19,35 @@ Classes
 
 
 
-.. class:: CybosPlusDispatch(entrypoint, progid)
+.. py:class:: CybosPlusDispatch(entrypoint, progid)
+
+   .. py:method:: __getattr__(self, name)
 
 
-   .. method:: __getattr__(self, name)
-
-
-   .. method:: __repr__(self)
-
-      Return repr(self).
-
-
-
-.. class:: CybosPlusIncompleteProgID(entrypoint, prefix)
-
-
-   .. method:: __getattr__(self, name)
-
-
-   .. method:: __repr__(self)
+   .. py:method:: __repr__(self)
 
       Return repr(self).
 
 
 
-.. class:: CybosPlusEntrypoint
+.. py:class:: CybosPlusIncompleteProgID(entrypoint, prefix)
 
+   .. py:method:: __getattr__(self, name)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+
+.. py:class:: CybosPlusEntrypoint
 
    Bases: :py:obj:`koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin`
 
    http://cybosplus.github.io/
 
-   .. method:: __getattr__(self, name)
+   .. py:method:: __getattr__(self, name)
 
 
 

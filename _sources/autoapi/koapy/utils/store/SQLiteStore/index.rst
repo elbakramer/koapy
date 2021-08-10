@@ -1,5 +1,5 @@
-:mod:`koapy.utils.store.SQLiteStore`
-====================================
+:py:mod:`koapy.utils.store.SQLiteStore`
+=======================================
 
 .. py:module:: koapy.utils.store.SQLiteStore
 
@@ -17,31 +17,30 @@ Classes
 
 
 
-.. class:: SQLiteStore(filename)
+.. py:class:: SQLiteStore(filename)
+
+   .. py:method:: list_libraries(self)
 
 
-   .. method:: list_libraries(self)
+   .. py:method:: _get_library(self, library)
 
 
-   .. method:: _get_library(self, library)
+   .. py:method:: library_exists(self, library)
 
 
-   .. method:: library_exists(self, library)
+   .. py:method:: initialize_library(self, library)
 
 
-   .. method:: initialize_library(self, library)
+   .. py:method:: get_library(self, library)
 
 
-   .. method:: get_library(self, library)
+   .. py:method:: get_or_create_library(self, library)
 
 
-   .. method:: get_or_create_library(self, library)
+   .. py:method:: delete_library(self, library)
 
 
-   .. method:: delete_library(self, library)
-
-
-   .. method:: __getitem__(self, library)
+   .. py:method:: __getitem__(self, library)
 
 
 

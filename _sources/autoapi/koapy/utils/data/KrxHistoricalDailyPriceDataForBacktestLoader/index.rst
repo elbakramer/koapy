@@ -1,5 +1,5 @@
-:mod:`koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader`
-====================================================================
+:py:mod:`koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader`
+=======================================================================
 
 .. py:module:: koapy.utils.data.KrxHistoricalDailyPriceDataForBacktestLoader
 
@@ -17,27 +17,26 @@ Classes
 
 
 
-.. class:: KrxHistoricalDailyPriceDataForBacktestLoader(filename, library=None)
+.. py:class:: KrxHistoricalDailyPriceDataForBacktestLoader(filename, library=None)
 
-
-   .. method:: get_adjust_ratios(cls, data, sort=True)
+   .. py:method:: get_adjust_ratios(cls, data, sort=True)
       :classmethod:
 
 
-   .. method:: adjust_data(cls, data, sort=True)
+   .. py:method:: adjust_data(cls, data, sort=True)
       :classmethod:
 
 
-   .. method:: get_symbols(self)
+   .. py:method:: get_symbols(self)
 
 
-   .. method:: update(self, download=False, progress_bar=False)
+   .. py:method:: update(self, download=False, progress_bar=False)
 
 
-   .. method:: load(self, symbol, start_time=None, end_time=None)
+   .. py:method:: load(self, symbol, start_time=None, end_time=None)
 
 
-   .. method:: load_as_cursor(self, symbol, start_time=None, end_time=None)
+   .. py:method:: load_as_cursor(self, symbol, start_time=None, end_time=None)
 
 
 

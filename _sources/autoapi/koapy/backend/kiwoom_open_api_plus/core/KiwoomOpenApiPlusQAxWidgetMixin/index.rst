@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin`
-==============================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin`
+=================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin
 
@@ -19,110 +19,121 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusSimpleQAxWidgetMixin
+.. py:class:: KiwoomOpenApiPlusSimpleQAxWidgetMixin
 
-   .. method:: GetServerGubun(self)
-
-
-   .. method:: ShowAccountWindow(self)
+   .. py:method:: GetServerGubun(self)
 
 
-   .. method:: GetCodeListByMarketAsList(self, market=None)
+   .. py:method:: IsSimulationServer(self)
 
 
-   .. method:: GetNameListByMarketAsList(self, market)
+   .. py:method:: IsRealServer(self)
 
 
-   .. method:: GetUserId(self)
+   .. py:method:: ShowAccountWindow(self)
 
 
-   .. method:: GetAccountList(self)
+   .. py:method:: GetCodeListByMarketAsList(self, market=None)
 
 
-   .. method:: GetFirstAvailableAccount(self)
+   .. py:method:: GetNameListByMarketAsList(self, market)
 
 
-   .. method:: GetMasterStockStateAsList(self, code)
+   .. py:method:: GetUserId(self)
 
 
-   .. method:: GetKospiCodeList(self)
+   .. py:method:: GetAccountList(self)
 
 
-   .. method:: GetKosdaqCodeList(self)
+   .. py:method:: GetFirstAvailableAccount(self)
 
 
-   .. method:: GetGeneralCodeList(self, include_preferred_stock=False, include_etn=False, include_etf=False, include_mutual_fund=False, include_reits=False, include_kosdaq=False)
+   .. py:method:: GetMasterStockStateAsList(self, code)
+
+
+   .. py:method:: GetKospiCodeList(self)
+
+
+   .. py:method:: GetKosdaqCodeList(self)
+
+
+   .. py:method:: GetGeneralCodeList(self, include_preferred_stock=False, include_etn=False, include_etf=False, include_mutual_fund=False, include_reits=False, include_kosdaq=False)
 
       [시장구분값]
-      0 : 장내
-      10 : 코스닥
-      3 : ELW
-      8 : ETF
-      50 : KONEX
-      4 : 뮤추얼펀드
-      5 : 신주인수권
-      6 : 리츠
-      9 : 하이얼펀드
-      30 : K-OTC
+        0 : 장내
+        10 : 코스닥
+        3 : ELW
+        8 : ETF
+        50 : KONEX
+        4 : 뮤추얼펀드
+        5 : 신주인수권
+        6 : 리츠
+        9 : 하이얼펀드
+        30 : K-OTC
 
 
-   .. method:: IsSuspended(self, code)
+   .. py:method:: IsSuspended(self, code)
 
 
-   .. method:: IsInSupervision(self, code)
+   .. py:method:: IsInSupervision(self, code)
 
 
-   .. method:: IsInSurveillance(self, code)
+   .. py:method:: IsInSurveillance(self, code)
 
 
-   .. method:: GetConditionFilePath(self)
+   .. py:method:: GetConditionFilePath(self)
 
 
-   .. method:: GetConditionNameListAsList(self)
+   .. py:method:: GetConditionNameListAsList(self)
 
 
 
-.. class:: KiwoomOpenApiPlusComplexQAxWidgetMixin
-
+.. py:class:: KiwoomOpenApiPlusComplexQAxWidgetMixin
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. method:: DisableAutoLogin(self)
+   .. py:method:: GetAutoLoginDatPath(self)
 
 
-   .. method:: LoginUsingPywinauto_Impl(cls, credential=None)
+   .. py:method:: IsAutoLoginEnabled(self)
+
+
+   .. py:method:: DisableAutoLogin(self)
+
+
+   .. py:method:: LoginUsingPywinauto_Impl(cls, credential=None)
       :classmethod:
 
 
-   .. method:: LoginUsingPywinauto_RunScriptInSubprocess(cls, credential=None)
+   .. py:method:: LoginUsingPywinauto_RunScriptInSubprocess(cls, credential=None)
       :classmethod:
 
 
-   .. method:: LoginUsingPywinauto(self, credential=None)
+   .. py:method:: LoginUsingPywinauto(self, credential=None)
 
 
-   .. method:: Connect(self, credential=None)
+   .. py:method:: Connect(self, credential=None)
 
 
-   .. method:: EnsureConnected(self, credential=None)
+   .. py:method:: EnsureConnected(self, credential=None)
 
 
-   .. method:: IsConnected(self)
+   .. py:method:: IsConnected(self)
 
 
-   .. method:: LoadCondition(self)
+   .. py:method:: LoadCondition(self)
 
 
-   .. method:: IsConditionLoaded(self)
+   .. py:method:: IsConditionLoaded(self)
 
 
-   .. method:: EnsureConditionLoaded(self, force=False)
+   .. py:method:: EnsureConditionLoaded(self, force=False)
 
 
-   .. method:: AtomicCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None)
+   .. py:method:: AtomicCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None)
 
 
-   .. method:: RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None)
+   .. py:method:: RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None)
 
       [OpenAPI 게시판]
         https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do
@@ -133,7 +144,7 @@ Classes
         - 1초당 5회 조회를 10연속 발생시킨 경우 : 3분(180초)대기
 
 
-   .. method:: RateLimitedCommKwRqData(self, codes, prevnext, codecnt, typeflag, rqname, scrnno)
+   .. py:method:: RateLimitedCommKwRqData(self, codes, prevnext, codecnt, typeflag, rqname, scrnno)
 
       [조회제한]
         OpenAPI 조회는 1초당 5회로 제한되며 복수종목 조회와 조건검색 조회 횟수가 합산됩니다.
@@ -144,13 +155,13 @@ Classes
         조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
 
 
-   .. method:: RateLimitedCommRqDataAndCheck(self, rqname, trcode, prevnext, scrnno, inputs=None)
+   .. py:method:: RateLimitedCommRqDataAndCheck(self, rqname, trcode, prevnext, scrnno, inputs=None)
 
 
-   .. method:: RateLimitedSendOrder(self, rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno)
+   .. py:method:: RateLimitedSendOrder(self, rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno)
 
 
-   .. method:: RateLimitedSendCondition(self, scrnno, condition_name, condition_index, search_type)
+   .. py:method:: RateLimitedSendCondition(self, scrnno, condition_name, condition_index, search_type)
 
       [조회제한]
         OpenAPI 조회는 1초당 5회로 제한되며 복수종목 조회와 조건검색 조회 횟수가 합산됩니다.
@@ -162,8 +173,7 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusQAxWidgetMixin
-
+.. py:class:: KiwoomOpenApiPlusQAxWidgetMixin
 
    Bases: :py:obj:`KiwoomOpenApiPlusSimpleQAxWidgetMixin`, :py:obj:`KiwoomOpenApiPlusComplexQAxWidgetMixin`
 

@@ -1,5 +1,5 @@
-:mod:`koapy.backtrader`
-=======================
+:py:mod:`koapy.backtrader`
+==========================
 
 .. py:module:: koapy.backtrader
 

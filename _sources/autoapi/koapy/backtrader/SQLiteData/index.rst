@@ -1,5 +1,5 @@
-:mod:`koapy.backtrader.SQLiteData`
-==================================
+:py:mod:`koapy.backtrader.SQLiteData`
+=====================================
 
 .. py:module:: koapy.backtrader.SQLiteData
 
@@ -17,35 +17,34 @@ Classes
 
 
 
-.. class:: SQLiteData
-
+.. py:class:: SQLiteData
 
    Bases: :py:obj:`backtrader.feed.DataBase`
 
-   .. attribute:: params
+   .. py:attribute:: params
       :annotation: = [['filename', None], ['connection', None], ['engine', None], ['tablename', None],...
 
       
 
-   .. method:: _close_connection(self)
+   .. py:method:: _close_connection(self)
 
 
-   .. method:: _initialize_connection(self)
+   .. py:method:: _initialize_connection(self)
 
 
-   .. method:: _close_cursor(self)
+   .. py:method:: _close_cursor(self)
 
 
-   .. method:: _initialize_cursor(self)
+   .. py:method:: _initialize_cursor(self)
 
 
-   .. method:: start(self)
+   .. py:method:: start(self)
 
 
-   .. method:: stop(self)
+   .. py:method:: stop(self)
 
 
-   .. method:: _load(self)
+   .. py:method:: _load(self)
 
 
 

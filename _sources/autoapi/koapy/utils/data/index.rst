@@ -1,5 +1,5 @@
-:mod:`koapy.utils.data`
-=======================
+:py:mod:`koapy.utils.data`
+==========================
 
 .. py:module:: koapy.utils.data
 
@@ -31,75 +31,75 @@ Classes
 
 
 
-.. class:: KrxHistoricalDailyPriceDataDownloader
+.. py:class:: KrxHistoricalDailyPriceDataDownloader
+
+   .. py:method:: get_stocks(self)
 
 
-   .. method:: get_stocks(self)
+   .. py:method:: get_stocks_delisted(self)
 
 
-   .. method:: get_stocks_delisted(self)
-
-
-   .. method:: stocks(self)
+   .. py:method:: stocks(self)
       :property:
 
 
-   .. method:: stocks_delisted(self)
+   .. py:method:: stocks_delisted(self)
       :property:
 
 
-   .. method:: get_full_code(self, symbol)
+   .. py:method:: get_full_code(self, symbol)
 
 
-   .. method:: download(self, symbol, start_date=None, end_date=None)
+   .. py:method:: get_name(self, symbol)
+
+
+   .. py:method:: download(self, symbol, start_date=None, end_date=None)
 
 
 
-.. class:: KrxHistoricalDailyPriceDataForBacktestLoader(filename, library=None)
+.. py:class:: KrxHistoricalDailyPriceDataForBacktestLoader(filename, library=None)
 
-
-   .. method:: get_adjust_ratios(cls, data, sort=True)
+   .. py:method:: get_adjust_ratios(cls, data, sort=True)
       :classmethod:
 
 
-   .. method:: adjust_data(cls, data, sort=True)
+   .. py:method:: adjust_data(cls, data, sort=True)
       :classmethod:
 
 
-   .. method:: get_symbols(self)
+   .. py:method:: get_symbols(self)
 
 
-   .. method:: update(self, download=False, progress_bar=False)
+   .. py:method:: update(self, download=False, progress_bar=False)
 
 
-   .. method:: load(self, symbol, start_time=None, end_time=None)
+   .. py:method:: load(self, symbol, start_time=None, end_time=None)
 
 
-   .. method:: load_as_cursor(self, symbol, start_time=None, end_time=None)
+   .. py:method:: load_as_cursor(self, symbol, start_time=None, end_time=None)
 
 
 
-.. class:: KrxHistoricalDailyPriceDataLoader(filename, library=None, library_delisted=None)
+.. py:class:: KrxHistoricalDailyPriceDataLoader(filename, library=None, library_delisted=None)
 
-
-   .. method:: symbols(self)
+   .. py:method:: symbols(self)
       :property:
 
 
-   .. method:: symbols_delisted(self)
+   .. py:method:: symbols_delisted(self)
       :property:
 
 
-   .. method:: load_from_database(self, symbol, is_delisted=None)
+   .. py:method:: load_from_database(self, symbol, is_delisted=None)
 
 
-   .. method:: load_or_download(self, symbol, is_delisted=None, start_date=None, end_date=None)
+   .. py:method:: load_or_download(self, symbol, is_delisted=None, start_date=None, end_date=None)
 
 
-   .. method:: load(self, symbol, is_delisted=None, start_date=None, end_date=None, download=True)
+   .. py:method:: load(self, symbol, is_delisted=None, start_date=None, end_date=None, download=True)
 
 
-   .. method:: update(self, progress_bar=False)
+   .. py:method:: update(self, progress_bar=False)
 
 
 

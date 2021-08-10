@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.grpc.tools.compile_proto`
-==================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.tools.compile_proto`
+=====================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.grpc.tools.compile_proto
 
@@ -17,6 +17,6 @@ Functions
 
 
 
-.. function:: compile_proto()
+.. py:function:: compile_proto()
 
 

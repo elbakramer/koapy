@@ -1,5 +1,5 @@
-:mod:`koapy.utils.rate_limiting.RateLimiter`
-============================================
+:py:mod:`koapy.utils.rate_limiting.RateLimiter`
+===============================================
 
 .. py:module:: koapy.utils.rate_limiting.RateLimiter
 
@@ -19,45 +19,43 @@ Classes
 
 
 
-.. class:: RateLimiter
+.. py:class:: RateLimiter
 
-   .. method:: check_sleep_seconds(self)
-
-
-   .. method:: sleep_if_necessary(self)
+   .. py:method:: check_sleep_seconds(self)
 
 
-   .. method:: __call__(self, func)
+   .. py:method:: sleep_if_necessary(self)
+
+
+   .. py:method:: __call__(self, func)
 
 
 
-.. class:: TimeWindowRateLimiter(period, calls)
-
+.. py:class:: TimeWindowRateLimiter(period, calls)
 
    Bases: :py:obj:`RateLimiter`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. method:: check_sleep_seconds(self)
+   .. py:method:: check_sleep_seconds(self)
 
 
-   .. method:: add_call_history(self)
+   .. py:method:: add_call_history(self)
 
 
-   .. method:: sleep_if_necessary(self)
+   .. py:method:: sleep_if_necessary(self)
 
 
 
-.. class:: CompositeTimeWindowRateLimiter(limiters)
-
+.. py:class:: CompositeTimeWindowRateLimiter(limiters)
 
    Bases: :py:obj:`RateLimiter`
 
-   .. method:: check_sleep_seconds(self)
+   .. py:method:: check_sleep_seconds(self)
 
 
-   .. method:: add_call_history(self)
+   .. py:method:: add_call_history(self)
 
 
-   .. method:: sleep_if_necessary(self)
+   .. py:method:: sleep_if_necessary(self)
 
 
 

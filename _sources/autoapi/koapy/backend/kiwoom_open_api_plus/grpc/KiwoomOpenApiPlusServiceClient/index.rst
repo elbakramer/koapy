@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient`
-=============================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient`
+================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient
 
@@ -17,22 +17,21 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusServiceClient(host=None, port=None)
+.. py:class:: KiwoomOpenApiPlusServiceClient(host=None, port=None, credentials=None, **kwargs)
+
+   .. py:method:: is_ready(self, timeout=None)
 
 
-   .. method:: is_ready(self, timeout=None)
+   .. py:method:: get_original_stub(self)
 
 
-   .. method:: get_original_stub(self)
+   .. py:method:: get_stub(self)
 
 
-   .. method:: get_stub(self)
+   .. py:method:: close(self)
 
 
-   .. method:: close(self)
-
-
-   .. method:: __getattr__(self, name)
+   .. py:method:: __getattr__(self, name)
 
 
 

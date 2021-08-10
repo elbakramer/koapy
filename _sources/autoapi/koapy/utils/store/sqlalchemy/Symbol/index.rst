@@ -1,5 +1,5 @@
-:mod:`koapy.utils.store.sqlalchemy.Symbol`
-==========================================
+:py:mod:`koapy.utils.store.sqlalchemy.Symbol`
+=============================================
 
 .. py:module:: koapy.utils.store.sqlalchemy.Symbol
 
@@ -17,53 +17,53 @@ Classes
 
 
 
-.. class:: Symbol
+.. py:class:: Symbol
 
    Bases: :py:obj:`koapy.utils.store.sqlalchemy.Base.Base`
 
-   .. attribute:: __tablename__
+   .. py:attribute:: __tablename__
       :annotation: = symbols
 
       
 
-   .. attribute:: id
+   .. py:attribute:: id
       
 
       
 
-   .. attribute:: name
+   .. py:attribute:: name
       
 
       
 
-   .. attribute:: library_id
+   .. py:attribute:: library_id
       
 
       
 
-   .. attribute:: library
+   .. py:attribute:: library
       
 
       
 
-   .. attribute:: versions
+   .. py:attribute:: versions
       
 
       
 
-   .. attribute:: __table_args__
+   .. py:attribute:: __table_args__
       
 
       
 
-   .. method:: get_versions(self, deleted=False)
+   .. py:method:: get_versions(self, deleted=False)
 
       versions = self.versions
       if not deleted:
           versions = [version for version in versions if not version.deleted]
 
 
-   .. method:: get_latest_version(self, deleted=False)
+   .. py:method:: get_latest_version(self, deleted=False)
 
       versions = self.versions
       if len(versions) == 0:
@@ -73,13 +73,13 @@ Classes
           raise NoResultFound
 
 
-   .. method:: create_new_version(self, table_name=None, user_metadata=None, pandas_metadata=None, deleted=None)
+   .. py:method:: create_new_version(self, table_name=None, user_metadata=None, pandas_metadata=None, deleted=None)
 
 
-   .. method:: get_version_by_number(self, version_number, deleted=False)
+   .. py:method:: get_version_by_number(self, version_number, deleted=False)
 
 
-   .. method:: get_prunable_versions(self, keep_mins=120)
+   .. py:method:: get_prunable_versions(self, keep_mins=120)
 
 
 

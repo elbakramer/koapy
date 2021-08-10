@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.utils.queue`
-=====================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.utils.queue`
+========================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.utils.queue
 

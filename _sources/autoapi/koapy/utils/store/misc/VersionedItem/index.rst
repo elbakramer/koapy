@@ -1,5 +1,5 @@
-:mod:`koapy.utils.store.misc.VersionedItem`
-===========================================
+:py:mod:`koapy.utils.store.misc.VersionedItem`
+==============================================
 
 .. py:module:: koapy.utils.store.misc.VersionedItem
 
@@ -17,10 +17,9 @@ Classes
 
 
 
-.. class:: VersionedItem(library, symbol, version, timestamp, data, metadata)
+.. py:class:: VersionedItem(library, symbol, version, timestamp, data, metadata)
 
-
-   .. method:: __repr__(self)
+   .. py:method:: __repr__(self)
 
       Return repr(self).
 

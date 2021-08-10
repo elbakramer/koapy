@@ -1,5 +1,5 @@
-:mod:`koapy.backtrader.KiwoomOpenApiPlusEventStreamer`
-======================================================
+:py:mod:`koapy.backtrader.KiwoomOpenApiPlusEventStreamer`
+=========================================================
 
 .. py:module:: koapy.backtrader.KiwoomOpenApiPlusEventStreamer
 
@@ -20,80 +20,77 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusPriceEventChannel(stub)
-
+.. py:class:: KiwoomOpenApiPlusPriceEventChannel(stub)
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. attribute:: _krx_timezone
+   .. py:attribute:: _krx_timezone
       
 
       
 
-   .. method:: close(self)
+   .. py:method:: close(self)
 
 
-   .. method:: __del__(self)
+   .. py:method:: __del__(self)
 
 
-   .. method:: initialize(self)
+   .. py:method:: initialize(self)
 
 
-   .. method:: register_code(self, code)
+   .. py:method:: register_code(self, code)
 
 
-   .. method:: is_for_code(self, response, code)
+   .. py:method:: is_for_code(self, response, code)
 
 
-   .. method:: filter_for_code(self, code)
+   .. py:method:: filter_for_code(self, code)
 
 
-   .. method:: is_valid_price_event(self, response)
+   .. py:method:: is_valid_price_event(self, response)
 
 
-   .. method:: filter_price_event(self)
+   .. py:method:: filter_price_event(self)
 
 
-   .. method:: time_to_timestamp(self, fid20)
+   .. py:method:: time_to_timestamp(self, fid20)
 
 
-   .. method:: event_to_dict(self, response)
+   .. py:method:: event_to_dict(self, response)
 
 
-   .. method:: convert_to_dict(self)
+   .. py:method:: convert_to_dict(self)
 
 
-   .. method:: get_observable_for_code(self, code)
-
-
-
-.. class:: KiwoomOpenApiPlusOrderEventChannel(stub)
-
-
-   .. method:: close(self)
-
-
-   .. method:: __del__(self)
-
-
-   .. method:: is_chejan_response(self, response)
-
-
-   .. method:: filter_chejan_response(self)
-
-
-   .. method:: event_to_dict(self, response)
-
-
-   .. method:: convert_to_dict(self)
-
-
-   .. method:: get_observable(self)
+   .. py:method:: get_observable_for_code(self, code)
 
 
 
-.. class:: MetaKiwoomOpenApiPlusEventStreamer(cls, clsname, bases, dct)
+.. py:class:: KiwoomOpenApiPlusOrderEventChannel(stub)
 
+   .. py:method:: close(self)
+
+
+   .. py:method:: __del__(self)
+
+
+   .. py:method:: is_chejan_response(self, response)
+
+
+   .. py:method:: filter_chejan_response(self)
+
+
+   .. py:method:: event_to_dict(self, response)
+
+
+   .. py:method:: convert_to_dict(self)
+
+
+   .. py:method:: get_observable(self)
+
+
+
+.. py:class:: MetaKiwoomOpenApiPlusEventStreamer(cls, clsname, bases, dct)
 
    Bases: :py:obj:`type`\ (\ :py:obj:`Logging`\ ), :py:obj:`type`\ (\ :py:obj:`Observer`\ )
 
@@ -110,8 +107,7 @@ Classes
    even via super()).
 
 
-.. class:: KiwoomOpenApiPlusEventStreamer(stub, queue)
-
+.. py:class:: KiwoomOpenApiPlusEventStreamer(stub, queue)
 
    Bases: :py:obj:`rx.core.typing.Observer`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
@@ -120,44 +116,44 @@ Classes
    An Observer is the entity that receives all emissions of a subscribed
    Observable.
 
-   .. attribute:: _price_event_channels_by_stub
+   .. py:attribute:: _price_event_channels_by_stub
       
 
       
 
-   .. attribute:: _order_event_channels_by_stub
+   .. py:attribute:: _order_event_channels_by_stub
       
 
       
 
-   .. attribute:: _lock
+   .. py:attribute:: _lock
       
 
       
 
-   .. method:: on_next(self, value)
+   .. py:method:: on_next(self, value)
 
       Notifies the observer of a new element in the sequence.
 
       :param value: The received element.
 
 
-   .. method:: on_error(self, error)
+   .. py:method:: on_error(self, error)
 
       Notifies the observer that an exception has occurred.
 
       :param error: The error that has occurred.
 
 
-   .. method:: on_completed(self)
+   .. py:method:: on_completed(self)
 
       Notifies the observer of the end of the sequence.
 
 
-   .. method:: rates(self, code)
+   .. py:method:: rates(self, code)
 
 
-   .. method:: events(self)
+   .. py:method:: events(self)
 
 
 

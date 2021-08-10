@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandler`
-============================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandler`
+===============================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandler
 
@@ -17,60 +17,59 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusEventHandler(control)
-
+.. py:class:: KiwoomOpenApiPlusEventHandler(control)
 
    Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerFunctions.KiwoomOpenApiPlusEventHandlerFunctions`
 
-   .. method:: control(self)
+   .. py:method:: control(self)
       :property:
 
 
-   .. method:: observer(self)
+   .. py:method:: observer(self)
       :property:
 
 
-   .. method:: names(cls)
+   .. py:method:: names(cls)
       :classmethod:
 
 
-   .. method:: slots(self)
+   .. py:method:: slots(self)
 
 
-   .. method:: connect(self)
+   .. py:method:: connect(self)
 
 
-   .. method:: disconnect(self)
+   .. py:method:: disconnect(self)
 
 
-   .. method:: on_enter(self)
+   .. py:method:: on_enter(self)
 
 
-   .. method:: on_exit(self, exc_type=None, exc_value=None, traceback=None)
+   .. py:method:: on_exit(self, exc_type=None, exc_value=None, traceback=None)
 
 
-   .. method:: add_callback(self, callback, *args, **kwargs)
+   .. py:method:: add_callback(self, callback, *args, **kwargs)
 
 
-   .. method:: enter(self)
+   .. py:method:: enter(self)
 
 
-   .. method:: exit(self, exc_type=None, exc_value=None, traceback=None)
+   .. py:method:: exit(self, exc_type=None, exc_value=None, traceback=None)
 
 
-   .. method:: stop(self)
+   .. py:method:: stop(self)
 
 
-   .. method:: close(self)
+   .. py:method:: close(self)
 
 
-   .. method:: __enter__(self)
+   .. py:method:: __enter__(self)
 
 
-   .. method:: __exit__(self, exc_type, exc_value, traceback)
+   .. py:method:: __exit__(self, exc_type, exc_value, traceback)
 
 
-   .. method:: __iter__(self)
+   .. py:method:: __iter__(self)
 
 
 

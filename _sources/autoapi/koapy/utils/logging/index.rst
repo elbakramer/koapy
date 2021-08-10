@@ -1,5 +1,5 @@
-:mod:`koapy.utils.logging`
-==========================
+:py:mod:`koapy.utils.logging`
+=============================
 
 .. py:module:: koapy.utils.logging
 
@@ -25,9 +25,8 @@ Classes
 
 
 
-
-Attributes
-~~~~~~~~~~
+Functions
+~~~~~~~~~
 
 .. autoapisummary::
 
@@ -38,35 +37,26 @@ Attributes
    koapy.utils.logging.set_verbosity
 
 
-.. class:: Logging
 
-   .. method:: logger(self)
+.. py:class:: Logging
+
+   .. py:method:: logger(self)
       :property:
 
 
 
-.. data:: get_logger
-   
+.. py:function:: get_logger(name=None)
 
-   
 
-.. data:: verbosity_to_loglevel
-   
+.. py:function:: verbosity_to_loglevel(verbosity)
 
-   
 
-.. data:: loglevel_to_verbosity
-   
+.. py:function:: loglevel_to_verbosity(loglevel)
 
-   
 
-.. data:: set_loglevel
-   
+.. py:function:: set_loglevel(loglevel)
 
-   
 
-.. data:: set_verbosity
-   
+.. py:function:: set_verbosity(verbosity)
 
-   
 

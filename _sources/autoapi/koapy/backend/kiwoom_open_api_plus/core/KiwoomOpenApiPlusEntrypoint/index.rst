@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint`
-==========================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint`
+=============================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint
 
@@ -17,33 +17,32 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusEntrypoint(port=None, client_check_timeout=None, verbosity=None, log_level=None)
-
+.. py:class:: KiwoomOpenApiPlusEntrypoint(port=None, client_check_timeout=None, client_only=None, verbosity=None, log_level=None)
 
    Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin.KiwoomOpenApiPlusEntrypointMixin`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. method:: __del__(self)
+   .. py:method:: __del__(self)
 
 
-   .. method:: __enter__(self)
+   .. py:method:: __enter__(self)
 
 
-   .. method:: __exit__(self, exc_type, exc_value, traceback)
+   .. py:method:: __exit__(self, exc_type, exc_value, traceback)
 
 
-   .. method:: get_stub(self)
+   .. py:method:: get_stub(self)
 
 
-   .. method:: close_client(self)
+   .. py:method:: close_client(self)
 
 
-   .. method:: close_server_proc(self)
+   .. py:method:: close_server_proc(self)
 
 
-   .. method:: close(self)
+   .. py:method:: close(self)
 
 
-   .. method:: __getattr__(self, name)
+   .. py:method:: __getattr__(self, name)
 
 
 

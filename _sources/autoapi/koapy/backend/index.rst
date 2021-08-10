@@ -1,5 +1,5 @@
-:mod:`koapy.backend`
-====================
+:py:mod:`koapy.backend`
+=======================
 
 .. py:module:: koapy.backend
 

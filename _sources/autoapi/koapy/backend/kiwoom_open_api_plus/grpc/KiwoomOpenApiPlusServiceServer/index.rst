@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServer`
-=============================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServer`
+================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServer
 
@@ -17,36 +17,35 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiPlusServiceServer(control, host=None, port=None, max_workers=None)
-
+.. py:class:: KiwoomOpenApiPlusServiceServer(control, host=None, port=None, max_workers=None, credentials=None, **kwargs)
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. method:: __del__(self)
+   .. py:method:: __del__(self)
 
 
-   .. method:: reinitialize_server(self)
+   .. py:method:: reinitialize_server(self)
 
 
-   .. method:: get_host(self)
+   .. py:method:: get_host(self)
 
 
-   .. method:: get_port(self)
+   .. py:method:: get_port(self)
 
 
-   .. method:: start(self)
+   .. py:method:: start(self)
 
 
-   .. method:: wait_for_termination(self, timeout=None)
+   .. py:method:: wait_for_termination(self, timeout=None)
 
 
-   .. method:: is_running(self)
+   .. py:method:: is_running(self)
 
 
-   .. method:: stop(self, grace=None)
+   .. py:method:: stop(self, grace=None)
 
 
-   .. method:: __getattr__(self, name)
+   .. py:method:: __getattr__(self, name)
 
 
 

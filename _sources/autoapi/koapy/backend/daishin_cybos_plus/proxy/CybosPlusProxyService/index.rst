@@ -1,5 +1,5 @@
-:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService`
-===================================================================
+:py:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService`
+======================================================================
 
 .. py:module:: koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService
 
@@ -25,13 +25,12 @@ Functions
 
 
 
-.. class:: CybosPlusProxyService(host=None, port=None, max_workers=None)
+.. py:class:: CybosPlusProxyService(host=None, port=None, max_workers=None)
+
+   .. py:method:: __getattr__(self, name)
 
 
-   .. method:: __getattr__(self, name)
 
-
-
-.. function:: main()
+.. py:function:: main()
 
 

@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler`
-======================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler`
+=========================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler
 
@@ -17,26 +17,25 @@ Classes
 
 
 
-.. class:: QSignalHandler(parent=None)
-
+.. py:class:: QSignalHandler(parent=None)
 
    Bases: :py:obj:`koapy.compat.pyside2.QtNetwork.QAbstractSocket`
 
-   .. attribute:: signalReceived
+   .. py:attribute:: signalReceived
       
 
       
 
-   .. method:: __del__(self)
+   .. py:method:: __del__(self)
 
 
-   .. method:: _readSignal(self)
+   .. py:method:: _readSignal(self)
 
 
-   .. method:: setHandler(self, signal_, handler)
+   .. py:method:: setHandler(self, signal_, handler)
 
 
-   .. method:: restoreHandler(self, signal_, default=None)
+   .. py:method:: restoreHandler(self, signal_, default=None)
 
 
 

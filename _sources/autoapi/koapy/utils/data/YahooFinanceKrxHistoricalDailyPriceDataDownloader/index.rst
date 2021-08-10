@@ -1,5 +1,5 @@
-:mod:`koapy.utils.data.YahooFinanceKrxHistoricalDailyPriceDataDownloader`
-=========================================================================
+:py:mod:`koapy.utils.data.YahooFinanceKrxHistoricalDailyPriceDataDownloader`
+============================================================================
 
 .. py:module:: koapy.utils.data.YahooFinanceKrxHistoricalDailyPriceDataDownloader
 
@@ -17,10 +17,9 @@ Classes
 
 
 
-.. class:: YahooFinanceKrxHistoricalDailyPriceDataDownloader
+.. py:class:: YahooFinanceKrxHistoricalDailyPriceDataDownloader
 
-
-   .. method:: download(self, symbol, start_date=None, end_date=None)
+   .. py:method:: download(self, symbol, start_date=None, end_date=None)
 
 
 

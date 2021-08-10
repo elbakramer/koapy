@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.utils.subprocess &#8212; KOAPY 0.4.0 documentation</title>
+    <title>koapy.utils.subprocess &#8212; KOAPY 0.4.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
@@ -113,8 +113,9 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 
-<span class="kn">from</span> <span class="nn">koapy.config</span> <span class="kn">import</span> <span class="n">config</span>
-<span class="kn">from</span> <span class="nn">koapy.utils.platform</span> <span class="kn">import</span> <span class="n">is_32bit</span><span class="p">,</span> <span class="n">is_64bit</span>
+<span class="kn">from</span> <span class="nn">koapy.utils.logging</span> <span class="kn">import</span> <span class="n">get_logger</span>
+
+<div class="viewcode-block" id="logger"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.logger">[docs]</a><span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="function_to_script"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.function_to_script">[docs]</a><span class="k">def</span> <span class="nf">function_to_script</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -150,89 +151,62 @@
     <span class="k">return</span> <span class="n">args</span></div>
 
 
-<div class="viewcode-block" id="get_executable_from_conda_envname"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.get_executable_from_conda_envname">[docs]</a><span class="k">def</span> <span class="nf">get_executable_from_conda_envname</span><span class="p">(</span><span class="n">envname</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
-        <span class="p">[</span>
-            <span class="s2">&quot;conda&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;run&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-n&quot;</span><span class="p">,</span>
-            <span class="n">envname</span><span class="p">,</span>
-            <span class="s2">&quot;python&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-c&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;import sys; print(sys.executable)&quot;</span><span class="p">,</span>
-        <span class="p">],</span>
-        <span class="n">encoding</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
-        <span class="n">creationflags</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CREATE_NO_WINDOW</span><span class="p">,</span></div>
-    <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
-
-<div class="viewcode-block" id="get_executable_from_conda_envpath"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.get_executable_from_conda_envpath">[docs]</a><span class="k">def</span> <span class="nf">get_executable_from_conda_envpath</span><span class="p">(</span><span class="n">envpath</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
-        <span class="p">[</span>
-            <span class="s2">&quot;conda&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;run&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-p&quot;</span><span class="p">,</span>
-            <span class="n">envpath</span><span class="p">,</span>
-            <span class="s2">&quot;python&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-c&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;import sys; print(sys.executable)&quot;</span><span class="p">,</span>
-        <span class="p">],</span>
-        <span class="n">encoding</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
-        <span class="n">creationflags</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CREATE_NO_WINDOW</span><span class="p">,</span></div>
-    <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
-
-<div class="viewcode-block" id="get_executable_from_executable_config"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.get_executable_from_executable_config">[docs]</a><span class="k">def</span> <span class="nf">get_executable_from_executable_config</span><span class="p">(</span><span class="n">executable_config</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">executable_config</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">executable_config</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">executable_config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s2">&quot;path&quot;</span> <span class="ow">in</span> <span class="n">executable_config</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">executable_config</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s2">&quot;conda&quot;</span> <span class="ow">in</span> <span class="n">executable_config</span><span class="p">:</span>
-            <span class="n">conda_config</span> <span class="o">=</span> <span class="n">executable_config</span><span class="p">[</span><span class="s2">&quot;conda&quot;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">conda_config</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">envname</span> <span class="o">=</span> <span class="n">conda_config</span>
-                <span class="k">return</span> <span class="n">get_executable_from_conda_envname</span><span class="p">(</span><span class="n">envname</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">conda_config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                <span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="n">conda_config</span><span class="p">:</span>
-                    <span class="n">envname</span> <span class="o">=</span> <span class="n">conda_config</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-                    <span class="k">return</span> <span class="n">get_executable_from_conda_envname</span><span class="p">(</span><span class="n">envname</span><span class="p">)</span>
-                <span class="k">if</span> <span class="s2">&quot;path&quot;</span> <span class="ow">in</span> <span class="n">conda_config</span><span class="p">:</span>
-                    <span class="n">envpath</span> <span class="o">=</span> <span class="n">conda_config</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
-                    <span class="k">return</span> <span class="n">get_executable_from_conda_envpath</span><span class="p">(</span><span class="n">envpath</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="get_32bit_executable"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.get_32bit_executable">[docs]</a><span class="k">def</span> <span class="nf">get_32bit_executable</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">is_32bit</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span>
-    <span class="n">executable_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;koapy.python.executable.32bit&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">get_executable_from_executable_config</span><span class="p">(</span><span class="n">executable_config</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="get_64bit_executable"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.get_64bit_executable">[docs]</a><span class="k">def</span> <span class="nf">get_64bit_executable</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">is_64bit</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span>
-    <span class="n">executable_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;koapy.python.executable.64bit&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">get_executable_from_executable_config</span><span class="p">(</span><span class="n">executable_config</span><span class="p">)</span></div>
-
-
 <div class="viewcode-block" id="run_file"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.run_file">[docs]</a><span class="k">def</span> <span class="nf">run_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">executable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">executable</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">executable</span><span class="p">,</span> <span class="n">filename</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="run_script"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.run_script">[docs]</a><span class="k">def</span> <span class="nf">run_script</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">executable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">executable</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="n">script</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="run_function"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.run_function">[docs]</a><span class="k">def</span> <span class="nf">run_function</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">script</span> <span class="o">=</span> <span class="n">function_to_script</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">run_script</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">executable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="quote"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.quote">[docs]</a><span class="k">def</span> <span class="nf">quote</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;`&quot;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span></div>
+
+
+<div class="viewcode-block" id="run_as_admin"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.run_as_admin">[docs]</a><span class="k">def</span> <span class="nf">run_as_admin</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">win32con</span>
+    <span class="kn">import</span> <span class="nn">win32event</span>
+    <span class="kn">import</span> <span class="nn">win32process</span>
+
+    <span class="kn">from</span> <span class="nn">win32com.shell</span> <span class="kn">import</span> <span class="n">shellcon</span>
+    <span class="kn">from</span> <span class="nn">win32com.shell.shell</span> <span class="kn">import</span> <span class="n">ShellExecuteEx</span>
+
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">nShow</span><span class="o">=</span><span class="n">win32con</span><span class="o">.</span><span class="n">SW_SHOWNORMAL</span><span class="p">,</span>
+        <span class="n">fMask</span><span class="o">=</span><span class="n">shellcon</span><span class="o">.</span><span class="n">SEE_MASK_NOCLOSEPROCESS</span><span class="p">,</span>
+        <span class="n">lpVerb</span><span class="o">=</span><span class="s2">&quot;runas&quot;</span><span class="p">,</span>
+        <span class="n">lpFile</span><span class="o">=</span><span class="n">cmd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">lpParameters</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cwd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;lpDirectory&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cwd</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running command: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
+    <span class="n">procInfo</span> <span class="o">=</span> <span class="n">ShellExecuteEx</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">check</span> <span class="ow">or</span> <span class="n">wait</span><span class="p">:</span>
+        <span class="n">procHandle</span> <span class="o">=</span> <span class="n">procInfo</span><span class="p">[</span><span class="s2">&quot;hProcess&quot;</span><span class="p">]</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">win32event</span><span class="o">.</span><span class="n">WaitForSingleObject</span><span class="p">(</span><span class="n">procHandle</span><span class="p">,</span> <span class="n">win32event</span><span class="o">.</span><span class="n">INFINITE</span><span class="p">)</span>
+        <span class="n">rc</span> <span class="o">=</span> <span class="n">win32process</span><span class="o">.</span><span class="n">GetExitCodeProcess</span><span class="p">(</span><span class="n">procHandle</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Process handle </span><span class="si">%s</span><span class="s2"> returned code </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">procHandle</span><span class="p">,</span> <span class="n">rc</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">check</span> <span class="ow">and</span> <span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">(</span><span class="n">rc</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rc</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">rc</span></div>
 </pre></div>
 
           </div>
@@ -245,7 +219,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

@@ -1,5 +1,5 @@
-:mod:`koapy.utils.ctypes`
-=========================
+:py:mod:`koapy.utils.ctypes`
+============================
 
 .. py:module:: koapy.utils.ctypes
 
@@ -17,6 +17,6 @@ Functions
 
 
 
-.. function:: is_admin()
+.. py:function:: is_admin()
 
 

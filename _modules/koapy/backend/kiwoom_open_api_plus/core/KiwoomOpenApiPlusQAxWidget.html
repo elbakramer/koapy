@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget &#8212; KOAPY 0.4.0 documentation</title>
+    <title>koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget &#8212; KOAPY 0.4.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
@@ -147,7 +147,7 @@
 <div class="viewcode-block" id="KiwoomOpenApiPlusQAxWidget.EVENT_NAMES"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidget/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget.KiwoomOpenApiPlusQAxWidget.EVENT_NAMES">[docs]</a>    <span class="n">EVENT_NAMES</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusEventHandlerSignature</span><span class="o">.</span><span class="n">names</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="n">is_32bit</span><span class="p">(),</span> <span class="s2">&quot;Contorl object should be created in 32bit environment&quot;</span>
+        <span class="k">assert</span> <span class="n">is_32bit</span><span class="p">(),</span> <span class="s2">&quot;Control object should be created in 32bit environment&quot;</span>
 
         <span class="k">if</span> <span class="n">PYQT5</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using PyQt5 as Qt backend&quot;</span><span class="p">)</span>
@@ -172,7 +172,13 @@
         <span class="n">KiwoomOpenApiPlusQAxWidgetMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">Logging</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ax</span> <span class="o">=</span> <span class="n">QAxWidget</span><span class="p">(</span><span class="n">clsid_or_progid</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ax</span> <span class="o">=</span> <span class="n">QAxWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">successful</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ax</span><span class="o">.</span><span class="n">setControl</span><span class="p">(</span><span class="n">clsid_or_progid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">successful</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Requested control </span><span class="si">{}</span><span class="s2"> could not be instantiated&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clsid_or_progid</span><span class="p">)</span>
+            <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_methods</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_signals</span> <span class="o">=</span> <span class="p">{}</span>
@@ -208,7 +214,7 @@
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
-            <span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; object has not attribute &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+            <span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; object has no attribute &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusQAxWidget.changeEvent"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidget/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget.KiwoomOpenApiPlusQAxWidget.changeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">changeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
@@ -231,7 +237,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

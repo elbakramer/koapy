@@ -1,5 +1,5 @@
-:mod:`koapy.utils.store.sqlalchemy`
-===================================
+:py:mod:`koapy.utils.store.sqlalchemy`
+======================================
 
 .. py:module:: koapy.utils.store.sqlalchemy
 

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter &#8212; KOAPY 0.4.0 documentation</title>
+    <title>koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter &#8212; KOAPY 0.4.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
@@ -150,10 +150,14 @@
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter.KiwoomOpenApiPlusCommRqDataRateLimiter">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter.</span></span><span class="sig-name descname"><span class="pre">KiwoomOpenApiPlusCommRqDataRateLimiter</span></span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRateLimiter.html#KiwoomOpenApiPlusCommRqDataRateLimiter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter.KiwoomOpenApiPlusCommRqDataRateLimiter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../../../utils/rate_limiting/RateLimiter/index.html#koapy.utils.rate_limiting.RateLimiter.CompositeTimeWindowRateLimiter" title="koapy.utils.rate_limiting.RateLimiter.CompositeTimeWindowRateLimiter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">koapy.utils.rate_limiting.RateLimiter.CompositeTimeWindowRateLimiter</span></code></a></p>
-<p>[조회횟수 제한 관련 가이드]
-- 1초당 5회 조회를 1번 발생시킨 경우 : 17초대기
-- 1초당 5회 조회를 5연속 발생시킨 경우 : 90초대기
-- 1초당 5회 조회를 10연속 발생시킨 경우 : 3분(180초)대기</p>
+<dl class="simple">
+<dt>[조회횟수 제한 관련 가이드]</dt><dd><ul class="simple">
+<li><p>1초당 5회 조회를 1번 발생시킨 경우 : 17초대기</p></li>
+<li><p>1초당 5회 조회를 5연속 발생시킨 경우 : 90초대기</p></li>
+<li><p>1초당 5회 조회를 10연속 발생시킨 경우 : 3분(180초)대기</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
@@ -166,8 +170,12 @@
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter.KiwoomOpenApiPlusSendConditionRateLimiter">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter.</span></span><span class="sig-name descname"><span class="pre">KiwoomOpenApiPlusSendConditionRateLimiter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comm_rate_limiter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRateLimiter.html#KiwoomOpenApiPlusSendConditionRateLimiter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter.KiwoomOpenApiPlusSendConditionRateLimiter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../../../utils/rate_limiting/RateLimiter/index.html#koapy.utils.rate_limiting.RateLimiter.RateLimiter" title="koapy.utils.rate_limiting.RateLimiter.RateLimiter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">koapy.utils.rate_limiting.RateLimiter.RateLimiter</span></code></a></p>
-<p>[조건검색 제한]
-- 조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.</p>
+<dl class="simple">
+<dt>[조건검색 제한]</dt><dd><ul class="simple">
+<li><p>조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter.KiwoomOpenApiPlusSendConditionRateLimiter.get_limiter_per_condition">
 <span class="sig-name descname"><span class="pre">get_limiter_per_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRateLimiter.html#KiwoomOpenApiPlusSendConditionRateLimiter.get_limiter_per_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter.KiwoomOpenApiPlusSendConditionRateLimiter.get_limiter_per_condition" title="Permalink to this definition">¶</a></dt>
@@ -210,7 +218,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

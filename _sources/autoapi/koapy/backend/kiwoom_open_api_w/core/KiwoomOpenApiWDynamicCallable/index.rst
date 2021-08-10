@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWDynamicCallable`
-=========================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWDynamicCallable`
+============================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWDynamicCallable
 
@@ -17,13 +17,12 @@ Classes
 
 
 
-.. class:: KiwoomOpenApiWDynamicCallable(control, name)
+.. py:class:: KiwoomOpenApiWDynamicCallable(control, name)
+
+   .. py:method:: is_valid_return_type(self, result)
 
 
-   .. method:: is_valid_return_type(self, result)
-
-
-   .. method:: __call__(self, *args, **kwargs)
+   .. py:method:: __call__(self, *args, **kwargs)
 
 
 

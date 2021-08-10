@@ -1,5 +1,5 @@
-:mod:`koapy.backtrader.KiwoomOpenApiPlusData`
-=============================================
+:py:mod:`koapy.backtrader.KiwoomOpenApiPlusData`
+================================================
 
 .. py:module:: koapy.backtrader.KiwoomOpenApiPlusData
 
@@ -18,70 +18,68 @@ Classes
 
 
 
-.. class:: MetaKiwoomOpenApiPlusData(cls, clsname, bases, dct)
-
+.. py:class:: MetaKiwoomOpenApiPlusData(cls, clsname, bases, dct)
 
    Bases: :py:obj:`type`\ (\ :py:obj:`Logging`\ ), :py:obj:`type`\ (\ :py:obj:`DataBase`\ )
 
 
-.. class:: KiwoomOpenApiPlusData(*args, **kwargs)
-
+.. py:class:: KiwoomOpenApiPlusData(*args, **kwargs)
 
    Bases: :py:obj:`backtrader.feed.DataBase`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. attribute:: params
+   .. py:attribute:: params
       :annotation: = [['qcheck', 0.5], ['historical', False], ['backfill_start', True], ['backfill', True],...
 
       
 
-   .. attribute:: _store
+   .. py:attribute:: _store
       
 
       
 
-   .. method:: _timeoffset(self)
+   .. py:method:: _timeoffset(self)
 
 
-   .. method:: isnaive(self, dt)
+   .. py:method:: isnaive(self, dt)
 
 
-   .. method:: asutc(self, dt, tz=None, naive=True)
+   .. py:method:: asutc(self, dt, tz=None, naive=True)
 
 
-   .. method:: date2num(self, dt, tz=None)
+   .. py:method:: date2num(self, dt, tz=None)
 
 
-   .. method:: num2date(self, dt=None, tz=None, naive=False)
+   .. py:method:: num2date(self, dt=None, tz=None, naive=False)
 
 
-   .. method:: fromtimestamp(self, timestamp, tz=None)
+   .. py:method:: fromtimestamp(self, timestamp, tz=None)
 
 
-   .. method:: islive(self)
+   .. py:method:: islive(self)
 
 
-   .. method:: setenvironment(self, env)
+   .. py:method:: setenvironment(self, env)
 
 
-   .. method:: start(self)
+   .. py:method:: start(self)
 
 
-   .. method:: _st_start(self, instart=True, tmout=None)
+   .. py:method:: _st_start(self, instart=True, tmout=None)
 
 
-   .. method:: stop(self)
+   .. py:method:: stop(self)
 
 
-   .. method:: haslivedata(self)
+   .. py:method:: haslivedata(self)
 
 
-   .. method:: _load(self)
+   .. py:method:: _load(self)
 
 
-   .. method:: _load_tick(self, msg)
+   .. py:method:: _load_tick(self, msg)
 
 
-   .. method:: _load_history(self, msg)
+   .. py:method:: _load_history(self, msg)
 
 
 

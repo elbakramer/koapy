@@ -1,5 +1,5 @@
-:mod:`koapy.utils.recursion`
-============================
+:py:mod:`koapy.utils.recursion`
+===============================
 
 .. py:module:: koapy.utils.recursion
 
@@ -17,7 +17,7 @@ Functions
 
 
 
-.. function:: depth()
+.. py:function:: depth()
 
    return recursion depth. 0 if no recursion
 

@@ -1,5 +1,5 @@
-:mod:`koapy.utils.store.sqlalchemy.Version`
-===========================================
+:py:mod:`koapy.utils.store.sqlalchemy.Version`
+==============================================
 
 .. py:module:: koapy.utils.store.sqlalchemy.Version
 
@@ -17,74 +17,74 @@ Classes
 
 
 
-.. class:: Version
+.. py:class:: Version
 
    Bases: :py:obj:`koapy.utils.store.sqlalchemy.Base.Base`
 
-   .. attribute:: __tablename__
+   .. py:attribute:: __tablename__
       :annotation: = versions
 
       
 
-   .. attribute:: id
+   .. py:attribute:: id
       
 
       
 
-   .. attribute:: version
+   .. py:attribute:: version
       
 
       
 
-   .. attribute:: table_name
+   .. py:attribute:: table_name
       
 
       
 
-   .. attribute:: user_metadata
+   .. py:attribute:: user_metadata
       
 
       
 
-   .. attribute:: pandas_metadata
+   .. py:attribute:: pandas_metadata
       
 
       
 
-   .. attribute:: deleted
+   .. py:attribute:: deleted
       
 
       
 
-   .. attribute:: timestamp
+   .. py:attribute:: timestamp
       
 
       
 
-   .. attribute:: symbol_id
+   .. py:attribute:: symbol_id
       
 
       
 
-   .. attribute:: symbol
+   .. py:attribute:: symbol
       
 
       
 
-   .. attribute:: snapshots
+   .. py:attribute:: snapshots
       
 
       
 
-   .. attribute:: __table_args__
+   .. py:attribute:: __table_args__
       
 
       
 
-   .. method:: get_snapshots(self)
+   .. py:method:: get_snapshots(self)
 
 
-   .. method:: delete(self)
+   .. py:method:: delete(self)
 
 
 

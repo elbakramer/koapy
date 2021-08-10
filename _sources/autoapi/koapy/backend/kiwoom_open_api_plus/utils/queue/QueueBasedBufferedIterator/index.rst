@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedBufferedIterator`
-================================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedBufferedIterator`
+===================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedBufferedIterator
 
@@ -17,25 +17,24 @@ Classes
 
 
 
-.. class:: QueueBasedBufferedIterator(iterator, queue=None, maxsize=None)
-
+.. py:class:: QueueBasedBufferedIterator(iterator, queue=None, maxsize=None)
 
    Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. attribute:: _check_timeout
+   .. py:attribute:: _check_timeout
       :annotation: = 1
 
       
 
-   .. attribute:: _default_maxsize
+   .. py:attribute:: _default_maxsize
       :annotation: = 10
 
       
 
-   .. method:: _consume_iterator(self)
+   .. py:method:: _consume_iterator(self)
 
 
-   .. method:: next(self, block=True, timeout=None)
+   .. py:method:: next(self, block=True, timeout=None)
 
 
 

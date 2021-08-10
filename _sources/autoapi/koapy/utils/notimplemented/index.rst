@@ -1,5 +1,5 @@
-:mod:`koapy.utils.notimplemented`
-=================================
+:py:mod:`koapy.utils.notimplemented`
+====================================
 
 .. py:module:: koapy.utils.notimplemented
 
@@ -19,12 +19,12 @@ Functions
 
 
 
-.. function:: notimplemented(func)
+.. py:function:: notimplemented(func)
 
 
-.. function:: isnotimplemented(func)
+.. py:function:: isnotimplemented(func)
 
 
-.. function:: isimplemented(func)
+.. py:function:: isimplemented(func)
 
 

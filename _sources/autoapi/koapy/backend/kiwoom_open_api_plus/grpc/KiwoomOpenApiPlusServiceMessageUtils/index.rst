@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceMessageUtils`
-===================================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceMessageUtils`
+======================================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceMessageUtils
 
@@ -18,9 +18,9 @@ Functions
 
 
 
-.. function:: convert_arguments_from_protobuf_to_python(arguments)
+.. py:function:: convert_arguments_from_protobuf_to_python(arguments)
 
 
-.. function:: convert_arguments_from_python_to_protobuf(arguments, arguments_message)
+.. py:function:: convert_arguments_from_python_to_protobuf(arguments, arguments_message)
 
 

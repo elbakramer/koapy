@@ -1,5 +1,5 @@
-:mod:`koapy.utils.datetime`
-===========================
+:py:mod:`koapy.utils.datetime`
+==============================
 
 .. py:module:: koapy.utils.datetime
 
@@ -18,9 +18,9 @@ Functions
 
 
 
-.. function:: is_naive(dt)
+.. py:function:: is_naive(dt)
 
 
-.. function:: localize(dt, tz)
+.. py:function:: localize(dt, tz)
 
 

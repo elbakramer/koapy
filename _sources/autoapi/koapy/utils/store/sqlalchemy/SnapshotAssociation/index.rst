@@ -1,5 +1,5 @@
-:mod:`koapy.utils.store.sqlalchemy.SnapshotAssociation`
-=======================================================
+:py:mod:`koapy.utils.store.sqlalchemy.SnapshotAssociation`
+==========================================================
 
 .. py:module:: koapy.utils.store.sqlalchemy.SnapshotAssociation
 
@@ -17,31 +17,31 @@ Classes
 
 
 
-.. class:: SnapshotAssociation
+.. py:class:: SnapshotAssociation
 
    Bases: :py:obj:`koapy.utils.store.sqlalchemy.Base.Base`
 
-   .. attribute:: __tablename__
+   .. py:attribute:: __tablename__
       :annotation: = snapshot_associations
 
       
 
-   .. attribute:: snapshot_id
+   .. py:attribute:: snapshot_id
       
 
       
 
-   .. attribute:: version_id
+   .. py:attribute:: version_id
       
 
       
 
-   .. attribute:: snapshot
+   .. py:attribute:: snapshot
       
 
       
 
-   .. attribute:: version
+   .. py:attribute:: version
       
 
       

@@ -1,5 +1,5 @@
-:mod:`koapy.utils.logging.Logging`
-==================================
+:py:mod:`koapy.utils.logging.Logging`
+=====================================
 
 .. py:module:: koapy.utils.logging.Logging
 
@@ -18,75 +18,80 @@ Classes
 
 
 
-.. class:: LoggingMeta(cls, clsname, bases, dct)
-
+.. py:class:: LoggingMeta(cls, clsname, bases, dct)
 
    Bases: :py:obj:`type`
 
-   .. attribute:: __default_config
+   .. py:attribute:: __default_config
       
 
       
 
-   .. attribute:: __config_key
+   .. py:attribute:: __config_key
       :annotation: = koapy.utils.logging.config
 
       
 
-   .. attribute:: __initialized
+   .. py:attribute:: __initialized
       :annotation: = False
 
       
 
-   .. attribute:: __init_lock
+   .. py:attribute:: __init_lock
       
 
       
 
-   .. method:: __initialize_if_necessary(cls)
+   .. py:method:: __initialize_if_necessary(cls)
 
 
-   .. method:: __initialize(cls)
+   .. py:method:: __initialize(cls)
 
 
-   .. method:: __get_name_from_module(cls, module)
+   .. py:method:: get_logger(cls, name=None)
 
 
-   .. method:: __module_name(cls)
+   .. py:method:: __module_name(cls)
 
 
-   .. method:: __class_name(cls)
+   .. py:method:: __class_name(cls)
 
 
-   .. method:: __logger_name(cls)
+   .. py:method:: __logger_name(cls)
 
 
-   .. method:: _get_logger(cls)
+   .. py:method:: get_class_logger(cls)
 
 
-   .. method:: logger(cls)
+   .. py:method:: get_module_logger(cls)
+
+
+   .. py:method:: get_package_logger(cls)
+
+
+   .. py:method:: _logger(cls)
+
+
+   .. py:method:: logger(cls)
       :property:
 
 
-   .. method:: get_logger(cls, name=None)
+   .. py:method:: verbosity_to_loglevel(cls, verbosity)
 
 
-   .. method:: verbosity_to_loglevel(cls, verbosity=0)
+   .. py:method:: loglevel_to_verbosity(cls, loglevel)
 
 
-   .. method:: loglevel_to_verbosity(cls, loglevel=logging.WARNING)
+   .. py:method:: set_loglevel(cls, loglevel=logging.WARNING)
 
 
-   .. method:: set_loglevel(cls, loglevel=logging.WARNING, logger=None)
-
-
-   .. method:: set_verbosity(cls, verbosity=0, logger=None)
+   .. py:method:: set_verbosity(cls, verbosity=0)
 
 
 
-.. class:: Logging
+.. py:class:: Logging
 
-   .. method:: logger(self)
+   .. py:method:: logger(self)
       :property:
 
 

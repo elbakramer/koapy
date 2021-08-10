@@ -1,5 +1,5 @@
-:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceMessageUtils`
-===============================================================================
+:py:mod:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceMessageUtils`
+==================================================================================
 
 .. py:module:: koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceMessageUtils
 
@@ -19,12 +19,12 @@ Functions
 
 
 
-.. function:: AssignPrimitive(message, value)
+.. py:function:: AssignPrimitive(message, value)
 
 
-.. function:: ExtractPrimitive(message)
+.. py:function:: ExtractPrimitive(message)
 
 
-.. function:: Protoc()
+.. py:function:: Protoc()
 
 

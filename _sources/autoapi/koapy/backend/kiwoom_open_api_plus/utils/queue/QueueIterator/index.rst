@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator`
-===================================================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator`
+======================================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator
 
@@ -18,55 +18,53 @@ Classes
 
 
 
-.. class:: QueueIterator(queue)
+.. py:class:: QueueIterator(queue)
 
-
-   .. attribute:: _check_timeout
+   .. py:attribute:: _check_timeout
       :annotation: = 1
 
       
 
-   .. method:: __del__(self)
+   .. py:method:: __del__(self)
 
 
-   .. method:: queue(self)
+   .. py:method:: queue(self)
       :property:
 
 
-   .. method:: next(self, block=True, timeout=None)
+   .. py:method:: next(self, block=True, timeout=None)
 
 
-   .. method:: next_nowait(self)
+   .. py:method:: next_nowait(self)
 
 
-   .. method:: has_next(self)
+   .. py:method:: has_next(self)
 
 
-   .. method:: __iter__(self)
+   .. py:method:: __iter__(self)
 
 
-   .. method:: __next__(self)
+   .. py:method:: __next__(self)
 
 
-   .. method:: stop(self)
+   .. py:method:: stop(self)
 
 
-   .. method:: enable(self)
+   .. py:method:: enable(self)
 
 
 
-.. class:: BufferedQueueIterator(queue)
-
+.. py:class:: BufferedQueueIterator(queue)
 
    Bases: :py:obj:`QueueIterator`
 
-   .. method:: next(self, block=True, timeout=None)
+   .. py:method:: next(self, block=True, timeout=None)
 
 
-   .. method:: has_next(self)
+   .. py:method:: has_next(self)
 
 
-   .. method:: head(self)
+   .. py:method:: head(self)
 
 
 

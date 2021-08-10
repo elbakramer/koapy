@@ -1,5 +1,5 @@
-:mod:`koapy.backend.kiwoom_open_api_plus.core`
-==============================================
+:py:mod:`koapy.backend.kiwoom_open_api_plus.core`
+=================================================
 
 .. py:module:: koapy.backend.kiwoom_open_api_plus.core
 

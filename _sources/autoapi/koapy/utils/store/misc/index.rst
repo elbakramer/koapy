@@ -1,5 +1,5 @@
-:mod:`koapy.utils.store.misc`
-=============================
+:py:mod:`koapy.utils.store.misc`
+================================
 
 .. py:module:: koapy.utils.store.misc
 
