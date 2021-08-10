@@ -10,7 +10,14 @@ from koapy.utils.serialization import JsonSerializable
 
 class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
 
+    _TRINFO_BY_CODE_DUMP_FILEDIR = os.path.join(
+        os.path.dirname(__file__), "../data/metadata"
+    )
     _TRINFO_BY_CODE_DUMP_FILENAME = "trinfo_by_code.json"
+    _TRINFO_BY_CODE_DUMP_FILEPATH = os.path.join(
+        _TRINFO_BY_CODE_DUMP_FILEDIR, _TRINFO_BY_CODE_DUMP_FILENAME
+    )
+
     _TRINFO_BY_CODE = {}
 
     class Field(JsonSerializable):
@@ -32,6 +39,16 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                 self.offset,
                 self.fid,
             )
+
+        def __eq__(self, other):
+            if isinstance(other, type(self)):
+                return (
+                    self.name == other.name
+                    and self.start == other.start
+                    and self.offset == other.offset
+                    and self.fid == other.fid
+                )
+            return False
 
     def __init__(
         self,
@@ -74,6 +91,23 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             self.multi_outputs_name,
             self.multi_outputs,
         )
+
+    def __eq__(self, other):
+        if isinstance(other, type(self)):
+            return (
+                self.tr_code == other.tr_code
+                and self.name == other.name
+                and self.tr_name == other.tr_name
+                and self.tr_names_svr == other.tr_names_svr
+                and self.tr_type == other.tr_type
+                and self.gfid == other.gfid
+                and self.inputs == other.inputs
+                and self.single_outputs_name == other.single_outputs_name
+                and self.single_outputs == other.single_outputs
+                and self.multi_outputs_name == other.multi_outputs_name
+                and self.multi_outputs == other.multi_outputs
+            )
+        return False
 
     def to_dict(self):
         dic = dict(self.__dict__)
@@ -273,12 +307,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     @classmethod
     def dump_trinfo_by_code(cls, dump_file=None, data_dir=None):
         if dump_file is None:
-            dump_file = os.path.join(
-                os.path.dirname(__file__),
-                "..",
-                "data",
-                cls._TRINFO_BY_CODE_DUMP_FILENAME,
-            )
+            dump_file = cls._TRINFO_BY_CODE_DUMP_FILEPATH
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
                 dump_filename = dump_file
@@ -301,12 +330,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     @classmethod
     def trinfo_by_code_from_dump_file(cls, dump_file=None):
         if dump_file is None:
-            dump_file = os.path.join(
-                os.path.dirname(__file__),
-                "..",
-                "data",
-                cls._TRINFO_BY_CODE_DUMP_FILENAME,
-            )
+            dump_file = cls._TRINFO_BY_CODE_DUMP_FILEPATH
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
                 if os.path.exists(dump_file) and os.path.getsize(dump_file) > 0:

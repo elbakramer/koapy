@@ -8391,32 +8391,32 @@
             {
                 "fid": 9008,
                 "name": "시장구분",
-                "offset": 20,
+                "offset": 3,
                 "start": 0
             },
             {
                 "fid": 9036,
                 "name": "금액수량구분",
-                "offset": 20,
-                "start": 20
+                "offset": 1,
+                "start": 3
             },
             {
                 "fid": 9073,
                 "name": "투자자별",
                 "offset": 20,
-                "start": 40
+                "start": 4
             },
             {
-                "fid": 9076,
+                "fid": 9112,
                 "name": "외국계전체",
-                "offset": 20,
-                "start": 60
+                "offset": 1,
+                "start": 24
             },
             {
-                "fid": 9077,
+                "fid": 9177,
                 "name": "동시순매수구분",
-                "offset": 20,
-                "start": 80
+                "offset": 1,
+                "start": 25
             }
         ],
         "multi_outputs": [],
@@ -8424,82 +8424,130 @@
         "name": "장중투자자별매매요청",
         "single_outputs": [
             {
+                "fid": 9001,
+                "name": "종목코드",
+                "offset": 12,
+                "start": 0
+            },
+            {
                 "fid": 302,
                 "name": "종목명",
                 "offset": 100,
-                "start": 20
+                "start": 12
             },
             {
                 "fid": 10,
                 "name": "현재가",
                 "offset": 20,
-                "start": 120
+                "start": 112
             },
             {
                 "fid": 25,
                 "name": "대비기호",
                 "offset": 20,
-                "start": 140
+                "start": 132
             },
             {
                 "fid": 11,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 160
+                "start": 152
             },
             {
                 "fid": 12,
                 "name": "등락율",
                 "offset": 20,
-                "start": 180
+                "start": 172
             },
             {
                 "fid": 13,
                 "name": "누적거래량",
                 "offset": 20,
-                "start": 200
+                "start": 192
+            },
+            {
+                "fid": 212,
+                "name": "순매수금액",
+                "offset": 20,
+                "start": 212
+            },
+            {
+                "fid": 736,
+                "name": "이전순매수금액",
+                "offset": 20,
+                "start": 232
+            },
+            {
+                "fid": 213,
+                "name": "순매수금액증감",
+                "offset": 20,
+                "start": 252
+            },
+            {
+                "fid": 208,
+                "name": "매수금액",
+                "offset": 20,
+                "start": 272
+            },
+            {
+                "fid": 209,
+                "name": "매수금액증감",
+                "offset": 20,
+                "start": 292
+            },
+            {
+                "fid": 204,
+                "name": "매도금액",
+                "offset": 20,
+                "start": 312
+            },
+            {
+                "fid": 205,
+                "name": "매도금액증감",
+                "offset": 20,
+                "start": 332
             },
             {
                 "fid": 210,
                 "name": "순매수수량",
                 "offset": 20,
-                "start": 220
+                "start": 352
             },
             {
                 "fid": 217,
                 "name": "이점시전순매수수량",
                 "offset": 20,
-                "start": 240
+                "start": 372
             },
             {
                 "fid": 218,
                 "name": "순매수증감",
                 "offset": 20,
-                "start": 260
+                "start": 392
             },
             {
                 "fid": 206,
                 "name": "매수수량",
                 "offset": 20,
-                "start": 280
+                "start": 412
             },
             {
                 "fid": 207,
                 "name": "매수수량증감",
                 "offset": 20,
-                "start": 300
+                "start": 432
             },
             {
                 "fid": 202,
                 "name": "매도수량",
                 "offset": 20,
-                "start": 320
+                "start": 452
             },
             {
                 "fid": 203,
                 "name": "매도수량증감",
                 "offset": 20,
-                "start": 340
+                "start": 472
             }
         ],
         "single_outputs_name": "장중투자자별매매",

@@ -13,7 +13,10 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
 
         __outer_class__ = None
 
+        _FID_DUMP_FILEDIR = os.path.join(os.path.dirname(__file__), "../data/metadata")
         _FID_DUMP_FILENAME = "fid.xlsx"
+        _FID_DUMP_FILEPATH = os.path.join(_FID_DUMP_FILEDIR, _FID_DUMP_FILENAME)
+
         _NAME_BY_FID = {}
 
         def __init__(self, fid=None, name=None):
@@ -28,12 +31,15 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
                 self.name,
             )
 
+        def __eq__(self, other):
+            if isinstance(other, type(self)):
+                return self.fid == other.fid and self.name == other.name
+            return False
+
         @classmethod
         def name_by_fid_from_dump_file(cls, dump_file=None):
             if dump_file is None:
-                dump_file = os.path.join(
-                    os.path.dirname(__file__), "..", "data", cls._FID_DUMP_FILENAME
-                )
+                dump_file = cls._FID_DUMP_FILEPATH
             df = pd.read_excel(dump_file)
             fids = [cls(pair[0], pair[1]) for pair in zip(df["fid"], df["name"])]
             result = {fid.fid: fid.name for fid in fids}
@@ -48,7 +54,14 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
             fid = int(fid)
             return cls._NAME_BY_FID.get(fid, default)
 
+    _REALTYPE_BY_DESC_DUMP_FILEDIR = os.path.join(
+        os.path.dirname(__file__), "../data/metadata"
+    )
     _REALTYPE_BY_DESC_DUMP_FILENAME = "realtype_by_desc.json"
+    _REALTYPE_BY_DESC_DUMP_FILEPATH = os.path.join(
+        _REALTYPE_BY_DESC_DUMP_FILEDIR, _REALTYPE_BY_DESC_DUMP_FILENAME
+    )
+
     _REALTYPE_BY_DESC = {}
 
     def __init__(self, gidc=None, desc=None, nfid=None, fids=None):
@@ -65,6 +78,16 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
             self.nfid,
             self.fids,
         )
+
+    def __eq__(self, other):
+        if isinstance(other, type(self)):
+            return (
+                self.gidc == other.gidc
+                and self.desc == other.desc
+                and self.nfid == other.nfid
+                and self.fids == other.fids
+            )
+        return False
 
     @classmethod
     def get_realtype_info_by_realtype_name(cls, realtype):
@@ -152,12 +175,7 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
     @classmethod
     def dump_realtype_by_desc(cls, dump_file=None, dat_file=None):
         if dump_file is None:
-            dump_file = os.path.join(
-                os.path.dirname(__file__),
-                "..",
-                "data",
-                cls._REALTYPE_BY_DESC_DUMP_FILENAME,
-            )
+            dump_file = cls._REALTYPE_BY_DESC_DUMP_FILEPATH
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
                 dump_filename = dump_file
@@ -180,12 +198,7 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
     @classmethod
     def realtype_by_desc_from_dump_file(cls, dump_file=None):
         if dump_file is None:
-            dump_file = os.path.join(
-                os.path.dirname(__file__),
-                "..",
-                "data",
-                cls._REALTYPE_BY_DESC_DUMP_FILENAME,
-            )
+            dump_file = cls._REALTYPE_BY_DESC_DUMP_FILEPATH
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
                 if os.path.exists(dump_file) and os.path.getsize(dump_file) > 0:
