@@ -23,12 +23,17 @@ class KiwoomOpenApiPlusDynamicCallable:
         return True
 
     def __call__(self, *args, **kwargs):
-        ba = self._signature.bind(*args, **kwargs)
+        try:
+            ba = self._signature.bind(*args, **kwargs)
+        except TypeError as e:
+            raise TypeError(
+                "Exception while binding arguemnts for function: %s" % self._name
+            ) from e
         ba.apply_defaults()
         result = self._control.dynamicCall(self._function, list(ba.args))
         if not self.is_valid_return_type(result):
             raise TypeError(
-                "Return type of %s was expected for function call %s(...), but %s was found."
+                "Return type of %s was expected for function call %s(...), but %s was found"
                 % (
                     self._signature.return_annotation,
                     self._name,
