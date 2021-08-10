@@ -103,9 +103,6 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(
                 "==": KiwoomOpenApiPlusService_pb2.TransactionStopConditionCompartor.EQUAL_TO,
                 "!=": KiwoomOpenApiPlusService_pb2.TransactionStopConditionCompartor.NOT_EQUAL_TO,
             }.get(stop_condition.get("comparator", "<="))
-            request.stop_condition.include_equal = stop_condition.get(
-                "include_equal", False
-            )  # pylint: disable=no-member
         return self._stub.TransactionCall(request)
 
     def OrderCall(
@@ -159,7 +156,7 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(
         scrno,
         codes,
         fids,
-        realtype=None,
+        opt_type=None,
         infer_fids=False,
         readable_names=False,
         fast_parse=False,
@@ -172,12 +169,12 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(
         else:
             scrnos = scrno
         fids = [int(fid) for fid in fids]
-        if realtype is None:
-            realtype = "0"
+        if opt_type is None:
+            opt_type = "0"
         request.screen_no.extend(scrnos)  # pylint: disable=no-member
         request.code_list.extend(codes)  # pylint: disable=no-member
         request.fid_list.extend(fids)  # pylint: disable=no-member
-        request.real_type = realtype
+        request.opt_type = opt_type
         request.flags.infer_fids = infer_fids  # pylint: disable=no-member
         request.flags.readable_names = readable_names  # pylint: disable=no-member
         request.flags.fast_parse = fast_parse  # pylint: disable=no-member
@@ -323,7 +320,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
                         values.values, remove_zeros_width
                     )
                 )
-        single = pd.Series(single_output)
+        single = pd.Series(single_output, dtype=object)
         multi = pd.DataFrame.from_records(records, columns=columns)
         return single, multi
 
@@ -391,7 +388,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
                 "value": end_date,
             }
             if include_end:
-                stop_condition["include_equal"] = True
+                stop_condition["comparator"] = "<"
         else:
             stop_condition = None
 
@@ -476,7 +473,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
                 "value": end_date,
             }
             if include_end:
-                stop_condition["include_equal"] = True
+                stop_condition["comparator"] = "<"
         else:
             stop_condition = None
 
@@ -556,7 +553,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
                 "value": end_date,
             }
             if include_end:
-                stop_condition["include_equal"] = True
+                stop_condition["comparator"] = "<"
         else:
             stop_condition = None
 
@@ -628,7 +625,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
                 "value": end_date,
             }
             if include_end:
-                stop_condition["include_equal"] = True
+                stop_condition["comparator"] = "<"
         else:
             stop_condition = None
 
@@ -701,7 +698,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
                 "value": end_date,
             }
             if include_end:
-                stop_condition["include_equal"] = True
+                stop_condition["comparator"] = "<"
         else:
             stop_condition = None
 
@@ -774,7 +771,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
                 "value": end_date,
             }
             if include_end:
-                stop_condition["include_equal"] = True
+                stop_condition["comparator"] = "<"
         else:
             stop_condition = None
 
@@ -1055,7 +1052,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
         self,
         codes,
         fids=None,
-        realtype=None,
+        opt_type=None,
         screen_no=None,
         infer_fids=False,
         readable_names=False,
@@ -1069,10 +1066,11 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
             )
 
             fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name("주식시세")
-        if realtype is None:
-            realtype = "0"
+        if opt_type is None:
+            opt_type = "0"
+        assert opt_type in ["0", "1"], "opt_type should be either 0 or 1"
         responses = self.RealCall(
-            screen_no, codes, fids, realtype, infer_fids, readable_names, fast_parse
+            screen_no, codes, fids, opt_type, infer_fids, readable_names, fast_parse
         )
         return responses
 
@@ -1133,7 +1131,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
             else:
                 raise ValueError("Unexpected event handler name %s" % response.name)
 
-        _single = pd.Series(single_output)
+        _single = pd.Series(single_output, dtype=object)
         multi = pd.DataFrame.from_records(records, columns=columns)
 
         if with_info:
@@ -1191,7 +1189,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
                             values.values, remove_zeros_width
                         )
                     )
-                _single = pd.Series(single_output)
+                _single = pd.Series(single_output, dtype=object)
                 multi = pd.DataFrame.from_records(records, columns=columns)
                 inserted = []
                 deleted = []

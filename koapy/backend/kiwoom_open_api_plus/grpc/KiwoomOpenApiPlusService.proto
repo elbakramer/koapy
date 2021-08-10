@@ -141,7 +141,6 @@ message TransactionStopCondition {
   string name = 1;
   string value = 2;
   TransactionStopConditionCompartor comparator = 3;
-  bool include_equal = 4;
 }
 
 message TransactionRequest {
@@ -184,7 +183,7 @@ message RealRequest {
   repeated string screen_no = 1;
   repeated string code_list = 2;
   repeated int32 fid_list = 3;
-  string real_type = 4;
+  string opt_type = 4;
   RealRequestFlags flags = 5;
 }
 

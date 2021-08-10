@@ -604,7 +604,6 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                 return False
 
         self._is_stop_condition = is_stop_condition
-        self._include_equal = request.stop_condition.include_equal
 
     def on_enter(self):
         self._scrnno = self._screen_manager.borrow_screen(self._scrnno)
@@ -666,6 +665,9 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                         self._multi_names
                     )  # pylint: disable=no-member
                     for row in rows:
+                        if self._is_stop_condition(row):
+                            should_stop = True
+                            break
                         response.multi_data.values.add().values.extend(
                             row
                         )  # pylint: disable=no-member
@@ -727,10 +729,7 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
 
         assert self._trcode in ["OPTKWFID", "OPTFOFID"]
 
-        self._typeflag = {
-            "OPTKWFID": 0,
-            "OPTFOFID": 3,
-        }[self._trcode]
+        self._type_flag = {"OPTKWFID": 0, "OPTFOFID": 3}[self._trcode]
 
         self._trinfo = KiwoomOpenApiPlusTrInfo.get_trinfo_by_code(self._trcode)
 
@@ -781,7 +780,6 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
                 return False
 
         self._is_stop_condition = is_stop_condition
-        self._include_equal = request.stop_condition.include_equal
 
     def on_enter(self):
         for i, scrnno in enumerate(self._scrnnos):
@@ -794,7 +792,12 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
             self.add_callback(self.control.SetRealRemove, scrnno, "ALL")
             KiwoomOpenApiPlusError.try_or_raise(
                 self.control.RateLimitedCommKwRqData(
-                    ";".join(codes), 0, len(codes), self._typeflag, self._rqname, scrnno
+                    ";".join(codes),
+                    0,
+                    len(codes),
+                    self._type_flag,
+                    self._rqname,
+                    scrnno,
                 )
             )
 
@@ -850,7 +853,10 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
                         self._multi_names
                     )  # pylint: disable=no-member
                     for row in rows:
-                        response.multi_data.values.add().values.extend(
+                        if self._is_stop_condition(row):
+                            should_stop = True
+                            break
+                        response.listen_response.multi_data.values.add().values.extend(
                             row
                         )  # pylint: disable=no-member
 
@@ -988,7 +994,7 @@ class KiwoomOpenApiPlusBaseOrderEventHandler(
                 if self._is_stop_condition(row):
                     should_stop = True
                     break
-                response.multi_data.values.add().values.extend(
+                response.listen_response.multi_data.values.add().values.extend(
                     row
                 )  # pylint: disable=no-member
 
@@ -1235,7 +1241,7 @@ class KiwoomOpenApiPlusOrderEventHandler(
 class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logging):
 
     _num_codes_per_screen = 100
-    _default_real_type = "0"
+    _default_opt_type = "0"
 
     def __init__(self, control, request, context, screen_manager):
         super().__init__(control, context)
@@ -1245,7 +1251,7 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
         self._screen_no = request.screen_no
         self._code_list = request.code_list
         self._fid_list = request.fid_list
-        self._real_type = request.real_type
+        self._opt_type = request.opt_type
 
         self._infer_fids = request.flags.infer_fids
         self._readable_names = request.flags.readable_names
@@ -1266,7 +1272,7 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
             self._screen_nos = self._screen_no
 
         self._fid_list_joined = ";".join([str(fid) for fid in self._fid_list])
-        self._real_type_explicit = self._real_type or self._default_real_type
+        self._opt_type_final = self._opt_type or self._default_opt_type
 
     def on_enter(self):
         for screen_no, code_list in zip(self._screen_nos, self._code_lists):
@@ -1281,7 +1287,7 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
                     screen_no,
                     ";".join(code_list),
                     self._fid_list_joined,
-                    self._real_type_explicit,
+                    self._opt_type_final,
                 )
             )
 
@@ -1369,7 +1375,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
         self._is_future_option = request.flags.is_future_option
         self._type_flag = 3 if self._is_future_option else 0
 
-        self._trcode = "OPTKWFID"
+        self._trcode = {0: "OPTKWFID", 3: "OPTFOFID"}[self._type_flag]
         self._trinfo = KiwoomOpenApiPlusTrInfo.get_trinfo_by_code(self._trcode)
 
         if self._trinfo is None:
@@ -1489,7 +1495,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                     self.control.RateLimitedCommKwRqData(
                         codelist,
                         0,
-                        codes,
+                        len(codes),
                         self._type_flag,
                         self._request_name,
                         self._screen_no,
@@ -1615,7 +1621,6 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(
         if code in self._screen_by_code:
             screen_no = self._screen_by_code[code]
             opt_type = "1"
-            # self.control.SetRealRemove(screen_no, code)
         else:
             screen_no = None
             opt_type = "0"

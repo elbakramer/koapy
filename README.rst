@@ -310,11 +310,11 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 
     code_list = [code]
     fid_list = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name('주식시세')
-    real_type = '0' # 기존 화면에 추가가 아니라 신규 생성
+    opt_type = '0' # 기존 화면에 추가가 아니라 신규 생성
 
     # 현재는 기본적으로 실시간 이벤트를 무한정 가져옴 (커넥션 컨트롤 가능한 예시)
     logging.info('Starting to get realtime stock data for code: %s', code)
-    stream = entrypoint.GetRealDataForCodesAsStream(code_list, fid_list, real_type, screen_no=None, infer_fids=True, readable_names=True, fast_parse=False)
+    stream = entrypoint.GetRealDataForCodesAsStream(code_list, fid_list, opt_type, screen_no=None, infer_fids=True, readable_names=True, fast_parse=False)
 
     # 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용
     import threading
