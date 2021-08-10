@@ -5,7 +5,12 @@ import os
 import click
 
 from koapy.cli.commands.get.codelist import codelist
+from koapy.cli.commands.install import install
+from koapy.cli.commands.uninstall import uninstall
+from koapy.cli.commands.update import update
 from koapy.cli.utils import fail_with_usage, verbose_option
+from koapy.cli.utils.credential import get_credential
+from koapy.config import config
 from koapy.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -17,6 +22,11 @@ context_settings = dict(help_option_names=["-h", "--help"])
 @click.version_option(message="%(version)s")
 def cli():
     pass
+
+
+cli.add_command(install)
+cli.add_command(uninstall)
+cli.add_command(update)
 
 
 @cli.command(short_help="Start grpc server with tray application.")
@@ -41,10 +51,24 @@ def serve(port, args, verbose):
 
 @cli.command(short_help="Ensure logged in when server is up.")
 @click.option(
+    "-i",
+    "--interactive",
+    is_flag=True,
+    help="Put login information with prompts. Disables auto login for manual login.",
+)
+@click.option(
+    "-d",
+    "--disable-auto-login",
+    is_flag=True,
+    help="Disable auto login and use credential given explicitly from config file.",
+)
+@click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
 @verbose_option()
-def login(port, verbose):
+def login(interactive, disable_auto_login, port, verbose):
+    credential = get_credential(interactive)
+
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
         KiwoomOpenApiPlusEntrypoint,
     )
@@ -57,7 +81,10 @@ def login(port, verbose):
             click.echo("Logging in...")
         else:
             click.echo("Already logged in.")
-        context.EnsureConnected()
+        if context.IsAutoLoginEnabled():
+            if not disable_auto_login:
+                credential = None
+        context.EnsureConnected(credential)
         gubun = context.GetServerGubun()
         if gubun == "1":
             click.echo("Logged into Simulation server.")
@@ -66,11 +93,11 @@ def login(port, verbose):
 
 
 @cli.group(short_help="Configure many things.")
-def config():
+def configure():
     pass
 
 
-@config.command(short_help="Configure auto login.")
+@configure.command(short_help="Show configuration window for auto login.")
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
@@ -83,44 +110,6 @@ def autologin(port, verbose):
     with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
         context.EnsureConnected()
         context.ShowAccountWindow()
-
-
-@cli.group(short_help="Update openapi metadata.")
-def update():
-    pass
-
-
-@update.command(short_help="Update openapi TR metadata.")
-@verbose_option()
-def trdata(verbose):
-    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo import (
-        KiwoomOpenApiPlusTrInfo,
-    )
-
-    KiwoomOpenApiPlusTrInfo.dump_trinfo_by_code()
-
-
-@update.command(short_help="Update openapi realtype metadata.")
-@verbose_option()
-def realdata(verbose):
-    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import (
-        KiwoomOpenApiPlusRealType,
-    )
-
-    KiwoomOpenApiPlusRealType.dump_realtype_by_desc()
-
-
-@update.command(short_help="Update openapi version.")
-@verbose_option(default=5)
-def version(verbose):
-    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
-        KiwoomOpenApiPlusVersionUpdater,
-    )
-    from koapy.config import config
-
-    credential = config.get("koapy.backend.kiwoom_open_api_plus.credential")
-    updater = KiwoomOpenApiPlusVersionUpdater(credential)
-    updater.update_version_if_necessary()
 
 
 @cli.group(short_help="Get various types of data.")
@@ -841,7 +830,7 @@ def errmsg(err_code, verbose):
     "--input",
     metavar="FILENAME",
     type=click.Path(),
-    help="Text or excel file containing codes. Alternative to --codes option.",
+    help="Text or excel file containing codes. Alternative to --code option.",
 )
 @click.option(
     "-f",
@@ -866,8 +855,9 @@ def errmsg(err_code, verbose):
     "-f",
     "--format",
     metavar="FORMAT",
-    type=click.Choice(["md", "json"], case_sensitive=False),
-    default="md",
+    type=click.Choice(["json", "md"], case_sensitive=False),
+    default="json",
+    help="Output format [json|md].",
 )
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
