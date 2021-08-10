@@ -65,7 +65,7 @@ tzlocal = "^2.1"
 wrapt = "^1.12.1"
 
 # windows dependencies
-pywin32 = { version = ">=227,<=300", markers = "sys_platform == 'win32'" }
+pywin32 = { version = ">=227,<302", markers = "sys_platform == 'win32'" }
 pywinauto = { version = "^0.6.8", markers = "sys_platform == 'win32'" }
 windows-curses = { version = "^2.2.0", markers = "sys_platform == 'win32'" }
 
