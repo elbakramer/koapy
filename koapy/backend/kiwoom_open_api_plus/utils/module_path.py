@@ -60,7 +60,8 @@ def GetAPIModulePathIn64Bit():
     import subprocess
     import sys
 
-    from koapy.utils.subprocess import function_to_subprocess_args, get_32bit_executable
+    from koapy.config import get_32bit_executable
+    from koapy.utils.subprocess import function_to_subprocess_args
 
     def main():
         from koapy.backend.kiwoom_open_api_plus.utils.module_path import (

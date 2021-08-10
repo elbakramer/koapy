@@ -3,8 +3,9 @@ import subprocess
 import sys
 import textwrap
 
-from koapy.config import config
-from koapy.utils.platform import is_32bit, is_64bit
+from koapy.utils.logging import get_logger
+
+logger = get_logger(__name__)
 
 
 def function_to_script(func):
@@ -40,86 +41,59 @@ def function_to_subprocess_args(func, executable=None):
     return args
 
 
-def get_executable_from_conda_envname(envname):
-    return subprocess.check_output(
-        [
-            "conda",
-            "run",
-            "-n",
-            envname,
-            "python",
-            "-c",
-            "import sys; print(sys.executable)",
-        ],
-        encoding=sys.stdout.encoding,
-        creationflags=subprocess.CREATE_NO_WINDOW,
-    ).strip()
-
-
-def get_executable_from_conda_envpath(envpath):
-    return subprocess.check_output(
-        [
-            "conda",
-            "run",
-            "-p",
-            envpath,
-            "python",
-            "-c",
-            "import sys; print(sys.executable)",
-        ],
-        encoding=sys.stdout.encoding,
-        creationflags=subprocess.CREATE_NO_WINDOW,
-    ).strip()
-
-
-def get_executable_from_executable_config(executable_config):
-    if isinstance(executable_config, str):
-        return executable_config
-    if isinstance(executable_config, dict):
-        if "path" in executable_config:
-            return executable_config["path"]
-        if "conda" in executable_config:
-            conda_config = executable_config["conda"]
-            if isinstance(conda_config, str):
-                envname = conda_config
-                return get_executable_from_conda_envname(envname)
-            if isinstance(conda_config, dict):
-                if "name" in conda_config:
-                    envname = conda_config["name"]
-                    return get_executable_from_conda_envname(envname)
-                if "path" in conda_config:
-                    envpath = conda_config["path"]
-                    return get_executable_from_conda_envpath(envpath)
-
-
-def get_32bit_executable():
-    if is_32bit():
-        return sys.executable
-    executable_config = config.get("koapy.python.executable.32bit")
-    return get_executable_from_executable_config(executable_config)
-
-
-def get_64bit_executable():
-    if is_64bit():
-        return sys.executable
-    executable_config = config.get("koapy.python.executable.64bit")
-    return get_executable_from_executable_config(executable_config)
-
-
 def run_file(filename, *args, executable=None, **kwargs):
     if executable is None:
         executable = sys.executable
     cmd = [executable, filename]
-    return subprocess.run(cmd, *args, **kwargs)
+    return subprocess.check_call(cmd, *args, **kwargs)
 
 
 def run_script(script, *args, executable=None, **kwargs):
     if executable is None:
         executable = sys.executable
     cmd = [executable, "-c", script]
-    return subprocess.run(cmd, *args, **kwargs)
+    return subprocess.check_call(cmd, *args, **kwargs)
 
 
 def run_function(function, *args, executable=None, **kwargs):
     script = function_to_script(function)
     return run_script(script, *args, executable=executable, **kwargs)
+
+
+def quote(s):
+    return '"' + s.replace('"', '`"') + '"'
+
+
+def run_as_admin(cmd, cwd=None, check=True, wait=True):
+    import win32con
+    import win32event
+    import win32process
+
+    from win32com.shell import shellcon
+    from win32com.shell.shell import ShellExecuteEx
+
+    kwargs = dict(
+        nShow=win32con.SW_SHOWNORMAL,
+        fMask=shellcon.SEE_MASK_NOCLOSEPROCESS,
+        lpVerb="runas",
+        lpFile=cmd[0],
+        lpParameters=" ".join(cmd[1:]),
+    )
+
+    if cwd is not None:
+        kwargs["lpDirectory"] = cwd
+
+    logger.info("Running command: %s", " ".join(cmd))
+    procInfo = ShellExecuteEx(**kwargs)
+
+    if check or wait:
+        procHandle = procInfo["hProcess"]
+        _ = win32event.WaitForSingleObject(procHandle, win32event.INFINITE)
+        rc = win32process.GetExitCodeProcess(procHandle)
+        logger.info("Process handle %s returned code %d", procHandle, rc)
+        if check and rc < 0:
+            raise subprocess.CalledProcessError(rc, cmd)
+    else:
+        rc = None
+
+    return rc

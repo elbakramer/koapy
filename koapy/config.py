@@ -1,16 +1,17 @@
 import os
+import subprocess
+import sys
 
 from pyhocon import ConfigFactory
+from pyhocon.converter import HOCONConverter
+
+from koapy.utils.platform import is_32bit, is_64bit
 
 
+# Read config function
 def read_config(filename):
     return ConfigFactory.parse_file(filename)
 
-
-config_filename_cadidates = [
-    "koapy.conf",
-    ".koapy.conf",
-]
 
 # Load default config
 default_config_filename = "config.conf"
@@ -32,6 +33,16 @@ config_folder_candidates = [
     home,
 ]
 
+config_filename_cadidates = [
+    "koapy.conf",
+    ".koapy.conf",
+]
+
+default_user_config_path = os.path.join(
+    config_folder_candidates[0],
+    config_filename_cadidates[0],
+)
+
 # Try to load config in cwd and home
 for config_folder in config_folder_candidates:
     for config_filename in config_filename_cadidates:
@@ -42,3 +53,92 @@ for config_folder in config_folder_candidates:
 
 # Fallback to default config if not applicable
 config = user_config.with_fallback(default_config)
+
+
+# Just to mitigate redefined outer name issue
+_config = config
+_user_config = user_config
+
+
+# Save config functions
+def save_config(filename, config=None, compact=True, indent=4):
+    if config is None:
+        config = _config
+    hocon = HOCONConverter.to_hocon(config, compact=compact, indent=indent)
+    with open(filename, "w") as f:
+        f.write(hocon)
+
+
+def save_user_config(filename=None, user_config=None):
+    if filename is None:
+        filename = default_user_config_path
+    if user_config is None:
+        user_config = _user_config
+    save_config(filename, user_config)
+
+
+# Helper functions below
+def get_executable_from_conda_envname(envname):
+    return subprocess.check_output(
+        [
+            "conda",
+            "run",
+            "-n",
+            envname,
+            "python",
+            "-c",
+            "import sys; print(sys.executable)",
+        ],
+        encoding=sys.stdout.encoding,
+        creationflags=subprocess.CREATE_NO_WINDOW,
+    ).strip()
+
+
+def get_executable_from_conda_envpath(envpath):
+    return subprocess.check_output(
+        [
+            "conda",
+            "run",
+            "-p",
+            envpath,
+            "python",
+            "-c",
+            "import sys; print(sys.executable)",
+        ],
+        encoding=sys.stdout.encoding,
+        creationflags=subprocess.CREATE_NO_WINDOW,
+    ).strip()
+
+
+def get_executable_from_executable_config(executable_config):
+    if isinstance(executable_config, str):
+        return executable_config
+    if isinstance(executable_config, dict):
+        if "path" in executable_config:
+            return executable_config["path"]
+        if "conda" in executable_config:
+            conda_config = executable_config["conda"]
+            if isinstance(conda_config, str):
+                envname = conda_config
+                return get_executable_from_conda_envname(envname)
+            if isinstance(conda_config, dict):
+                if "name" in conda_config:
+                    envname = conda_config["name"]
+                    return get_executable_from_conda_envname(envname)
+                if "path" in conda_config:
+                    envpath = conda_config["path"]
+                    return get_executable_from_conda_envpath(envpath)
+
+
+def get_32bit_executable():
+    if is_32bit():
+        return sys.executable
+    executable_config = config.get("koapy.python.executable.32bit")
+    return get_executable_from_executable_config(executable_config)
+
+
+def get_64bit_executable():
+    if is_64bit():
+        return sys.executable
+    executable_config = config.get("koapy.python.executable.64bit")
+    return get_executable_from_executable_config(executable_config)

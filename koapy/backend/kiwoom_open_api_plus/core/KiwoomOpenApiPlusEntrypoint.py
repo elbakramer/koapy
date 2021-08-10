@@ -7,7 +7,7 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin im
 from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient import (
     KiwoomOpenApiPlusServiceClient,
 )
-from koapy.config import config
+from koapy.config import config, get_32bit_executable
 from koapy.utils.logging import (
     loglevel_to_verbosity,
     set_loglevel,
@@ -15,7 +15,6 @@ from koapy.utils.logging import (
 )
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.networking import get_free_localhost_port
-from koapy.utils.subprocess import get_32bit_executable
 
 
 class KiwoomOpenApiPlusEntrypoint(KiwoomOpenApiPlusEntrypointMixin, Logging):
