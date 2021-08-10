@@ -7,13 +7,21 @@ from exchange_calendars import get_calendar
 class KrxHistoricalDailyPriceDataDownloader:
     def __init__(self):
         self._headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36",
+            "Accept": "application/json, text/javascript, */*; q=0.01",
+            "Accept-Encoding": "gzip, deflate",
+            "Accept-Language": "en-US,en;q=0.9,ko;q=0.8,fr;q=0.7,ja;q=0.6,zh-CN;q=0.5,zh;q=0.4",
+            "Host": "data.krx.co.kr",
+            "Origin": "http://data.krx.co.kr",
+            "Referer": "http://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020103",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36",
+            "X-Requested-With": "XMLHttpRequest",
         }
 
         self._stocks = None
         self._stocks_delisted = None
 
         self._bld = "dbms/MDC/STAT/standard/MDCSTAT01701"
+        self._isuCd = ""
 
         self._calendar = get_calendar("XKRX")
         self._start_date = self._calendar.first_session.astimezone(
@@ -64,6 +72,13 @@ class KrxHistoricalDailyPriceDataDownloader:
             return self.stocks_delisted.loc[symbol]["full_code"]
         raise ValueError("No full_code found for given symbol %s" % symbol)
 
+    def get_name(self, symbol):
+        if symbol in self.stocks.index:
+            return self.stocks.loc[symbol]["codeName"]
+        if symbol in self.stocks_delisted.index:
+            return self.stocks_delisted.loc[symbol]["codeName"]
+        raise ValueError("No name found for given symbol %s" % symbol)
+
     def download(self, symbol, start_date=None, end_date=None):
         if start_date is None:
             start_date = self._start_date
@@ -76,23 +91,31 @@ class KrxHistoricalDailyPriceDataDownloader:
             )
 
         full_code = self.get_full_code(symbol)
+        name = self.get_name(symbol)
 
         url = "http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd"
         data = {
             "bld": self._bld,
+            "tboxisuCd_finder_stkisu0_0": "{}/{}".format(symbol, name),
             "isuCd": full_code,
-            "isuCd2": "",
+            "isuCd2": self._isuCd,
+            "codeNmisuCd_finder_stkisu0_0": name,
+            "param1isuCd_finder_stkisu0_0": "ALL",
             "strtDd": start_date.strftime("%Y%m%d"),
             "endDd": end_date.strftime("%Y%m%d"),
             "share": "1",
             "money": "1",
             "csvxls_isNo": "false",
         }
-        response = requests.post(url, data, headers=self._headers)
-        df = pd.json_normalize(response.json()["output"])
+        self._isuCd = full_code
 
-        if df.shape[0] == 0:
+        response = requests.post(url, data, headers=self._headers)
+        output = response.json()["output"]
+
+        if len(output) == 0:
             return None
+
+        df = pd.json_normalize(output)
 
         column_names = {
             "TRD_DD": "Date",
