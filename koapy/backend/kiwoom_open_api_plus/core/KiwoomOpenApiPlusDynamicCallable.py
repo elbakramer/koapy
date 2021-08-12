@@ -27,7 +27,7 @@ class KiwoomOpenApiPlusDynamicCallable:
             ba = self._signature.bind(*args, **kwargs)
         except TypeError as e:
             raise TypeError(
-                "Exception while binding arguemnts for function: %s" % self._name
+                "Exception while binding arguments for function: %s" % self._name
             ) from e
         ba.apply_defaults()
         result = self._control.dynamicCall(self._function, list(ba.args))
