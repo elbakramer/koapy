@@ -26,6 +26,7 @@ def generate_tls_certificate(ou, cn):
 
 def main():
     import signal
+    import sys
 
     import grpc
 
@@ -41,6 +42,10 @@ def main():
     port = 8888
 
     app = QApplication.instance()
+
+    if not app:
+        app = QApplication(sys.argv)
+
     control = KiwoomOpenApiPlusQAxWidget()
 
     with open("server.key", "rb") as f:

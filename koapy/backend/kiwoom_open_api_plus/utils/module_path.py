@@ -43,8 +43,10 @@ def GetAPIModulePathIn32Bit():
     from koapy.compat.pyside2.QtWidgets import QApplication
 
     app = QApplication.instance()
+
     if not app:
         app = QApplication(sys.argv)
+
     control = KiwoomOpenApiPlusQAxWidget()
 
     APIModulePath = control.GetAPIModulePath()
