@@ -4,12 +4,13 @@ import threading
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature import (
     KiwoomOpenApiPlusEventHandlerSignature,
 )
+from koapy.backend.kiwoom_open_api_plus.utils.list_type import string_to_list
 from koapy.compat.pyside2 import PYQT5, PYSIDE2, PythonQtError
 from koapy.utils.logging.Logging import Logging
 
 
 class KiwoomOpenApiPlusSignalConnector(Logging):
-    def __init__(self, name=None):
+    def __init__(self, name):
         super().__init__()
 
         self._name = name
@@ -23,6 +24,8 @@ class KiwoomOpenApiPlusSignalConnector(Logging):
 
         if PYSIDE2:
             self._signal = self._signature.to_pyside2_event_signal()
+
+        self.__name__ = self._name
 
     def is_valid_slot(self, slot):
         slot_signature = inspect.signature(slot)
@@ -42,7 +45,7 @@ class KiwoomOpenApiPlusSignalConnector(Logging):
 
     def connect(self, slot):
         if not self.is_valid_slot(slot):
-            raise TypeError("Invalid slot: %s" % slot)
+            raise ValueError("Tried to connect invalid slot: %s" % slot)
         with self._lock:
             if slot not in self._slots:
                 self._slots.append(slot)
@@ -66,3 +69,42 @@ class KiwoomOpenApiPlusSignalConnector(Logging):
 
     def __call__(self, *args, **kwargs):
         return self.call(*args, **kwargs)
+
+
+class KiwoomOpenApiPlusOnReceiveRealDataSignalConnector(
+    KiwoomOpenApiPlusSignalConnector
+):
+    def __init__(self, control):
+        super().__init__("OnReceiveRealData")
+        self._control = control
+        self._pending_removes = {}
+        self._pending_removes_lock = threading.RLock()
+
+        self._SetRealReg = self._control.SetRealReg
+        self._SetRealRemove = self._control.SetRealRemove
+
+    def SetRealReg(self, screen_no, code_list, fid_list, opt_type):
+        if self._pending_removes:
+            with self._pending_removes_lock:
+                code_list_split = string_to_list(code_list)
+                for code in code_list_split:
+                    if code in self._pending_removes:
+                        if screen_no in self._pending_removes[code]:
+                            self._pending_removes[code].remove(screen_no)
+        return self._SetRealReg(screen_no, code_list, fid_list, opt_type)
+
+    def SetRealRemove(self, screen_no, code):
+        if "ALL" in (screen_no, code):
+            return self._SetRealRemove(screen_no, code)
+        with self._pending_removes_lock:
+            self._pending_removes.setdefault(code, []).append(screen_no)
+            return
+
+    def call(self, code, realtype, realdata):  # pylint: disable=arguments-differ
+        super().call(code, realtype, realdata)
+        if self._pending_removes:
+            with self._pending_removes_lock:
+                if code in self._pending_removes:
+                    for screen_no in self._pending_removes[code]:
+                        self._SetRealRemove(screen_no, code)
+                    del self._pending_removes[code]

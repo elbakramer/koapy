@@ -8,6 +8,7 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin imp
     KiwoomOpenApiPlusQAxWidgetMixin,
 )
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector import (
+    KiwoomOpenApiPlusOnReceiveRealDataSignalConnector,
     KiwoomOpenApiPlusSignalConnector,
 )
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature import (
@@ -18,17 +19,11 @@ from koapy.compat.pyside2 import PYQT5, PYSIDE2, PythonQtError
 from koapy.compat.pyside2.QtAxContainer import QAxWidget
 from koapy.compat.pyside2.QtCore import QEvent, Qt
 from koapy.compat.pyside2.QtWidgets import QWidget
-from koapy.utils.logging.Logging import Logging
+from koapy.utils.logging.pyside2.QWidgetLogging import QWidgetLogging
 from koapy.utils.platform import is_32bit
 
 
-class QWidgetWithLoggingMeta(type(Logging), type(QWidget)):
-    pass
-
-
-class KiwoomOpenApiPlusQAxWidget(
-    QWidget, KiwoomOpenApiPlusQAxWidgetMixin, Logging, metaclass=QWidgetWithLoggingMeta
-):
+class KiwoomOpenApiPlusQAxWidget(QWidgetLogging, KiwoomOpenApiPlusQAxWidgetMixin):
 
     CLSID = "{A1574A0D-6BFA-4BD7-9020-DED88711818D}"
     PROGID = "KHOPENAPI.KHOpenApiCtrl.1"
@@ -37,8 +32,10 @@ class KiwoomOpenApiPlusQAxWidget(
     EVENT_NAMES = KiwoomOpenApiPlusEventHandlerSignature.names()
 
     def __init__(self, *args, **kwargs):
+        # Check 32bit requirement
         assert is_32bit(), "Control object should be created in 32bit environment"
 
+        # Check Qt backend
         if PYQT5:
             self.logger.debug("Using PyQt5 as Qt backend")
         elif PYSIDE2:
@@ -46,66 +43,86 @@ class KiwoomOpenApiPlusQAxWidget(
         else:
             raise PythonQtError("No Qt bindings could be found")
 
-        super_args = args
-        super_kwargs = kwargs
+        # Process arguments
+        control = None
+        parent = None
+        window_flags = None
 
-        clsid_or_progid = self.CLSID
+        args = list(args)
+        kwargs = dict(kwargs)
 
         if len(args) > 0 and isinstance(args[0], str):
-            super_args = args[1:]
-            clsid_or_progid = args[0]
+            control = args.pop(0)
         elif "c" in kwargs:
-            super_kwargs = {k: v for k, v in kwargs if k != "c"}
-            clsid_or_progid = kwargs["c"]
+            control = kwargs.pop("c")
 
-        QWidget.__init__(self, *super_args, **super_kwargs)
+        if len(args) > 0 and (args[0] is None or isinstance(args[0], QWidget)):
+            parent = args[0]
+        elif "parent" in kwargs:
+            parent = kwargs["parent"]
+
+        if len(args) > 1:
+            window_flags = args[1]
+        elif "f" in kwargs:
+            window_flags = kwargs["f"]
+
+        if control is None:
+            control = self.CLSID
+
+        # Call super inits
+        QWidgetLogging.__init__(self, *args, **kwargs)
         KiwoomOpenApiPlusQAxWidgetMixin.__init__(self)
-        Logging.__init__(self)
 
-        self._ax = QAxWidget(self)
-        successful = self._ax.setControl(clsid_or_progid)
+        # Create QAxWidget
+        self._control = control
+        self._ax = QAxWidget(self._control, self)
 
+        # Check if instantiation of the QAxWidget was successful
+        successful = not self._ax.isNull()
         if not successful:
             raise RuntimeError(
-                "Requested control {} could not be instantiated".format(clsid_or_progid)
+                "Requested control {} could not be instantiated".format(self._control)
             )
 
-        self._methods = {}
-        self._signals = {}
-
+        # Set methods as attributes
         for method_name in self.METHOD_NAMES:
             dynamic_callable = KiwoomOpenApiPlusDynamicCallable(self._ax, method_name)
-            self._methods[method_name] = dynamic_callable
+            setattr(self, method_name, dynamic_callable)
 
+        # Set signals as attributes
         for event_name in self.EVENT_NAMES:
-            signal_connector = KiwoomOpenApiPlusSignalConnector(event_name)
-            self._signals[event_name] = signal_connector
+            if event_name == "OnReceiveRealData":
+                signal_connector = KiwoomOpenApiPlusOnReceiveRealDataSignalConnector(
+                    self
+                )
+                self.DelayedSetRealReg = signal_connector.SetRealReg
+                self.DelayedSetRealRemove = signal_connector.SetRealRemove
+            else:
+                signal_connector = KiwoomOpenApiPlusSignalConnector(event_name)
             signal_connector.connect_to(self._ax)
+            setattr(self, event_name, signal_connector)
 
+        # Enable logging for QAxWidget exceptions
         self._ax.exception.connect(self._onException)  # pylint: disable=no-member
 
+        # Enable logging for OpenAPI events
         self._event_logger = KiwoomOpenApiPlusLoggingEventHandler(self)
         self._event_logger.connect()
 
     def _onException(
         self, code, source, desc, help
     ):  # pylint: disable=redefined-builtin
-        self.logger.exception(
-            "QAxBaseException(%r, %r, %r, %r)", code, source, desc, help
-        )
+        self.logger.error("QAxBaseException(%r, %r, %r, %r)", code, source, desc, help)
 
     def __getattr__(self, name):
-        if name in self._methods:
-            return self._methods[name]
-        if name in self._signals:
-            return self._signals[name]
         try:
             return getattr(self._ax, name)
-        except AttributeError:
-            pass
-        raise AttributeError(
-            "'{}' object has no attribute '{}'".format(self.__class__.__name__, name)
-        )
+        except AttributeError as e:
+            raise AttributeError(
+                "'{}' object has no attribute '{}'".format(
+                    self.__class__.__name__, name
+                )
+            ) from e
 
     def changeEvent(self, event):
         if event.type() == QEvent.WindowStateChange:

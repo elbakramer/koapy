@@ -307,7 +307,7 @@ CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는
 Tray icon
 ---------
 
-KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication.KiwoomOpenApiPlusTrayApplication` 이 구동되며
+KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusTrayApplication.KiwoomOpenApiPlusTrayApplication` 이 구동되며
 이것을 직접 확인할 수 있도록 구동되는 동안 우측하단에 트레이 아이콘을 표시하게끔 구현되어있습니다.
 아직 따로 마땅한 아이콘이 없어서 초록색 바탕에 ``Qt`` 가 적혀있는 디폴트 아이콘이 그것입니다.
 

@@ -717,6 +717,9 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
 
 
 class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logging):
+
+    _num_codes_per_request = 100
+
     def __init__(self, control, request, context, screen_manager):
         super().__init__(control, context)
         self._request = request
@@ -739,7 +742,6 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
         self._input_code = self._inputs.get("종목코드")
 
         self._code_list = self._input_code.rstrip(";").split(";")
-        self._num_codes_per_request = 100
         self._code_lists = [
             codes for codes in chunk(self._code_list, self._num_codes_per_request)
         ]
@@ -1277,15 +1279,14 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
     def on_enter(self):
         for screen_no, code_list in zip(self._screen_nos, self._code_lists):
             screen_no = self._screen_manager.borrow_screen(screen_no)
+            code_list_joined = ";".join(code_list)
             self.add_callback(self._screen_manager.return_screen, screen_no)
-            self.add_callback(self.control.DisconnectRealData, screen_no)
             for code in code_list:
-                self.add_callback(self.control.SetRealRemove, screen_no, code)
-
+                self.add_callback(self.control.DelayedSetRealRemove, screen_no, code)
             KiwoomOpenApiPlusError.try_or_raise(
-                self.control.SetRealReg(
+                self.control.DelayedSetRealReg(
                     screen_no,
-                    ";".join(code_list),
+                    code_list_joined,
                     self._fid_list_joined,
                     self._opt_type_final,
                 )
@@ -1646,14 +1647,14 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(
             "Registering code %s to screen %s with type %s", code, screen_no, opt_type
         )
         KiwoomOpenApiPlusError.try_or_raise(
-            self.control.SetRealReg(screen_no, code, fid_list_joined, opt_type)
+            self.control.DelayedSetRealReg(screen_no, code, fid_list_joined, opt_type)
         )
 
     def remove_code(self, code):
         if code in self._screen_by_code:
             screen_no = self._screen_by_code[code]
             self.logger.debug("Removing code %s from screen %s", code, screen_no)
-            self.control.SetRealRemove(screen_no, code)
+            self.control.DelayedSetRealRemove(screen_no, code)
             self._screen_by_code.pop(code)
             self._code_list_by_screen[screen_no].remove(code)
             self._code_list.remove(code)

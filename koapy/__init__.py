@@ -38,7 +38,7 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo import (
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
     KiwoomOpenApiPlusVersionUpdater,
 )
-from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication import (
+from koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusTrayApplication import (
     KiwoomOpenApiPlusTrayApplication,
 )
 """
@@ -50,7 +50,7 @@ __classes_to_export__ = {
     "koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget": [
         "KiwoomOpenApiPlusQAxWidget"
     ],
-    "koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication": [
+    "koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusTrayApplication": [
         "KiwoomOpenApiPlusTrayApplication"
     ],
     "koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError": [
@@ -105,6 +105,7 @@ __all__ = [
     "CybosPlusRequestError",
     "CybosPlusEntrypointProxy",
 ]
+
 
 # lazily import classes on attribute access
 # https://www.python.org/dev/peps/pep-0562/

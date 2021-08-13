@@ -42,7 +42,7 @@ def serve(port, args, verbose):
     if verbose > 0:
         app_args.append("-" + "v" * verbose)
     app_args += list(args)
-    from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusTrayApplication import (
+    from koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusTrayApplication import (
         KiwoomOpenApiPlusTrayApplication,
     )
 
