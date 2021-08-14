@@ -1,4 +1,5 @@
 import atexit
+import inspect
 
 from concurrent import futures
 
@@ -19,7 +20,6 @@ class KiwoomOpenApiPlusServiceServer(Logging):
         control,
         host=None,
         port=None,
-        max_workers=None,
         credentials=None,
         **kwargs,
     ):
@@ -42,25 +42,49 @@ class KiwoomOpenApiPlusServiceServer(Logging):
                 "Using one of the free ports, final address would be %s:%d", host, port
             )
 
-        if max_workers is None:
-            max_workers = config.get_int(
-                "koapy.backend.kiwoom_open_api_plus.grpc.server.max_workers", 8
-            )
-
         self._control = control
         self._host = host
         self._port = port
-        self._max_workers = max_workers
         self._credentials = credentials
-        self._kwargs = kwargs
+        self._kwargs = dict(kwargs)
 
         self._servicer = KiwoomOpenApiPlusServiceServicer(self._control)
         self._address = self._host + ":" + str(self._port)
 
-        if "thread_pool" in self._kwargs:
-            self._executor = self._kwargs.pop("thread_pool")
+        grpc_server_signature = inspect.signature(grpc.server)
+        grpc_server_params = list(grpc_server_signature.parameters.keys())
+        grpc_server_kwargs = {
+            k: v for k, v in self._kwargs.items() if k in grpc_server_params
+        }
+        grpc_server_bound_arguments = grpc_server_signature.bind_partial(
+            **grpc_server_kwargs
+        )
+        if grpc_server_bound_arguments.arguments.get("thread_pool") is None:
+            thread_pool_signature = inspect.signature(futures.ThreadPoolExecutor)
+            thread_pool_params = list(thread_pool_signature.parameters.keys())
+            thread_pool_kwargs = {
+                k: v for k, v in self._kwargs.items() if k in thread_pool_params
+            }
+            thread_pool_bound_arguments = thread_pool_signature.bind(
+                **thread_pool_kwargs
+            )
+            if thread_pool_bound_arguments.arguments.get("max_workers") is None:
+                max_workers = config.get_int(
+                    "koapy.backend.kiwoom_open_api_plus.grpc.server.max_workers", 8
+                )
+                thread_pool_bound_arguments.arguments["max_workers"] = max_workers
+            thread_pool = futures.ThreadPoolExecutor(
+                *thread_pool_bound_arguments.args,
+                **thread_pool_bound_arguments.kwargs,
+            )
+            grpc_server_bound_arguments.arguments["thread_pool"] = thread_pool
+            self._thread_pool = thread_pool
+            self._should_shutdown_thread_pool = True
         else:
-            self._executor = futures.ThreadPoolExecutor(max_workers=self._max_workers)
+            self._thread_pool = grpc_server_bound_arguments.arguments["thread_pool"]
+            self._should_shutdown_thread_pool = False
+
+        self._grpc_server_bound_arguments = grpc_server_bound_arguments
 
         self._server = None
         self._server_started = False
@@ -68,17 +92,22 @@ class KiwoomOpenApiPlusServiceServer(Logging):
 
         self.reinitialize_server()
 
-        atexit.register(self._executor.shutdown, False)
+        if self._should_shutdown_thread_pool:
+            atexit.register(self._thread_pool.shutdown)
 
     def __del__(self):
-        atexit.unregister(self._executor.shutdown)
+        if self._should_shutdown_thread_pool:
+            atexit.unregister(self._thread_pool.shutdown)
 
     def reinitialize_server(self):
         if self._server is not None:
             self.stop()
             self.wait_for_termination()
 
-        self._server = grpc.server(self._executor, **self._kwargs)
+        self._server = grpc.server(
+            *self._grpc_server_bound_arguments.args,
+            **self._grpc_server_bound_arguments.kwargs,
+        )
         self._server_started = False
         self._server_stopped = False
 
