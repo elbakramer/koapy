@@ -1,4 +1,4 @@
-import signal
+import signal as signal_module
 import socket
 
 from koapy.compat.pyside2.QtCore import Signal
@@ -17,31 +17,51 @@ class QSignalHandler(QAbstractSocket):
 
         self._wsock, self._rsock = socket.socketpair(socket.AF_INET, socket.SOCK_STREAM)
         self.setSocketDescriptor(self._rsock.fileno())
-        self._old_wakeup_fd = signal.set_wakeup_fd(self._wsock.fileno())
+        self.setWakeUpFileDescriptor(self._wsock.fileno())
 
-        self.readyRead.connect(self._readSignal)
+        self.readyRead.connect(self.onReadyRead)
 
-    def __del__(self):
-        if hasattr(self, "_old_wakeup_fd") and self._old_wakeup_fd is not None:
-            signal.set_wakeup_fd(self._old_wakeup_fd)
-        if hasattr(self, "_old_signal_handlers") and self._old_signal_handlers:
-            for signal_, handler in self._old_signal_handlers.items():
-                self.restoreHandler(signal_, handler)
-
-    def _readSignal(self):
+    def onReadyRead(self):
         data = self.readData(1)
         self.signalReceived.emit(data[0])
 
-    def setHandler(self, signal_, handler):
-        old_handler = signal.signal(signal_, handler)
-        if signal_ not in self._old_signal_handlers:
-            self._old_signal_handlers[signal_] = old_handler
+    def setWakeUpFileDescriptor(self, descriptor):
+        old_wakeup_fd = signal_module.set_wakeup_fd(descriptor)
+        # remember first time replcement only
+        if self._old_wakeup_fd is None:
+            self._old_wakeup_fd = old_wakeup_fd
+        return old_wakeup_fd
+
+    def restoreWakeUpFileDescrptor(self):
+        if self._old_wakeup_fd is not None:
+            old_wakeup_fd = signal_module.set_wakeup_fd(self._old_wakeup_fd)
+            self._old_wakeup_fd = None
+            return old_wakeup_fd
+
+    def setHandler(self, signal, handler):
+        old_handler = signal_module.signal(signal, handler)
+        # remember first time replcement only
+        if signal not in self._old_signal_handlers:
+            self._old_signal_handlers[signal] = old_handler
         return old_handler
 
-    def restoreHandler(self, signal_, default=None):
-        if default is None:
-            default = signal.SIG_DFL
-        if signal_ in self._old_signal_handlers:
-            return signal.signal(
-                signal_, self._old_signal_handlers.pop(signal_, default)
-            )
+    def restoreHandler(self, signal, default=None):
+        if signal in self._old_signal_handlers:
+            if default is None:
+                default = signal_module.SIG_DFL
+            old_handler = self._old_signal_handlers.pop(signal, default)
+            old_handler = signal_module.signal(signal, old_handler)
+            return old_handler
+
+    def restoreAllHandlers(self):
+        if self._old_signal_handlers:
+            for signal, handler in self._old_signal_handlers.items():
+                self.restoreHandler(signal, handler)
+            self._old_signal_handlers = {}
+
+    def restoreAll(self):
+        self.restoreWakeUpFileDescrptor()
+        self.restoreAllHandlers()
+
+    def __del__(self):
+        self.restoreAll()
