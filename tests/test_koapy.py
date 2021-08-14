@@ -308,10 +308,10 @@ def test_GetRealDataForCodesAsStream(entrypoint):
         code_list,
         fid_list,
         opt_type,
-        screen_no=None,  # 화면번호 자동할당
-        infer_fids=True,  # 주어진 fid_list 를 고집하지 말고 전달받는 실시간데이터 이름에 따라 유연하게 fid_list 를 추론
+        screen_no=None,  # 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당
+        infer_fids=True,  # 주어진 fid_list 를 고집하지 말고 이벤트 처리 함수의 인자로 전달받는 실시간데이터 이름에 따라 유연하게 fid_list 를 추론
         readable_names=True,  # 각 fid 마다 숫자 대신 읽을 수 있는 이름으로 변환하여 반환
-        fast_parse=False,  # 이벤트 처리 함수내에서 GetCommRealData() 함수 호출 대신 인자로 넘어오는 데이터를 활용
+        fast_parse=False,  # 이벤트 처리 함수내에서 데이터 값 읽기 시 GetCommRealData() 함수 호출 대신, 이벤트 처리 함수의 인자로 넘어오는 데이터를 직접 활용
     )
     check_count = 10
     events = itertools.islice(stream, check_count)
