@@ -13,6 +13,11 @@ def read_config(filename):
     return ConfigFactory.parse_file(filename)
 
 
+# Create config from dict function
+def config_from_dict(dictionary):
+    return ConfigFactory.from_dict(dictionary)
+
+
 # Load default config
 default_config_filename = "config.conf"
 default_config_file_directory = os.path.dirname(os.path.realpath(__file__))
@@ -56,15 +61,20 @@ config = user_config.with_fallback(default_config)
 
 
 # Just to mitigate redefined outer name issue
-_config = config
-_user_config = user_config
+global_config = config
+global_user_config = user_config
 
 
 # Save config functions
-def save_config(filename, config=None, compact=True, indent=4):
-    if config is None:
-        config = _config
+def dump_config(config, compact=False, indent=4):
     hocon = HOCONConverter.to_hocon(config, compact=compact, indent=indent)
+    return hocon
+
+
+def save_config(filename, config=None, compact=False, indent=4):
+    if config is None:
+        config = global_config
+    hocon = dump_config(config, compact=compact, indent=indent)
     with open(filename, "w") as f:
         f.write(hocon)
 
@@ -73,7 +83,7 @@ def save_user_config(filename=None, user_config=None):
     if filename is None:
         filename = default_user_config_path
     if user_config is None:
-        user_config = _user_config
+        user_config = global_user_config
     save_config(filename, user_config)
 
 

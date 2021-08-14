@@ -2,7 +2,13 @@ import os
 
 import click
 
-from koapy.config import config
+from koapy.config import (
+    config,
+    config_from_dict,
+    default_user_config_path,
+    save_config,
+    user_config,
+)
 
 
 def prompt_credential():
@@ -56,6 +62,7 @@ def prompt_credential():
         "is_simulation": is_simulation,
         "account_passwords": account_passwords,
     }
+    credential = config_from_dict(credential)
 
     return credential
 
@@ -74,8 +81,6 @@ def get_credential(interactive=False):
             == "y"
         )
         if save_credential:
-            from koapy.config import default_user_config_path
-
             config_path = click.prompt(
                 "Path to save config file", default=default_user_config_path
             )
@@ -93,8 +98,6 @@ def get_credential(interactive=False):
                 should_write = True
 
             if should_write:
-                from koapy.config import save_config, user_config
-
                 user_config.put(
                     "koapy.backend.kiwoom_open_api_plus.credential", credential
                 )
