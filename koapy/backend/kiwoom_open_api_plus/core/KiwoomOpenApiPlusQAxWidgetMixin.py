@@ -14,6 +14,7 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter import
     KiwoomOpenApiPlusSendConditionRateLimiter,
     KiwoomOpenApiPlusSendOrderRateLimiter,
 )
+from koapy.backend.kiwoom_open_api_plus.utils.list_type import string_to_list
 from koapy.config import config
 from koapy.utils.ctypes import is_admin
 from koapy.utils.logging.Logging import Logging
@@ -37,8 +38,8 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
         if market is None:
             market = ""
         market = str(market)
-        result = self.GetCodeListByMarket(market).rstrip(";")
-        result = result.split(";") if result else []
+        result = self.GetCodeListByMarket(market)
+        result = string_to_list(result)
         return result
 
     def GetNameListByMarketAsList(self, market):
@@ -50,10 +51,33 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
         userid = self.GetLoginInfo("USER_ID")
         return userid
 
+    def GetUserName(self):
+        username = self.GetLoginInfo("USER_NAME")
+        return username
+
+    def GetAccountCount(self):
+        account_count = self.GetLoginInfo("ACCOUNT_CNT")
+        account_count = int(account_count)
+        return account_count
+
     def GetAccountList(self):
-        accounts = self.GetLoginInfo("ACCLIST").rstrip(";")
-        accounts = accounts.split(";") if accounts else []
+        accounts = self.GetLoginInfo("ACCLIST")
+        accounts = string_to_list(accounts)
         return accounts
+
+    def GetKeyboardSecurityStatus(self):
+        return self.GetLoginInfo("KEY_BSECGB")
+
+    def IsKeyboardSecurityEnabled(self):
+        gubun = self.GetKeyboardSecurityStatus()
+        return gubun == "0"
+
+    def GetFirewallStatus(self):
+        return self.GetLoginInfo("FIREW_SECGB")
+
+    def IsFirewallEnabled(self):
+        gubun = self.GetFirewallStatus()
+        return gubun == "1"
 
     def GetFirstAvailableAccount(self):
         account = None
@@ -64,7 +88,7 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
 
     def GetMasterStockStateAsList(self, code):
         states = self.GetMasterStockState(code).strip()
-        states = states.split("|") if states else []
+        states = string_to_list(states, sep="|")
         return states
 
     def GetKospiCodeList(self):
@@ -154,8 +178,8 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
     def GetConditionNameListAsList(self):
         self.EnsureConditionLoaded()
         conditions = self.GetConditionNameList()
-        conditions = conditions.rstrip(";").split(";") if conditions else []
-        conditions = [cond.split("^") for cond in conditions]
+        conditions = string_to_list(conditions)
+        conditions = [string_to_list(cond, sep="^") for cond in conditions]
         conditions = [(int(cond[0]), cond[1]) for cond in conditions]
         return conditions
 
@@ -267,7 +291,9 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
             login_window["Button1"].click()
 
     @classmethod
-    def LoginUsingPywinauto_RunScriptInSubprocess(cls, credential=None):
+    def LoginUsingPywinauto_RunScriptInSubprocess(
+        cls, credential=None, wait=False, timeout=None, check=False
+    ):
         def main():
             # pylint: disable=redefined-outer-name,reimported,import-self
             import json
@@ -281,51 +307,109 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
             KiwoomOpenApiPlusQAxWidgetMixin.LoginUsingPywinauto_Impl(credential)
 
         args = function_to_subprocess_args(main)
-        return subprocess.run(args, input=json.dumps(credential), text=True, check=True)
+        process = subprocess.Popen(args, stdin=subprocess.PIPE, text=True)
+        json.dump(credential, process.stdin)
 
-    def LoginUsingPywinauto(self, credential=None):
+        if wait:
+            try:
+                stdout, stderr = process.communicate(timeout=timeout)
+            except subprocess.TimeoutExpired as exc:
+                process.kill()
+                exc.stdout, exc.stderr = process.communicate()
+                raise exc
+            except:
+                process.kill()
+                raise
+            retcode = process.poll()
+            completed = subprocess.CompletedProcess(
+                process.args, retcode, stdout, stderr
+            )
+            if check:
+                completed.check_returncode()
+            return completed
+
+        return process
+
+    def LoginUsingPywinauto(self, credential=None, wait=True, timeout=None, check=True):
         assert is_admin(), "Using pywinauto requires administrator permission"
-        return self.LoginUsingPywinauto_RunScriptInSubprocess(credential)
+        return self.LoginUsingPywinauto_RunScriptInSubprocess(
+            credential, wait=wait, timeout=timeout, check=check
+        )
 
-    def Connect(self, credential=None):
+    def CommConnectAndThen(self, credential=None, callback=None):
+        if (
+            callback is None
+            and credential is not None
+            and not isinstance(credential, dict)
+            and callable(credential)
+        ):
+            callback = credential
+            credential = None
+
         if credential is not None:
             assert (
                 is_admin()
-            ), "Connect() method requires to be run as administrator if credential is given explicitly"
+            ), "CommConnectAndThen() method requires to be run as administrator if credential is given explicitly"
             self.DisableAutoLogin()
         elif not self.IsAutoLoginEnabled() and is_admin():
             credential = config.get(
                 "koapy.backend.kiwoom_open_api_plus.credential", None
             )
 
+        def OnEventConnect(errcode):
+            self.OnEventConnect.disconnect(OnEventConnect)
+            if callable(callback):
+                callback(errcode)
+
+        self.OnEventConnect.connect(OnEventConnect)
+        errcode = KiwoomOpenApiPlusError.try_or_raise(self.CommConnect())
+
+        if credential is not None:
+            self.LoginUsingPywinauto(credential, wait=False)
+
+        return errcode
+
+    def Connect(self, credential=None):
         q = queue.Queue()
 
         def OnEventConnect(errcode):
             q.put(errcode)
 
-        self.OnEventConnect.connect(OnEventConnect)
-
-        try:
-            errcode = KiwoomOpenApiPlusError.try_or_raise(self.CommConnect())
-            if credential is not None:
-                self.LoginUsingPywinauto(credential)
-            errcode = KiwoomOpenApiPlusError.try_or_raise(q.get())
-        finally:
-            self.OnEventConnect.disconnect(OnEventConnect)
+        self.CommConnectAndThen(credential, OnEventConnect)
+        errcode = KiwoomOpenApiPlusError.try_or_raise(q.get())
 
         return errcode
 
-    def EnsureConnected(self, credential=None):
-        errcode = 0  # pylint: disable=unused-variable
-        status = self.GetConnectState()
-        if status == 0:
-            errcode = self.Connect(credential)
-            status = self.GetConnectState()
-        assert status == 1, "Could not ensure connected"
-        return status
-
     def IsConnected(self):
         return self.GetConnectState() == 1
+
+    def EnsureConnectedAndThen(self, credential=None, callback=None):
+        is_connected = self.IsConnected()
+        if not is_connected:
+            if (
+                callback is None
+                and credential is not None
+                and not isinstance(credential, dict)
+                and callable(credential)
+            ):
+                callback = credential
+                credential = None
+
+            def OnEventConnect(errcode):
+                if errcode == 0:
+                    if callable(callback):
+                        callback()
+
+            self.CommConnectAndThen(credential, OnEventConnect)
+        return is_connected
+
+    def EnsureConnected(self, credential=None):
+        is_connected = self.IsConnected()
+        if not is_connected:
+            self.Connect(credential)
+            is_connected = self.IsConnected()
+            assert is_connected, "Could not ensure connected"
+        return is_connected
 
     def LoadCondition(self):
         q = queue.Queue()
