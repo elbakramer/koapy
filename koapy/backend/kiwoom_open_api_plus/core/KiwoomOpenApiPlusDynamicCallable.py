@@ -15,6 +15,8 @@ class KiwoomOpenApiPlusDynamicCallable:
             self._signature.return_annotation is not Signature.empty
         )
 
+        self.__name__ = self._name
+
     def is_valid_return_type(self, result):
         if self._should_test_return_type and not isinstance(
             result, self._signature.return_annotation
@@ -22,7 +24,7 @@ class KiwoomOpenApiPlusDynamicCallable:
             return False
         return True
 
-    def __call__(self, *args, **kwargs):
+    def call(self, *args, **kwargs):
         try:
             ba = self._signature.bind(*args, **kwargs)
         except TypeError as e:
@@ -41,3 +43,6 @@ class KiwoomOpenApiPlusDynamicCallable:
                 )
             )
         return result
+
+    def __call__(self, *args, **kwargs):
+        return self.call(*args, **kwargs)
