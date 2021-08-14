@@ -29,6 +29,5 @@ Submodules
    KiwoomOpenApiPlusServiceServicer/index.rst
    KiwoomOpenApiPlusService_pb2/index.rst
    KiwoomOpenApiPlusService_pb2_grpc/index.rst
-   KiwoomOpenApiPlusTrayApplication/index.rst
 
 

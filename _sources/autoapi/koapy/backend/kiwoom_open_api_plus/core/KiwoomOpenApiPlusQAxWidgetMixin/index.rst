@@ -42,7 +42,25 @@ Classes
    .. py:method:: GetUserId(self)
 
 
+   .. py:method:: GetUserName(self)
+
+
+   .. py:method:: GetAccountCount(self)
+
+
    .. py:method:: GetAccountList(self)
+
+
+   .. py:method:: GetKeyboardSecurityStatus(self)
+
+
+   .. py:method:: IsKeyboardSecurityEnabled(self)
+
+
+   .. py:method:: GetFirewallStatus(self)
+
+
+   .. py:method:: IsFirewallEnabled(self)
 
 
    .. py:method:: GetFirstAvailableAccount(self)
@@ -105,20 +123,26 @@ Classes
       :classmethod:
 
 
-   .. py:method:: LoginUsingPywinauto_RunScriptInSubprocess(cls, credential=None)
+   .. py:method:: LoginUsingPywinauto_RunScriptInSubprocess(cls, credential=None, wait=False, timeout=None, check=False)
       :classmethod:
 
 
-   .. py:method:: LoginUsingPywinauto(self, credential=None)
+   .. py:method:: LoginUsingPywinauto(self, credential=None, wait=True, timeout=None, check=True)
+
+
+   .. py:method:: CommConnectAndThen(self, credential=None, callback=None)
 
 
    .. py:method:: Connect(self, credential=None)
 
 
-   .. py:method:: EnsureConnected(self, credential=None)
-
-
    .. py:method:: IsConnected(self)
+
+
+   .. py:method:: EnsureConnectedAndThen(self, credential=None, callback=None)
+
+
+   .. py:method:: EnsureConnected(self, credential=None)
 
 
    .. py:method:: LoadCondition(self)

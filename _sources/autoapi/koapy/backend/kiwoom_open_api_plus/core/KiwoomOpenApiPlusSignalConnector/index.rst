@@ -13,11 +13,12 @@ Classes
 .. autoapisummary::
 
    koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector
+   koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusOnReceiveRealDataSignalConnector
 
 
 
 
-.. py:class:: KiwoomOpenApiPlusSignalConnector(name=None)
+.. py:class:: KiwoomOpenApiPlusSignalConnector(name)
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
@@ -37,6 +38,20 @@ Classes
 
 
    .. py:method:: __call__(self, *args, **kwargs)
+
+
+
+.. py:class:: KiwoomOpenApiPlusOnReceiveRealDataSignalConnector(control)
+
+   Bases: :py:obj:`KiwoomOpenApiPlusSignalConnector`
+
+   .. py:method:: SetRealReg(self, screen_no, code_list, fid_list, opt_type)
+
+
+   .. py:method:: SetRealRemove(self, screen_no, code)
+
+
+   .. py:method:: call(self, code, realtype, realdata)
 
 
 

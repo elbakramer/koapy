@@ -11,5 +11,6 @@ Submodules
    :maxdepth: 1
 
    QSignalHandler/index.rst
+   QThreadPoolExecutor/index.rst
 
 

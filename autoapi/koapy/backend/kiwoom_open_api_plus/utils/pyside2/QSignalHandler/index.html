@@ -18,7 +18,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../../../search.html" />
-    <link rel="next" title="koapy.backend.kiwoom_open_api_plus.utils.queue" href="../../queue/index.html" />
+    <link rel="next" title="koapy.backend.kiwoom_open_api_plus.utils.pyside2.QThreadPoolExecutor" href="../QThreadPoolExecutor/index.html" />
     <link rel="prev" title="koapy.backend.kiwoom_open_api_plus.utils.pyside2" href="../index.html" />
   
    
@@ -81,7 +81,7 @@
   <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils</span></code></a><ul>
   <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.pyside2</span></code></a><ul>
       <li>Previous: <a href="../index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.pyside2</span></code></a></li>
-      <li>Next: <a href="../../queue/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.queue</span></code></a></li>
+      <li>Next: <a href="../QThreadPoolExecutor/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.pyside2.QThreadPoolExecutor</span></code></a></li>
   </ul></li>
   </ul></li>
   </ul></li>
@@ -152,23 +152,43 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.__del__">
-<span class="sig-name descname"><span class="pre">__del__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler.__del__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.__del__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.onReadyRead">
+<span class="sig-name descname"><span class="pre">onReadyRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler.onReadyRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.onReadyRead" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler._readSignal">
-<span class="sig-name descname"><span class="pre">_readSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler._readSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler._readSignal" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.setWakeUpFileDescriptor">
+<span class="sig-name descname"><span class="pre">setWakeUpFileDescriptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descriptor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler.setWakeUpFileDescriptor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.setWakeUpFileDescriptor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.restoreWakeUpFileDescrptor">
+<span class="sig-name descname"><span class="pre">restoreWakeUpFileDescrptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler.restoreWakeUpFileDescrptor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.restoreWakeUpFileDescrptor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.setHandler">
-<span class="sig-name descname"><span class="pre">setHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler.setHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.setHandler" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler.setHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.setHandler" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.restoreHandler">
-<span class="sig-name descname"><span class="pre">restoreHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler.restoreHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.restoreHandler" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">restoreHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler.restoreHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.restoreHandler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.restoreAllHandlers">
+<span class="sig-name descname"><span class="pre">restoreAllHandlers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler.restoreAllHandlers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.restoreAllHandlers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.restoreAll">
+<span class="sig-name descname"><span class="pre">restoreAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler.restoreAll"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.restoreAll" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.__del__">
+<span class="sig-name descname"><span class="pre">__del__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QSignalHandler.html#QSignalHandler.__del__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSignalHandler.QSignalHandler.__del__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

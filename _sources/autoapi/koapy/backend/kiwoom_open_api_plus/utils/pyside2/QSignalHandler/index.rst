@@ -26,16 +26,28 @@ Classes
 
       
 
+   .. py:method:: onReadyRead(self)
+
+
+   .. py:method:: setWakeUpFileDescriptor(self, descriptor)
+
+
+   .. py:method:: restoreWakeUpFileDescrptor(self)
+
+
+   .. py:method:: setHandler(self, signal, handler)
+
+
+   .. py:method:: restoreHandler(self, signal, default=None)
+
+
+   .. py:method:: restoreAllHandlers(self)
+
+
+   .. py:method:: restoreAll(self)
+
+
    .. py:method:: __del__(self)
-
-
-   .. py:method:: _readSignal(self)
-
-
-   .. py:method:: setHandler(self, signal_, handler)
-
-
-   .. py:method:: restoreHandler(self, signal_, default=None)
 
 
 

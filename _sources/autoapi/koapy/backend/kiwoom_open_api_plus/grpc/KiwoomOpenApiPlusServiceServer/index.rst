@@ -17,7 +17,7 @@ Classes
 
 
 
-.. py:class:: KiwoomOpenApiPlusServiceServer(control, host=None, port=None, max_workers=None, credentials=None, **kwargs)
+.. py:class:: KiwoomOpenApiPlusServiceServer(control, host=None, port=None, credentials=None, **kwargs)
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 

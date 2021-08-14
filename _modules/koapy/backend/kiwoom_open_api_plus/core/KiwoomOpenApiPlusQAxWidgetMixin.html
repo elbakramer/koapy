@@ -124,6 +124,7 @@
     <span class="n">KiwoomOpenApiPlusSendConditionRateLimiter</span><span class="p">,</span>
     <span class="n">KiwoomOpenApiPlusSendOrderRateLimiter</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.utils.list_type</span> <span class="kn">import</span> <span class="n">string_to_list</span>
 <span class="kn">from</span> <span class="nn">koapy.config</span> <span class="kn">import</span> <span class="n">config</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.ctypes</span> <span class="kn">import</span> <span class="n">is_admin</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.logging.Logging</span> <span class="kn">import</span> <span class="n">Logging</span>
@@ -147,8 +148,8 @@
         <span class="k">if</span> <span class="n">market</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">market</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="n">market</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">market</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetCodeListByMarket</span><span class="p">(</span><span class="n">market</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">result</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetCodeListByMarket</span><span class="p">(</span><span class="n">market</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetNameListByMarketAsList"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetNameListByMarketAsList">[docs]</a>    <span class="k">def</span> <span class="nf">GetNameListByMarketAsList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">market</span><span class="p">):</span>
@@ -160,10 +161,33 @@
         <span class="n">userid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetLoginInfo</span><span class="p">(</span><span class="s2">&quot;USER_ID&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">userid</span></div>
 
+<div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetUserName"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetUserName">[docs]</a>    <span class="k">def</span> <span class="nf">GetUserName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetLoginInfo</span><span class="p">(</span><span class="s2">&quot;USER_NAME&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">username</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetAccountCount"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetAccountCount">[docs]</a>    <span class="k">def</span> <span class="nf">GetAccountCount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">account_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetLoginInfo</span><span class="p">(</span><span class="s2">&quot;ACCOUNT_CNT&quot;</span><span class="p">)</span>
+        <span class="n">account_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">account_count</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">account_count</span></div>
+
 <div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetAccountList"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetAccountList">[docs]</a>    <span class="k">def</span> <span class="nf">GetAccountList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">accounts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetLoginInfo</span><span class="p">(</span><span class="s2">&quot;ACCLIST&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
-        <span class="n">accounts</span> <span class="o">=</span> <span class="n">accounts</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">accounts</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="n">accounts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetLoginInfo</span><span class="p">(</span><span class="s2">&quot;ACCLIST&quot;</span><span class="p">)</span>
+        <span class="n">accounts</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">accounts</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">accounts</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetKeyboardSecurityStatus"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetKeyboardSecurityStatus">[docs]</a>    <span class="k">def</span> <span class="nf">GetKeyboardSecurityStatus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetLoginInfo</span><span class="p">(</span><span class="s2">&quot;KEY_BSECGB&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.IsKeyboardSecurityEnabled"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.IsKeyboardSecurityEnabled">[docs]</a>    <span class="k">def</span> <span class="nf">IsKeyboardSecurityEnabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">gubun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetKeyboardSecurityStatus</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">gubun</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetFirewallStatus"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetFirewallStatus">[docs]</a>    <span class="k">def</span> <span class="nf">GetFirewallStatus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetLoginInfo</span><span class="p">(</span><span class="s2">&quot;FIREW_SECGB&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.IsFirewallEnabled"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.IsFirewallEnabled">[docs]</a>    <span class="k">def</span> <span class="nf">IsFirewallEnabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">gubun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetFirewallStatus</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">gubun</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetFirstAvailableAccount"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetFirstAvailableAccount">[docs]</a>    <span class="k">def</span> <span class="nf">GetFirstAvailableAccount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">account</span> <span class="o">=</span> <span class="kc">None</span>
@@ -174,7 +198,7 @@
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetMasterStockStateAsList"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetMasterStockStateAsList">[docs]</a>    <span class="k">def</span> <span class="nf">GetMasterStockStateAsList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
         <span class="n">states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetMasterStockState</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">states</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="n">states</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">states</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetKospiCodeList"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetKospiCodeList">[docs]</a>    <span class="k">def</span> <span class="nf">GetKospiCodeList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -264,8 +288,8 @@
 <div class="viewcode-block" id="KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetConditionNameListAsList"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin.GetConditionNameListAsList">[docs]</a>    <span class="k">def</span> <span class="nf">GetConditionNameListAsList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">EnsureConditionLoaded</span><span class="p">()</span>
         <span class="n">conditions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetConditionNameList</span><span class="p">()</span>
-        <span class="n">conditions</span> <span class="o">=</span> <span class="n">conditions</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">conditions</span> <span class="k">else</span> <span class="p">[]</span>
-        <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="n">cond</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;^&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">]</span>
+        <span class="n">conditions</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
+        <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="n">string_to_list</span><span class="p">(</span><span class="n">cond</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;^&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">]</span>
         <span class="n">conditions</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">int</span><span class="p">(</span><span class="n">cond</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">cond</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">conditions</span></div></div>
 
@@ -377,7 +401,9 @@
             <span class="n">login_window</span><span class="p">[</span><span class="s2">&quot;Button1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.LoginUsingPywinauto_RunScriptInSubprocess"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.LoginUsingPywinauto_RunScriptInSubprocess">[docs]</a>    <span class="k">def</span> <span class="nf">LoginUsingPywinauto_RunScriptInSubprocess</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.LoginUsingPywinauto_RunScriptInSubprocess"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.LoginUsingPywinauto_RunScriptInSubprocess">[docs]</a>    <span class="k">def</span> <span class="nf">LoginUsingPywinauto_RunScriptInSubprocess</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">):</span>
         <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
             <span class="c1"># pylint: disable=redefined-outer-name,reimported,import-self</span>
             <span class="kn">import</span> <span class="nn">json</span>
@@ -391,51 +417,109 @@
             <span class="n">KiwoomOpenApiPlusQAxWidgetMixin</span><span class="o">.</span><span class="n">LoginUsingPywinauto_Impl</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
 
         <span class="n">args</span> <span class="o">=</span> <span class="n">function_to_subprocess_args</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">credential</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">credential</span><span class="p">,</span> <span class="n">process</span><span class="o">.</span><span class="n">stdin</span><span class="p">)</span>
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.LoginUsingPywinauto"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.LoginUsingPywinauto">[docs]</a>    <span class="k">def</span> <span class="nf">LoginUsingPywinauto</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">wait</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">TimeoutExpired</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+                <span class="n">process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+                <span class="n">exc</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">exc</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+                <span class="k">raise</span> <span class="n">exc</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+                <span class="k">raise</span>
+            <span class="n">retcode</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+            <span class="n">completed</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CompletedProcess</span><span class="p">(</span>
+                <span class="n">process</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">retcode</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">check</span><span class="p">:</span>
+                <span class="n">completed</span><span class="o">.</span><span class="n">check_returncode</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">completed</span>
+
+        <span class="k">return</span> <span class="n">process</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.LoginUsingPywinauto"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.LoginUsingPywinauto">[docs]</a>    <span class="k">def</span> <span class="nf">LoginUsingPywinauto</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">is_admin</span><span class="p">(),</span> <span class="s2">&quot;Using pywinauto requires administrator permission&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">LoginUsingPywinauto_RunScriptInSubprocess</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">LoginUsingPywinauto_RunScriptInSubprocess</span><span class="p">(</span>
+            <span class="n">credential</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="n">wait</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="n">check</span></div>
+        <span class="p">)</span>
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.Connect"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.Connect">[docs]</a>    <span class="k">def</span> <span class="nf">Connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.CommConnectAndThen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.CommConnectAndThen">[docs]</a>    <span class="k">def</span> <span class="nf">CommConnectAndThen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">callback</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="n">credential</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">credential</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">callable</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="n">callback</span> <span class="o">=</span> <span class="n">credential</span>
+            <span class="n">credential</span> <span class="o">=</span> <span class="kc">None</span>
+
         <span class="k">if</span> <span class="n">credential</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">assert</span> <span class="p">(</span>
                 <span class="n">is_admin</span><span class="p">()</span>
-            <span class="p">),</span> <span class="s2">&quot;Connect() method requires to be run as administrator if credential is given explicitly&quot;</span>
+            <span class="p">),</span> <span class="s2">&quot;CommConnectAndThen() method requires to be run as administrator if credential is given explicitly&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">DisableAutoLogin</span><span class="p">()</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">IsAutoLoginEnabled</span><span class="p">()</span> <span class="ow">and</span> <span class="n">is_admin</span><span class="p">():</span>
             <span class="n">credential</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
                 <span class="s2">&quot;koapy.backend.kiwoom_open_api_plus.credential&quot;</span><span class="p">,</span> <span class="kc">None</span>
             <span class="p">)</span>
 
+        <span class="k">def</span> <span class="nf">OnEventConnect</span><span class="p">(</span><span class="n">errcode</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">OnEventConnect</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">callback</span><span class="p">):</span>
+                <span class="n">callback</span><span class="p">(</span><span class="n">errcode</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">OnEventConnect</span><span class="p">)</span>
+        <span class="n">errcode</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CommConnect</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">credential</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">LoginUsingPywinauto</span><span class="p">(</span><span class="n">credential</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">errcode</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.Connect"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.Connect">[docs]</a>    <span class="k">def</span> <span class="nf">Connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">q</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
 
         <span class="k">def</span> <span class="nf">OnEventConnect</span><span class="p">(</span><span class="n">errcode</span><span class="p">):</span>
             <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">errcode</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">OnEventConnect</span><span class="p">)</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">errcode</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CommConnect</span><span class="p">())</span>
-            <span class="k">if</span> <span class="n">credential</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">LoginUsingPywinauto</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
-            <span class="n">errcode</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
-        <span class="k">finally</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">OnEventConnect</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">CommConnectAndThen</span><span class="p">(</span><span class="n">credential</span><span class="p">,</span> <span class="n">OnEventConnect</span><span class="p">)</span>
+        <span class="n">errcode</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
 
         <span class="k">return</span> <span class="n">errcode</span></div>
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.EnsureConnected"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.EnsureConnected">[docs]</a>    <span class="k">def</span> <span class="nf">EnsureConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">errcode</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># pylint: disable=unused-variable</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">errcode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Could not ensure connected&quot;</span>
-        <span class="k">return</span> <span class="n">status</span></div>
-
 <div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.IsConnected"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.IsConnected">[docs]</a>    <span class="k">def</span> <span class="nf">IsConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.EnsureConnectedAndThen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.EnsureConnectedAndThen">[docs]</a>    <span class="k">def</span> <span class="nf">EnsureConnectedAndThen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">is_connected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">IsConnected</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_connected</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">callback</span> <span class="ow">is</span> <span class="kc">None</span>
+                <span class="ow">and</span> <span class="n">credential</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">credential</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">callable</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">callback</span> <span class="o">=</span> <span class="n">credential</span>
+                <span class="n">credential</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">def</span> <span class="nf">OnEventConnect</span><span class="p">(</span><span class="n">errcode</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">errcode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">callback</span><span class="p">):</span>
+                        <span class="n">callback</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">CommConnectAndThen</span><span class="p">(</span><span class="n">credential</span><span class="p">,</span> <span class="n">OnEventConnect</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">is_connected</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.EnsureConnected"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.EnsureConnected">[docs]</a>    <span class="k">def</span> <span class="nf">EnsureConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">is_connected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">IsConnected</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_connected</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
+            <span class="n">is_connected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">IsConnected</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="n">is_connected</span><span class="p">,</span> <span class="s2">&quot;Could not ensure connected&quot;</span>
+        <span class="k">return</span> <span class="n">is_connected</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusComplexQAxWidgetMixin.LoadCondition"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin.LoadCondition">[docs]</a>    <span class="k">def</span> <span class="nf">LoadCondition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">q</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>

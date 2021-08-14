@@ -12,20 +12,14 @@ Classes
 
 .. autoapisummary::
 
-   koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWQAxWidget.QWidgetWithLoggingMeta
    koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWQAxWidget.KiwoomOpenApiWQAxWidget
 
 
 
 
-.. py:class:: QWidgetWithLoggingMeta(cls, clsname, bases, dct)
-
-   Bases: :py:obj:`type`\ (\ :py:obj:`Logging`\ ), :py:obj:`type`\ (\ :py:obj:`QWidget`\ )
-
-
 .. py:class:: KiwoomOpenApiWQAxWidget(*args, **kwargs)
 
-   Bases: :py:obj:`koapy.compat.pyside2.QtWidgets.QWidget`, :py:obj:`koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWQAxWidgetMixin.KiwoomOpenApiWQAxWidgetMixin`, :py:obj:`koapy.utils.logging.Logging.Logging`
+   Bases: :py:obj:`koapy.utils.logging.pyside2.QWidgetLogging.QWidgetLogging`, :py:obj:`koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWQAxWidgetMixin.KiwoomOpenApiWQAxWidgetMixin`
 
    .. py:attribute:: CLSID
       :annotation: = {D1ACAB7D-A3AF-49E4-9004-C9E98344E17A}

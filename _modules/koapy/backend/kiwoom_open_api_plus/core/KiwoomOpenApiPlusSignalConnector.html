@@ -114,12 +114,13 @@
 <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">KiwoomOpenApiPlusEventHandlerSignature</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.utils.list_type</span> <span class="kn">import</span> <span class="n">string_to_list</span>
 <span class="kn">from</span> <span class="nn">koapy.compat.pyside2</span> <span class="kn">import</span> <span class="n">PYQT5</span><span class="p">,</span> <span class="n">PYSIDE2</span><span class="p">,</span> <span class="n">PythonQtError</span>
 <span class="kn">from</span> <span class="nn">koapy.utils.logging.Logging</span> <span class="kn">import</span> <span class="n">Logging</span>
 
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusSignalConnector"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusSignalConnector</span><span class="p">(</span><span class="n">Logging</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
@@ -133,6 +134,8 @@
 
         <span class="k">if</span> <span class="n">PYSIDE2</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_signal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signature</span><span class="o">.</span><span class="n">to_pyside2_event_signal</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusSignalConnector.is_valid_slot"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.is_valid_slot">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid_slot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slot</span><span class="p">):</span>
         <span class="n">slot_signature</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">slot</span><span class="p">)</span>
@@ -152,7 +155,7 @@
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusSignalConnector.connect"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slot</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid_slot</span><span class="p">(</span><span class="n">slot</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid slot: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">slot</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Tried to connect invalid slot: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">slot</span><span class="p">)</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">slot</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slots</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_slots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slot</span><span class="p">)</span></div>
@@ -176,6 +179,45 @@
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusSignalConnector.__call__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOnReceiveRealDataSignalConnector"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusOnReceiveRealDataSignalConnector">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusOnReceiveRealDataSignalConnector</span><span class="p">(</span>
+    <span class="n">KiwoomOpenApiPlusSignalConnector</span>
+<span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;OnReceiveRealData&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control</span> <span class="o">=</span> <span class="n">control</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SetRealReg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">SetRealReg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SetRealRemove</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">SetRealRemove</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOnReceiveRealDataSignalConnector.SetRealReg"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusOnReceiveRealDataSignalConnector.SetRealReg">[docs]</a>    <span class="k">def</span> <span class="nf">SetRealReg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">code_list</span><span class="p">,</span> <span class="n">fid_list</span><span class="p">,</span> <span class="n">opt_type</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes_lock</span><span class="p">:</span>
+                <span class="n">code_list_split</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">code_list</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">code_list_split</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">screen_no</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes</span><span class="p">[</span><span class="n">code</span><span class="p">]:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes</span><span class="p">[</span><span class="n">code</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">screen_no</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SetRealReg</span><span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="n">code_list</span><span class="p">,</span> <span class="n">fid_list</span><span class="p">,</span> <span class="n">opt_type</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOnReceiveRealDataSignalConnector.SetRealRemove"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusOnReceiveRealDataSignalConnector.SetRealRemove">[docs]</a>    <span class="k">def</span> <span class="nf">SetRealRemove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;ALL&quot;</span> <span class="ow">in</span> <span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SetRealRemove</span><span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">screen_no</span><span class="p">)</span>
+            <span class="k">return</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusOnReceiveRealDataSignalConnector.call"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusOnReceiveRealDataSignalConnector.call">[docs]</a>    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">realtype</span><span class="p">,</span> <span class="n">realdata</span><span class="p">):</span>  <span class="c1"># pylint: disable=arguments-differ</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">realtype</span><span class="p">,</span> <span class="n">realdata</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes_lock</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">screen_no</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes</span><span class="p">[</span><span class="n">code</span><span class="p">]:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_SetRealRemove</span><span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_removes</span><span class="p">[</span><span class="n">code</span><span class="p">]</span></div></div>
 </pre></div>
 
           </div>

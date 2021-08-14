@@ -224,6 +224,11 @@ Classes
 
    Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlerForGrpc.KiwoomOpenApiPlusEventHandlerForGrpc`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
+   .. py:attribute:: _num_codes_per_request
+      :annotation: = 100
+
+      
+
    .. py:method:: on_enter(self)
 
 

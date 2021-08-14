@@ -153,8 +153,10 @@
     <span class="kn">from</span> <span class="nn">koapy.compat.pyside2.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span>
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="n">app</span><span class="p">:</span>
         <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+
     <span class="n">control</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusQAxWidget</span><span class="p">()</span>
 
     <span class="n">APIModulePath</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">GetAPIModulePath</span><span class="p">()</span>

@@ -12,6 +12,7 @@ Subpackages
 
    core/index.rst
    grpc/index.rst
+   pyside2/index.rst
    utils/index.rst
 
 
