@@ -1,6 +1,7 @@
 aiohttp==3.7.4.post0; python_version >= "3.6" and python_full_version >= "3.5.3"
 async-timeout==3.0.1; python_version >= "3.6" and python_full_version >= "3.5.3"
 attrs==21.2.0; python_version >= "3.6" and python_full_version >= "3.5.3"
+backports.zoneinfo==0.2.1; python_version < "3.9" and python_version >= "3.6"
 certifi==2021.5.30; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0"
 chardet==4.0.0; python_version >= "3.6" and python_full_version >= "3.5.3"
 charset-normalizer==2.0.4; python_full_version >= "3.6.0" and python_version >= "3"
@@ -14,7 +15,7 @@ greenlet==1.1.1; python_version >= "3" and python_full_version < "3.0.0" or pyth
 grpcio-tools==1.39.0
 grpcio==1.39.0
 idna==3.2; python_full_version >= "3.6.0" and python_version >= "3.6"
-importlib-metadata==4.6.3; python_version < "3.8" and python_version >= "3.6" and (python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.8" or python_full_version >= "3.6.0" and python_version < "3.8" and python_version >= "3.6")
+importlib-metadata==4.6.4; python_version < "3.8" and python_version >= "3.6" and (python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.8" or python_full_version >= "3.6.0" and python_version < "3.8" and python_version >= "3.6")
 korean-lunar-calendar==0.2.1
 multidict==5.1.0; python_version >= "3.6" and python_full_version >= "3.5.3"
 numpy==1.21.1; python_version >= "3.7"
@@ -42,7 +43,8 @@ tabulate==0.8.9
 toolz==0.11.1; python_version >= "3.5"
 tqdm==4.62.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
 typing-extensions==3.10.0.0; python_version < "3.8" and python_version >= "3.6" and python_full_version >= "3.5.3"
-tzlocal==2.1
+tzdata==2021.1; platform_system == "Windows" and python_version >= "3.6"
+tzlocal==3.0; python_version >= "3.6"
 urllib3==1.26.6; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4"
 windows-curses==2.2.0; sys_platform == "win32"
 wrapt==1.12.1

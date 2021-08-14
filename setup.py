@@ -34,7 +34,7 @@ requirements = [
     "SQLAlchemy>=1.4.22",
     "tabulate>=0.8.9",
     "tqdm>=4.62.0",
-    "tzlocal>=2.1",
+    "tzlocal>=3.0",
     "wrapt>=1.12.1",
     "pywin32>=301;sys_platform=='win32'",
     "pywinauto>=0.6.8;sys_platform=='win32'",
