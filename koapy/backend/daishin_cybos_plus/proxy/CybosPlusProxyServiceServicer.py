@@ -8,7 +8,7 @@ from koapy.backend.daishin_cybos_plus.proxy import (
     CybosPlusProxyService_pb2,
     CybosPlusProxyService_pb2_grpc,
 )
-from koapy.backend.daishin_cybos_plus.proxy.CybosPlusMessageUtils import (
+from koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceMessageUtils import (
     AssignPrimitive,
     ExtractPrimitive,
 )
