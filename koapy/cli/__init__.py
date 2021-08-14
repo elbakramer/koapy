@@ -287,8 +287,10 @@ def stockname(codes, port, verbose):
 @click.option(
     "-f",
     "--format",
-    metavar="FORMAT",
     type=click.Choice(["md", "xlsx", "json"], case_sensitive=False),
+    help="Output format. (default: md)",
+    default="md",
+    show_choices=True,
 )
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."

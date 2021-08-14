@@ -86,7 +86,7 @@ def verbose_option(
             type=int,
             flag_value=flag_value,
             default=default,
-            metavar="[VERBOSITY]",
+            metavar="[0...5]",
             help="Set verbosity level.",
             cls=VerboseOption,
         )

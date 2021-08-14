@@ -193,3 +193,45 @@ OpenAPI 의 OCX 라이브러리가 32-Bit 환경만 지원하기 때문입니다
 32-Bit 환경에는 서버만 띄워두고 64Bit 환경에서 gRPC 클라이언트 API 를 통해 서버에 연결하여 동일하게 OpenAPI 의 모든 기능을 활용할 수 있습니다.
 
 이후 사용법에 대해서는 :doc:`./usage` 를 참고하세요.
+
+KOAPY CLI 를 활용한 OpenAPI 설치, 업데이트, 삭제
+===============================================
+
+각각 아래의 명령어를 활용해 OpenAPI 를 설치, 업데이트, 삭제 할 수도 있습니다.
+
+.. code-block:: console
+
+    $ koapy install openapi    # OpenAPI 설치
+    $ koapy update openapi     # OpenAPI 자동 버전 업데이트
+    $ koapy uninstall openapi  # OpenAPI 삭제
+
+설치, 삭제의 경우에는 임시폴더에 설치파일을 다운로드 받아 실행하여 설치, 삭제를 진행합니다.
+업데이트의 경우에는 OpenAPI 의 버전 업데이트 기능을 활용하는데, 여기에는 로그인 처리를 위한 계정 정보 및 관리자 권한이 필요합니다.
+
+각 명령어의 자세한 옵션등에 대해서는 ``-h`` 옵션을 통한 도움말을 확인하세요.
+
+DLL 로딩 오류 해결방법 (KOAPY CLI 를 활용한 pywin32 설치)
+=========================================================
+
+의존성중에 pywin32 의 버전이 301 로 업데이트 되면서 특정 환경에서 (특히 conda 기반 환경) DLL 로딩 관련 오류가 발생할 수 있습니다.
+기존에 conda 배포판에서 설치되어 있는 버전과 충돌이 나서 발생하는 이슈이기 때문에 문제가 되는 기존 설치를 제거해주어야 합니다.
+
+대략 아래에 위치한 파일들이 문제를 일으킬 수 있습니다. 파일 이름에서 ``3X`` 값은 사용하는 Python 버전에 따라 달라질 수 있다는 뜻입니다.
+
+.. code-block:: console
+
+    ${sys.prefix}/Library/bin/pythoncom3X.dll
+    ${sys.prefix}/Library/bin/pywintypes3X.dll
+    ${sys.prefix}/Lib/site-packages/win32/pythoncom3X.dll
+    ${sys.prefix}/Lib/site-packages/win32/pywintypes3X.dll
+
+아니면 좀 더 쉽게 각각 아래의 명령어를 통해 pywin32 를 정상적으로 설치, 삭제 할 수 있습니다.
+
+.. code-block:: console
+
+    $ koapy install pywin32    # pywin32 설치
+    $ koapy uninstall pywin32  # pywin32 삭제
+
+실행시 일반적인 pip 를 통한 설치/삭제를 진행하고 이후 추가적인 후처리 스크립트를 수행해 정상적인 설치/삭제가 될 수 있도록 합니다.
+
+각 명령어의 자세한 옵션등에 대해서는 ``-h`` 옵션을 통한 도움말을 확인하세요.

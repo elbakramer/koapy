@@ -191,7 +191,7 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
     # 하위 함수를 사용한 TR 요청 예시 (opt10001)
     rqname = '주식기본정보요청'
     trcode = 'opt10001'
-    screen_no = '0001' # 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정
+    screen_no = '0001'  # 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당
     inputs = {'종목코드': code}
 
     output = {}
@@ -287,15 +287,15 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
     # 주문처리 파라미터 설정
     first_account_no = entrypoint.GetFirstAvailableAccount()
 
-    request_name = '삼성전자 1주 시장가 신규 매수' # 사용자 구분명, 구분가능한 임의의 문자열
-    screen_no = '0001'                           # 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정
-    account_no = first_account_no                # 계좌번호 10자리, 여기서는 계좌번호 목록에서 첫번째로 발견한 계좌번호로 매수처리
-    order_type = 1         # 주문유형, 1 : 신규매수
-    code = samsung_code    # 종목코드, 앞의 삼성전자 종목코드
-    quantity = 1           # 주문수량, 1주 매수
-    price = 0              # 주문가격, 시장가 매수는 가격설정 의미없음
-    quote_type = '03'      # 거래구분, 03 : 시장가
-    original_order_no = '' # 원주문번호, 주문 정정/취소 등에서 사용
+    request_name = "삼성전자 1주 시장가 신규 매수"  # 사용자 구분명, 구분가능한 임의의 문자열
+    screen_no = "0001"  # 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당
+    account_no = first_account_no  # 계좌번호 10자리, 여기서는 계좌번호 목록에서 첫번째로 발견한 계좌번호로 매수처리
+    order_type = 1  # 주문유형, 1 : 신규매수
+    code = samsung_code  # 종목코드, 앞의 삼성전자 종목코드
+    quantity = 1  # 주문수량, 1주 매수
+    price = 0  # 주문가격, 시장가 매수는 가격설정 의미없음
+    quote_type = "03"  # 거래구분, 03 : 시장가
+    original_order_no = ""  # 원주문번호, 주문 정정/취소 등에서 사용
 
     # 현재는 기본적으로 주문수량이 모두 소진되기 전까지 이벤트를 듣도록 되어있음 (단순 호출 예시)
     if is_currently_in_session():
@@ -314,7 +314,15 @@ KOAPY 는 아래와 같은 기능을 제공합니다.
 
     # 현재는 기본적으로 실시간 이벤트를 무한정 가져옴 (커넥션 컨트롤 가능한 예시)
     logging.info('Starting to get realtime stock data for code: %s', code)
-    stream = entrypoint.GetRealDataForCodesAsStream(code_list, fid_list, opt_type, screen_no=None, infer_fids=True, readable_names=True, fast_parse=False)
+    stream = entrypoint.GetRealDataForCodesAsStream(
+        code_list,
+        fid_list,
+        opt_type,
+        screen_no=None,  # 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당
+        infer_fids=True,  # True 로 설정 시 주어진 fid_list 를 고집하지 말고 이벤트 처리 함수의 인자로 전달받는 실시간데이터 이름에 따라 유연하게 fid_list 를 추론
+        readable_names=True,  # True 로 설정 시 각 fid 마다 숫자 대신 읽을 수 있는 이름으로 변환하여 반환
+        fast_parse=False,  # True 로 설정 시 이벤트 처리 함수내에서 데이터 값 읽기 시 GetCommRealData() 함수 호출 대신, 이벤트 처리 함수의 인자로 넘어오는 데이터를 직접 활용, infer_fids 가 True 로 설정된 경우만 유의미함
+    )
 
     # 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용
     import threading

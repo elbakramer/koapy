@@ -183,7 +183,7 @@ def test_GetCodeListByConditionAsStream(entrypoint):
 def test_OrderCall(entrypoint):
     first_account_no = entrypoint.GetFirstAvailableAccount()
     request_name = "삼성전자 1주 시장가 신규 매수"  # 사용자 구분명, 구분가능한 임의의 문자열
-    screen_no = "0001"  # 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정
+    screen_no = "0001"  # 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당
     account_no = first_account_no  # 계좌번호 10자리, 여기서는 계좌번호 목록에서 첫번째로 발견한 계좌번호로 매수처리
     order_type = 1  # 주문유형, 1 : 신규매수
     code = "005930"  # 종목코드, 앞의 삼성전자 종목코드
@@ -309,9 +309,9 @@ def test_GetRealDataForCodesAsStream(entrypoint):
         fid_list,
         opt_type,
         screen_no=None,  # 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당
-        infer_fids=True,  # 주어진 fid_list 를 고집하지 말고 이벤트 처리 함수의 인자로 전달받는 실시간데이터 이름에 따라 유연하게 fid_list 를 추론
-        readable_names=True,  # 각 fid 마다 숫자 대신 읽을 수 있는 이름으로 변환하여 반환
-        fast_parse=False,  # 이벤트 처리 함수내에서 데이터 값 읽기 시 GetCommRealData() 함수 호출 대신, 이벤트 처리 함수의 인자로 넘어오는 데이터를 직접 활용
+        infer_fids=True,  # True 로 설정 시 주어진 fid_list 를 고집하지 말고 이벤트 처리 함수의 인자로 전달받는 실시간데이터 이름에 따라 유연하게 fid_list 를 추론
+        readable_names=True,  # True 로 설정 시 각 fid 마다 숫자 대신 읽을 수 있는 이름으로 변환하여 반환
+        fast_parse=False,  # True 로 설정 시 이벤트 처리 함수내에서 데이터 값 읽기 시 GetCommRealData() 함수 호출 대신, 이벤트 처리 함수의 인자로 넘어오는 데이터를 직접 활용, infer_fids 가 True 로 설정된 경우만 유의미함
     )
     check_count = 10
     events = itertools.islice(stream, check_count)
