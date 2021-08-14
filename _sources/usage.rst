@@ -134,17 +134,19 @@ Usage example
     Usage: koapy [OPTIONS] COMMAND [ARGS]...
 
     Options:
-      -V, --version  Show the version and exit.
-      -h, --help     Show this message and exit.
+      --version   Show the version and exit.
+      -h, --help  Show this message and exit.
 
     Commands:
-      config  Configure many things.
-      get     Get various types of data.
-      login   Ensure logged in when server is up.
-      order   Place an order.
-      serve   Start grpc server with tray application.
-      update  Update openapi metadata.
-      watch   Watch realtime data.
+      configure  Configure many things.
+      get        Get various types of data.
+      install    Install openapi module and others.
+      login      Ensure logged in when server is up.
+      order      Place an order.
+      serve      Start grpc server with tray application.
+      uninstall  Uninstall openapi module and others.
+      update     Update openapi module and metadata.
+      watch      Watch realtime data.
 
 .. code-block:: console
 
@@ -155,11 +157,11 @@ Usage example
       -h, --help  Show this message and exit.
 
     Commands:
+      codelist    Get stock codes.
       daily       Get daily OHLCV of stocks.
       deposit     Get account deposit.
       errmsg      Get error message for error code.
       evaluation  Get account evaluation.
-      holidays    Get market holidays.
       minute      Get minute OHLCV of stocks.
       modulepath  Get OpenApi module installation path.
       orders      Get order history of a date.
@@ -175,35 +177,15 @@ Usage example
     $ koapy get stockinfo
     Usage: koapy get stockinfo [OPTIONS]
 
-      Possible market codes are:
-        0 : 장내
-        10 : 코스닥
-        3 : ELW
-        8 : ETF
-        50 : KONEX
-        4 : 뮤추얼펀드
-        5 : 신주인수권
-        6 : 리츠
-        9 : 하이얼펀드
-        30 : K-OTC
-
-      Possible market code aliases are:
-        all: All possible market codes.
-
     Options:
-      -c, --code CODE        Stock code to get. Can set multiple times.
-      -m, --market MARKET    Stock market code to get. Alternative to --code. Can
-                            set multiple times.
-
-      -i, --input FILENAME   Text or excel file containing codes. Alternative to
-                            --code or --market.
-
-      -o, --output FILENAME  Output filename. Optional for single code (prints to
-                            console).
-
-      -p, --port PORT        Port number of grpc server (optional).
-      -v, --verbose          Verbosity.
-      -h, --help             Show this message and exit.
+      -c, --code CODE              Stock code to get.
+      -o, --output FILENAME        Output filename. Optional for single code
+                                   (prints to console).
+      -f, --format [md|xlsx|json]  Output format. (default: md)
+      -p, --port PORT              Port number of grpc server (optional).
+      -v, --verbose [0...5]        Set verbosity level.
+      -V, --no-verbose             Force zero verbosity.
+      -h, --help                   Show this message and exit.
 
 .. code-block:: console
 
@@ -268,30 +250,27 @@ CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는
 .. code-block:: console
 
     (server) $ koapy serve
-    2021-02-16 08:45:49,412 [DEBUG] Using PySide2 as Qt backend - __init__.py:10
-    2021-02-16 08:45:54,163 [INFO] Note: NumExpr detected 12 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8. - utils.py:129
-    2021-02-16 08:45:54,163 [INFO] NumExpr defaulting to 8 threads. - utils.py:141
-    2021-02-16 08:45:54,484 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:217
+    2021-08-14 14:16:57,149 [DEBUG] Reading file OPW20016.dat inside C:\OpenAPI\data\opw20016.enc - KiwoomOpenApiPlusTrInfo.py:266
+    2021-08-14 14:16:57,150 [DEBUG] Reading file OPW20017.dat inside C:\OpenAPI\data\opw20017.enc - KiwoomOpenApiPlusTrInfo.py:266
+    2021-08-14 14:16:57,165 [DEBUG] Using PySide2 as Qt backend - KiwoomOpenApiPlusQAxWidget.py:42
+    2021-08-14 14:16:57,233 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:297
 
 .. code-block:: console
 
     (client) $ koapy login
-    2021-02-16 08:46:16,339 [DEBUG] Using PySide2 as Qt backend - __init__.py:10
-    2021-02-16 08:46:20,680 [INFO] Note: NumExpr detected 12 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8. - utils.py:129
-    2021-02-16 08:46:20,680 [INFO] NumExpr defaulting to 8 threads. - utils.py:141
     Logging in...
     Logged into Simulation server.
 
 .. code-block:: console
 
     (server) $ ...
-    2021-02-16 08:45:54,484 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:217
+    2021-08-14 14:16:57,233 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:297
 
     [GetPCIdentity] VER 3.2.0.0  build 2015.8.12
 
     [GetPCIdentity] VER 3.2.0.0  build 2015.8.12
-    2021-02-16 08:46:28,894 [DEBUG] OnEventConnect(0) - KiwoomOpenApiPlusLoggingEventHandler.py:65
-    2021-02-16 08:46:28,894 [DEBUG] Connected to server - KiwoomOpenApiPlusTrayApplication.py:123
+    2021-08-14 14:26:28,252 [DEBUG] OnEventConnect(0) - KiwoomOpenApiPlusLoggingEventHandler.py:89
+    2021-08-14 14:26:28,252 [DEBUG] Connected to server - KiwoomOpenApiPlusTrayApplication.py:202
 
 .. code-block:: console
 
@@ -301,8 +280,8 @@ CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는
 .. code-block:: console
 
     (server) $ ...
-    2020-09-24 06:03:17,145 [DEBUG] Connected to server -- KiwoomOpenApiTrayApplication.py:108
-    2021-02-16 08:48:10,993 [DEBUG] OnReceiveTrData('3918', '주식기본정보요청', 'opt10001', '', '0') - KiwoomOpenApiPlusLoggingEventHandler.py:9
+    2021-08-14 14:26:28,252 [DEBUG] Connected to server - KiwoomOpenApiPlusTrayApplication.py:202
+    2021-08-14 14:27:26,092 [DEBUG] OnReceiveTrData('8172', '주식기본정보요청', 'opt10001', '', '0') - KiwoomOpenApiPlusLoggingEventHandler.py:22
 
 Tray icon
 ---------
@@ -338,7 +317,7 @@ Auto login
 
 .. code-block:: console
 
-    $ koapy config autologin
+    $ koapy configure autologin
 
 위의 명령어 실행시 키움 Open API 로그인 창이 나옵니다.
 
@@ -408,6 +387,12 @@ KOAPY 에서도 실험적으로 자동 버전처리를 수행하는 관련 스�
 
 여기서 계좌번호 중 ``0000000000`` 은 모든 계좌에 대한 비밀번호로 이해하고 처리합니다.
 예를 들어 모의투자의 접속시 위처럼 설정하면 모든 모의계좌에 대한 비밀번호를 "0000" 으로 설정하도록 처리할 수 있습니다.
+
+좀 더 쉽게 해당 설정파일을 생성하기 위해서는 첫 로그인 시에 아래 명령을 활용해 로그인하면서 관련 설정을 같이 저장할 수도 있습니다.
+
+.. code-block:: console
+
+    $ koapy login --interactive
 
 이후 콘솔에서 아래 명령을 주기적으로 실행하는 것으로 OpenAPI 의 버전을 최신으로 유지할 수 있습니다.
 

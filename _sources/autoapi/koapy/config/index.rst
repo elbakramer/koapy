@@ -14,6 +14,8 @@ Functions
 .. autoapisummary::
 
    koapy.config.read_config
+   koapy.config.config_from_dict
+   koapy.config.dump_config
    koapy.config.save_config
    koapy.config.save_user_config
    koapy.config.get_executable_from_conda_envname
@@ -42,11 +44,14 @@ Attributes
    koapy.config.default_user_config_path
    koapy.config.config_path
    koapy.config.config
-   koapy.config._config
-   koapy.config._user_config
+   koapy.config.global_config
+   koapy.config.global_user_config
 
 
 .. py:function:: read_config(filename)
+
+
+.. py:function:: config_from_dict(dictionary)
 
 
 .. py:data:: default_config_filename
@@ -114,17 +119,20 @@ Attributes
 
    
 
-.. py:data:: _config
+.. py:data:: global_config
    
 
    
 
-.. py:data:: _user_config
+.. py:data:: global_user_config
    
 
    
 
-.. py:function:: save_config(filename, config=None, compact=True, indent=4)
+.. py:function:: dump_config(config, compact=False, indent=4)
+
+
+.. py:function:: save_config(filename, config=None, compact=False, indent=4)
 
 
 .. py:function:: save_user_config(filename=None, user_config=None)

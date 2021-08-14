@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Usage &#8212; KOAPY 0.4.2 documentation</title>
+    <title>Usage &#8212; KOAPY 0.5.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -397,17 +397,19 @@
 <span class="go">Usage: koapy [OPTIONS] COMMAND [ARGS]...</span>
 
 <span class="go">Options:</span>
-<span class="go">  -V, --version  Show the version and exit.</span>
-<span class="go">  -h, --help     Show this message and exit.</span>
+<span class="go">  --version   Show the version and exit.</span>
+<span class="go">  -h, --help  Show this message and exit.</span>
 
 <span class="go">Commands:</span>
-<span class="go">  config  Configure many things.</span>
-<span class="go">  get     Get various types of data.</span>
-<span class="go">  login   Ensure logged in when server is up.</span>
-<span class="go">  order   Place an order.</span>
-<span class="go">  serve   Start grpc server with tray application.</span>
-<span class="go">  update  Update openapi metadata.</span>
-<span class="go">  watch   Watch realtime data.</span>
+<span class="go">  configure  Configure many things.</span>
+<span class="go">  get        Get various types of data.</span>
+<span class="go">  install    Install openapi module and others.</span>
+<span class="go">  login      Ensure logged in when server is up.</span>
+<span class="go">  order      Place an order.</span>
+<span class="go">  serve      Start grpc server with tray application.</span>
+<span class="go">  uninstall  Uninstall openapi module and others.</span>
+<span class="go">  update     Update openapi module and metadata.</span>
+<span class="go">  watch      Watch realtime data.</span>
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy get
@@ -417,11 +419,11 @@
 <span class="go">  -h, --help  Show this message and exit.</span>
 
 <span class="go">Commands:</span>
+<span class="go">  codelist    Get stock codes.</span>
 <span class="go">  daily       Get daily OHLCV of stocks.</span>
 <span class="go">  deposit     Get account deposit.</span>
 <span class="go">  errmsg      Get error message for error code.</span>
 <span class="go">  evaluation  Get account evaluation.</span>
-<span class="go">  holidays    Get market holidays.</span>
 <span class="go">  minute      Get minute OHLCV of stocks.</span>
 <span class="go">  modulepath  Get OpenApi module installation path.</span>
 <span class="go">  orders      Get order history of a date.</span>
@@ -436,35 +438,15 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy get stockinfo
 <span class="go">Usage: koapy get stockinfo [OPTIONS]</span>
 
-<span class="go">  Possible market codes are:</span>
-<span class="go">    0 : 장내</span>
-<span class="go">    10 : 코스닥</span>
-<span class="go">    3 : ELW</span>
-<span class="go">    8 : ETF</span>
-<span class="go">    50 : KONEX</span>
-<span class="go">    4 : 뮤추얼펀드</span>
-<span class="go">    5 : 신주인수권</span>
-<span class="go">    6 : 리츠</span>
-<span class="go">    9 : 하이얼펀드</span>
-<span class="go">    30 : K-OTC</span>
-
-<span class="go">  Possible market code aliases are:</span>
-<span class="go">    all: All possible market codes.</span>
-
 <span class="go">Options:</span>
-<span class="go">  -c, --code CODE        Stock code to get. Can set multiple times.</span>
-<span class="go">  -m, --market MARKET    Stock market code to get. Alternative to --code. Can</span>
-<span class="go">                        set multiple times.</span>
-
-<span class="go">  -i, --input FILENAME   Text or excel file containing codes. Alternative to</span>
-<span class="go">                        --code or --market.</span>
-
-<span class="go">  -o, --output FILENAME  Output filename. Optional for single code (prints to</span>
-<span class="go">                        console).</span>
-
-<span class="go">  -p, --port PORT        Port number of grpc server (optional).</span>
-<span class="go">  -v, --verbose          Verbosity.</span>
-<span class="go">  -h, --help             Show this message and exit.</span>
+<span class="go">  -c, --code CODE              Stock code to get.</span>
+<span class="go">  -o, --output FILENAME        Output filename. Optional for single code</span>
+<span class="go">                               (prints to console).</span>
+<span class="go">  -f, --format [md|xlsx|json]  Output format. (default: md)</span>
+<span class="go">  -p, --port PORT              Port number of grpc server (optional).</span>
+<span class="go">  -v, --verbose [0...5]        Set verbosity level.</span>
+<span class="go">  -V, --no-verbose             Force zero verbosity.</span>
+<span class="go">  -h, --help                   Show this message and exit.</span>
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy get stockinfo -c <span class="m">005930</span>
@@ -525,28 +507,25 @@
 <p>이런 경우 별도 프로세스로 gRPC 서버를 미리 띄워둔 뒤에 다른 창에서 CLI 명령을 실행하게 되면,
 최초 로그인 이후의 명령들은 이미 로그인된 서버와 통신하여 명령을 수행하게 되면서 불필요한 로그인 단계를 줄일 수 있습니다.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(server)</span> <span class="gp">$ </span>koapy serve
-<span class="go">2021-02-16 08:45:49,412 [DEBUG] Using PySide2 as Qt backend - __init__.py:10</span>
-<span class="go">2021-02-16 08:45:54,163 [INFO] Note: NumExpr detected 12 cores but &quot;NUMEXPR_MAX_THREADS&quot; not set, so enforcing safe limit of 8. - utils.py:129</span>
-<span class="go">2021-02-16 08:45:54,163 [INFO] NumExpr defaulting to 8 threads. - utils.py:141</span>
-<span class="go">2021-02-16 08:45:54,484 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:217</span>
+<span class="go">2021-08-14 14:16:57,149 [DEBUG] Reading file OPW20016.dat inside C:\OpenAPI\data\opw20016.enc - KiwoomOpenApiPlusTrInfo.py:266</span>
+<span class="go">2021-08-14 14:16:57,150 [DEBUG] Reading file OPW20017.dat inside C:\OpenAPI\data\opw20017.enc - KiwoomOpenApiPlusTrInfo.py:266</span>
+<span class="go">2021-08-14 14:16:57,165 [DEBUG] Using PySide2 as Qt backend - KiwoomOpenApiPlusQAxWidget.py:42</span>
+<span class="go">2021-08-14 14:16:57,233 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:297</span>
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(client)</span> <span class="gp">$ </span>koapy login
-<span class="go">2021-02-16 08:46:16,339 [DEBUG] Using PySide2 as Qt backend - __init__.py:10</span>
-<span class="go">2021-02-16 08:46:20,680 [INFO] Note: NumExpr detected 12 cores but &quot;NUMEXPR_MAX_THREADS&quot; not set, so enforcing safe limit of 8. - utils.py:129</span>
-<span class="go">2021-02-16 08:46:20,680 [INFO] NumExpr defaulting to 8 threads. - utils.py:141</span>
 <span class="go">Logging in...</span>
 <span class="go">Logged into Simulation server.</span>
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(server)</span> <span class="gp">$ </span>...
-<span class="go">2021-02-16 08:45:54,484 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:217</span>
+<span class="go">2021-08-14 14:16:57,233 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:297</span>
 
 <span class="go">[GetPCIdentity] VER 3.2.0.0  build 2015.8.12</span>
 
 <span class="go">[GetPCIdentity] VER 3.2.0.0  build 2015.8.12</span>
-<span class="go">2021-02-16 08:46:28,894 [DEBUG] OnEventConnect(0) - KiwoomOpenApiPlusLoggingEventHandler.py:65</span>
-<span class="go">2021-02-16 08:46:28,894 [DEBUG] Connected to server - KiwoomOpenApiPlusTrayApplication.py:123</span>
+<span class="go">2021-08-14 14:26:28,252 [DEBUG] OnEventConnect(0) - KiwoomOpenApiPlusLoggingEventHandler.py:89</span>
+<span class="go">2021-08-14 14:26:28,252 [DEBUG] Connected to server - KiwoomOpenApiPlusTrayApplication.py:202</span>
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(client)</span> <span class="gp">$ </span>koapy get stockinfo -c <span class="m">005930</span>
@@ -554,8 +533,8 @@
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(server)</span> <span class="gp">$ </span>...
-<span class="go">2020-09-24 06:03:17,145 [DEBUG] Connected to server -- KiwoomOpenApiTrayApplication.py:108</span>
-<span class="go">2021-02-16 08:48:10,993 [DEBUG] OnReceiveTrData(&#39;3918&#39;, &#39;주식기본정보요청&#39;, &#39;opt10001&#39;, &#39;&#39;, &#39;0&#39;) - KiwoomOpenApiPlusLoggingEventHandler.py:9</span>
+<span class="go">2021-08-14 14:26:28,252 [DEBUG] Connected to server - KiwoomOpenApiPlusTrayApplication.py:202</span>
+<span class="go">2021-08-14 14:27:26,092 [DEBUG] OnReceiveTrData(&#39;8172&#39;, &#39;주식기본정보요청&#39;, &#39;opt10001&#39;, &#39;&#39;, &#39;0&#39;) - KiwoomOpenApiPlusLoggingEventHandler.py:22</span>
 </pre></div>
 </div>
 </section>
@@ -584,7 +563,7 @@
 <section id="auto-login">
 <span id="id1"></span><h2>Auto login<a class="headerlink" href="#auto-login" title="Permalink to this headline">¶</a></h2>
 <p>만약에 최초로 사용하시는 경우에는 자동 로그인 설정부터 해놓는 것을 추천드립니다.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy config autologin
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy configure autologin
 </pre></div>
 </div>
 <p>위의 명령어 실행시 키움 Open API 로그인 창이 나옵니다.</p>
@@ -632,6 +611,10 @@ KOAPY 에서도 실험적으로 자동 버전처리를 수행하는 관련 스�
 설정파일의 포맷은 <a class="reference external" href="https://github.com/chimpler/pyhocon">HOCON</a> 포맷입니다.</p>
 <p>여기서 계좌번호 중 <code class="docutils literal notranslate"><span class="pre">0000000000</span></code> 은 모든 계좌에 대한 비밀번호로 이해하고 처리합니다.
 예를 들어 모의투자의 접속시 위처럼 설정하면 모든 모의계좌에 대한 비밀번호를 “0000” 으로 설정하도록 처리할 수 있습니다.</p>
+<p>좀 더 쉽게 해당 설정파일을 생성하기 위해서는 첫 로그인 시에 아래 명령을 활용해 로그인하면서 관련 설정을 같이 저장할 수도 있습니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy login --interactive
+</pre></div>
+</div>
 <p>이후 콘솔에서 아래 명령을 주기적으로 실행하는 것으로 OpenAPI 의 버전을 최신으로 유지할 수 있습니다.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy update openapi
 </pre></div>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Installation &#8212; KOAPY 0.4.2 documentation</title>
+    <title>Installation &#8212; KOAPY 0.5.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -239,6 +239,45 @@ OpenAPI 의 OCX 라이브러리가 32-Bit 환경만 지원하기 때문입니다
 혹시나 64-Bit 환경에서만 지원되는 라이브러리 및 기능을 트레이딩 로직에 접목시키고자 하는 경우,
 32-Bit 환경에는 서버만 띄워두고 64Bit 환경에서 gRPC 클라이언트 API 를 통해 서버에 연결하여 동일하게 OpenAPI 의 모든 기능을 활용할 수 있습니다.</p>
 <p>이후 사용법에 대해서는 <a class="reference internal" href="usage.html"><span class="doc">Usage</span></a> 를 참고하세요.</p>
+</section>
+<section id="koapy-cli-openapi">
+<h3>KOAPY CLI 를 활용한 OpenAPI 설치, 업데이트, 삭제<a class="headerlink" href="#koapy-cli-openapi" title="Permalink to this headline">¶</a></h3>
+<div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/installation.rst</span>, line 198)</p>
+<p>Title underline too short.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">KOAPY</span> <span class="n">CLI</span> <span class="n">를</span> <span class="n">활용한</span> <span class="n">OpenAPI</span> <span class="n">설치</span><span class="p">,</span> <span class="n">업데이트</span><span class="p">,</span> <span class="n">삭제</span>
+<span class="o">===============================================</span>
+</pre></div>
+</div>
+</div>
+<p>각각 아래의 명령어를 활용해 OpenAPI 를 설치, 업데이트, 삭제 할 수도 있습니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy install openapi    <span class="c1"># OpenAPI 설치</span>
+<span class="gp">$ </span>koapy update openapi     <span class="c1"># OpenAPI 자동 버전 업데이트</span>
+<span class="gp">$ </span>koapy uninstall openapi  <span class="c1"># OpenAPI 삭제</span>
+</pre></div>
+</div>
+<p>설치, 삭제의 경우에는 임시폴더에 설치파일을 다운로드 받아 실행하여 설치, 삭제를 진행합니다.
+업데이트의 경우에는 OpenAPI 의 버전 업데이트 기능을 활용하는데, 여기에는 로그인 처리를 위한 계정 정보 및 관리자 권한이 필요합니다.</p>
+<p>각 명령어의 자세한 옵션등에 대해서는 <code class="docutils literal notranslate"><span class="pre">-h</span></code> 옵션을 통한 도움말을 확인하세요.</p>
+</section>
+<section id="dll-koapy-cli-pywin32">
+<h3>DLL 로딩 오류 해결방법 (KOAPY CLI 를 활용한 pywin32 설치)<a class="headerlink" href="#dll-koapy-cli-pywin32" title="Permalink to this headline">¶</a></h3>
+<p>의존성중에 pywin32 의 버전이 301 로 업데이트 되면서 특정 환경에서 (특히 conda 기반 환경) DLL 로딩 관련 오류가 발생할 수 있습니다.
+기존에 conda 배포판에서 설치되어 있는 버전과 충돌이 나서 발생하는 이슈이기 때문에 문제가 되는 기존 설치를 제거해주어야 합니다.</p>
+<p>대략 아래에 위치한 파일들이 문제를 일으킬 수 있습니다. 파일 이름에서 <code class="docutils literal notranslate"><span class="pre">3X</span></code> 값은 사용하는 Python 버전에 따라 달라질 수 있다는 뜻입니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span><span class="o">{</span>sys.prefix<span class="o">}</span>/Library/bin/pythoncom3X.dll
+<span class="gp">$</span><span class="o">{</span>sys.prefix<span class="o">}</span>/Library/bin/pywintypes3X.dll
+<span class="gp">$</span><span class="o">{</span>sys.prefix<span class="o">}</span>/Lib/site-packages/win32/pythoncom3X.dll
+<span class="gp">$</span><span class="o">{</span>sys.prefix<span class="o">}</span>/Lib/site-packages/win32/pywintypes3X.dll
+</pre></div>
+</div>
+<p>아니면 좀 더 쉽게 각각 아래의 명령어를 통해 pywin32 를 정상적으로 설치, 삭제 할 수 있습니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy install pywin32    <span class="c1"># pywin32 설치</span>
+<span class="gp">$ </span>koapy uninstall pywin32  <span class="c1"># pywin32 삭제</span>
+</pre></div>
+</div>
+<p>실행시 일반적인 pip 를 통한 설치/삭제를 진행하고 이후 추가적인 후처리 스크립트를 수행해 정상적인 설치/삭제가 될 수 있도록 합니다.</p>
+<p>각 명령어의 자세한 옵션등에 대해서는 <code class="docutils literal notranslate"><span class="pre">-h</span></code> 옵션을 통한 도움말을 확인하세요.</p>
 </section>
 </section>
 </section>
