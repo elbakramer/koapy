@@ -191,7 +191,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
             account_window["닫기"].click()
 
             try:
-                cls.logger.info("waiting account window to be closed")
+                cls.logger.info("Waiting account window to be closed")
                 timeout_account_window_done = 5
                 account_window.wait_not("visible", timeout_account_window_done)
             except pywinauto.timings.TimeoutError as e:
