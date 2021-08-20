@@ -10,7 +10,9 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
+   QAbstractSocketLogging/index.rst
    QObjectLogging/index.rst
+   QThreadLogging/index.rst
    QWidgetLogging/index.rst
 
 

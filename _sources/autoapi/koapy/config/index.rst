@@ -44,6 +44,7 @@ Attributes
    koapy.config.default_user_config_path
    koapy.config.config_path
    koapy.config.config
+   koapy.config.debug
    koapy.config.global_config
    koapy.config.global_user_config
 
@@ -116,6 +117,11 @@ Attributes
 
 .. py:data:: config
    
+
+   
+
+.. py:data:: debug
+   :annotation: = False
 
    
 

@@ -17,7 +17,7 @@ Classes
 
 
 
-.. py:class:: KiwoomOpenApiPlusEntrypoint(port=None, client_check_timeout=None, client_only=None, verbosity=None, log_level=None)
+.. py:class:: KiwoomOpenApiPlusEntrypoint(port=None, client_check_timeout=None)
 
    Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin.KiwoomOpenApiPlusEntrypointMixin`, :py:obj:`koapy.utils.logging.Logging.Logging`
 

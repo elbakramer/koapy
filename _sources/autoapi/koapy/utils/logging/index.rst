@@ -42,8 +42,11 @@ Functions
    koapy.utils.logging.get_logger
    koapy.utils.logging.verbosity_to_loglevel
    koapy.utils.logging.loglevel_to_verbosity
+   koapy.utils.logging.get_package_logger
    koapy.utils.logging.set_loglevel
    koapy.utils.logging.set_verbosity
+   koapy.utils.logging.get_loglevel
+   koapy.utils.logging.get_verbosity
 
 
 
@@ -63,9 +66,18 @@ Functions
 .. py:function:: loglevel_to_verbosity(loglevel)
 
 
+.. py:function:: get_package_logger()
+
+
 .. py:function:: set_loglevel(loglevel)
 
 
 .. py:function:: set_verbosity(verbosity)
+
+
+.. py:function:: get_loglevel()
+
+
+.. py:function:: get_verbosity()
 
 

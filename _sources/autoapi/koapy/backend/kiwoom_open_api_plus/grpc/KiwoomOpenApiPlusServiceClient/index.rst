@@ -17,7 +17,7 @@ Classes
 
 
 
-.. py:class:: KiwoomOpenApiPlusServiceClient(host=None, port=None, credentials=None, **kwargs)
+.. py:class:: KiwoomOpenApiPlusServiceClient(host=None, port=None, credentials=None, thread_pool=None, check_timeout=None, **kwargs)
 
    .. py:method:: is_ready(self, timeout=None)
 
@@ -32,6 +32,12 @@ Classes
 
 
    .. py:method:: __getattr__(self, name)
+
+
+   .. py:method:: __enter__(self)
+
+
+   .. py:method:: __exit__(self, exc_type, exc_value, traceback)
 
 
 

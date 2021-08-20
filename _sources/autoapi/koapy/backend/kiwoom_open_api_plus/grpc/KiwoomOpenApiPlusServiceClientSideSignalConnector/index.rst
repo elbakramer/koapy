@@ -17,30 +17,12 @@ Classes
 
 
 
-.. py:class:: KiwoomOpenApiPlusServiceClientSideSignalConnector(stub, name)
+.. py:class:: KiwoomOpenApiPlusServiceClientSideSignalConnector(stub, name, executor)
 
-   .. py:attribute:: _lock
-      
+   .. py:method:: __del__(self)
 
-      
 
-   .. py:attribute:: _observers
-      
-
-      
-
-   .. py:attribute:: _max_workers
-      
-
-      
-
-   .. py:attribute:: _executor
-      
-
-      
-
-   .. py:method:: _stop_observer(cls, observer)
-      :classmethod:
+   .. py:method:: _stop_observer(self, observer)
 
 
    .. py:method:: _get_observer(self, callback, default=None)
@@ -52,8 +34,7 @@ Classes
    .. py:method:: _add_observer(self, callback)
 
 
-   .. py:method:: shutdown(cls)
-      :classmethod:
+   .. py:method:: shutdown(self)
 
 
    .. py:method:: connect(self, callback)

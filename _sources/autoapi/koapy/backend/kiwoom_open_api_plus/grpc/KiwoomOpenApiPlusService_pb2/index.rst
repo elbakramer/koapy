@@ -147,7 +147,12 @@ Module Contents
 
    
 
-.. py:data:: _TRANSACTIONSUBSCRIPTIONTARGET
+.. py:data:: _REALREQUESTFLAGS
+   
+
+   
+
+.. py:data:: _REALREQUEST
    
 
    
@@ -173,16 +178,6 @@ Module Contents
    
 
 .. py:data:: _ORDERREQUEST
-   
-
-   
-
-.. py:data:: _REALREQUESTFLAGS
-   
-
-   
-
-.. py:data:: _REALREQUEST
    
 
    
@@ -372,17 +367,17 @@ Module Contents
 
    
 
+.. py:data:: message_type
+   
+
+   
+
 .. py:data:: enum_type
    
 
    
 
 .. py:data:: containing_type
-   
-
-   
-
-.. py:data:: message_type
    
 
    
@@ -537,7 +532,12 @@ Module Contents
 
    
 
-.. py:data:: TransactionSubscriptionTarget
+.. py:data:: RealRequestFlags
+   
+
+   
+
+.. py:data:: RealRequest
    
 
    
@@ -558,16 +558,6 @@ Module Contents
    
 
 .. py:data:: OrderRequest
-   
-
-   
-
-.. py:data:: RealRequestFlags
-   
-
-   
-
-.. py:data:: RealRequest
    
 
    

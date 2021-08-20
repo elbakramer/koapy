@@ -4,8 +4,18 @@
 .. py:module:: koapy.compat.pywinauto
 
 
-Module Contents
----------------
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   importlib/index.rst
+   timings/index.rst
+
+
+Package Contents
+----------------
 
 Classes
 ~~~~~~~
@@ -13,7 +23,6 @@ Classes
 .. autoapisummary::
 
    koapy.compat.pywinauto.PyWinAutoFinder
-   koapy.compat.pywinauto.PyWinAutoLoader
 
 
 
@@ -33,31 +42,6 @@ Classes
 
    .. py:method:: unregister(cls)
       :classmethod:
-
-
-
-.. py:class:: PyWinAutoLoader
-
-   Bases: :py:obj:`importlib.abc.Loader`
-
-   Abstract base class for import loaders.
-
-   .. py:method:: set_sys_coinit_flags(self)
-
-
-   .. py:method:: reset_sys_coinit_flags(self)
-
-
-   .. py:method:: create_module(self, spec)
-
-      Return a module to initialize and into which to load.
-
-      This method should raise ImportError if anything prevents it
-      from creating a new module.  It may return None to indicate
-      that the spec should create the new module.
-
-
-   .. py:method:: exec_module(self, module)
 
 
 

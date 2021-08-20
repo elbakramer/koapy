@@ -17,11 +17,11 @@ Classes
 
 
 
-.. py:class:: QSignalHandler(parent=None)
+.. py:class:: QSignalHandler(signals: Iterable[signal.Signals], parent: Optional[koapy.compat.pyside2.QtCore.QObject])           QSignalHandler(parent: Optional[koapy.compat.pyside2.QtCore.QObject])
 
-   Bases: :py:obj:`koapy.compat.pyside2.QtNetwork.QAbstractSocket`
+   Bases: :py:obj:`koapy.utils.logging.pyside2.QAbstractSocketLogging.QAbstractSocketLogging`
 
-   .. py:attribute:: signalReceived
+   .. py:attribute:: signaled
       
 
       
@@ -29,7 +29,10 @@ Classes
    .. py:method:: onReadyRead(self)
 
 
-   .. py:method:: setWakeUpFileDescriptor(self, descriptor)
+   .. py:method:: emitSignal(self, signal, frame)
+
+
+   .. py:method:: setWakeUpFileDescriptor(self, descriptor, warn_on_full_buffer=True)
 
 
    .. py:method:: restoreWakeUpFileDescrptor(self)
@@ -44,10 +47,19 @@ Classes
    .. py:method:: restoreAllHandlers(self)
 
 
+   .. py:method:: setAll(self)
+
+
    .. py:method:: restoreAll(self)
 
 
    .. py:method:: __del__(self)
+
+
+   .. py:method:: __enter__(self)
+
+
+   .. py:method:: __exit__(self, exc_type, exc_value, traceback)
 
 
 

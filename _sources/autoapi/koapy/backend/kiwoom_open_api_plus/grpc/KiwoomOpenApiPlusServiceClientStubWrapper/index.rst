@@ -18,9 +18,19 @@ Classes
 
 
 
-.. py:class:: KiwoomOpenApiPlusServiceClientStubCoreWrapper(stub)
+.. py:class:: KiwoomOpenApiPlusServiceClientStubCoreWrapper(stub, executor)
 
    Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin`
+
+   .. py:attribute:: METHOD_NAMES
+      
+
+      
+
+   .. py:attribute:: EVENT_NAMES
+      
+
+      
 
    .. py:method:: __getattr__(self, name)
 
@@ -70,15 +80,6 @@ Classes
    .. py:method:: SetLogLevel(self, level, logger='')
 
 
-   .. py:method:: _EnsureConnectedUsingSignalConnector(self)
-
-
-   .. py:method:: Connect(self, credential=None)
-
-
-   .. py:method:: EnsureConnected(self, credential=None)
-
-
    .. py:method:: _LoadConditionUsingCall(self)
 
 
@@ -104,7 +105,7 @@ Classes
 
 
 
-.. py:class:: KiwoomOpenApiPlusServiceClientStubWrapper(stub)
+.. py:class:: KiwoomOpenApiPlusServiceClientStubWrapper(stub, executor)
 
    Bases: :py:obj:`KiwoomOpenApiPlusServiceClientStubCoreWrapper`, :py:obj:`koapy.utils.logging.Logging.Logging`
 

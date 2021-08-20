@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.utils.logging &#8212; KOAPY 0.5.1 documentation</title>
+    <title>koapy.utils.logging &#8212; KOAPY 0.6.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
@@ -17,16 +17,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-  
-   
-  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  
-  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
-  
+    <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
 
   </head><body>
   <div class="document">
@@ -123,15 +114,32 @@
     <span class="k">return</span> <span class="n">Logging</span><span class="o">.</span><span class="n">loglevel_to_verbosity</span><span class="p">(</span><span class="n">loglevel</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_loglevel"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.cli.set_loglevel">[docs]</a><span class="k">def</span> <span class="nf">set_loglevel</span><span class="p">(</span><span class="n">loglevel</span><span class="p">):</span>
+<div class="viewcode-block" id="get_package_logger"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.cli.get_package_logger">[docs]</a><span class="k">def</span> <span class="nf">get_package_logger</span><span class="p">():</span>
     <span class="n">root_package_name</span> <span class="o">=</span> <span class="vm">__name__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="n">root_package_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">logger</span></div>
+
+
+<div class="viewcode-block" id="set_loglevel"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.cli.set_loglevel">[docs]</a><span class="k">def</span> <span class="nf">set_loglevel</span><span class="p">(</span><span class="n">loglevel</span><span class="p">):</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">get_package_logger</span><span class="p">()</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">loglevel</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="set_verbosity"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.cli.set_verbosity">[docs]</a><span class="k">def</span> <span class="nf">set_verbosity</span><span class="p">(</span><span class="n">verbosity</span><span class="p">):</span>
     <span class="n">loglevel</span> <span class="o">=</span> <span class="n">verbosity_to_loglevel</span><span class="p">(</span><span class="n">verbosity</span><span class="p">)</span>
     <span class="n">set_loglevel</span><span class="p">(</span><span class="n">loglevel</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_loglevel"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.cli.get_loglevel">[docs]</a><span class="k">def</span> <span class="nf">get_loglevel</span><span class="p">():</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">get_package_logger</span><span class="p">()</span>
+    <span class="n">loglevel</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">level</span>
+    <span class="k">return</span> <span class="n">loglevel</span></div>
+
+
+<div class="viewcode-block" id="get_verbosity"><a class="viewcode-back" href="../../../autoapi/koapy/utils/logging/index.html#koapy.cli.get_verbosity">[docs]</a><span class="k">def</span> <span class="nf">get_verbosity</span><span class="p">():</span>
+    <span class="n">loglevel</span> <span class="o">=</span> <span class="n">get_loglevel</span><span class="p">()</span>
+    <span class="n">verbosity</span> <span class="o">=</span> <span class="n">loglevel_to_verbosity</span><span class="p">(</span><span class="n">loglevel</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">verbosity</span></div>
 </pre></div>
 
           </div>

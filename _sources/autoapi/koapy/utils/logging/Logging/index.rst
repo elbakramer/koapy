@@ -88,6 +88,12 @@ Classes
    .. py:method:: set_verbosity(cls, verbosity=0)
 
 
+   .. py:method:: get_loglevel(cls)
+
+
+   .. py:method:: get_verbosity(cls)
+
+
 
 .. py:class:: Logging
 

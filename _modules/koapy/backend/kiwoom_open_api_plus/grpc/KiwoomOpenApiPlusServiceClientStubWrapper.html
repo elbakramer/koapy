@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper &#8212; KOAPY 0.5.1 documentation</title>
+    <title>koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper &#8212; KOAPY 0.6.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
@@ -17,16 +17,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
-  
-   
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  
-  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
-  
+    <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
 
   </head><body>
   <div class="document">
@@ -124,6 +115,10 @@
 <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">KiwoomOpenApiPlusSimpleQAxWidgetMixin</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">KiwoomOpenApiPlusDispatchSignature</span><span class="p">,</span>
+    <span class="n">KiwoomOpenApiPlusEventHandlerSignature</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.grpc</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusService_pb2</span>
 <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideDynamicCallable</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">KiwoomOpenApiPlusServiceClientSideDynamicCallable</span><span class="p">,</span>
@@ -140,23 +135,29 @@
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceClientStubCoreWrapper"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusServiceClientStubCoreWrapper</span><span class="p">(</span>
     <span class="n">KiwoomOpenApiPlusSimpleQAxWidgetMixin</span>
 <span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stub</span><span class="p">):</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusServiceClientStubCoreWrapper.METHOD_NAMES"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.METHOD_NAMES">[docs]</a>    <span class="n">METHOD_NAMES</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusDispatchSignature</span><span class="o">.</span><span class="n">names</span><span class="p">()</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiPlusServiceClientStubCoreWrapper.EVENT_NAMES"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.EVENT_NAMES">[docs]</a>    <span class="n">EVENT_NAMES</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusEventHandlerSignature</span><span class="o">.</span><span class="n">names</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stub</span><span class="p">,</span> <span class="n">executor</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="n">stub</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_executor</span> <span class="o">=</span> <span class="n">executor</span>
+
+        <span class="c1"># Set methods as attributes</span>
+        <span class="k">for</span> <span class="n">method_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">METHOD_NAMES</span><span class="p">:</span>
+            <span class="n">dynamic_callable</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusServiceClientSideDynamicCallable</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="n">method_name</span>
+            <span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">dynamic_callable</span><span class="p">)</span>
+
+        <span class="c1"># Set signals as attributes</span>
+        <span class="k">for</span> <span class="n">event_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">EVENT_NAMES</span><span class="p">:</span>
+            <span class="n">signal_connector</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusServiceClientSideSignalConnector</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="n">event_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_executor</span>
+            <span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_name</span><span class="p">,</span> <span class="n">signal_connector</span><span class="p">)</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceClientStubCoreWrapper.__getattr__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.__getattr__">[docs]</a>    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;On&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span>
-                <span class="n">KiwoomOpenApiPlusEventHandlerFunctions</span>
-            <span class="p">):</span>
-                <span class="k">return</span> <span class="n">KiwoomOpenApiPlusServiceClientSideSignalConnector</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="n">name</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">KiwoomOpenApiPlusServiceClientSideDynamicCallable</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="n">name</span></div>
-                <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceClientStubCoreWrapper.Call"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.Call">[docs]</a>    <span class="k">def</span> <span class="nf">Call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">KiwoomOpenApiPlusServiceClientSideDynamicCallable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="n">name</span><span class="p">)(</span>
@@ -324,31 +325,6 @@
         <span class="n">request</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="o">.</span><span class="n">SetLogLevel</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="KiwoomOpenApiPlusServiceClientStubCoreWrapper._EnsureConnectedUsingSignalConnector"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._EnsureConnectedUsingSignalConnector">[docs]</a>    <span class="k">def</span> <span class="nf">_EnsureConnectedUsingSignalConnector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">errcode</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">q</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
-
-            <span class="k">def</span> <span class="nf">OnEventConnect</span><span class="p">(</span><span class="n">errcode</span><span class="p">):</span>
-                <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">errcode</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">OnEventConnect</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">OnEventConnect</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">OnEventConnect</span><span class="p">)</span>
-            <span class="n">errcode</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusNegativeReturnCodeError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">CommConnect</span><span class="p">()</span>
-            <span class="p">)</span>
-            <span class="n">errcode</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusNegativeReturnCodeError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
-        <span class="k">return</span> <span class="n">errcode</span></div>
-
-<div class="viewcode-block" id="KiwoomOpenApiPlusServiceClientStubCoreWrapper.Connect"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.Connect">[docs]</a>    <span class="k">def</span> <span class="nf">Connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">LoginCall</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="KiwoomOpenApiPlusServiceClientStubCoreWrapper.EnsureConnected"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.EnsureConnected">[docs]</a>    <span class="k">def</span> <span class="nf">EnsureConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credential</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">errcode</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">errcode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">errcode</span></div>
-
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceClientStubCoreWrapper._LoadConditionUsingCall"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper._LoadConditionUsingCall">[docs]</a>    <span class="k">def</span> <span class="nf">_LoadConditionUsingCall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span><span class="s2">&quot;LoadCondition&quot;</span><span class="p">)</span></div>
 
@@ -399,7 +375,7 @@
             <span class="n">remove</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="n">width</span><span class="p">):</span>
             <span class="n">remove</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">width</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="s2">&quot;__contains__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">width</span><span class="p">:</span>
             <span class="n">remove</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="n">remove</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*([+-]?)[0]+([0-9]+(.[0-9]+)?)\s*$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1\2&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>

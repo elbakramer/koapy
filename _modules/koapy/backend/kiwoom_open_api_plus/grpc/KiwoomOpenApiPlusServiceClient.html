@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient &#8212; KOAPY 0.5.1 documentation</title>
+    <title>koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient &#8212; KOAPY 0.6.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
@@ -17,16 +17,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
-  
-   
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  
-  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
-  
+    <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
 
   </head><body>
   <div class="document">
@@ -108,7 +99,11 @@
           <div class="body" role="main">
             
   <h1>Source code for koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">grpc</span>
+<span></span><span class="kn">import</span> <span class="nn">inspect</span>
+
+<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
+
+<span class="kn">import</span> <span class="nn">grpc</span>
 
 <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.grpc</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusService_pb2_grpc</span>
 <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper</span> <span class="kn">import</span> <span class="p">(</span>
@@ -118,7 +113,15 @@
 
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceClient"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClient/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient.KiwoomOpenApiPlusServiceClient">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusServiceClient</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">thread_pool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">check_timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="k">if</span> <span class="n">host</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">host</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_string</span><span class="p">(</span>
                 <span class="s2">&quot;koapy.backend.kiwoom_open_api_plus.grpc.host&quot;</span><span class="p">,</span> <span class="s2">&quot;localhost&quot;</span>
@@ -132,30 +135,76 @@
                 <span class="s2">&quot;koapy.backend.kiwoom_open_api_plus.grpc.client.port&quot;</span><span class="p">,</span> <span class="n">port</span>
             <span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">check_timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">check_timeout</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_int</span><span class="p">(</span>
+                <span class="s2">&quot;koapy.backend.kiwoom_open_api_plus.grpc.client.is_ready.timeout&quot;</span><span class="p">,</span> <span class="mi">10</span>
+            <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="n">host</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="n">port</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_credentials</span> <span class="o">=</span> <span class="n">credentials</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_thread_pool</span> <span class="o">=</span> <span class="n">thread_pool</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_timeout</span> <span class="o">=</span> <span class="n">check_timeout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credentials</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
+            <span class="n">channel_signature</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">)</span>
+            <span class="n">channel_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">channel_signature</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">channel_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">channel_params</span>
+            <span class="p">}</span>
+            <span class="n">channel_bound_arguments</span> <span class="o">=</span> <span class="n">channel_signature</span><span class="o">.</span><span class="n">bind_partial</span><span class="p">(</span><span class="o">**</span><span class="n">channel_kwargs</span><span class="p">)</span>
+            <span class="n">channel_bound_arguments</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">channel_bound_arguments</span><span class="o">.</span><span class="n">args</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">channel_bound_arguments</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="n">channel_signature</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">secure_channel</span><span class="p">)</span>
+            <span class="n">channel_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">channel_signature</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">channel_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">channel_params</span>
+            <span class="p">}</span>
+            <span class="n">channel_bound_arguments</span> <span class="o">=</span> <span class="n">channel_signature</span><span class="o">.</span><span class="n">bind_partial</span><span class="p">(</span><span class="o">**</span><span class="n">channel_kwargs</span><span class="p">)</span>
+            <span class="n">channel_bound_arguments</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span>
+            <span class="n">channel_bound_arguments</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credentials</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">secure_channel</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credentials</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span>
+                <span class="o">*</span><span class="n">channel_bound_arguments</span><span class="o">.</span><span class="n">args</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">channel_bound_arguments</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thread_pool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">thread_pool_signature</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">ThreadPoolExecutor</span><span class="p">)</span>
+            <span class="n">thread_pool_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">thread_pool_signature</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">thread_pool_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">thread_pool_params</span>
+            <span class="p">}</span>
+            <span class="n">thread_pool_bound_arguments</span> <span class="o">=</span> <span class="n">thread_pool_signature</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
+                <span class="o">**</span><span class="n">thread_pool_kwargs</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">thread_pool_bound_arguments</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_workers&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">max_workers</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_int</span><span class="p">(</span>
+                    <span class="s2">&quot;koapy.backend.kiwoom_open_api_plus.grpc.client.max_workers&quot;</span><span class="p">,</span>
+                    <span class="mi">8</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">thread_pool_bound_arguments</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;max_workers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_workers</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_thread_pool</span> <span class="o">=</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">thread_pool_bound_arguments</span><span class="o">.</span><span class="n">args</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">thread_pool_bound_arguments</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusService_pb2_grpc</span><span class="o">.</span><span class="n">KiwoomOpenApiPlusServiceStub</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stub_wrapped</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusServiceClientStubWrapper</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stub_wrapped</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusServiceClientStubWrapper</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thread_pool</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceClient.is_ready"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClient/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient.KiwoomOpenApiPlusServiceClient.is_ready">[docs]</a>    <span class="k">def</span> <span class="nf">is_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">timeout</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_int</span><span class="p">(</span>
-                <span class="s2">&quot;koapy.backend.kiwoom_open_api_plus.grpc.client.is_ready.timeout&quot;</span><span class="p">,</span> <span class="mi">10</span>
-            <span class="p">)</span>
+            <span class="n">timeout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_timeout</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">grpc</span><span class="o">.</span><span class="n">channel_ready_future</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -172,7 +221,14 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceClient.__getattr__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClient/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient.KiwoomOpenApiPlusServiceClient.__getattr__">[docs]</a>    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub_wrapped</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stub_wrapped</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusServiceClient.__enter__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClient/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient.KiwoomOpenApiPlusServiceClient.__enter__">[docs]</a>    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ready</span><span class="p">(),</span> <span class="s2">&quot;Client is not ready&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusServiceClient.__exit__"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClient/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient.KiwoomOpenApiPlusServiceClient.__exit__">[docs]</a>    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
 </pre></div>
 
           </div>

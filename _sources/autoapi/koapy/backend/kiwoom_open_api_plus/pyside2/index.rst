@@ -11,6 +11,8 @@ Submodules
    :maxdepth: 1
 
    KiwoomOpenApiPlusDialogHandler/index.rst
-   KiwoomOpenApiPlusTrayApplication/index.rst
+   KiwoomOpenApiPlusManagerApplication/index.rst
+   KiwoomOpenApiPlusServerApplication/index.rst
+   KiwoomOpenApiPlusSignalHandler/index.rst
 
 

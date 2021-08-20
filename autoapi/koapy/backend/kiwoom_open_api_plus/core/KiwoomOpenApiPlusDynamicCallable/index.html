@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable &#8212; KOAPY 0.5.1 documentation</title>
+    <title>koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable &#8212; KOAPY 0.6.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
@@ -20,16 +20,7 @@
     <link rel="search" title="Search" href="../../../../../../search.html" />
     <link rel="next" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint" href="../KiwoomOpenApiPlusEntrypoint/index.html" />
     <link rel="prev" title="koapy.backend.kiwoom_open_api_plus.core" href="../index.html" />
-  
-   
-  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  
-  <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
-  
+    <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
 
   </head><body>
   <div class="document">
@@ -135,22 +126,76 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusDynamicCallable</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallableRunnable" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallableRunnable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusDynamicCallableRunnable</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusDynamicCallable</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
-<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.</span></span><span class="sig-name descname"><span class="pre">KiwoomOpenApiPlusDynamicCallable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">control</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallableRunnable">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.</span></span><span class="sig-name descname"><span class="pre">KiwoomOpenApiPlusDynamicCallableRunnable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">future</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.Future" title="(in Python v3.9)"><span class="pre">concurrent.futures.Future</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">Ellipsis</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallableRunnable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallableRunnable" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallableRunnable.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallableRunnable.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallableRunnable.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallableRunnable.cancel">
+<span class="sig-name descname"><span class="pre">cancel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallableRunnable.cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallableRunnable.cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.</span></span><span class="sig-name descname"><span class="pre">KiwoomOpenApiPlusDynamicCallable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">control</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">koapy.compat.pyside2.QtCore.QObject</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.readyRunnable">
+<span class="sig-name descname"><span class="pre">readyRunnable</span></span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallable.readyRunnable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.readyRunnable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.bind_dynamic_call_args">
+<span class="sig-name descname"><span class="pre">bind_dynamic_call_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallable.bind_dynamic_call_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.bind_dynamic_call_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.is_valid_return_type">
 <span class="sig-name descname"><span class="pre">is_valid_return_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallable.is_valid_return_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.is_valid_return_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.check_return_value">
+<span class="sig-name descname"><span class="pre">check_return_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallable.check_return_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.check_return_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.dynamic_call">
+<span class="sig-name descname"><span class="pre">dynamic_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallable.dynamic_call"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.dynamic_call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.dynamic_call_and_check">
+<span class="sig-name descname"><span class="pre">dynamic_call_and_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallable.dynamic_call_and_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.dynamic_call_and_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.call">
 <span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallable.call"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.async_call">
+<span class="sig-name descname"><span class="pre">async_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallable.async_call"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.async_call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.onReadyRunnable">
+<span class="sig-name descname"><span class="pre">onReadyRunnable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">runnable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDynamicCallable.html#KiwoomOpenApiPlusDynamicCallable.onReadyRunnable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable.KiwoomOpenApiPlusDynamicCallable.onReadyRunnable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

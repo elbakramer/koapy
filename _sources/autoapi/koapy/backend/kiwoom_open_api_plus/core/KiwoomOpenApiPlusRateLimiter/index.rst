@@ -41,19 +41,22 @@ Classes
    [조건검색 제한]
      - 조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
 
+   [조건검색 제한]
+       조건검색 요청은 1초당 5회 조회횟수 제한에 포함됩니다.
+       동일 조건식에 대한 조건검색 요청은 1분에 1회로 제한됩니다.
+       조건검색 결과가 100종목을 넘게 되면 해당조건은 실시간 조건검색 신호를 수신할 수 없습니다.
+       실시간 조건검색은 최대 10개까지 사용 가능합니다.
+
    .. py:method:: get_limiter_per_condition(self, condition_name, condition_index)
 
 
-   .. py:method:: check_sleep_seconds(self, condition_name=None, condition_index=None)
+   .. py:method:: check_sleep_seconds(self, fn, *args, **kwargs)
 
 
-   .. py:method:: add_call_history(self, condition_name=None, condition_index=None)
+   .. py:method:: add_call_history(self, fn, *args, **kwargs)
 
 
-   .. py:method:: sleep_if_necessary(self, condition_name=None, condition_index=None)
-
-
-   .. py:method:: __call__(self, func)
+   .. py:method:: sleep_if_necessary(self, fn, *args, **kwargs)
 
 
 

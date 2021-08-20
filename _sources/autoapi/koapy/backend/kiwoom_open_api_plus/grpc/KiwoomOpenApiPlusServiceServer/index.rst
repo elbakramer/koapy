@@ -21,9 +21,6 @@ Classes
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. py:method:: __del__(self)
-
-
    .. py:method:: reinitialize_server(self)
 
 
@@ -46,6 +43,12 @@ Classes
 
 
    .. py:method:: __getattr__(self, name)
+
+
+   .. py:method:: __enter__(self)
+
+
+   .. py:method:: __exit__(self, exc_type, exc_value, traceback)
 
 
 

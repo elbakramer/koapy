@@ -21,6 +21,9 @@ Classes
 
 .. py:class:: KiwoomOpenApiPlusSimpleQAxWidgetMixin
 
+   .. py:method:: IsConnected(self)
+
+
    .. py:method:: GetServerGubun(self)
 
 
@@ -105,11 +108,6 @@ Classes
    .. py:method:: GetConditionNameListAsList(self)
 
 
-
-.. py:class:: KiwoomOpenApiPlusComplexQAxWidgetMixin
-
-   Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
-
    .. py:method:: GetAutoLoginDatPath(self)
 
 
@@ -136,14 +134,16 @@ Classes
    .. py:method:: Connect(self, credential=None)
 
 
-   .. py:method:: IsConnected(self)
-
-
    .. py:method:: EnsureConnectedAndThen(self, credential=None, callback=None)
 
 
    .. py:method:: EnsureConnected(self, credential=None)
 
+
+
+.. py:class:: KiwoomOpenApiPlusComplexQAxWidgetMixin
+
+   Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
    .. py:method:: LoadCondition(self)
 
@@ -155,45 +155,6 @@ Classes
 
 
    .. py:method:: AtomicCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None)
-
-
-   .. py:method:: RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None)
-
-      [OpenAPI 게시판]
-        https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do
-
-      [조회횟수 제한 관련 가이드]
-        - 1초당 5회 조회를 1번 발생시킨 경우 : 17초대기
-        - 1초당 5회 조회를 5연속 발생시킨 경우 : 90초대기
-        - 1초당 5회 조회를 10연속 발생시킨 경우 : 3분(180초)대기
-
-
-   .. py:method:: RateLimitedCommKwRqData(self, codes, prevnext, codecnt, typeflag, rqname, scrnno)
-
-      [조회제한]
-        OpenAPI 조회는 1초당 5회로 제한되며 복수종목 조회와 조건검색 조회 횟수가 합산됩니다.
-        가령 1초 동안 시세조회2회 관심종목 1회 조건검색 2회 순서로 조회를 했다면 모두 합쳐서 5회이므로 모두 조회성공하겠지만
-        조건검색을 3회 조회하면 맨 마지막 조건검색 조회는 실패하게 됩니다.
-
-      [조건검색 제한]
-        조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
-
-
-   .. py:method:: RateLimitedCommRqDataAndCheck(self, rqname, trcode, prevnext, scrnno, inputs=None)
-
-
-   .. py:method:: RateLimitedSendOrder(self, rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno)
-
-
-   .. py:method:: RateLimitedSendCondition(self, scrnno, condition_name, condition_index, search_type)
-
-      [조회제한]
-        OpenAPI 조회는 1초당 5회로 제한되며 복수종목 조회와 조건검색 조회 횟수가 합산됩니다.
-        가령 1초 동안 시세조회2회 관심종목 1회 조건검색 2회 순서로 조회를 했다면 모두 합쳐서 5회이므로 모두 조회성공하겠지만
-        조건검색을 3회 조회하면 맨 마지막 조건검색 조회는 실패하게 됩니다.
-
-      [조건검색 제한]
-        조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
 
 
 

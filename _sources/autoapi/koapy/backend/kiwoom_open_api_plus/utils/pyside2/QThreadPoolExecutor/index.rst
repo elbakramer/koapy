@@ -18,7 +18,7 @@ Classes
 
 
 
-.. py:class:: QThreadPoolExecutorRunnable(future: concurrent.futures.Future, fn, args, kwargs)
+.. py:class:: QThreadPoolExecutorRunnable(future: concurrent.futures.Future, fn: Callable[Ellipsis, Any], args: Union[Tuple[Any], List[Any]], kwargs: Dict[str, Any])
 
    Bases: :py:obj:`koapy.compat.pyside2.QtCore.QRunnable`
 
@@ -26,7 +26,7 @@ Classes
 
 
 
-.. py:class:: QThreadPoolExecutor(*args, **kwargs)
+.. py:class:: QThreadPoolExecutor(thread_pool: koapy.compat.pyside2.QtCore.QThreadPool, parent: Optional[koapy.compat.pyside2.QtCore.QObject])           QThreadPoolExecutor(parent: Optional[koapy.compat.pyside2.QtCore.QObject])
 
    Bases: :py:obj:`koapy.compat.pyside2.QtCore.QObject`, :py:obj:`concurrent.futures.Executor`
 
@@ -45,7 +45,7 @@ Classes
       :returns: A Future representing the given call.
 
 
-   .. py:method:: shutdown(self, wait=True)
+   .. py:method:: shutdown(self, wait=True, cancel_futures=False)
 
       Clean-up the resources associated with the Executor.
 

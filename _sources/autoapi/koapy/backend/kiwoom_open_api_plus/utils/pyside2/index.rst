@@ -10,6 +10,7 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
+   QDialogHandler/index.rst
    QSignalHandler/index.rst
    QThreadPoolExecutor/index.rst
 
