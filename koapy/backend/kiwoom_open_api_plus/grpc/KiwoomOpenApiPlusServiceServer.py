@@ -1,7 +1,6 @@
-import atexit
 import inspect
 
-from concurrent import futures
+from concurrent.futures import ThreadPoolExecutor
 
 import grpc
 
@@ -60,7 +59,7 @@ class KiwoomOpenApiPlusServiceServer(Logging):
             **grpc_server_kwargs
         )
         if grpc_server_bound_arguments.arguments.get("thread_pool") is None:
-            thread_pool_signature = inspect.signature(futures.ThreadPoolExecutor)
+            thread_pool_signature = inspect.signature(ThreadPoolExecutor)
             thread_pool_params = list(thread_pool_signature.parameters.keys())
             thread_pool_kwargs = {
                 k: v for k, v in self._kwargs.items() if k in thread_pool_params
@@ -73,16 +72,14 @@ class KiwoomOpenApiPlusServiceServer(Logging):
                     "koapy.backend.kiwoom_open_api_plus.grpc.server.max_workers", 8
                 )
                 thread_pool_bound_arguments.arguments["max_workers"] = max_workers
-            thread_pool = futures.ThreadPoolExecutor(
+            thread_pool = ThreadPoolExecutor(
                 *thread_pool_bound_arguments.args,
                 **thread_pool_bound_arguments.kwargs,
             )
             grpc_server_bound_arguments.arguments["thread_pool"] = thread_pool
             self._thread_pool = thread_pool
-            self._should_shutdown_thread_pool = True
         else:
             self._thread_pool = grpc_server_bound_arguments.arguments["thread_pool"]
-            self._should_shutdown_thread_pool = False
 
         self._grpc_server_bound_arguments = grpc_server_bound_arguments
 
@@ -91,13 +88,6 @@ class KiwoomOpenApiPlusServiceServer(Logging):
         self._server_stopped = False
 
         self.reinitialize_server()
-
-        if self._should_shutdown_thread_pool:
-            atexit.register(self._thread_pool.shutdown)
-
-    def __del__(self):
-        if self._should_shutdown_thread_pool:
-            atexit.unregister(self._thread_pool.shutdown)
 
     def reinitialize_server(self):
         if self._server is not None:
@@ -151,3 +141,11 @@ class KiwoomOpenApiPlusServiceServer(Logging):
 
     def __getattr__(self, name):
         return getattr(self._server, name)
+
+    def __enter__(self):
+        self.start()
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.stop()
+        self.wait_for_termination()
