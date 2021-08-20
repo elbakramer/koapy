@@ -1,0 +1,1 @@
+from pywinauto.timings import *
