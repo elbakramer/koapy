@@ -22,6 +22,9 @@ from koapy.utils.subprocess import function_to_subprocess_args
 
 
 class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
+    def IsConnected(self):
+        return self.GetConnectState() == 1
+
     def GetServerGubun(self):
         return self.GetLoginInfo("GetServerGubun")
 
@@ -183,17 +186,6 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
         conditions = [(int(cond[0]), cond[1]) for cond in conditions]
         return conditions
 
-
-class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
-    def __init__(self):
-        self._comm_rate_limiter = KiwoomOpenApiPlusCommRqDataRateLimiter()
-        self._cond_rate_limiter = KiwoomOpenApiPlusSendConditionRateLimiter(
-            self._comm_rate_limiter
-        )
-        self._send_order_limiter = KiwoomOpenApiPlusSendOrderRateLimiter()
-
-        self._is_condition_loaded = False
-
     def GetAutoLoginDatPath(self):
         module_path = self.GetAPIModulePath()
         autologin_dat = os.path.join(module_path, "system", "Autologin.dat")
@@ -207,6 +199,8 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         autologin_dat = self.GetAutoLoginDatPath()
         if os.path.exists(autologin_dat):
             os.remove(autologin_dat)
+
+    # ======================================================================
 
     @classmethod
     def LoginUsingPywinauto_Impl(cls, credential=None):
@@ -380,20 +374,17 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
 
         return errcode
 
-    def IsConnected(self):
-        return self.GetConnectState() == 1
-
     def EnsureConnectedAndThen(self, credential=None, callback=None):
+        if (
+            callback is None
+            and credential is not None
+            and not isinstance(credential, dict)
+            and callable(credential)
+        ):
+            callback = credential
+            credential = None
         is_connected = self.IsConnected()
         if not is_connected:
-            if (
-                callback is None
-                and credential is not None
-                and not isinstance(credential, dict)
-                and callable(credential)
-            ):
-                callback = credential
-                credential = None
 
             def OnEventConnect(errcode):
                 if errcode == 0:
@@ -401,6 +392,9 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
                         callback()
 
             self.CommConnectAndThen(credential, OnEventConnect)
+        else:
+            if callable(callback):
+                callback()
         return is_connected
 
     def EnsureConnected(self, credential=None):
@@ -410,6 +404,17 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
             is_connected = self.IsConnected()
             assert is_connected, "Could not ensure connected"
         return is_connected
+
+
+class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
+    def __init__(self):
+        self._comm_rate_limiter = KiwoomOpenApiPlusCommRqDataRateLimiter()
+        self._cond_rate_limiter = KiwoomOpenApiPlusSendConditionRateLimiter(
+            self._comm_rate_limiter
+        )
+        self._send_order_limiter = KiwoomOpenApiPlusSendOrderRateLimiter()
+
+        self._is_condition_loaded = False
 
     def LoadCondition(self):
         q = queue.Queue()
@@ -493,51 +498,6 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         """
         self._cond_rate_limiter.sleep_if_necessary()
         return self.CommKwRqData(codes, prevnext, codecnt, typeflag, rqname, scrnno)
-
-    def RateLimitedCommRqDataAndCheck(
-        self, rqname, trcode, prevnext, scrnno, inputs=None
-    ):
-        code = self.RateLimitedCommRqData(rqname, trcode, prevnext, scrnno)
-
-        spec = "CommRqData({!r}, {!r}, {!r}, {!r})".format(
-            rqname, trcode, prevnext, scrnno
-        )
-
-        if inputs is not None:
-            spec += " with inputs %r" % inputs
-
-        if code == KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_NONE:
-            message = "CommRqData() was successful; " + spec
-            self.logger.debug(message)
-        elif code == KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SISE_OVERFLOW:
-            message = "CommRqData() was rejected due to massive request; " + spec
-            self.logger.error(message)
-            raise KiwoomOpenApiPlusNegativeReturnCodeError(code)
-        elif code == KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_ORD_WRONG_INPUT:
-            message = (
-                "CommRqData() failed due to wrong input, check if input was correctly set; "
-                + spec
-            )
-            self.logger.error(message)
-            raise KiwoomOpenApiPlusNegativeReturnCodeError(code)
-        elif code in (
-            KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_RQ_STRUCT_FAIL,
-            KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_RQ_STRING_FAIL,
-        ):
-            message = "CommRqData() request was invalid; " + spec
-            self.logger.error(message)
-            raise KiwoomOpenApiPlusNegativeReturnCodeError(code)
-        else:
-            message = "Unknown error occured during CommRqData() request; " + spec
-            korean_message = (
-                KiwoomOpenApiPlusNegativeReturnCodeError.get_error_message_by_code(code)
-            )
-            if korean_message is not None:
-                message += "; Korean error message: " + korean_message
-            self.logger.error(message)
-            raise KiwoomOpenApiPlusNegativeReturnCodeError(code)
-
-        return code
 
     def RateLimitedSendOrder(
         self, rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno

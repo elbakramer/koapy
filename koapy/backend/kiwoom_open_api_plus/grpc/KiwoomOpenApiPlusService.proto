@@ -59,9 +59,11 @@ message ListenRequest {
 
 
 message HandledRequest {
+  float time = 1;
 }
 
 message StopListenRequest {
+  float time = 1;
 }
 
 message BidirectionalListenRequest {
@@ -121,12 +123,21 @@ message LoginRequest {
   LoginCredential credential = 1;
 }
 
-message TransactionSubscriptionTarget {
-  bool RET = 1;
-  bool TR = 2;
-  bool REAL = 3;
-  bool MSG = 4;
+
+message RealRequestFlags {
+  bool infer_fids = 1;
+  bool readable_names = 2;
+  bool fast_parse = 3;
 }
+
+message RealRequest {
+  repeated string screen_no = 1;
+  repeated string code_list = 2;
+  repeated int32 fid_list = 3;
+  string opt_type = 4;
+  RealRequestFlags flags = 5;
+}
+
 
 enum TransactionStopConditionCompartor {
   LESS_THAN_OR_EQUAL_TO = 0;
@@ -148,9 +159,10 @@ message TransactionRequest {
   string transaction_code = 2;
   string screen_no = 3;
   map<string, string> inputs = 4;
-  TransactionSubscriptionTarget output = 5;
-  TransactionStopCondition stop_condition = 6;
+  TransactionStopCondition stop_condition = 5;
+  RealRequestFlags flags = 6;
 }
+
 
 message OrderSubscriptionTarget {
   bool RET = 1;
@@ -171,20 +183,6 @@ message OrderRequest {
   string quote_type = 8;
   string original_order_no = 9;
   OrderSubscriptionTarget target = 10;
-}
-
-message RealRequestFlags {
-  bool infer_fids = 1;
-  bool readable_names = 2;
-  bool fast_parse = 3;
-}
-
-message RealRequest {
-  repeated string screen_no = 1;
-  repeated string code_list = 2;
-  repeated int32 fid_list = 3;
-  string opt_type = 4;
-  RealRequestFlags flags = 5;
 }
 
 

@@ -14,6 +14,10 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerFuncti
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import (
     KiwoomOpenApiPlusSimpleQAxWidgetMixin,
 )
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature import (
+    KiwoomOpenApiPlusDispatchSignature,
+    KiwoomOpenApiPlusEventHandlerSignature,
+)
 from koapy.backend.kiwoom_open_api_plus.grpc import KiwoomOpenApiPlusService_pb2
 from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideDynamicCallable import (
     KiwoomOpenApiPlusServiceClientSideDynamicCallable,
@@ -30,23 +34,29 @@ from koapy.utils.logging.Logging import Logging
 class KiwoomOpenApiPlusServiceClientStubCoreWrapper(
     KiwoomOpenApiPlusSimpleQAxWidgetMixin
 ):
-    def __init__(self, stub):
+    METHOD_NAMES = KiwoomOpenApiPlusDispatchSignature.names()
+    EVENT_NAMES = KiwoomOpenApiPlusEventHandlerSignature.names()
+
+    def __init__(self, stub, executor):
         self._stub = stub
+        self._executor = executor
+
+        # Set methods as attributes
+        for method_name in self.METHOD_NAMES:
+            dynamic_callable = KiwoomOpenApiPlusServiceClientSideDynamicCallable(
+                self._stub, method_name
+            )
+            setattr(self, method_name, dynamic_callable)
+
+        # Set signals as attributes
+        for event_name in self.EVENT_NAMES:
+            signal_connector = KiwoomOpenApiPlusServiceClientSideSignalConnector(
+                self._stub, event_name, self._executor
+            )
+            setattr(self, event_name, signal_connector)
 
     def __getattr__(self, name):
-        try:
-            return getattr(self._stub, name)
-        except AttributeError:
-            if name.startswith("On") and name in dir(
-                KiwoomOpenApiPlusEventHandlerFunctions
-            ):
-                return KiwoomOpenApiPlusServiceClientSideSignalConnector(
-                    self._stub, name
-                )
-            else:
-                return KiwoomOpenApiPlusServiceClientSideDynamicCallable(
-                    self._stub, name
-                )
+        return getattr(self._stub, name)
 
     def Call(self, name, *args):
         return KiwoomOpenApiPlusServiceClientSideDynamicCallable(self._stub, name)(
@@ -214,31 +224,6 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(
         request.logger = logger
         return self._stub.SetLogLevel(request)
 
-    def _EnsureConnectedUsingSignalConnector(self):
-        errcode = 0
-        if self.GetConnectState() == 0:
-            q = queue.Queue()
-
-            def OnEventConnect(errcode):
-                q.put(errcode)
-                self.OnEventConnect.disconnect(OnEventConnect)
-
-            self.OnEventConnect.connect(OnEventConnect)
-            errcode = KiwoomOpenApiPlusNegativeReturnCodeError.try_or_raise(
-                self.CommConnect()
-            )
-            errcode = KiwoomOpenApiPlusNegativeReturnCodeError.try_or_raise(q.get())
-        return errcode
-
-    def Connect(self, credential=None):
-        return self.LoginCall(credential)
-
-    def EnsureConnected(self, credential=None):
-        errcode = 0
-        if self.GetConnectState() == 0:
-            errcode = self.Connect(credential)
-        return errcode
-
     def _LoadConditionUsingCall(self):
         return self.Call("LoadCondition")
 
@@ -289,7 +274,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
             remove = False
         elif isinstance(width, int) and (width == 0 or len(value) == width):
             remove = True
-        elif hasattr(width, "__iter__") and len(value) in width:
+        elif hasattr(width, "__contains__") and len(value) in width:
             remove = True
         if remove:
             return re.sub(r"^\s*([+-]?)[0]+([0-9]+(.[0-9]+)?)\s*$", r"\1\2", value)
