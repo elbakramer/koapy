@@ -84,6 +84,7 @@ def test_GetMasterCodeName(entrypoint):
     ), "Failed to get Samsung Electronics from code, which is unlikely to happen"
 
 
+@skipif_ocx_not_available
 def test_KiwoomOpenApiPlusTrInfo():
     from koapy import KiwoomOpenApiPlusTrInfo
 
@@ -277,6 +278,7 @@ def test_OrderCall(entrypoint):
     assert int(data["총매입가"]) > 0
 
 
+@skipif_ocx_not_available
 def test_KiwoomOpenApiPlusRealType():
     from koapy import KiwoomOpenApiPlusRealType
 
