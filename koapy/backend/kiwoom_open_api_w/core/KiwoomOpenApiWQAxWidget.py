@@ -14,7 +14,6 @@ from koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature import (
     KiwoomOpenApiWDispatchSignature,
     KiwoomOpenApiWEventHandlerSignature,
 )
-from koapy.compat.pyside2 import PYQT5, PYSIDE2, PythonQtError
 from koapy.compat.pyside2.QtAxContainer import QAxWidget
 from koapy.compat.pyside2.QtCore import QEvent, Qt
 from koapy.compat.pyside2.QtWidgets import QWidget
@@ -32,14 +31,6 @@ class KiwoomOpenApiWQAxWidget(QWidgetLogging, KiwoomOpenApiWQAxWidgetMixin):
     def __init__(self, *args, **kwargs):
         # Check 32bit requirement
         assert is_32bit(), "Control object should be created in 32bit environment"
-
-        # Check Qt backend
-        if PYQT5:
-            self.logger.debug("Using PyQt5 as Qt backend")
-        elif PYSIDE2:
-            self.logger.debug("Using PySide2 as Qt backend")
-        else:
-            raise PythonQtError("No Qt bindings could be found")
 
         # Process arguments
         control = None

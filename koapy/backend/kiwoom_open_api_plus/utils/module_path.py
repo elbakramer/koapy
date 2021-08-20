@@ -4,6 +4,7 @@ from subprocess import CalledProcessError
 
 from pyhocon.exceptions import ConfigMissingException
 
+from koapy.config import debug
 from koapy.utils.logging import get_logger
 from koapy.utils.platform import is_32bit, is_64bit
 
@@ -11,7 +12,6 @@ logger = get_logger(__name__)
 
 
 def GetAPIModulePathFromConfig():
-    logger.debug("Checking module path from config")
     from koapy.config import config
 
     APIModulePath = config.get("koapy.backend.kiwoom_open_api_plus.module_path")
@@ -20,21 +20,17 @@ def GetAPIModulePathFromConfig():
 
 
 def GetAPIModulePathFromServer():
-    logger.debug("Checking module path from existing server if applicable")
-    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
-        KiwoomOpenApiPlusEntrypoint,
+    from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient import (
+        KiwoomOpenApiPlusServiceClient,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        client_only=True, client_check_timeout=1
-    ) as entrypoint:
+    with KiwoomOpenApiPlusServiceClient(check_timeout=1) as entrypoint:
         APIModulePath = entrypoint.GetAPIModulePath()
 
     return APIModulePath
 
 
 def GetAPIModulePathIn32Bit():
-    logger.debug("Checking module path directly in 32bit")
     import sys
 
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget import (
@@ -58,7 +54,6 @@ def GetAPIModulePathIn32Bit():
 
 
 def GetAPIModulePathIn64Bit():
-    logger.debug("Checking module path in-directly in 64bit")
     import subprocess
     import sys
 
@@ -86,7 +81,6 @@ def GetAPIModulePathIn64Bit():
 
 
 def GetAPIModulePathForDefaultInstallation():
-    logger.debug("Giving module path based on default installation")
     return r"C:\OpenAPI"
 
 
@@ -94,19 +88,25 @@ def GetAPIModulePathForDefaultInstallation():
 def GetAPIModulePath():
     # 1. use config if set explicitly
     try:
+        if debug:
+            logger.debug("Checking module path from config")
         return GetAPIModulePathFromConfig()
     except ConfigMissingException:
         pass
 
     # 2. use server if exists
     try:
+        if debug:
+            logger.debug("Checking module path from existing server if applicable")
         return GetAPIModulePathFromServer()
-    except RuntimeError:
+    except AssertionError:
         pass
 
     # 3. directly check in 32bit environment
     if is_32bit():
         try:
+            if debug:
+                logger.debug("Checking module path directly in 32bit")
             return GetAPIModulePathIn32Bit()
         except (CalledProcessError, FileNotFoundError):
             pass
@@ -114,11 +114,15 @@ def GetAPIModulePath():
     # 4. in-directly check in 64bit environment
     if is_64bit():
         try:
+            if debug:
+                logger.debug("Checking module path in-directly in 64bit")
             return GetAPIModulePathIn64Bit()
         except (CalledProcessError, FileNotFoundError):
             pass
 
     # 5. fallback to default installation path
+    if debug:
+        logger.debug("Giving module path based on default installation")
     return GetAPIModulePathForDefaultInstallation()
 
 

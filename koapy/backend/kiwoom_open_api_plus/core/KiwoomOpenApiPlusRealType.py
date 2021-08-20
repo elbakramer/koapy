@@ -4,6 +4,7 @@ import os
 
 import pandas as pd
 
+from koapy.config import debug
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.serialization import JsonSerializable
 
@@ -136,7 +137,8 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
 
         with contextlib.ExitStack() as stack:
             if isinstance(dat_file, str):
-                cls.logger.debug("Reading file %s", dat_file)
+                if debug:
+                    cls.logger.debug("Reading file %s", dat_file)
                 dat_file = stack.enter_context(open(dat_file, "rb"))
             lines = iter(dat_file)
             lines = map(lambda line: line.rstrip(b"\r\n"), lines)

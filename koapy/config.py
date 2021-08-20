@@ -60,6 +60,10 @@ for config_folder in config_folder_candidates:
 config = user_config.with_fallback(default_config)
 
 
+# Flag value for additional logging for debug
+debug = False
+
+
 # Just to mitigate redefined outer name issue
 global_config = config
 global_user_config = user_config

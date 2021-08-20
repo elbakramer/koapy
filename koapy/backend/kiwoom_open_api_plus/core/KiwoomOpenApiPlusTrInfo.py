@@ -4,6 +4,7 @@ import json
 import os
 import zipfile
 
+from koapy.config import debug
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.serialization import JsonSerializable
 
@@ -249,7 +250,8 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             data_dir = os.path.join(module_path, "data")
         if encoding is None:
             encoding = "euc-kr"
-        cls.logger.debug("Reading files under %s", data_dir)
+        if debug:
+            cls.logger.debug("Reading files under %s", data_dir)
         enc_filenames = [filename.lower() for filename in os.listdir(data_dir)]
         enc_filenames = [
             filename
@@ -263,9 +265,10 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                 for info in z.infolist():
                     inner_filename = info.filename
                     tr_code = os.path.splitext(inner_filename.lower())[0]
-                    cls.logger.debug(
-                        "Reading file %s inside %s", inner_filename, full_filename
-                    )
+                    if debug:
+                        cls.logger.debug(
+                            "Reading file %s inside %s", inner_filename, full_filename
+                        )
                     with z.open(info) as b:
                         with io.TextIOWrapper(b, encoding=encoding) as f:
                             results.append(cls.from_encfile(f, tr_code))
