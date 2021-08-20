@@ -1,3 +1,4 @@
+from concurrent.futures import Future
 from functools import wraps
 
 
@@ -161,7 +162,18 @@ class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
 
     @classmethod
     def try_or_raise(cls, arg, message=None):
-        if isinstance(arg, int):
+        if isinstance(arg, Future):
+
+            def callback(future):
+                exc = future.exception()
+                if exc:
+                    raise exc
+                result = future.result()
+                cls.try_or_raise(result, message)
+
+            arg.add_done_callback(callback)
+            return arg
+        elif isinstance(arg, int):
             return cls.check_code_or_raise(arg)
         elif callable(arg):
             return cls.wrap_to_check_code_or_raise(arg)
@@ -181,7 +193,9 @@ class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
         return self._message
 
     def __repr__(self):
-        return "%s(%r, %r)" % (self.__class__.__name__, self._code, self._message)
+        return "{}({!r}, {!r})".format(
+            self.__class__.__name__, self._code, self._message
+        )
 
     @property
     def code(self):
@@ -209,7 +223,18 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
 
     @classmethod
     def try_or_raise(cls, arg, message=None):
-        if isinstance(arg, (int, bool)):
+        if isinstance(arg, Future):
+
+            def callback(future):
+                exc = future.exception()
+                if exc:
+                    raise exc
+                result = future.result()
+                cls.try_or_raise(result, message)
+
+            arg.add_done_callback(callback)
+            return arg
+        elif isinstance(arg, (int, bool)):
             return cls.check_code_or_raise(arg, message)
         elif callable(arg):
             return cls.wrap_to_check_code_or_raise(arg, message)
@@ -231,7 +256,9 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
             return self.__repr__()
 
     def __repr__(self):
-        return "%s(%r, %r)" % (self.__class__.__name__, self._code, self._message)
+        return "{}({!r}, {!r})".format(
+            self.__class__.__name__, self._code, self._message
+        )
 
     @property
     def code(self):

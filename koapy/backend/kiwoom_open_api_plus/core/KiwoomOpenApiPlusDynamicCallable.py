@@ -1,5 +1,6 @@
+from concurrent.futures import Future
 from inspect import Signature
-from queue import Queue
+from typing import Any, Callable, List, Tuple, Union
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature import (
     KiwoomOpenApiPlusDispatchSignature,
@@ -7,9 +8,36 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature import (
 from koapy.compat.pyside2.QtCore import QObject, Qt, Signal
 
 
+class KiwoomOpenApiPlusDynamicCallableRunnable:
+    def __init__(
+        self,
+        future: Future,
+        fn: Callable[..., Any],
+        args: Union[Tuple[Any], List[Any]],
+    ):
+        self._future = future
+        self._fn = fn
+        self._args = args
+
+    def run(self):
+        if not self._future.set_running_or_notify_cancel():
+            return
+        try:
+            result = self._fn(self._args)
+        except BaseException as exc:
+            self._future.set_exception(exc)
+            # break a reference cycle with the exception 'exc'
+            self = None
+        else:
+            self._future.set_result(result)
+
+    def cancel(self):
+        return self._future.cancel()
+
+
 class KiwoomOpenApiPlusDynamicCallable(QObject):
 
-    ready_call = Signal(list)
+    readyRunnable = Signal(KiwoomOpenApiPlusDynamicCallableRunnable)
 
     def __init__(self, control, name, parent=None):
         super().__init__(parent)
@@ -23,24 +51,9 @@ class KiwoomOpenApiPlusDynamicCallable(QObject):
             self._signature.return_annotation is not Signature.empty
         )
 
-        self._result_queue = Queue()
-        self.ready_call.connect(self.on_ready_call, Qt.QueuedConnection)
+        self.readyRunnable.connect(self.onReadyRunnable, Qt.QueuedConnection)
 
-        def SetRealRemove(screen_no, code):
-            return self.queued_call(screen_no, code)
-
-        def CommRqData(rqname, trcode, prevnext, screen_no):
-            if prevnext:
-                return self.call(rqname, trcode, prevnext, screen_no)
-            else:
-                return self.queued_call(rqname, trcode, prevnext, screen_no)
-
-        self._custom_calls = {
-            "SetRealRemove": SetRealRemove,
-            "CommRqData": CommRqData,
-        }
-
-        self._call = self._custom_calls.get(self._name, self.call)
+        self._call = self.call
 
         self.__name__ = self._name
 
@@ -74,23 +87,30 @@ class KiwoomOpenApiPlusDynamicCallable(QObject):
             )
         return result
 
+    def dynamic_call(self, args):
+        return self._control.dynamicCall(self._function, args)
+
+    def dynamic_call_and_check(self, args):
+        result = self.dynamic_call(args)
+        self.check_return_value(result)
+        return result
+
     def call(self, *args, **kwargs):
         args = self.bind_dynamic_call_args(*args, **kwargs)
-        result = self._control.dynamicCall(self._function, args)
-        self.check_return_value(result)
+        result = self.dynamic_call_and_check(args)
         return result
 
-    def queued_call(self, *args, **kwargs):
+    def async_call(self, *args, **kwargs):
         args = self.bind_dynamic_call_args(*args, **kwargs)
-        self.ready_call.emit(args)
-        result = self._result_queue.get()
-        self._result_queue.task_done()
-        return result
+        future = Future()
+        runnable = KiwoomOpenApiPlusDynamicCallableRunnable(
+            future, self.dynamic_call_and_check, args
+        )
+        self.readyRunnable.emit(runnable)
+        return future
 
-    def on_ready_call(self, args):
-        result = self._control.dynamicCall(self._function, args)
-        self.check_return_value(result)
-        self._result_queue.put(result)
+    def onReadyRunnable(self, runnable):
+        runnable.run()
 
     def __call__(self, *args, **kwargs):
         return self._call(*args, **kwargs)

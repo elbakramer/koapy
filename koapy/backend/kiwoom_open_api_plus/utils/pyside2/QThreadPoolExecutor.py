@@ -34,9 +34,6 @@ class QThreadPoolExecutorRunnable(QRunnable):
         else:
             self._future.set_result(result)
 
-    def __del__(self):
-        self._future.cancel()
-
 
 class QThreadPoolExecutor(QObject, Executor):
     @overload

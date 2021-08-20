@@ -55,7 +55,6 @@ class QDialogHandler(QThreadLogging):
 
     def stop(self):
         self._should_stop = True
-        return self.quit()
 
     def wait_for_termination(self, timeout=None):
         if timeout is not None:

@@ -132,7 +132,8 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         self._client = KiwoomOpenApiPlusServiceClient(
             port=self._port, thread_pool=self._thread_pool_executor
         )
-        assert self._client.is_ready(), "Client is not ready"
+        self._client_timeout = 30
+        assert self._client.is_ready(self._client_timeout), "Client is not ready"
         self._client.OnEventConnect.connect(self._onEventConnect)
 
         self.shouldRestart.connect(self._restart)

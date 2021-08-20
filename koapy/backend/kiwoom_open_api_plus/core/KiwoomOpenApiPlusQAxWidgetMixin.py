@@ -18,6 +18,7 @@ from koapy.backend.kiwoom_open_api_plus.utils.list_type import string_to_list
 from koapy.config import config
 from koapy.utils.ctypes import is_admin
 from koapy.utils.logging.Logging import Logging
+from koapy.utils.rate_limiting.pyside2.QRateLimitedExecutor import QRateLimitedExecutor
 from koapy.utils.subprocess import function_to_subprocess_args
 
 
@@ -408,13 +409,63 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
 
 class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
     def __init__(self):
+
+        """
+        [OpenAPI 게시판]
+          https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do
+
+        [조회횟수 제한 관련 가이드]
+          - 1초당 5회 조회를 1번 발생시킨 경우 : 17초대기
+          - 1초당 5회 조회를 5연속 발생시킨 경우 : 90초대기
+          - 1초당 5회 조회를 10연속 발생시킨 경우 : 3분(180초)대기
+        """
+
+        """
+        [조회제한]
+          OpenAPI 조회는 1초당 5회로 제한되며 복수종목 조회와 조건검색 조회 횟수가 합산됩니다.
+          가령 1초 동안 시세조회2회 관심종목 1회 조건검색 2회 순서로 조회를 했다면 모두 합쳐서 5회이므로 모두 조회성공하겠지만
+          조건검색을 3회 조회하면 맨 마지막 조건검색 조회는 실패하게 됩니다.
+
+        [조건검색 제한]
+          조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
+        """
+
         self._comm_rate_limiter = KiwoomOpenApiPlusCommRqDataRateLimiter()
         self._cond_rate_limiter = KiwoomOpenApiPlusSendConditionRateLimiter(
             self._comm_rate_limiter
         )
-        self._send_order_limiter = KiwoomOpenApiPlusSendOrderRateLimiter()
+        self._order_rate_limiter = KiwoomOpenApiPlusSendOrderRateLimiter()
+
+        self._comm_rate_limited_executor = QRateLimitedExecutor(
+            self._comm_rate_limiter, self
+        )
+        self._cond_rate_limited_executor = QRateLimitedExecutor(
+            self._cond_rate_limiter, self
+        )
+        self._order_rate_limited_executor = QRateLimitedExecutor(
+            self._order_rate_limiter, self
+        )
+
+        self.RateLimitedCommRqData = self._comm_rate_limited_executor(
+            self.AtomicCommRqData
+        )
+        self.RateLimitedCommKwRqData = self._comm_rate_limited_executor(
+            self.CommKwRqData
+        )
+        self.RateLimitedSendCondition = self._cond_rate_limited_executor(
+            self.SendCondition
+        )
+        self.RateLimitedSendOrder = self._order_rate_limited_executor(self.SendOrder)
 
         self._is_condition_loaded = False
+
+        self._comm_rate_limited_executor.start()
+        self._cond_rate_limited_executor.start()
+        self._order_rate_limited_executor.start()
+
+        self.destroyed.connect(self._comm_rate_limited_executor.shutdown)
+        self.destroyed.connect(self._cond_rate_limited_executor.shutdown)
+        self.destroyed.connect(self._order_rate_limited_executor.shutdown)
 
     def LoadCondition(self):
         q = queue.Queue()
@@ -462,7 +513,6 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         assert return_code == 1, "Could not ensure condition loaded"
         return return_code
 
-    @synchronized
     def AtomicCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
         if inputs:
             for k, v in inputs.items():
@@ -470,57 +520,6 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         prevnext = int(prevnext)  # ensure prevnext is int
         code = self.CommRqData(rqname, trcode, prevnext, scrnno)
         return code
-
-    def RateLimitedCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
-        """
-        [OpenAPI 게시판]
-          https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do
-
-        [조회횟수 제한 관련 가이드]
-          - 1초당 5회 조회를 1번 발생시킨 경우 : 17초대기
-          - 1초당 5회 조회를 5연속 발생시킨 경우 : 90초대기
-          - 1초당 5회 조회를 10연속 발생시킨 경우 : 3분(180초)대기
-        """
-        self._comm_rate_limiter.sleep_if_necessary()
-        return self.AtomicCommRqData(rqname, trcode, prevnext, scrnno, inputs)
-
-    def RateLimitedCommKwRqData(
-        self, codes, prevnext, codecnt, typeflag, rqname, scrnno
-    ):
-        """
-        [조회제한]
-          OpenAPI 조회는 1초당 5회로 제한되며 복수종목 조회와 조건검색 조회 횟수가 합산됩니다.
-          가령 1초 동안 시세조회2회 관심종목 1회 조건검색 2회 순서로 조회를 했다면 모두 합쳐서 5회이므로 모두 조회성공하겠지만
-          조건검색을 3회 조회하면 맨 마지막 조건검색 조회는 실패하게 됩니다.
-
-        [조건검색 제한]
-          조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
-        """
-        self._cond_rate_limiter.sleep_if_necessary()
-        return self.CommKwRqData(codes, prevnext, codecnt, typeflag, rqname, scrnno)
-
-    def RateLimitedSendOrder(
-        self, rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno
-    ):
-        self._send_order_limiter.sleep_if_necessary()
-        return self.SendOrder(
-            rqname, scrnno, accno, ordertype, code, qty, price, hogagb, orgorderno
-        )
-
-    def RateLimitedSendCondition(
-        self, scrnno, condition_name, condition_index, search_type
-    ):
-        """
-        [조회제한]
-          OpenAPI 조회는 1초당 5회로 제한되며 복수종목 조회와 조건검색 조회 횟수가 합산됩니다.
-          가령 1초 동안 시세조회2회 관심종목 1회 조건검색 2회 순서로 조회를 했다면 모두 합쳐서 5회이므로 모두 조회성공하겠지만
-          조건검색을 3회 조회하면 맨 마지막 조건검색 조회는 실패하게 됩니다.
-
-        [조건검색 제한]
-          조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
-        """
-        self._cond_rate_limiter.sleep_if_necessary(condition_name, condition_index)
-        return self.SendCondition(scrnno, condition_name, condition_index, search_type)
 
 
 class KiwoomOpenApiPlusQAxWidgetMixin(

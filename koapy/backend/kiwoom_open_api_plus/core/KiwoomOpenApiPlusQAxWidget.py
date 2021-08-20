@@ -59,9 +59,8 @@ class KiwoomOpenApiPlusQAxWidget(QWidgetLogging, KiwoomOpenApiPlusQAxWidgetMixin
         if control is None:
             control = self.CLSID
 
-        # Call super inits
+        # Call super init
         QWidgetLogging.__init__(self, *args, **kwargs)
-        KiwoomOpenApiPlusQAxWidgetMixin.__init__(self)
 
         # Create QAxWidget
         self._control = control
@@ -86,6 +85,9 @@ class KiwoomOpenApiPlusQAxWidget(QWidgetLogging, KiwoomOpenApiPlusQAxWidgetMixin
             signal_connector = KiwoomOpenApiPlusSignalConnector(event_name)
             signal_connector.connect_to(self._ax)
             setattr(self, event_name, signal_connector)
+
+        # Call mixin init here, after method attributes are set
+        KiwoomOpenApiPlusQAxWidgetMixin.__init__(self)
 
         # Enable logging for QAxWidget exceptions
         self._ax.exception.connect(self._onException)  # pylint: disable=no-member

@@ -610,7 +610,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
         self.add_callback(self._screen_manager.return_screen, self._scrnno)
         self.add_callback(self.control.DisconnectRealData, self._scrnno)
         KiwoomOpenApiPlusError.try_or_raise(
-            self.control.RateLimitedCommRqData(
+            self.control.RateLimitedCommRqData.async_call(
                 self._rqname, self._trcode, 0, self._scrnno, self._inputs
             )
         )
@@ -690,7 +690,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
             else:
                 try:
                     KiwoomOpenApiPlusError.try_or_raise(
-                        self.control.RateLimitedCommRqData(
+                        self.control.RateLimitedCommRqData.async_call(
                             rqname, trcode, int(prevnext), scrnno, self._inputs
                         )
                     )
@@ -792,7 +792,7 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
             self.add_callback(self._screen_manager.return_screen, scrnno)
             self.add_callback(self.control.DisconnectRealData, scrnno)
             KiwoomOpenApiPlusError.try_or_raise(
-                self.control.RateLimitedCommKwRqData(
+                self.control.RateLimitedCommKwRqData.async_call(
                     ";".join(codes),
                     0,
                     len(codes),
@@ -1098,7 +1098,7 @@ class KiwoomOpenApiPlusOrderEventHandler(
         self.add_callback(self._screen_manager.return_screen, self._scrnno)
         self.add_callback(self.control.DisconnectRealData, self._scrnno)
         KiwoomOpenApiPlusError.try_or_raise(
-            self.control.RateLimitedSendOrder(
+            self.control.RateLimitedSendOrder.async_call(
                 self._rqname,
                 self._scrnno,
                 self._accno,
@@ -1281,7 +1281,9 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
             screen_no = self._screen_manager.borrow_screen(screen_no)
             self.add_callback(self._screen_manager.return_screen, screen_no)
             for code in code_list:
-                self.add_callback(self.control.SetRealRemove, screen_no, code)
+                self.add_callback(
+                    self.control.SetRealRemove.async_call, screen_no, code
+                )
             KiwoomOpenApiPlusError.try_or_raise(
                 self.control.SetRealReg(
                     screen_no,
@@ -1398,7 +1400,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
             self._condition_index,
         )
         KiwoomOpenApiPlusError.try_or_raise_boolean(
-            self.control.RateLimitedSendCondition(
+            self.control.RateLimitedSendCondition.async_call(
                 self._screen_no,
                 self._condition_name,
                 self._condition_index,
@@ -1434,7 +1436,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
             if self._with_info:
                 codes = codelist.rstrip(";").split(";") if codelist else []
                 KiwoomOpenApiPlusError.try_or_raise(
-                    self.control.RateLimitedCommKwRqData(
+                    self.control.RateLimitedCommKwRqData.async_call(
                         codelist,
                         0,
                         len(codes),
@@ -1456,7 +1458,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
             elif should_continue:
                 try:
                     raise KiwoomOpenApiPlusError("Should not reach here")
-                    self.control.RateLimitedSendCondition(
+                    self.control.RateLimitedSendCondition.async_call(
                         self._screen_no,
                         self._condition_name,
                         self._condition_index,
@@ -1492,7 +1494,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                 codelist = code
                 codes = [code]
                 KiwoomOpenApiPlusError.try_or_raise(
-                    self.control.RateLimitedCommKwRqData(
+                    self.control.RateLimitedCommKwRqData.async_call(
                         codelist,
                         0,
                         len(codes),
@@ -1580,7 +1582,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                 try:
                     raise KiwoomOpenApiPlusError("Should not reach here")
                     KiwoomOpenApiPlusError.try_or_raise(
-                        self.control.RateLimitedCommKwRqData(
+                        self.control.RateLimitedCommKwRqData.async_call(
                             self._codelist,
                             int(prevnext),
                             len(self._codes),
@@ -1646,14 +1648,14 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(
             "Registering code %s to screen %s with type %s", code, screen_no, opt_type
         )
         KiwoomOpenApiPlusError.try_or_raise(
-            self.control.DelayedSetRealReg(screen_no, code, fid_list_joined, opt_type)
+            self.control.SetRealReg(screen_no, code, fid_list_joined, opt_type)
         )
 
     def remove_code(self, code):
         if code in self._screen_by_code:
             screen_no = self._screen_by_code[code]
             self.logger.debug("Removing code %s from screen %s", code, screen_no)
-            self.control.DelayedSetRealRemove(screen_no, code)
+            self.control.SetRealRemove.async_call(screen_no, code)
             self._screen_by_code.pop(code)
             self._code_list_by_screen[screen_no].remove(code)
             self._code_list.remove(code)

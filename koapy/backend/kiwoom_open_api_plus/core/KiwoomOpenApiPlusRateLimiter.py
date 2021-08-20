@@ -1,8 +1,6 @@
 import threading
 import time
 
-from functools import wraps
-
 from koapy.utils.rate_limiting.RateLimiter import (
     CompositeTimeWindowRateLimiter,
     RateLimiter,
@@ -45,6 +43,12 @@ class KiwoomOpenApiPlusSendConditionRateLimiter(RateLimiter):
     """
     [조건검색 제한]
       - 조건검색(실시간 조건검색 포함)은 시세조회와 관심종목조회와 합산해서 1초에 5회만 요청 가능하며 1분에 1회로 조건검색 제한됩니다.
+
+    [조건검색 제한]
+        조건검색 요청은 1초당 5회 조회횟수 제한에 포함됩니다.
+        동일 조건식에 대한 조건검색 요청은 1분에 1회로 제한됩니다.
+        조건검색 결과가 100종목을 넘게 되면 해당조건은 실시간 조건검색 신호를 수신할 수 없습니다.
+        실시간 조건검색은 최대 10개까지 사용 가능합니다.
     """
 
     def __init__(self, comm_rate_limiter):
@@ -60,7 +64,12 @@ class KiwoomOpenApiPlusSendConditionRateLimiter(RateLimiter):
         limiter_per_condition = self._limiters_per_condition[limiter_key]
         return limiter_per_condition
 
-    def check_sleep_seconds(self, condition_name=None, condition_index=None):
+    def check_sleep_seconds(self, fn, *args, **kwargs):
+        condition_name = None
+        condition_index = None
+        if fn.__name__ == "SendCondition":
+            condition_name = kwargs.get("condition_name", args[1])
+            condition_index = kwargs.get("condition_index", args[2])
         with self._lock:
             sleep_seconds = self._comm_rate_limiter.check_sleep_seconds()
             if condition_name is not None and condition_index is not None:
@@ -72,7 +81,12 @@ class KiwoomOpenApiPlusSendConditionRateLimiter(RateLimiter):
                 )
             return sleep_seconds
 
-    def add_call_history(self, condition_name=None, condition_index=None):
+    def add_call_history(self, fn, *args, **kwargs):
+        condition_name = None
+        condition_index = None
+        if fn.__name__ == "SendCondition":
+            condition_name = kwargs.get("condition_name", args[1])
+            condition_index = kwargs.get("condition_index", args[2])
         with self._lock:
             self._comm_rate_limiter.add_call_history()
             if condition_name is not None and condition_index is not None:
@@ -81,19 +95,8 @@ class KiwoomOpenApiPlusSendConditionRateLimiter(RateLimiter):
                 )
                 limiter_per_condition.add_call_history()
 
-    def sleep_if_necessary(self, condition_name=None, condition_index=None):
+    def sleep_if_necessary(self, fn, *args, **kwargs):
         with self._lock:
-            sleep_seconds = self.check_sleep_seconds(condition_name, condition_index)
+            sleep_seconds = self.check_sleep_seconds(fn, *args, **kwargs)
             if sleep_seconds > 0:
                 time.sleep(sleep_seconds)
-            self.add_call_history(condition_name, condition_index)
-
-    def __call__(self, func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            condition_name = kwargs.get("condition_name", args[1])
-            condition_index = kwargs.get("condition_index", args[2])
-            self.sleep_if_necessary(condition_name, condition_index)
-            return func(*args, **kwargs)
-
-        return wrapper
