@@ -492,8 +492,8 @@ GNU General Public License v3.0 or later
 
 .. |koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget| replace:: ``koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget``
 .. _`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidget.py
-.. |koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusTrayApplication| replace:: ``koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusTrayApplication``
-.. _`koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusTrayApplication`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusTrayApplication.py
+.. |koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication| replace:: ``koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication``
+.. _`koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication.py
 
 
 Reference

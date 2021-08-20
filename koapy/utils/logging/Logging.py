@@ -137,6 +137,14 @@ class LoggingMeta(type):
         LoggingMeta.set_loglevel(cls, loglevel)
         return loglevel
 
+    def get_loglevel(cls):
+        return LoggingMeta._logger(cls).level
+
+    def get_verbosity(cls):
+        loglevel = LoggingMeta.get_loglevel(cls)
+        verbosity = LoggingMeta.loglevel_to_verbosity(cls, loglevel)
+        return verbosity
+
 
 class Logging(metaclass=LoggingMeta):
     @property

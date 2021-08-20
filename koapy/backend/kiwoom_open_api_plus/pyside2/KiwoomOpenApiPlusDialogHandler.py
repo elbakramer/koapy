@@ -1,91 +1,61 @@
-from koapy.compat.pyside2.QtCore import QProcess, Signal
-from koapy.utils.logging.pyside2.QObjectLogging import QObjectLogging
-from koapy.utils.subprocess import function_to_subprocess_args
+from koapy.backend.kiwoom_open_api_plus.utils.pyside2.QDialogHandler import (
+    QDialogHandler,
+)
 
 
-class KiwoomOpenApiPlusDialogHandler(QObjectLogging):
+class KiwoomOpenApiPlusDialogHandler(QDialogHandler):
+    def __init__(self, app, parent=None):
+        self._app = app
+        self._parent = parent
 
-    readyDialog = Signal(str)
+        """
+        TITLE: 안녕하세요. 키움증권 입니다.
+        TIME: 04:45
+        BODY:
+        안녕하세요. 키움증권 입니다.
+        시스템의 안정적인 운영을 위하여
+        매일 시스템 점검을 하고 있습니다.
+        점검시간은 월~토요일 (05:05 ~ 05:10)
+                  일요일    (04:00 ~ 04:30) 까지 입니다.
+        따라서 해당 시간대에는 접속단절이 될 수 있습니다.
+        참고하시기 바랍니다.
+        """
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+        """
+        TITLE: KHOpenAPI
+        TIME: 05:05
+        BODY:
+        통신 연결이 끊겼습니다. 프로그램 종료후 재접속 해주시기 바랍니다.
+        """
 
-        self._process = QProcess(self)
+        """
+        TITLE: [HTS 재접속 안내]
+        TIME: 06:50
+        BODY:
+        안녕하세요. 키움증권입니다.
 
-    @classmethod
-    def main(cls):
-        import datetime
-        import json
-        import re
-        import sys
+        오전 6시 50분 이전에 접속하신 고객님께서는
+        영웅문을 재접속하여 주시기 바랍니다.
+        재접속을 하지 않을 경우 거래종목 정보, 전일 거래에
+        대한 결제분 등이 반영되지 않아 실제 잔고와 차이가
+        발생할 수 있습니다.
+                               -키움증권-
+        """
 
-        import pywinauto
-
-        titles = [
+        self._titles = [
             "안녕하세요. 키움증권 입니다.",
             "KHOpenAPI",
             "[HTS 재접속 안내]",
         ]
-        titles_escaped = [re.escape(title) for title in titles]
-        title_re = "({})".format("|".join(titles_escaped))
+        self._titles_should_restart = self._titles[-1:]
+        super().__init__(self._titles, self._parent)
 
-        desktop = pywinauto.Desktop(allow_magic_lookup=False)
-        dialog = desktop.window(title_re=title_re)
+        self.readyDialog.connect(self.onReadyDialog)
 
-        channel = sys.stdout
-        should_stop = False
-
-        while not should_stop:
-            try:
-                timeout = 5
-                retry_interval = 1
-                dialog.wait("ready", timeout, retry_interval)
-            except pywinauto.timings.TimeoutError as e:
-                continue
-            else:
-                wrapper_object = dialog.wrapper_object()
-                cls.logger.debug("New dialog found: %s", wrapper_object.window_text())
-                now = datetime.datetime.now()
-                filename = now.strftime("%Y%m%d%H%M%S") + ".log"
-                dialog.print_control_identifiers(filename=filename)
-                event = {
-                    "timestamp": now.isoformat(),
-                    "class_name": wrapper_object.class_name(),
-                    "friendly_class_name": wrapper_object.friendly_class_name(),
-                    "process_id": wrapper_object.process_id(),
-                    "texts": wrapper_object.texts(),
-                    "window_text": wrapper_object.window_text(),
-                    "filename": filename,
-                }
-                event_message = json.dumps(event, ensure_ascii=False)
-                cls.logger.debug("Emitting dialog event: %s", event_message)
-                print(event_message, file=channel)
-                cls.logger.debug("Clicking confirm button in order to close the dialog")
-                dialog["Button"].click()
-
-    def _onReadyRead(self):
-        while self._process.canReadLine():
-            line = self._process.readLine()
-            self.readyDialog.emit(line)
-
-    def start(self):
-        def main():
-            from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusDialogHandler import (
-                KiwoomOpenApiPlusDialogHandler,
-            )
-
-            KiwoomOpenApiPlusDialogHandler.main()
-
-        args = function_to_subprocess_args(main)
-        program = args[0]
-        arguments = args[1:]
-
-        self._process.connect(self._process.readyRead, self._onReadyRead)
-        self._process.start(program, arguments)
-
-    def stop(self, wait=True):
-        self._process.disconnect(self._process.readyRead, self._onReadyRead)
-        self._process.terminate()
-
-        if wait:
-            return self._process.waitForFinished()
+    def onReadyDialog(self, dialog):
+        self.logger.debug("Clicking confirm button on dialog")
+        dialog["Button"].click()
+        dialog_title = dialog.wrapper_object().window_text()
+        if dialog_title in self._titles_should_restart:
+            self.logger.debug("Restarting by following the dialog's instruction")
+            self._app.shouldRestart.emit(0)

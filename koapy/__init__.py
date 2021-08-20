@@ -38,8 +38,8 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo import (
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
     KiwoomOpenApiPlusVersionUpdater,
 )
-from koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusTrayApplication import (
-    KiwoomOpenApiPlusTrayApplication,
+from koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication import (
+    KiwoomOpenApiPlusManagerApplication,
 )
 """
 
@@ -50,8 +50,8 @@ __classes_to_export__ = {
     "koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget": [
         "KiwoomOpenApiPlusQAxWidget"
     ],
-    "koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusTrayApplication": [
-        "KiwoomOpenApiPlusTrayApplication"
+    "koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication": [
+        "KiwoomOpenApiPlusManagerApplication"
     ],
     "koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError": [
         "KiwoomOpenApiPlusError",
@@ -92,7 +92,7 @@ __module_for_each_class_to_export__ = {
 __all__ = [
     "KiwoomOpenApiPlusEntrypoint",
     "KiwoomOpenApiPlusQAxWidget",
-    "KiwoomOpenApiPlusTrayApplication",
+    "KiwoomOpenApiPlusManagerApplication",
     "KiwoomOpenApiPlusError",
     "KiwoomOpenApiPlusNegativeReturnCodeError",
     "KiwoomOpenApiPlusBooleanReturnCodeError",

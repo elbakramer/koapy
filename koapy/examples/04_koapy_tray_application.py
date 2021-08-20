@@ -1,5 +1,5 @@
 import sys
 
-from koapy import KiwoomOpenApiPlusTrayApplication
+from koapy import KiwoomOpenApiPlusManagerApplication
 
-KiwoomOpenApiPlusTrayApplication.main(sys.argv)
+KiwoomOpenApiPlusManagerApplication.main(sys.argv)

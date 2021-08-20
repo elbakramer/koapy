@@ -2,13 +2,21 @@ import atexit
 
 from concurrent.futures import Executor, Future
 from threading import RLock
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union, overload
 
 from koapy.compat.pyside2.QtCore import QObject, QRunnable, QThreadPool
 
 
 class QThreadPoolExecutorRunnable(QRunnable):
-    def __init__(self, future: Future, fn, args, kwargs):
+    def __init__(
+        self,
+        future: Future,
+        fn: Callable[..., Any],
+        args: Union[Tuple[Any], List[Any]],
+        kwargs: Dict[str, Any],
+    ):
         super().__init__()
+
         self._future = future
         self._fn = fn
         self._args = args
@@ -21,15 +29,27 @@ class QThreadPoolExecutorRunnable(QRunnable):
             result = self._fn(*self._args, **self._kwargs)
         except BaseException as exc:
             self._future.set_exception(exc)
+            # break a reference cycle with the exception 'exc'
             self = None
         else:
             self._future.set_result(result)
 
+    def __del__(self):
+        self._future.cancel()
+
 
 class QThreadPoolExecutor(QObject, Executor):
+    @overload
+    def __init__(self, thread_pool: QThreadPool, parent: Optional[QObject]):
+        ...
+
+    @overload
+    def __init__(self, parent: Optional[QObject]):
+        ...
+
     def __init__(self, *args, **kwargs):
-        thread_pool = None
-        parent = None
+        thread_pool: Optional[QThreadPool] = None
+        parent: Optional[QObject] = None
 
         args = list(args)
         kwargs = dict(kwargs)
@@ -45,12 +65,14 @@ class QThreadPoolExecutor(QObject, Executor):
             parent = kwargs["parent"]
 
         if thread_pool is None:
-            thread_pool = QThreadPool.globalInstance()
+            thread_pool = QThreadPool(self)
+
+        self._thread_pool = thread_pool
+        self._parent = parent
 
         QObject.__init__(self, *args, **kwargs)
         Executor.__init__(self)
 
-        self._thread_pool = thread_pool
         self._shutdown = False
         self._shutdown_lock = RLock()
 
@@ -62,14 +84,17 @@ class QThreadPoolExecutor(QObject, Executor):
     def submit(self, fn, *args, **kwargs):
         with self._shutdown_lock:
             if self._shutdown:
-                raise RuntimeError("cannot schedule new futures after shutdown")
+                raise RuntimeError("Cannot schedule new futures after shutdown")
             future = Future()
             runnable = QThreadPoolExecutorRunnable(future, fn, args, kwargs)
+            runnable.setAutoDelete(True)
             self._thread_pool.start(runnable)
             return future
 
-    def shutdown(self, wait=True):
+    def shutdown(self, wait=True, cancel_futures=False):
         with self._shutdown_lock:
             self._shutdown = True
+            if cancel_futures:
+                self._thread_pool.clear()
         if wait:
             self._thread_pool.waitForDone()

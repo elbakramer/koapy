@@ -250,10 +250,12 @@ CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는
 .. code-block:: console
 
     (server) $ koapy serve
-    2021-08-14 14:16:57,149 [DEBUG] Reading file OPW20016.dat inside C:\OpenAPI\data\opw20016.enc - KiwoomOpenApiPlusTrInfo.py:266
-    2021-08-14 14:16:57,150 [DEBUG] Reading file OPW20017.dat inside C:\OpenAPI\data\opw20017.enc - KiwoomOpenApiPlusTrInfo.py:266
-    2021-08-14 14:16:57,165 [DEBUG] Using PySide2 as Qt backend - KiwoomOpenApiPlusQAxWidget.py:42
-    2021-08-14 14:16:57,233 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:297
+    2021-08-20 19:01:37,802 [DEBUG] Creating manager application - KiwoomOpenApiPlusManagerApplication.py:93
+    2021-08-20 19:01:45,318 [DEBUG] Creating server application - KiwoomOpenApiPlusServerApplication.py:29
+    2021-08-20 19:01:45,401 [DEBUG] Starting server application - KiwoomOpenApiPlusServerApplication.py:147
+    2021-08-20 19:01:45,415 [DEBUG] Started server application - KiwoomOpenApiPlusServerApplication.py:149
+    2021-08-20 19:01:45,473 [DEBUG] Starting manager application - KiwoomOpenApiPlusManagerApplication.py:303
+    2021-08-20 19:01:45,476 [DEBUG] Started manager application - KiwoomOpenApiPlusManagerApplication.py:305
 
 .. code-block:: console
 
@@ -264,13 +266,13 @@ CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는
 .. code-block:: console
 
     (server) $ ...
-    2021-08-14 14:16:57,233 [DEBUG] Starting app - KiwoomOpenApiPlusTrayApplication.py:297
+    2021-08-20 19:01:45,476 [DEBUG] Started manager application - KiwoomOpenApiPlusManagerApplication.py:305
 
     [GetPCIdentity] VER 3.2.0.0  build 2015.8.12
 
     [GetPCIdentity] VER 3.2.0.0  build 2015.8.12
-    2021-08-14 14:26:28,252 [DEBUG] OnEventConnect(0) - KiwoomOpenApiPlusLoggingEventHandler.py:89
-    2021-08-14 14:26:28,252 [DEBUG] Connected to server - KiwoomOpenApiPlusTrayApplication.py:202
+    2021-08-20 19:02:31,012 [DEBUG] OnEventConnect(0) - KiwoomOpenApiPlusLoggingEventHandler.py:89
+    2021-08-20 19:02:31,016 [DEBUG] Connected to Simulation server - KiwoomOpenApiPlusManagerApplication.py:406
 
 .. code-block:: console
 
@@ -280,15 +282,14 @@ CLI 는 명령을 실행할 때마다 매번 프로그램이 새로 실행되는
 .. code-block:: console
 
     (server) $ ...
-    2021-08-14 14:26:28,252 [DEBUG] Connected to server - KiwoomOpenApiPlusTrayApplication.py:202
-    2021-08-14 14:27:26,092 [DEBUG] OnReceiveTrData('8172', '주식기본정보요청', 'opt10001', '', '0') - KiwoomOpenApiPlusLoggingEventHandler.py:22
+    2021-08-20 19:02:31,016 [DEBUG] Connected to Simulation server - KiwoomOpenApiPlusManagerApplication.py:406
+    2021-08-20 19:03:04,842 [DEBUG] OnReceiveTrData('8141', '주식기본정보요청', 'opt10001', '', '0') - KiwoomOpenApiPlusLoggingEventHandler.py:22
 
 Tray icon
 ---------
 
-KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusTrayApplication.KiwoomOpenApiPlusTrayApplication` 이 구동되며
+KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication` 이 구동되며
 이것을 직접 확인할 수 있도록 구동되는 동안 우측하단에 트레이 아이콘을 표시하게끔 구현되어있습니다.
-아직 따로 마땅한 아이콘이 없어서 초록색 바탕에 ``Qt`` 가 적혀있는 디폴트 아이콘이 그것입니다.
 
 이것을 가장 빠르게 확인할 수 있는 방법은 서버를 띄워보는 것입니다.
 
@@ -296,7 +297,8 @@ KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.backend.kiwoom_
 
     $ koapy serve
 
-해당 트레이 아이콘을 우클릭하는 경우 아래와 같은 여러 기능들을 수행할 수 있는 메뉴를 제공합니다.
+총 초록색과 빨간색의 두개의 트레이 아이콘이 우측 하단 트레이에 생기게 됩니다.
+그 중 초록색 트레이 아이콘을 우클릭하는 경우 아래와 같은 여러 기능들을 수행할 수 있는 메뉴를 제공합니다.
 
 * 로그인 처리
 * 자동 로그인 설정
@@ -305,8 +307,9 @@ KOAPY 가 동작하는 동안 내부적으로 :py:class:`~.koapy.backend.kiwoom_
 * 각종 관련 외부링크
 * 어플리케이션 종료
 
-해당 트레이 아이콘을 더블클릭하는 경우 :py:class:`~.koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget.KiwoomOpenApiPlusQAxWidget` 에 대응되는 위젯이 뜨는데
-현재로는 크게 의미있는 요소를 넣거나 한 것은 없어서 그냥 닫으시면 됩니다.
+초록색 트레이 아이콘은 프로그램의 전체적인 관리를 맡으며, 해당 아이콘을 통해 대부분의 상호작용 및 작업처리를 하실 수 있습니다.
+빨간색 트레이 아이콘의 경우 실제 서버가 동작하는 어플리케이션에 해당하며, 별다른 상호작용 없이 동작 확인을 위한 최소한의 UI 만 제공됩니다.
+동작과정에서 서버 프로그램은 관리 프로그램에 의해 관리되며 주기적으로 종종 재시작될 수 있습니다.
 
 .. _`자동 로그인`:
 

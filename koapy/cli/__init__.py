@@ -29,11 +29,16 @@ cli.add_command(uninstall)
 cli.add_command(update)
 
 
-@cli.command(short_help="Start grpc server with tray application.")
+@cli.command(
+    context_settings=dict(
+        ignore_unknown_options=True,
+    ),
+    short_help="Start grpc server with tray application.",
+)
 @click.option(
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
-@click.argument("args", nargs=-1)
+@click.argument("args", nargs=-1, type=click.UNPROCESSED)
 @verbose_option(default=5)
 def serve(port, args, verbose):
     app_args = []
@@ -42,11 +47,11 @@ def serve(port, args, verbose):
     if verbose > 0:
         app_args.append("-" + "v" * verbose)
     app_args += list(args)
-    from koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusTrayApplication import (
-        KiwoomOpenApiPlusTrayApplication,
+    from koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication import (
+        KiwoomOpenApiPlusManagerApplication,
     )
 
-    KiwoomOpenApiPlusTrayApplication.main(app_args)
+    KiwoomOpenApiPlusManagerApplication.main(app_args)
 
 
 @cli.command(short_help="Ensure logged in when server is up.")
@@ -69,13 +74,11 @@ def serve(port, args, verbose):
 def login(interactive, disable_auto_login, port, verbose):
     credential = get_credential(interactive)
 
-    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
-        KiwoomOpenApiPlusEntrypoint,
+    from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient import (
+        KiwoomOpenApiPlusServiceClient,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(
-        port=port, verbosity=verbose, client_only=True
-    ) as context:
+    with KiwoomOpenApiPlusServiceClient(port=port, check_timeout=1) as context:
         state = context.GetConnectState()
         if state == 0:
             click.echo("Logging in...")
@@ -107,7 +110,7 @@ def autologin(port, verbose):
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
         context.ShowAccountWindow()
 
@@ -178,7 +181,7 @@ def stockcode(names, markets, port, verbose):
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
 
         if not markets:
@@ -246,7 +249,7 @@ def stockname(codes, port, verbose):
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
 
         def get_codes():
@@ -322,7 +325,7 @@ def stockinfo(code, output, format, port, verbose):  # pylint: disable=redefined
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
         dic = context.GetStockBasicInfoAsDict(code)
         series = pd.Series(dic)
@@ -388,7 +391,7 @@ def daily(
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
         df = context.GetDailyStockDataAsDataFrame(code, start_date, end_date)
 
@@ -475,7 +478,7 @@ def minute(
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
         df = context.GetMinuteStockDataAsDataFrame(code, interval, start_date, end_date)
 
@@ -608,7 +611,7 @@ def userinfo(port, verbose):
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
 
         result = {}
@@ -648,7 +651,7 @@ def deposit(account, port, verbose):
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
 
         if account is None:
@@ -691,7 +694,7 @@ def evaluation(
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
 
         if account is None:
@@ -773,7 +776,7 @@ def orders(
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
         if account is None:
             account = context.GetFirstAvailableAccount()
@@ -950,7 +953,7 @@ def watch(codes, input, fids, realtype, output, format, port, verbose):
             click.echo("[%s]" % datetime.datetime.now(), file=output)
             click.echo(parse_message(message).to_markdown(), file=output)
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
 
         for event in context.GetRealDataForCodesAsStream(codes, fids, infer_fids=True):
@@ -1082,7 +1085,7 @@ def order(
         def print_message(message):
             click.echo(pp.pformat(MessageToDict(message)))
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
 
         if order_type in ["3", "4"] and (account_no is None or code is None):
