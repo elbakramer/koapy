@@ -791,7 +791,6 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
         for codes, scrnno in zip(self._code_lists, self._scrnnos):
             self.add_callback(self._screen_manager.return_screen, scrnno)
             self.add_callback(self.control.DisconnectRealData, scrnno)
-            self.add_callback(self.control.SetRealRemove, scrnno, "ALL")
             KiwoomOpenApiPlusError.try_or_raise(
                 self.control.RateLimitedCommKwRqData(
                     ";".join(codes),
@@ -816,8 +815,6 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
         splmmsg,
     ):
         if (rqname, trcode) == (self._rqname, self._trcode) and scrnno in self._scrnnos:
-            self.control.SetRealRemove(scrnno, "ALL")
-
             response = KiwoomOpenApiPlusService_pb2.ListenResponse()
             response.name = "OnReceiveTrData"  # pylint: disable=no-member
             response.arguments.add().string_value = scrnno  # pylint: disable=no-member
@@ -858,7 +855,7 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
                         if self._is_stop_condition(row):
                             should_stop = True
                             break
-                        response.listen_response.multi_data.values.add().values.extend(
+                        response.multi_data.values.add().values.extend(
                             row
                         )  # pylint: disable=no-member
 
@@ -874,8 +871,10 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
 
             self.observer.on_next(response)
 
+            self.logger.debug("should_stop: %s", should_stop)
             if should_stop:
                 self._scrnnos_completed[scrnno] = True
+                self.logger.debug("screen_nos_completed: %s", self._scrnnos_completed)
                 if all(self._scrnnos_completed.values()):
                     self.observer.on_completed()
                     return
@@ -996,7 +995,7 @@ class KiwoomOpenApiPlusBaseOrderEventHandler(
                 if self._is_stop_condition(row):
                     should_stop = True
                     break
-                response.listen_response.multi_data.values.add().values.extend(
+                response.multi_data.values.add().values.extend(
                     row
                 )  # pylint: disable=no-member
 
@@ -1278,13 +1277,13 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
 
     def on_enter(self):
         for screen_no, code_list in zip(self._screen_nos, self._code_lists):
-            screen_no = self._screen_manager.borrow_screen(screen_no)
             code_list_joined = ";".join(code_list)
+            screen_no = self._screen_manager.borrow_screen(screen_no)
             self.add_callback(self._screen_manager.return_screen, screen_no)
             for code in code_list:
-                self.add_callback(self.control.DelayedSetRealRemove, screen_no, code)
+                self.add_callback(self.control.SetRealRemove, screen_no, code)
             KiwoomOpenApiPlusError.try_or_raise(
-                self.control.DelayedSetRealReg(
+                self.control.SetRealReg(
                     screen_no,
                     code_list_joined,
                     self._fid_list_joined,

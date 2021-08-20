@@ -8,14 +8,12 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin imp
     KiwoomOpenApiPlusQAxWidgetMixin,
 )
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector import (
-    KiwoomOpenApiPlusOnReceiveRealDataSignalConnector,
     KiwoomOpenApiPlusSignalConnector,
 )
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature import (
     KiwoomOpenApiPlusDispatchSignature,
     KiwoomOpenApiPlusEventHandlerSignature,
 )
-from koapy.compat.pyside2 import PYQT5, PYSIDE2, PythonQtError
 from koapy.compat.pyside2.QtAxContainer import QAxWidget
 from koapy.compat.pyside2.QtCore import QEvent, Qt
 from koapy.compat.pyside2.QtWidgets import QWidget
@@ -34,14 +32,6 @@ class KiwoomOpenApiPlusQAxWidget(QWidgetLogging, KiwoomOpenApiPlusQAxWidgetMixin
     def __init__(self, *args, **kwargs):
         # Check 32bit requirement
         assert is_32bit(), "Control object should be created in 32bit environment"
-
-        # Check Qt backend
-        if PYQT5:
-            self.logger.debug("Using PyQt5 as Qt backend")
-        elif PYSIDE2:
-            self.logger.debug("Using PySide2 as Qt backend")
-        else:
-            raise PythonQtError("No Qt bindings could be found")
 
         # Process arguments
         control = None
@@ -86,19 +76,14 @@ class KiwoomOpenApiPlusQAxWidget(QWidgetLogging, KiwoomOpenApiPlusQAxWidgetMixin
 
         # Set methods as attributes
         for method_name in self.METHOD_NAMES:
-            dynamic_callable = KiwoomOpenApiPlusDynamicCallable(self._ax, method_name)
+            dynamic_callable = KiwoomOpenApiPlusDynamicCallable(
+                self._ax, method_name, parent=self
+            )
             setattr(self, method_name, dynamic_callable)
 
         # Set signals as attributes
         for event_name in self.EVENT_NAMES:
-            if event_name == "OnReceiveRealData":
-                signal_connector = KiwoomOpenApiPlusOnReceiveRealDataSignalConnector(
-                    self
-                )
-                self.DelayedSetRealReg = signal_connector.SetRealReg
-                self.DelayedSetRealRemove = signal_connector.SetRealRemove
-            else:
-                signal_connector = KiwoomOpenApiPlusSignalConnector(event_name)
+            signal_connector = KiwoomOpenApiPlusSignalConnector(event_name)
             signal_connector.connect_to(self._ax)
             setattr(self, event_name, signal_connector)
 
