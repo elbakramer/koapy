@@ -10,6 +10,7 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
+   findwindows/index.rst
    importlib/index.rst
    timings/index.rst
 

@@ -11,6 +11,7 @@ Subpackages
    :maxdepth: 3
 
    pyside2/index.rst
+   tqdm/index.rst
 
 
 Submodules

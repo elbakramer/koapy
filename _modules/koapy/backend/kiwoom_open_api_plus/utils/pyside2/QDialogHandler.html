@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.backend.kiwoom_open_api_plus.utils.pyside2.QDialogHandler &#8212; KOAPY 0.6.0 documentation</title>
+    <title>koapy.backend.kiwoom_open_api_plus.utils.pyside2.QDialogHandler &#8212; KOAPY 0.6.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
@@ -101,6 +101,8 @@
   <h1>Source code for koapy.backend.kiwoom_open_api_plus.utils.pyside2.QDialogHandler</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">re</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
 <span class="kn">from</span> <span class="nn">koapy.compat.pyside2.QtCore</span> <span class="kn">import</span> <span class="n">Signal</span>
 <span class="kn">from</span> <span class="nn">koapy.compat.pywinauto</span> <span class="kn">import</span> <span class="n">Desktop</span><span class="p">,</span> <span class="n">WindowSpecification</span>
 <span class="kn">from</span> <span class="nn">koapy.compat.pywinauto.timings</span> <span class="kn">import</span> <span class="ne">TimeoutError</span> <span class="k">as</span> <span class="n">PywinautoTimeoutError</span>
@@ -116,43 +118,49 @@
         <span class="n">QThreadLogging</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_titles</span> <span class="o">=</span> <span class="n">titles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_titles_escaped</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">titles</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_desktop</span> <span class="o">=</span> <span class="n">Desktop</span><span class="p">(</span><span class="n">allow_magic_lookup</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="n">titles_escaped</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">titles</span><span class="p">]</span>
-        <span class="n">title_re</span> <span class="o">=</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">titles_escaped</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dialogs_not_ready</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">WindowSpecification</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title_re</span><span class="o">=</span><span class="n">title_re</span><span class="p">)</span> <span class="k">for</span> <span class="n">title_re</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_titles_escaped</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dialogs_ready</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">WindowSpecification</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_desktop</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title_re</span><span class="o">=</span><span class="n">title_re</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_title_by_dialog</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dialogs_not_ready</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_titles</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_should_stop</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_retry_interval</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dialogs_not_ready</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_retry_interval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">/</span> <span class="mi">5</span>
+
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retry_interval</span> <span class="o">*</span> <span class="mi">2</span>
 
 <div class="viewcode-block" id="QDialogHandler.run"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QDialogHandler/index.html#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QDialogHandler.QDialogHandler.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_stop</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retry_interval</span><span class="p">)</span>
-            <span class="k">except</span> <span class="n">PywinautoTimeoutError</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">wrapper_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="o">.</span><span class="n">wrapper_object</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Dialog found: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">wrapper_object</span><span class="o">.</span><span class="n">window_text</span><span class="p">())</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">readyDialog</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="p">)</span>
-                <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_stop</span><span class="p">:</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="o">.</span><span class="n">wait_not</span><span class="p">(</span>
-                            <span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retry_interval</span>
-                        <span class="p">)</span>
-                    <span class="k">except</span> <span class="n">PywinautoTimeoutError</span><span class="p">:</span>
-                        <span class="k">continue</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">wrapper_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="o">.</span><span class="n">wrapper_object</span><span class="p">()</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                            <span class="s2">&quot;Dialog closed: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">wrapper_object</span><span class="o">.</span><span class="n">window_text</span><span class="p">()</span>
-                        <span class="p">)</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">notReadyDialog</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="p">)</span>
-                        <span class="k">break</span></div>
+            <span class="k">for</span> <span class="n">dialog</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dialogs_not_ready</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">dialog</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retry_interval</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">PywinautoTimeoutError</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">dialog_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_title_by_dialog</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dialog</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Dialog found: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dialog_text</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_dialogs_not_ready</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dialog</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_dialogs_ready</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dialog</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">readyDialog</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">dialog</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">dialog</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dialogs_ready</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">dialog</span><span class="o">.</span><span class="n">wait_not</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retry_interval</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">PywinautoTimeoutError</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">dialog_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_title_by_dialog</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dialog</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Dialog closed: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dialog_text</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_dialogs_ready</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dialog</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_dialogs_not_ready</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dialog</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">notReadyDialog</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">dialog</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QDialogHandler.stop"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/utils/pyside2/QDialogHandler/index.html#koapy.backend.kiwoom_open_api_plus.utils.pyside2.QDialogHandler.QDialogHandler.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_should_stop</span> <span class="o">=</span> <span class="kc">True</span></div>

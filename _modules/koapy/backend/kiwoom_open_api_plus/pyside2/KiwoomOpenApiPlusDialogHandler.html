@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusDialogHandler &#8212; KOAPY 0.6.0 documentation</title>
+    <title>koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusDialogHandler &#8212; KOAPY 0.6.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
@@ -102,6 +102,7 @@
 <span></span><span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.utils.pyside2.QDialogHandler</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QDialogHandler</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.compat.pywinauto.findwindows</span> <span class="kn">import</span> <span class="n">ElementNotFoundError</span>
 
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusDialogHandler"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusDialogHandler/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusDialogHandler.KiwoomOpenApiPlusDialogHandler">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusDialogHandler</span><span class="p">(</span><span class="n">QDialogHandler</span><span class="p">):</span>
@@ -149,16 +150,27 @@
             <span class="s2">&quot;[HTS 재접속 안내]&quot;</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_titles_should_restart</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_titles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_titles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">readyDialog</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onReadyDialog</span><span class="p">)</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusDialogHandler.onReadyDialog"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusDialogHandler/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusDialogHandler.KiwoomOpenApiPlusDialogHandler.onReadyDialog">[docs]</a>    <span class="k">def</span> <span class="nf">onReadyDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dialog</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Clicking confirm button on dialog&quot;</span><span class="p">)</span>
-        <span class="n">dialog</span><span class="p">[</span><span class="s2">&quot;Button&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-        <span class="n">dialog_title</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="n">wrapper_object</span><span class="p">()</span><span class="o">.</span><span class="n">window_text</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Checking dialog title&quot;</span><span class="p">)</span>
+            <span class="n">dialog_title</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="n">wrapper_object</span><span class="p">()</span><span class="o">.</span><span class="n">window_text</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">ElementNotFoundError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Could not find dialog to check&quot;</span><span class="p">)</span>
+            <span class="n">dialog_title</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Clicking confirm button on dialog&quot;</span><span class="p">)</span>
+            <span class="n">dialog</span><span class="p">[</span><span class="s2">&quot;Button&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">ElementNotFoundError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Could not find dialog to confirm&quot;</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">dialog_title</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_titles_should_restart</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Restarting by following the dialog&#39;s instruction&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Restarting based on the dialog&#39;s instruction&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">shouldRestart</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div></div>
 </pre></div>
 

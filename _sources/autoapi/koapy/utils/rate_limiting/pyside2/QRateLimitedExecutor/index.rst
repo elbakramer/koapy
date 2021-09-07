@@ -91,6 +91,9 @@ Classes
                    executor have been reclaimed.
 
 
+   .. py:method:: wrap(self, func)
+
+
    .. py:method:: __call__(self, func)
 
 

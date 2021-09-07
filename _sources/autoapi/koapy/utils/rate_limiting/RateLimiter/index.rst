@@ -30,6 +30,9 @@ Classes
    .. py:method:: sleep_if_necessary(self, *args, **kwargs)
 
 
+   .. py:method:: wrap(self, func)
+
+
    .. py:method:: __call__(self, func)
 
 

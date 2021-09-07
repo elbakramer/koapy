@@ -80,6 +80,9 @@ Classes
    .. py:method:: _emitShouldRestart(self)
 
 
+   .. py:method:: _emitShouldRestartAndConnect(self)
+
+
    .. py:method:: _closeClient(self)
 
 

@@ -93,13 +93,28 @@ Classes
         30 : K-OTC
 
 
+   .. py:method:: GetStockStates(self, code)
+
+
+   .. py:method:: GetSurveillanceFlag(self, code)
+
+
    .. py:method:: IsSuspended(self, code)
 
 
-   .. py:method:: IsInSupervision(self, code)
+   .. py:method:: IsUnderSurveillance(self, code)
 
 
-   .. py:method:: IsInSurveillance(self, code)
+   .. py:method:: IsUnderAdministration(self, code)
+
+
+   .. py:method:: IsFlaggedForCaution(self, code)
+
+
+   .. py:method:: IsProblematic(self, code)
+
+
+   .. py:method:: IsNormal(self, code)
 
 
    .. py:method:: GetConditionFilePath(self)
@@ -152,6 +167,9 @@ Classes
 
 
    .. py:method:: EnsureConditionLoaded(self, force=False)
+
+
+   .. py:method:: CommRqDataWithInputs(self, rqname, trcode, prevnext, scrnno, inputs=None)
 
 
    .. py:method:: AtomicCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None)
