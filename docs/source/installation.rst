@@ -80,7 +80,7 @@ Kiwoom Open API
 마지막 Step 4 의 상시 모의투자는 개발 과정에서 테스트 및 디버깅을 위해 필수로 신청합니다.
 아니면 실제 서버에 대해서 요청을 할 수 밖에 없는데, 여러분의 자산은 소중합니다.
 
-.. _`키움 OpenAPI+`: https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000
+.. _`키움 OpenAPI+`: https://www.kiwoom.com/h/customer/download/VOpenApiInfoView
 
 Python (Anaconda)
 =================

@@ -144,7 +144,6 @@ class KiwoomOpenApiPlusServerApplication(QObjectLogging):
             yield
 
     def _exec(self):
-        self.logger.debug("Starting server application")
         with self._execContext():
             self.logger.debug("Started server application")
             return self._app.exec_()

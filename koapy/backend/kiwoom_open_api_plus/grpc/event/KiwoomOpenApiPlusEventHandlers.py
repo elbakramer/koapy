@@ -871,10 +871,8 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
 
             self.observer.on_next(response)
 
-            self.logger.debug("should_stop: %s", should_stop)
             if should_stop:
                 self._scrnnos_completed[scrnno] = True
-                self.logger.debug("screen_nos_completed: %s", self._scrnnos_completed)
                 if all(self._scrnnos_completed.values()):
                     self.observer.on_completed()
                     return

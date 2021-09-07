@@ -15,7 +15,7 @@ with open("HISTORY.rst", encoding="utf-8") as history_file:
 requirements = [
     "click>=8.0.1",
     "discord.py>=1.7.3",
-    "exchange-calendars>=3.2",
+    "exchange-calendars>=3.3",
     "grpcio>=1.39.0",
     "grpcio-tools>=1.39.0",
     "numpy>=1.21.2",
@@ -26,14 +26,14 @@ requirements = [
     "pyhocon>=0.3.58",
     "PySide2>=5.15.2",
     "pytz>=2021.1",
-    "QtPy>=1.10.0",
+    "QtPy>=1.11.0",
     "requests>=2.26.0",
     "Rx>=3.2.0",
     "schedule>=1.1.0",
     "Send2Trash>=1.8.0",
     "SQLAlchemy>=1.4.23",
     "tabulate>=0.8.9",
-    "tqdm>=4.62.1",
+    "tqdm>=4.62.2",
     "tzlocal>=3.0",
     "wrapt>=1.12.1",
     "pywin32>=301;sys_platform=='win32'",
@@ -43,7 +43,7 @@ requirements = [
 
 requirements_dev = [
     "actions-toolkit>=0.0.5",
-    "black>=21.7b0",
+    "black>=21.8b0",
     "bump2version>=1.0.1",
     "codecov>=2.1.12",
     "coverage>=5.5",
@@ -52,20 +52,20 @@ requirements_dev = [
     "isort>=5.9.3",
     "mypy>=0.910",
     "pip-tools>=6.1.0",
-    "pre-commit>=2.14.0",
-    "pylint>=2.9.5",
-    "pytest>=6.2.4",
+    "pre-commit>=2.15.0",
+    "pylint>=2.10.2",
+    "pytest>=6.2.5",
     "pytest-cov>=2.11.1",
     "pytest-xdist>=2.2.1",
-    "pyupgrade>=2.24.0",
+    "pyupgrade>=2.25.0",
 ]
 
 requirements_docs = [
     "Sphinx>=4.1.2",
-    "sphinx-autoapi>=1.8.3",
+    "sphinx-autoapi>=1.8.4",
     "nbconvert>=6.1.0",
     "nbsphinx>=0.8.7",
-    "ipython>=7.26.0",
+    "ipython>=7.27.0",
 ]
 
 requirements_dev += requirements_docs
