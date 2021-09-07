@@ -162,14 +162,38 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
 
         return codes
 
+    def GetStockStates(self, code):
+        return self.GetMasterStockStateAsList(code)
+
+    def GetSurveillanceFlag(self, code):
+        return self.GetMasterConstruction(code)
+
     def IsSuspended(self, code):
         return "거래정지" in self.GetMasterStockStateAsList(code)
 
-    def IsInSupervision(self, code):
+    def IsUnderSurveillance(self, code):
+        return "감리종목" in self.GetMasterStockStateAsList(code)
+
+    def IsUnderAdministration(self, code):
         return "관리종목" in self.GetMasterStockStateAsList(code)
 
-    def IsInSurveillance(self, code):
-        return "감리종목" in self.GetMasterStockStateAsList(code)
+    def IsFlaggedForCaution(self, code):
+        flag = self.GetSurveillanceFlag(code)
+        states = self.GetMasterStockStateAsList(code)
+        flag_is_not_normal = flag != "정상"
+        has_caution_state = "투자유의종목" in states
+        return flag_is_not_normal or has_caution_state
+
+    def IsProblematic(self, code):
+        flag = self.GetSurveillanceFlag(code)
+        states = self.GetMasterStockStateAsList(code)
+        flag_is_not_normal = flag != "정상"
+        bad_states = ["거래정지", "감리종목", "관리종목", "투자유의종목"]
+        has_any_bad_state = any(state in states for state in bad_states)
+        return flag_is_not_normal or has_any_bad_state
+
+    def IsNormal(self, code):
+        return not self.IsProblematic(code)
 
     def GetConditionFilePath(self):
         module_path = self.GetAPIModulePath()
@@ -446,16 +470,18 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
             self._order_rate_limiter, self
         )
 
-        self.RateLimitedCommRqData = self._comm_rate_limited_executor(
-            self.AtomicCommRqData
+        self.RateLimitedCommRqData = self._comm_rate_limited_executor.wrap(
+            self.CommRqDataWithInputs
         )
-        self.RateLimitedCommKwRqData = self._comm_rate_limited_executor(
+        self.RateLimitedCommKwRqData = self._comm_rate_limited_executor.wrap(
             self.CommKwRqData
         )
-        self.RateLimitedSendCondition = self._cond_rate_limited_executor(
+        self.RateLimitedSendCondition = self._cond_rate_limited_executor.wrap(
             self.SendCondition
         )
-        self.RateLimitedSendOrder = self._order_rate_limited_executor(self.SendOrder)
+        self.RateLimitedSendOrder = self._order_rate_limited_executor.wrap(
+            self.SendOrder
+        )
 
         self._is_condition_loaded = False
 
@@ -513,13 +539,17 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         assert return_code == 1, "Could not ensure condition loaded"
         return return_code
 
-    def AtomicCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
+    def CommRqDataWithInputs(self, rqname, trcode, prevnext, scrnno, inputs=None):
         if inputs:
             for k, v in inputs.items():
                 self.SetInputValue(k, v)
         prevnext = int(prevnext)  # ensure prevnext is int
         code = self.CommRqData(rqname, trcode, prevnext, scrnno)
         return code
+
+    @synchronized
+    def AtomicCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
+        return self.CommRqDataWithInputs(rqname, trcode, prevnext, scrnno, inputs)
 
 
 class KiwoomOpenApiPlusQAxWidgetMixin(

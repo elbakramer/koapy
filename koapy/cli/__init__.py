@@ -397,11 +397,14 @@ def daily(
 
     if format == "xlsx":
         df.to_excel(output)
+        logger.info("Saved data to file: %s", output)
     elif format == "sqlite3":
         from sqlalchemy import create_engine
 
         engine = create_engine("sqlite:///" + output)
-        df.to_sql("A" + code, engine)
+        tablename = "A" + code
+        df.to_sql(tablename, engine)
+        logger.info("Saved data to file %s with tablename %s", output, tablename)
 
 
 minute_intervals = [
@@ -484,11 +487,14 @@ def minute(
 
     if format == "xlsx":
         df.to_excel(output)
+        logger.info("Saved data to file: %s", output)
     elif format == "sqlite3":
         from sqlalchemy import create_engine
 
         engine = create_engine("sqlite:///" + output)
-        df.to_sql("A" + code, engine)
+        tablename = "A" + code
+        df.to_sql(tablename, engine)
+        logger.info("Saved data to file %s with tablename %s", output, tablename)
 
 
 @get.command(short_help="Get TR info.")

@@ -1016,7 +1016,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
             "계좌번호": account_no,
             "비밀번호": "",
             "비밀번호입력매체구분": "00",
-            "조회구분": "2" if lookup_type is None else lookup_type,
+            "조회구분": "2" if lookup_type is None else str(lookup_type),
         }
         responses = self.TransactionCall(rqname, trcode, scrno, inputs)
         single, multi = self._ParseTransactionCallResponses(responses, [12, 15])

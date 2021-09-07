@@ -1,5 +1,7 @@
 import re
 
+from typing import List
+
 from koapy.compat.pyside2.QtCore import Signal
 from koapy.compat.pywinauto import Desktop, WindowSpecification
 from koapy.compat.pywinauto.timings import TimeoutError as PywinautoTimeoutError
@@ -15,43 +17,49 @@ class QDialogHandler(QThreadLogging):
         QThreadLogging.__init__(self, parent)
 
         self._titles = titles
+        self._titles_escaped = [re.escape(title) for title in titles]
 
         self._desktop = Desktop(allow_magic_lookup=False)
 
-        titles_escaped = [re.escape(title) for title in titles]
-        title_re = "({})".format("|".join(titles_escaped))
+        self._dialogs_not_ready: List[WindowSpecification] = [
+            self._desktop.window(title_re=title_re) for title_re in self._titles_escaped
+        ]
+        self._dialogs_ready: List[WindowSpecification] = []
 
-        self._dialog = self._desktop.window(title_re=title_re)
+        self._title_by_dialog = dict(zip(self._dialogs_not_ready, self._titles))
 
         self._should_stop = False
 
-        self._timeout = 1
-        self._retry_interval = 0.1
+        self._timeout = 1 / len(self._dialogs_not_ready)
+        self._retry_interval = self._timeout / 5
+
+        assert self._timeout >= self._retry_interval * 2
 
     def run(self):
         while not self._should_stop:
-            try:
-                self._dialog.wait("ready", self._timeout, self._retry_interval)
-            except PywinautoTimeoutError:
-                continue
-            else:
-                wrapper_object = self._dialog.wrapper_object()
-                self.logger.debug("Dialog found: %s", wrapper_object.window_text())
-                self.readyDialog.emit(self._dialog)
-                while not self._should_stop:
-                    try:
-                        self._dialog.wait_not(
-                            "ready", self._timeout, self._retry_interval
-                        )
-                    except PywinautoTimeoutError:
-                        continue
-                    else:
-                        wrapper_object = self._dialog.wrapper_object()
-                        self.logger.debug(
-                            "Dialog closed: %s", wrapper_object.window_text()
-                        )
-                        self.notReadyDialog.emit(self._dialog)
-                        break
+            for dialog in list(self._dialogs_not_ready):
+                try:
+                    dialog.wait("ready", self._timeout, self._retry_interval)
+                except PywinautoTimeoutError:
+                    continue
+                else:
+                    dialog_text = self._title_by_dialog.get(dialog)
+                    self.logger.debug("Dialog found: %s", dialog_text)
+                    self._dialogs_not_ready.remove(dialog)
+                    self._dialogs_ready.append(dialog)
+                    self.readyDialog.emit(dialog)
+
+            for dialog in list(self._dialogs_ready):
+                try:
+                    dialog.wait_not("ready", self._timeout, self._retry_interval)
+                except PywinautoTimeoutError:
+                    continue
+                else:
+                    dialog_text = self._title_by_dialog.get(dialog)
+                    self.logger.debug("Dialog closed: %s", dialog_text)
+                    self._dialogs_ready.remove(dialog)
+                    self._dialogs_not_ready.append(dialog)
+                    self.notReadyDialog.emit(dialog)
 
     def stop(self):
         self._should_stop = True

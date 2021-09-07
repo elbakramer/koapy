@@ -20,7 +20,7 @@ class RateLimiter:
         if sleep_seconds > 0:
             time.sleep(sleep_seconds)
 
-    def __call__(self, func):
+    def wrap(self, func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             self.sleep_if_necessary(func, *args, **kwargs)
@@ -28,6 +28,9 @@ class RateLimiter:
             return func(*args, **kwargs)
 
         return wrapper
+
+    def __call__(self, func):
+        return self.wrap(func)
 
 
 class TimeWindowRateLimiter(RateLimiter, Logging):

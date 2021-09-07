@@ -58,8 +58,9 @@ class QRateLimitedExecutorDecoratedFunction:
         self._func = func
         self._limiter = limiter
         self._executor = executor
+
         functools.update_wrapper(self, func)
-        self._func_limited = self._limiter(self._func)
+        self._func_limited = self._limiter.wrap(self._func)
 
     def call(self, *args, **kwargs):
         return self._func_limited(*args, **kwargs)
@@ -80,6 +81,8 @@ class QRateLimitedExecutor(QThreadLogging, Executor):
         Executor.__init__(self)
 
         self._limiter = limiter
+        self._parent = parent
+
         self._runnable_queue: Queue[QRateLimitedExecutorRunnable] = Queue()
         self._sentinel = object()
 
@@ -133,5 +136,8 @@ class QRateLimitedExecutor(QThreadLogging, Executor):
         if wait:
             self.wait()
 
-    def __call__(self, func):
+    def wrap(self, func):
         return QRateLimitedExecutorDecoratedFunction(func, self._limiter, self)
+
+    def __call__(self, func):
+        return self.wrap(func)

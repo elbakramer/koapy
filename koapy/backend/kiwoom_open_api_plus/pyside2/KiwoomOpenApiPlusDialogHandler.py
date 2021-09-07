@@ -1,6 +1,7 @@
 from koapy.backend.kiwoom_open_api_plus.utils.pyside2.QDialogHandler import (
     QDialogHandler,
 )
+from koapy.compat.pywinauto.findwindows import ElementNotFoundError
 
 
 class KiwoomOpenApiPlusDialogHandler(QDialogHandler):
@@ -48,14 +49,25 @@ class KiwoomOpenApiPlusDialogHandler(QDialogHandler):
             "[HTS 재접속 안내]",
         ]
         self._titles_should_restart = self._titles[-1:]
+
         super().__init__(self._titles, self._parent)
 
         self.readyDialog.connect(self.onReadyDialog)
 
     def onReadyDialog(self, dialog):
-        self.logger.debug("Clicking confirm button on dialog")
-        dialog["Button"].click()
-        dialog_title = dialog.wrapper_object().window_text()
+        try:
+            self.logger.debug("Checking dialog title")
+            dialog_title = dialog.wrapper_object().window_text()
+        except ElementNotFoundError:
+            self.logger.warning("Could not find dialog to check")
+            dialog_title = None
+
+        try:
+            self.logger.debug("Clicking confirm button on dialog")
+            dialog["Button"].click()
+        except ElementNotFoundError:
+            self.logger.warning("Could not find dialog to confirm")
+
         if dialog_title in self._titles_should_restart:
-            self.logger.debug("Restarting by following the dialog's instruction")
+            self.logger.debug("Restarting based on the dialog's instruction")
             self._app.shouldRestart.emit(0)

@@ -4,6 +4,7 @@ import sys
 
 from argparse import ArgumentParser
 from contextlib import ExitStack, contextmanager
+from threading import Timer
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import (
     KiwoomOpenApiPlusNegativeReturnCodeError,
@@ -228,6 +229,8 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         return menu
 
     def _ensureConnectedAndThen(self, callback=None):
+        if not self._client.IsConnected():
+            self.logger.debug("Connecting to OpenAPI server")
         self._client.EnsureConnectedAndThen(callback)
 
     def _connect(self):
@@ -262,7 +265,12 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         QDesktopServices.openUrl(url)
 
     def _emitShouldRestart(self):
+        self.logger.debug("Emitting shouldRestart(0)")
         self.shouldRestart.emit(0)
+
+    def _emitShouldRestartAndConnect(self):
+        self.logger.debug("Emitting shouldRestart(1)")
+        self.shouldRestart.emit(1)
 
     def _closeClient(self):
         self._client.close()
@@ -300,7 +308,6 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
             yield
 
     def _exec(self):
-        self.logger.debug("Starting manager application")
         with self._execContext():
             self.logger.debug("Started manager application")
             return self._app.exec_()
@@ -324,10 +331,11 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         self._client = KiwoomOpenApiPlusServiceClient(
             port=self._port, thread_pool=self._thread_pool_executor
         )
-        assert self._client.is_ready(), "Client is not ready"
+        assert self._client.is_ready(self._client_timeout), "Client is not ready"
         self._client.OnEventConnect.connect(self._onEventConnect)
 
         if code > 0:
+            self.logger.debug("Re-establishing connection")
             self._connect()
 
     def exec_(self):
@@ -359,42 +367,53 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
 
     def _tryReconnect(self):
         now = datetime.datetime.now()
+        buffer = datetime.timedelta(minutes=5)
 
-        if now.weekday() < 6:
-            maintanance_start_time = now.replace(
-                hour=5, minute=5, second=0, microsecond=0
-            )
-            maintanance_end_time = now.replace(
-                hour=5, minute=10, second=0, microsecond=0
-            )
-        else:
-            maintanance_start_time = now.replace(
-                hour=4, minute=0, second=0, microsecond=0
-            )
-            maintanance_end_time = now.replace(
-                hour=4, minute=30, second=0, microsecond=0
-            )
+        target = now
+        timediff = datetime.timedelta()
 
-        buffer = datetime.timedelta(minutes=1)
+        maintanance_start_time = now.replace(hour=5, minute=5, second=0, microsecond=0)
+        maintanance_end_time = now.replace(hour=5, minute=10, second=0, microsecond=0)
 
-        def reconnect():
-            self.logger.warning("Trying to reconnect")
-            self.shouldRestart.emit(1)
+        maintanance_start_time_sunday = now.replace(
+            hour=4, minute=0, second=0, microsecond=0
+        )
+        maintanance_end_time_sunday = now.replace(
+            hour=4, minute=30, second=0, microsecond=0
+        )
 
-        if (maintanance_start_time - buffer) < now < (maintanance_end_time + buffer):
+        is_maintanance = (
+            (maintanance_start_time - buffer) < now < (maintanance_end_time + buffer)
+        )
+        is_maintanance_sunday = (
+            (maintanance_start_time_sunday - buffer)
+            < now
+            < (maintanance_end_time_sunday + buffer)
+        )
+        is_sunday = now.weekday() == 6
+
+        if is_maintanance:
             target = maintanance_end_time + buffer
+        elif is_sunday and is_maintanance_sunday:
+            target = maintanance_end_time_sunday + buffer
+
+        timediff = target - now
+        total_seconds = timediff.total_seconds()
+
+        if total_seconds > 0:
             self.logger.warning(
                 "Connection lost due to maintanance, waiting until %s, then will try to reconnect",
                 target,
             )
-            timediff = target - now
+            # TODO: QTimer is not working, why?
+            # QTimer.singleShot(total_seconds * 1000, self._emitShouldRestartAndConnect)
+            timer = Timer(total_seconds, self._emitShouldRestartAndConnect)
+            timer.start()
         else:
             self.logger.warning(
                 "Connection lost unexpectedly, will try to reconnect right away"
             )
-            timediff = datetime.timedelta()
-
-        QTimer.singleShot(timediff.total_seconds() * 1000, reconnect)
+            self._emitShouldRestartAndConnect()
 
     def _onEventConnect(self, errcode):
         if errcode == 0:

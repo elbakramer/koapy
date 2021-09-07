@@ -72,14 +72,6 @@ class KiwoomOpenApiPlusServiceClientSideSignalConnector:
                     observer.on_next(request)
 
             future = self._executor.submit(fn)
-            """
-            def done(future):
-                err = future.exception()
-                if err:
-                    raise err
-
-            future.add_done_callback(done)
-            """
 
     def disconnect(self, callback):
         with self._lock:
