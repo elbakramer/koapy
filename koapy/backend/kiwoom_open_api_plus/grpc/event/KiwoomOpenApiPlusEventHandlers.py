@@ -1469,7 +1469,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
     def OnReceiveRealCondition(
         self, code, condition_type, condition_name, condition_index
     ):
-        if (condition_name, condition_index) == (
+        if (condition_name, int(condition_index)) == (
             self._condition_name,
             self._condition_index,
         ):
