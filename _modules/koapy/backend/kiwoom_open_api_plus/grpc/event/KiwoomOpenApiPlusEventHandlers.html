@@ -1279,7 +1279,7 @@
                 <span class="k">if</span> <span class="p">(</span>
                     <span class="n">order_no</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order_no</span>
                 <span class="p">):</span>  <span class="c1"># 자기 주문 처리하는 입장 OR 취소 및 정정 당한 뒤 원주문 정보를 받는 입장</span>
-                    <span class="k">if</span> <span class="n">is_last</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shold_stop</span><span class="p">:</span>  <span class="c1"># 취소 확인 이후 원주문 정보 받고 종료 (타)</span>
+                    <span class="k">if</span> <span class="n">is_last</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_stop</span><span class="p">:</span>  <span class="c1"># 취소 확인 이후 원주문 정보 받고 종료 (타)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="o">.</span><span class="n">on_completed</span><span class="p">()</span>
                         <span class="k">return</span>
                     <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;접수&quot;</span><span class="p">:</span>
@@ -1298,7 +1298,7 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="o">.</span><span class="n">on_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                         <span class="k">return</span>
                 <span class="k">elif</span> <span class="n">order_no</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orgorderno</span><span class="p">:</span>  <span class="c1"># 취소하는 입장에서 원주문 정보 받는 케이스</span>
-                    <span class="k">if</span> <span class="n">is_last</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shold_stop</span><span class="p">:</span>  <span class="c1"># 취소 확인 이후 원주문 정보 받고 종료 (자)</span>
+                    <span class="k">if</span> <span class="n">is_last</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_stop</span><span class="p">:</span>  <span class="c1"># 취소 확인 이후 원주문 정보 받고 종료 (자)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="o">.</span><span class="n">on_completed</span><span class="p">()</span>
                         <span class="k">return</span>
                     <span class="k">elif</span> <span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;접수&quot;</span><span class="p">,</span> <span class="s2">&quot;체결&quot;</span><span class="p">]:</span>
@@ -1570,7 +1570,7 @@
 <div class="viewcode-block" id="KiwoomOpenApiPlusConditionEventHandler.OnReceiveRealCondition"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusEventHandlers/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlers.KiwoomOpenApiPlusConditionEventHandler.OnReceiveRealCondition">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveRealCondition</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">condition_type</span><span class="p">,</span> <span class="n">condition_name</span><span class="p">,</span> <span class="n">condition_index</span>
     <span class="p">):</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">condition_name</span><span class="p">,</span> <span class="n">condition_index</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">condition_name</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">condition_index</span><span class="p">))</span> <span class="o">==</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_condition_name</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_condition_index</span><span class="p">,</span>
         <span class="p">):</span>
