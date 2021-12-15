@@ -1178,7 +1178,7 @@ class KiwoomOpenApiPlusOrderEventHandler(
                 if (
                     order_no == self._order_no
                 ):  # 자기 주문 처리하는 입장 OR 취소 및 정정 당한 뒤 원주문 정보를 받는 입장
-                    if is_last and self._shold_stop:  # 취소 확인 이후 원주문 정보 받고 종료 (타)
+                    if is_last and self._should_stop:  # 취소 확인 이후 원주문 정보 받고 종료 (타)
                         self.observer.on_completed()
                         return
                     elif status == "접수":
@@ -1197,7 +1197,7 @@ class KiwoomOpenApiPlusOrderEventHandler(
                         self.observer.on_error(e)
                         return
                 elif order_no == self._orgorderno:  # 취소하는 입장에서 원주문 정보 받는 케이스
-                    if is_last and self._shold_stop:  # 취소 확인 이후 원주문 정보 받고 종료 (자)
+                    if is_last and self._should_stop:  # 취소 확인 이후 원주문 정보 받고 종료 (자)
                         self.observer.on_completed()
                         return
                     elif status in ["접수", "체결"]:
