@@ -22,12 +22,12 @@ jobs:
   build-and-publish:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2.3.4
+    - uses: actions/checkout@v2.4.0
       with:
         ref: ${{ github.event.release.tag_name }}
         fetch-depth: 0
     - name: Set up Python
-      uses: actions/setup-python@v2.2.2
+      uses: actions/setup-python@v2.3.1
       id: setup-python
       with:
         python-version: 3.8
@@ -41,7 +41,7 @@ jobs:
       run: |
         echo "::set-output name=dir::$(poetry config cache-dir)"
     - name: Restore cache
-      uses: actions/cache@v2.1.6
+      uses: actions/cache@v2.1.7
       with:
         path: ${{ steps.poetry-cache.outputs.dir }}
         key: ${{ runner.os }}-poetry-py${{ steps.setup-python.outputs.python-version }}-x64-${{ hashFiles('poetry.lock') }}
@@ -51,7 +51,7 @@ jobs:
       run: |
         poetry install
     - name: Check version
-      uses: actions/github-script@v4.1
+      uses: actions/github-script@v5
       id: check-version
       with:
         script: |

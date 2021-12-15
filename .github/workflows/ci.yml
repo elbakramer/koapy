@@ -24,9 +24,9 @@ jobs:
         - os: macos-latest
 
     steps:
-    - uses: actions/checkout@v2.3.4
+    - uses: actions/checkout@v2.4.0
     - name: Set up Python
-      uses: actions/setup-python@v2.2.2
+      uses: actions/setup-python@v2.3.1
       id: setup-python
       with:
         python-version: ${{ matrix.python-version }}
@@ -40,7 +40,7 @@ jobs:
       run: |
         echo "::set-output name=dir::$(poetry config cache-dir)"
     - name: Restore cache
-      uses: actions/cache@v2.1.6
+      uses: actions/cache@v2.1.7
       with:
         path: ${{ steps.poetry-cache.outputs.dir }}
         key: ${{ runner.os }}-poetry-py${{ steps.setup-python.outputs.python-version }}-${{ matrix.architecture }}-${{ hashFiles('poetry.lock') }}
@@ -53,7 +53,7 @@ jobs:
       run: |
         poetry run pytest -n auto --dist loadscope --junit-xml=junit/test-results.xml --cov --cov-report=xml --cov-report=html
     - name: Update Codecov coverage report
-      uses: codecov/codecov-action@v2.0.3
+      uses: codecov/codecov-action@v2.1.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         flags: ${{ matrix.os }}-py${{ matrix.python-version }}
