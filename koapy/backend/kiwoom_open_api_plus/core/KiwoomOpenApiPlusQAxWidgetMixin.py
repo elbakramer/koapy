@@ -7,7 +7,6 @@ from wrapt import synchronized
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import (
     KiwoomOpenApiPlusError,
-    KiwoomOpenApiPlusNegativeReturnCodeError,
 )
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter import (
     KiwoomOpenApiPlusCommRqDataRateLimiter,
