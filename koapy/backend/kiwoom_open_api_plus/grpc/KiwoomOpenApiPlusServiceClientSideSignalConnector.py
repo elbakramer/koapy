@@ -71,7 +71,7 @@ class KiwoomOpenApiPlusServiceClientSideSignalConnector:
                     request.handled_request.time = time.time()
                     observer.on_next(request)
 
-            future = self._executor.submit(fn)
+            _future = self._executor.submit(fn)
 
     def disconnect(self, callback):
         with self._lock:

@@ -155,9 +155,9 @@ class SQLiteStoreLibrary:
         symbol_name = symbol
         version = self._get_version(symbol_name, as_of)
 
-        if version.table_name is None:
-            data = None
-        else:
+        data = None
+
+        if version.table_name is not None:
             read_sql_table_kwargs = {
                 "index_col": version.pandas_metadata["read_sql_table"]["index_col"],
                 "parse_dates": version.pandas_metadata["read_sql_table"]["parse_dates"],
@@ -169,7 +169,7 @@ class SQLiteStoreLibrary:
             index_names = tuple(index_names)
             if len(data.index.names) == 1:
                 index_names = index_names[0]
-            data.index.rename(index_names, inplace=True)
+            data.index.rename(index_names, inplace=True)  # pylint: disable=no-member
             column_timezones = version.pandas_metadata["read_sql_table"][
                 "column_timezones"
             ]
@@ -200,9 +200,9 @@ class SQLiteStoreLibrary:
         symbol_name = symbol
         version = self._get_version(symbol_name, as_of)
 
-        if version.table_name is None:
-            data = None
-        else:
+        cursor = None
+
+        if version.table_name is not None:
             records = Table(version.table_name, MetaData(), autoload_with=self._engine)
             statement = select(records)
 
@@ -244,14 +244,14 @@ class SQLiteStoreLibrary:
 
             statement = statement.execution_options(stream_results=True)
 
-            data = self._session.execute(statement)
+            cursor = self._session.execute(statement)
 
         return VersionedItem(
             self._library.name,
             symbol_name,
             version.version,
             version.timestamp,
-            data,
+            cursor,
             version.user_metadata,
         )
 
