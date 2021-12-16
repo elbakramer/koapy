@@ -97,3 +97,30 @@ def run_as_admin(cmd, cwd=None, check=True, wait=True):
         rc = None
 
     return rc
+
+
+class Popen(subprocess.Popen):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # https://stackoverflow.com/questions/23434842/python-how-to-kill-child-processes-when-parent-dies/23587108#23587108s
+        import win32api
+        import win32con
+        import win32job
+
+        hJob = win32job.CreateJobObject(None, "")
+        extendedInfo = win32job.QueryInformationJobObject(
+            hJob, win32job.JobObjectExtendedLimitInformation
+        )
+        extendedInfo["BasicLimitInformation"][
+            "LimitFlags"
+        ] = win32job.JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE
+        win32job.SetInformationJobObject(
+            hJob, win32job.JobObjectExtendedLimitInformation, extendedInfo
+        )
+        perms = win32con.PROCESS_TERMINATE | win32con.PROCESS_SET_QUOTA
+        hProcess = win32api.OpenProcess(perms, False, self.pid)
+        win32job.AssignProcessToJobObject(hJob, hProcess)
+
+        self._hJob = hJob
+        self._hProcess = hProcess

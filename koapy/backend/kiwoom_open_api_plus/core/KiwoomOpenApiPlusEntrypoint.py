@@ -1,4 +1,3 @@
-import subprocess
 import threading
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin import (
@@ -11,6 +10,7 @@ from koapy.config import config, get_32bit_executable
 from koapy.utils.logging import get_verbosity
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.networking import get_free_localhost_port
+from koapy.utils.subprocess import Popen
 
 
 class KiwoomOpenApiPlusEntrypoint(KiwoomOpenApiPlusEntrypointMixin, Logging):
@@ -46,7 +46,7 @@ class KiwoomOpenApiPlusEntrypoint(KiwoomOpenApiPlusEntrypointMixin, Logging):
         if not self._client.is_ready(self._client_check_timeout):
             self.logger.debug("Client is not ready")
             self.logger.debug("Creating a new server...")
-            self._server_proc = subprocess.Popen(self._server_proc_args)
+            self._server_proc = Popen(self._server_proc_args)
             assert self._client.is_ready(
                 self._server_proc_start_timeout
             ), "Failed to create server"
