@@ -5,7 +5,6 @@ import unicodedata
 
 import pygtrie
 
-from koapy import KiwoomOpenApiPlusEntrypoint
 from koapy.utils.logging.Logging import Logging
 
 
@@ -90,6 +89,8 @@ class Screen:
         self._handler = StatusBarHandler(self)
         self._logger = Logging.get_logger("koapy")
         self._logger.addHandler(self._handler)
+
+        from koapy import KiwoomOpenApiPlusEntrypoint
 
         self._entrypoint = KiwoomOpenApiPlusEntrypoint()
         self._entrypoint.EnsureConnected()
