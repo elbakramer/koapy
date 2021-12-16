@@ -254,7 +254,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         try:
             self.logger.info("Waiting for successful login")
             timeout_login_successful = 30
-            login_window.wait_not("visible", timeout_login_successful)
+            login_window.wait_not("exists", timeout_login_successful)
         except pywinauto.timings.TimeoutError:
             self.logger.info("Login screen is still open")
             self.logger.info("Check for possible version update")
