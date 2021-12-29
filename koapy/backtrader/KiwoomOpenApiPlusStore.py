@@ -211,9 +211,17 @@ class API:
             quote_type,
             original_order_no,
         )
-        _msg = next(responses)
-        _tr = next(responses)
-        accept = next(responses)
+
+        # 이벤트 수신 순서가 바뀌는 경우가 존재
+        res = [next(responses) for _ in range(3)]
+        ORDER_RES_SEQ = {
+            "OnReceiveMsg": 1,
+            "OnReceiveTrData": 2,
+            "OnReceiveChejanData": 3,
+        }
+        res.sort(key=lambda r: ORDER_RES_SEQ[r.name])
+        _msg, _tr, accept = res
+
         accept_data = dict(zip(accept.single_data.names, accept.single_data.values))
         result = {"orderOpened": {"id": accept_data["주문번호"]}}
         return result
