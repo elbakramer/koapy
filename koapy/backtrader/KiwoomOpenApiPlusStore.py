@@ -645,7 +645,6 @@ class KiwoomOpenApiPlusStore(Logging, metaclass=MetaKiwoomOpenApiPlusStore):
                 )
                 self.put_notification(e)
                 self.broker._reject(oref)
-                return
 
             # Ids are delivered in different fields and all must be fetched to
             # match them (as executions) to the order generated here
