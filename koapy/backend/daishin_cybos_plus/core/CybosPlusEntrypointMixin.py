@@ -347,10 +347,11 @@ class CybosPlusEntrypointMixin(Logging):
 
         if start_date is None:
             start_date = (
-                calendar.previous_close(pd.Timestamp.now())
+                calendar.previous_close(str(pd.Timestamp.now())[:15])
                 .astimezone(tz)
                 .to_pydatetime()
             )
+            print(start_date)
         if isinstance(start_date, str):
             start_date_len = len(start_date)
             if start_date_len == 14:
@@ -461,10 +462,10 @@ class CybosPlusEntrypointMixin(Logging):
                     if needs_time:
                         times = df["시간"].astype(int).astype(str).str.ljust(6, "0")
                         datetimes = dates.str.cat(times)
-                        datetimes = pd.to_datetime(datetimes, format="%Y%m%d%H%M%S")
+                        datetimes = pd.to_datetime(datetimes,errors='coerce', format="%Y%m%d%H%M%S")
                     else:
                         datetimes = dates
-                        datetimes = pd.to_datetime(datetimes, format="%Y%m%d")
+                        datetimes = pd.to_datetime(datetimes, errors='coerce',format="%Y%m%d")
                     datetimes = datetimes.dt.tz_localize(tz)
                     condition = datetimes > end_date
                     df = df.loc[condition]
