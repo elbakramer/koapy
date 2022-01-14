@@ -761,7 +761,6 @@ class KiwoomOpenApiPlusStore(Logging, metaclass=MetaKiwoomOpenApiPlusStore):
             return
 
         try:
-            oref = self._ordersrev[oid]
             self._process_transaction(oid, trans)
         except KeyError:  # not yet seen, keep as pending
             self._transpend[oid].append(trans)
@@ -776,7 +775,7 @@ class KiwoomOpenApiPlusStore(Logging, metaclass=MetaKiwoomOpenApiPlusStore):
 
     def _process_transaction(self, oid, trans):
         try:
-            oref = self._ordersrev.pop(oid)
+            oref = self._ordersrev[oid]
         except KeyError:
             return
 
