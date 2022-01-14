@@ -211,10 +211,17 @@ class API:
             quote_type,
             original_order_no,
         )
-        _msg = next(responses)
-        _tr = next(responses)
-        accept = next(responses)
-        accept_data = dict(zip(accept.single_data.names, accept.single_data.values))
+
+        MAX_ORDER_RES_CNT = 5
+        for i in range(MAX_ORDER_RES_CNT):
+            res = next(responses)
+            if (
+                res.name == "OnReceiveChejanData"
+                and res.arguments[0].string_value == "0"  # 주문접수 or 체결
+            ):
+                break
+
+        accept_data = dict(zip(res.single_data.names, res.single_data.values))
         result = {"orderOpened": {"id": accept_data["주문번호"]}}
         return result
 
