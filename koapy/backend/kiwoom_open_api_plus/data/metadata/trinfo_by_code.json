@@ -4374,10 +4374,16 @@
         "gfid": "2015",
         "inputs": [
             {
+                "fid": 9008,
+                "name": "시장구분",
+                "offset": 1,
+                "start": 0
+            },
+            {
                 "fid": 9047,
                 "name": "PER구분",
                 "offset": 1,
-                "start": 0
+                "start": 1
             }
         ],
         "multi_outputs": [],
@@ -4393,50 +4399,50 @@
             {
                 "fid": 302,
                 "name": "종목명",
-                "offset": 100,
+                "offset": 140,
                 "start": 20
             },
             {
                 "fid": 316,
                 "name": "PER",
                 "offset": 20,
-                "start": 120
+                "start": 160
             },
             {
                 "fid": 10,
                 "name": "현재가",
                 "offset": 20,
-                "start": 140
+                "start": 180
             },
             {
                 "fid": 25,
                 "name": "전일대비기호",
                 "offset": 20,
-                "start": 160
+                "start": 200
             },
             {
                 "fid": 11,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 12,
                 "name": "등락률",
                 "offset": 20,
-                "start": 200
+                "start": 240
             },
             {
                 "fid": 13,
                 "name": "현재거래량",
                 "offset": 20,
-                "start": 220
+                "start": 260
             },
             {
                 "fid": 27,
                 "name": "매도호가",
                 "offset": 20,
-                "start": 240
+                "start": 280
             }
         ],
         "single_outputs_name": "고저PER",
@@ -4463,38 +4469,38 @@
             {
                 "fid": 9022,
                 "name": "거래량조건",
-                "offset": 4,
+                "offset": 5,
                 "start": 4
             },
             {
                 "fid": 9060,
                 "name": "종목조건",
-                "offset": 1,
-                "start": 8
+                "offset": 2,
+                "start": 9
             },
             {
                 "fid": 9062,
                 "name": "신용조건",
                 "offset": 1,
-                "start": 9
+                "start": 11
             },
             {
                 "fid": 9076,
                 "name": "상하한포함",
-                "offset": 1,
-                "start": 10
+                "offset": 2,
+                "start": 12
             },
             {
                 "fid": 9077,
                 "name": "가격조건",
-                "offset": 1,
-                "start": 11
+                "offset": 2,
+                "start": 14
             },
             {
                 "fid": 9080,
                 "name": "거래대금조건",
                 "offset": 4,
-                "start": 12
+                "start": 16
             }
         ],
         "multi_outputs": [],
@@ -4516,62 +4522,62 @@
             {
                 "fid": 302,
                 "name": "종목명",
-                "offset": 100,
+                "offset": 140,
                 "start": 40
             },
             {
                 "fid": 10,
                 "name": "현재가",
                 "offset": 20,
-                "start": 140
+                "start": 180
             },
             {
                 "fid": 25,
                 "name": "전일대비기호",
                 "offset": 20,
-                "start": 160
+                "start": 200
             },
             {
                 "fid": 11,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 12,
                 "name": "등락률",
                 "offset": 20,
-                "start": 200
+                "start": 240
             },
             {
                 "fid": 121,
                 "name": "매도잔량",
                 "offset": 20,
-                "start": 220
+                "start": 260
             },
             {
                 "fid": 125,
                 "name": "매수잔량",
                 "offset": 20,
-                "start": 240
+                "start": 280
             },
             {
                 "fid": 13,
                 "name": "현재거래량",
                 "offset": 20,
-                "start": 260
+                "start": 300
             },
             {
                 "fid": 228,
                 "name": "체결강도",
                 "offset": 20,
-                "start": 280
+                "start": 320
             },
             {
                 "fid": 333,
                 "name": "횟수",
                 "offset": 20,
-                "start": 300
+                "start": 340
             }
         ],
         "single_outputs_name": "전일대비등락률상위",
@@ -4610,26 +4616,26 @@
             {
                 "fid": 9060,
                 "name": "종목조건",
-                "offset": 1,
+                "offset": 2,
                 "start": 9
             },
             {
                 "fid": 9062,
                 "name": "신용조건",
                 "offset": 1,
-                "start": 10
+                "start": 11
             },
             {
                 "fid": 9080,
                 "name": "거래대금조건",
-                "offset": 1,
+                "offset": 4,
                 "start": 11
             },
             {
                 "fid": 9017,
                 "name": "등락조건",
                 "offset": 1,
-                "start": 12
+                "start": 15
             }
         ],
         "multi_outputs": [],
@@ -4645,68 +4651,68 @@
             {
                 "fid": 302,
                 "name": "종목명",
-                "offset": 100,
+                "offset": 140,
                 "start": 20
             },
             {
                 "fid": 10,
                 "name": "현재가",
                 "offset": 20,
-                "start": 120
+                "start": 160
             },
             {
                 "fid": 25,
                 "name": "전일대비기호",
                 "offset": 20,
-                "start": 140
+                "start": 180
             },
             {
                 "fid": 11,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 160
+                "start": 200
             },
             {
                 "fid": 12,
                 "name": "등락률",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 16,
                 "name": "시가",
                 "offset": 20,
-                "start": 200
+                "start": 240
             },
             {
                 "fid": 17,
                 "name": "고가",
                 "offset": 20,
-                "start": 220
+                "start": 260
             },
             {
                 "fid": 18,
                 "name": "저가",
                 "offset": 20,
-                "start": 240
+                "start": 280
             },
             {
                 "fid": 1040,
                 "name": "시가대비",
                 "offset": 20,
-                "start": 260
+                "start": 300
             },
             {
                 "fid": 13,
                 "name": "현재거래량",
                 "offset": 20,
-                "start": 280
+                "start": 320
             },
             {
                 "fid": 228,
                 "name": "체결강도",
                 "offset": 20,
-                "start": 300
+                "start": 340
             }
         ],
         "single_outputs_name": "시가대비등락률",
@@ -4733,26 +4739,26 @@
             {
                 "fid": 9022,
                 "name": "거래량조건",
-                "offset": 1,
+                "offset": 5,
                 "start": 4
             },
             {
                 "fid": 9060,
                 "name": "종목조건",
-                "offset": 1,
-                "start": 5
+                "offset": 2,
+                "start": 9
             },
             {
                 "fid": 9062,
                 "name": "신용조건",
                 "offset": 1,
-                "start": 6
+                "start": 11
             },
             {
                 "fid": 9077,
                 "name": "가격조건",
-                "offset": 1,
-                "start": 7
+                "offset": 2,
+                "start": 12
             }
         ],
         "multi_outputs": [],
@@ -4768,68 +4774,68 @@
             {
                 "fid": 302,
                 "name": "종목명",
-                "offset": 100,
+                "offset": 140,
                 "start": 20
             },
             {
                 "fid": 23,
                 "name": "예상체결가",
                 "offset": 20,
-                "start": 120
+                "start": 160
             },
             {
                 "fid": 346,
                 "name": "기준가",
                 "offset": 20,
-                "start": 140
+                "start": 180
             },
             {
                 "fid": 1067,
                 "name": "전일대비기호",
                 "offset": 20,
-                "start": 160
+                "start": 200
             },
             {
                 "fid": 1055,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 1056,
                 "name": "등락률",
                 "offset": 20,
-                "start": 200
+                "start": 240
             },
             {
                 "fid": 24,
                 "name": "예상체결량",
                 "offset": 20,
-                "start": 220
+                "start": 260
             },
             {
                 "fid": 61,
                 "name": "매도잔량",
                 "offset": 20,
-                "start": 240
+                "start": 280
             },
             {
                 "fid": 27,
                 "name": "매도호가",
                 "offset": 20,
-                "start": 260
+                "start": 300
             },
             {
                 "fid": 28,
                 "name": "매수호가",
                 "offset": 20,
-                "start": 280
+                "start": 320
             },
             {
                 "fid": 71,
                 "name": "매수잔량",
                 "offset": 20,
-                "start": 300
+                "start": 340
             }
         ],
         "single_outputs_name": "예상체결등락률상위",
@@ -7313,62 +7319,62 @@
             {
                 "fid": 9001,
                 "name": "종목코드",
-                "offset": 100,
+                "offset": 20,
                 "start": 20
             },
             {
                 "fid": 302,
                 "name": "종목명",
-                "offset": 20,
-                "start": 120
+                "offset": 140,
+                "start": 40
             },
             {
                 "fid": 334,
                 "name": "거래원명",
                 "offset": 20,
-                "start": 140
+                "start": 180
             },
             {
                 "fid": 260,
                 "name": "구분",
                 "offset": 20,
-                "start": 160
+                "start": 200
             },
             {
                 "fid": 211,
                 "name": "순간거래량",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 210,
                 "name": "누적순매수",
                 "offset": 20,
-                "start": 200
+                "start": 240
             },
             {
                 "fid": 10,
                 "name": "현재가",
                 "offset": 20,
-                "start": 220
+                "start": 260
             },
             {
                 "fid": 25,
                 "name": "전일대비기호",
                 "offset": 20,
-                "start": 240
+                "start": 280
             },
             {
                 "fid": 11,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 240
+                "start": 300
             },
             {
                 "fid": 12,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 240
+                "start": 320
             }
         ],
         "single_outputs_name": "거래원순간거래량",
@@ -11823,6 +11829,154 @@
         "single_outputs_name": "주식년봉차트",
         "tr_code": "opt10094",
         "tr_name": "SCHART",
+        "tr_names_svr": "",
+        "tr_type": "1"
+    },
+    "opt10170": {
+        "gfid": "8516",
+        "inputs": [
+            {
+                "fid": 9201,
+                "name": "계좌번호",
+                "offset": 10,
+                "start": 0
+            },
+            {
+                "fid": 9202,
+                "name": "비밀번호",
+                "offset": 64,
+                "start": 10
+            },
+            {
+                "fid": 9004,
+                "name": "기준일자",
+                "offset": 8,
+                "start": 74
+            },
+            {
+                "fid": 9207,
+                "name": "단주구분",
+                "offset": 20,
+                "start": 40
+            },
+            {
+                "fid": 9020,
+                "name": "현금신용구분",
+                "offset": 20,
+                "start": 60
+            }
+        ],
+        "multi_outputs": [
+            {
+                "fid": 302,
+                "name": "종목명",
+                "offset": 120,
+                "start": 0
+            },
+            {
+                "fid": 8011,
+                "name": "매수평균가",
+                "offset": 20,
+                "start": 120
+            },
+            {
+                "fid": 8012,
+                "name": "매수수량",
+                "offset": 20,
+                "start": 140
+            },
+            {
+                "fid": 8014,
+                "name": "매도평균가",
+                "offset": 20,
+                "start": 160
+            },
+            {
+                "fid": 8015,
+                "name": "매도수량",
+                "offset": 20,
+                "start": 180
+            },
+            {
+                "fid": 8017,
+                "name": "수수료_제세금",
+                "offset": 20,
+                "start": 200
+            },
+            {
+                "fid": 8018,
+                "name": "손익금액",
+                "offset": 20,
+                "start": 220
+            },
+            {
+                "fid": 8016,
+                "name": "매도금액",
+                "offset": 20,
+                "start": 240
+            },
+            {
+                "fid": 8013,
+                "name": "매수금액",
+                "offset": 20,
+                "start": 260
+            },
+            {
+                "fid": 8019,
+                "name": "수익률",
+                "offset": 20,
+                "start": 280
+            },
+            {
+                "fid": 9001,
+                "name": "종목코드",
+                "offset": 20,
+                "start": 300
+            }
+        ],
+        "multi_outputs_name": "당일매매일지",
+        "name": "당일매매일지요청",
+        "single_outputs": [
+            {
+                "fid": 8016,
+                "name": "총매도금액",
+                "offset": 20,
+                "start": 20
+            },
+            {
+                "fid": 8013,
+                "name": "총매수금액",
+                "offset": 20,
+                "start": 40
+            },
+            {
+                "fid": 8017,
+                "name": "총수수료_세금",
+                "offset": 20,
+                "start": 60
+            },
+            {
+                "fid": 8010,
+                "name": "총정산금액",
+                "offset": 20,
+                "start": 80
+            },
+            {
+                "fid": 8018,
+                "name": "총손익금액",
+                "offset": 20,
+                "start": 100
+            },
+            {
+                "fid": 8019,
+                "name": "총수익률",
+                "offset": 20,
+                "start": 120
+            }
+        ],
+        "single_outputs_name": "당일매매일지단일",
+        "tr_code": "opt10170",
+        "tr_name": "SRJANGO",
         "tr_names_svr": "",
         "tr_type": "1"
     },
@@ -17501,7 +17655,7 @@
         "tr_type": "1"
     },
     "opt50011": {
-        "gfid": "2001",
+        "gfid": "1504",
         "inputs": [
             {
                 "fid": 9001,
@@ -17583,7 +17737,7 @@
         ],
         "single_outputs_name": "선옵호가잔량추이",
         "tr_code": "opt50011",
-        "tr_name": "STOCKG",
+        "tr_name": "FOCODTR",
         "tr_names_svr": "",
         "tr_type": "1"
     },
@@ -17667,7 +17821,7 @@
         ],
         "single_outputs_name": "선물가격대별비중차트",
         "tr_code": "opt50013",
-        "tr_name": "FCHART",
+        "tr_name": "FUTURE",
         "tr_names_svr": "",
         "tr_type": "1"
     },
@@ -17973,7 +18127,7 @@
         ],
         "single_outputs_name": "전일종가",
         "tr_code": "opt50016",
-        "tr_name": "FCHART",
+        "tr_name": "FUTURE",
         "tr_names_svr": "",
         "tr_type": "1"
     },
@@ -18048,7 +18202,7 @@
         ],
         "single_outputs_name": "베이시스추이차트",
         "tr_code": "opt50017",
-        "tr_name": "FCHART",
+        "tr_name": "FUTURE",
         "tr_names_svr": "",
         "tr_type": "1"
     },
@@ -18087,7 +18241,7 @@
         ],
         "single_outputs_name": "풋콜옵션비율차트",
         "tr_code": "opt50018",
-        "tr_name": "OCHART",
+        "tr_name": "STOCKG",
         "tr_names_svr": "",
         "tr_type": "1"
     },
