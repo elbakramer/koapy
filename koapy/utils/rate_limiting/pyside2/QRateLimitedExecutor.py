@@ -52,6 +52,9 @@ class QRateLimitedExecutorRunnable:
     def cancel(self):
         return self._future.cancel()
 
+    def result(self):
+        return self._future.result()
+
 
 class QRateLimitedExecutorDecoratedFunction:
     def __init__(self, func, limiter: RateLimiter, executor: Executor):
@@ -83,7 +86,7 @@ class QRateLimitedExecutor(QThreadLogging, Executor):
         self._limiter = limiter
         self._parent = parent
 
-        self._runnable_queue: Queue[QRateLimitedExecutorRunnable] = Queue()
+        self._runnable_queue: Queue = Queue()
         self._sentinel = object()
 
         self._shutdown = False
@@ -102,6 +105,10 @@ class QRateLimitedExecutor(QThreadLogging, Executor):
             if runnable is not self._sentinel:
                 runnable.sleep_if_necessary()
                 self.readyRunnable.emit(runnable)
+                try:
+                    runnable.result()  # wait until the emitted runnable finishes
+                except:
+                    pass
                 del runnable
                 continue
             if self._shutdown:

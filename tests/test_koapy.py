@@ -33,7 +33,7 @@ skipif_not_currently_in_session = pytest.mark.skipif(
 )
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def entrypoint():
     from koapy import KiwoomOpenApiPlusEntrypoint
 
@@ -43,7 +43,7 @@ def entrypoint():
         yield entrypoint
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def calendar():
     from exchange_calendars import get_calendar
 
@@ -51,7 +51,7 @@ def calendar():
     return calendar
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def downloader():
     from koapy.utils.data import KrxHistoricalDailyPriceDataDownloader
 
@@ -110,7 +110,7 @@ def test_GetStockBasicInfoAsDict(entrypoint):
 def test_GetDailyStockDataAsDataFrame(entrypoint, calendar, downloader):
     code = "005930"
 
-    now = pd.Timestamp.now(calendar.tz)
+    now = pd.Timestamp.now(calendar.tz).floor("T")
     start_date = calendar.previous_close(now).astimezone(calendar.tz).normalize()
     end_date = start_date - 5 * calendar.day
 

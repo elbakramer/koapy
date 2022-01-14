@@ -10,7 +10,6 @@ from koapy.cli.commands.uninstall import uninstall
 from koapy.cli.commands.update import update
 from koapy.cli.utils import fail_with_usage, verbose_option
 from koapy.cli.utils.credential import get_credential
-from koapy.config import config
 from koapy.utils.logging import get_logger
 
 logger = get_logger(__name__)

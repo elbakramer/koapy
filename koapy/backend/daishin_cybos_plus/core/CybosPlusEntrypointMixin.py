@@ -45,7 +45,7 @@ class CybosPlusEntrypointMixin(Logging):
         account_passwords = credential.get("account_passwords")
 
         cls.logger.info("Starting CYBOS Starter application")
-        app = pywinauto.Application().start(
+        _app = pywinauto.Application().start(
             r"C:\DAISHIN\STARTER\ncStarter.exe /prj:cp"
         )  # pylint: disable=unused-variable
         desktop = pywinauto.Desktop(allow_magic_lookup=False)
@@ -202,7 +202,9 @@ class CybosPlusEntrypointMixin(Logging):
             import json
             import sys
 
-            from koapy import CybosPlusEntrypoint
+            from koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypoint import (
+                CybosPlusEntrypoint,
+            )
 
             credential = json.load(sys.stdin)
             CybosPlusEntrypoint.ConnectUsingPywinauto_Impl(credential)
@@ -414,17 +416,16 @@ class CybosPlusEntrypointMixin(Logging):
 
             df = pd.DataFrame.from_records(records, columns=names)
 
+            last_date = datetime.datetime.strptime(
+                df.iloc[-1]["날짜"].astype(int).astype(str), date_format_input
+            )
+            last_date = last_date.astimezone(tz)
+
             if df.shape[0] > 0 and self.logger.getEffectiveLevel() <= logging.DEBUG:
                 from_date = datetime.datetime.strptime(
                     df.iloc[0]["날짜"].astype(int).astype(str), date_format_input
                 )
-                last_date = datetime.datetime.strptime(
-                    df.iloc[-1]["날짜"].astype(int).astype(str), date_format_input
-                )
-
                 from_date = from_date.astimezone(tz)
-                last_date = last_date.astimezone(tz)
-
                 self.logger.debug(
                     "Received data from %s to %s for code %s",
                     from_date,

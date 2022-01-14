@@ -71,4 +71,5 @@ def main():
 
 
 if __name__ == "__main__":
+    generate_tls_certificate("koapy", "localhost")
     main()

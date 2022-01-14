@@ -81,9 +81,18 @@ class KiwoomOpenApiPlusServerApplicationProcess(QProcess):
 
     def _onFinished(self):
         if self._hJob is not None and self._hProcess is not None:
+            import pywintypes
             import win32job
+            import win32process
 
-            win32job.TerminateJobObject(self._hJob, self._hProcess)
+            exitCode = 0
+
+            try:
+                exitCode = win32process.GetExitCodeProcess(self._hProcess)
+            except pywintypes.error:
+                pass
+
+            win32job.TerminateJobObject(self._hJob, exitCode)
 
 
 class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
@@ -318,9 +327,8 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
 
     def _restart(self, code):
         self.logger.debug("Restarting server application")
-        self._client.close()
-        self._server_process.close()
-        self._server_process.waitForFinished()
+        self._closeClient()
+        self._closeServerProcess()
 
         self._server_process = KiwoomOpenApiPlusServerApplicationProcess(
             self._args, self

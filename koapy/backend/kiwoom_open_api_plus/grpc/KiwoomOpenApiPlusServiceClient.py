@@ -110,7 +110,7 @@ class KiwoomOpenApiPlusServiceClient:
         except grpc.FutureTimeoutError:
             return False
 
-    def get_original_stub(self):
+    def get_grpc_stub(self):
         return self._stub
 
     def get_stub(self):
