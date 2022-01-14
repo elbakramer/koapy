@@ -26,7 +26,7 @@ else:
 if PYSIDE2:
     import PySide2
 
-    if "QT_QPA_PLATFORM_PLUGIN_PATH" not in os.environ and hasattr(PySide2, "__file__"):
+    if hasattr(PySide2, "__file__"):
         QT_QPA_PLATFORM_PLUGIN_PATH = os.path.join(
             os.path.dirname(PySide2.__file__), "plugins", "platforms"
         )

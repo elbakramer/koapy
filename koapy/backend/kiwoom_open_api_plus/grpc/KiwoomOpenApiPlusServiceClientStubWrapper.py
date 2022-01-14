@@ -4,12 +4,14 @@ import re
 
 import pandas as pd
 
-from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import (
-    KiwoomOpenApiPlusSimpleQAxWidgetMixin,
-)
-from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature import (
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchSignature import (
     KiwoomOpenApiPlusDispatchSignature,
+)
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerSignature import (
     KiwoomOpenApiPlusEventHandlerSignature,
+)
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import (
+    KiwoomOpenApiPlusQAxWidgetUniversalMixin,
 )
 from koapy.backend.kiwoom_open_api_plus.grpc import KiwoomOpenApiPlusService_pb2
 from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientSideDynamicCallable import (
@@ -25,7 +27,7 @@ from koapy.utils.logging.Logging import Logging
 
 
 class KiwoomOpenApiPlusServiceClientStubCoreWrapper(
-    KiwoomOpenApiPlusSimpleQAxWidgetMixin
+    KiwoomOpenApiPlusQAxWidgetUniversalMixin
 ):
     METHOD_NAMES = KiwoomOpenApiPlusDispatchSignature.names()
     EVENT_NAMES = KiwoomOpenApiPlusEventHandlerSignature.names()

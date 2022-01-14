@@ -4,6 +4,7 @@ from typing import List
 
 from koapy.compat.pyside2.QtCore import Signal
 from koapy.compat.pywinauto import Desktop, WindowSpecification
+from koapy.compat.pywinauto.findwindows import ElementNotFoundError
 from koapy.compat.pywinauto.timings import TimeoutError as PywinautoTimeoutError
 from koapy.utils.logging.pyside2.QThreadLogging import QThreadLogging
 
@@ -40,7 +41,7 @@ class QDialogHandler(QThreadLogging):
             for dialog in list(self._dialogs_not_ready):
                 try:
                     dialog.wait("ready", self._timeout, self._retry_interval)
-                except PywinautoTimeoutError:
+                except (PywinautoTimeoutError, ElementNotFoundError):
                     continue
                 else:
                     dialog_text = self._title_by_dialog.get(dialog)
@@ -52,7 +53,7 @@ class QDialogHandler(QThreadLogging):
             for dialog in list(self._dialogs_ready):
                 try:
                     dialog.wait_not("ready", self._timeout, self._retry_interval)
-                except PywinautoTimeoutError:
+                except (PywinautoTimeoutError, ElementNotFoundError):
                     continue
                 else:
                     dialog_text = self._title_by_dialog.get(dialog)

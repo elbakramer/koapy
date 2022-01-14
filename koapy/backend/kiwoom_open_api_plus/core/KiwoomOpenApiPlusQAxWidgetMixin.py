@@ -3,8 +3,13 @@ import os
 import queue
 import subprocess
 
+from typing import Any, Callable, Dict, Mapping, Optional, Union, overload
+
 from wrapt import synchronized
 
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchFunctions import (
+    KiwoomOpenApiPlusDispatchFunctions,
+)
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import (
     KiwoomOpenApiPlusError,
 )
@@ -13,7 +18,7 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter import
     KiwoomOpenApiPlusSendConditionRateLimiter,
     KiwoomOpenApiPlusSendOrderRateLimiter,
 )
-from koapy.backend.kiwoom_open_api_plus.utils.list_type import string_to_list
+from koapy.backend.kiwoom_open_api_plus.utils.list_conversion import string_to_list
 from koapy.config import config
 from koapy.utils.ctypes import is_admin
 from koapy.utils.logging.Logging import Logging
@@ -21,7 +26,7 @@ from koapy.utils.rate_limiting.pyside2.QRateLimitedExecutor import QRateLimitedE
 from koapy.utils.subprocess import function_to_subprocess_args
 
 
-class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
+class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunctions):
     def IsConnected(self):
         return self.GetConnectState() == 1
 
@@ -37,7 +42,7 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
     def ShowAccountWindow(self):
         return self.KOA_Functions("ShowAccountWindow", "")
 
-    def GetCodeListByMarketAsList(self, market=None):
+    def GetCodeListByMarketAsList(self, market: Optional[Union[str, int]] = None):
         if market is None:
             market = ""
         market = str(market)
@@ -45,7 +50,7 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
         result = string_to_list(result)
         return result
 
-    def GetNameListByMarketAsList(self, market):
+    def GetNameListByMarketAsList(self, market: Union[str, int]):
         codes = self.GetCodeListByMarketAsList(market)
         names = [self.GetMasterCodeName(code) for code in codes]
         return names
@@ -89,7 +94,7 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
             account = accounts[0]
         return account
 
-    def GetMasterStockStateAsList(self, code):
+    def GetMasterStockStateAsList(self, code: str):
         states = self.GetMasterStockState(code).strip()
         states = string_to_list(states, sep="|")
         return states
@@ -106,12 +111,12 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
 
     def GetGeneralCodeList(
         self,
-        include_preferred_stock=False,
-        include_etn=False,
-        include_etf=False,
-        include_mutual_fund=False,
-        include_reits=False,
-        include_kosdaq=False,
+        include_preferred_stock: bool = False,
+        include_etn: bool = False,
+        include_etf: bool = False,
+        include_mutual_fund: bool = False,
+        include_reits: bool = False,
+        include_kosdaq: bool = False,
     ):
         """
         [시장구분값]
@@ -161,29 +166,29 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
 
         return codes
 
-    def GetStockStates(self, code):
+    def GetStockStates(self, code: str):
         return self.GetMasterStockStateAsList(code)
 
-    def GetSurveillanceFlag(self, code):
+    def GetSurveillanceFlag(self, code: str):
         return self.GetMasterConstruction(code)
 
-    def IsSuspended(self, code):
+    def IsSuspended(self, code: str):
         return "거래정지" in self.GetMasterStockStateAsList(code)
 
-    def IsUnderSurveillance(self, code):
+    def IsUnderSurveillance(self, code: str):
         return "감리종목" in self.GetMasterStockStateAsList(code)
 
-    def IsUnderAdministration(self, code):
+    def IsUnderAdministration(self, code: str):
         return "관리종목" in self.GetMasterStockStateAsList(code)
 
-    def IsFlaggedForCaution(self, code):
+    def IsFlaggedForCaution(self, code: str):
         flag = self.GetSurveillanceFlag(code)
         states = self.GetMasterStockStateAsList(code)
         flag_is_not_normal = flag != "정상"
         has_caution_state = "투자유의종목" in states
         return flag_is_not_normal or has_caution_state
 
-    def IsProblematic(self, code):
+    def IsNotNormal(self, code: str):
         flag = self.GetSurveillanceFlag(code)
         states = self.GetMasterStockStateAsList(code)
         flag_is_not_normal = flag != "정상"
@@ -191,8 +196,8 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
         has_any_bad_state = any(state in states for state in bad_states)
         return flag_is_not_normal or has_any_bad_state
 
-    def IsNormal(self, code):
-        return not self.IsProblematic(code)
+    def IsNormal(self, code: str):
+        return not self.IsNotNormal(code)
 
     def GetConditionFilePath(self):
         module_path = self.GetAPIModulePath()
@@ -227,7 +232,7 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
     # ======================================================================
 
     @classmethod
-    def LoginUsingPywinauto_Impl(cls, credential=None):
+    def LoginUsingPywinauto_Impl(cls, credential: Optional[Mapping[str, Any]] = None):
         import pywinauto
 
         if credential is None:
@@ -310,7 +315,11 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
 
     @classmethod
     def LoginUsingPywinauto_RunScriptInSubprocess(
-        cls, credential=None, wait=False, timeout=None, check=False
+        cls,
+        credential: Optional[Mapping[str, Any]] = None,
+        wait: bool = False,
+        timeout: bool = None,
+        check: bool = False,
     ):
         def main():
             # pylint: disable=redefined-outer-name,reimported,import-self
@@ -348,13 +357,46 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
 
         return process
 
-    def LoginUsingPywinauto(self, credential=None, wait=True, timeout=None, check=True):
+    def LoginUsingPywinauto(
+        self,
+        credential: Optional[Mapping[str, Any]] = None,
+        wait: bool = True,
+        timeout: bool = None,
+        check: bool = True,
+    ):
         assert is_admin(), "Using pywinauto requires administrator permission"
         return self.LoginUsingPywinauto_RunScriptInSubprocess(
             credential, wait=wait, timeout=timeout, check=check
         )
 
-    def CommConnectAndThen(self, credential=None, callback=None):
+    @overload
+    def CommConnectAndThen(
+        self,
+        credential: Mapping[str, Any],
+        callback: Callable[[int], Any],
+    ) -> int:
+        ...
+
+    @overload
+    def CommConnectAndThen(self, credential: Mapping[str, Any]) -> int:
+        ...
+
+    @overload
+    def CommConnectAndThen(self, callback: Callable[[int], Any]) -> int:
+        ...
+
+    @overload
+    def CommConnectAndThen(self) -> int:
+        ...
+
+    def CommConnectAndThen(
+        self,
+        credential_or_callback=None,
+        callback_or_none=None,
+    ) -> int:
+        credential = credential_or_callback
+        callback = callback_or_none
+
         if (
             callback is None
             and credential is not None
@@ -387,7 +429,7 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
 
         return errcode
 
-    def Connect(self, credential=None):
+    def Connect(self, credential: Optional[Mapping[str, Any]] = None) -> int:
         q = queue.Queue()
 
         def OnEventConnect(errcode):
@@ -398,7 +440,32 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
 
         return errcode
 
-    def EnsureConnectedAndThen(self, credential=None, callback=None):
+    @overload
+    def EnsureConnectedAndThen(
+        self,
+        credential: Mapping[str, Any],
+        callback: Callable[[int], Any],
+    ) -> bool:
+        ...
+
+    @overload
+    def EnsureConnectedAndThen(self, credential: Mapping[str, Any]) -> bool:
+        ...
+
+    @overload
+    def EnsureConnectedAndThen(self, callback: Callable[[int], Any]) -> bool:
+        ...
+
+    @overload
+    def EnsureConnectedAndThen(self) -> bool:
+        ...
+
+    def EnsureConnectedAndThen(
+        self, credential_or_callback=None, callback_or_none=None
+    ) -> bool:
+        credential = credential_or_callback
+        callback = callback_or_none
+
         if (
             callback is None
             and credential is not None
@@ -421,7 +488,7 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
                 callback()
         return is_connected
 
-    def EnsureConnected(self, credential=None):
+    def EnsureConnected(self, credential: Optional[Mapping[str, Any]] = None) -> bool:
         is_connected = self.IsConnected()
         if not is_connected:
             self.Connect(credential)
@@ -430,7 +497,9 @@ class KiwoomOpenApiPlusSimpleQAxWidgetMixin:
         return is_connected
 
 
-class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
+class KiwoomOpenApiPlusQAxWidgetServerSideMixin(
+    KiwoomOpenApiPlusDispatchFunctions, Logging
+):
     def __init__(self):
 
         """
@@ -492,7 +561,7 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         self.destroyed.connect(self._cond_rate_limited_executor.shutdown)
         self.destroyed.connect(self._order_rate_limited_executor.shutdown)
 
-    def LoadCondition(self):
+    def LoadCondition(self) -> int:
         q = queue.Queue()
 
         def OnReceiveConditionVer(ret, msg):
@@ -518,7 +587,7 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
             self.OnReceiveConditionVer.disconnect(OnReceiveConditionVer)
         return return_code
 
-    def IsConditionLoaded(self):
+    def IsConditionLoaded(self) -> bool:
         # the original implementation of this function was like the following:
         #   condition_filepath = self.GetConditionFilePath()
         #   return os.path.exists(condition_filepath)
@@ -528,7 +597,7 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         # so here we are using entrypoint-wide member variable to remember once the condition is loaded
         return self._is_condition_loaded
 
-    def EnsureConditionLoaded(self, force=False):
+    def EnsureConditionLoaded(self, force: bool = False) -> int:
         return_code = 0
         is_condition_loaded = self.IsConditionLoaded()
         if not is_condition_loaded or force:
@@ -538,7 +607,14 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         assert return_code == 1, "Could not ensure condition loaded"
         return return_code
 
-    def CommRqDataWithInputs(self, rqname, trcode, prevnext, scrnno, inputs=None):
+    def CommRqDataWithInputs(
+        self,
+        rqname: str,
+        trcode: str,
+        prevnext: Union[str, int],
+        scrnno: str,
+        inputs: Optional[Dict[str, str]] = None,
+    ) -> int:
         if inputs:
             for k, v in inputs.items():
                 self.SetInputValue(k, v)
@@ -547,12 +623,19 @@ class KiwoomOpenApiPlusComplexQAxWidgetMixin(Logging):
         return code
 
     @synchronized
-    def AtomicCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None):
+    def AtomicCommRqData(
+        self,
+        rqname: str,
+        trcode: str,
+        prevnext: Union[str, int],
+        scrnno: str,
+        inputs: Optional[Dict[str, str]] = None,
+    ) -> int:
         return self.CommRqDataWithInputs(rqname, trcode, prevnext, scrnno, inputs)
 
 
 class KiwoomOpenApiPlusQAxWidgetMixin(
-    KiwoomOpenApiPlusSimpleQAxWidgetMixin, KiwoomOpenApiPlusComplexQAxWidgetMixin
+    KiwoomOpenApiPlusQAxWidgetUniversalMixin, KiwoomOpenApiPlusQAxWidgetServerSideMixin
 ):
 
     pass

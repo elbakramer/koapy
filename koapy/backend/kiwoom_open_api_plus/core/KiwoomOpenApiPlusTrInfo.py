@@ -1,8 +1,12 @@
+from __future__ import annotations
+
 import contextlib
 import io
 import json
 import os
 import zipfile
+
+from typing import Any, Dict, List, Optional, Sequence, TextIO, Union
 
 from koapy.config import debug
 from koapy.utils.logging.Logging import Logging
@@ -11,21 +15,27 @@ from koapy.utils.serialization import JsonSerializable
 
 class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
 
-    _TRINFO_BY_CODE_DUMP_FILEDIR = os.path.join(
+    TRINFO_BY_CODE_DUMP_FILEDIR = os.path.join(
         os.path.dirname(__file__), "../data/metadata"
     )
-    _TRINFO_BY_CODE_DUMP_FILENAME = "trinfo_by_code.json"
-    _TRINFO_BY_CODE_DUMP_FILEPATH = os.path.join(
-        _TRINFO_BY_CODE_DUMP_FILEDIR, _TRINFO_BY_CODE_DUMP_FILENAME
+    TRINFO_BY_CODE_DUMP_FILENAME = "trinfo_by_code.json"
+    TRINFO_BY_CODE_DUMP_FILEPATH = os.path.join(
+        TRINFO_BY_CODE_DUMP_FILEDIR, TRINFO_BY_CODE_DUMP_FILENAME
     )
 
-    _TRINFO_BY_CODE = {}
+    TRINFO_BY_CODE: dict[str, KiwoomOpenApiPlusTrInfo] = {}
 
     class Field(JsonSerializable):
 
         __outer_class__ = None
 
-        def __init__(self, name=None, start=None, offset=None, fid=None):
+        def __init__(
+            self,
+            name: str | None = None,
+            start: int | None = None,
+            offset: int | None = None,
+            fid: int | None = None,
+        ):
             self.name = name
             self.start = start
             self.offset = offset
@@ -53,17 +63,17 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
 
     def __init__(
         self,
-        tr_code=None,
-        name=None,
-        tr_name=None,
-        tr_names_svr=None,
-        tr_type=None,
-        gfid=None,
-        inputs=None,
-        single_outputs_name=None,
-        single_outputs=None,
-        multi_outputs_name=None,
-        multi_outputs=None,
+        tr_code: str | None = None,
+        name: str | None = None,
+        tr_name: str | None = None,
+        tr_names_svr: str | None = None,
+        tr_type: str | None = None,
+        gfid: str | None = None,
+        inputs: Sequence[Field] | None = None,
+        single_outputs_name: str | None = None,
+        single_outputs: Sequence[Field] | None = None,
+        multi_outputs_name: str | None = None,
+        multi_outputs: Sequence[Field] | None = None,
     ):
         self.tr_code = tr_code
         self.name = name
@@ -96,7 +106,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     def __eq__(self, other):
         if isinstance(other, type(self)):
             return (
-                self.tr_code == other.tr_code
+                self.tr_code.lower() == other.tr_code.lower()
                 and self.name == other.name
                 and self.tr_name == other.tr_name
                 and self.tr_names_svr == other.tr_names_svr
@@ -110,7 +120,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             )
         return False
 
-    def to_dict(self):
+    def to_dict(self) -> dict[str, Any]:
         dic = dict(self.__dict__)
         for attr in dic:
             if isinstance(dic[attr], list):
@@ -118,7 +128,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         return dic
 
     @classmethod
-    def from_dict(cls, dic):
+    def from_dict(cls, dic: dict[str, Any]) -> KiwoomOpenApiPlusTrInfo:
         output = cls()
         for name in output.__dict__:
             value = dic.get(name)
@@ -129,25 +139,38 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                 setattr(output, name, value)
         return output
 
-    def get_input_names(self):
+    def get_input_names(self) -> list[str]:
         return [input_.name for input_ in self.inputs]
 
-    def get_single_output_names(self):
+    def get_single_output_names(self) -> list[str]:
         return [output.name for output in self.single_outputs]
 
-    def get_multi_output_names(self):
+    def get_multi_output_names(self) -> list[str]:
         return [output.name for output in self.multi_outputs]
 
     @classmethod
-    def get_trinfo_by_code(cls, trcode):
-        return cls._TRINFO_BY_CODE.get(trcode.lower())
+    def get_trinfo_by_code(cls, trcode: str) -> KiwoomOpenApiPlusTrInfo | None:
+        return cls.TRINFO_BY_CODE.get(trcode.lower())
 
     @classmethod
-    def from_encfile(cls, f, tr_code=None):
+    def from_code(cls, trcode: str) -> KiwoomOpenApiPlusTrInfo | None:
+        return cls.get_trinfo_by_code(trcode)
+
+    @classmethod
+    def from_encfile(
+        cls,
+        f: str | TextIO,
+        tr_code: str | None = None,
+        encoding: str | None = None,
+    ) -> KiwoomOpenApiPlusTrInfo:
         with contextlib.ExitStack() as stack:
             if isinstance(f, str):
-                tr_code = os.path.splitext(f.lower())[0]
-                f = stack.enter_context(open(f))
+                filename = f
+                if encoding is None:
+                    encoding = "euc-kr"
+                f = open(filename, "r", encoding=encoding)
+                f = stack.enter_context(f)
+                tr_code = os.path.splitext(filename.lower())[0]
             elif tr_code is None:
                 raise ValueError("Argument tr_code should be given.")
 
@@ -239,7 +262,12 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             )
 
     @classmethod
-    def infos_from_data_dir(cls, data_dir=None, encoding=None, module_path=None):
+    def infos_from_data_dir(
+        cls,
+        data_dir: str | None = None,
+        encoding: str | None = None,
+        module_path: str | None = None,
+    ) -> list[KiwoomOpenApiPlusTrInfo]:
         if data_dir is None:
             if module_path is None:
                 from koapy.backend.kiwoom_open_api_plus.utils.module_path import (
@@ -274,7 +302,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                             results.append(cls.from_encfile(f, tr_code))
         return results
 
-    _SINGLE_TO_MULTI_TRCODES = [
+    SINGLE_TO_MULTI_TRCODES = [
         "opt10072",
         "opt10073",
         "opt10075",
@@ -286,7 +314,9 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     ]
 
     @classmethod
-    def _single_outputs_are_actually_multi_outputs(cls, item):
+    def swap_output_types(
+        cls, item: KiwoomOpenApiPlusTrInfo
+    ) -> KiwoomOpenApiPlusTrInfo:
         multi_outputs_name = item.multi_outputs_name
         multi_outputs = item.multi_outputs
         item.multi_outputs_name = item.single_outputs_name
@@ -296,25 +326,35 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         return item
 
     @classmethod
-    def trinfo_by_code_from_data_dir(cls, data_dir=None, post_process=True):
+    def trinfo_by_code_from_data_dir(
+        cls, data_dir: str | None = None, post_process: bool = True
+    ) -> dict[str, KiwoomOpenApiPlusTrInfo]:
         infos = cls.infos_from_data_dir(data_dir)
         result = {info.tr_code: info for info in infos}
         if post_process:
             for tr_code in result:
-                if tr_code in cls._SINGLE_TO_MULTI_TRCODES:
+                if tr_code in cls.SINGLE_TO_MULTI_TRCODES:
                     item = result[tr_code]
-                    item = cls._single_outputs_are_actually_multi_outputs(item)
+                    item = cls.swap_output_types(item)
                     result[tr_code] = item
         return result
 
     @classmethod
-    def dump_trinfo_by_code(cls, dump_file=None, data_dir=None):
+    def dump_trinfo_by_code(
+        cls,
+        dump_file: str | TextIO | None = None,
+        data_dir: str | None = None,
+        encoding: str | None = None,
+    ):
         if dump_file is None:
-            dump_file = cls._TRINFO_BY_CODE_DUMP_FILEPATH
+            dump_file = cls.TRINFO_BY_CODE_DUMP_FILEPATH
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
                 dump_filename = dump_file
-                dump_file = stack.enter_context(open(dump_file, "w", encoding="utf-8"))
+                if encoding is None:
+                    encoding = "utf-8"
+                dump_file = open(dump_file, "w", encoding=encoding)
+                dump_file = stack.enter_context(dump_file)
             else:
                 dump_filename = None
             result = cls.trinfo_by_code_from_data_dir(data_dir)
@@ -331,15 +371,20 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             )
 
     @classmethod
-    def trinfo_by_code_from_dump_file(cls, dump_file=None):
+    def trinfo_by_code_from_dump_file(
+        cls,
+        dump_file: str | TextIO | None = None,
+        encoding: str | None = None,
+    ) -> dict[str, KiwoomOpenApiPlusTrInfo]:
         if dump_file is None:
-            dump_file = cls._TRINFO_BY_CODE_DUMP_FILEPATH
+            dump_file = cls.TRINFO_BY_CODE_DUMP_FILEPATH
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
                 if os.path.exists(dump_file) and os.path.getsize(dump_file) > 0:
-                    dump_file = stack.enter_context(
-                        open(dump_file, "r", encoding="utf-8")
-                    )
+                    if encoding is None:
+                        encoding = "utf-8"
+                    dump_file = open(dump_file, "r", encoding=encoding)
+                    dump_file = stack.enter_context(dump_file)
                 else:
                     return {}
             result = json.load(dump_file)
@@ -349,12 +394,12 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         return result
 
     @classmethod
-    def load_from_dump_file(cls, dump_file=None):
-        cls._TRINFO_BY_CODE = cls.trinfo_by_code_from_dump_file(dump_file)
+    def load_from_dump_file(cls, dump_file: str | TextIO | None = None):
+        cls.TRINFO_BY_CODE = cls.trinfo_by_code_from_dump_file(dump_file)
 
     @classmethod
-    def load_from_data_dir(cls, data_dir=None):
-        cls._TRINFO_BY_CODE = cls.trinfo_by_code_from_data_dir(data_dir)
+    def load_from_data_dir(cls, data_dir: str | None = None):
+        cls.TRINFO_BY_CODE = cls.trinfo_by_code_from_data_dir(data_dir)
 
     @classmethod
     def load(cls):

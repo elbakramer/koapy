@@ -1,10 +1,11 @@
 from concurrent.futures import Future
 from inspect import Signature
-from typing import Any, Callable, List, Tuple, Union
+from typing import Any, Callable, List, Optional, Sequence, Tuple, Union
 
-from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature import (
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchSignature import (
     KiwoomOpenApiPlusDispatchSignature,
 )
+from koapy.compat.pyside2.QtAxContainer import QAxWidget
 from koapy.compat.pyside2.QtCore import QObject, Qt, Signal
 
 
@@ -24,10 +25,10 @@ class KiwoomOpenApiPlusDynamicCallableRunnable:
             return
         try:
             result = self._fn(self._args)
-        except BaseException as exc:
+        except BaseException as exc:  # pylint: disable=broad-except
             self._future.set_exception(exc)
             # break a reference cycle with the exception 'exc'
-            self = None
+            self = None  # pylint: disable=self-cls-assignment
         else:
             self._future.set_result(result)
 
@@ -39,7 +40,12 @@ class KiwoomOpenApiPlusDynamicCallable(QObject):
 
     readyRunnable = Signal(KiwoomOpenApiPlusDynamicCallableRunnable)
 
-    def __init__(self, control, name, parent=None):
+    def __init__(
+        self,
+        control: QAxWidget,
+        name: str,
+        parent: Optional[QObject] = None,
+    ):
         super().__init__(parent)
 
         self._control = control
@@ -53,9 +59,8 @@ class KiwoomOpenApiPlusDynamicCallable(QObject):
 
         self.readyRunnable.connect(self.onReadyRunnable, Qt.QueuedConnection)
 
-        self._call = self.call
-
         self.__name__ = self._name
+        self.__signature__ = self._signature
 
     def bind_dynamic_call_args(self, *args, **kwargs):
         try:
@@ -87,10 +92,10 @@ class KiwoomOpenApiPlusDynamicCallable(QObject):
             )
         return result
 
-    def dynamic_call(self, args):
+    def dynamic_call(self, args: Sequence[Any]):
         return self._control.dynamicCall(self._function, args)
 
-    def dynamic_call_and_check(self, args):
+    def dynamic_call_and_check(self, args: Sequence[Any]):
         result = self.dynamic_call(args)
         self.check_return_value(result)
         return result
@@ -109,8 +114,8 @@ class KiwoomOpenApiPlusDynamicCallable(QObject):
         self.readyRunnable.emit(runnable)
         return future
 
-    def onReadyRunnable(self, runnable):
+    def onReadyRunnable(self, runnable: KiwoomOpenApiPlusDynamicCallableRunnable):
         runnable.run()
 
     def __call__(self, *args, **kwargs):
-        return self._call(*args, **kwargs)
+        return self.call(*args, **kwargs)

@@ -1,15 +1,18 @@
 import inspect
 import threading
 
-from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature import (
+from typing import Any, Callable, Optional
+
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerSignature import (
     KiwoomOpenApiPlusEventHandlerSignature,
 )
 from koapy.compat.pyside2 import PYQT5, PYSIDE2, PythonQtError
+from koapy.compat.pyside2.QtAxContainer import QAxWidget
 from koapy.utils.logging.Logging import Logging
 
 
 class KiwoomOpenApiPlusSignalConnector(Logging):
-    def __init__(self, name):
+    def __init__(self, name: str):
         super().__init__()
 
         self._name = name
@@ -25,8 +28,9 @@ class KiwoomOpenApiPlusSignalConnector(Logging):
             self._signal = self._signature.to_pyside2_event_signal()
 
         self.__name__ = self._name
+        self.__signature__ = self._signature
 
-    def is_valid_slot(self, slot):
+    def is_valid_slot(self, slot: Callable[..., Any]) -> bool:
         slot_signature = inspect.signature(slot)
         slot_types = [(p.annotation) for p in slot_signature.parameters.values()]
         condition = len(self._param_types) == len(
@@ -34,7 +38,7 @@ class KiwoomOpenApiPlusSignalConnector(Logging):
         )  # currently only check parameter length
         return condition
 
-    def connect_to(self, control):
+    def connect_to(self, control: QAxWidget):
         if PYSIDE2:
             return control.connect(self._signal, self)
         elif PYQT5:
@@ -42,14 +46,22 @@ class KiwoomOpenApiPlusSignalConnector(Logging):
         else:
             raise PythonQtError("Unsupported Qt bindings")
 
-    def connect(self, slot):
+    def disconnect_from(self, control: QAxWidget):
+        if PYSIDE2:
+            return control.disconnect(self._signal, self)
+        elif PYQT5:
+            return getattr(control, self._name).disconnect(self)
+        else:
+            raise PythonQtError("Unsupported Qt bindings")
+
+    def connect(self, slot: Callable[..., Any]):
         if not self.is_valid_slot(slot):
             raise ValueError("Tried to connect invalid slot: %s" % slot)
         with self._lock:
             if slot not in self._slots:
                 self._slots.append(slot)
 
-    def disconnect(self, slot=None):
+    def disconnect(self, slot: Optional[Callable[..., Any]] = None):
         with self._lock:
             if slot is None:
                 self._slots.clear()

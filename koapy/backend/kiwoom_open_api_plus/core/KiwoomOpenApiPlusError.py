@@ -1,9 +1,39 @@
 from concurrent.futures import Future
 from functools import wraps
+from typing import Callable, Optional, TypeVar, Union
+
+CallableReturnsInt = TypeVar(
+    "CallableReturnsInt",
+    Callable[..., int],
+)
+IntOrBool = TypeVar(
+    "IntOrBool",
+    int,
+    bool,
+)
+CallableReturnsIntOrBool = TypeVar(
+    "CallableReturnsIntOrBool",
+    Callable[..., int],
+    Callable[..., bool],
+)
+IntCompatible = TypeVar(
+    "IntCompatible",
+    int,
+    Callable[..., int],
+    Future,
+)
+BoolCompatible = TypeVar(
+    "BoolCompatible",
+    int,
+    bool,
+    Callable[..., int],
+    Callable[..., bool],
+    Future,
+)
 
 
 class KiwoomOpenApiPlusError(Exception):
-    def __init__(self, message=None):
+    def __init__(self, message: Optional[str] = None):
         if message is not None:
             super().__init__(message)
         else:
@@ -16,15 +46,23 @@ class KiwoomOpenApiPlusError(Exception):
         return self._message
 
     @classmethod
-    def try_or_raise(cls, arg, message=None):
+    def try_or_raise(
+        cls,
+        arg: IntCompatible,
+        message: Optional[str] = None,
+    ) -> IntCompatible:
         return KiwoomOpenApiPlusNegativeReturnCodeError.try_or_raise(arg, message)
 
     @classmethod
-    def try_or_raise_boolean(cls, arg, message):
+    def try_or_raise_boolean(
+        cls,
+        arg: BoolCompatible,
+        message: str,
+    ) -> BoolCompatible:
         return KiwoomOpenApiPlusBooleanReturnCodeError.try_or_raise(arg, message)
 
     @classmethod
-    def get_error_message_by_code(cls, code, default=None):
+    def get_error_message_by_code(cls, code: int, default: Optional[str] = None):
         return KiwoomOpenApiPlusNegativeReturnCodeError.get_error_message_by_code(
             code, default
         )
@@ -143,17 +181,19 @@ class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
     }
 
     @classmethod
-    def get_error_message_by_code(cls, code, default=None):
+    def get_error_message_by_code(cls, code: int, default: Optional[str] = None):
         return cls.ERROR_MESSAGE_BY_CODE.get(code, default)
 
     @classmethod
-    def check_code_or_raise(cls, code):
+    def check_code_or_raise(cls, code: int):
         if code < 0:
             raise cls(code)
         return code
 
     @classmethod
-    def wrap_to_check_code_or_raise(cls, func):
+    def wrap_to_check_code_or_raise(
+        cls, func: CallableReturnsInt
+    ) -> CallableReturnsInt:
         @wraps(func)
         def wrapper(*args, **kwargs):
             return cls.check_code_or_raise(func(*args, **kwargs))
@@ -161,7 +201,9 @@ class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
         return wrapper
 
     @classmethod
-    def try_or_raise(cls, arg, message=None):
+    def try_or_raise(
+        cls, arg: IntCompatible, message: Optional[str] = None
+    ) -> IntCompatible:
         if isinstance(arg, Future):
 
             def callback(future):
@@ -178,9 +220,11 @@ class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
         elif callable(arg):
             return cls.wrap_to_check_code_or_raise(arg)
         else:
-            raise TypeError("Expected 'int' or 'callable' but %s found" % type(arg))
+            raise TypeError(
+                "Expected 'int', 'callable' or 'Future' but %s found" % type(arg)
+            )
 
-    def __init__(self, code, message=None):
+    def __init__(self, code: int, message: Optional[str] = None):
         if message is None:
             message = self.get_error_message_by_code(code)
 
@@ -208,13 +252,17 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
     OP_ERR_FAILURE = 0
 
     @classmethod
-    def check_code_or_raise(cls, code, message=None):
+    def check_code_or_raise(
+        cls, code: IntOrBool, message: Optional[str] = None
+    ) -> IntOrBool:
         if not code:
             raise cls(message)
         return code
 
     @classmethod
-    def wrap_to_check_code_or_raise(cls, func, message=None):
+    def wrap_to_check_code_or_raise(
+        cls, func: CallableReturnsIntOrBool, message: Optional[str] = None
+    ) -> CallableReturnsIntOrBool:
         @wraps(func)
         def wrapper(*args, **kwargs):
             return cls.check_code_or_raise(func(*args, **kwargs), message)
@@ -222,7 +270,11 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
         return wrapper
 
     @classmethod
-    def try_or_raise(cls, arg, message=None):
+    def try_or_raise(
+        cls,
+        arg: BoolCompatible,
+        message: Optional[str] = None,
+    ) -> BoolCompatible:
         if isinstance(arg, Future):
 
             def callback(future):
@@ -240,10 +292,11 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
             return cls.wrap_to_check_code_or_raise(arg, message)
         else:
             raise TypeError(
-                "Expected 'int', 'bool' or 'callable' but %s found" % type(arg)
+                "Expected 'int', 'bool', 'callable' or 'Future' but %s found"
+                % type(arg)
             )
 
-    def __init__(self, code, message=None):
+    def __init__(self, code: Union[int, bool], message: Optional[str] = None):
         super().__init__(message)
 
         self._code = code

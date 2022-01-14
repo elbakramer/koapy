@@ -5,9 +5,9 @@ import queue
 from concurrent.futures import Executor, Future
 from queue import Queue
 from threading import RLock
-from typing import Any, Callable, Dict, List, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
-from koapy.compat.pyside2.QtCore import Qt, Signal
+from koapy.compat.pyside2.QtCore import QObject, Qt, Signal
 from koapy.utils.logging.pyside2.QThreadLogging import QThreadLogging
 from koapy.utils.rate_limiting.RateLimiter import RateLimiter
 
@@ -42,10 +42,10 @@ class QRateLimitedExecutorRunnable:
         try:
             self.add_call_history()
             result = self._fn(*self._args, **self._kwargs)
-        except BaseException as exc:
+        except BaseException as exc:  # pylint: disable=broad-except
             self._future.set_exception(exc)
             # break a reference cycle with the exception 'exc'
-            self = None
+            self = None  # pylint: disable=self-cls-assignment
         else:
             self._future.set_result(result)
 
@@ -79,7 +79,7 @@ class QRateLimitedExecutor(QThreadLogging, Executor):
 
     readyRunnable = Signal(QRateLimitedExecutorRunnable)
 
-    def __init__(self, limiter: RateLimiter, parent=None):
+    def __init__(self, limiter: RateLimiter, parent: Optional[QObject] = None):
         QThreadLogging.__init__(self, parent)
         Executor.__init__(self)
 
@@ -107,17 +107,19 @@ class QRateLimitedExecutor(QThreadLogging, Executor):
                 self.readyRunnable.emit(runnable)
                 try:
                     runnable.result()  # wait until the emitted runnable finishes
-                except:
+                except:  # pylint: disable=bare-except
                     pass
                 del runnable
                 continue
             if self._shutdown:
                 return
 
-    def onReadyRunnable(self, runnable):
+    def onReadyRunnable(self, runnable: QRateLimitedExecutorRunnable):
         runnable.run()
 
-    def submit(self, fn, *args, **kwargs):
+    def submit(
+        self, fn: Callable[..., Any], *args, **kwargs
+    ):  # pylint: disable=arguments-differ
         with self._shutdown_lock:
             if self._shutdown:
                 raise RuntimeError("Cannot schedule new futures after shutdown")
@@ -128,7 +130,9 @@ class QRateLimitedExecutor(QThreadLogging, Executor):
             self._runnable_queue.put(runnable)
             return future
 
-    def shutdown(self, wait=True, cancel_futures=False):
+    def shutdown(
+        self, wait: bool = True, cancel_futures: bool = False
+    ):  # pylint: disable=arguments-differ
         with self._shutdown_lock:
             self._shutdown = True
             if cancel_futures:
@@ -143,8 +147,8 @@ class QRateLimitedExecutor(QThreadLogging, Executor):
         if wait:
             self.wait()
 
-    def wrap(self, func):
+    def wrap(self, func: Callable[..., Any]):
         return QRateLimitedExecutorDecoratedFunction(func, self._limiter, self)
 
-    def __call__(self, func):
+    def __call__(self, func: Callable[..., Any]):
         return self.wrap(func)

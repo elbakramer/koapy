@@ -1,5 +1,13 @@
+from typing import Optional, overload
+
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchSignature import (
+    KiwoomOpenApiPlusDispatchSignature,
+)
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDynamicCallable import (
     KiwoomOpenApiPlusDynamicCallable,
+)
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerSignature import (
+    KiwoomOpenApiPlusEventHandlerSignature,
 )
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusLoggingEventHandler import (
     KiwoomOpenApiPlusLoggingEventHandler,
@@ -10,10 +18,6 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin imp
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector import (
     KiwoomOpenApiPlusSignalConnector,
 )
-from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignature import (
-    KiwoomOpenApiPlusDispatchSignature,
-    KiwoomOpenApiPlusEventHandlerSignature,
-)
 from koapy.compat.pyside2.QtAxContainer import QAxWidget
 from koapy.compat.pyside2.QtCore import QEvent, Qt
 from koapy.compat.pyside2.QtWidgets import QWidget
@@ -21,7 +25,10 @@ from koapy.utils.logging.pyside2.QWidgetLogging import QWidgetLogging
 from koapy.utils.platform import is_32bit
 
 
-class KiwoomOpenApiPlusQAxWidget(QWidgetLogging, KiwoomOpenApiPlusQAxWidgetMixin):
+class KiwoomOpenApiPlusQAxWidget(
+    QWidgetLogging,
+    KiwoomOpenApiPlusQAxWidgetMixin,
+):
 
     CLSID = "{A1574A0D-6BFA-4BD7-9020-DED88711818D}"
     PROGID = "KHOPENAPI.KHOpenApiCtrl.1"
@@ -29,23 +36,43 @@ class KiwoomOpenApiPlusQAxWidget(QWidgetLogging, KiwoomOpenApiPlusQAxWidgetMixin
     METHOD_NAMES = KiwoomOpenApiPlusDispatchSignature.names()
     EVENT_NAMES = KiwoomOpenApiPlusEventHandlerSignature.names()
 
+    @overload
+    def __init__(
+        self,
+        c: Optional[str] = None,
+        parent: Optional[QWidget] = None,
+        f: Qt.WindowFlags = Qt.WindowFlags(),
+    ):
+        ...
+
+    @overload
+    def __init__(
+        self,
+        parent: Optional[QWidget] = None,
+        f: Qt.WindowFlags = Qt.WindowFlags(),
+    ):
+        ...
+
     def __init__(self, *args, **kwargs):
         # Check 32bit requirement
         assert is_32bit(), "Control object should be created in 32bit environment"
 
         # Process arguments
         control = None
-        parent = None
-        window_flags = None
+        parent = None  # pylint: disable=unused-variable
+        window_flags = None  # pylint: disable=unused-variable
 
+        # Copy args before modification
         args = list(args)
         kwargs = dict(kwargs)
 
+        # Pop control argument for QWidget init
         if len(args) > 0 and isinstance(args[0], str):
             control = args.pop(0)
         elif "c" in kwargs:
             control = kwargs.pop("c")
 
+        # Preserve others
         if len(args) > 0 and (args[0] is None or isinstance(args[0], QWidget)):
             parent = args[0]
         elif "parent" in kwargs:
@@ -56,6 +83,7 @@ class KiwoomOpenApiPlusQAxWidget(QWidgetLogging, KiwoomOpenApiPlusQAxWidgetMixin
         elif "f" in kwargs:
             window_flags = kwargs["f"]
 
+        # Use default control if not set
         if control is None:
             control = self.CLSID
 
@@ -96,6 +124,10 @@ class KiwoomOpenApiPlusQAxWidget(QWidgetLogging, KiwoomOpenApiPlusQAxWidgetMixin
         self._event_logger = KiwoomOpenApiPlusLoggingEventHandler(self)
         self._event_logger.connect()
 
+        # Other misc flags
+        self.hideOnMinimize = True
+        self.hideOnClose = True
+
     def _onException(
         self, code, source, desc, help
     ):  # pylint: disable=redefined-builtin
@@ -103,6 +135,7 @@ class KiwoomOpenApiPlusQAxWidget(QWidgetLogging, KiwoomOpenApiPlusQAxWidgetMixin
 
     def __getattr__(self, name):
         try:
+            # Fallback to AxObject for attrs such as 'self.dynamicCall(...)'
             return getattr(self._ax, name)
         except AttributeError as e:
             raise AttributeError(
@@ -114,8 +147,13 @@ class KiwoomOpenApiPlusQAxWidget(QWidgetLogging, KiwoomOpenApiPlusQAxWidgetMixin
     def changeEvent(self, event):
         if event.type() == QEvent.WindowStateChange:
             if self.windowState() & Qt.WindowMinimized:
-                event.accept()
+                if self.hideOnMinimize:
+                    self.hide()
+                    return event.ignore()
+        return event.accept()
 
     def closeEvent(self, event):
-        self.hide()
-        event.ignore()
+        if self.hideOnClose:
+            self.hide()
+            return event.ignore()
+        return event.accept()
