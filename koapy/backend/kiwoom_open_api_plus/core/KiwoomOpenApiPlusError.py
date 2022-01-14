@@ -2,10 +2,8 @@ from concurrent.futures import Future
 from functools import wraps
 from typing import Callable, Optional, TypeVar, Union
 
-CallableReturnsInt = TypeVar(
-    "CallableReturnsInt",
-    Callable[..., int],
-)
+CallableReturnsInt = Callable[..., int]
+
 IntOrBool = TypeVar(
     "IntOrBool",
     int,
