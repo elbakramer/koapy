@@ -10,6 +10,7 @@ import pytz
 from exchange_calendars import get_calendar
 
 from koapy.utils.ctypes import is_admin
+from koapy.utils.exchange_calendars import get_last_session_date
 from koapy.utils.itertools import chunk
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.subprocess import function_to_subprocess_args
@@ -346,11 +347,7 @@ class CybosPlusEntrypointMixin(Logging):
         date_format_input = "%Y%m%d"
 
         if start_date is None:
-            start_date = (
-                calendar.previous_close(pd.Timestamp.now())
-                .astimezone(tz)
-                .to_pydatetime()
-            )
+            start_date = get_last_session_date().astimezone(tz).to_pydatetime()
         if isinstance(start_date, str):
             start_date_len = len(start_date)
             if start_date_len == 14:
