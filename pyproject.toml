@@ -102,7 +102,7 @@ Sphinx = "^4.3.2"
 sphinx-autoapi = "^1.8.4"
 nbconvert = "^6.4.0"
 nbsphinx = "^0.8.8"
-ipython = "^7.31.0"
+ipython = "^7.31.1"
 
 [tool.poetry.scripts]
 koapy = "koapy.cli:main"
