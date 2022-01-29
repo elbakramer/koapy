@@ -20,15 +20,6 @@ Subpackages
    utils/index.rst
 
 
-Submodules
-----------
-.. toctree::
-   :titlesonly:
-   :maxdepth: 1
-
-   __main__/index.rst
-
-
 Package Contents
 ----------------
 
@@ -76,7 +67,6 @@ Attributes
 
 .. autoapisummary::
 
-   koapy.cli.config
    koapy.cli.logger
    koapy.cli.context_settings
    koapy.cli.market_codes
@@ -118,11 +108,6 @@ Attributes
 
 .. py:function:: get_credential(interactive=False)
 
-
-.. py:data:: config
-   
-
-   
 
 .. py:function:: get_logger(name=None)
 

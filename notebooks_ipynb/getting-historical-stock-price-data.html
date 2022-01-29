@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>과거 주식 가격 데이터 확보를 위해 지금까지 삽질해 본 것들 &#8212; KOAPY 0.6.1 documentation</title>
+    <title>과거 주식 가격 데이터 확보를 위해 지금까지 삽질해 본 것들 &#8212; KOAPY 0.6.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -16,8 +16,8 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
@@ -309,7 +309,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
@@ -393,8 +393,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">FinanceDataReader</span> <span class="k">as</span> <span class="nn">fdr</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">FinanceDataReader</span> <span class="k">as</span> <span class="nn">fdr</span>
 </pre></div>
 </div>
 </div>
@@ -402,8 +401,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;035420&#39;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;035420&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -411,8 +409,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fdr_data</span> <span class="o">=</span> <span class="n">fdr</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fdr_data</span> <span class="o">=</span> <span class="n">fdr</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -420,8 +417,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fdr_data</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fdr_data</span>
 </pre></div>
 </div>
 </div>
@@ -468,48 +464,48 @@ div.rendered_html tbody tr:hover {
   <tbody>
     <tr>
       <th>2002-10-29</th>
-      <td>7366</td>
-      <td>7366</td>
-      <td>7366</td>
-      <td>7366</td>
+      <td>2312</td>
+      <td>2312</td>
+      <td>2312</td>
+      <td>2312</td>
       <td>20549</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>2002-10-30</th>
-      <td>8244</td>
-      <td>8244</td>
-      <td>8152</td>
-      <td>8245</td>
+      <td>2587</td>
+      <td>2587</td>
+      <td>2558</td>
+      <td>2588</td>
       <td>853638</td>
-      <td>0.119332</td>
+      <td>0.119377</td>
     </tr>
     <tr>
       <th>2002-10-31</th>
-      <td>8369</td>
-      <td>8570</td>
-      <td>7641</td>
-      <td>7835</td>
+      <td>2626</td>
+      <td>2689</td>
+      <td>2398</td>
+      <td>2459</td>
       <td>1320880</td>
-      <td>-0.049727</td>
+      <td>-0.049845</td>
     </tr>
     <tr>
       <th>2002-11-01</th>
-      <td>8036</td>
-      <td>8287</td>
-      <td>7065</td>
-      <td>7349</td>
+      <td>2520</td>
+      <td>2599</td>
+      <td>2215</td>
+      <td>2305</td>
       <td>750761</td>
-      <td>-0.062029</td>
+      <td>-0.062627</td>
     </tr>
     <tr>
       <th>2002-11-04</th>
-      <td>7281</td>
-      <td>7331</td>
-      <td>6804</td>
-      <td>6981</td>
+      <td>2285</td>
+      <td>2300</td>
+      <td>2135</td>
+      <td>2191</td>
       <td>692165</td>
-      <td>-0.050075</td>
+      <td>-0.049458</td>
     </tr>
     <tr>
       <th>...</th>
@@ -521,53 +517,53 @@ div.rendered_html tbody tr:hover {
       <td>...</td>
     </tr>
     <tr>
-      <th>2021-03-22</th>
-      <td>402500</td>
-      <td>405500</td>
-      <td>393000</td>
-      <td>396500</td>
-      <td>911358</td>
-      <td>-0.013682</td>
+      <th>2022-01-10</th>
+      <td>339000</td>
+      <td>339500</td>
+      <td>329000</td>
+      <td>335000</td>
+      <td>828611</td>
+      <td>-0.008876</td>
     </tr>
     <tr>
-      <th>2021-03-23</th>
-      <td>397000</td>
-      <td>399000</td>
-      <td>384000</td>
-      <td>386000</td>
-      <td>1167110</td>
-      <td>-0.026482</td>
+      <th>2022-01-11</th>
+      <td>336000</td>
+      <td>344500</td>
+      <td>334500</td>
+      <td>335000</td>
+      <td>805084</td>
+      <td>0.000000</td>
     </tr>
     <tr>
-      <th>2021-03-24</th>
-      <td>380000</td>
-      <td>387000</td>
-      <td>376000</td>
-      <td>387000</td>
-      <td>763754</td>
-      <td>0.002591</td>
+      <th>2022-01-12</th>
+      <td>339500</td>
+      <td>352500</td>
+      <td>339500</td>
+      <td>345500</td>
+      <td>1047713</td>
+      <td>0.031343</td>
     </tr>
     <tr>
-      <th>2021-03-25</th>
-      <td>381500</td>
-      <td>384000</td>
-      <td>378000</td>
-      <td>380000</td>
-      <td>672585</td>
-      <td>-0.018088</td>
+      <th>2022-01-13</th>
+      <td>348000</td>
+      <td>352000</td>
+      <td>344000</td>
+      <td>348000</td>
+      <td>677226</td>
+      <td>0.007236</td>
     </tr>
     <tr>
-      <th>2021-03-26</th>
-      <td>380000</td>
-      <td>383000</td>
-      <td>377000</td>
-      <td>383000</td>
-      <td>689120</td>
-      <td>0.007895</td>
+      <th>2022-01-14</th>
+      <td>341000</td>
+      <td>342500</td>
+      <td>335500</td>
+      <td>342000</td>
+      <td>503520</td>
+      <td>-0.017241</td>
     </tr>
   </tbody>
 </table>
-<p>4553 rows × 6 columns</p>
+<p>4754 rows × 6 columns</p>
 </div></div>
 </div>
 </section>
@@ -619,8 +615,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">io</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">io</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -660,8 +655,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">yahoo_downloader</span> <span class="o">=</span> <span class="n">YahooFinanceKrxHistoricalDailyPriceDataDownloader</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yahoo_downloader</span> <span class="o">=</span> <span class="n">YahooFinanceKrxHistoricalDailyPriceDataDownloader</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -669,8 +663,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">yahoo_data</span> <span class="o">=</span> <span class="n">yahoo_downloader</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yahoo_data</span> <span class="o">=</span> <span class="n">yahoo_downloader</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -678,8 +671,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">yahoo_data</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yahoo_data</span>
 </pre></div>
 </div>
 </div>
@@ -730,8 +722,8 @@ div.rendered_html tbody tr:hover {
       <td>1797.724854</td>
       <td>1797.724854</td>
       <td>1797.724854</td>
-      <td>1763.381104</td>
-      <td>501745.0</td>
+      <td>1763.381226</td>
+      <td>501745</td>
     </tr>
     <tr>
       <th>2002-10-30</th>
@@ -740,7 +732,7 @@ div.rendered_html tbody tr:hover {
       <td>1989.754517</td>
       <td>2012.226074</td>
       <td>1973.784546</td>
-      <td>20892185.0</td>
+      <td>20892185</td>
     </tr>
     <tr>
       <th>2002-10-31</th>
@@ -748,8 +740,8 @@ div.rendered_html tbody tr:hover {
       <td>2091.897949</td>
       <td>1865.139526</td>
       <td>1912.125488</td>
-      <td>1875.595947</td>
-      <td>32327083.0</td>
+      <td>1875.596313</td>
+      <td>32327083</td>
     </tr>
     <tr>
       <th>2002-11-01</th>
@@ -757,8 +749,8 @@ div.rendered_html tbody tr:hover {
       <td>2022.440430</td>
       <td>1724.181519</td>
       <td>1793.639038</td>
-      <td>1759.373291</td>
-      <td>18373668.0</td>
+      <td>1759.373535</td>
+      <td>18373668</td>
     </tr>
     <tr>
       <th>2002-11-04</th>
@@ -766,8 +758,8 @@ div.rendered_html tbody tr:hover {
       <td>1789.553345</td>
       <td>1660.852539</td>
       <td>1703.752808</td>
-      <td>1671.204102</td>
-      <td>16939411.0</td>
+      <td>1671.204346</td>
+      <td>16939411</td>
     </tr>
     <tr>
       <th>...</th>
@@ -779,53 +771,53 @@ div.rendered_html tbody tr:hover {
       <td>...</td>
     </tr>
     <tr>
-      <th>2021-03-22</th>
-      <td>402500.000000</td>
-      <td>405500.000000</td>
-      <td>393000.000000</td>
-      <td>396500.000000</td>
-      <td>396500.000000</td>
-      <td>911358.0</td>
+      <th>2022-01-10</th>
+      <td>339000.000000</td>
+      <td>339500.000000</td>
+      <td>329000.000000</td>
+      <td>335000.000000</td>
+      <td>335000.000000</td>
+      <td>828611</td>
     </tr>
     <tr>
-      <th>2021-03-23</th>
-      <td>397000.000000</td>
-      <td>399000.000000</td>
-      <td>384000.000000</td>
-      <td>386000.000000</td>
-      <td>386000.000000</td>
-      <td>1167110.0</td>
+      <th>2022-01-11</th>
+      <td>336000.000000</td>
+      <td>344500.000000</td>
+      <td>334500.000000</td>
+      <td>335000.000000</td>
+      <td>335000.000000</td>
+      <td>805084</td>
     </tr>
     <tr>
-      <th>2021-03-24</th>
-      <td>380000.000000</td>
-      <td>387000.000000</td>
-      <td>376000.000000</td>
-      <td>387000.000000</td>
-      <td>387000.000000</td>
-      <td>763754.0</td>
+      <th>2022-01-12</th>
+      <td>339500.000000</td>
+      <td>352500.000000</td>
+      <td>339500.000000</td>
+      <td>345500.000000</td>
+      <td>345500.000000</td>
+      <td>1047713</td>
     </tr>
     <tr>
-      <th>2021-03-25</th>
-      <td>381500.000000</td>
-      <td>384000.000000</td>
-      <td>378000.000000</td>
-      <td>380000.000000</td>
-      <td>380000.000000</td>
-      <td>672585.0</td>
+      <th>2022-01-13</th>
+      <td>348000.000000</td>
+      <td>352000.000000</td>
+      <td>344000.000000</td>
+      <td>348000.000000</td>
+      <td>348000.000000</td>
+      <td>677226</td>
     </tr>
     <tr>
-      <th>2021-03-26</th>
-      <td>380000.000000</td>
-      <td>383000.000000</td>
-      <td>377000.000000</td>
-      <td>383000.000000</td>
-      <td>383000.000000</td>
-      <td>687754.0</td>
+      <th>2022-01-14</th>
+      <td>341000.000000</td>
+      <td>342500.000000</td>
+      <td>335500.000000</td>
+      <td>342000.000000</td>
+      <td>342000.000000</td>
+      <td>503181</td>
     </tr>
   </tbody>
 </table>
-<p>4602 rows × 6 columns</p>
+<p>4802 rows × 6 columns</p>
 </div></div>
 </div>
 <p>좀 더 찾다보니 역시나 이미 다른 능력자들이 구현해놓은게 있었다. 역시나 머리가 나쁘면 혼자 바퀴를 발명하는 삽질을 하게 된다.</p>
@@ -833,8 +825,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
 </pre></div>
 </div>
 </div>
@@ -842,8 +833,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">stock</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">Ticker</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.KS&#39;</span> <span class="o">%</span> <span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stock</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">Ticker</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.KS&#39;</span> <span class="o">%</span> <span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -851,8 +841,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">yf_data</span> <span class="o">=</span> <span class="n">stock</span><span class="o">.</span><span class="n">history</span><span class="p">(</span><span class="n">period</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yf_data</span> <span class="o">=</span> <span class="n">stock</span><span class="o">.</span><span class="n">history</span><span class="p">(</span><span class="n">period</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -860,8 +849,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">yf_data</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yf_data</span>
 </pre></div>
 </div>
 </div>
@@ -910,50 +898,50 @@ div.rendered_html tbody tr:hover {
   <tbody>
     <tr>
       <th>2002-10-29</th>
-      <td>1763.381104</td>
-      <td>1763.381104</td>
-      <td>1763.381104</td>
-      <td>1763.381104</td>
+      <td>1763.380859</td>
+      <td>1763.380859</td>
+      <td>1763.380859</td>
+      <td>1763.380859</td>
       <td>501745</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>2002-10-30</th>
-      <td>1973.784546</td>
-      <td>1973.784546</td>
-      <td>1951.742284</td>
-      <td>1973.784546</td>
+      <td>1973.784302</td>
+      <td>1973.784302</td>
+      <td>1951.742043</td>
+      <td>1973.784302</td>
       <td>20892185</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>2002-10-31</th>
-      <td>2003.841853</td>
-      <td>2051.934007</td>
-      <td>1829.507612</td>
-      <td>1875.595947</td>
+      <td>2003.841983</td>
+      <td>2051.934141</td>
+      <td>1829.507732</td>
+      <td>1875.596069</td>
       <td>32327083</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>2002-11-01</th>
-      <td>1923.688452</td>
-      <td>1983.803652</td>
-      <td>1691.242691</td>
-      <td>1759.373291</td>
+      <td>1923.688585</td>
+      <td>1983.803790</td>
+      <td>1691.242808</td>
+      <td>1759.373413</td>
       <td>18373668</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>2002-11-04</th>
-      <td>1743.342455</td>
-      <td>1755.365495</td>
-      <td>1629.123405</td>
-      <td>1671.204102</td>
+      <td>1743.342710</td>
+      <td>1755.365751</td>
+      <td>1629.123643</td>
+      <td>1671.204346</td>
       <td>16939411</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -969,58 +957,58 @@ div.rendered_html tbody tr:hover {
       <td>...</td>
     </tr>
     <tr>
-      <th>2021-03-22</th>
-      <td>402500.000000</td>
-      <td>405500.000000</td>
-      <td>393000.000000</td>
-      <td>396500.000000</td>
-      <td>911358</td>
+      <th>2022-01-10</th>
+      <td>339000.000000</td>
+      <td>339500.000000</td>
+      <td>329000.000000</td>
+      <td>335000.000000</td>
+      <td>828611</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
-      <th>2021-03-23</th>
-      <td>397000.000000</td>
-      <td>399000.000000</td>
-      <td>384000.000000</td>
-      <td>386000.000000</td>
-      <td>1167110</td>
+      <th>2022-01-11</th>
+      <td>336000.000000</td>
+      <td>344500.000000</td>
+      <td>334500.000000</td>
+      <td>335000.000000</td>
+      <td>805084</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
-      <th>2021-03-24</th>
-      <td>380000.000000</td>
-      <td>387000.000000</td>
-      <td>376000.000000</td>
-      <td>387000.000000</td>
-      <td>763754</td>
+      <th>2022-01-12</th>
+      <td>339500.000000</td>
+      <td>352500.000000</td>
+      <td>339500.000000</td>
+      <td>345500.000000</td>
+      <td>1047713</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
-      <th>2021-03-25</th>
-      <td>381500.000000</td>
-      <td>384000.000000</td>
-      <td>378000.000000</td>
-      <td>380000.000000</td>
-      <td>672585</td>
+      <th>2022-01-13</th>
+      <td>348000.000000</td>
+      <td>352000.000000</td>
+      <td>344000.000000</td>
+      <td>348000.000000</td>
+      <td>677226</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
-      <th>2021-03-26</th>
-      <td>380000.000000</td>
-      <td>383000.000000</td>
-      <td>377000.000000</td>
-      <td>383000.000000</td>
-      <td>687754</td>
+      <th>2022-01-14</th>
+      <td>341000.000000</td>
+      <td>342500.000000</td>
+      <td>335500.000000</td>
+      <td>342000.000000</td>
+      <td>503181</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
   </tbody>
 </table>
-<p>4596 rows × 7 columns</p>
+<p>4802 rows × 7 columns</p>
 </div></div>
 </div>
 <p>값을 앞선 결과와 비교해보니 기본적으로 수정주가의 형태로 가져오는 것으로 보인다.</p>
@@ -1058,8 +1046,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">requests</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="k">class</span> <span class="nc">KrxHistoricalDailyPriceDataDownloader</span><span class="p">:</span>
@@ -1194,8 +1181,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">krx_downloader</span> <span class="o">=</span> <span class="n">KrxHistoricalDailyPriceDataDownloader</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">krx_downloader</span> <span class="o">=</span> <span class="n">KrxHistoricalDailyPriceDataDownloader</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1203,8 +1189,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">krx_data</span> <span class="o">=</span> <span class="n">krx_downloader</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">krx_data</span> <span class="o">=</span> <span class="n">krx_downloader</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1212,8 +1197,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">krx_data</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">krx_data</span>
 </pre></div>
 </div>
 </div>
@@ -1269,74 +1253,74 @@ div.rendered_html tbody tr:hover {
   </thead>
   <tbody>
     <tr>
-      <th>2021-03-26</th>
-      <td>383000</td>
+      <th>2022-01-14</th>
+      <td>342000</td>
+      <td>2</td>
+      <td>-6000</td>
+      <td>-1.72</td>
+      <td>341000</td>
+      <td>342500</td>
+      <td>335500</td>
+      <td>504034</td>
+      <td>171105175500</td>
+      <td>56104787070000</td>
+      <td>164049085</td>
+    </tr>
+    <tr>
+      <th>2022-01-13</th>
+      <td>348000</td>
       <td>1</td>
-      <td>3000</td>
-      <td>0.79</td>
-      <td>380000</td>
-      <td>383000</td>
-      <td>377000</td>
-      <td>690378</td>
-      <td>262760015000</td>
-      <td>62912880285000</td>
-      <td>164263395</td>
+      <td>2500</td>
+      <td>0.72</td>
+      <td>348000</td>
+      <td>352000</td>
+      <td>344000</td>
+      <td>677226</td>
+      <td>236322868506</td>
+      <td>57089081580000</td>
+      <td>164049085</td>
     </tr>
     <tr>
-      <th>2021-03-25</th>
-      <td>380000</td>
-      <td>2</td>
-      <td>-7000</td>
-      <td>-1.81</td>
-      <td>381500</td>
-      <td>384000</td>
-      <td>378000</td>
-      <td>672585</td>
-      <td>255541387000</td>
-      <td>62420090100000</td>
-      <td>164263395</td>
-    </tr>
-    <tr>
-      <th>2021-03-24</th>
-      <td>387000</td>
+      <th>2022-01-12</th>
+      <td>345500</td>
       <td>1</td>
-      <td>1000</td>
-      <td>0.26</td>
-      <td>380000</td>
-      <td>387000</td>
-      <td>376000</td>
-      <td>763754</td>
-      <td>291327860726</td>
-      <td>63569933865000</td>
-      <td>164263395</td>
+      <td>10500</td>
+      <td>3.13</td>
+      <td>339500</td>
+      <td>352500</td>
+      <td>339500</td>
+      <td>1047713</td>
+      <td>364057951000</td>
+      <td>56678958867500</td>
+      <td>164049085</td>
     </tr>
     <tr>
-      <th>2021-03-23</th>
-      <td>386000</td>
-      <td>2</td>
-      <td>-10500</td>
-      <td>-2.65</td>
-      <td>397000</td>
-      <td>399000</td>
-      <td>384000</td>
-      <td>1167110</td>
-      <td>454596300550</td>
-      <td>63405670470000</td>
-      <td>164263395</td>
+      <th>2022-01-11</th>
+      <td>335000</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0.00</td>
+      <td>336000</td>
+      <td>344500</td>
+      <td>334500</td>
+      <td>805084</td>
+      <td>272271119021</td>
+      <td>54956443475000</td>
+      <td>164049085</td>
     </tr>
     <tr>
-      <th>2021-03-22</th>
-      <td>396500</td>
+      <th>2022-01-10</th>
+      <td>335000</td>
       <td>2</td>
-      <td>-5500</td>
-      <td>-1.37</td>
-      <td>402500</td>
-      <td>405500</td>
-      <td>393000</td>
-      <td>911358</td>
-      <td>362038803885</td>
-      <td>65130436117500</td>
-      <td>164263395</td>
+      <td>-3000</td>
+      <td>-0.89</td>
+      <td>339000</td>
+      <td>339500</td>
+      <td>329000</td>
+      <td>828611</td>
+      <td>276478717500</td>
+      <td>54956443475000</td>
+      <td>164049085</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1424,7 +1408,7 @@ div.rendered_html tbody tr:hover {
     </tr>
   </tbody>
 </table>
-<p>4553 rows × 11 columns</p>
+<p>4754 rows × 11 columns</p>
 </div></div>
 </div>
 <p>해당 출처의 데이터를 사용하면 아래와 같은 장점이 있다고 생각한다.</p>
@@ -1442,8 +1426,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">inspect</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Table</span><span class="p">,</span> <span class="n">MetaData</span>
@@ -1471,7 +1454,7 @@ div.rendered_html tbody tr:hover {
 
     <span class="k">def</span> <span class="nf">load_or_download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">end_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">now</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
             <span class="n">end_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">previous_close</span><span class="p">(</span><span class="n">now</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inspector</span><span class="o">.</span><span class="n">has_table</span><span class="p">(</span><span class="n">symbol</span><span class="p">):</span>
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_naive</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
@@ -1534,8 +1517,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">krx_loader</span> <span class="o">=</span> <span class="n">KrxHistoricalDailyPriceDataLoader</span><span class="p">(</span><span class="s1">&#39;data.sqlite3&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">krx_loader</span> <span class="o">=</span> <span class="n">KrxHistoricalDailyPriceDataLoader</span><span class="p">(</span><span class="s1">&#39;data.sqlite3&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1543,8 +1525,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">krx_data</span> <span class="o">=</span> <span class="n">krx_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">krx_data</span> <span class="o">=</span> <span class="n">krx_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1552,8 +1533,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">krx_data</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">krx_data</span>
 </pre></div>
 </div>
 </div>
@@ -1693,78 +1673,78 @@ div.rendered_html tbody tr:hover {
       <td>...</td>
     </tr>
     <tr>
-      <th>2021-03-22</th>
-      <td>396500</td>
+      <th>2022-01-10</th>
+      <td>335000</td>
       <td>2</td>
-      <td>-5500</td>
-      <td>-1.37</td>
-      <td>402500</td>
-      <td>405500</td>
-      <td>393000</td>
-      <td>911358</td>
-      <td>362038803885</td>
-      <td>65130436117500</td>
-      <td>164263395</td>
+      <td>-3000</td>
+      <td>-0.89</td>
+      <td>339000</td>
+      <td>339500</td>
+      <td>329000</td>
+      <td>828611</td>
+      <td>276478717500</td>
+      <td>54956443475000</td>
+      <td>164049085</td>
     </tr>
     <tr>
-      <th>2021-03-23</th>
-      <td>386000</td>
-      <td>2</td>
-      <td>-10500</td>
-      <td>-2.65</td>
-      <td>397000</td>
-      <td>399000</td>
-      <td>384000</td>
-      <td>1167110</td>
-      <td>454596300550</td>
-      <td>63405670470000</td>
-      <td>164263395</td>
+      <th>2022-01-11</th>
+      <td>335000</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0.00</td>
+      <td>336000</td>
+      <td>344500</td>
+      <td>334500</td>
+      <td>805084</td>
+      <td>272271119021</td>
+      <td>54956443475000</td>
+      <td>164049085</td>
     </tr>
     <tr>
-      <th>2021-03-24</th>
-      <td>387000</td>
+      <th>2022-01-12</th>
+      <td>345500</td>
       <td>1</td>
-      <td>1000</td>
-      <td>0.26</td>
-      <td>380000</td>
-      <td>387000</td>
-      <td>376000</td>
-      <td>763754</td>
-      <td>291327860726</td>
-      <td>63569933865000</td>
-      <td>164263395</td>
+      <td>10500</td>
+      <td>3.13</td>
+      <td>339500</td>
+      <td>352500</td>
+      <td>339500</td>
+      <td>1045138</td>
+      <td>363165140500</td>
+      <td>56678958867500</td>
+      <td>164049085</td>
     </tr>
     <tr>
-      <th>2021-03-25</th>
-      <td>380000</td>
-      <td>2</td>
-      <td>-7000</td>
-      <td>-1.81</td>
-      <td>381500</td>
-      <td>384000</td>
-      <td>378000</td>
-      <td>672585</td>
-      <td>255541387000</td>
-      <td>62420090100000</td>
-      <td>164263395</td>
-    </tr>
-    <tr>
-      <th>2021-03-26</th>
-      <td>383000</td>
+      <th>2022-01-13</th>
+      <td>348000</td>
       <td>1</td>
-      <td>3000</td>
-      <td>0.79</td>
-      <td>380000</td>
-      <td>383000</td>
-      <td>377000</td>
-      <td>690378</td>
-      <td>262760015000</td>
-      <td>62912880285000</td>
-      <td>164263395</td>
+      <td>2500</td>
+      <td>0.72</td>
+      <td>348000</td>
+      <td>352000</td>
+      <td>344000</td>
+      <td>677226</td>
+      <td>236322868506</td>
+      <td>57089081580000</td>
+      <td>164049085</td>
+    </tr>
+    <tr>
+      <th>2022-01-14</th>
+      <td>342000</td>
+      <td>2</td>
+      <td>-6000</td>
+      <td>-1.72</td>
+      <td>341000</td>
+      <td>342500</td>
+      <td>335500</td>
+      <td>504034</td>
+      <td>171105175500</td>
+      <td>56104787070000</td>
+      <td>164049085</td>
     </tr>
   </tbody>
 </table>
-<p>4553 rows × 11 columns</p>
+<p>4754 rows × 11 columns</p>
 </div></div>
 </div>
 </section>
@@ -1806,8 +1786,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">platform</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">platform</span>
 
 <span class="k">assert</span> <span class="n">platform</span><span class="o">.</span><span class="n">architecture</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;32bit&#39;</span>
 </pre></div>
@@ -1819,8 +1798,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
 </pre></div>
 </div>
 </div>
@@ -1828,8 +1806,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">kiwoom_entrypoint</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kiwoom_entrypoint</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1838,16 +1815,16 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2021-03-26 16:54:41,379 [DEBUG] Testing if client is ready... - KiwoomOpenApiPlusEntrypoint.py:64
-2021-03-26 16:54:41,386 [DEBUG] Client is ready, using existing server - KiwoomOpenApiPlusEntrypoint.py:72
+2022-01-14 16:58:13,444 [DEBUG] Testing if client is ready... - KiwoomOpenApiPlusEntrypoint.py:45
+2022-01-14 16:58:23,475 [DEBUG] Client is not ready - KiwoomOpenApiPlusEntrypoint.py:47
+2022-01-14 16:58:23,476 [DEBUG] Creating a new server... - KiwoomOpenApiPlusEntrypoint.py:48
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">kiwoom_entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kiwoom_entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1857,15 +1834,14 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0
+True
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">kiwoom_data</span> <span class="o">=</span> <span class="n">kiwoom_entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kiwoom_data</span> <span class="o">=</span> <span class="n">kiwoom_entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1874,22 +1850,21 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2021-03-26 16:54:46,175 [DEBUG] Received 600 records from 2021-03-26 00:00:00 to 2018-10-22 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:54:46,536 [DEBUG] Received 600 records from 2018-10-19 00:00:00 to 2016-05-10 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:54:46,902 [DEBUG] Received 600 records from 2016-05-09 00:00:00 to 2013-11-27 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:54:47,253 [DEBUG] Received 600 records from 2013-11-26 00:00:00 to 2011-06-29 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:54:47,607 [DEBUG] Received 600 records from 2011-06-28 00:00:00 to 2009-02-09 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:55:04,142 [DEBUG] Received 600 records from 2009-02-06 00:00:00 to 2006-08-31 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:55:04,537 [DEBUG] Received 600 records from 2006-08-30 00:00:00 to 2004-04-07 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:55:04,749 [DEBUG] Received 353 records from 2004-04-06 00:00:00 to 2002-10-29 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2022-01-14 16:58:42,151 [DEBUG] Received 600 records from 2022-01-14 00:00:00 to 2019-08-13 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:58:42,457 [DEBUG] Received 600 records from 2019-08-12 00:00:00 to 2017-02-28 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:58:42,765 [DEBUG] Received 600 records from 2017-02-27 00:00:00 to 2014-09-24 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:58:43,052 [DEBUG] Received 600 records from 2014-09-23 00:00:00 to 2012-04-18 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:58:43,356 [DEBUG] Received 600 records from 2012-04-17 00:00:00 to 2009-11-20 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:59:00,170 [DEBUG] Received 600 records from 2009-11-19 00:00:00 to 2007-06-25 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:59:00,472 [DEBUG] Received 600 records from 2007-06-22 00:00:00 to 2005-01-24 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:59:00,749 [DEBUG] Received 554 records from 2005-01-21 00:00:00 to 2002-10-29 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">kiwoom_data</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kiwoom_data</span>
 </pre></div>
 </div>
 </div>
@@ -1937,13 +1912,13 @@ div.rendered_html tbody tr:hover {
     <tr>
       <th>0</th>
       <td>035420</td>
-      <td>383000</td>
-      <td>689120</td>
-      <td>262278</td>
-      <td>20210326</td>
-      <td>380000</td>
-      <td>383000</td>
-      <td>377000</td>
+      <td>342000</td>
+      <td>503520</td>
+      <td>170929</td>
+      <td>20220114</td>
+      <td>341000</td>
+      <td>342500</td>
+      <td>335500</td>
       <td></td>
       <td></td>
       <td></td>
@@ -1955,13 +1930,13 @@ div.rendered_html tbody tr:hover {
     <tr>
       <th>1</th>
       <td></td>
-      <td>380000</td>
-      <td>672585</td>
-      <td>255541</td>
-      <td>20210325</td>
-      <td>381500</td>
-      <td>384000</td>
-      <td>378000</td>
+      <td>348000</td>
+      <td>677226</td>
+      <td>236323</td>
+      <td>20220113</td>
+      <td>348000</td>
+      <td>352000</td>
+      <td>344000</td>
       <td></td>
       <td></td>
       <td></td>
@@ -1973,13 +1948,13 @@ div.rendered_html tbody tr:hover {
     <tr>
       <th>2</th>
       <td></td>
-      <td>387000</td>
-      <td>763754</td>
-      <td>291328</td>
-      <td>20210324</td>
-      <td>380000</td>
-      <td>387000</td>
-      <td>376000</td>
+      <td>345500</td>
+      <td>1047713</td>
+      <td>364058</td>
+      <td>20220112</td>
+      <td>339500</td>
+      <td>352500</td>
+      <td>339500</td>
       <td></td>
       <td></td>
       <td></td>
@@ -1991,13 +1966,13 @@ div.rendered_html tbody tr:hover {
     <tr>
       <th>3</th>
       <td></td>
-      <td>386000</td>
-      <td>1167110</td>
-      <td>454596</td>
-      <td>20210323</td>
-      <td>397000</td>
-      <td>399000</td>
-      <td>384000</td>
+      <td>335000</td>
+      <td>805084</td>
+      <td>272271</td>
+      <td>20220111</td>
+      <td>336000</td>
+      <td>344500</td>
+      <td>334500</td>
       <td></td>
       <td></td>
       <td></td>
@@ -2009,13 +1984,13 @@ div.rendered_html tbody tr:hover {
     <tr>
       <th>4</th>
       <td></td>
-      <td>396500</td>
-      <td>911358</td>
-      <td>362039</td>
-      <td>20210322</td>
-      <td>402500</td>
-      <td>405500</td>
-      <td>393000</td>
+      <td>335000</td>
+      <td>828611</td>
+      <td>276479</td>
+      <td>20220110</td>
+      <td>339000</td>
+      <td>339500</td>
+      <td>329000</td>
       <td></td>
       <td></td>
       <td></td>
@@ -2043,7 +2018,7 @@ div.rendered_html tbody tr:hover {
       <td>...</td>
     </tr>
     <tr>
-      <th>4548</th>
+      <th>4749</th>
       <td></td>
       <td>41700</td>
       <td>692165</td>
@@ -2061,7 +2036,7 @@ div.rendered_html tbody tr:hover {
       <td></td>
     </tr>
     <tr>
-      <th>4549</th>
+      <th>4750</th>
       <td></td>
       <td>43900</td>
       <td>750787</td>
@@ -2079,7 +2054,7 @@ div.rendered_html tbody tr:hover {
       <td></td>
     </tr>
     <tr>
-      <th>4550</th>
+      <th>4751</th>
       <td></td>
       <td>46800</td>
       <td>1320880</td>
@@ -2097,7 +2072,7 @@ div.rendered_html tbody tr:hover {
       <td></td>
     </tr>
     <tr>
-      <th>4551</th>
+      <th>4752</th>
       <td></td>
       <td>49250</td>
       <td>853638</td>
@@ -2115,7 +2090,7 @@ div.rendered_html tbody tr:hover {
       <td></td>
     </tr>
     <tr>
-      <th>4552</th>
+      <th>4753</th>
       <td></td>
       <td>44000</td>
       <td>20549</td>
@@ -2125,7 +2100,7 @@ div.rendered_html tbody tr:hover {
       <td>44000</td>
       <td>44000</td>
       <td>8</td>
-      <td>-49.97</td>
+      <td>0.00</td>
       <td></td>
       <td></td>
       <td></td>
@@ -2134,7 +2109,7 @@ div.rendered_html tbody tr:hover {
     </tr>
   </tbody>
 </table>
-<p>4553 rows × 15 columns</p>
+<p>4754 rows × 15 columns</p>
 </div></div>
 </div>
 <p>위의 주가는 수정주가가 적용되지 않은 결과이다. 이것을 앞서 KRX 에서 확인했던 데이터와 비교해보자.</p>
@@ -2142,8 +2117,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">kiwoom_data_close</span> <span class="o">=</span> <span class="n">kiwoom_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;일자&#39;</span><span class="p">)[</span><span class="s1">&#39;현재가&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="n">krx_data_close</span> <span class="o">=</span> <span class="n">krx_data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
@@ -2154,8 +2128,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">kiwoom_data_close</span> <span class="o">-</span> <span class="n">krx_data_close</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">kiwoom_data_close</span> <span class="o">-</span> <span class="n">krx_data_close</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2174,8 +2147,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">kiwoom_data_adjusted</span> <span class="o">=</span> <span class="n">kiwoom_entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">adjusted_price</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kiwoom_data_adjusted</span> <span class="o">=</span> <span class="n">kiwoom_entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">adjusted_price</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2184,22 +2156,21 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2021-03-26 16:55:05,307 [DEBUG] Received 600 records from 2021-03-26 00:00:00 to 2018-10-22 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:55:22,153 [DEBUG] Received 600 records from 2018-10-19 00:00:00 to 2016-05-10 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:55:22,545 [DEBUG] Received 600 records from 2016-05-09 00:00:00 to 2013-11-27 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:55:22,902 [DEBUG] Received 600 records from 2013-11-26 00:00:00 to 2011-06-29 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:55:23,323 [DEBUG] Received 600 records from 2011-06-28 00:00:00 to 2009-02-09 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:55:40,171 [DEBUG] Received 600 records from 2009-02-06 00:00:00 to 2006-08-31 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:55:40,568 [DEBUG] Received 600 records from 2006-08-30 00:00:00 to 2004-04-07 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:55:41,158 [DEBUG] Received 353 records from 2004-04-06 00:00:00 to 2002-10-29 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2022-01-14 16:59:01,131 [DEBUG] Received 600 records from 2022-01-14 00:00:00 to 2019-08-13 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:59:01,431 [DEBUG] Received 600 records from 2019-08-12 00:00:00 to 2017-02-28 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:59:18,182 [DEBUG] Received 600 records from 2017-02-27 00:00:00 to 2014-09-24 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:59:18,487 [DEBUG] Received 600 records from 2014-09-23 00:00:00 to 2012-04-18 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:59:18,781 [DEBUG] Received 600 records from 2012-04-17 00:00:00 to 2009-11-20 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:59:19,159 [DEBUG] Received 600 records from 2009-11-19 00:00:00 to 2007-06-25 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:59:19,455 [DEBUG] Received 600 records from 2007-06-22 00:00:00 to 2005-01-24 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 16:59:36,162 [DEBUG] Received 554 records from 2005-01-21 00:00:00 to 2002-10-29 00:00:00 for code 035420 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">kiwoom_data_adjusted</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kiwoom_data_adjusted</span>
 </pre></div>
 </div>
 </div>
@@ -2247,13 +2218,13 @@ div.rendered_html tbody tr:hover {
     <tr>
       <th>0</th>
       <td>035420</td>
-      <td>383000</td>
-      <td>689120</td>
-      <td>262278</td>
-      <td>20210326</td>
-      <td>380000</td>
-      <td>383000</td>
-      <td>377000</td>
+      <td>342000</td>
+      <td>503520</td>
+      <td>170929</td>
+      <td>20220114</td>
+      <td>341000</td>
+      <td>342500</td>
+      <td>335500</td>
       <td></td>
       <td></td>
       <td></td>
@@ -2265,13 +2236,13 @@ div.rendered_html tbody tr:hover {
     <tr>
       <th>1</th>
       <td></td>
-      <td>380000</td>
-      <td>672585</td>
-      <td>255541</td>
-      <td>20210325</td>
-      <td>381500</td>
-      <td>384000</td>
-      <td>378000</td>
+      <td>348000</td>
+      <td>677226</td>
+      <td>236323</td>
+      <td>20220113</td>
+      <td>348000</td>
+      <td>352000</td>
+      <td>344000</td>
       <td></td>
       <td></td>
       <td></td>
@@ -2283,13 +2254,13 @@ div.rendered_html tbody tr:hover {
     <tr>
       <th>2</th>
       <td></td>
-      <td>387000</td>
-      <td>763754</td>
-      <td>291328</td>
-      <td>20210324</td>
-      <td>380000</td>
-      <td>387000</td>
-      <td>376000</td>
+      <td>345500</td>
+      <td>1047713</td>
+      <td>364058</td>
+      <td>20220112</td>
+      <td>339500</td>
+      <td>352500</td>
+      <td>339500</td>
       <td></td>
       <td></td>
       <td></td>
@@ -2301,13 +2272,13 @@ div.rendered_html tbody tr:hover {
     <tr>
       <th>3</th>
       <td></td>
-      <td>386000</td>
-      <td>1167110</td>
-      <td>454596</td>
-      <td>20210323</td>
-      <td>397000</td>
-      <td>399000</td>
-      <td>384000</td>
+      <td>335000</td>
+      <td>805084</td>
+      <td>272271</td>
+      <td>20220111</td>
+      <td>336000</td>
+      <td>344500</td>
+      <td>334500</td>
       <td></td>
       <td></td>
       <td></td>
@@ -2319,13 +2290,13 @@ div.rendered_html tbody tr:hover {
     <tr>
       <th>4</th>
       <td></td>
-      <td>396500</td>
-      <td>911358</td>
-      <td>362039</td>
-      <td>20210322</td>
-      <td>402500</td>
-      <td>405500</td>
-      <td>393000</td>
+      <td>335000</td>
+      <td>828611</td>
+      <td>276479</td>
+      <td>20220110</td>
+      <td>339000</td>
+      <td>339500</td>
+      <td>329000</td>
       <td></td>
       <td></td>
       <td></td>
@@ -2353,7 +2324,7 @@ div.rendered_html tbody tr:hover {
       <td>...</td>
     </tr>
     <tr>
-      <th>4548</th>
+      <th>4749</th>
       <td></td>
       <td>1389</td>
       <td>20785736</td>
@@ -2371,7 +2342,7 @@ div.rendered_html tbody tr:hover {
       <td></td>
     </tr>
     <tr>
-      <th>4549</th>
+      <th>4750</th>
       <td></td>
       <td>1462</td>
       <td>22546156</td>
@@ -2389,7 +2360,7 @@ div.rendered_html tbody tr:hover {
       <td></td>
     </tr>
     <tr>
-      <th>4550</th>
+      <th>4751</th>
       <td></td>
       <td>1558</td>
       <td>39666066</td>
@@ -2407,7 +2378,7 @@ div.rendered_html tbody tr:hover {
       <td></td>
     </tr>
     <tr>
-      <th>4551</th>
+      <th>4752</th>
       <td></td>
       <td>1640</td>
       <td>25634775</td>
@@ -2425,7 +2396,7 @@ div.rendered_html tbody tr:hover {
       <td></td>
     </tr>
     <tr>
-      <th>4552</th>
+      <th>4753</th>
       <td></td>
       <td>1465</td>
       <td>617087</td>
@@ -2435,7 +2406,7 @@ div.rendered_html tbody tr:hover {
       <td>1465</td>
       <td>1465</td>
       <td>8</td>
-      <td>-49.97</td>
+      <td>0.00</td>
       <td></td>
       <td></td>
       <td></td>
@@ -2444,7 +2415,7 @@ div.rendered_html tbody tr:hover {
     </tr>
   </tbody>
 </table>
-<p>4553 rows × 15 columns</p>
+<p>4754 rows × 15 columns</p>
 </div></div>
 </div>
 <p>맨 처음의 <code class="docutils literal notranslate"><span class="pre">FinancialDataReader</span></code> 가 네이버 금융의 데이터를 가져오고 있고, 해당 데이터는 수정주가가 적용된 데이터이다. 해당 데이터와 값을 비교해보자</p>
@@ -2452,8 +2423,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">kiwoom_data_adjusted_close</span> <span class="o">=</span> <span class="n">kiwoom_data_adjusted</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;일자&#39;</span><span class="p">)[</span><span class="s1">&#39;현재가&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="n">fdr_data_adjusted_close</span> <span class="o">=</span> <span class="n">fdr_data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
@@ -2464,8 +2434,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">kiwoom_data_adjusted_close</span> <span class="o">-</span> <span class="n">fdr_data_adjusted_close</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">kiwoom_data_adjusted_close</span> <span class="o">-</span> <span class="n">fdr_data_adjusted_close</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2475,15 +2444,14 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--136051542
+-44276961
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">kiwoom_data_adjusted_close</span> <span class="o">-</span> <span class="n">fdr_data_adjusted_close</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">kiwoom_data_adjusted_close</span> <span class="o">-</span> <span class="n">fdr_data_adjusted_close</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2493,7 +2461,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--29881.735558972105
+-9313.622423222549
 </pre></div></div>
 </div>
 <p>꽤나 차이가 발생하는 것을 확인할 수 있으며, 이것은 각 데이터 출처에서 수정주가를 계산하는 방식이 다른 것으로 인한 차이이지 않을까 추측해볼 수 있다.</p>
@@ -2502,8 +2470,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">kiwoom_data_adjusted_close</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">fdr_data_adjusted_close</span><span class="p">)</span>
@@ -2528,8 +2495,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">kiwoom_data_close</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">fdr_data_adjusted_close</span><span class="p">)</span>
@@ -2557,8 +2523,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">platform</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">platform</span>
 
 <span class="k">assert</span> <span class="n">platform</span><span class="o">.</span><span class="n">architecture</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;32bit&#39;</span>
 </pre></div>
@@ -2570,8 +2535,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">CybosPlusEntrypoint</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">CybosPlusEntrypoint</span>
 </pre></div>
 </div>
 </div>
@@ -2579,8 +2543,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">cybos_entrypoint</span> <span class="o">=</span> <span class="n">CybosPlusEntrypoint</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cybos_entrypoint</span> <span class="o">=</span> <span class="n">CybosPlusEntrypoint</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2588,8 +2551,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">cybos_entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cybos_entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2598,7 +2560,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2021-03-26 16:56:41,264 [INFO] Succesfully connected to CYBOS Plus - CybosPlusEntrypointMixin.py:215
+2022-01-14 17:00:52,672 [INFO] Succesfully connected to CYBOS Plus - CybosPlusEntrypointMixin.py:227
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2614,8 +2576,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">cybos_data_adjusted</span> <span class="o">=</span> <span class="n">cybos_entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">adjusted_price</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cybos_data_adjusted</span> <span class="o">=</span> <span class="n">cybos_entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">adjusted_price</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2624,28 +2585,27 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2021-03-26 16:56:41,331 [DEBUG] Requesting from 2021-03-26 15:30:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:41,389 [DEBUG] Requested 2222, received 2221 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:41,448 [DEBUG] Received data from 2021-03-26 00:00:00+09:00 to 2012-03-16 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:41,448 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:41,453 [DEBUG] Trailing rows truncated: 1 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:41,454 [DEBUG] Requesting from 2012-03-16 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:41,514 [DEBUG] Requested 2222, received 2221 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:41,566 [DEBUG] Received data from 2012-03-16 00:00:00+09:00 to 2003-04-10 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:41,566 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:41,570 [DEBUG] Trailing rows truncated: 1 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:41,571 [DEBUG] Requesting from 2003-04-10 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:41,597 [DEBUG] Requested 2222, received 113 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:41,602 [DEBUG] Received data from 2003-04-10 00:00:00+09:00 to 2002-10-29 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:41,602 [DEBUG] No more data to request - CybosPlusEntrypointMixin.py:406
+2022-01-14 17:00:52,727 [DEBUG] Requesting from 2022-01-14 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:52,777 [DEBUG] Requested 2222, received 2221 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:52,830 [DEBUG] Received data from 2022-01-14 00:00:00+09:00 to 2013-01-08 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:52,831 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:52,835 [DEBUG] Trailing rows truncated: 1 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:52,836 [DEBUG] Requesting from 2013-01-08 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:52,882 [DEBUG] Requested 2222, received 2221 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:52,936 [DEBUG] Received data from 2013-01-08 00:00:00+09:00 to 2004-02-09 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:52,936 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:52,941 [DEBUG] Trailing rows truncated: 1 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:52,941 [DEBUG] Requesting from 2004-02-09 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:52,976 [DEBUG] Requested 2222, received 314 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:52,985 [DEBUG] Received data from 2004-02-09 00:00:00+09:00 to 2002-10-29 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:52,985 [DEBUG] No more data to request - CybosPlusEntrypointMixin.py:454
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">cybos_data_adjusted</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cybos_data_adjusted</span>
 </pre></div>
 </div>
 </div>
@@ -2686,62 +2646,62 @@ div.rendered_html tbody tr:hover {
   <tbody>
     <tr>
       <th>0</th>
-      <td>20210326</td>
-      <td>380000</td>
-      <td>383000</td>
-      <td>377000</td>
-      <td>383000</td>
-      <td>690378</td>
-      <td>262760000000</td>
-      <td>20210326</td>
+      <td>20220114</td>
+      <td>341000</td>
+      <td>342500</td>
+      <td>335500</td>
+      <td>342000</td>
+      <td>504250</td>
+      <td>171179000000</td>
+      <td>20220114</td>
       <td>100.00</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>20210325</td>
-      <td>381500</td>
-      <td>384000</td>
-      <td>378000</td>
-      <td>380000</td>
-      <td>672585</td>
-      <td>255541000000</td>
-      <td>20210325</td>
+      <td>20220113</td>
+      <td>348000</td>
+      <td>352000</td>
+      <td>344000</td>
+      <td>348000</td>
+      <td>677226</td>
+      <td>236323000000</td>
+      <td>20220113</td>
       <td>100.00</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>20210324</td>
-      <td>380000</td>
-      <td>387000</td>
-      <td>376000</td>
-      <td>387000</td>
-      <td>763754</td>
-      <td>291328000000</td>
-      <td>20210324</td>
+      <td>20220112</td>
+      <td>339500</td>
+      <td>352500</td>
+      <td>339500</td>
+      <td>345500</td>
+      <td>1047713</td>
+      <td>364058000000</td>
+      <td>20220112</td>
       <td>100.00</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>20210323</td>
-      <td>397000</td>
-      <td>399000</td>
-      <td>384000</td>
-      <td>386000</td>
-      <td>1167110</td>
-      <td>454596000000</td>
-      <td>20210323</td>
+      <td>20220111</td>
+      <td>336000</td>
+      <td>344500</td>
+      <td>334500</td>
+      <td>335000</td>
+      <td>805084</td>
+      <td>272271000000</td>
+      <td>20220111</td>
       <td>100.00</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>20210322</td>
-      <td>402500</td>
-      <td>405500</td>
-      <td>393000</td>
-      <td>396500</td>
-      <td>911358</td>
-      <td>362039000000</td>
-      <td>20210322</td>
+      <td>20220110</td>
+      <td>339000</td>
+      <td>339500</td>
+      <td>329000</td>
+      <td>335000</td>
+      <td>828611</td>
+      <td>276479000000</td>
+      <td>20220110</td>
       <td>100.00</td>
     </tr>
     <tr>
@@ -2757,68 +2717,68 @@ div.rendered_html tbody tr:hover {
       <td>...</td>
     </tr>
     <tr>
-      <th>4548</th>
+      <th>4749</th>
       <td>20021104</td>
-      <td>2282</td>
+      <td>2283</td>
       <td>2298</td>
       <td>2133</td>
       <td>2188</td>
-      <td>2208158</td>
+      <td>13190221</td>
       <td>28952000000</td>
       <td>20021104</td>
       <td>5.24</td>
     </tr>
     <tr>
-      <th>4549</th>
+      <th>4750</th>
       <td>20021101</td>
-      <td>2518</td>
-      <td>2597</td>
+      <td>2519</td>
+      <td>2598</td>
       <td>2214</td>
-      <td>2303</td>
-      <td>2395092</td>
+      <td>2304</td>
+      <td>14306854</td>
       <td>34432000000</td>
       <td>20021101</td>
       <td>5.24</td>
     </tr>
     <tr>
-      <th>4550</th>
+      <th>4751</th>
       <td>20021031</td>
-      <td>2623</td>
-      <td>2686</td>
-      <td>2395</td>
-      <td>2455</td>
-      <td>4213897</td>
+      <td>2624</td>
+      <td>2687</td>
+      <td>2396</td>
+      <td>2456</td>
+      <td>25171310</td>
       <td>63979000000</td>
       <td>20021031</td>
       <td>5.24</td>
     </tr>
     <tr>
-      <th>4551</th>
+      <th>4752</th>
       <td>20021030</td>
       <td>2584</td>
       <td>2584</td>
-      <td>2555</td>
+      <td>2556</td>
       <td>2584</td>
-      <td>2723293</td>
+      <td>16267327</td>
       <td>42030000000</td>
       <td>20021030</td>
       <td>5.24</td>
     </tr>
     <tr>
-      <th>4552</th>
+      <th>4753</th>
       <td>20021029</td>
-      <td>2308</td>
-      <td>2308</td>
-      <td>2308</td>
-      <td>2308</td>
-      <td>65555</td>
+      <td>2309</td>
+      <td>2309</td>
+      <td>2309</td>
+      <td>2309</td>
+      <td>391591</td>
       <td>904000000</td>
       <td>20021029</td>
       <td>5.24</td>
     </tr>
   </tbody>
 </table>
-<p>4553 rows × 9 columns</p>
+<p>4754 rows × 9 columns</p>
 </div></div>
 </div>
 <p>앞서 시각적으로 확인해 봤던 결과에서 위의 케이스를 추가해보자.</p>
@@ -2826,8 +2786,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">cybos_data_adjusted_close</span> <span class="o">=</span> <span class="n">cybos_data_adjusted</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;날짜&#39;</span><span class="p">)[</span><span class="s1">&#39;종가&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cybos_data_adjusted_close</span> <span class="o">=</span> <span class="n">cybos_data_adjusted</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;날짜&#39;</span><span class="p">)[</span><span class="s1">&#39;종가&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2835,8 +2794,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">kiwoom_data_adjusted_close</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">fdr_data_adjusted_close</span><span class="p">)</span>
@@ -2863,8 +2821,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">yahoo_data</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yahoo_data</span>
 </pre></div>
 </div>
 </div>
@@ -2915,8 +2872,8 @@ div.rendered_html tbody tr:hover {
       <td>1797.724854</td>
       <td>1797.724854</td>
       <td>1797.724854</td>
-      <td>1763.381104</td>
-      <td>501745.0</td>
+      <td>1763.381226</td>
+      <td>501745</td>
     </tr>
     <tr>
       <th>2002-10-30</th>
@@ -2925,7 +2882,7 @@ div.rendered_html tbody tr:hover {
       <td>1989.754517</td>
       <td>2012.226074</td>
       <td>1973.784546</td>
-      <td>20892185.0</td>
+      <td>20892185</td>
     </tr>
     <tr>
       <th>2002-10-31</th>
@@ -2933,8 +2890,8 @@ div.rendered_html tbody tr:hover {
       <td>2091.897949</td>
       <td>1865.139526</td>
       <td>1912.125488</td>
-      <td>1875.595947</td>
-      <td>32327083.0</td>
+      <td>1875.596313</td>
+      <td>32327083</td>
     </tr>
     <tr>
       <th>2002-11-01</th>
@@ -2942,8 +2899,8 @@ div.rendered_html tbody tr:hover {
       <td>2022.440430</td>
       <td>1724.181519</td>
       <td>1793.639038</td>
-      <td>1759.373291</td>
-      <td>18373668.0</td>
+      <td>1759.373535</td>
+      <td>18373668</td>
     </tr>
     <tr>
       <th>2002-11-04</th>
@@ -2951,8 +2908,8 @@ div.rendered_html tbody tr:hover {
       <td>1789.553345</td>
       <td>1660.852539</td>
       <td>1703.752808</td>
-      <td>1671.204102</td>
-      <td>16939411.0</td>
+      <td>1671.204346</td>
+      <td>16939411</td>
     </tr>
     <tr>
       <th>...</th>
@@ -2964,61 +2921,60 @@ div.rendered_html tbody tr:hover {
       <td>...</td>
     </tr>
     <tr>
-      <th>2021-03-22</th>
-      <td>402500.000000</td>
-      <td>405500.000000</td>
-      <td>393000.000000</td>
-      <td>396500.000000</td>
-      <td>396500.000000</td>
-      <td>911358.0</td>
+      <th>2022-01-10</th>
+      <td>339000.000000</td>
+      <td>339500.000000</td>
+      <td>329000.000000</td>
+      <td>335000.000000</td>
+      <td>335000.000000</td>
+      <td>828611</td>
     </tr>
     <tr>
-      <th>2021-03-23</th>
-      <td>397000.000000</td>
-      <td>399000.000000</td>
-      <td>384000.000000</td>
-      <td>386000.000000</td>
-      <td>386000.000000</td>
-      <td>1167110.0</td>
+      <th>2022-01-11</th>
+      <td>336000.000000</td>
+      <td>344500.000000</td>
+      <td>334500.000000</td>
+      <td>335000.000000</td>
+      <td>335000.000000</td>
+      <td>805084</td>
     </tr>
     <tr>
-      <th>2021-03-24</th>
-      <td>380000.000000</td>
-      <td>387000.000000</td>
-      <td>376000.000000</td>
-      <td>387000.000000</td>
-      <td>387000.000000</td>
-      <td>763754.0</td>
+      <th>2022-01-12</th>
+      <td>339500.000000</td>
+      <td>352500.000000</td>
+      <td>339500.000000</td>
+      <td>345500.000000</td>
+      <td>345500.000000</td>
+      <td>1047713</td>
     </tr>
     <tr>
-      <th>2021-03-25</th>
-      <td>381500.000000</td>
-      <td>384000.000000</td>
-      <td>378000.000000</td>
-      <td>380000.000000</td>
-      <td>380000.000000</td>
-      <td>672585.0</td>
+      <th>2022-01-13</th>
+      <td>348000.000000</td>
+      <td>352000.000000</td>
+      <td>344000.000000</td>
+      <td>348000.000000</td>
+      <td>348000.000000</td>
+      <td>677226</td>
     </tr>
     <tr>
-      <th>2021-03-26</th>
-      <td>380000.000000</td>
-      <td>383000.000000</td>
-      <td>377000.000000</td>
-      <td>383000.000000</td>
-      <td>383000.000000</td>
-      <td>687754.0</td>
+      <th>2022-01-14</th>
+      <td>341000.000000</td>
+      <td>342500.000000</td>
+      <td>335500.000000</td>
+      <td>342000.000000</td>
+      <td>342000.000000</td>
+      <td>503181</td>
     </tr>
   </tbody>
 </table>
-<p>4602 rows × 6 columns</p>
+<p>4802 rows × 6 columns</p>
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">yahoo_data_adjusted_close</span> <span class="o">=</span> <span class="n">yahoo_data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()[</span><span class="s1">&#39;Adj Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yahoo_data_adjusted_close</span> <span class="o">=</span> <span class="n">yahoo_data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()[</span><span class="s1">&#39;Adj Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3026,8 +2982,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">kiwoom_data_adjusted_close</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">fdr_data_adjusted_close</span><span class="p">)</span>
@@ -3073,8 +3028,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">def</span> <span class="nf">get_adjust_ratios</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
@@ -3111,8 +3065,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">krx_data_adjusted</span> <span class="o">=</span> <span class="n">adjust_prices</span><span class="p">(</span><span class="n">krx_data</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">krx_data_adjusted</span> <span class="o">=</span> <span class="n">adjust_prices</span><span class="p">(</span><span class="n">krx_data</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3120,8 +3073,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">krx_data_adjusted</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">krx_data_adjusted</span>
 </pre></div>
 </div>
 </div>
@@ -3187,99 +3139,99 @@ div.rendered_html tbody tr:hover {
   </thead>
   <tbody>
     <tr>
-      <th>2021-03-26</th>
-      <td>383000</td>
+      <th>2022-01-14</th>
+      <td>342000</td>
+      <td>2</td>
+      <td>-6000</td>
+      <td>-1.72</td>
+      <td>341000</td>
+      <td>342500</td>
+      <td>335500</td>
+      <td>504034</td>
+      <td>171105175500</td>
+      <td>56104787070000</td>
+      <td>164049085</td>
+      <td>341000.0</td>
+      <td>342500.0</td>
+      <td>335500.0</td>
+      <td>342000.0</td>
+      <td>504034.0</td>
+    </tr>
+    <tr>
+      <th>2022-01-13</th>
+      <td>348000</td>
       <td>1</td>
-      <td>3000</td>
-      <td>0.79</td>
-      <td>380000</td>
-      <td>383000</td>
-      <td>377000</td>
-      <td>690378</td>
-      <td>262760015000</td>
-      <td>62912880285000</td>
-      <td>164263395</td>
-      <td>380000.000000</td>
-      <td>383000.000000</td>
-      <td>377000.000000</td>
-      <td>383000.000000</td>
-      <td>6.903780e+05</td>
+      <td>2500</td>
+      <td>0.72</td>
+      <td>348000</td>
+      <td>352000</td>
+      <td>344000</td>
+      <td>677226</td>
+      <td>236322868506</td>
+      <td>57089081580000</td>
+      <td>164049085</td>
+      <td>348000.0</td>
+      <td>352000.0</td>
+      <td>344000.0</td>
+      <td>348000.0</td>
+      <td>677226.0</td>
     </tr>
     <tr>
-      <th>2021-03-25</th>
-      <td>380000</td>
-      <td>2</td>
-      <td>-7000</td>
-      <td>-1.81</td>
-      <td>381500</td>
-      <td>384000</td>
-      <td>378000</td>
-      <td>672585</td>
-      <td>255541387000</td>
-      <td>62420090100000</td>
-      <td>164263395</td>
-      <td>381500.000000</td>
-      <td>384000.000000</td>
-      <td>378000.000000</td>
-      <td>380000.000000</td>
-      <td>6.725850e+05</td>
-    </tr>
-    <tr>
-      <th>2021-03-24</th>
-      <td>387000</td>
+      <th>2022-01-12</th>
+      <td>345500</td>
       <td>1</td>
-      <td>1000</td>
-      <td>0.26</td>
-      <td>380000</td>
-      <td>387000</td>
-      <td>376000</td>
-      <td>763754</td>
-      <td>291327860726</td>
-      <td>63569933865000</td>
-      <td>164263395</td>
-      <td>380000.000000</td>
-      <td>387000.000000</td>
-      <td>376000.000000</td>
-      <td>387000.000000</td>
-      <td>7.637540e+05</td>
+      <td>10500</td>
+      <td>3.13</td>
+      <td>339500</td>
+      <td>352500</td>
+      <td>339500</td>
+      <td>1045138</td>
+      <td>363165140500</td>
+      <td>56678958867500</td>
+      <td>164049085</td>
+      <td>339500.0</td>
+      <td>352500.0</td>
+      <td>339500.0</td>
+      <td>345500.0</td>
+      <td>1045138.0</td>
     </tr>
     <tr>
-      <th>2021-03-23</th>
-      <td>386000</td>
-      <td>2</td>
-      <td>-10500</td>
-      <td>-2.65</td>
-      <td>397000</td>
-      <td>399000</td>
-      <td>384000</td>
-      <td>1167110</td>
-      <td>454596300550</td>
-      <td>63405670470000</td>
-      <td>164263395</td>
-      <td>397000.000000</td>
-      <td>399000.000000</td>
-      <td>384000.000000</td>
-      <td>386000.000000</td>
-      <td>1.167110e+06</td>
+      <th>2022-01-11</th>
+      <td>335000</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0.00</td>
+      <td>336000</td>
+      <td>344500</td>
+      <td>334500</td>
+      <td>805084</td>
+      <td>272271119021</td>
+      <td>54956443475000</td>
+      <td>164049085</td>
+      <td>336000.0</td>
+      <td>344500.0</td>
+      <td>334500.0</td>
+      <td>335000.0</td>
+      <td>805084.0</td>
     </tr>
     <tr>
-      <th>2021-03-22</th>
-      <td>396500</td>
+      <th>2022-01-10</th>
+      <td>335000</td>
       <td>2</td>
-      <td>-5500</td>
-      <td>-1.37</td>
-      <td>402500</td>
-      <td>405500</td>
-      <td>393000</td>
-      <td>911358</td>
-      <td>362038803885</td>
-      <td>65130436117500</td>
-      <td>164263395</td>
-      <td>402500.000000</td>
-      <td>405500.000000</td>
-      <td>393000.000000</td>
-      <td>396500.000000</td>
-      <td>9.113580e+05</td>
+      <td>-3000</td>
+      <td>-0.89</td>
+      <td>339000</td>
+      <td>339500</td>
+      <td>329000</td>
+      <td>828611</td>
+      <td>276478717500</td>
+      <td>54956443475000</td>
+      <td>164049085</td>
+      <td>339000.0</td>
+      <td>339500.0</td>
+      <td>329000.0</td>
+      <td>335000.0</td>
+      <td>828611.0</td>
     </tr>
     <tr>
       <th>...</th>
@@ -3314,10 +3266,10 @@ div.rendered_html tbody tr:hover {
       <td>310124985000</td>
       <td>7437050</td>
       <td>2323.201639</td>
-      <td>2339.223720</td>
+      <td>2339.22372</td>
       <td>2170.991877</td>
       <td>2227.069158</td>
-      <td>1.296021e+07</td>
+      <td>12960208.44222</td>
     </tr>
     <tr>
       <th>2002-11-01</th>
@@ -3336,7 +3288,7 @@ div.rendered_html tbody tr:hover {
       <td>2643.643245</td>
       <td>2253.772625</td>
       <td>2344.564413</td>
-      <td>1.405737e+07</td>
+      <td>14057369.341543</td>
     </tr>
     <tr>
       <th>2002-10-31</th>
@@ -3355,7 +3307,7 @@ div.rendered_html tbody tr:hover {
       <td>2734.435033</td>
       <td>2438.026548</td>
       <td>2499.444522</td>
-      <td>2.473237e+07</td>
+      <td>24732368.910822</td>
     </tr>
     <tr>
       <th>2002-10-30</th>
@@ -3374,7 +3326,7 @@ div.rendered_html tbody tr:hover {
       <td>2630.291511</td>
       <td>2600.917697</td>
       <td>2630.291511</td>
-      <td>1.598365e+07</td>
+      <td>15983654.784913</td>
     </tr>
     <tr>
       <th>2002-10-29</th>
@@ -3393,19 +3345,18 @@ div.rendered_html tbody tr:hover {
       <td>2349.905107</td>
       <td>2349.905107</td>
       <td>2349.905107</td>
-      <td>3.847628e+05</td>
+      <td>384762.770841</td>
     </tr>
   </tbody>
 </table>
-<p>4553 rows × 16 columns</p>
+<p>4754 rows × 16 columns</p>
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">krx_data_adjusted_close</span> <span class="o">=</span> <span class="n">krx_data_adjusted</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()[</span><span class="s1">&#39;Adj Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">krx_data_adjusted_close</span> <span class="o">=</span> <span class="n">krx_data_adjusted</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()[</span><span class="s1">&#39;Adj Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3413,8 +3364,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">kiwoom_data_adjusted_close</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">fdr_data_adjusted_close</span><span class="p">)</span>
@@ -3550,8 +3500,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adjustment_ratios</span> <span class="o">=</span> <span class="n">cybos_entrypoint</span><span class="o">.</span><span class="n">GetDailyAdjustmentRatioAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adjustment_ratios</span> <span class="o">=</span> <span class="n">cybos_entrypoint</span><span class="o">.</span><span class="n">GetDailyAdjustmentRatioAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3560,18 +3509,17 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2021-03-26 16:56:42,716 [DEBUG] Requesting from 2021-03-26 15:30:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:42,767 [DEBUG] Requested 6666, received 4553 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:42,808 [DEBUG] Received data from 2021-03-26 00:00:00+09:00 to 2002-10-29 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:42,809 [DEBUG] No more data to request - CybosPlusEntrypointMixin.py:406
+2022-01-14 17:00:53,864 [DEBUG] Requesting from 2022-01-14 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:53,915 [DEBUG] Requested 6666, received 4754 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:53,955 [DEBUG] Received data from 2022-01-14 00:00:00+09:00 to 2002-10-29 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:53,955 [DEBUG] No more data to request - CybosPlusEntrypointMixin.py:454
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adjustment_ratios</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adjustment_ratios</span>
 </pre></div>
 </div>
 </div>
@@ -3606,32 +3554,32 @@ div.rendered_html tbody tr:hover {
   <tbody>
     <tr>
       <th>0</th>
-      <td>20210326</td>
-      <td>20210326</td>
+      <td>20220114</td>
+      <td>20220114</td>
       <td>100.00</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>20210325</td>
-      <td>20210325</td>
+      <td>20220113</td>
+      <td>20220113</td>
       <td>100.00</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>20210324</td>
-      <td>20210324</td>
+      <td>20220112</td>
+      <td>20220112</td>
       <td>100.00</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>20210323</td>
-      <td>20210323</td>
+      <td>20220111</td>
+      <td>20220111</td>
       <td>100.00</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>20210322</td>
-      <td>20210322</td>
+      <td>20220110</td>
+      <td>20220110</td>
       <td>100.00</td>
     </tr>
     <tr>
@@ -3641,46 +3589,45 @@ div.rendered_html tbody tr:hover {
       <td>...</td>
     </tr>
     <tr>
-      <th>4548</th>
+      <th>4749</th>
       <td>20021104</td>
       <td>20021104</td>
       <td>5.24</td>
     </tr>
     <tr>
-      <th>4549</th>
+      <th>4750</th>
       <td>20021101</td>
       <td>20021101</td>
       <td>5.24</td>
     </tr>
     <tr>
-      <th>4550</th>
+      <th>4751</th>
       <td>20021031</td>
       <td>20021031</td>
       <td>5.24</td>
     </tr>
     <tr>
-      <th>4551</th>
+      <th>4752</th>
       <td>20021030</td>
       <td>20021030</td>
       <td>5.24</td>
     </tr>
     <tr>
-      <th>4552</th>
+      <th>4753</th>
       <td>20021029</td>
       <td>20021029</td>
       <td>5.24</td>
     </tr>
   </tbody>
 </table>
-<p>4553 rows × 3 columns</p>
+<p>4754 rows × 3 columns</p>
 </div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">minutes_data</span> <span class="o">=</span> <span class="n">cybos_entrypoint</span><span class="o">.</span><span class="n">GetMinuteStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minutes_data</span> <span class="o">=</span> <span class="n">cybos_entrypoint</span><span class="o">.</span><span class="n">GetMinuteStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3689,78 +3636,77 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2021-03-26 16:56:42,839 [DEBUG] Requesting from 2021-03-26 15:30:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:42,926 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:42,980 [DEBUG] Received data from 2021-03-26 00:00:00+09:00 to 2020-11-04 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:42,981 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:42,986 [DEBUG] Trailing rows truncated: 7 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:42,987 [DEBUG] Requesting from 2020-11-04 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:43,086 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:43,139 [DEBUG] Received data from 2020-11-04 00:00:00+09:00 to 2020-06-16 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:43,139 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:43,144 [DEBUG] Trailing rows truncated: 3 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:43,144 [DEBUG] Requesting from 2020-06-16 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:43,240 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:43,332 [DEBUG] Received data from 2020-06-16 00:00:00+09:00 to 2020-01-28 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:43,333 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:43,337 [DEBUG] Trailing rows truncated: 5 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:43,337 [DEBUG] Requesting from 2020-01-28 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:43,433 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:43,485 [DEBUG] Received data from 2020-01-28 00:00:00+09:00 to 2019-09-03 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:43,486 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:43,490 [DEBUG] Trailing rows truncated: 7 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:43,490 [DEBUG] Requesting from 2019-09-03 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:43,609 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:43,662 [DEBUG] Received data from 2019-09-03 00:00:00+09:00 to 2019-04-16 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:43,662 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:43,667 [DEBUG] Trailing rows truncated: 3 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:43,667 [DEBUG] Requesting from 2019-04-16 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:43,754 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:43,808 [DEBUG] Received data from 2019-04-16 00:00:00+09:00 to 2018-11-22 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:43,808 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:43,812 [DEBUG] Trailing rows truncated: 7 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:43,813 [DEBUG] Requesting from 2018-11-22 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:43,920 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:43,989 [DEBUG] Received data from 2018-11-22 00:00:00+09:00 to 2018-06-28 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:43,989 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:43,994 [DEBUG] Trailing rows truncated: 3 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:43,996 [DEBUG] Requesting from 2018-06-28 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:44,081 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:44,133 [DEBUG] Received data from 2018-06-28 00:00:00+09:00 to 2018-02-02 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:44,134 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:44,139 [DEBUG] Trailing rows truncated: 3 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:44,139 [DEBUG] Requesting from 2018-02-02 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:44,240 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:44,292 [DEBUG] Received data from 2018-02-02 00:00:00+09:00 to 2017-09-08 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:44,292 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:44,297 [DEBUG] Trailing rows truncated: 7 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:44,297 [DEBUG] Requesting from 2017-09-08 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:44,393 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:44,445 [DEBUG] Received data from 2017-09-08 00:00:00+09:00 to 2017-04-19 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:44,446 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:44,450 [DEBUG] Trailing rows truncated: 3 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:44,451 [DEBUG] Requesting from 2017-04-19 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:44,551 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:44,604 [DEBUG] Received data from 2017-04-19 00:00:00+09:00 to 2016-11-30 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:44,604 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:44,609 [DEBUG] Trailing rows truncated: 7 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:44,609 [DEBUG] Requesting from 2016-11-30 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:44,713 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:44,774 [DEBUG] Received data from 2016-11-30 00:00:00+09:00 to 2016-07-11 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:44,775 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:56:44,779 [DEBUG] Trailing rows truncated: 5 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:56:44,779 [DEBUG] Requesting from 2016-07-11 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:56:44,870 [DEBUG] Requested 2500, received 2280 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:56:44,920 [DEBUG] Received data from 2016-07-11 00:00:00+09:00 to 2016-02-23 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:56:44,921 [DEBUG] No more data to request - CybosPlusEntrypointMixin.py:406
+2022-01-14 17:00:53,984 [DEBUG] Requesting from 2022-01-14 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:54,064 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:54,116 [DEBUG] Received data from 2022-01-14 00:00:00+09:00 to 2021-08-25 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:54,117 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:54,124 [DEBUG] Trailing rows truncated: 7 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:54,125 [DEBUG] Requesting from 2021-08-25 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:54,197 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:54,250 [DEBUG] Received data from 2021-08-25 00:00:00+09:00 to 2021-04-08 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:54,250 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:54,255 [DEBUG] Trailing rows truncated: 3 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:54,256 [DEBUG] Requesting from 2021-04-08 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:54,322 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:54,375 [DEBUG] Received data from 2021-04-08 00:00:00+09:00 to 2020-11-17 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:54,376 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:54,381 [DEBUG] Trailing rows truncated: 7 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:54,381 [DEBUG] Requesting from 2020-11-17 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:54,447 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:54,499 [DEBUG] Received data from 2020-11-17 00:00:00+09:00 to 2020-06-29 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:54,500 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:54,505 [DEBUG] Trailing rows truncated: 3 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:54,506 [DEBUG] Requesting from 2020-06-29 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:54,572 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:54,627 [DEBUG] Received data from 2020-06-29 00:00:00+09:00 to 2020-02-10 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:54,628 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:54,632 [DEBUG] Trailing rows truncated: 5 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:54,633 [DEBUG] Requesting from 2020-02-10 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:54,708 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:54,761 [DEBUG] Received data from 2020-02-10 00:00:00+09:00 to 2019-09-18 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:54,761 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:54,766 [DEBUG] Trailing rows truncated: 7 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:54,767 [DEBUG] Requesting from 2019-09-18 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:54,836 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:54,888 [DEBUG] Received data from 2019-09-18 00:00:00+09:00 to 2019-04-29 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:54,889 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:54,893 [DEBUG] Trailing rows truncated: 3 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:54,894 [DEBUG] Requesting from 2019-04-29 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:54,972 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:55,037 [DEBUG] Received data from 2019-04-29 00:00:00+09:00 to 2018-12-05 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:55,038 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:55,043 [DEBUG] Trailing rows truncated: 7 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:55,043 [DEBUG] Requesting from 2018-12-05 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:55,105 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:55,160 [DEBUG] Received data from 2018-12-05 00:00:00+09:00 to 2018-07-11 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:55,160 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:55,165 [DEBUG] Trailing rows truncated: 3 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:55,165 [DEBUG] Requesting from 2018-07-11 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:55,235 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:55,287 [DEBUG] Received data from 2018-07-11 00:00:00+09:00 to 2018-02-19 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:55,288 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:55,293 [DEBUG] Trailing rows truncated: 3 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:55,293 [DEBUG] Requesting from 2018-02-19 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:55,355 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:55,407 [DEBUG] Received data from 2018-02-19 00:00:00+09:00 to 2017-09-21 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:55,408 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:55,412 [DEBUG] Trailing rows truncated: 7 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:55,413 [DEBUG] Requesting from 2017-09-21 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:55,480 [DEBUG] Requested 2500, received 2499 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:55,532 [DEBUG] Received data from 2017-09-21 00:00:00+09:00 to 2017-05-04 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:55,533 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:00:55,537 [DEBUG] Trailing rows truncated: 3 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:00:55,538 [DEBUG] Requesting from 2017-05-04 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:00:55,606 [DEBUG] Requested 2500, received 2492 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:00:55,659 [DEBUG] Received data from 2017-05-04 00:00:00+09:00 to 2016-12-14 00:00:00+09:00 for code A035420 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:00:55,660 [DEBUG] No more data to request - CybosPlusEntrypointMixin.py:454
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">minutes_data</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minutes_data</span>
 </pre></div>
 </div>
 </div>
@@ -3800,58 +3746,58 @@ div.rendered_html tbody tr:hover {
   <tbody>
     <tr>
       <th>0</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1530</td>
-      <td>381000</td>
-      <td>383000</td>
-      <td>381000</td>
-      <td>383000</td>
-      <td>54303</td>
-      <td>20785690000</td>
+      <td>342500</td>
+      <td>342500</td>
+      <td>341500</td>
+      <td>342000</td>
+      <td>37778</td>
+      <td>12919230000</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1515</td>
-      <td>382000</td>
-      <td>382000</td>
-      <td>381000</td>
-      <td>381500</td>
-      <td>28391</td>
-      <td>10829980000</td>
+      <td>341000</td>
+      <td>342500</td>
+      <td>341000</td>
+      <td>342000</td>
+      <td>23861</td>
+      <td>8150870000</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1500</td>
-      <td>382500</td>
-      <td>382500</td>
-      <td>381500</td>
-      <td>381500</td>
-      <td>22345</td>
-      <td>8537330000</td>
+      <td>340000</td>
+      <td>341500</td>
+      <td>340000</td>
+      <td>341000</td>
+      <td>18614</td>
+      <td>6342730000</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1445</td>
-      <td>381500</td>
-      <td>382500</td>
-      <td>381000</td>
-      <td>382000</td>
-      <td>22175</td>
-      <td>8467410000</td>
+      <td>340500</td>
+      <td>341000</td>
+      <td>340000</td>
+      <td>340500</td>
+      <td>9717</td>
+      <td>3306250000</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1430</td>
-      <td>380500</td>
-      <td>382000</td>
-      <td>380500</td>
-      <td>381500</td>
-      <td>34603</td>
-      <td>13186900000</td>
+      <td>341000</td>
+      <td>341500</td>
+      <td>340000</td>
+      <td>340500</td>
+      <td>11657</td>
+      <td>3970570000</td>
     </tr>
     <tr>
       <th>...</th>
@@ -3865,71 +3811,70 @@ div.rendered_html tbody tr:hover {
       <td>...</td>
     </tr>
     <tr>
-      <th>32203</th>
-      <td>20160223</td>
+      <th>32417</th>
+      <td>20161214</td>
       <td>1015</td>
-      <td>575000</td>
-      <td>576000</td>
-      <td>574000</td>
-      <td>574000</td>
-      <td>3250</td>
-      <td>1872750000</td>
+      <td>790000</td>
+      <td>790000</td>
+      <td>785000</td>
+      <td>785000</td>
+      <td>2095</td>
+      <td>1651290000</td>
     </tr>
     <tr>
-      <th>32204</th>
-      <td>20160223</td>
+      <th>32418</th>
+      <td>20161214</td>
       <td>1000</td>
-      <td>576000</td>
-      <td>576000</td>
-      <td>574000</td>
-      <td>576000</td>
-      <td>3092</td>
-      <td>1777930000</td>
+      <td>792000</td>
+      <td>792000</td>
+      <td>789000</td>
+      <td>789000</td>
+      <td>1124</td>
+      <td>888470000</td>
     </tr>
     <tr>
-      <th>32205</th>
-      <td>20160223</td>
+      <th>32419</th>
+      <td>20161214</td>
       <td>945</td>
-      <td>575000</td>
-      <td>576000</td>
-      <td>573000</td>
-      <td>575000</td>
-      <td>3158</td>
-      <td>1814220000</td>
+      <td>792000</td>
+      <td>792000</td>
+      <td>788000</td>
+      <td>792000</td>
+      <td>1979</td>
+      <td>1563680000</td>
     </tr>
     <tr>
-      <th>32206</th>
-      <td>20160223</td>
+      <th>32420</th>
+      <td>20161214</td>
       <td>930</td>
-      <td>574000</td>
-      <td>576000</td>
-      <td>572000</td>
-      <td>575000</td>
-      <td>3604</td>
-      <td>2069770000</td>
+      <td>795000</td>
+      <td>795000</td>
+      <td>791000</td>
+      <td>792000</td>
+      <td>1381</td>
+      <td>1094780000</td>
     </tr>
     <tr>
-      <th>32207</th>
-      <td>20160223</td>
+      <th>32421</th>
+      <td>20161214</td>
       <td>915</td>
-      <td>569000</td>
-      <td>577000</td>
-      <td>568000</td>
-      <td>574000</td>
-      <td>7800</td>
-      <td>4463790000</td>
+      <td>793000</td>
+      <td>796000</td>
+      <td>791000</td>
+      <td>795000</td>
+      <td>3849</td>
+      <td>3053210000</td>
     </tr>
   </tbody>
 </table>
-<p>32208 rows × 8 columns</p>
+<p>32422 rows × 8 columns</p>
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adjusted_minutes_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">minutes_data</span><span class="p">,</span> <span class="n">adjustment_ratios</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;날짜&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adjusted_minutes_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">minutes_data</span><span class="p">,</span> <span class="n">adjustment_ratios</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;날짜&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3937,8 +3882,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adjusted_minutes_data</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adjusted_minutes_data</span>
 </pre></div>
 </div>
 </div>
@@ -3980,67 +3924,67 @@ div.rendered_html tbody tr:hover {
   <tbody>
     <tr>
       <th>0</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1530</td>
-      <td>381000</td>
-      <td>383000</td>
-      <td>381000</td>
-      <td>383000</td>
-      <td>54303</td>
-      <td>20785690000</td>
-      <td>20210326</td>
+      <td>342500</td>
+      <td>342500</td>
+      <td>341500</td>
+      <td>342000</td>
+      <td>37778</td>
+      <td>12919230000</td>
+      <td>20220114</td>
       <td>100.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1515</td>
-      <td>382000</td>
-      <td>382000</td>
-      <td>381000</td>
-      <td>381500</td>
-      <td>28391</td>
-      <td>10829980000</td>
-      <td>20210326</td>
+      <td>341000</td>
+      <td>342500</td>
+      <td>341000</td>
+      <td>342000</td>
+      <td>23861</td>
+      <td>8150870000</td>
+      <td>20220114</td>
       <td>100.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1500</td>
-      <td>382500</td>
-      <td>382500</td>
-      <td>381500</td>
-      <td>381500</td>
-      <td>22345</td>
-      <td>8537330000</td>
-      <td>20210326</td>
+      <td>340000</td>
+      <td>341500</td>
+      <td>340000</td>
+      <td>341000</td>
+      <td>18614</td>
+      <td>6342730000</td>
+      <td>20220114</td>
       <td>100.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1445</td>
-      <td>381500</td>
-      <td>382500</td>
-      <td>381000</td>
-      <td>382000</td>
-      <td>22175</td>
-      <td>8467410000</td>
-      <td>20210326</td>
+      <td>340500</td>
+      <td>341000</td>
+      <td>340000</td>
+      <td>340500</td>
+      <td>9717</td>
+      <td>3306250000</td>
+      <td>20220114</td>
       <td>100.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1430</td>
-      <td>380500</td>
-      <td>382000</td>
-      <td>380500</td>
-      <td>381500</td>
-      <td>34603</td>
-      <td>13186900000</td>
-      <td>20210326</td>
+      <td>341000</td>
+      <td>341500</td>
+      <td>340000</td>
+      <td>340500</td>
+      <td>11657</td>
+      <td>3970570000</td>
+      <td>20220114</td>
       <td>100.0</td>
     </tr>
     <tr>
@@ -4057,81 +4001,80 @@ div.rendered_html tbody tr:hover {
       <td>...</td>
     </tr>
     <tr>
-      <th>32203</th>
-      <td>20160223</td>
+      <th>32417</th>
+      <td>20161214</td>
       <td>1015</td>
-      <td>575000</td>
-      <td>576000</td>
-      <td>574000</td>
-      <td>574000</td>
-      <td>3250</td>
-      <td>1872750000</td>
-      <td>20160223</td>
+      <td>790000</td>
+      <td>790000</td>
+      <td>785000</td>
+      <td>785000</td>
+      <td>2095</td>
+      <td>1651290000</td>
+      <td>20161214</td>
       <td>20.0</td>
     </tr>
     <tr>
-      <th>32204</th>
-      <td>20160223</td>
+      <th>32418</th>
+      <td>20161214</td>
       <td>1000</td>
-      <td>576000</td>
-      <td>576000</td>
-      <td>574000</td>
-      <td>576000</td>
-      <td>3092</td>
-      <td>1777930000</td>
-      <td>20160223</td>
+      <td>792000</td>
+      <td>792000</td>
+      <td>789000</td>
+      <td>789000</td>
+      <td>1124</td>
+      <td>888470000</td>
+      <td>20161214</td>
       <td>20.0</td>
     </tr>
     <tr>
-      <th>32205</th>
-      <td>20160223</td>
+      <th>32419</th>
+      <td>20161214</td>
       <td>945</td>
-      <td>575000</td>
-      <td>576000</td>
-      <td>573000</td>
-      <td>575000</td>
-      <td>3158</td>
-      <td>1814220000</td>
-      <td>20160223</td>
+      <td>792000</td>
+      <td>792000</td>
+      <td>788000</td>
+      <td>792000</td>
+      <td>1979</td>
+      <td>1563680000</td>
+      <td>20161214</td>
       <td>20.0</td>
     </tr>
     <tr>
-      <th>32206</th>
-      <td>20160223</td>
+      <th>32420</th>
+      <td>20161214</td>
       <td>930</td>
-      <td>574000</td>
-      <td>576000</td>
-      <td>572000</td>
-      <td>575000</td>
-      <td>3604</td>
-      <td>2069770000</td>
-      <td>20160223</td>
+      <td>795000</td>
+      <td>795000</td>
+      <td>791000</td>
+      <td>792000</td>
+      <td>1381</td>
+      <td>1094780000</td>
+      <td>20161214</td>
       <td>20.0</td>
     </tr>
     <tr>
-      <th>32207</th>
-      <td>20160223</td>
+      <th>32421</th>
+      <td>20161214</td>
       <td>915</td>
-      <td>569000</td>
-      <td>577000</td>
-      <td>568000</td>
-      <td>574000</td>
-      <td>7800</td>
-      <td>4463790000</td>
-      <td>20160223</td>
+      <td>793000</td>
+      <td>796000</td>
+      <td>791000</td>
+      <td>795000</td>
+      <td>3849</td>
+      <td>3053210000</td>
+      <td>20161214</td>
       <td>20.0</td>
     </tr>
   </tbody>
 </table>
-<p>32208 rows × 10 columns</p>
+<p>32422 rows × 10 columns</p>
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">price_multiplier</span> <span class="o">=</span> <span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;수정주가비율&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">price_multiplier</span> <span class="o">=</span> <span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;수정주가비율&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span>
 </pre></div>
 </div>
 </div>
@@ -4139,8 +4082,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">price_multiplier</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">price_multiplier</span>
 </pre></div>
 </div>
 </div>
@@ -4156,20 +4098,19 @@ div.rendered_html tbody tr:hover {
 3        1.0
 4        1.0
         ...
-32203    0.2
-32204    0.2
-32205    0.2
-32206    0.2
-32207    0.2
-Name: 수정주가비율, Length: 32208, dtype: float64
+32417    0.2
+32418    0.2
+32419    0.2
+32420    0.2
+32421    0.2
+Name: 수정주가비율, Length: 32422, dtype: float64
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;수정시가&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;시가&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">price_multiplier</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;수정시가&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;시가&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">price_multiplier</span>
 <span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;수정고가&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;고가&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">price_multiplier</span>
 <span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;수정저가&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;저가&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">price_multiplier</span>
 <span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;수정종가&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adjusted_minutes_data</span><span class="p">[</span><span class="s1">&#39;종가&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">price_multiplier</span>
@@ -4181,8 +4122,7 @@ Name: 수정주가비율, Length: 32208, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">adjusted_minutes_data</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adjusted_minutes_data</span>
 </pre></div>
 </div>
 </div>
@@ -4229,93 +4169,93 @@ Name: 수정주가비율, Length: 32208, dtype: float64
   <tbody>
     <tr>
       <th>0</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1530</td>
-      <td>381000</td>
-      <td>383000</td>
-      <td>381000</td>
-      <td>383000</td>
-      <td>54303</td>
-      <td>20785690000</td>
-      <td>20210326</td>
+      <td>342500</td>
+      <td>342500</td>
+      <td>341500</td>
+      <td>342000</td>
+      <td>37778</td>
+      <td>12919230000</td>
+      <td>20220114</td>
       <td>100.0</td>
-      <td>381000.0</td>
-      <td>383000.0</td>
-      <td>381000.0</td>
-      <td>383000.0</td>
-      <td>54303.0</td>
+      <td>342500.0</td>
+      <td>342500.0</td>
+      <td>341500.0</td>
+      <td>342000.0</td>
+      <td>37778.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1515</td>
-      <td>382000</td>
-      <td>382000</td>
-      <td>381000</td>
-      <td>381500</td>
-      <td>28391</td>
-      <td>10829980000</td>
-      <td>20210326</td>
+      <td>341000</td>
+      <td>342500</td>
+      <td>341000</td>
+      <td>342000</td>
+      <td>23861</td>
+      <td>8150870000</td>
+      <td>20220114</td>
       <td>100.0</td>
-      <td>382000.0</td>
-      <td>382000.0</td>
-      <td>381000.0</td>
-      <td>381500.0</td>
-      <td>28391.0</td>
+      <td>341000.0</td>
+      <td>342500.0</td>
+      <td>341000.0</td>
+      <td>342000.0</td>
+      <td>23861.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1500</td>
-      <td>382500</td>
-      <td>382500</td>
-      <td>381500</td>
-      <td>381500</td>
-      <td>22345</td>
-      <td>8537330000</td>
-      <td>20210326</td>
+      <td>340000</td>
+      <td>341500</td>
+      <td>340000</td>
+      <td>341000</td>
+      <td>18614</td>
+      <td>6342730000</td>
+      <td>20220114</td>
       <td>100.0</td>
-      <td>382500.0</td>
-      <td>382500.0</td>
-      <td>381500.0</td>
-      <td>381500.0</td>
-      <td>22345.0</td>
+      <td>340000.0</td>
+      <td>341500.0</td>
+      <td>340000.0</td>
+      <td>341000.0</td>
+      <td>18614.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1445</td>
-      <td>381500</td>
-      <td>382500</td>
-      <td>381000</td>
-      <td>382000</td>
-      <td>22175</td>
-      <td>8467410000</td>
-      <td>20210326</td>
+      <td>340500</td>
+      <td>341000</td>
+      <td>340000</td>
+      <td>340500</td>
+      <td>9717</td>
+      <td>3306250000</td>
+      <td>20220114</td>
       <td>100.0</td>
-      <td>381500.0</td>
-      <td>382500.0</td>
-      <td>381000.0</td>
-      <td>382000.0</td>
-      <td>22175.0</td>
+      <td>340500.0</td>
+      <td>341000.0</td>
+      <td>340000.0</td>
+      <td>340500.0</td>
+      <td>9717.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>20210326</td>
+      <td>20220114</td>
       <td>1430</td>
-      <td>380500</td>
-      <td>382000</td>
-      <td>380500</td>
-      <td>381500</td>
-      <td>34603</td>
-      <td>13186900000</td>
-      <td>20210326</td>
+      <td>341000</td>
+      <td>341500</td>
+      <td>340000</td>
+      <td>340500</td>
+      <td>11657</td>
+      <td>3970570000</td>
+      <td>20220114</td>
       <td>100.0</td>
-      <td>380500.0</td>
-      <td>382000.0</td>
-      <td>380500.0</td>
-      <td>381500.0</td>
-      <td>34603.0</td>
+      <td>341000.0</td>
+      <td>341500.0</td>
+      <td>340000.0</td>
+      <td>340500.0</td>
+      <td>11657.0</td>
     </tr>
     <tr>
       <th>...</th>
@@ -4336,98 +4276,98 @@ Name: 수정주가비율, Length: 32208, dtype: float64
       <td>...</td>
     </tr>
     <tr>
-      <th>32203</th>
-      <td>20160223</td>
+      <th>32417</th>
+      <td>20161214</td>
       <td>1015</td>
-      <td>575000</td>
-      <td>576000</td>
-      <td>574000</td>
-      <td>574000</td>
-      <td>3250</td>
-      <td>1872750000</td>
-      <td>20160223</td>
+      <td>790000</td>
+      <td>790000</td>
+      <td>785000</td>
+      <td>785000</td>
+      <td>2095</td>
+      <td>1651290000</td>
+      <td>20161214</td>
       <td>20.0</td>
-      <td>115000.0</td>
-      <td>115200.0</td>
-      <td>114800.0</td>
-      <td>114800.0</td>
-      <td>16250.0</td>
+      <td>158000.0</td>
+      <td>158000.0</td>
+      <td>157000.0</td>
+      <td>157000.0</td>
+      <td>10475.0</td>
     </tr>
     <tr>
-      <th>32204</th>
-      <td>20160223</td>
+      <th>32418</th>
+      <td>20161214</td>
       <td>1000</td>
-      <td>576000</td>
-      <td>576000</td>
-      <td>574000</td>
-      <td>576000</td>
-      <td>3092</td>
-      <td>1777930000</td>
-      <td>20160223</td>
+      <td>792000</td>
+      <td>792000</td>
+      <td>789000</td>
+      <td>789000</td>
+      <td>1124</td>
+      <td>888470000</td>
+      <td>20161214</td>
       <td>20.0</td>
-      <td>115200.0</td>
-      <td>115200.0</td>
-      <td>114800.0</td>
-      <td>115200.0</td>
-      <td>15460.0</td>
+      <td>158400.0</td>
+      <td>158400.0</td>
+      <td>157800.0</td>
+      <td>157800.0</td>
+      <td>5620.0</td>
     </tr>
     <tr>
-      <th>32205</th>
-      <td>20160223</td>
+      <th>32419</th>
+      <td>20161214</td>
       <td>945</td>
-      <td>575000</td>
-      <td>576000</td>
-      <td>573000</td>
-      <td>575000</td>
-      <td>3158</td>
-      <td>1814220000</td>
-      <td>20160223</td>
+      <td>792000</td>
+      <td>792000</td>
+      <td>788000</td>
+      <td>792000</td>
+      <td>1979</td>
+      <td>1563680000</td>
+      <td>20161214</td>
       <td>20.0</td>
-      <td>115000.0</td>
-      <td>115200.0</td>
-      <td>114600.0</td>
-      <td>115000.0</td>
-      <td>15790.0</td>
+      <td>158400.0</td>
+      <td>158400.0</td>
+      <td>157600.0</td>
+      <td>158400.0</td>
+      <td>9895.0</td>
     </tr>
     <tr>
-      <th>32206</th>
-      <td>20160223</td>
+      <th>32420</th>
+      <td>20161214</td>
       <td>930</td>
-      <td>574000</td>
-      <td>576000</td>
-      <td>572000</td>
-      <td>575000</td>
-      <td>3604</td>
-      <td>2069770000</td>
-      <td>20160223</td>
+      <td>795000</td>
+      <td>795000</td>
+      <td>791000</td>
+      <td>792000</td>
+      <td>1381</td>
+      <td>1094780000</td>
+      <td>20161214</td>
       <td>20.0</td>
-      <td>114800.0</td>
-      <td>115200.0</td>
-      <td>114400.0</td>
-      <td>115000.0</td>
-      <td>18020.0</td>
+      <td>159000.0</td>
+      <td>159000.0</td>
+      <td>158200.0</td>
+      <td>158400.0</td>
+      <td>6905.0</td>
     </tr>
     <tr>
-      <th>32207</th>
-      <td>20160223</td>
+      <th>32421</th>
+      <td>20161214</td>
       <td>915</td>
-      <td>569000</td>
-      <td>577000</td>
-      <td>568000</td>
-      <td>574000</td>
-      <td>7800</td>
-      <td>4463790000</td>
-      <td>20160223</td>
+      <td>793000</td>
+      <td>796000</td>
+      <td>791000</td>
+      <td>795000</td>
+      <td>3849</td>
+      <td>3053210000</td>
+      <td>20161214</td>
       <td>20.0</td>
-      <td>113800.0</td>
-      <td>115400.0</td>
-      <td>113600.0</td>
-      <td>114800.0</td>
-      <td>39000.0</td>
+      <td>158600.0</td>
+      <td>159200.0</td>
+      <td>158200.0</td>
+      <td>159000.0</td>
+      <td>19245.0</td>
     </tr>
   </tbody>
 </table>
-<p>32208 rows × 15 columns</p>
+<p>32422 rows × 15 columns</p>
 </div></div>
 </div>
 </section>
@@ -4438,8 +4378,7 @@ Name: 수정주가비율, Length: 32208, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;005930&#39;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;005930&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -4447,8 +4386,7 @@ Name: 수정주가비율, Length: 32208, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fdr_data</span> <span class="o">=</span> <span class="n">fdr</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fdr_data</span> <span class="o">=</span> <span class="n">fdr</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -4456,8 +4394,7 @@ Name: 수정주가비율, Length: 32208, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">yahoo_data</span> <span class="o">=</span> <span class="n">yahoo_downloader</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yahoo_data</span> <span class="o">=</span> <span class="n">yahoo_downloader</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -4465,8 +4402,7 @@ Name: 수정주가비율, Length: 32208, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">krx_data</span> <span class="o">=</span> <span class="n">krx_downloader</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">krx_data</span> <span class="o">=</span> <span class="n">krx_downloader</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -4474,8 +4410,7 @@ Name: 수정주가비율, Length: 32208, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">kiwoom_data</span> <span class="o">=</span> <span class="n">kiwoom_entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kiwoom_data</span> <span class="o">=</span> <span class="n">kiwoom_entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -4484,30 +4419,30 @@ Name: 수정주가비율, Length: 32208, dtype: float64
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2021-03-26 16:56:55,942 [DEBUG] Received 600 records from 2021-03-26 00:00:00 to 2018-10-22 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:57:13,942 [DEBUG] Received 600 records from 2018-10-19 00:00:00 to 2016-05-10 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:57:14,305 [DEBUG] Received 600 records from 2016-05-09 00:00:00 to 2013-11-27 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:57:14,665 [DEBUG] Received 600 records from 2013-11-26 00:00:00 to 2011-06-29 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:57:15,039 [DEBUG] Received 600 records from 2011-06-28 00:00:00 to 2009-02-09 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:57:31,961 [DEBUG] Received 600 records from 2009-02-06 00:00:00 to 2006-08-31 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:57:32,679 [DEBUG] Received 600 records from 2006-08-30 00:00:00 to 2004-04-07 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:57:33,066 [DEBUG] Received 600 records from 2004-04-06 00:00:00 to 2001-10-25 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:57:49,946 [DEBUG] Received 600 records from 2001-10-24 00:00:00 to 1999-05-18 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:58:25,926 [DEBUG] Received 600 records from 1999-05-17 00:00:00 to 1997-04-03 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:58:43,959 [DEBUG] Received 600 records from 1997-04-02 00:00:00 to 1995-03-18 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:58:44,322 [DEBUG] Received 600 records from 1995-03-17 00:00:00 to 1993-03-09 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:58:44,702 [DEBUG] Received 600 records from 1993-03-08 00:00:00 to 1991-02-20 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:58:45,099 [DEBUG] Received 600 records from 1991-02-19 00:00:00 to 1989-01-25 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:59:01,920 [DEBUG] Received 600 records from 1989-01-24 00:00:00 to 1987-01-08 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
-2021-03-26 16:59:02,301 [DEBUG] Received 589 records from 1987-01-07 00:00:00 to 1985-01-04 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:449
+2022-01-14 17:01:05,383 [DEBUG] Received 600 records from 2022-01-14 00:00:00 to 2019-08-13 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:05,668 [DEBUG] Received 600 records from 2019-08-12 00:00:00 to 2017-02-28 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:05,977 [DEBUG] Received 600 records from 2017-02-27 00:00:00 to 2014-09-24 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:06,274 [DEBUG] Received 600 records from 2014-09-23 00:00:00 to 2012-04-18 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:06,568 [DEBUG] Received 600 records from 2012-04-17 00:00:00 to 2009-11-20 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:23,394 [DEBUG] Received 600 records from 2009-11-19 00:00:00 to 2007-06-25 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:23,691 [DEBUG] Received 600 records from 2007-06-22 00:00:00 to 2005-01-24 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:23,988 [DEBUG] Received 600 records from 2005-01-21 00:00:00 to 2002-08-22 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:24,289 [DEBUG] Received 600 records from 2002-08-21 00:00:00 to 2000-03-06 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:24,587 [DEBUG] Received 600 records from 2000-03-03 00:00:00 to 1997-12-06 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:41,415 [DEBUG] Received 600 records from 1997-12-05 00:00:00 to 1995-11-20 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:41,713 [DEBUG] Received 600 records from 1995-11-18 00:00:00 to 1993-11-08 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:42,008 [DEBUG] Received 600 records from 1993-11-06 00:00:00 to 1991-10-25 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:42,311 [DEBUG] Received 600 records from 1991-10-24 00:00:00 to 1989-10-04 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:42,627 [DEBUG] Received 600 records from 1989-09-30 00:00:00 to 1987-09-07 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:59,380 [DEBUG] Received 600 records from 1987-09-05 00:00:00 to 1985-08-23 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
+2022-01-14 17:01:59,530 [DEBUG] Received 190 records from 1985-08-22 00:00:00 to 1985-01-04 00:00:00 for code 005930 - KiwoomOpenApiPlusServiceClientStubWrapper.py:571
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">cybos_data</span> <span class="o">=</span> <span class="n">cybos_entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cybos_data</span> <span class="o">=</span> <span class="n">cybos_entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -4516,33 +4451,32 @@ Name: 수정주가비율, Length: 32208, dtype: float64
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2021-03-26 16:59:02,340 [DEBUG] Requesting from 2021-03-26 15:30:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:59:02,389 [DEBUG] Requested 2857, received 2856 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:59:02,443 [DEBUG] Received data from 2021-03-26 00:00:00+09:00 to 2009-09-01 00:00:00+09:00 for code A005930 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:59:02,444 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:59:02,449 [DEBUG] Trailing rows truncated: 1 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:59:02,449 [DEBUG] Requesting from 2009-09-01 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:59:02,499 [DEBUG] Requested 2857, received 2856 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:59:02,552 [DEBUG] Received data from 2009-09-01 00:00:00+09:00 to 1998-03-31 00:00:00+09:00 for code A005930 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:59:02,552 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:59:02,557 [DEBUG] Trailing rows truncated: 1 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:59:02,558 [DEBUG] Requesting from 1998-03-31 00:00:00+09:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:59:02,609 [DEBUG] Requested 2857, received 2856 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:59:02,664 [DEBUG] Received data from 1998-03-31 00:00:00+09:00 to 1988-07-01 01:00:00+10:00 for code A005930 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:59:02,665 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:396
-2021-03-26 16:59:02,670 [DEBUG] Trailing rows truncated: 1 - CybosPlusEntrypointMixin.py:404
-2021-03-26 16:59:02,671 [DEBUG] Requesting from 1988-07-01 01:00:00+10:00 - CybosPlusEntrypointMixin.py:362
-2021-03-26 16:59:02,730 [DEBUG] Requested 2857, received 2490 records - CybosPlusEntrypointMixin.py:366
-2021-03-26 16:59:02,776 [DEBUG] Received data from 1988-07-01 01:00:00+10:00 to 1980-01-04 00:00:00+09:00 for code A005930 - CybosPlusEntrypointMixin.py:388
-2021-03-26 16:59:02,776 [DEBUG] No more data to request - CybosPlusEntrypointMixin.py:406
+2022-01-14 17:01:59,566 [DEBUG] Requesting from 2022-01-14 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:01:59,622 [DEBUG] Requested 2857, received 2856 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:01:59,681 [DEBUG] Received data from 2022-01-14 00:00:00+09:00 to 2010-06-22 00:00:00+09:00 for code A005930 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:01:59,681 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:01:59,687 [DEBUG] Trailing rows truncated: 1 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:01:59,688 [DEBUG] Requesting from 2010-06-22 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:01:59,738 [DEBUG] Requested 2857, received 2856 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:01:59,793 [DEBUG] Received data from 2010-06-22 00:00:00+09:00 to 1998-12-01 00:00:00+09:00 for code A005930 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:01:59,793 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:01:59,799 [DEBUG] Trailing rows truncated: 1 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:01:59,799 [DEBUG] Requesting from 1998-12-01 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:01:59,849 [DEBUG] Requested 2857, received 2856 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:01:59,901 [DEBUG] Received data from 1998-12-01 00:00:00+09:00 to 1989-03-11 00:00:00+09:00 for code A005930 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:01:59,902 [DEBUG] More data to request remains - CybosPlusEntrypointMixin.py:439
+2022-01-14 17:01:59,907 [DEBUG] Trailing rows truncated: 1 - CybosPlusEntrypointMixin.py:449
+2022-01-14 17:01:59,908 [DEBUG] Requesting from 1989-03-11 00:00:00+09:00 - CybosPlusEntrypointMixin.py:395
+2022-01-14 17:02:00,001 [DEBUG] Requested 2857, received 2691 records - CybosPlusEntrypointMixin.py:399
+2022-01-14 17:02:00,050 [DEBUG] Received data from 1989-03-11 00:00:00+09:00 to 1980-01-04 00:00:00+09:00 for code A005930 - CybosPlusEntrypointMixin.py:426
+2022-01-14 17:02:00,051 [DEBUG] No more data to request - CybosPlusEntrypointMixin.py:454
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">fdr_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">datetime_is_numeric</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
     <span class="n">yahoo_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">datetime_is_numeric</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
     <span class="n">krx_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">datetime_is_numeric</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
@@ -4558,8 +4492,7 @@ Name: 수정주가비율, Length: 32208, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">result</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span>
 </pre></div>
 </div>
 </div>
@@ -4599,52 +4532,52 @@ Name: 수정주가비율, Length: 32208, dtype: float64
     <tr>
       <th>fdr</th>
       <td>6000</td>
-      <td>2009-02-03 12:52:47.999999744</td>
-      <td>1997-04-03</td>
-      <td>2003-01-15 18:00:00</td>
-      <td>2009-02-07 12:00:00</td>
-      <td>2015-02-16 06:00:00</td>
-      <td>2021-03-26</td>
+      <td>2009-11-24 17:10:33.600000000</td>
+      <td>1997-12-06</td>
+      <td>2003-11-09 06:00:00</td>
+      <td>2009-11-19 12:00:00</td>
+      <td>2015-12-08 06:00:00</td>
+      <td>2022-01-14</td>
     </tr>
     <tr>
       <th>yahoo</th>
-      <td>5337</td>
-      <td>2010-06-25 13:33:13.254637312</td>
+      <td>5537</td>
+      <td>2010-11-19 17:02:35.391005952</td>
       <td>2000-01-04</td>
-      <td>2005-02-14 00:00:00</td>
-      <td>2010-05-31 00:00:00</td>
-      <td>2015-10-16 00:00:00</td>
-      <td>2021-03-26</td>
+      <td>2005-04-25 00:00:00</td>
+      <td>2010-10-22 00:00:00</td>
+      <td>2016-05-27 00:00:00</td>
+      <td>2022-01-14</td>
     </tr>
     <tr>
       <th>krx</th>
-      <td>6564</td>
-      <td>2007-12-29 15:13:03.180987136</td>
+      <td>6765</td>
+      <td>2008-05-25 16:44:16.496674048</td>
       <td>1995-05-02</td>
-      <td>2001-04-25 18:00:00</td>
-      <td>2007-12-12 12:00:00</td>
-      <td>2014-07-21 06:00:00</td>
-      <td>2021-03-26</td>
+      <td>2001-07-09 00:00:00</td>
+      <td>2008-05-16 00:00:00</td>
+      <td>2015-03-05 00:00:00</td>
+      <td>2022-01-14</td>
     </tr>
     <tr>
       <th>kiwoom</th>
-      <td>9589</td>
-      <td>2002-05-16 00:46:33.200542336</td>
+      <td>9790</td>
+      <td>2002-10-07 12:12:21.327885440</td>
       <td>1985-01-04</td>
-      <td>1993-03-19 00:00:00</td>
-      <td>2001-11-01 00:00:00</td>
-      <td>2011-07-01 00:00:00</td>
-      <td>2021-03-26</td>
+      <td>1993-05-19 06:00:00</td>
+      <td>2002-04-01 12:00:00</td>
+      <td>2012-02-07 18:00:00</td>
+      <td>2022-01-14</td>
     </tr>
     <tr>
       <th>cybos</th>
-      <td>11055</td>
-      <td>1999-09-26 13:47:16.037991808</td>
+      <td>11256</td>
+      <td>2000-02-16 10:05:45.415778176</td>
       <td>1980-01-04</td>
-      <td>1989-06-09 12:00:00</td>
-      <td>1998-11-10 00:00:00</td>
-      <td>2010-01-12 12:00:00</td>
-      <td>2021-03-26</td>
+      <td>1989-08-08 18:00:00</td>
+      <td>1999-04-07 12:00:00</td>
+      <td>2010-08-18 06:00:00</td>
+      <td>2022-01-14</td>
     </tr>
   </tbody>
 </table>
@@ -4654,8 +4587,7 @@ Name: 수정주가비율, Length: 32208, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -4672,8 +4604,7 @@ Name: 수정주가비율, Length: 32208, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -4692,7 +4623,7 @@ Name: 수정주가비율, Length: 32208, dtype: float64
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

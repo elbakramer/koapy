@@ -36,6 +36,9 @@ Classes
    .. py:method:: cancel(self)
 
 
+   .. py:method:: result(self)
+
+
 
 .. py:class:: QRateLimitedExecutorDecoratedFunction(func, limiter: koapy.utils.rate_limiting.RateLimiter.RateLimiter, executor: concurrent.futures.Executor)
 
@@ -45,11 +48,8 @@ Classes
    .. py:method:: async_call(self, *args, **kwargs)
 
 
-   .. py:method:: __call__(self, *args, **kwargs)
 
-
-
-.. py:class:: QRateLimitedExecutor(limiter: koapy.utils.rate_limiting.RateLimiter.RateLimiter, parent=None)
+.. py:class:: QRateLimitedExecutor(limiter: koapy.utils.rate_limiting.RateLimiter.RateLimiter, parent: Optional[koapy.compat.pyside2.QtCore.QObject] = None)
 
    Bases: :py:obj:`koapy.utils.logging.pyside2.QThreadLogging.QThreadLogging`, :py:obj:`concurrent.futures.Executor`
 
@@ -60,16 +60,13 @@ Classes
 
       
 
-   .. py:method:: __del__(self)
-
-
    .. py:method:: run(self)
 
 
-   .. py:method:: onReadyRunnable(self, runnable)
+   .. py:method:: onReadyRunnable(self, runnable: QRateLimitedExecutorRunnable)
 
 
-   .. py:method:: submit(self, fn, *args, **kwargs)
+   .. py:method:: submit(self, fn: Callable[Ellipsis, Any], *args, **kwargs)
 
       Submits a callable to be executed with the given arguments.
 
@@ -79,7 +76,7 @@ Classes
       :returns: A Future representing the given call.
 
 
-   .. py:method:: shutdown(self, wait=True, cancel_futures=False)
+   .. py:method:: shutdown(self, wait: bool = True, cancel_futures: bool = False)
 
       Clean-up the resources associated with the Executor.
 
@@ -91,10 +88,7 @@ Classes
                    executor have been reclaimed.
 
 
-   .. py:method:: wrap(self, func)
-
-
-   .. py:method:: __call__(self, func)
+   .. py:method:: wrap(self, func: Callable[Ellipsis, Any])
 
 
 

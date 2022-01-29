@@ -21,15 +21,6 @@ Classes
 
    Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypointMixin.KiwoomOpenApiPlusEntrypointMixin`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. py:method:: __del__(self)
-
-
-   .. py:method:: __enter__(self)
-
-
-   .. py:method:: __exit__(self, exc_type, exc_value, traceback)
-
-
    .. py:method:: get_stub(self)
 
 
@@ -40,9 +31,6 @@ Classes
 
 
    .. py:method:: close(self)
-
-
-   .. py:method:: __getattr__(self, name)
 
 
 

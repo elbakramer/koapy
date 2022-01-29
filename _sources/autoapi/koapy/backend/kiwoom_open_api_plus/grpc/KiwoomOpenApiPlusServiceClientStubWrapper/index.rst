@@ -20,7 +20,7 @@ Classes
 
 .. py:class:: KiwoomOpenApiPlusServiceClientStubCoreWrapper(stub, executor)
 
-   Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin`
+   Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusQAxWidgetUniversalMixin`
 
    .. py:attribute:: METHOD_NAMES
       
@@ -31,9 +31,6 @@ Classes
       
 
       
-
-   .. py:method:: __getattr__(self, name)
-
 
    .. py:method:: Call(self, name, *args)
 
@@ -80,25 +77,13 @@ Classes
    .. py:method:: SetLogLevel(self, level, logger='')
 
 
-   .. py:method:: _LoadConditionUsingCall(self)
-
-
    .. py:method:: LoadCondition(self)
-
-
-   .. py:method:: _EnsureConditionLoadedUsingCall(self, force=False)
 
 
    .. py:method:: EnsureConditionLoaded(self, force=False)
 
 
-   .. py:method:: _RateLimitedCommRqDataUsingCall(self, rqname, trcode, prevnext, scrno, inputs=None)
-
-
    .. py:method:: RateLimitedCommRqData(self, rqname, trcode, prevnext, scrno, inputs=None)
-
-
-   .. py:method:: _RateLimitedSendConditionUsingCall(self, scrno, condition_name, condition_index, search_type)
 
 
    .. py:method:: RateLimitedSendCondition(self, scrno, condition_name, condition_index, search_type)
@@ -108,15 +93,6 @@ Classes
 .. py:class:: KiwoomOpenApiPlusServiceClientStubWrapper(stub, executor)
 
    Bases: :py:obj:`KiwoomOpenApiPlusServiceClientStubCoreWrapper`, :py:obj:`koapy.utils.logging.Logging.Logging`
-
-   .. py:method:: _RemoveLeadingZerosForNumber(self, value, width=0)
-
-
-   .. py:method:: _RemoveLeadingZerosForNumbersInValues(self, values, width=0)
-
-
-   .. py:method:: _ParseTransactionCallResponses(self, responses, remove_zeros_width=None)
-
 
    .. py:method:: GetStockBasicInfoAsDict(self, code, rqname=None, scrno=None)
 
@@ -210,9 +186,6 @@ Classes
 
 
    .. py:method:: GetCodeListByCondition(self, condition_name, condition_index=None, with_info=False, is_future_option=False, request_name=None, screen_no=None)
-
-
-   .. py:method:: _GetCodeListByConditionAsStream_GeneratorFunc(self, responses, with_info=False)
 
 
    .. py:method:: GetCodeListByConditionAsStream(self, condition_name, condition_index=None, with_info=False, is_future_option=False, request_name=None, screen_no=None, old_behavior=False)

@@ -23,6 +23,7 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
+   builtin/index.rst
    ctypes/index.rst
    datetime/index.rst
    exchange_calendars/index.rst
@@ -30,6 +31,7 @@ Submodules
    networking/index.rst
    notimplemented/index.rst
    platform/index.rst
+   pywin32/index.rst
    recursion/index.rst
    serialization/index.rst
    subprocess/index.rst

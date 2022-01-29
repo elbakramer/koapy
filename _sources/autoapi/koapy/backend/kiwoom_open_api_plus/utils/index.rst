@@ -21,7 +21,7 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
-   list_type/index.rst
+   list_conversion/index.rst
    module_path/index.rst
 
 

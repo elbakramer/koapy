@@ -22,22 +22,13 @@ Classes
    .. py:method:: is_ready(self, timeout=None)
 
 
-   .. py:method:: get_original_stub(self)
+   .. py:method:: get_grpc_stub(self)
 
 
    .. py:method:: get_stub(self)
 
 
    .. py:method:: close(self)
-
-
-   .. py:method:: __getattr__(self, name)
-
-
-   .. py:method:: __enter__(self)
-
-
-   .. py:method:: __exit__(self, exc_type, exc_value, traceback)
 
 
 

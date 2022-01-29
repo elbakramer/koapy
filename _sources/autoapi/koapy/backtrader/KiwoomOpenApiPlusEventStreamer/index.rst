@@ -24,15 +24,7 @@ Classes
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. py:attribute:: _krx_timezone
-      
-
-      
-
    .. py:method:: close(self)
-
-
-   .. py:method:: __del__(self)
 
 
    .. py:method:: initialize(self)
@@ -69,9 +61,6 @@ Classes
 .. py:class:: KiwoomOpenApiPlusOrderEventChannel(stub)
 
    .. py:method:: close(self)
-
-
-   .. py:method:: __del__(self)
 
 
    .. py:method:: is_chejan_response(self, response)
@@ -115,21 +104,6 @@ Classes
 
    An Observer is the entity that receives all emissions of a subscribed
    Observable.
-
-   .. py:attribute:: _price_event_channels_by_stub
-      
-
-      
-
-   .. py:attribute:: _order_event_channels_by_stub
-      
-
-      
-
-   .. py:attribute:: _lock
-      
-
-      
 
    .. py:method:: on_next(self, value)
 

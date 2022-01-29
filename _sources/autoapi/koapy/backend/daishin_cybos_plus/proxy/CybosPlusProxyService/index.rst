@@ -27,9 +27,6 @@ Functions
 
 .. py:class:: CybosPlusProxyService(host=None, port=None, max_workers=None)
 
-   .. py:method:: __getattr__(self, name)
-
-
 
 .. py:function:: main()
 

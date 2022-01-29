@@ -7,7 +7,32 @@
 Module Contents
 ---------------
 
-.. py:exception:: KiwoomOpenApiPlusError(message=None)
+.. py:data:: CallableReturnsInt
+   
+
+   
+
+.. py:data:: IntOrBool
+   
+
+   
+
+.. py:data:: CallableReturnsIntOrBool
+   
+
+   
+
+.. py:data:: IntCompatible
+   
+
+   
+
+.. py:data:: BoolCompatible
+   
+
+   
+
+.. py:exception:: KiwoomOpenApiPlusError(message: Optional[str] = None)
 
    Bases: :py:obj:`Exception`
 
@@ -17,20 +42,20 @@ Module Contents
       :property:
 
 
-   .. py:method:: try_or_raise(cls, arg, message=None)
+   .. py:method:: try_or_raise(cls, arg: IntCompatible, message: Optional[str] = None) -> IntCompatible
       :classmethod:
 
 
-   .. py:method:: try_or_raise_boolean(cls, arg, message)
+   .. py:method:: try_or_raise_boolean(cls, arg: BoolCompatible, message: str) -> BoolCompatible
       :classmethod:
 
 
-   .. py:method:: get_error_message_by_code(cls, code, default=None)
+   .. py:method:: get_error_message_by_code(cls, code: int, default: Optional[str] = None)
       :classmethod:
 
 
 
-.. py:exception:: KiwoomOpenApiPlusNegativeReturnCodeError(code, message=None)
+.. py:exception:: KiwoomOpenApiPlusNegativeReturnCodeError(code: int, message: Optional[str] = None)
 
    Bases: :py:obj:`KiwoomOpenApiPlusError`
 
@@ -391,30 +416,20 @@ Module Contents
 
       
 
-   .. py:method:: get_error_message_by_code(cls, code, default=None)
+   .. py:method:: get_error_message_by_code(cls, code: int, default: Optional[str] = None)
       :classmethod:
 
 
-   .. py:method:: check_code_or_raise(cls, code)
+   .. py:method:: check_code_or_raise(cls, code: int)
       :classmethod:
 
 
-   .. py:method:: wrap_to_check_code_or_raise(cls, func)
+   .. py:method:: wrap_to_check_code_or_raise(cls, func: CallableReturnsInt) -> CallableReturnsInt
       :classmethod:
 
 
-   .. py:method:: try_or_raise(cls, arg, message=None)
+   .. py:method:: try_or_raise(cls, arg: IntCompatible, message: Optional[str] = None) -> IntCompatible
       :classmethod:
-
-
-   .. py:method:: __str__(self)
-
-      Return str(self).
-
-
-   .. py:method:: __repr__(self)
-
-      Return repr(self).
 
 
    .. py:method:: code(self)
@@ -422,7 +437,7 @@ Module Contents
 
 
 
-.. py:exception:: KiwoomOpenApiPlusBooleanReturnCodeError(code, message=None)
+.. py:exception:: KiwoomOpenApiPlusBooleanReturnCodeError(code: Union[int, bool], message: Optional[str] = None)
 
    Bases: :py:obj:`KiwoomOpenApiPlusError`
 
@@ -438,26 +453,16 @@ Module Contents
 
       
 
-   .. py:method:: check_code_or_raise(cls, code, message=None)
+   .. py:method:: check_code_or_raise(cls, code: IntOrBool, message: Optional[str] = None) -> IntOrBool
       :classmethod:
 
 
-   .. py:method:: wrap_to_check_code_or_raise(cls, func, message=None)
+   .. py:method:: wrap_to_check_code_or_raise(cls, func: CallableReturnsIntOrBool, message: Optional[str] = None) -> CallableReturnsIntOrBool
       :classmethod:
 
 
-   .. py:method:: try_or_raise(cls, arg, message=None)
+   .. py:method:: try_or_raise(cls, arg: BoolCompatible, message: Optional[str] = None) -> BoolCompatible
       :classmethod:
-
-
-   .. py:method:: __str__(self)
-
-      Return str(self).
-
-
-   .. py:method:: __repr__(self)
-
-      Return repr(self).
 
 
    .. py:method:: code(self)

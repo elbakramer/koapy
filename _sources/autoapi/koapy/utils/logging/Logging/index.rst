@@ -22,42 +22,7 @@ Classes
 
    Bases: :py:obj:`type`
 
-   .. py:attribute:: __default_config
-      
-
-      
-
-   .. py:attribute:: __config_key
-      :annotation: = koapy.utils.logging.config
-
-      
-
-   .. py:attribute:: __initialized
-      :annotation: = False
-
-      
-
-   .. py:attribute:: __init_lock
-      
-
-      
-
-   .. py:method:: __initialize_if_necessary(cls)
-
-
-   .. py:method:: __initialize(cls)
-
-
    .. py:method:: get_logger(cls, name=None)
-
-
-   .. py:method:: __module_name(cls)
-
-
-   .. py:method:: __class_name(cls)
-
-
-   .. py:method:: __logger_name(cls)
 
 
    .. py:method:: get_class_logger(cls)
@@ -67,9 +32,6 @@ Classes
 
 
    .. py:method:: get_package_logger(cls)
-
-
-   .. py:method:: _logger(cls)
 
 
    .. py:method:: logger(cls)

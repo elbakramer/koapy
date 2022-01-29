@@ -7,6 +7,14 @@
 Module Contents
 ---------------
 
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   koapy.utils.subprocess.Popen
+
+
 
 Functions
 ~~~~~~~~~
@@ -55,5 +63,10 @@ Attributes
 
 
 .. py:function:: run_as_admin(cmd, cwd=None, check=True, wait=True)
+
+
+.. py:class:: Popen(*args, **kwargs)
+
+   Bases: :py:obj:`subprocess.Popen`
 
 

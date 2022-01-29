@@ -22,9 +22,6 @@ Classes
    .. py:method:: list_libraries(self)
 
 
-   .. py:method:: _get_library(self, library)
-
-
    .. py:method:: library_exists(self, library)
 
 
@@ -38,9 +35,6 @@ Classes
 
 
    .. py:method:: delete_library(self, library)
-
-
-   .. py:method:: __getitem__(self, library)
 
 
 

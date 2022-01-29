@@ -63,13 +63,4 @@ Classes
    .. py:method:: close(self)
 
 
-   .. py:method:: __enter__(self)
-
-
-   .. py:method:: __exit__(self, exc_type, exc_value, traceback)
-
-
-   .. py:method:: __iter__(self)
-
-
 

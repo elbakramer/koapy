@@ -21,24 +21,8 @@ Classes
 
 .. py:class:: CybosPlusDispatch(entrypoint, progid)
 
-   .. py:method:: __getattr__(self, name)
-
-
-   .. py:method:: __repr__(self)
-
-      Return repr(self).
-
-
 
 .. py:class:: CybosPlusIncompleteProgID(entrypoint, prefix)
-
-   .. py:method:: __getattr__(self, name)
-
-
-   .. py:method:: __repr__(self)
-
-      Return repr(self).
-
 
 
 .. py:class:: CybosPlusEntrypoint
@@ -46,8 +30,5 @@ Classes
    Bases: :py:obj:`koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin`
 
    http://cybosplus.github.io/
-
-   .. py:method:: __getattr__(self, name)
-
 
 

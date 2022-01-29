@@ -19,9 +19,4 @@ Classes
 
 .. py:class:: VersionedItem(library, symbol, version, timestamp, data, metadata)
 
-   .. py:method:: __repr__(self)
-
-      Return repr(self).
-
-
 

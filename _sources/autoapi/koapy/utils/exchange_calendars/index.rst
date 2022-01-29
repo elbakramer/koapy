@@ -14,7 +14,7 @@ Functions
 .. autoapisummary::
 
    koapy.utils.exchange_calendars.is_currently_in_session
-   koapy.utils.exchange_calendars.last_session_date
+   koapy.utils.exchange_calendars.get_last_session_date
 
 
 
@@ -43,9 +43,9 @@ Attributes
 
    
 
-.. py:function:: is_currently_in_session()
+.. py:function:: is_currently_in_session() -> bool
 
 
-.. py:function:: last_session_date()
+.. py:function:: get_last_session_date() -> pandas.Timestamp
 
 

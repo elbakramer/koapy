@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector &#8212; KOAPY 0.6.1 documentation</title>
+    <title>koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector &#8212; KOAPY 0.6.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
@@ -127,42 +127,87 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusSignalConnector</span></code></a></p></td>
+<td><p>Abstract base class for generic types.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.P" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.P"><code class="xref py py-obj docutils literal notranslate"><span class="pre">P</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.R" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.R"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
+<dl class="py data">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.P">
+<span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.</span></span><span class="sig-name descname"><span class="pre">P</span></span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.P" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.R">
+<span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.</span></span><span class="sig-name descname"><span class="pre">R</span></span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.R" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.</span></span><span class="sig-name descname"><span class="pre">KiwoomOpenApiPlusSignalConnector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector.html#KiwoomOpenApiPlusSignalConnector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../../../utils/logging/Logging/index.html#koapy.utils.logging.Logging.Logging" title="koapy.utils.logging.Logging.Logging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">koapy.utils.logging.Logging.Logging</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.</span></span><span class="sig-name descname"><span class="pre">KiwoomOpenApiPlusSignalConnector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../../utils/logging/Logging/index.html#koapy.utils.logging.Logging.Logging" title="koapy.utils.logging.Logging.Logging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">koapy.utils.logging.Logging.Logging</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Generic</span></code>[<a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.P" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.P"><code class="xref py py-obj docutils literal notranslate"><span class="pre">P</span></code></a>, <a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.R" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.R"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R</span></code></a>]</p>
+<p>Abstract base class for generic types.</p>
+<p>A generic type is typically declared by inheriting from
+this class parameterized with one or more type variables.
+For example, a generic mapping type might be defined as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mapping</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">KT</span><span class="p">,</span> <span class="n">VT</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">KT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VT</span><span class="p">:</span>
+        <span class="o">...</span>
+    <span class="c1"># Etc.</span>
+</pre></div>
+</div>
+<p>This class can then be used as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">lookup_name</span><span class="p">(</span><span class="n">mapping</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">KT</span><span class="p">,</span> <span class="n">VT</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="n">KT</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">VT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VT</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">mapping</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">default</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.is_valid_slot">
-<span class="sig-name descname"><span class="pre">is_valid_slot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector.html#KiwoomOpenApiPlusSignalConnector.is_valid_slot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.is_valid_slot" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">is_valid_slot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">Ellipsis</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.is_valid_slot" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.connect_to">
-<span class="sig-name descname"><span class="pre">connect_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector.html#KiwoomOpenApiPlusSignalConnector.connect_to"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.connect_to" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">connect_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">koapy.compat.pyside2.QtAxContainer.QAxWidget</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.connect_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.disconnect_from">
+<span class="sig-name descname"><span class="pre">disconnect_from</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">koapy.compat.pyside2.QtAxContainer.QAxWidget</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.disconnect_from" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.connect">
-<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector.html#KiwoomOpenApiPlusSignalConnector.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.connect" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">Ellipsis</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.connect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.disconnect">
-<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector.html#KiwoomOpenApiPlusSignalConnector.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.disconnect" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">Ellipsis</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.disconnect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector.html#KiwoomOpenApiPlusSignalConnector.call"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.call" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusSignalConnector.html#KiwoomOpenApiPlusSignalConnector.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.__call__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">P</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">R</span></span></span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector.KiwoomOpenApiPlusSignalConnector.call" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -182,7 +227,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

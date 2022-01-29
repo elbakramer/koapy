@@ -36,12 +36,6 @@ Classes
 
       
 
-   .. py:method:: _onException(self, code, source, desc, help)
-
-
-   .. py:method:: __getattr__(self, name)
-
-
    .. py:method:: changeEvent(self, event)
 
 

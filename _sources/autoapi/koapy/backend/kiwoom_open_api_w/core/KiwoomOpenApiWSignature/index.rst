@@ -100,22 +100,10 @@ Attributes
       :property:
 
 
-   .. py:method:: _pythontype_to_qttype(cls, typ)
-      :classmethod:
-
-
    .. py:method:: to_pyside2_function_prototype(self)
 
 
    .. py:method:: to_pyside2_event_signal(self)
-
-
-   .. py:method:: _comtype_to_pythontype(cls, typ)
-      :classmethod:
-
-
-   .. py:method:: _from_entry(cls, name, entry)
-      :classmethod:
 
 
 

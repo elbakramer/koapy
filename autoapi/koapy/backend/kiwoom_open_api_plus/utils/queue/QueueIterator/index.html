@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator &#8212; KOAPY 0.6.1 documentation</title>
+    <title>koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator &#8212; KOAPY 0.6.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../../../_static/graphviz.css" />
@@ -18,7 +18,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../../../search.html" />
-    <link rel="next" title="koapy.backend.kiwoom_open_api_plus.utils.list_type" href="../../list_type/index.html" />
+    <link rel="next" title="koapy.backend.kiwoom_open_api_plus.utils.list_conversion" href="../../list_conversion/index.html" />
     <link rel="prev" title="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedIterableObserver" href="../QueueBasedIterableObserver/index.html" />
     <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
 
@@ -72,7 +72,7 @@
   <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils</span></code></a><ul>
   <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.queue</span></code></a><ul>
       <li>Previous: <a href="../QueueBasedIterableObserver/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedIterableObserver</span></code></a></li>
-      <li>Next: <a href="../../list_type/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.list_type</span></code></a></li>
+      <li>Next: <a href="../../list_conversion/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.list_conversion</span></code></a></li>
   </ul></li>
   </ul></li>
   </ul></li>
@@ -138,76 +138,56 @@
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.</span></span><span class="sig-name descname"><span class="pre">QueueIterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#QueueIterator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator._check_timeout">
-<span class="sig-name descname"><span class="pre">_check_timeout</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#QueueIterator._check_timeout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator._check_timeout" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.__del__">
-<span class="sig-name descname"><span class="pre">__del__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#QueueIterator.__del__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.__del__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.</span></span><span class="sig-name descname"><span class="pre">QueueIterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.queue">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">queue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#QueueIterator.queue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.queue" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">queue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.queue" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.next">
-<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#QueueIterator.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.next" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.next" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.next_nowait">
-<span class="sig-name descname"><span class="pre">next_nowait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#QueueIterator.next_nowait"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.next_nowait" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">next_nowait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.next_nowait" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.has_next">
-<span class="sig-name descname"><span class="pre">has_next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#QueueIterator.has_next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.has_next" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.__iter__">
-<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#QueueIterator.__iter__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.__iter__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.__next__">
-<span class="sig-name descname"><span class="pre">__next__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#QueueIterator.__next__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.__next__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">has_next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.has_next" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#QueueIterator.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.stop" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.stop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.enable">
-<span class="sig-name descname"><span class="pre">enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#QueueIterator.enable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.enable" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator.enable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.</span></span><span class="sig-name descname"><span class="pre">BufferedQueueIterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#BufferedQueueIterator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.</span></span><span class="sig-name descname"><span class="pre">BufferedQueueIterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator" title="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.QueueIterator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueueIterator</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator.next">
-<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#BufferedQueueIterator.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator.next" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator.next" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator.has_next">
-<span class="sig-name descname"><span class="pre">has_next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#BufferedQueueIterator.has_next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator.has_next" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">has_next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator.has_next" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator.head">
-<span class="sig-name descname"><span class="pre">head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../../_modules/koapy/backend/kiwoom_open_api_plus/utils/queue/QueueIterator.html#BufferedQueueIterator.head"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator.head" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator.head" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -227,7 +207,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

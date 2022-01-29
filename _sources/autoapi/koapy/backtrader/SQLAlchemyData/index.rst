@@ -26,25 +26,10 @@ Classes
 
       
 
-   .. py:method:: _dispose_engine(self)
-
-
-   .. py:method:: _initialize_engine(self)
-
-
-   .. py:method:: _close_cursor(self)
-
-
-   .. py:method:: _initialize_cursor(self)
-
-
    .. py:method:: start(self)
 
 
    .. py:method:: stop(self)
-
-
-   .. py:method:: _load(self)
 
 
 

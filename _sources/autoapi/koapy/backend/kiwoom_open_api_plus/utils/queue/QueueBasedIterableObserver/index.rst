@@ -38,16 +38,6 @@ Classes
    An Observer is the entity that receives all emissions of a subscribed
    Observable.
 
-   .. py:attribute:: _default_maxsize
-      :annotation: = 0
-
-      
-
-   .. py:attribute:: _queue_get_timeout
-      :annotation: = 2
-
-      
-
    .. py:method:: queue(self)
       :property:
 
@@ -69,9 +59,6 @@ Classes
    .. py:method:: on_completed(self)
 
       Notifies the observer of the end of the sequence.
-
-
-   .. py:method:: __iter__(self)
 
 
    .. py:method:: stop(self)

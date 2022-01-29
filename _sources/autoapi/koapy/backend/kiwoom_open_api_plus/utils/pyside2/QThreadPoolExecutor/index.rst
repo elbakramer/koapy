@@ -32,9 +32,6 @@ Classes
 
    This is an abstract base class for concrete asynchronous executors.
 
-   .. py:method:: __del__(self)
-
-
    .. py:method:: submit(self, fn, *args, **kwargs)
 
       Submits a callable to be executed with the given arguments.

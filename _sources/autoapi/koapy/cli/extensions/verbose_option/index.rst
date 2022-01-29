@@ -73,18 +73,6 @@ Functions
    .. versionchanged:: 8.0.1
        ``type`` is detected from ``flag_value`` if given.
 
-   .. py:method:: _match_long_opt(self, opt, explicit_value, state)
-
-
-   .. py:method:: _match_short_opt(self, arg, state)
-
-
-   .. py:method:: _get_value_from_state(self, option_name, option, state)
-
-
-   .. py:method:: _patch_parser(self, parser)
-
-
    .. py:method:: add_to_parser(self, parser, ctx)
 
 

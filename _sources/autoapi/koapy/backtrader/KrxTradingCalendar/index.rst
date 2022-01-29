@@ -27,9 +27,6 @@ Classes
 
       
 
-   .. py:method:: _nextday(self, day)
-
-
    .. py:method:: schedule(self, day, tz=None)
 
       day: expecting naive datetime.datetime day in utc timezone

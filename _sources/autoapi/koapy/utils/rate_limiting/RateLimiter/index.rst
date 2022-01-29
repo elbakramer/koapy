@@ -33,9 +33,6 @@ Classes
    .. py:method:: wrap(self, func)
 
 
-   .. py:method:: __call__(self, func)
-
-
 
 .. py:class:: TimeWindowRateLimiter(period, calls)
 

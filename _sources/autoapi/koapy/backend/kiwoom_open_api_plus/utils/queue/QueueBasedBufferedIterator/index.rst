@@ -21,19 +21,6 @@ Classes
 
    Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.utils.queue.QueueIterator.BufferedQueueIterator`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. py:attribute:: _check_timeout
-      :annotation: = 1
-
-      
-
-   .. py:attribute:: _default_maxsize
-      :annotation: = 10
-
-      
-
-   .. py:method:: _consume_iterator(self)
-
-
    .. py:method:: next(self, block=True, timeout=None)
 
 

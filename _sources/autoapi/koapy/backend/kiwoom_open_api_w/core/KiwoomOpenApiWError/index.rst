@@ -203,16 +203,6 @@ Module Contents
       :classmethod:
 
 
-   .. py:method:: __str__(self)
-
-      Return str(self).
-
-
-   .. py:method:: __repr__(self)
-
-      Return repr(self).
-
-
    .. py:method:: code(self)
       :property:
 
@@ -244,16 +234,6 @@ Module Contents
 
    .. py:method:: try_or_raise(cls, arg, message=None)
       :classmethod:
-
-
-   .. py:method:: __str__(self)
-
-      Return str(self).
-
-
-   .. py:method:: __repr__(self)
-
-      Return repr(self).
 
 
    .. py:method:: code(self)

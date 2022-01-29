@@ -40,10 +40,4 @@ Classes
    .. py:method:: wait_for_termination(self, timeout=None)
 
 
-   .. py:method:: __enter__(self)
-
-
-   .. py:method:: __exit__(self, exc_type, exc_value, traceback)
-
-
 

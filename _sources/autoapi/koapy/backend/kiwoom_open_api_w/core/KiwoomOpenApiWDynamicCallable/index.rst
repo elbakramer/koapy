@@ -22,7 +22,4 @@ Classes
    .. py:method:: is_valid_return_type(self, result)
 
 
-   .. py:method:: __call__(self, *args, **kwargs)
-
-
 

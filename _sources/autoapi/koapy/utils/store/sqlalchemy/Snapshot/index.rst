@@ -21,11 +21,6 @@ Classes
 
    Bases: :py:obj:`koapy.utils.store.sqlalchemy.Base.Base`
 
-   .. py:attribute:: __tablename__
-      :annotation: = snapshots
-
-      
-
    .. py:attribute:: id
       
 
@@ -52,11 +47,6 @@ Classes
       
 
    .. py:attribute:: versions
-      
-
-      
-
-   .. py:attribute:: __table_args__
       
 
       

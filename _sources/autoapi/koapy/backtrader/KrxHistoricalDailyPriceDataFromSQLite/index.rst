@@ -31,9 +31,6 @@ Classes
 
       
 
-   .. py:method:: _load(self)
-
-
    .. py:method:: dump_from_store(cls, source_filename, dest_filename, symbols=None, fromdate=None, todate=None, progress_bar=True)
       :classmethod:
 

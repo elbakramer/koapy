@@ -32,14 +32,6 @@ Classes
 
       
 
-   .. py:attribute:: _store
-      
-
-      
-
-   .. py:method:: _timeoffset(self)
-
-
    .. py:method:: isnaive(self, dt)
 
 
@@ -64,22 +56,10 @@ Classes
    .. py:method:: start(self)
 
 
-   .. py:method:: _st_start(self, instart=True, tmout=None)
-
-
    .. py:method:: stop(self)
 
 
    .. py:method:: haslivedata(self)
-
-
-   .. py:method:: _load(self)
-
-
-   .. py:method:: _load_tick(self, msg)
-
-
-   .. py:method:: _load_history(self, msg)
 
 
 

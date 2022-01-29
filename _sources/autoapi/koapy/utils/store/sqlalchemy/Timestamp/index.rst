@@ -167,22 +167,25 @@ Classes
 
       Receive a bound parameter value to be converted.
 
-      Subclasses override this method to return the
-      value that should be passed along to the underlying
-      :class:`.TypeEngine` object, and from there to the
-      DBAPI ``execute()`` method.
+      Custom subclasses of :class:`_types.TypeDecorator` should override
+      this method to provide custom behaviors for incoming data values.
+      This method is called at **statement execution time** and is passed
+      the literal Python data value which is to be associated with a bound
+      parameter in the statement.
 
       The operation could be anything desired to perform custom
       behavior, such as transforming or serializing data.
       This could also be used as a hook for validating logic.
 
-      This operation should be designed with the reverse operation
-      in mind, which would be the process_result_value method of
-      this class.
-
       :param value: Data to operate upon, of any type expected by
        this method in the subclass.  Can be ``None``.
       :param dialect: the :class:`.Dialect` in use.
+
+      .. seealso::
+
+          :ref:`types_typedecorator`
+
+          :meth:`_types.TypeDecorator.process_result_value`
 
 
 
@@ -190,25 +193,26 @@ Classes
 
       Receive a result-row column value to be converted.
 
-      Subclasses should implement this method to operate on data
-      fetched from the database.
-
-      Subclasses override this method to return the
-      value that should be passed back to the application,
-      given a value that is already processed by
-      the underlying :class:`.TypeEngine` object, originally
-      from the DBAPI cursor method ``fetchone()`` or similar.
+      Custom subclasses of :class:`_types.TypeDecorator` should override
+      this method to provide custom behaviors for data values
+      being received in result rows coming from the database.
+      This method is called at **result fetching time** and is passed
+      the literal Python data value that's extracted from a database result
+      row.
 
       The operation could be anything desired to perform custom
-      behavior, such as transforming or serializing data.
-      This could also be used as a hook for validating logic.
+      behavior, such as transforming or deserializing data.
 
       :param value: Data to operate upon, of any type expected by
        this method in the subclass.  Can be ``None``.
       :param dialect: the :class:`.Dialect` in use.
 
-      This operation should be designed to be reversible by
-      the "process_bind_param" method of this class.
+      .. seealso::
+
+          :ref:`types_typedecorator`
+
+          :meth:`_types.TypeDecorator.process_bind_param`
+
 
 
 

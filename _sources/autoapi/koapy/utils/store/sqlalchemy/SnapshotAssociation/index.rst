@@ -21,11 +21,6 @@ Classes
 
    Bases: :py:obj:`koapy.utils.store.sqlalchemy.Base.Base`
 
-   .. py:attribute:: __tablename__
-      :annotation: = snapshot_associations
-
-      
-
    .. py:attribute:: snapshot_id
       
 

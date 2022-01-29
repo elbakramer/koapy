@@ -36,7 +36,4 @@ Classes
    .. py:method:: call(self, *args, **kwargs)
 
 
-   .. py:method:: __call__(self, *args, **kwargs)
-
-
 

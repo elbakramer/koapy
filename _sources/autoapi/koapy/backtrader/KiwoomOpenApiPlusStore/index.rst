@@ -44,16 +44,6 @@ Classes
 
    docstring
 
-   .. py:attribute:: __slots__
-      :annotation: = []
-
-      
-
-   .. py:attribute:: _krx_timezone
-      
-
-      
-
    .. py:method:: from_tuple(cls, tup)
       :classmethod:
 
@@ -68,14 +58,6 @@ Classes
 
 
 .. py:class:: API(context)
-
-   .. py:attribute:: _krx_timezone
-      
-
-      
-
-   .. py:method:: __getattr__(self, name)
-
 
    .. py:method:: get_instruments_original(self, account, instruments)
 
@@ -106,9 +88,6 @@ Classes
 
    Bases: :py:obj:`backtrader.metabase.MetaParams`
 
-   .. py:method:: __call__(cls, *args, **kwargs)
-
-
 
 .. py:class:: MetaKiwoomOpenApiPlusStore(cls, clsname, bases, dct)
 
@@ -131,41 +110,6 @@ Classes
 
    .. py:attribute:: params
       :annotation: = [['account', ''], ['account_tmout', 60.0]]
-
-      
-
-   .. py:attribute:: _DTEPOCH
-      
-
-      
-
-   .. py:attribute:: _GRANULARITIES
-      
-
-      
-
-   .. py:attribute:: _ORDEREXECS
-      
-
-      
-
-   .. py:attribute:: _OIDSINGLE
-      :annotation: = ['orderOpened', 'tradeOpened', 'tradeReduced']
-
-      
-
-   .. py:attribute:: _OIDMULTIPLE
-      :annotation: = ['tradesClosed']
-
-      
-
-   .. py:attribute:: _X_ORDER_CREATE
-      :annotation: = ['STOP_ORDER_CREATE', 'LIMIT_ORDER_CREATE', 'MARKET_IF_TOUCHED_ORDER_CREATE']
-
-      
-
-   .. py:attribute:: _X_ORDER_FILLED
-      :annotation: = ['MARKET_ORDER_CREATE', 'ORDER_FILLED', 'TAKE_PROFIT_FILLED', 'STOP_LOSS_FILLED', 'TRAILING_STOP_FILLED']
 
       
 
@@ -204,22 +148,10 @@ Classes
    .. py:method:: streaming_events(self, tmout=None)
 
 
-   .. py:method:: _t_streaming_listener(self, q, tmout=None)
-
-
-   .. py:method:: _t_streaming_events(self, q, tmout=None)
-
-
    .. py:method:: candles(self, dataname, dtbegin, dtend, timeframe, compression)
 
 
-   .. py:method:: _t_candles(self, dataname, dtbegin, dtend, timeframe, compression, q)
-
-
    .. py:method:: streaming_prices(self, dataname, tmout=None)
-
-
-   .. py:method:: _t_streaming_prices(self, dataname, q, tmout)
 
 
    .. py:method:: get_cash(self)
@@ -234,25 +166,10 @@ Classes
    .. py:method:: broker_threads(self)
 
 
-   .. py:method:: _t_account(self)
-
-
    .. py:method:: order_create(self, order, stopside=None, takeside=None, **kwargs)
 
 
-   .. py:method:: _t_order_create(self)
-
-
    .. py:method:: order_cancel(self, order)
-
-
-   .. py:method:: _t_order_cancel(self)
-
-
-   .. py:method:: _transaction(self, trans)
-
-
-   .. py:method:: _process_transaction(self, oid, trans)
 
 
 

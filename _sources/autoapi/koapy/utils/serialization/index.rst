@@ -26,10 +26,10 @@ Classes
       :classmethod:
 
 
-   .. py:method:: to_json(self, f=None)
+   .. py:method:: to_json(self, f=None, encoding=None)
 
 
-   .. py:method:: from_json(cls, jsn)
+   .. py:method:: from_json(cls, jsn, encoding=None)
       :classmethod:
 
 

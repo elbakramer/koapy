@@ -17,7 +17,7 @@ Classes
 
 
 
-.. py:class:: KiwoomOpenApiPlusQAxWidget(*args, **kwargs)
+.. py:class:: KiwoomOpenApiPlusQAxWidget(c: Optional[str] = None, parent: Optional[koapy.compat.pyside2.QtWidgets.QWidget] = None, f: koapy.compat.pyside2.QtCore.Qt.WindowFlags = Qt.WindowFlags())           KiwoomOpenApiPlusQAxWidget(parent: Optional[koapy.compat.pyside2.QtWidgets.QWidget] = None, f: koapy.compat.pyside2.QtCore.Qt.WindowFlags = Qt.WindowFlags())
 
    Bases: :py:obj:`koapy.utils.logging.pyside2.QWidgetLogging.QWidgetLogging`, :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusQAxWidgetMixin`
 
@@ -40,12 +40,6 @@ Classes
       
 
       
-
-   .. py:method:: _onException(self, code, source, desc, help)
-
-
-   .. py:method:: __getattr__(self, name)
-
 
    .. py:method:: changeEvent(self, event)
 

@@ -31,19 +31,10 @@ Classes
 
       
 
-   .. py:method:: _close_cursor(self)
-
-
-   .. py:method:: _initialize_cursor(self)
-
-
    .. py:method:: start(self)
 
 
    .. py:method:: stop(self)
-
-
-   .. py:method:: _load(self)
 
 
    .. py:method:: adddata_fromfile(cls, cerebro, filename, symbols=None, fromdate=None, todate=None, progress_bar=True)

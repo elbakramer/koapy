@@ -28,15 +28,6 @@ Classes
 
       
 
-   .. py:method:: _getcommissionbuy(self, size, price, pseudoexec)
-
-
-   .. py:method:: _getcommissionsell(self, size, price, pseudoexec)
-
-
-   .. py:method:: _getcommission(self, size, price, pseudoexec)
-
-
 
 .. py:class:: MetaKiwoomOpenApiPlusBroker(cls, name, bases, dct)
 
@@ -49,11 +40,6 @@ Classes
 
    .. py:attribute:: params
       :annotation: = [['use_positions', True], None]
-
-      
-
-   .. py:attribute:: _store
-      
 
       
 
@@ -76,33 +62,6 @@ Classes
 
 
    .. py:method:: orderstatus(self, order)
-
-
-   .. py:method:: _submit(self, oref)
-
-
-   .. py:method:: _reject(self, oref)
-
-
-   .. py:method:: _accept(self, oref)
-
-
-   .. py:method:: _cancel(self, oref)
-
-
-   .. py:method:: _expire(self, oref)
-
-
-   .. py:method:: _bracketnotif(self, order)
-
-
-   .. py:method:: _bracketize(self, order, cancel=False)
-
-
-   .. py:method:: _fill(self, oref, size, price, ttype, **kwargs)
-
-
-   .. py:method:: _transmit(self, order)
 
 
    .. py:method:: buy(self, owner, data, size, price=None, plimit=None, exectype=None, valid=None, tradeid=0, oco=None, trailamount=None, trailpercent=None, parent=None, transmit=True, **kwargs)

@@ -22,9 +22,6 @@ Classes
 
 .. py:class:: CybosPlusEvent(iterator)
 
-   .. py:method:: __del__(self)
-
-
    .. py:method:: done(self)
 
 
@@ -34,13 +31,7 @@ Classes
 
 .. py:class:: CybosPlusEventIterator(handler)
 
-   .. py:method:: __del__(self)
-
-
    .. py:method:: notify(self)
-
-
-   .. py:method:: __next__(self)
 
 
 
@@ -49,36 +40,12 @@ Classes
    .. py:method:: OnRecieved(self)
 
 
-   .. py:method:: __iter__(self)
-
-
 
 .. py:class:: CybosPlusProxyServiceServicer
 
    Bases: :py:obj:`koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyService_pb2_grpc.CybosPlusProxyServiceServicer`
 
    Missing associated documentation comment in .proto file.
-
-   .. py:attribute:: _lock
-      
-
-      
-
-   .. py:attribute:: _dispatches
-      
-
-      
-
-   .. py:attribute:: _handlers
-      
-
-      
-
-   .. py:method:: _EnsureDispatch(self, prog)
-
-
-   .. py:method:: _GetHandler(self, prog)
-
 
    .. py:method:: Dispatch(self, request, context)
 

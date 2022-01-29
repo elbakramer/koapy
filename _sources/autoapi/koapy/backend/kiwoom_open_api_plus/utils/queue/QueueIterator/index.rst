@@ -20,14 +20,6 @@ Classes
 
 .. py:class:: QueueIterator(queue)
 
-   .. py:attribute:: _check_timeout
-      :annotation: = 1
-
-      
-
-   .. py:method:: __del__(self)
-
-
    .. py:method:: queue(self)
       :property:
 
@@ -39,12 +31,6 @@ Classes
 
 
    .. py:method:: has_next(self)
-
-
-   .. py:method:: __iter__(self)
-
-
-   .. py:method:: __next__(self)
 
 
    .. py:method:: stop(self)

@@ -53,13 +53,4 @@ Classes
    .. py:method:: restoreAll(self)
 
 
-   .. py:method:: __del__(self)
-
-
-   .. py:method:: __enter__(self)
-
-
-   .. py:method:: __exit__(self, exc_type, exc_value, traceback)
-
-
 

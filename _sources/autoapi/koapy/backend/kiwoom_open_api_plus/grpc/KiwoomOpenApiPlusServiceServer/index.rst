@@ -42,13 +42,4 @@ Classes
    .. py:method:: stop(self, grace=None)
 
 
-   .. py:method:: __getattr__(self, name)
-
-
-   .. py:method:: __enter__(self)
-
-
-   .. py:method:: __exit__(self, exc_type, exc_value, traceback)
-
-
 

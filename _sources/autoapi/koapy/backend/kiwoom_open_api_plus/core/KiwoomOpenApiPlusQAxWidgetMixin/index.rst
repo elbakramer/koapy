@@ -12,14 +12,16 @@ Classes
 
 .. autoapisummary::
 
-   koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusSimpleQAxWidgetMixin
-   koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusComplexQAxWidgetMixin
+   koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusQAxWidgetUniversalMixin
+   koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusQAxWidgetServerSideMixin
    koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusQAxWidgetMixin
 
 
 
 
-.. py:class:: KiwoomOpenApiPlusSimpleQAxWidgetMixin
+.. py:class:: KiwoomOpenApiPlusQAxWidgetUniversalMixin
+
+   Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchFunctions.KiwoomOpenApiPlusDispatchFunctions`
 
    .. py:method:: IsConnected(self)
 
@@ -36,10 +38,10 @@ Classes
    .. py:method:: ShowAccountWindow(self)
 
 
-   .. py:method:: GetCodeListByMarketAsList(self, market=None)
+   .. py:method:: GetCodeListByMarketAsList(self, market: Optional[Union[str, int]] = None)
 
 
-   .. py:method:: GetNameListByMarketAsList(self, market)
+   .. py:method:: GetNameListByMarketAsList(self, market: Optional[Union[str, int]] = None)
 
 
    .. py:method:: GetUserId(self)
@@ -69,7 +71,7 @@ Classes
    .. py:method:: GetFirstAvailableAccount(self)
 
 
-   .. py:method:: GetMasterStockStateAsList(self, code)
+   .. py:method:: GetMasterStockStateAsList(self, code: str)
 
 
    .. py:method:: GetKospiCodeList(self)
@@ -78,7 +80,7 @@ Classes
    .. py:method:: GetKosdaqCodeList(self)
 
 
-   .. py:method:: GetGeneralCodeList(self, include_preferred_stock=False, include_etn=False, include_etf=False, include_mutual_fund=False, include_reits=False, include_kosdaq=False)
+   .. py:method:: GetGeneralCodeList(self, include_preferred_stock: bool = False, include_etn: bool = False, include_etf: bool = False, include_mutual_fund: bool = False, include_reits: bool = False, include_kosdaq: bool = False)
 
       [시장구분값]
         0 : 장내
@@ -93,28 +95,28 @@ Classes
         30 : K-OTC
 
 
-   .. py:method:: GetStockStates(self, code)
+   .. py:method:: GetStockStates(self, code: str)
 
 
-   .. py:method:: GetSurveillanceFlag(self, code)
+   .. py:method:: GetSurveillanceFlag(self, code: str)
 
 
-   .. py:method:: IsSuspended(self, code)
+   .. py:method:: IsSuspended(self, code: str)
 
 
-   .. py:method:: IsUnderSurveillance(self, code)
+   .. py:method:: IsUnderSurveillance(self, code: str)
 
 
-   .. py:method:: IsUnderAdministration(self, code)
+   .. py:method:: IsUnderAdministration(self, code: str)
 
 
-   .. py:method:: IsFlaggedForCaution(self, code)
+   .. py:method:: IsFlaggedForCaution(self, code: str)
 
 
-   .. py:method:: IsProblematic(self, code)
+   .. py:method:: IsNotNormal(self, code: str)
 
 
-   .. py:method:: IsNormal(self, code)
+   .. py:method:: IsNormal(self, code: str)
 
 
    .. py:method:: GetConditionFilePath(self)
@@ -132,52 +134,58 @@ Classes
    .. py:method:: DisableAutoLogin(self)
 
 
-   .. py:method:: LoginUsingPywinauto_Impl(cls, credential=None)
+   .. py:method:: LoginUsingPywinauto_Impl(cls, credential: Optional[Mapping[str, Any]] = None)
       :classmethod:
 
 
-   .. py:method:: LoginUsingPywinauto_RunScriptInSubprocess(cls, credential=None, wait=False, timeout=None, check=False)
+   .. py:method:: LoginUsingPywinauto_RunScriptInSubprocess(cls, credential: Optional[Mapping[str, Any]] = None, wait: bool = False, timeout: bool = None, check: bool = False)
       :classmethod:
 
 
-   .. py:method:: LoginUsingPywinauto(self, credential=None, wait=True, timeout=None, check=True)
+   .. py:method:: LoginUsingPywinauto(self, credential: Optional[Mapping[str, Any]] = None, wait: bool = True, timeout: bool = None, check: bool = True)
 
 
-   .. py:method:: CommConnectAndThen(self, credential=None, callback=None)
+   .. py:method:: CommConnectAndThen(self, credential: Mapping[str, Any], callback: Callable[[int], Any]) -> int
+               CommConnectAndThen(self, credential: Mapping[str, Any]) -> int
+               CommConnectAndThen(self, callback: Callable[[int], Any]) -> int
+               CommConnectAndThen(self) -> int
 
 
-   .. py:method:: Connect(self, credential=None)
+   .. py:method:: Connect(self, credential: Optional[Mapping[str, Any]] = None) -> int
 
 
-   .. py:method:: EnsureConnectedAndThen(self, credential=None, callback=None)
+   .. py:method:: EnsureConnectedAndThen(self, credential: Mapping[str, Any], callback: Callable[[int], Any]) -> bool
+               EnsureConnectedAndThen(self, credential: Mapping[str, Any]) -> bool
+               EnsureConnectedAndThen(self, callback: Callable[[int], Any]) -> bool
+               EnsureConnectedAndThen(self) -> bool
 
 
-   .. py:method:: EnsureConnected(self, credential=None)
+   .. py:method:: EnsureConnected(self, credential: Optional[Mapping[str, Any]] = None) -> bool
 
 
 
-.. py:class:: KiwoomOpenApiPlusComplexQAxWidgetMixin
+.. py:class:: KiwoomOpenApiPlusQAxWidgetServerSideMixin
 
-   Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
+   Bases: :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchFunctions.KiwoomOpenApiPlusDispatchFunctions`, :py:obj:`koapy.utils.logging.Logging.Logging`
 
-   .. py:method:: LoadCondition(self)
-
-
-   .. py:method:: IsConditionLoaded(self)
+   .. py:method:: LoadCondition(self) -> int
 
 
-   .. py:method:: EnsureConditionLoaded(self, force=False)
+   .. py:method:: IsConditionLoaded(self) -> bool
 
 
-   .. py:method:: CommRqDataWithInputs(self, rqname, trcode, prevnext, scrnno, inputs=None)
+   .. py:method:: EnsureConditionLoaded(self, force: bool = False) -> int
 
 
-   .. py:method:: AtomicCommRqData(self, rqname, trcode, prevnext, scrnno, inputs=None)
+   .. py:method:: CommRqDataWithInputs(self, rqname: str, trcode: str, prevnext: Union[str, int], scrnno: str, inputs: Optional[Dict[str, str]] = None) -> int
+
+
+   .. py:method:: AtomicCommRqData(self, rqname: str, trcode: str, prevnext: Union[str, int], scrnno: str, inputs: Optional[Dict[str, str]] = None) -> int
 
 
 
 .. py:class:: KiwoomOpenApiPlusQAxWidgetMixin
 
-   Bases: :py:obj:`KiwoomOpenApiPlusSimpleQAxWidgetMixin`, :py:obj:`KiwoomOpenApiPlusComplexQAxWidgetMixin`
+   Bases: :py:obj:`KiwoomOpenApiPlusQAxWidgetUniversalMixin`, :py:obj:`KiwoomOpenApiPlusQAxWidgetServerSideMixin`
 
 
