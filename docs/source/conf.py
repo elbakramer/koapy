@@ -151,7 +151,7 @@ master_doc = "index"
 # General information about the project.
 project = "KOAPY"
 author = koapy.__author__
-copyright = "2021, " + koapy.__author__
+copyright = "2021, " + koapy.__author__  # pylint: disable=redefined-builtin
 
 # The version info for the project you"re documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -171,14 +171,10 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.autosectionlabel",
-    "sphinx.ext.coverage",
-    "sphinx.ext.doctest",
     "sphinx.ext.githubpages",
     "sphinx.ext.ifconfig",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
-    "sphinx.ext.todo",
-    "sphinx.ext.viewcode",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -212,11 +208,23 @@ else:
 extensions.append("autoapi.extension")
 
 autoapi_type = "python"
+autoapi_file_patterns = [
+    "*.pyi",
+    "*.py",
+]
 autoapi_dirs = [package_dir]
 autoapi_ignore = [
     "**/examples/*.py",
 ]
 autoapi_keep_files = False
+autoapi_options = [
+    "members",
+    # "inherited-members",
+    "undoc-members",
+    "show-inheritance",
+    "show-module-summary",
+    "imported-members",
+]
 
 # -- Nbsphinx configuration --------------------------------------------------
 

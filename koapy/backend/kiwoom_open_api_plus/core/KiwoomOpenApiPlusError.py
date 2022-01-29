@@ -9,17 +9,20 @@ IntOrBool = TypeVar(
     int,
     bool,
 )
+
 CallableReturnsIntOrBool = TypeVar(
     "CallableReturnsIntOrBool",
     Callable[..., int],
     Callable[..., bool],
 )
+
 IntCompatible = TypeVar(
     "IntCompatible",
     int,
     Callable[..., int],
     Future,
 )
+
 BoolCompatible = TypeVar(
     "BoolCompatible",
     int,
@@ -254,7 +257,7 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
         cls, code: IntOrBool, message: Optional[str] = None
     ) -> IntOrBool:
         if not code:
-            raise cls(message)
+            raise cls(code, message)
         return code
 
     @classmethod

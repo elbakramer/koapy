@@ -58,9 +58,9 @@ class KiwoomOpenApiPlusQAxWidget(
         assert is_32bit(), "Control object should be created in 32bit environment"
 
         # Process arguments
-        control = None
-        parent = None  # pylint: disable=unused-variable
-        window_flags = None  # pylint: disable=unused-variable
+        control: Optional[str] = None
+        parent: Optional[QWidget] = None  # pylint: disable=unused-variable
+        window_flags: Optional[Qt.WindowFlags] = None  # pylint: disable=unused-variable
 
         # Copy args before modification
         args = list(args)

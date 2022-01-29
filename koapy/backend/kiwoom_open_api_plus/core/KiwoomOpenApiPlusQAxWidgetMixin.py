@@ -50,7 +50,7 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         result = string_to_list(result)
         return result
 
-    def GetNameListByMarketAsList(self, market: Union[str, int]):
+    def GetNameListByMarketAsList(self, market: Optional[Union[str, int]] = None):
         codes = self.GetCodeListByMarketAsList(market)
         names = [self.GetMasterCodeName(code) for code in codes]
         return names

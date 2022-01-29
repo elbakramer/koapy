@@ -1,7 +1,14 @@
+from __future__ import annotations
+
 import inspect
 import threading
 
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Generic, List, Optional, TypeVar
+
+try:
+    from typing import ParamSpec
+except ImportError:
+    from typing_extensions import ParamSpec
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandlerSignature import (
     KiwoomOpenApiPlusEventHandlerSignature,
@@ -10,14 +17,17 @@ from koapy.compat.pyside2 import PYQT5, PYSIDE2, PythonQtError
 from koapy.compat.pyside2.QtAxContainer import QAxWidget
 from koapy.utils.logging.Logging import Logging
 
+P = ParamSpec("P")
+R = TypeVar("R")
 
-class KiwoomOpenApiPlusSignalConnector(Logging):
+
+class KiwoomOpenApiPlusSignalConnector(Logging, Generic[P, R]):
     def __init__(self, name: str):
         super().__init__()
 
         self._name = name
         self._lock = threading.RLock()
-        self._slots = list()
+        self._slots: List[Callable[P, R]] = []
 
         self._signature = KiwoomOpenApiPlusEventHandlerSignature.from_name(self._name)
         self._param_types = [
@@ -70,13 +80,13 @@ class KiwoomOpenApiPlusSignalConnector(Logging):
             else:
                 self.logger.warning("Tried to disconnect a slot that doesn't exist")
 
-    def call(self, *args, **kwargs):
+    def call(self, *args: P.args, **kwargs: P.kwargs) -> R:
         # make a copy in order to prevent modification during iteration problem
         with self._lock:
             slots = list(self._slots)
-        # TODO: use Thread with await/join for concurrency?
+        # use Thread with await/join for concurrency?
         for slot in slots:
             slot(*args, **kwargs)
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args: P.args, **kwargs: P.kwargs) -> R:
         return self.call(*args, **kwargs)

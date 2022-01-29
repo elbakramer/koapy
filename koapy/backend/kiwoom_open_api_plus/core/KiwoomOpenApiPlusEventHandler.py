@@ -11,6 +11,8 @@ from koapy.utils.notimplemented import isimplemented
 
 
 class KiwoomOpenApiPlusEventHandler(KiwoomOpenApiPlusEventHandlerFunctions):
+    # pylint: disable=abstract-method
+
     def __init__(self, control):
         self._control = control
         self._observer = QueueBasedIterableObserver()

@@ -39,6 +39,7 @@ class KiwoomOpenApiPlusSendOrderRateLimiter(TimeWindowRateLimiter):
 
 
 class KiwoomOpenApiPlusSendConditionRateLimiter(RateLimiter):
+    # pylint: disable=arguments-differ
 
     """
     [조건검색 제한]

@@ -45,9 +45,10 @@ class CybosPlusDispatchProxy(Logging):
         request.name = name
         should_stop = False
         while not should_stop:
+            # pylint: disable=protected-access
             response_future = self._proxy._stub.Property.future(
                 request, timeout=self._proxy._timeout
-            )  # pylint: disable=protected-access
+            )
             try:
                 response = response_future.result()
             except grpc.RpcError:
@@ -65,14 +66,13 @@ class CybosPlusDispatchProxy(Logging):
         request.prog = self._progid
         request.name = name
         for arg in args:
-            AssignPrimitive(
-                request.arguments.add().value, arg
-            )  # pylint: disable=no-member
+            AssignPrimitive(request.arguments.add().value, arg)
         should_stop = False
         while not should_stop:
+            # pylint: disable=protected-access
             response_future = self._proxy._stub.Method.future(
                 request, timeout=self._proxy._timeout
-            )  # pylint: disable=protected-access
+            )
             try:
                 response = response_future.result()
             except grpc.RpcError:

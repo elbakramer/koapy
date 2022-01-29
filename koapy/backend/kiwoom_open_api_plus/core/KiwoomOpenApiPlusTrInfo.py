@@ -23,7 +23,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         TRINFO_BY_CODE_DUMP_FILEDIR, TRINFO_BY_CODE_DUMP_FILENAME
     )
 
-    TRINFO_BY_CODE: dict[str, KiwoomOpenApiPlusTrInfo] = {}
+    TRINFO_BY_CODE: Dict[str, KiwoomOpenApiPlusTrInfo] = {}
 
     class Field(JsonSerializable):
 
@@ -31,10 +31,10 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
 
         def __init__(
             self,
-            name: str | None = None,
-            start: int | None = None,
-            offset: int | None = None,
-            fid: int | None = None,
+            name: Optional[str] = None,
+            start: Optional[int] = None,
+            offset: Optional[int] = None,
+            fid: Optional[int] = None,
         ):
             self.name = name
             self.start = start
@@ -63,17 +63,17 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
 
     def __init__(
         self,
-        tr_code: str | None = None,
-        name: str | None = None,
-        tr_name: str | None = None,
-        tr_names_svr: str | None = None,
-        tr_type: str | None = None,
-        gfid: str | None = None,
-        inputs: Sequence[Field] | None = None,
-        single_outputs_name: str | None = None,
-        single_outputs: Sequence[Field] | None = None,
-        multi_outputs_name: str | None = None,
-        multi_outputs: Sequence[Field] | None = None,
+        tr_code: Optional[str] = None,
+        name: Optional[str] = None,
+        tr_name: Optional[str] = None,
+        tr_names_svr: Optional[str] = None,
+        tr_type: Optional[str] = None,
+        gfid: Optional[str] = None,
+        inputs: Optional[Sequence[Field]] = None,
+        single_outputs_name: Optional[str] = None,
+        single_outputs: Optional[Sequence[Field]] = None,
+        multi_outputs_name: Optional[str] = None,
+        multi_outputs: Optional[Sequence[Field]] = None,
     ):
         self.tr_code = tr_code
         self.name = name
@@ -120,7 +120,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             )
         return False
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         dic = dict(self.__dict__)
         for attr in dic:
             if isinstance(dic[attr], list):
@@ -128,7 +128,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         return dic
 
     @classmethod
-    def from_dict(cls, dic: dict[str, Any]) -> KiwoomOpenApiPlusTrInfo:
+    def from_dict(cls, dic: Dict[str, Any]) -> KiwoomOpenApiPlusTrInfo:
         output = cls()
         for name in output.__dict__:
             value = dic.get(name)
@@ -139,29 +139,29 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                 setattr(output, name, value)
         return output
 
-    def get_input_names(self) -> list[str]:
+    def get_input_names(self) -> List[str]:
         return [input_.name for input_ in self.inputs]
 
-    def get_single_output_names(self) -> list[str]:
+    def get_single_output_names(self) -> List[str]:
         return [output.name for output in self.single_outputs]
 
-    def get_multi_output_names(self) -> list[str]:
+    def get_multi_output_names(self) -> List[str]:
         return [output.name for output in self.multi_outputs]
 
     @classmethod
-    def get_trinfo_by_code(cls, trcode: str) -> KiwoomOpenApiPlusTrInfo | None:
+    def get_trinfo_by_code(cls, trcode: str) -> Optional[KiwoomOpenApiPlusTrInfo]:
         return cls.TRINFO_BY_CODE.get(trcode.lower())
 
     @classmethod
-    def from_code(cls, trcode: str) -> KiwoomOpenApiPlusTrInfo | None:
+    def from_code(cls, trcode: str) -> Optional[KiwoomOpenApiPlusTrInfo]:
         return cls.get_trinfo_by_code(trcode)
 
     @classmethod
     def from_encfile(
         cls,
-        f: str | TextIO,
-        tr_code: str | None = None,
-        encoding: str | None = None,
+        f: Union[str, TextIO],
+        tr_code: Optional[str] = None,
+        encoding: Optional[str] = None,
     ) -> KiwoomOpenApiPlusTrInfo:
         with contextlib.ExitStack() as stack:
             if isinstance(f, str):
@@ -264,10 +264,10 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     @classmethod
     def infos_from_data_dir(
         cls,
-        data_dir: str | None = None,
-        encoding: str | None = None,
-        module_path: str | None = None,
-    ) -> list[KiwoomOpenApiPlusTrInfo]:
+        data_dir: Optional[str] = None,
+        encoding: Optional[str] = None,
+        module_path: Optional[str] = None,
+    ) -> List[KiwoomOpenApiPlusTrInfo]:
         if data_dir is None:
             if module_path is None:
                 from koapy.backend.kiwoom_open_api_plus.utils.module_path import (
@@ -327,8 +327,8 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
 
     @classmethod
     def trinfo_by_code_from_data_dir(
-        cls, data_dir: str | None = None, post_process: bool = True
-    ) -> dict[str, KiwoomOpenApiPlusTrInfo]:
+        cls, data_dir: Optional[str] = None, post_process: bool = True
+    ) -> Dict[str, KiwoomOpenApiPlusTrInfo]:
         infos = cls.infos_from_data_dir(data_dir)
         result = {info.tr_code: info for info in infos}
         if post_process:
@@ -342,9 +342,9 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     @classmethod
     def dump_trinfo_by_code(
         cls,
-        dump_file: str | TextIO | None = None,
-        data_dir: str | None = None,
-        encoding: str | None = None,
+        dump_file: Optional[Union[str, TextIO]] = None,
+        data_dir: Optional[str] = None,
+        encoding: Optional[str] = None,
     ):
         if dump_file is None:
             dump_file = cls.TRINFO_BY_CODE_DUMP_FILEPATH
@@ -373,9 +373,9 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     @classmethod
     def trinfo_by_code_from_dump_file(
         cls,
-        dump_file: str | TextIO | None = None,
-        encoding: str | None = None,
-    ) -> dict[str, KiwoomOpenApiPlusTrInfo]:
+        dump_file: Optional[Union[str, TextIO]] = None,
+        encoding: Optional[str] = None,
+    ) -> Dict[str, KiwoomOpenApiPlusTrInfo]:
         if dump_file is None:
             dump_file = cls.TRINFO_BY_CODE_DUMP_FILEPATH
         with contextlib.ExitStack() as stack:
@@ -394,11 +394,11 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         return result
 
     @classmethod
-    def load_from_dump_file(cls, dump_file: str | TextIO | None = None):
+    def load_from_dump_file(cls, dump_file: Optional[Union[str, TextIO]] = None):
         cls.TRINFO_BY_CODE = cls.trinfo_by_code_from_dump_file(dump_file)
 
     @classmethod
-    def load_from_data_dir(cls, data_dir: str | None = None):
+    def load_from_data_dir(cls, data_dir: Optional[str] = None):
         cls.TRINFO_BY_CODE = cls.trinfo_by_code_from_data_dir(data_dir)
 
     @classmethod

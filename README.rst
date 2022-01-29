@@ -66,7 +66,7 @@ KOAPY
             :target: https://github.com/elbakramer/koapy/blob/master/LICENSE
             :alt: PyPI License
 
-    .. image:: https://app.fossa.com/api/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy.svg?type=shield
+    .. .. image:: https://app.fossa.com/api/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy.svg?type=shield
             :target: https://app.fossa.com/projects/git%2Bgithub.com%2Felbakramer%2Fkoapy?ref=badge_shield
             :alt: FOSSA Status
 

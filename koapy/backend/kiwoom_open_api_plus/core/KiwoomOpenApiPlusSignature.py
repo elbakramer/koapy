@@ -8,6 +8,11 @@ from koapy.compat.pyside2 import PYSIDE2
 if PYSIDE2:
     from koapy.compat.pyside2.QtCore import SIGNAL
 
+try:
+    from types import NoneType
+except ImportError:
+    NoneType = type(None)
+
 
 class KiwoomOpenApiPlusSignature(Signature):
 
@@ -16,16 +21,11 @@ class KiwoomOpenApiPlusSignature(Signature):
         str: "const QString&",
     }
 
-    # belows pythoncom.VT_VARIANT might match to Qt's QVariant
-    # but here we just set to None
-    # since there is no QVariant implementation in PySide2
-    # (only in PyQt5 currently)
-
     COMTYPE_TO_PYTHONTYPE = {
         pythoncom.VT_I4: int,
         pythoncom.VT_BSTR: str,
-        pythoncom.VT_VARIANT: type(None),
-        pythoncom.VT_VOID: type(None),
+        pythoncom.VT_VARIANT: Parameter.empty,
+        pythoncom.VT_VOID: NoneType,
     }
 
     def __init__(
@@ -60,7 +60,7 @@ class KiwoomOpenApiPlusSignature(Signature):
 
     @classmethod
     def _comtype_to_pythontype(cls, typ):
-        return cls.COMTYPE_TO_PYTHONTYPE[typ]
+        return cls.COMTYPE_TO_PYTHONTYPE.get(typ, Parameter.empty)
 
     @classmethod
     def _from_entry(cls, name, entry):

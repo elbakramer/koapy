@@ -8,6 +8,11 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusOleItems import (
     EVENT_OLE_ITEM,
 )
 
+try:
+    from ast import unparse
+except ImportError:
+    from astunparse import unparse
+
 
 def generate_python():
     dispatch_item = DISPATCH_OLE_ITEM
@@ -44,7 +49,7 @@ def generate_python():
         func_def.lineno = None
         func_def.col_offset = None
         dispatch_func_defs.append(func_def)
-    dispatch_class_name = "KiwoomOpenApiPlusDispatchFunctions"
+    dispatch_class_name = "KiwoomOpenApiPlusDispatchFunctionsGenerated"
     dispatch_class_def = ast.ClassDef(
         dispatch_class_name, [], [], dispatch_func_defs, []
     )
@@ -72,7 +77,7 @@ def generate_python():
         func_def.lineno = None
         func_def.col_offset = None
         event_func_defs.append(func_def)
-    event_class_name = "KiwoomOpenApiPlusEventFunctions"
+    event_class_name = "KiwoomOpenApiPlusEventFunctionsGenerated"
     event_class_def = ast.ClassDef(event_class_name, [], [], event_func_defs, [])
 
     script_dir = os.path.dirname(__file__)
@@ -80,11 +85,6 @@ def generate_python():
         script_dir, "..", dispatch_class_name + ".py"
     )
     event_functions_filename = os.path.join(script_dir, "..", event_class_name + ".py")
-
-    try:
-        from ast import unparse
-    except ImportError:
-        from astunparse import unparse
 
     with open(dispatch_functions_filename, "w", encoding="utf-8") as f:
         mod = ast.Module([dispatch_class_def], [])

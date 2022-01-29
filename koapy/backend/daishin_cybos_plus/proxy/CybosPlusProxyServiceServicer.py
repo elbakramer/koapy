@@ -24,7 +24,7 @@ class CybosPlusEvent:
 
     def done(self):
         self._done.set()
-        self._iterator._events.task_done()
+        self._iterator._events.task_done()  # pylint: disable=protected-access
 
     def wait_for_done(self):
         self._done.wait()
@@ -112,6 +112,7 @@ class CybosPlusProxyServiceServicer(
     def Dispatch(self, request, context):
         prog = request.prog
         dispatch = self._EnsureDispatch(prog)
+        # pylint: disable=protected-access
         properties = [p for p in dispatch._prop_map_get_.keys()]
         methods = [
             m

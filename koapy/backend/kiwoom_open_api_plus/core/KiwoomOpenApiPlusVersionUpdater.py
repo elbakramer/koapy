@@ -43,6 +43,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         # so here we are creating the object in subprocess and disables auto login based on the checked module path
 
         def main():
+            # pylint: disable=redefined-outer-name,import-self
             from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
                 KiwoomOpenApiPlusVersionUpdater,
             )
@@ -89,6 +90,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         #   https://github.com/pywinauto/pywinauto/issues/472
 
         def main():
+            # pylint: disable=redefined-outer-name,import-self
             from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
                 KiwoomOpenApiPlusVersionUpdater,
             )
@@ -138,6 +140,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         # so it will block until the account window is closed after enabling the auto login.
 
         def main():
+            # pylint: disable=redefined-outer-name,import-self
             from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
                 KiwoomOpenApiPlusVersionUpdater,
             )
@@ -225,9 +228,8 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
     def enable_autologin(self):
         self.logger.info("Start enabling auto login")
 
-        account_window_proc = (
-            self.show_account_window()
-        )  # pylint: disable=unused-variable
+        # pylint: disable=unused-variable
+        account_window_proc = self.show_account_window()
 
         credential = self._credential
         account_passwords = credential.get("account_passwords")
@@ -248,22 +250,25 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
 
         credential = self._credential
         self.login_using_pywinauto(credential)
-        
+
         timeout_login_successful = 4
         timeout_version_check = 1
         timeout_per_trial = timeout_login_successful + timeout_version_check
-        
+
         trial_timeout = 180
         trial_count = trial_timeout / timeout_per_trial
         while trial_count > 0:
             try:
-                self.logger.info("Login in progress ... timeout after %d sec", trial_count * timeout_per_trial)
+                self.logger.info(
+                    "Login in progress ... timeout after %d sec",
+                    trial_count * timeout_per_trial,
+                )
                 trial_count -= 1
                 login_window.wait_not("exists", timeout_login_successful)
                 if login_window.exists():
                     # make sure that login_window control does not exist.
                     continue
-            except pywinauto.timings.TimeoutError:
+            except pywinauto.timings.TimeoutError as e:
                 version_window = desktop.window(title="opstarter")
                 try:
                     version_window.wait("ready", timeout_version_check)
@@ -300,10 +305,12 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
                             self.logger.info("Cannot find failure confirmation popup")
                         else:
                             self.logger.info("Failed to update")
-                            raise RuntimeError("Failed to update")
+                            raise RuntimeError("Failed to update") from e
 
                         try:
-                            self.logger.info("Waiting for confirmation popup after update")
+                            self.logger.info(
+                                "Waiting for confirmation popup after update"
+                            )
                             timeout_confirm_update = 10
                             confirm_window.wait("ready", timeout_confirm_update)
                         except pywinauto.timings.TimeoutError as e:
