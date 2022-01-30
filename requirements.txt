@@ -44,7 +44,7 @@ sqlalchemy==1.4.31; (python_version >= "2.7" and python_full_version < "3.0.0") 
 tabulate==0.8.9
 toolz==0.11.2; python_version >= "3.7"
 tqdm==4.62.3; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
-typing-extensions==4.0.1; python_version >= "3.6" and python_full_version >= "3.5.3"
+typing-extensions==4.0.1; python_version >= "3.6" and python_full_version >= "3.5.3" or python_version < "3.10"
 tzdata==2021.5; platform_system == "Windows" and python_version >= "3.6" and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.6")
 tzlocal==4.1; python_version >= "3.6"
 urllib3==1.26.8; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4"

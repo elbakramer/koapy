@@ -40,6 +40,7 @@ requirements = [
     "pywin32>=303;sys_platform=='win32'",
     "pywinauto>=0.6.8;sys_platform=='win32'",
     "windows-curses>=2.3.0;sys_platform=='win32'",
+    "typing-extensions>=4.0.1;python_version<'3.10'",
 ]
 
 requirements_dev = [
@@ -59,9 +60,10 @@ requirements_dev = [
     "pytest-cov>=3.0.0",
     "pytest-xdist>=2.5.0",
     "pyupgrade>=2.31.0",
+    "astunparse>=1.6.3;python_version<'3.9'",
 ]
 
-requirements_docs = [
+requirements_doc = [
     "Sphinx>=4.4.0",
     "sphinx-autoapi>=1.8.4",
     "nbconvert>=6.4.1",
@@ -69,7 +71,7 @@ requirements_docs = [
     "ipython>=8.0.1",
 ]
 
-requirements_dev += requirements_docs
+requirements_dev += requirements_doc
 
 setup(
     author="Yunseong Hwang",
@@ -84,7 +86,6 @@ setup(
         "Natural Language :: English",
         "Natural Language :: Korean",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Operating System :: Microsoft :: Windows :: Windows 10",
@@ -98,9 +99,7 @@ setup(
     install_requires=requirements,
     extras_require={
         "dev": requirements_dev,
-        "docs": requirements_docs,
-        "backtarder": ["backtrader>=1.9.76.123"],
-        "pyqt5": ["PyQt5>=5.15.6"],
+        "doc": requirements_doc,
     },
     license="MIT OR Apache-2.0 OR GPL-3.0-or-later",
     long_description=readme + "\n\n" + history,
