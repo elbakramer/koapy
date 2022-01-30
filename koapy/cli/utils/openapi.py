@@ -9,6 +9,8 @@ from koapy.utils.subprocess import quote
 
 logger = get_logger(__name__)
 
+iss_file_encoding = "euc-kr"
+
 
 def download_openapi_installer(filepath):
     url = "https://download.kiwoom.com/web/openapi/OpenAPISetup.exe"
@@ -26,13 +28,13 @@ def prepare_issfile_for_install(filepath, target=None):
     iss_filepath = os.path.join(iss_filedir, iss_filename)
     shutil.copy(iss_filepath, filepath)
     if target is not None:
-        with open(filepath, "r") as f:
+        with open(filepath, "r", encoding=iss_file_encoding) as f:
             lines = [line for line in f]
         for i, line in enumerate(lines):
             if line.startswith("szDir="):
                 lines[i] = "szDir={}\n".format(target)
                 break
-        with open(filepath, "w") as f:
+        with open(filepath, "w", encoding=iss_file_encoding) as f:
             for line in lines:
                 f.write(line)
 
@@ -46,14 +48,14 @@ def prepare_issfile_for_uninstall(filepath, reboot=False):
     iss_filepath = os.path.join(iss_filedir, iss_filename)
     shutil.copy(iss_filepath, filepath)
     if reboot:
-        with open(filepath, "r") as f:
+        with open(filepath, "r", encoding=iss_file_encoding) as f:
             lines = [line for line in f]
         for i, line in enumerate(lines):
             if line.startswith("BootOption="):
                 boot_option = 3
                 lines[i] = "BootOption={}\n".format(boot_option)
                 break
-        with open(filepath, "w") as f:
+        with open(filepath, "w", encoding=iss_file_encoding) as f:
             for line in lines:
                 f.write(line)
 
