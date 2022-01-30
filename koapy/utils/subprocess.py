@@ -69,6 +69,8 @@ def run_as_admin(cmd, cwd=None, check=True, wait=True):
     import win32event
     import win32process
 
+    # pyright: reportMissingImports=false
+    # pylint: disable=import-error,no-name-in-module
     from win32com.shell import shellcon
     from win32com.shell.shell import ShellExecuteEx
 
