@@ -5,7 +5,7 @@ import click
 from koapy.config import (
     config,
     config_from_dict,
-    default_user_config_path,
+    default_user_config_filepath,
     save_config,
     user_config,
 )
@@ -82,7 +82,7 @@ def get_credential(interactive=False):
         )
         if save_credential:
             config_path = click.prompt(
-                "Path to save config file", default=default_user_config_path
+                "Path to save config file", default=default_user_config_filepath
             )
 
             if os.path.exists(config_path):
