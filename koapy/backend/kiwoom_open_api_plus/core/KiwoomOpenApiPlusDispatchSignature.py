@@ -34,7 +34,7 @@ class KiwoomOpenApiPlusDispatchSignature(KiwoomOpenApiPlusSignature):
     def _make_dispatch_signatures_by_name(
         cls,
     ) -> Dict[str, KiwoomOpenApiPlusDispatchSignature]:
-        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusOleItems import (
+        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
             DISPATCH_OLE_ITEM,
         )
 

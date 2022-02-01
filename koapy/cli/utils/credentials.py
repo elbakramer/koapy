@@ -11,13 +11,13 @@ from koapy.config import (
 )
 
 
-def prompt_credential():
-    credential = config.get("koapy.backend.kiwoom_open_api_plus.credential")
+def prompt_credentials():
+    credentials = config.get("koapy.backend.kiwoom_open_api_plus.credentials")
 
-    default_user_id = credential["user_id"]
-    default_user_password = credential["user_password"]
-    default_server = "simulation" if credential["is_simulation"] else "real"
-    default_cert_password = credential["cert_password"]
+    default_user_id = credentials["user_id"]
+    default_user_password = credentials["user_password"]
+    default_server = "simulation" if credentials["is_simulation"] else "real"
+    default_cert_password = credentials["cert_password"]
 
     user_id = click.prompt("User ID", default=default_user_id)
     user_password = click.prompt(
@@ -55,32 +55,32 @@ def prompt_credential():
         )
         account_passwords[account_number] = account_password
 
-    credential = {
+    credentials = {
         "user_id": user_id,
         "user_password": user_password,
         "cert_password": cert_password,
         "is_simulation": is_simulation,
         "account_passwords": account_passwords,
     }
-    credential = config_from_dict(credential)
+    credentials = config_from_dict(credentials)
 
-    return credential
+    return credentials
 
 
-def get_credential(interactive=False):
+def get_credentials(interactive=False):
     if not interactive:
-        credential = config.get("koapy.backend.kiwoom_open_api_plus.credential")
+        credentials = config.get("koapy.backend.kiwoom_open_api_plus.credentials")
     else:
-        credential = prompt_credential()
-        save_credential = (
+        credentials = prompt_credentials()
+        save_credentials = (
             click.prompt(
-                "Save credential info into a config file?",
+                "Save credentials info into a config file?",
                 type=click.Choice(["y", "n"], case_sensitive=False),
                 default="n",
             )
             == "y"
         )
-        if save_credential:
+        if save_credentials:
             config_path = click.prompt(
                 "Path to save config file", default=default_user_config_filepath
             )
@@ -99,8 +99,8 @@ def get_credential(interactive=False):
 
             if should_write:
                 user_config.put(
-                    "koapy.backend.kiwoom_open_api_plus.credential", credential
+                    "koapy.backend.kiwoom_open_api_plus.credentials", credentials
                 )
                 save_config(config_path, user_config)
 
-    return credential
+    return credentials

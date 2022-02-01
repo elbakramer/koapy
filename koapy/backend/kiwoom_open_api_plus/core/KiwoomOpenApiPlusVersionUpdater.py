@@ -13,45 +13,25 @@ from koapy.utils.subprocess import function_to_subprocess_args
 
 
 class KiwoomOpenApiPlusVersionUpdater(Logging):
-    def __init__(self, credential):
-        self._credential = credential
-
-    @classmethod
-    def disable_autologin_impl(cls):
-        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidget import (
-            KiwoomOpenApiPlusQAxWidget,
-        )
-        from koapy.compat.pyside2.QtWidgets import QApplication
-
-        cls.logger.info("Disabling auto login")
-        app = QApplication(sys.argv)  # pylint: disable=unused-variable
-        control = KiwoomOpenApiPlusQAxWidget()
-        module_path = control.GetAPIModulePath()
-        autologin_dat = os.path.join(module_path, "system", "Autologin.dat")
-        if os.path.exists(autologin_dat):
-            cls.logger.info("Removing %s", autologin_dat)
-            os.remove(autologin_dat)
-            cls.logger.info("Disabled auto login")
-            return True
-        else:
-            cls.logger.info("Autologin is already disabled")
-            return False
+    def __init__(self, credentials):
+        self._credentials = credentials
 
     def disable_autologin(self):
-        # creating `KiwoomOpenApiPlusQAxWidget` object in main process locks OpenAPI module file, even after deleting the object,
-        # which prevents version update process from deleting and overwriting the original module file.
-        # so here we are creating the object in subprocess and disables auto login based on the checked module path
+        self.logger.info("Disabling auto login")
+        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
+            API_MODULE_PATH,
+        )
 
-        def main():
-            # pylint: disable=redefined-outer-name,import-self
-            from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
-                KiwoomOpenApiPlusVersionUpdater,
-            )
-
-            KiwoomOpenApiPlusVersionUpdater.disable_autologin_impl()
-
-        cmd = function_to_subprocess_args(main)
-        return subprocess.check_call(cmd)
+        module_path = API_MODULE_PATH
+        autologin_dat = os.path.join(module_path, "system", "Autologin.dat")
+        if os.path.exists(autologin_dat):
+            self.logger.info("Removing %s", autologin_dat)
+            os.remove(autologin_dat)
+            self.logger.info("Disabled auto login")
+            return True
+        else:
+            self.logger.info("Autologin is already disabled")
+            return False
 
     @classmethod
     def open_login_window_impl(cls):
@@ -220,9 +200,9 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
             raise RuntimeError("Please apply for simulation server before using it")
 
     @classmethod
-    def login_using_pywinauto(cls, credential):
+    def login_using_pywinauto(cls, credentials):
         # reusing the implementation in the mixin
-        KiwoomOpenApiPlusQAxWidgetMixin.LoginUsingPywinauto_Impl(credential)
+        KiwoomOpenApiPlusQAxWidgetMixin.LoginUsingPywinauto_Impl(credentials)
         cls.check_apply_simulation_window()
 
     def enable_autologin(self):
@@ -231,10 +211,10 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         # pylint: disable=unused-variable
         account_window_proc = self.show_account_window()
 
-        credential = self._credential
-        account_passwords = credential.get("account_passwords")
+        credentials = self._credentials
+        account_passwords = credentials.get("account_passwords")
 
-        self.login_using_pywinauto(credential)
+        self.login_using_pywinauto(credentials)
         self.enable_autologin_using_pywinauto(account_passwords)
 
     def try_version_update_using_pywinauto(self):
@@ -248,8 +228,8 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         desktop = pywinauto.Desktop(allow_magic_lookup=False)
         login_window = desktop.window(title="Open API Login")
 
-        credential = self._credential
-        self.login_using_pywinauto(credential)
+        credentials = self._credentials
+        self.login_using_pywinauto(credentials)
 
         timeout_login_successful = 4
         timeout_version_check = 1

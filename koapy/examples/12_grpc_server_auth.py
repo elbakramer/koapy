@@ -38,8 +38,8 @@ def main():
     )
     from koapy.compat.pyside2.QtWidgets import QApplication
 
-    host = "0.0.0.0"
-    port = 8888
+    host = "localhost"
+    port = 5943
 
     app = QApplication.instance()
 
@@ -53,8 +53,11 @@ def main():
     with open("server.crt", "rb") as f:
         server_crt = f.read()
 
+    private_key_certificate_chain_pairs = [
+        (server_key, server_crt),
+    ]
     credentials = grpc.ssl_server_credentials(
-        private_key_certificate_chain_pairs=((server_key, server_crt),),
+        private_key_certificate_chain_pairs=private_key_certificate_chain_pairs,
         root_certificates=None,
         require_client_auth=False,
     )

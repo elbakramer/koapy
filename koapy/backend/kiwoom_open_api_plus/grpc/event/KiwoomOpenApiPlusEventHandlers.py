@@ -25,12 +25,15 @@ from koapy.backend.kiwoom_open_api_plus.grpc import KiwoomOpenApiPlusService_pb2
 from koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlerForGrpc import (
     KiwoomOpenApiPlusEventHandlerForGrpc,
 )
+from koapy.backend.kiwoom_open_api_plus.utils.list_conversion import string_to_list
 from koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedBufferedIterator import (
     QueueBasedBufferedIterator,
 )
 from koapy.utils.itertools import chunk
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.notimplemented import isimplemented
+
+# pylint: disable=abstract-method
 
 
 class KiwoomOpenApiPlusLoggingEventHandler(KiwoomOpenApiPlusEventHandler, Logging):
@@ -526,19 +529,19 @@ class KiwoomOpenApiPlusLoginEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
         super().__init__(control, context)
         self._request = request
 
-        if self._request.HasField("credential"):
-            self._credential = self._request.credential
-            self._credential = MessageToDict(
-                self._credential, preserving_proto_field_name=True
+        if self._request.HasField("credentials"):
+            self._credentials = self._request.credentials
+            self._credentials = MessageToDict(
+                self._credentials, preserving_proto_field_name=True
             )
         else:
-            self._credential = None
+            self._credentials = None
 
     def on_enter(self):
-        if self._credential is not None:
+        if self._credentials is not None:
             self.control.DisableAutoLogin()
             KiwoomOpenApiPlusError.try_or_raise(self.control.CommConnect())
-            self.control.LoginUsingPywinauto(self._credential)
+            self.control.LoginUsingPywinauto(self._credentials)
         else:
             KiwoomOpenApiPlusError.try_or_raise(self.control.CommConnect())
 
@@ -956,7 +959,7 @@ class KiwoomOpenApiPlusBaseOrderEventHandler(
         errorcode,
         message,
         splmmsg,
-    ):  # pylint: disable=unused-argument
+    ):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
         response.name = "OnReceiveTrData"  # pylint: disable=no-member
         response.arguments.add().string_value = scrnno  # pylint: disable=no-member
@@ -1432,7 +1435,14 @@ class KiwoomOpenApiPlusConditionEventHandler(
             self.observer.on_next(response)  # pylint: disable=no-member
 
             if self._with_info:
-                codes = codelist.rstrip(";").split(";") if codelist else []
+                if ";" in codelist:
+                    items = string_to_list(codelist, sep=";")
+                    items = [string_to_list(item, sep="^") for item in items]
+                    items = [tuple(item) for item in items]
+                    codes = [item[0] for item in items]
+                    prices = [item[1] for item in items]
+                else:
+                    codes = string_to_list(codelist, sep="^")
                 KiwoomOpenApiPlusError.try_or_raise(
                     self.control.RateLimitedCommKwRqData.async_call(
                         codelist,

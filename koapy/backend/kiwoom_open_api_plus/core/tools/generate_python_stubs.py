@@ -1,12 +1,14 @@
 import ast
-import os
+
+from pathlib import Path
 
 import pythoncom
 
-from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusOleItems import (
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
     DISPATCH_OLE_ITEM,
     EVENT_OLE_ITEM,
 )
+from koapy.config import default_encoding
 
 try:
     from ast import unparse
@@ -14,7 +16,27 @@ except ImportError:
     from astunparse import unparse
 
 
-def generate_python():
+def generate_python_stubs(
+    dispatch_class_name=None,
+    dispatch_file_path=None,
+    event_class_name=None,
+    event_file_path=None,
+    encoding=None,
+    force_overwrite=False,
+):
+    if dispatch_class_name is None:
+        dispatch_class_name = "KiwoomOpenApiPlusDispatchFunctionsGenerated"
+    if dispatch_file_path is None:
+        dispatch_file_path = dispatch_class_name + ".py"
+
+    if event_class_name is None:
+        event_class_name = "KiwoomOpenApiPlusEventFunctionsGenerated"
+    if event_file_path is None:
+        event_file_path = event_class_name + ".py"
+
+    if encoding is None:
+        encoding = default_encoding
+
     dispatch_item = DISPATCH_OLE_ITEM
     event_item = EVENT_OLE_ITEM
 
@@ -49,7 +71,6 @@ def generate_python():
         func_def.lineno = None
         func_def.col_offset = None
         dispatch_func_defs.append(func_def)
-    dispatch_class_name = "KiwoomOpenApiPlusDispatchFunctionsGenerated"
     dispatch_class_def = ast.ClassDef(
         dispatch_class_name, [], [], dispatch_func_defs, []
     )
@@ -77,25 +98,23 @@ def generate_python():
         func_def.lineno = None
         func_def.col_offset = None
         event_func_defs.append(func_def)
-    event_class_name = "KiwoomOpenApiPlusEventFunctionsGenerated"
+
     event_class_def = ast.ClassDef(event_class_name, [], [], event_func_defs, [])
 
-    script_dir = os.path.dirname(__file__)
-    dispatch_functions_filename = os.path.join(
-        script_dir, "..", dispatch_class_name + ".py"
-    )
-    event_functions_filename = os.path.join(script_dir, "..", event_class_name + ".py")
+    dispatch_file_path = Path(dispatch_file_path)
+    if not dispatch_file_path.exists() or force_overwrite:
+        with open(dispatch_file_path, "w", encoding=encoding) as f:
+            mod = ast.Module([dispatch_class_def], [])
+            code = unparse(mod)
+            f.write(code)
 
-    with open(dispatch_functions_filename, "w", encoding="utf-8") as f:
-        mod = ast.Module([dispatch_class_def], [])
-        code = unparse(mod)
-        f.write(code)
-
-    with open(event_functions_filename, "w", encoding="utf-8") as f:
-        mod = ast.Module([event_class_def], [])
-        code = unparse(mod)
-        f.write(code)
+    event_file_path = Path(event_file_path)
+    if not event_file_path.exists() or force_overwrite:
+        with open(event_file_path, "w", encoding=encoding) as f:
+            mod = ast.Module([event_class_def], [])
+            code = unparse(mod)
+            f.write(code)
 
 
 if __name__ == "__main__":
-    generate_python()
+    generate_python_stubs()

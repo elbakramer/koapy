@@ -86,7 +86,7 @@ def find_user_config_file_in(
         # pylint: disable=redefined-outer-name
         current_working_directory = os.getcwd()
         searching_directory = current_working_directory
-    searching_directory_path = Path(searching_directory).absolute()
+    searching_directory_path = Path(searching_directory).resolve()
     for config_filename in user_config_filename_cadidates:
         config_filepath = searching_directory_path / config_filename
         if config_filepath.exists():
@@ -101,7 +101,7 @@ def find_user_config_file_from(
         # pylint: disable=redefined-outer-name
         current_working_directory = os.getcwd()
         starting_directory = current_working_directory
-    searching_directory_path = Path(starting_directory).absolute()
+    searching_directory_path = Path(starting_directory).resolve()
     should_stop = False
     while not should_stop:
         config_filepath = find_user_config_file_in(searching_directory_path)
@@ -143,7 +143,7 @@ def initialize_config_from_given_path(filename: Optional[PathLike] = None) -> bo
     # Use given filepath if possible
     if not user_config_filepath:
         if filename:
-            filepath = Path(filename).absolute()
+            filepath = Path(filename).resolve()
             if filepath.exists():
                 user_config_filepath = filepath
 

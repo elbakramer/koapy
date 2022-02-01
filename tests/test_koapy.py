@@ -1,5 +1,4 @@
 import itertools
-import os
 import re
 
 import pandas as pd
@@ -7,18 +6,18 @@ import pytest
 
 from pandas.testing import assert_series_equal
 
-from koapy.backend.kiwoom_open_api_plus.utils.module_path import GetAPIModulePathIn32Bit
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
+    API_MODULE_PATH,
+)
 from koapy.utils.exchange_calendars import is_currently_in_session
 from koapy.utils.platform import is_32bit, is_windows
+
+# pylint: disable=redefined-outer-name
 
 
 def is_ocx_available():
     if is_windows() and is_32bit():
-        try:
-            module_path = GetAPIModulePathIn32Bit()
-            return os.path.exists(module_path)
-        except:
-            pass
+        return API_MODULE_PATH and API_MODULE_PATH.exists()
     return False
 
 

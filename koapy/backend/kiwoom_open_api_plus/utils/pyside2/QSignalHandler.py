@@ -1,7 +1,7 @@
 import signal as signal_module
 import socket
 
-from signal import Signals  # pylint: disable=no-name-in-module
+from signal import Signals
 from types import FrameType
 from typing import Iterable, Optional, overload
 

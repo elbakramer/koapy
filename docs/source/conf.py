@@ -175,6 +175,7 @@ extensions = [
     "sphinx.ext.ifconfig",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -225,6 +226,9 @@ autoapi_options = [
     "show-module-summary",
     "imported-members",
 ]
+
+if "inherited-members" in autoapi_options and "sphinx.ext.viewcode" in extensions:
+    extensions.remove("sphinx.ext.viewcode")
 
 # -- Nbsphinx configuration --------------------------------------------------
 

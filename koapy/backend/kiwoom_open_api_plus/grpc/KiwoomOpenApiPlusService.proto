@@ -111,7 +111,7 @@ message CallAndListenResponse {
 }
 
 
-message LoginCredential {
+message LoginCredentials {
   string user_id = 1;
   string user_password = 2;
   string cert_password = 3;
@@ -120,7 +120,7 @@ message LoginCredential {
 }
 
 message LoginRequest {
-  LoginCredential credential = 1;
+  LoginCredentials credentials = 1;
 }
 
 

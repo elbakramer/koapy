@@ -7,9 +7,7 @@ class Singleton:
     _lock = threading.RLock()
 
     @classmethod
-    def _get_instance_without_check(
-        cls, *args, **kwargs
-    ):  # pylint: disable=unused-argument
+    def _get_instance_without_check(cls, *args, **kwargs):
         return cls._instance
 
     @classmethod

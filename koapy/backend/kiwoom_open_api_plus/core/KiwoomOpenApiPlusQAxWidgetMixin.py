@@ -30,17 +30,90 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
     def IsConnected(self):
         return self.GetConnectState() == 1
 
+    def ShowAccountWindow(self):
+        return self.KOA_Functions("ShowAccountWindow", "")
+
     def GetServerGubun(self):
-        return self.GetLoginInfo("GetServerGubun")
+        gubun = self.KOA_Functions("GetServerGubun", "")
+        if not gubun:
+            gubun = self.GetLoginInfo("GetServerGubun")
+        return gubun
 
     def IsSimulationServer(self):
-        return self.GetServerGubun() == "1"
+        gubun = self.GetServerGubun()
+        return gubun == "1"
 
     def IsRealServer(self):
         return not self.IsSimulationServer()
 
-    def ShowAccountWindow(self):
-        return self.KOA_Functions("ShowAccountWindow", "")
+    def GetMasterStockInfo(self, code):
+        return self.KOA_Functions("GetMasterStockInfo", code)
+
+    def GetMasterStockInfoAsDict(self, code):
+        result = self.GetMasterStockInfo(code)
+        items = string_to_list(result, sep=";")
+        items = [string_to_list(item, sep="|") for item in items]
+        info = dict(items)
+        return info
+
+    def SetConditionSearchFlag(self, flag):
+        return self.KOA_Functions("SetConditionSearchFlag", flag)
+
+    def AddPriceToConditionSearchResult(self):
+        return self.SetConditionSearchFlag("AddPrice")
+
+    def DelPriceFromConditionSearchResult(self):
+        return self.SetConditionSearchFlag("DelPrice")
+
+    def GetUpjongCode(self, code):
+        """
+        두번째 인자로 사용할 수 있는 값은 0, 1, 2, 4, 7 입니다.
+        0:코스피, 1: 코스닥, 2:KOSPI200, 4:KOSPI100(KOSPI50), 7:KRX100
+        """
+        code = str(code)
+        return self.KOA_Functions("GetUpjongCode", code)
+
+    def GetUpjongCodeAsList(self, code):
+        result = self.GetUpjongCode(code)
+        items = string_to_list(result, sep="|")
+        items = [string_to_list(item, sep=",") for item in items]
+        items = [tuple(item) for item in items]
+        return items
+
+    def GetUpjongNameByCode(self, code):
+        return self.KOA_Functions("GetUpjongNameByCode", code)
+
+    def IsOrderWarningETF(self, code):
+        """
+        투자유의 종목인 경우 "1" 값이 리턴, 그렇지 않은 경우 "0" 값 리턴. (ETF가 아닌 종목을 입력시 "0" 값 리턴.)
+        """
+        return self.KOA_Functions("IsOrderWarningETF", code)
+
+    def IsOrderWarningETFAsBoolean(self, code):
+        return_code = self.IsOrderWarningETF(code)
+        return_code = int(return_code)
+        return_code = bool(return_code)
+        return return_code
+
+    def IsOrderWarningStock(self, code):
+        """
+        리턴 값 - "0":해당없음, "2":정리매매, "3":단기과열, "4":투자위험, "5":투자경고
+        """
+        return self.KOA_Functions("IsOrderWarningStock", code)
+
+    def IsOrderWarningStockAsBoolean(self, code):
+        return_code = self.IsOrderWarningStock(code)
+        return_code = int(return_code)
+        return_code = bool(return_code)
+        return return_code
+
+    def GetMasterListedStockCntEx(self, code):
+        return self.KOA_Functions("GetMasterListedStockCntEx", code)
+
+    def GetMasterListedStockCntExAsInt(self, code):
+        count = self.GetMasterListedStockCntEx(code)
+        count = int(count)
+        return count
 
     def GetCodeListByMarketAsList(self, market: Optional[Union[str, int]] = None):
         if market is None:
@@ -232,21 +305,21 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
     # ======================================================================
 
     @classmethod
-    def LoginUsingPywinauto_Impl(cls, credential: Optional[Mapping[str, Any]] = None):
+    def LoginUsingPywinauto_Impl(cls, credentials: Optional[Mapping[str, Any]] = None):
         import pywinauto
 
-        if credential is None:
-            credential = config.get("koapy.backend.kiwoom_open_api_plus.credential")
+        if credentials is None:
+            credentials = config.get("koapy.backend.kiwoom_open_api_plus.credentials")
 
         is_in_development = False
         use_set_text = False
 
-        userid = credential.get("user_id")
-        password = credential.get("user_password")
-        cert = credential.get("cert_password")
+        userid = credentials.get("user_id")
+        password = credentials.get("user_password")
+        cert = credentials.get("cert_password")
 
         is_save_userid = True
-        is_simulation = credential.get("is_simulation")
+        is_simulation = credentials.get("is_simulation")
 
         desktop = pywinauto.Desktop(allow_magic_lookup=False)
         login_window = desktop.window(title="Open API Login")
@@ -280,7 +353,7 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
                     pywinauto.keyboard.send_keys(password)
                     pywinauto.keyboard.send_keys("{TAB}")
             else:
-                raise RuntimeError("'user_password' not set, please check credential")
+                raise RuntimeError("'user_password' not set, please check credentials")
 
             if is_save_userid:
                 cls.logger.info("Checking to save userid")
@@ -303,7 +376,7 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
                         pywinauto.keyboard.send_keys("{TAB}")
                 else:
                     raise RuntimeError(
-                        "'cert_password' not set, please check credential"
+                        "'cert_password' not set, please check credentials"
                     )
             else:
                 if login_window["Edit3"].is_enabled():
@@ -316,7 +389,7 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
     @classmethod
     def LoginUsingPywinauto_RunScriptInSubprocess(
         cls,
-        credential: Optional[Mapping[str, Any]] = None,
+        credentials: Optional[Mapping[str, Any]] = None,
         wait: bool = False,
         timeout: bool = None,
         check: bool = False,
@@ -330,12 +403,12 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
                 KiwoomOpenApiPlusQAxWidgetMixin,
             )
 
-            credential = json.load(sys.stdin)
-            KiwoomOpenApiPlusQAxWidgetMixin.LoginUsingPywinauto_Impl(credential)
+            credentials = json.load(sys.stdin)
+            KiwoomOpenApiPlusQAxWidgetMixin.LoginUsingPywinauto_Impl(credentials)
 
         args = function_to_subprocess_args(main)
         process = subprocess.Popen(args, stdin=subprocess.PIPE, text=True)
-        json.dump(credential, process.stdin)
+        json.dump(credentials, process.stdin)
 
         if wait:
             try:
@@ -359,26 +432,26 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
 
     def LoginUsingPywinauto(
         self,
-        credential: Optional[Mapping[str, Any]] = None,
+        credentials: Optional[Mapping[str, Any]] = None,
         wait: bool = True,
         timeout: bool = None,
         check: bool = True,
     ):
         assert is_admin(), "Using pywinauto requires administrator permission"
         return self.LoginUsingPywinauto_RunScriptInSubprocess(
-            credential, wait=wait, timeout=timeout, check=check
+            credentials, wait=wait, timeout=timeout, check=check
         )
 
     @overload
     def CommConnectAndThen(
         self,
-        credential: Mapping[str, Any],
+        credentials: Mapping[str, Any],
         callback: Callable[[int], Any],
     ) -> int:
         ...
 
     @overload
-    def CommConnectAndThen(self, credential: Mapping[str, Any]) -> int:
+    def CommConnectAndThen(self, credentials: Mapping[str, Any]) -> int:
         ...
 
     @overload
@@ -391,29 +464,29 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
 
     def CommConnectAndThen(
         self,
-        credential_or_callback=None,
+        credentials_or_callback=None,
         callback_or_none=None,
     ) -> int:
-        credential = credential_or_callback
+        credentials = credentials_or_callback
         callback = callback_or_none
 
         if (
             callback is None
-            and credential is not None
-            and not isinstance(credential, dict)
-            and callable(credential)
+            and credentials is not None
+            and not isinstance(credentials, dict)
+            and callable(credentials)
         ):
-            callback = credential
-            credential = None
+            callback = credentials
+            credentials = None
 
-        if credential is not None:
+        if credentials is not None:
             assert (
                 is_admin()
-            ), "CommConnectAndThen() method requires to be run as administrator if credential is given explicitly"
+            ), "CommConnectAndThen() method requires to be run as administrator if credentials is given explicitly"
             self.DisableAutoLogin()
         elif not self.IsAutoLoginEnabled() and is_admin():
-            credential = config.get(
-                "koapy.backend.kiwoom_open_api_plus.credential", None
+            credentials = config.get(
+                "koapy.backend.kiwoom_open_api_plus.credentials", None
             )
 
         def OnEventConnect(errcode):
@@ -424,18 +497,18 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         self.OnEventConnect.connect(OnEventConnect)
         errcode = KiwoomOpenApiPlusError.try_or_raise(self.CommConnect())
 
-        if credential is not None:
-            self.LoginUsingPywinauto(credential, wait=False)
+        if credentials is not None:
+            self.LoginUsingPywinauto(credentials, wait=False)
 
         return errcode
 
-    def Connect(self, credential: Optional[Mapping[str, Any]] = None) -> int:
+    def Connect(self, credentials: Optional[Mapping[str, Any]] = None) -> int:
         q = queue.Queue()
 
         def OnEventConnect(errcode):
             q.put(errcode)
 
-        self.CommConnectAndThen(credential, OnEventConnect)
+        self.CommConnectAndThen(credentials, OnEventConnect)
         errcode = KiwoomOpenApiPlusError.try_or_raise(q.get())
 
         return errcode
@@ -443,13 +516,13 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
     @overload
     def EnsureConnectedAndThen(
         self,
-        credential: Mapping[str, Any],
+        credentials: Mapping[str, Any],
         callback: Callable[[int], Any],
     ) -> bool:
         ...
 
     @overload
-    def EnsureConnectedAndThen(self, credential: Mapping[str, Any]) -> bool:
+    def EnsureConnectedAndThen(self, credentials: Mapping[str, Any]) -> bool:
         ...
 
     @overload
@@ -461,19 +534,19 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         ...
 
     def EnsureConnectedAndThen(
-        self, credential_or_callback=None, callback_or_none=None
+        self, credentials_or_callback=None, callback_or_none=None
     ) -> bool:
-        credential = credential_or_callback
+        credentials = credentials_or_callback
         callback = callback_or_none
 
         if (
             callback is None
-            and credential is not None
-            and not isinstance(credential, dict)
-            and callable(credential)
+            and credentials is not None
+            and not isinstance(credentials, dict)
+            and callable(credentials)
         ):
-            callback = credential
-            credential = None
+            callback = credentials
+            credentials = None
         is_connected = self.IsConnected()
         if not is_connected:
 
@@ -482,16 +555,16 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
                     if callable(callback):
                         callback()
 
-            self.CommConnectAndThen(credential, OnEventConnect)
+            self.CommConnectAndThen(credentials, OnEventConnect)
         else:
             if callable(callback):
                 callback()
         return is_connected
 
-    def EnsureConnected(self, credential: Optional[Mapping[str, Any]] = None) -> bool:
+    def EnsureConnected(self, credentials: Optional[Mapping[str, Any]] = None) -> bool:
         is_connected = self.IsConnected()
         if not is_connected:
-            self.Connect(credential)
+            self.Connect(credentials)
             is_connected = self.IsConnected()
             assert is_connected, "Could not ensure connected"
         return is_connected

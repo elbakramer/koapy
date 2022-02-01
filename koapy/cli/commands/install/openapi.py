@@ -6,12 +6,12 @@ import tempfile
 
 import click
 
-from koapy.cli.utils import verbose_option
 from koapy.cli.utils.openapi import (
     download_openapi_installer,
     prepare_issfile_for_install,
     run_installer_with_issfile,
 )
+from koapy.cli.utils.verbose_option import verbose_option
 from koapy.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -31,8 +31,8 @@ logger = get_logger(__name__)
     default=True,
     help="Clean up temporary directory after install. (default: true)",
 )
-@verbose_option(default=5)
-def openapi(target, cleanup, verbose):
+@verbose_option(default=5, show_default=True)
+def openapi(target, cleanup):
     with contextlib.ExitStack() as stack:
         tempdir = tempfile.mkdtemp()
         logger.info("Created temporary directory: %s", tempdir)
@@ -50,7 +50,7 @@ def openapi(target, cleanup, verbose):
         log_filename = "setup.log"
         log_filepath = os.path.join(tempdir, log_filename)
         try:
-            return_code = run_installer_with_issfile(
+            _return_code = run_installer_with_issfile(
                 installer_filepath, iss_filepath, log_filepath, cwd=tempdir
             )
         except subprocess.CalledProcessError as e:

@@ -14,6 +14,8 @@ with open("HISTORY.rst", encoding="utf-8") as history_file:
 
 requirements = [
     "click>=8.0.3",
+    "cryptography>=36.0.1",
+    "deprecated>=1.2.13",
     "discord.py>=1.7.3",
     "exchange-calendars>=3.5.1",
     "grpcio>=1.43.0",

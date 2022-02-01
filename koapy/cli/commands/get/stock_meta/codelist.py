@@ -1,7 +1,7 @@
 import click
 
-from koapy.cli.commands.get.codelist_interactive import codelist_interactive
-from koapy.cli.utils import verbose_option
+from koapy.cli.commands.get.stock_meta.codelist_interactive import codelist_interactive
+from koapy.cli.utils.verbose_option import verbose_option
 
 market_codes = [
     "0",
@@ -32,7 +32,7 @@ market_codes = [
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
 @verbose_option()
-def codelist(markets, port, verbose):
+def codelist(markets, port):
     """
     \b
     Possible market codes are:
@@ -55,7 +55,7 @@ def codelist(markets, port, verbose):
         KiwoomOpenApiPlusEntrypoint,
     )
 
-    with KiwoomOpenApiPlusEntrypoint(port=port, verbosity=verbose) as context:
+    with KiwoomOpenApiPlusEntrypoint(port=port) as context:
         context.EnsureConnected()
         codes = set()
         for market in markets:
@@ -66,7 +66,7 @@ def codelist(markets, port, verbose):
 
 
 def main():
-    codelist()
+    codelist()  # pylint: disable=no-value-for-parameter
 
 
 if __name__ == "__main__":

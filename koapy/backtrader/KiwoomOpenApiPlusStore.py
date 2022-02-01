@@ -472,9 +472,7 @@ class KiwoomOpenApiPlusStore(Logging, metaclass=MetaKiwoomOpenApiPlusStore):
         streamer = KiwoomOpenApiPlusEventStreamer(self.api, q)
         streamer.events()
 
-    def candles(
-        self, dataname, dtbegin, dtend, timeframe, compression
-    ):  # pylint: disable=unused-argument
+    def candles(self, dataname, dtbegin, dtend, timeframe, compression):
         kwargs = locals().copy()
         kwargs.pop("self")
         kwargs["q"] = q = queue.Queue()

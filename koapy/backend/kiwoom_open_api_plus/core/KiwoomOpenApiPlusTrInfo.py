@@ -8,7 +8,7 @@ import zipfile
 
 from typing import Any, Dict, List, Optional, Sequence, TextIO, Union
 
-from koapy.config import debug
+from koapy.config import debug, default_encoding
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.serialization import JsonSerializable
 
@@ -270,11 +270,11 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     ) -> List[KiwoomOpenApiPlusTrInfo]:
         if data_dir is None:
             if module_path is None:
-                from koapy.backend.kiwoom_open_api_plus.utils.module_path import (
-                    GetAPIModulePath,
+                from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
+                    API_MODULE_PATH,
                 )
 
-                module_path = GetAPIModulePath()
+                module_path = API_MODULE_PATH
             data_dir = os.path.join(module_path, "data")
         if encoding is None:
             encoding = "euc-kr"
@@ -352,7 +352,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             if isinstance(dump_file, str):
                 dump_filename = dump_file
                 if encoding is None:
-                    encoding = "utf-8"
+                    encoding = default_encoding
                 dump_file = open(dump_file, "w", encoding=encoding)
                 dump_file = stack.enter_context(dump_file)
             else:
@@ -382,7 +382,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             if isinstance(dump_file, str):
                 if os.path.exists(dump_file) and os.path.getsize(dump_file) > 0:
                     if encoding is None:
-                        encoding = "utf-8"
+                        encoding = default_encoding
                     dump_file = open(dump_file, "r", encoding=encoding)
                     dump_file = stack.enter_context(dump_file)
                 else:

@@ -58,27 +58,27 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(
             *args
         )
 
-    def LoginCall(self, credential=None):
+    def LoginCall(self, credentials=None):
         # pylint: disable=no-member
         request = KiwoomOpenApiPlusService_pb2.LoginRequest()
-        if credential is not None:
-            request.credential.user_id = credential.get(
+        if credentials is not None:
+            request.credentials.user_id = credentials.get(
                 "user_id"
             )  # pylint: disable=no-member
-            request.credential.user_password = credential.get(
+            request.credentials.user_password = credentials.get(
                 "user_password"
             )  # pylint: disable=no-member
-            request.credential.cert_password = credential.get(
+            request.credentials.cert_password = credentials.get(
                 "cert_password"
             )  # pylint: disable=no-member
-            request.credential.is_simulation = credential.get(
+            request.credentials.is_simulation = credentials.get(
                 "is_simulation"
             )  # pylint: disable=no-member
-            account_passwords = credential.get(
+            account_passwords = credentials.get(
                 "account_passwords"
             )  # pylint: disable=no-member
             for account_no, account_password in account_passwords.items():
-                request.credential.account_passwords[
+                request.credentials.account_passwords[
                     account_no
                 ] = account_password  # pylint: disable=no-member
         for response in self._stub.LoginCall(request):

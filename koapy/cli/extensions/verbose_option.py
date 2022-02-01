@@ -1,8 +1,8 @@
-from functools import update_wrapper
-
 import click
 
 from click.parser import normalize_opt
+
+from koapy.cli.extensions.functools import update_wrapper_with_click_params
 
 
 class VerboseOption(click.Option):
@@ -15,12 +15,14 @@ class VerboseOption(click.Option):
         self._parser__get_value_from_state = None
 
     def _match_long_opt(self, opt, explicit_value, state):
+        # pylint: disable=protected-access
         if opt in self.opts and opt in self._parser._long_opt:
             option = self._parser._long_opt[opt]
             option.action = "store"
         self._parser__match_long_opt(opt, explicit_value, state)
 
     def _match_short_opt(self, arg, state):
+        # pylint: disable=protected-access
         prefix = arg[0]
         for ch in arg[1:]:
             opt = normalize_opt(f"{prefix}{ch}", self._parser.ctx)
@@ -30,6 +32,7 @@ class VerboseOption(click.Option):
         self._parser__match_short_opt(arg, state)
 
     def _get_value_from_state(self, option_name, option, state):
+        # pylint: disable=protected-access
         try:
             value = self._parser__get_value_from_state(option_name, option, state)
         except click.BadOptionUsage:
@@ -46,6 +49,7 @@ class VerboseOption(click.Option):
         return value
 
     def _patch_parser(self, parser):
+        # pylint: disable=protected-access
         self._parser = parser
         self._parser__match_short_opt = self._parser._match_short_opt
         self._parser._match_short_opt = self._match_short_opt
@@ -59,59 +63,70 @@ class VerboseOption(click.Option):
         super().add_to_parser(parser, ctx)
 
 
-def verbose_option(
-    dest=None,
-    default=None,
-    flag_value=None,
-    expose_value=None,
-    callback=None,
+def verbose_flag_option(
+    default=0,
+    flag_value=1,
+    show_default=False,
+    metavar="[0...5]",
+    help="Set verbosity level.",
 ):
-    if dest is None:
-        dest = "verbose"
-    if default is None:
-        default = 0
-    if flag_value is None:
-        flag_value = 1
-    if expose_value is None:
-        expose_value = True
+    # pylint: disable=redefined-builtin
+    return click.option(
+        "-v",
+        "--verbose",
+        type=int,
+        default=default,
+        flag_value=flag_value,
+        show_default=show_default,
+        metavar=metavar,
+        help=help,
+        cls=VerboseOption,
+    )
 
-    dest1 = "_verbose"
-    dest2 = "_no_verbose"
 
+def no_verbose_flag_option(
+    help="Force zero verbosity.",
+):
+    # pylint: disable=redefined-builtin
+    return click.option(
+        "-s",
+        "--no-verbose",
+        "--slient",
+        is_flag=True,
+        default=False,
+        help=help,
+    )
+
+
+def verbose_option(
+    dest="verbose",
+    default=0,
+    flag_value=1,
+    callback=None,
+    expose_value=False,
+    show_default=False,
+):
     def decorator(f):
-        @click.option(
-            "-v",
-            "--verbose",
-            dest1,
-            type=int,
-            flag_value=flag_value,
-            default=default,
-            metavar="[0...5]",
-            help="Set verbosity level.",
-            cls=VerboseOption,
-        )
-        @click.option(
-            "-V",
-            "--no-verbose",
-            dest2,
-            is_flag=True,
-            default=False,
-            help="Force zero verbosity.",
-        )
         @click.pass_context
+        @verbose_flag_option(
+            default=default,
+            flag_value=flag_value,
+            show_default=show_default,
+        )
+        @no_verbose_flag_option()
         def new_func(ctx, *args, **kwargs):
-            verbose = kwargs.pop(dest1)
-            no_verbose = kwargs.pop(dest2)
+            verbose = kwargs.pop("verbose")
+            no_verbose = kwargs.pop("no_verbose")
             if no_verbose:
                 verbose = 0
             if expose_value:
                 kwargs[dest] = verbose
             if callable(callback):
-                param = ctx.params.get(dest1)
+                param = ctx.params.get("verbose")
                 value = verbose
                 callback(ctx, param, value)
             return ctx.invoke(f, *args, **kwargs)
 
-        return update_wrapper(new_func, f)
+        return update_wrapper_with_click_params(new_func, f)
 
     return decorator

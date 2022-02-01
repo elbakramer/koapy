@@ -1,10 +1,19 @@
 import datetime
-import os
 import sys
 
-from argparse import ArgumentParser
+from argparse import Namespace
 from contextlib import ExitStack, contextmanager
+from enum import Enum
+from pathlib import Path
+from subprocess import TimeoutExpired
 from threading import Timer
+from typing import List, Optional, Sequence, Tuple
+
+import grpc
+import win32api
+import win32con
+import win32job
+import win32process
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import (
     KiwoomOpenApiPlusNegativeReturnCodeError,
@@ -24,27 +33,49 @@ from koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusSignalHandler i
 from koapy.backend.kiwoom_open_api_plus.utils.pyside2.QThreadPoolExecutor import (
     QThreadPoolExecutor,
 )
-from koapy.compat.pyside2.QtCore import (
-    QProcess,
-    QSize,
-    QThreadPool,
-    QTimer,
-    QUrl,
-    Signal,
-)
+from koapy.cli.extensions.parser import ArgumentParser
+from koapy.cli.utils.grpc_options import server_and_client_argument_parser
+from koapy.compat.pyside2.QtCore import QProcess, QSize, QThreadPool, QUrl, Signal
 from koapy.compat.pyside2.QtGui import QDesktopServices, QIcon
 from koapy.compat.pyside2.QtWidgets import QApplication, QMenu, QSystemTrayIcon
 from koapy.config import config, get_32bit_executable
 from koapy.utils.logging import set_verbosity
 from koapy.utils.logging.pyside2.QObjectLogging import QObjectLogging
+from koapy.utils.subprocess import Popen
+
+
+class KiwoomOpenApiPlusManagerApplicationArgumentParser(ArgumentParser):
+    def __init__(self):
+        self._parser = server_and_client_argument_parser
+
+    def parse_args(
+        self,
+        args: Optional[Sequence[str]] = None,
+        namespace: Optional[Namespace] = None,
+    ) -> Namespace:
+        return self._parser.parse_args(args, namespace)
+
+    def parse_known_args(
+        self,
+        args: Optional[Sequence[str]] = None,
+        namespace: Optional[Namespace] = None,
+    ) -> Tuple[Namespace, List[str]]:
+        return self._parser.parse_known_args(args, namespace)
 
 
 class KiwoomOpenApiPlusServerApplicationProcess(QProcess):
     def __init__(self, args, parent=None):
         super().__init__(parent)
 
-        self.setProgram(get_32bit_executable())
-        self.setArguments(["-m", KiwoomOpenApiPlusServerApplication.__module__] + args)
+        self._args = args
+        self._executable = get_32bit_executable()
+        self._arguments = [
+            "-m",
+            KiwoomOpenApiPlusServerApplication.__module__,
+        ] + self._args
+
+        self.setProgram(self._executable)
+        self.setArguments(self._arguments)
         self.setProcessChannelMode(QProcess.ForwardedChannels)
 
         self._hJob = None
@@ -54,83 +85,139 @@ class KiwoomOpenApiPlusServerApplicationProcess(QProcess):
         self.finished.connect(self._onFinished)
 
     def _onStarted(self):
-        pid = self.processId()
+        processId = self.processId()
 
-        if pid != 0:
+        if processId != 0:
             # https://stackoverflow.com/questions/23434842/python-how-to-kill-child-processes-when-parent-dies/23587108#23587108s
-            import win32api
-            import win32con
-            import win32job
-
-            hJob = win32job.CreateJobObject(None, "")
+            jobAttributes = None
+            jobName = ""
+            self._hJob = win32job.CreateJobObject(jobAttributes, jobName)
             extendedInfo = win32job.QueryInformationJobObject(
-                hJob, win32job.JobObjectExtendedLimitInformation
+                self._hJob, win32job.JobObjectExtendedLimitInformation
             )
-            extendedInfo["BasicLimitInformation"][
+            basicLimitInformation = extendedInfo["BasicLimitInformation"]
+            basicLimitInformation[
                 "LimitFlags"
             ] = win32job.JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE
             win32job.SetInformationJobObject(
-                hJob, win32job.JobObjectExtendedLimitInformation, extendedInfo
+                self._hJob,
+                win32job.JobObjectExtendedLimitInformation,
+                extendedInfo,
             )
-            perms = win32con.PROCESS_TERMINATE | win32con.PROCESS_SET_QUOTA
-            hProcess = win32api.OpenProcess(perms, False, pid)
-            win32job.AssignProcessToJobObject(hJob, hProcess)
-
-            self._hJob = hJob
-            self._hProcess = hProcess
+            desiredAccess = win32con.PROCESS_TERMINATE | win32con.PROCESS_SET_QUOTA
+            inheritHandle = False
+            self._hProcess = win32api.OpenProcess(
+                desiredAccess,
+                inheritHandle,
+                processId,
+            )
+            win32job.AssignProcessToJobObject(self._hJob, self._hProcess)
 
     def _onFinished(self):
-        if self._hJob is not None and self._hProcess is not None:
-            import pywintypes
-            import win32job
-            import win32process
+        exitCode = 0
 
-            exitCode = 0
-
+        if self._hProcess is not None:
             try:
                 exitCode = win32process.GetExitCodeProcess(self._hProcess)
-            except pywintypes.error:
+            except win32process.error:
                 pass
 
+        if self._hJob is not None:
             win32job.TerminateJobObject(self._hJob, exitCode)
 
 
-class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
+class KiwoomOpenApiPlusServerApplicationSubprocess:
+    def __init__(self, args, parent=None):
+        self._args = args
+        self._executable = get_32bit_executable()
+        self._cmd = [
+            self._executable,
+            "-m",
+            KiwoomOpenApiPlusServerApplication.__module__,
+        ] + self._args
+        self._proc = None
+        self._started = False
 
-    shouldRestart = Signal(int)
+    def start(self):
+        self._proc = Popen(self._cmd)
+        self._started = True
+
+    def waitForStarted(self, msecs: int = 30000) -> bool:
+        return self._started
+
+    def close(self):
+        if self._proc is not None:
+            self._proc.terminate()
+
+    def waitForFinished(self, msecs: int = 30000) -> bool:
+        if self._proc is not None:
+            secs = msecs / 1000
+            try:
+                return_code = self._proc.wait(secs)
+                return return_code == 0
+            except TimeoutExpired:
+                return False
+        return False
+
+
+class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
+    class ConnectionStatus(Enum):
+        DISCONNECTED = 1
+        CONNECTED = 2
+
+    class ServerType(Enum):
+        SIMULATION = 1
+        REAL = 2
+        UNKNOWN = 3
+
+    class RestartType(Enum):
+        RESTART_ONLY = 1
+        RESTART_AND_CONNECT = 2
+
+    shouldRestart = Signal(RestartType)
 
     def __init__(self, args=()):
-        self.logger.debug("Creating manager application")
+        # Parse args
+        self._args = list(args)
+        self._argument_parser = KiwoomOpenApiPlusManagerApplicationArgumentParser()
+        (
+            self._parsed_args,
+            self._remaining_args,
+        ) = self._argument_parser.parse_known_args(self._args[1:])
 
-        self._args = args
-        self._parser = ArgumentParser()
-        self._parser.add_argument("-p", "--port")
-        self._parser.add_argument("-v", "--verbose", action="count", default=0)
-        self._parsed_args, self._remaining_args = self._parser.parse_known_args(args)
-
-        self._port = self._parsed_args.port
+        # Set verbosity level
         self._verbose = self._parsed_args.verbose
-
         set_verbosity(self._verbose)
 
-        self._app = QApplication.instance()
+        # Attributes for gprc client
+        self._host = self._parsed_args.host
+        self._port = self._parsed_args.port
 
-        if not self._app:
-            self._app = QApplication(self._remaining_args)
+        # Attributes for grpc client (SSL/TLS)
+        self._enable_ssl = self._parsed_args.enable_ssl
+        self._key_file = self._parsed_args.client_key_file
+        self._cert_file = self._parsed_args.client_cert_file
+        self._root_certs_file = self._parsed_args.client_root_certs_file
 
+        # Start creating application for real
+        self.logger.debug("Creating manager application")
+
+        # Create QApplication instance
+        self._app = QApplication.instance() or QApplication(
+            self._args[:1] + self._remaining_args
+        )
+
+        # Create this QObject after creating QApplication instance
         super().__init__()
 
+        # Capture certain signals and handle them accordingly
         self._signal_handler = KiwoomOpenApiPlusSignalHandler(self, self)
         self._signal_handler.signaled.connect(self._onSignal)
 
+        # Capture dialogs from OpenAPI and handle them accordingly
         self._dialog_handler = KiwoomOpenApiPlusDialogHandler(self, self)
 
-        self._server_process = KiwoomOpenApiPlusServerApplicationProcess(
-            self._args, self
-        )
-        self._server_process.start()
-        self._server_process.waitForStarted()
-
+        # Attributes for gprc client (ThreadPoolExecutor)
         self._max_workers = config.get_int(
             "koapy.backend.kiwoom_open_api_plus.grpc.client.max_workers",
             8,
@@ -139,90 +226,171 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         self._thread_pool.setMaxThreadCount(self._max_workers)
         self._thread_pool_executor = QThreadPoolExecutor(self._thread_pool, self)
 
-        self._client = KiwoomOpenApiPlusServiceClient(
-            port=self._port, thread_pool=self._thread_pool_executor
-        )
-        self._client_timeout = 30
-        assert self._client.is_ready(self._client_timeout), "Client is not ready"
-        self._client.OnEventConnect.connect(self._onEventConnect)
+        # Prepare grpc client credentials if applicable
+        if self._enable_ssl:
+            root_certificates = None
+            if self._root_certs_file:
+                with open(self._root_certs_file, "rb") as f:
+                    root_certificates = f.read()
+            private_key = None
+            if self._key_file:
+                with open(self._key_file, "rb") as f:
+                    private_key = f.read()
+            certificate_chain = None
+            if self._cert_file:
+                with open(self._cert_file, "rb") as f:
+                    certificate_chain = f.read()
+            self._credentials = grpc.ssl_channel_credentials(
+                root_certificates=root_certificates,
+                private_key=private_key,
+                certificate_chain=certificate_chain,
+            )
+        else:
+            self._credentials = None
 
-        self.shouldRestart.connect(self._restart)
+        # Initialize server subprocess and gprc client to the server
+        self._server_process = None
+        self._client = None
+        self._reinitializeServerProcessAndGrpcClient()
 
+        # Restart server application whenever restart is required
+        self.shouldRestart.connect(self._onShouldRestart)
+
+        # Create system tray icon
         self._tray = self._createSystemTrayIcon()
+
+        # Initialize tray icon menu by invoking related event handlers
+        self._onEventConnect(0)
+
+        # Make tray icon visible
         self._tray.show()
 
-    def _createSystemTrayIcon(self):
-        tray = QSystemTrayIcon()
-        tray.activated.connect(self._activate)  # pylint: disable=no-member
+    # ==============================================
+    # Functions for server/client (re)initialization
+    # ==============================================
 
-        self._icon = self._createIcon()
-        self._tooltip = self._createTooltip()
-        self._menu = self._createContextMenu()
+    def _closeClient(self):
+        self._client.close()
 
-        tray.setIcon(self._icon)
-        tray.setToolTip(self._tooltip)
-        tray.setContextMenu(self._menu)
+    def _closeClientIfExists(self):
+        if hasattr(self, "_client") and self._client is not None:
+            self._closeClient()
 
-        return tray
+    def _closeServerProcess(self):
+        self._server_process.close()
+        self._server_process.waitForFinished()
 
-    def _activate(self, reason):
-        pass
+    def _closeServerProcessIfExists(self):
+        if hasattr(self, "_server_process") and self._server_process is not None:
+            self._closeServerProcess()
+
+    def _reinitializeServerProcessAndGrpcClient(self):
+        self._closeClientIfExists()
+        self._closeServerProcessIfExists()
+
+        # Create server application subprocess and start that
+        self._server_process = KiwoomOpenApiPlusServerApplicationProcess(
+            self._args[1:], self
+        )
+        self._server_process.start()
+        self._server_process.waitForStarted()
+
+        # Create gRPC client
+        self._client = KiwoomOpenApiPlusServiceClient(
+            host=self._host,
+            port=self._port,
+            credentials=self._credentials,
+            thread_pool=self._thread_pool_executor,
+        )
+
+        # Wait for the client to be ready
+        self._client_timeout = 30
+        assert self._client.is_ready(self._client_timeout), "Client is not ready"
+
+        # Listen OnEventConnect event from OpenAPI
+        # and change some application states based on that
+        self._client.OnEventConnect.connect(self._onEventConnect)
+
+    # =======================================
+    # Functions for creating system tray icon
+    # =======================================
 
     def _createIcon(self):
         icon = QIcon()
-        iconDir = os.path.join(os.path.dirname(__file__), "../data/icon/manager")
+        filePath = Path(__file__)
+        iconDir = (filePath.parent / "../data/icon/manager").resolve()
 
-        def addFiles(iconDir, mode):
+        def addFilesForMode(icon, iconDir, mode):
             icon.addFile(
-                os.path.join(iconDir, "favicon-16x16.png"), QSize(16, 16), mode
+                str(iconDir / "favicon-16x16.png"),
+                QSize(16, 16),
+                mode,
             )
             icon.addFile(
-                os.path.join(iconDir, "favicon-32x32.png"), QSize(32, 32), mode
+                str(iconDir / "favicon-32x32.png"),
+                QSize(32, 32),
+                mode,
             )
             icon.addFile(
-                os.path.join(iconDir, "apple-touch-icon.png"), QSize(180, 180), mode
+                str(iconDir / "apple-touch-icon.png"),
+                QSize(180, 180),
+                mode,
             )
             icon.addFile(
-                os.path.join(iconDir, "android-chrome-192x192.png"),
+                str(iconDir / "android-chrome-192x192.png"),
                 QSize(192, 192),
                 mode,
             )
             icon.addFile(
-                os.path.join(iconDir, "android-chrome-512x512.png"),
+                str(iconDir / "android-chrome-512x512.png"),
                 QSize(512, 512),
                 mode,
             )
 
-        addFiles(os.path.join(iconDir, "normal"), QIcon.Normal)
-        addFiles(os.path.join(iconDir, "disabled"), QIcon.Disabled)
-        addFiles(os.path.join(iconDir, "active"), QIcon.Active)
+        # Add files for each mode
+        addFilesForMode(icon, iconDir / "normal", QIcon.Normal)
+        addFilesForMode(icon, iconDir / "disabled", QIcon.Disabled)
+        addFilesForMode(icon, iconDir / "active", QIcon.Active)
 
         return icon
 
-    def _createTooltip(self):
-        tooltip = "KOAPY Manager Application"
-        return tooltip
+    def _createToolTip(self):
+        toolTip = "KOAPY Manager Application"
+        return toolTip
 
     def _createContextMenu(self):
         menu = QMenu()
-        iconDir = os.path.join(os.path.dirname(__file__), "../data/icon/external")
+
+        # Section for actions related to connection and login
         menu.addSection("Connection")
         connectAction = menu.addAction("Login and Connect")
-        connectAction.triggered.connect(self._connect)
+        connectAction.triggered.connect(self._onConnectButtonClicked)
         showAccountWindowAction = menu.addAction("Show Account Window")
-        showAccountWindowAction.triggered.connect(self._showAccountWindow)
+        showAccountWindowAction.triggered.connect(
+            self._onShowAccountWindowButtonClicked
+        )
+
+        # Section for displaying current status, should be disabled
         menu.addSection("Status")
-        self._connectionStatusAction = menu.addAction("Status: Disconnected")
+        text = self._getConnectionStatusText(self.ConnectionStatus.DISCONNECTED)
+        self._connectionStatusAction = menu.addAction(text)
         self._connectionStatusAction.setEnabled(False)
-        self._serverStatusAction = menu.addAction("Server: Unknown")
+        text = self._getServerTypeText(self.ServerType.UNKNOWN)
+        self._serverStatusAction = menu.addAction(text)
         self._serverStatusAction.setEnabled(False)
+
+        # Section for external links (koapy)
         menu.addSection("Links")
-        icon = QIcon(os.path.join(iconDir, "readthedocs.png"))
+        iconDir = Path(__file__).parent / "../data/icon/external"
+        iconDir = iconDir.resolve()
+        icon = QIcon(str(iconDir / "readthedocs.png"))
         documentationAction = menu.addAction(icon, "Documentation")
         documentationAction.triggered.connect(self._openReadTheDocs)
-        icon = QIcon(os.path.join(iconDir, "github.png"))
+        icon = QIcon(str(iconDir / "github.png"))
         githubAction = menu.addAction(icon, "Github")
         githubAction.triggered.connect(self._openGithub)
+
+        # Section for external links (kiwoom)
         menu.addSection("Kiwoom Links")
         openApiAction = menu.addAction("Kiwoom OpenAPI+ Home")
         openApiAction.triggered.connect(self._openOpenApiHome)
@@ -230,23 +398,80 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         openApiAction.triggered.connect(self._openOpenApiDocument)
         qnaAction = menu.addAction("Kiwoom OpenAPI+ Qna")
         qnaAction.triggered.connect(self._openOpenApiQna)
+
+        # Section for exit and restart
         menu.addSection("Exit")
         restartAction = menu.addAction("Restart")
-        restartAction.triggered.connect(self._emitShouldRestart)
+        restartAction.triggered.connect(self._onRestartButtonClicked)
         exitAction = menu.addAction("Exit")
-        exitAction.triggered.connect(self._exit)
+        exitAction.triggered.connect(self._onExitButtonClicked)
+
         return menu
 
-    def _ensureConnectedAndThen(self, callback=None):
-        if not self._client.IsConnected():
-            self.logger.debug("Connecting to OpenAPI server")
-        self._client.EnsureConnectedAndThen(callback)
+    def _createSystemTrayIcon(self):
+        tray = QSystemTrayIcon()
 
-    def _connect(self):
-        self._ensureConnectedAndThen()
+        self._icon = self._createIcon()
+        self._tooltip = self._createToolTip()
+        self._menu = self._createContextMenu()
 
-    def _showAccountWindow(self):
-        self._ensureConnectedAndThen(self._client.ShowAccountWindow)
+        tray.setIcon(self._icon)
+        tray.setToolTip(self._tooltip)
+        tray.setContextMenu(self._menu)
+
+        tray.activated.connect(self._onTrayIconActivated)  # pylint: disable=no-member
+
+        return tray
+
+    # =========================================
+    # Functions for controling tray icon states
+    # =========================================
+
+    def _updateTrayIconMode(self, mode: QIcon.Mode = QIcon.Normal):
+        icon = QIcon(self._icon.pixmap(16, mode))
+        self._tray.setIcon(icon)
+
+    def _getConnectionStatusText(self, status: ConnectionStatus):
+        text = {
+            self.ConnectionStatus.DISCONNECTED: "Status: Disconnected",
+            self.ConnectionStatus.CONNECTED: "Status: Connected",
+        }[status]
+        return text
+
+    def _updateConnectionStatus(self, status: ConnectionStatus):
+        text = self._getConnectionStatusText(status)
+        self._connectionStatusAction.setText(text)
+
+    def _getServerTypeText(self, server_type: ServerType):
+        text = {
+            self.ServerType.SIMULATION: "Server: Simulation",
+            self.ServerType.REAL: "Server: Real",
+            self.ServerType.UNKNOWN: "Server: Unknown",
+        }[server_type]
+        return text
+
+    def _updateServerType(self, server_type: ServerType):
+        text = self._getServerTypeText(server_type)
+        self._serverStatusAction.setText(text)
+
+    # =======================================
+    # Functions for handling tray icon events
+    # =======================================
+
+    def _onTrayIconActivated(self, reason):
+        pass
+
+    def _onExitButtonClicked(self):
+        self.exit()
+
+    def _onRestartButtonClicked(self):
+        self._emitShouldRestart()
+
+    def _onConnectButtonClicked(self):
+        self._connect()
+
+    def _onShowAccountWindowButtonClicked(self):
+        self._showAccountWindow()
 
     def _openOpenApiHome(self):
         openApiHomeUrl = "https://www.kiwoom.com/h/customer/download/VOpenApiInfoView"
@@ -273,101 +498,35 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         url = QUrl(docUrl)
         QDesktopServices.openUrl(url)
 
-    def _emitShouldRestart(self):
-        self.logger.debug("Emitting shouldRestart(0)")
-        self.shouldRestart.emit(0)
+    # ==============================
+    # Functions for general behavior
+    # ==============================
+
+    def _ensureConnectedAndThen(self, callback=None):
+        if not self._client.IsConnected():
+            self.logger.debug("Connecting to OpenAPI server")
+        self._client.EnsureConnectedAndThen(callback)
+
+    def _connect(self):
+        self._ensureConnectedAndThen()
+
+    def _showAccountWindow(self):
+        self._ensureConnectedAndThen(self._client.ShowAccountWindow)
+
+    def _emitShouldRestart(self, restart_type: Optional[RestartType] = None):
+        if restart_type is None:
+            restart_type = self.RestartType.RESTART_ONLY
+        self.shouldRestart.emit(restart_type)
 
     def _emitShouldRestartAndConnect(self):
-        self.logger.debug("Emitting shouldRestart(1)")
-        self.shouldRestart.emit(1)
+        self._emitShouldRestart(self.RestartType.RESTART_AND_CONNECT)
 
-    def _closeClient(self):
-        self._client.close()
+    def _onShouldRestart(self, restart_type: RestartType):
+        self._restart(restart_type)
 
-    def _closeServerProcess(self):
-        self._server_process.close()
-        self._server_process.waitForFinished()
-
-    def _close(self):
-        self._closeClient()
-        self._closeServerProcess()
-
-    def close(self):
-        return self._close()
-
-    def __del__(self):
-        try:
-            self.close()
-        except RuntimeError:
-            pass
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        self.close()
-
-    @contextmanager
-    def _execContext(self):
-        with ExitStack() as stack:
-            stack.enter_context(self._signal_handler)
-            stack.enter_context(self._dialog_handler)
-            stack.enter_context(self._thread_pool_executor)
-            stack.enter_context(self)
-            yield
-
-    def _exec(self):
-        with self._execContext():
-            self.logger.debug("Started manager application")
-            return self._app.exec_()
-
-    def _exit(self, return_code=0):
-        self.logger.debug("Exiting manager application")
-        return self._app.exit(return_code)
-
-    def _restart(self, code):
-        self.logger.debug("Restarting server application")
-        self._closeClient()
-        self._closeServerProcess()
-
-        self._server_process = KiwoomOpenApiPlusServerApplicationProcess(
-            self._args, self
-        )
-        self._server_process.start()
-        self._server_process.waitForStarted()
-
-        self._client = KiwoomOpenApiPlusServiceClient(
-            port=self._port, thread_pool=self._thread_pool_executor
-        )
-        assert self._client.is_ready(self._client_timeout), "Client is not ready"
-        self._client.OnEventConnect.connect(self._onEventConnect)
-
-        if code > 0:
-            self.logger.debug("Re-establishing connection")
-            self._connect()
-
-    def exec_(self):
-        return self._exec()
-
-    def exit(self, return_code=0):
-        return self._exit(return_code)
-
-    def restart(self):
-        return self._restart(1)
-
-    def execAndExit(self):
-        code = self._exec()
-        sys.exit(code)
-
-    def __getattr__(self, name):
-        return getattr(self._app, name)
-
-    @classmethod
-    def main(cls, args=None):
-        if args is None:
-            args = sys.argv
-        app = cls(args)
-        app.execAndExit()
+    # ===================================
+    # Functions for handling other events
+    # ===================================
 
     def _onSignal(self, signal, frame):
         self.logger.debug("Received %r for manager application", signal)
@@ -413,7 +572,7 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
                 "Connection lost due to maintanance, waiting until %s, then will try to reconnect",
                 target,
             )
-            # TODO: QTimer is not working, why?
+            # QTimer is not working, why?
             # QTimer.singleShot(total_seconds * 1000, self._emitShouldRestartAndConnect)
             timer = Timer(total_seconds, self._emitShouldRestartAndConnect)
             timer.start()
@@ -424,30 +583,100 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
             self._emitShouldRestartAndConnect()
 
     def _onEventConnect(self, errcode):
-        if errcode == 0:
-            state = self._client.GetConnectState()
-            if state == 1:
-                self._connectionStatusAction.setText("Status: Connected")
-                server = self._client.GetLoginInfo("GetServerGubun")
-                if server == "1":
-                    self.logger.debug("Connected to Simulation server")
-                    self._serverStatusAction.setText("Server: Simulation")
-                else:
-                    self.logger.debug("Connected to Real server")
-                    self._serverStatusAction.setText("Server: Real")
+        state = self._client.GetConnectState()
+
+        if state == 1:
+            self._updateTrayIconMode(QIcon.Normal)
+            self._updateConnectionStatus(self.ConnectionStatus.CONNECTED)
+            server = self._client.GetServerGubun()
+            if server == "1":
+                self._updateServerType(self.ServerType.SIMULATION)
             else:
-                raise RuntimeError("Unexpected case")
-        elif errcode == KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SOCKET_CLOSED:
+                self._updateServerType(self.ServerType.REAL)
+        else:
+            self._updateTrayIconMode(QIcon.Disabled)
+            self._updateConnectionStatus(self.ConnectionStatus.DISCONNECTED)
+            self._updateServerType(self.ServerType.UNKNOWN)
+
+        if errcode == KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_SOCKET_CLOSED:
             self.logger.error("Socket closed")
-            state = self._client.GetConnectState()
-            if state == 0:
-                self._connectionStatusAction.setText("Status: Disconnected")
             self._tryReconnect()
         elif errcode == KiwoomOpenApiPlusNegativeReturnCodeError.OP_ERR_CONNECT:
             self.logger.error("Failed to connect")
-            state = self._client.GetConnectState()
-            if state == 0:
-                self._connectionStatusAction.setText("Status: Disconnected")
+
+    # ================================
+    # Functions for context management
+    # ================================
+
+    def _close(self):
+        self._closeClient()
+        self._closeServerProcess()
+
+    def close(self):
+        return self._close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close()
+
+    @contextmanager
+    def _execContext(self):
+        with ExitStack() as stack:
+            stack.enter_context(self._signal_handler)
+            stack.enter_context(self._dialog_handler)
+            stack.enter_context(self._thread_pool_executor)
+            stack.enter_context(self)
+            yield
+
+    # ==============================
+    # Functions for public interface
+    # ==============================
+
+    def __getattr__(self, name):
+        return getattr(self._app, name)
+
+    def _exec(self):
+        with self._execContext():
+            self.logger.debug("Started manager application")
+            return self._app.exec_()
+
+    def _exit(self, return_code=0):
+        self.logger.debug("Exiting manager application")
+        return self._app.exit(return_code)
+
+    def _restart(self, restart_type: Optional[RestartType] = None):
+        self.logger.debug("Restarting server application")
+
+        if restart_type is None:
+            restart_type = self.RestartType.RESTART_ONLY
+
+        self._reinitializeServerProcessAndGrpcClient()
+
+        if restart_type == self.RestartType.RESTART_AND_CONNECT:
+            self.logger.debug("Re-establishing connection")
+            self._connect()
+
+    def exec_(self):
+        return self._exec()
+
+    def exit(self, return_code=0):
+        return self._exit(return_code)
+
+    def restart(self, restart_type: Optional[RestartType] = None):
+        return self._restart(restart_type)
+
+    def execAndExit(self):
+        code = self.exec_()
+        sys.exit(code)
+
+    @classmethod
+    def main(cls, args=None):
+        if args is None:
+            args = sys.argv
+        app = cls(args)
+        app.execAndExit()
 
 
 if __name__ == "__main__":

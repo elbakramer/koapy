@@ -23,6 +23,7 @@ class QThreadPoolExecutorRunnable(QRunnable):
         self._kwargs = kwargs
 
     def run(self):
+        # pylint: disable=broad-except,self-cls-assignment
         if not self._future.set_running_or_notify_cancel():
             return
         try:
@@ -36,6 +37,8 @@ class QThreadPoolExecutorRunnable(QRunnable):
 
 
 class QThreadPoolExecutor(QObject, Executor):
+    # pylint: disable=arguments-differ
+
     @overload
     def __init__(self, thread_pool: QThreadPool, parent: Optional[QObject]):
         ...

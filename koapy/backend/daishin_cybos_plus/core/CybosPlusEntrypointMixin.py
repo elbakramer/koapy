@@ -21,7 +21,7 @@ class CybosPlusEntrypointMixin(Logging):
         return self.CpUtil.CpCybos.IsConnect
 
     @classmethod
-    def ConnectUsingPywinauto_Impl(cls, credential=None):
+    def ConnectUsingPywinauto_Impl(cls, credentials=None):
         """
         https://github.com/ippoeyeslhw/cppy/blob/master/cp_luncher.py
         """
@@ -30,20 +30,20 @@ class CybosPlusEntrypointMixin(Logging):
 
         is_in_development = False
 
-        if credential is None:
+        if credentials is None:
             from koapy.config import config
 
-            credential = config.get("koapy.backend.daishin_cybos_plus.credential")
+            credentials = config.get("koapy.backend.daishin_cybos_plus.credentials")
 
-        userid = credential.get("user_id")
-        password = credential.get("user_password")
-        cert = credential.get("cert_password")
+        userid = credentials.get("user_id")
+        password = credentials.get("user_password")
+        cert = credentials.get("cert_password")
 
-        auto_account_password = credential.get("auto_account_password")
-        auto_cert_password = credential.get("auto_cert_password")
-        price_check_only = credential.get("price_check_only")
+        auto_account_password = credentials.get("auto_account_password")
+        auto_cert_password = credentials.get("auto_cert_password")
+        price_check_only = credentials.get("price_check_only")
 
-        account_passwords = credential.get("account_passwords")
+        account_passwords = credentials.get("account_passwords")
 
         cls.logger.info("Starting CYBOS Starter application")
         _app = pywinauto.Application().start(
@@ -197,7 +197,7 @@ class CybosPlusEntrypointMixin(Logging):
                     cls.logger.info("Notice window is closed")
 
     @classmethod
-    def ConnectUsingPywinauto_RunScriptInSubprocess(cls, credential=None):
+    def ConnectUsingPywinauto_RunScriptInSubprocess(cls, credentials=None):
         def main():
             # pylint: disable=redefined-outer-name,reimported,import-self
             import json
@@ -207,19 +207,21 @@ class CybosPlusEntrypointMixin(Logging):
                 CybosPlusEntrypoint,
             )
 
-            credential = json.load(sys.stdin)
-            CybosPlusEntrypoint.ConnectUsingPywinauto_Impl(credential)
+            credentials = json.load(sys.stdin)
+            CybosPlusEntrypoint.ConnectUsingPywinauto_Impl(credentials)
 
         args = function_to_subprocess_args(main)
-        return subprocess.run(args, input=json.dumps(credential), text=True, check=True)
+        return subprocess.run(
+            args, input=json.dumps(credentials), text=True, check=True
+        )
 
-    def ConnectUsingPywinauto(self, credential=None):
-        return self.ConnectUsingPywinauto_RunScriptInSubprocess(credential)
+    def ConnectUsingPywinauto(self, credentials=None):
+        return self.ConnectUsingPywinauto_RunScriptInSubprocess(credentials)
 
-    def Connect(self, credential=None):
+    def Connect(self, credentials=None):
         assert is_admin(), "Connect() method requires to be run as administrator"
 
-        self.ConnectUsingPywinauto(credential)
+        self.ConnectUsingPywinauto(credentials)
 
         if self.GetConnectState() == 0:
             self.logger.error("Failed to start and connect to CYBOS Plus")
@@ -228,13 +230,13 @@ class CybosPlusEntrypointMixin(Logging):
 
         return self.GetConnectState()
 
-    def CommConnect(self, credential=None):
-        return self.Connect(credential)
+    def CommConnect(self, credentials=None):
+        return self.Connect(credentials)
 
-    def EnsureConnected(self, credential=None):
+    def EnsureConnected(self, credentials=None):
         errcode = 0
         if self.GetConnectState() == 0:
-            self.Connect(credential)
+            self.Connect(credentials)
         if self.GetConnectState() == 0:
             raise RuntimeError("CYBOS Plus is not running, please start CYBOS Plus")
         return errcode

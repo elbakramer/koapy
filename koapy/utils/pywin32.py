@@ -1,9 +1,15 @@
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Optional, Sequence, Tuple, Union
+
+try:
+    from typing import TypeGuard
+except ImportError:
+    from typing_extensions import TypeGuard
 
 import pythoncom
 import win32api
 import win32con
 
+from pywintypes import IIDType
 from win32com.client.genpy import (
     DispatchItem,
     EnumerationItem,
@@ -13,18 +19,28 @@ from win32com.client.genpy import (
 )
 from win32com.client.selecttlb import EnumKeys, TypelibSpec
 
-from koapy.utils.logging import get_logger
-
-logger = get_logger(__name__)
-
-PyIID = "PyIID"
+PyIID = IIDType
 PyITypeLib = "PyITypeLib"
 
+PyIIDLike = Union[PyIID, str]
 
-def GetTypelibSpecs(iid: Union[PyIID, str]) -> List[TypelibSpec]:
+
+def IsPyIID(value) -> TypeGuard[PyIID]:
+    return isinstance(value, IIDType)
+
+
+def IsPyITypeLib(value) -> TypeGuard[PyITypeLib]:
+    return type(value).__name__ == PyITypeLib
+
+
+def IsPyIIDLike(value) -> TypeGuard[PyIIDLike]:
+    return IsPyIID(value) or isinstance(value, str)
+
+
+def GetTypelibSpecs(iid: PyIIDLike) -> List[TypelibSpec]:
     specs: List[TypelibSpec] = []
 
-    key = win32api.RegOpenKey(win32con.HKEY_CLASSES_ROOT, "Typelib")
+    key = win32api.RegOpenKey(win32con.HKEY_CLASSES_ROOT, "TypeLib")
     key2 = win32api.RegOpenKey(key, str(iid))
 
     for version, tlbdesc in EnumKeys(key2):
@@ -65,32 +81,44 @@ def GetTypelibSpecs(iid: Union[PyIID, str]) -> List[TypelibSpec]:
     return specs
 
 
-def GetTypelibSpec(iid: Union[PyIID, str]) -> TypelibSpec:
-    specs = GetTypelibSpecs(iid)
+def GetLatestTypelibSpec(
+    specs: Union[Sequence[TypelibSpec], PyIIDLike]
+) -> Optional[TypelibSpec]:
+    spec: Optional[TypelibSpec] = None
 
-    if len(specs) == 0:
-        raise RuntimeError("No TypelibSpecs are found")
-    if len(specs) > 1:
-        raise RuntimeError("Unexpected number of TypelibSpecs are found")
+    if IsPyIIDLike(specs):
+        specs = GetTypelibSpecs(specs)
 
-    spec = specs[0]
+    if len(specs) > 0:
+        specs = sorted(specs)
+        spec = specs[-1]
 
     return spec
 
 
-def LoadTypeLib(iid: Union[PyIID, str]) -> Tuple[PyITypeLib, TypelibSpec]:
-    spec = GetTypelibSpec(iid)
+def LoadTypeLib(spec: Union[TypelibSpec, PyIIDLike]) -> Optional[PyITypeLib]:
+    tlb: Optional[PyITypeLib] = None
 
-    if spec.dll is None:
-        tlb = pythoncom.LoadRegTypeLib(spec.clsid, spec.major, spec.minor, spec.lcid)
-    else:
-        tlb = pythoncom.LoadTypeLib(spec.dll)
+    if IsPyIIDLike(spec):
+        spec = GetLatestTypelibSpec(spec)
 
-    return tlb, spec
+    if spec:
+        if spec.dll:
+            tlb = pythoncom.LoadTypeLib(spec.dll)
+        else:
+            tlb = pythoncom.LoadRegTypeLib(
+                spec.clsid,
+                spec.major,
+                spec.minor,
+                spec.lcid,
+            )
+
+    return tlb
 
 
 def BuildOleItems(
-    iid: Union[PyIID, str]
+    spec: Union[TypelibSpec, PyIIDLike],
+    tlb: Optional[PyITypeLib] = None,
 ) -> Tuple[
     Dict[PyIID, DispatchItem],
     Dict[PyIID, EnumerationItem],
@@ -102,36 +130,14 @@ def BuildOleItems(
     recordItems: Dict[PyIID, RecordItem] = {}
     vtableItems: Dict[PyIID, VTableItem] = {}
 
-    tlb, spec = LoadTypeLib(iid)
-    progressInstance = None
-    gen = Generator(tlb, spec.dll, progressInstance, bBuildHidden=1)
-    oleItems, enumItems, recordItems, vtableItems = gen.BuildOleItemsFromType()
+    if IsPyIIDLike(spec):
+        spec = GetLatestTypelibSpec(spec)
 
-    return oleItems, enumItems, recordItems, vtableItems
-
-
-def TryBuildOleItems(
-    iid: Union[PyIID, str],
-    error="coerce",
-) -> Tuple[
-    Dict[PyIID, DispatchItem],
-    Dict[PyIID, EnumerationItem],
-    Dict[PyIID, RecordItem],
-    Dict[PyIID, VTableItem],
-]:
-    assert error in ["coerce", "raise"]
-
-    oleItems: Dict[PyIID, DispatchItem] = {}
-    enumItems: Dict[PyIID, EnumerationItem] = {}
-    recordItems: Dict[PyIID, RecordItem] = {}
-    vtableItems: Dict[PyIID, VTableItem] = {}
-
-    try:
-        oleItems, enumItems, recordItems, vtableItems = BuildOleItems(iid)
-    except Exception as e:  # pylint: disable=broad-except
-        if error == "raise":
-            raise e
-        else:
-            logger.warning(e)
+    if spec:
+        if not tlb:
+            tlb = LoadTypeLib(spec)
+        progressInstance = None
+        gen = Generator(tlb, spec.dll, progressInstance, bBuildHidden=1)
+        oleItems, enumItems, recordItems, vtableItems = gen.BuildOleItemsFromType()
 
     return oleItems, enumItems, recordItems, vtableItems

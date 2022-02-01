@@ -1,6 +1,3 @@
-# pylint: disable=unused-argument
-
-
 class KiwoomOpenApiPlusEventFunctions:
     def OnReceiveTrData(
         self,

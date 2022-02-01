@@ -1,14 +1,21 @@
-import os
 import subprocess
+
+from pathlib import Path
 
 
 def compile_proto():
     proto_filename = "KiwoomOpenApiPlusService.proto"
-    file_dir = os.path.dirname(os.path.realpath(__file__))
-    project_dir = os.path.realpath(os.path.join(file_dir, "../../../../.."))
+    file_path = Path(__file__)
+    file_dir = file_path.parent
+    project_dir = file_dir.parent.parent.parent.parent.parent
     proto_path = project_dir
-    proto_filepath = os.path.join(
-        proto_path, "koapy", "backend", "kiwoom_open_api_plus", "grpc", proto_filename
+    proto_filepath = (
+        proto_path
+        / "koapy"
+        / "backend"
+        / "kiwoom_open_api_plus"
+        / "grpc"
+        / proto_filename
     )
     python_out = project_dir
     grpc_python_out = python_out
@@ -16,13 +23,13 @@ def compile_proto():
         "python",
         "-m",
         "grpc_tools.protoc",
-        "--proto_path=%s" % proto_path,
-        "--python_out=%s" % python_out,
-        "--grpc_python_out=%s" % grpc_python_out,
-        proto_filepath,
+        "--proto_path=%s" % str(proto_path),
+        "--python_out=%s" % str(python_out),
+        "--grpc_python_out=%s" % str(grpc_python_out),
+        str(proto_filepath),
     ]
     print(" ".join(cmd))
-    subprocess.run(cmd, cwd=project_dir, check=True)
+    subprocess.check_call(cmd, cwd=project_dir)
 
 
 if __name__ == "__main__":

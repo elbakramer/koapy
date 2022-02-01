@@ -34,7 +34,7 @@ class KiwoomOpenApiPlusEventHandlerSignature(KiwoomOpenApiPlusSignature):
     def _make_event_handler_signatures_by_name(
         cls,
     ) -> Dict[str, KiwoomOpenApiPlusEventHandlerSignature]:
-        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusOleItems import (
+        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
             EVENT_OLE_ITEM,
         )
 

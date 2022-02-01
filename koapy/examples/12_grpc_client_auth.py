@@ -6,7 +6,7 @@ def main():
     )
 
     host = "localhost"
-    port = 8888
+    port = 5943
 
     with open("server.crt", "rb") as f:
         server_crt = f.read()

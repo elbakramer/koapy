@@ -147,7 +147,9 @@ disable=print-statement,
         bad-continuation,
         bad-whitespace,
         assignment-from-none,
-        assignment-from-no-return
+        assignment-from-no-return,
+        unused-argument,
+        attribute-defined-outside-init
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option

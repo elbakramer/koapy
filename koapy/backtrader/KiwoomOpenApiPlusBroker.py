@@ -27,14 +27,10 @@ class KiwoomOpenApiPlusCommInfo(CommInfoBase):
         if self._commtype == self.COMM_PERC and not self.p.percabs:
             self.p.tax /= 100.0
 
-    def _getcommissionbuy(
-        self, size, price, pseudoexec
-    ):  # pylint: disable=unused-argument
+    def _getcommissionbuy(self, size, price, pseudoexec):
         return size * price * self.p.commission * self.p.mult
 
-    def _getcommissionsell(
-        self, size, price, pseudoexec
-    ):  # pylint: disable=unused-argument
+    def _getcommissionsell(self, size, price, pseudoexec):
         return abs(size) * price * (self.p.commission + self.p.tax) * self.p.mult
 
     def _getcommission(self, size, price, pseudoexec):
@@ -235,9 +231,7 @@ class KiwoomOpenApiPlusBroker(with_metaclass(MetaKiwoomOpenApiPlusBroker, Broker
                 if o.alive():
                     self._cancel(o.ref)
 
-    def _fill(
-        self, oref, size, price, ttype, **kwargs
-    ):  # pylint: disable=unused-argument
+    def _fill(self, oref, size, price, ttype, **kwargs):
         order = self.orders[oref]
 
         if not order.alive():  # can be a bracket

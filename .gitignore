@@ -151,5 +151,11 @@ cython_debug/
 # Other
 /manuals
 
-# credential file
+# config
 koapy.conf
+.koapy.confg
+
+# SSL/TLS credentials files
+*.pem
+*.crt
+*.key

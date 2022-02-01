@@ -1,7 +1,9 @@
 import click
 
-from koapy.cli.utils import verbose_option
-from koapy.cli.utils.credential import get_credential
+from sympy import comp
+
+from koapy.cli.utils.credentials import get_credentials
+from koapy.cli.utils.verbose_option import verbose_option
 
 
 @click.group(short_help="Update openapi module and metadata.")
@@ -11,7 +13,7 @@ def update():
 
 @update.command(short_help="Update openapi TR metadata.")
 @verbose_option()
-def trinfo(verbose):
+def trinfo():
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo import (
         KiwoomOpenApiPlusTrInfo,
     )
@@ -21,7 +23,7 @@ def trinfo(verbose):
 
 @update.command(short_help="Update openapi realtype metadata.")
 @verbose_option()
-def realtype(verbose):
+def realtype():
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType import (
         KiwoomOpenApiPlusRealType,
     )
@@ -33,12 +35,21 @@ def realtype(verbose):
 @click.option(
     "-i", "--interactive", is_flag=True, help="Put login information with prompts."
 )
-@verbose_option(default=5)
-def openapi(interactive, verbose):
+@verbose_option(default=5, show_default=True)
+def openapi(interactive):
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusVersionUpdater import (
         KiwoomOpenApiPlusVersionUpdater,
     )
 
-    credential = get_credential(interactive)
-    updater = KiwoomOpenApiPlusVersionUpdater(credential)
+    credentials = get_credentials(interactive)
+    updater = KiwoomOpenApiPlusVersionUpdater(credentials)
     updater.update_version_if_necessary()
+
+
+@update.command(short_help="Update pb files by compile proto files.")
+def proto():
+    from koapy.backend.kiwoom_open_api_plus.grpc.tools.compile_proto import (
+        compile_proto,
+    )
+
+    compile_proto()

@@ -1,6 +1,3 @@
-# pylint: disable=unused-argument
-
-
 class KiwoomOpenApiPlusDispatchFunctions:
     def CommConnect(self) -> int:
         """
@@ -981,7 +978,7 @@ class KiwoomOpenApiPlusDispatchFunctions:
             3. 주식종목 시장구분, 종목분류등 정보제공 (구분자는 '|' 와 ';')
             호출결과는 입력한 종목에 대한 대분류, 중분류, 업종구분값을 구분자로 연결한 문자열입니다.
 
-            >>> KOA_Functions("GetMasterStockInfo", "039490)
+            >>> KOA_Functions("GetMasterStockInfo", "039490")
             "시장구분0|거래소;시장구분1|중형주;업종구분|금융업;"
 
             4. 조건검색 종목코드와 현재가 수신 (실시간 조건검색은 사용할 수 없음)
