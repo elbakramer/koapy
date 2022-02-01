@@ -1,7 +1,5 @@
 import click
 
-from sympy import comp
-
 from koapy.cli.utils.credentials import get_credentials
 from koapy.cli.utils.verbose_option import verbose_option
 
