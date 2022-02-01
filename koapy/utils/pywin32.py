@@ -40,10 +40,15 @@ def IsPyIIDLike(value) -> TypeGuard[PyIIDLike]:
 def GetTypelibSpecs(iid: PyIIDLike) -> List[TypelibSpec]:
     specs: List[TypelibSpec] = []
 
-    key = win32api.RegOpenKey(win32con.HKEY_CLASSES_ROOT, "TypeLib")
-    key2 = win32api.RegOpenKey(key, str(iid))
+    try:
+        key = win32api.RegOpenKey(win32con.HKEY_CLASSES_ROOT, "TypeLib")
+        key2 = win32api.RegOpenKey(key, str(iid))
+    except win32api.error:
+        enum_keys = []
+    else:
+        enum_keys = EnumKeys(key2)
 
-    for version, tlbdesc in EnumKeys(key2):
+    for version, tlbdesc in enum_keys:
         major_minor = version.split(".", 1)
         if len(major_minor) < 2:
             major_minor.append("0")
