@@ -30,6 +30,6 @@ Attributes
 
    
 
-.. py:function:: openapi(target, cleanup, verbose)
+.. py:function:: openapi(target, cleanup)
 
 

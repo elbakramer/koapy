@@ -371,7 +371,7 @@ KOAPY 에서도 실험적으로 자동 버전처리를 수행하는 관련 스�
 .. code-block:: hocon
 
     {
-        koapy.backend.kiwoom_open_api_plus.credential {
+        koapy.backend.kiwoom_open_api_plus.credentials {
             user_id = "userid"
             user_password = "userpassword"
             cert_password = "certpassword"

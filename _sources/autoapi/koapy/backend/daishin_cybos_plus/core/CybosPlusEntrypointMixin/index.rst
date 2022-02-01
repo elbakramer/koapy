@@ -24,26 +24,26 @@ Classes
    .. py:method:: GetConnectState(self)
 
 
-   .. py:method:: ConnectUsingPywinauto_Impl(cls, credential=None)
+   .. py:method:: ConnectUsingPywinauto_Impl(cls, credentials=None)
       :classmethod:
 
       https://github.com/ippoeyeslhw/cppy/blob/master/cp_luncher.py
 
 
-   .. py:method:: ConnectUsingPywinauto_RunScriptInSubprocess(cls, credential=None)
+   .. py:method:: ConnectUsingPywinauto_RunScriptInSubprocess(cls, credentials=None)
       :classmethod:
 
 
-   .. py:method:: ConnectUsingPywinauto(self, credential=None)
+   .. py:method:: ConnectUsingPywinauto(self, credentials=None)
 
 
-   .. py:method:: Connect(self, credential=None)
+   .. py:method:: Connect(self, credentials=None)
 
 
-   .. py:method:: CommConnect(self, credential=None)
+   .. py:method:: CommConnect(self, credentials=None)
 
 
-   .. py:method:: EnsureConnected(self, credential=None)
+   .. py:method:: EnsureConnected(self, credentials=None)
 
 
    .. py:method:: GetCodeListByMarketAsList(self, market)

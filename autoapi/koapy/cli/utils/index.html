@@ -18,7 +18,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="koapy.cli.utils.credential" href="credential/index.html" />
+    <link rel="next" title="koapy.cli.utils.credentials" href="credentials/index.html" />
     <link rel="prev" title="koapy.cli.extensions.verbose_option" href="../extensions/verbose_option/index.html" />
     <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
 
@@ -69,7 +69,7 @@
   <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
   <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli</span></code></a><ul>
       <li>Previous: <a href="../extensions/verbose_option/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.extensions.verbose_option</span></code></a></li>
-      <li>Next: <a href="credential/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.utils.credential</span></code></a></li>
+      <li>Next: <a href="credentials/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.utils.credentials</span></code></a></li>
   </ul></li>
   </ul></li>
   </ul></li>
@@ -116,65 +116,14 @@
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="credential/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.utils.credential</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="credentials/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.utils.credentials</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="fail_with_usage/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.utils.fail_with_usage</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="grpc_options/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.utils.grpc_options</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="openapi/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.utils.openapi</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="pywin32/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.utils.pywin32</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="verbose_option/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.utils.verbose_option</span></code></a></li>
 </ul>
 </div>
-</section>
-<section id="package-contents">
-<h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h2>
-<section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.utils.extensions_verbose_option" title="koapy.cli.utils.extensions_verbose_option"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extensions_verbose_option</span></code></a>(dest=None, default=None, flag_value=None, expose_value=None, callback=None)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.utils.set_verbosity" title="koapy.cli.utils.set_verbosity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_verbosity</span></code></a>(verbosity)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.utils.fail_with_usage" title="koapy.cli.utils.fail_with_usage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fail_with_usage</span></code></a>(message=None)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.utils.verbose_option_callback" title="koapy.cli.utils.verbose_option_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">verbose_option_callback</span></code></a>(ctx, param, value)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.utils.verbose_option" title="koapy.cli.utils.verbose_option"><code class="xref py py-obj docutils literal notranslate"><span class="pre">verbose_option</span></code></a>(*args, **kwargs)</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py function">
-<dt class="sig sig-object py" id="koapy.cli.utils.extensions_verbose_option">
-<span class="sig-prename descclassname"><span class="pre">koapy.cli.utils.</span></span><span class="sig-name descname"><span class="pre">extensions_verbose_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expose_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.cli.utils.extensions_verbose_option" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="koapy.cli.utils.set_verbosity">
-<span class="sig-prename descclassname"><span class="pre">koapy.cli.utils.</span></span><span class="sig-name descname"><span class="pre">set_verbosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbosity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.cli.utils.set_verbosity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="koapy.cli.utils.fail_with_usage">
-<span class="sig-prename descclassname"><span class="pre">koapy.cli.utils.</span></span><span class="sig-name descname"><span class="pre">fail_with_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.cli.utils.fail_with_usage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="koapy.cli.utils.verbose_option_callback">
-<span class="sig-prename descclassname"><span class="pre">koapy.cli.utils.</span></span><span class="sig-name descname"><span class="pre">verbose_option_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.cli.utils.verbose_option_callback" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="koapy.cli.utils.verbose_option">
-<span class="sig-prename descclassname"><span class="pre">koapy.cli.utils.</span></span><span class="sig-name descname"><span class="pre">verbose_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.cli.utils.verbose_option" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</section>
 </section>
 </section>
 

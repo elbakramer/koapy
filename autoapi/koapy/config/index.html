@@ -118,34 +118,55 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.read_config" title="koapy.config.read_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_config</span></code></a>(filename)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.read_config" title="koapy.config.read_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_config</span></code></a>(filename: Optional[os.PathLike] = None, encoding: Optional[str] = None) → Config</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.config_from_dict" title="koapy.config.config_from_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_from_dict</span></code></a>(dictionary)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.config_from_dict" title="koapy.config.config_from_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_from_dict</span></code></a>(dictionary: Mapping[str, Any]) → Config</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.dump_config" title="koapy.config.dump_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump_config</span></code></a>(config, compact=False, indent=4)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.find_user_config_file_in" title="koapy.config.find_user_config_file_in"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_user_config_file_in</span></code></a>(searching_directory: Optional[os.PathLike] = None) → Optional[pathlib.Path]</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.save_config" title="koapy.config.save_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_config</span></code></a>(filename, config=None, compact=False, indent=4)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.find_user_config_file_from" title="koapy.config.find_user_config_file_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_user_config_file_from</span></code></a>(starting_directory: Optional[os.PathLike] = None) → Optional[pathlib.Path]</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.save_user_config" title="koapy.config.save_user_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_user_config</span></code></a>(filename=None, user_config=None)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.set_user_config" title="koapy.config.set_user_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_user_config</span></code></a>(c: Config) → Config</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.get_executable_from_conda_envname" title="koapy.config.get_executable_from_conda_envname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_executable_from_conda_envname</span></code></a>(envname)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.initialize_config_from_given_path" title="koapy.config.initialize_config_from_given_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize_config_from_given_path</span></code></a>(filename: Optional[os.PathLike] = None) → bool</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.get_executable_from_conda_envpath" title="koapy.config.get_executable_from_conda_envpath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_executable_from_conda_envpath</span></code></a>(envpath)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.initialize_config_from_expected_paths" title="koapy.config.initialize_config_from_expected_paths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize_config_from_expected_paths</span></code></a>() → bool</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.get_executable_from_executable_config" title="koapy.config.get_executable_from_executable_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_executable_from_executable_config</span></code></a>(executable_config)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.get_config" title="koapy.config.get_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_config</span></code></a>() → Config</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.get_32bit_executable" title="koapy.config.get_32bit_executable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_32bit_executable</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.get_user_config" title="koapy.config.get_user_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_user_config</span></code></a>() → Config</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.get_64bit_executable" title="koapy.config.get_64bit_executable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_64bit_executable</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.dump_config" title="koapy.config.dump_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump_config</span></code></a>(config: Config, compact: bool = False, indent: int = 4) → str</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.save_config" title="koapy.config.save_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_config</span></code></a>(filename: os.PathLike, config: Optional[Config] = None, compact: bool = False, indent: int = 4, encoding: Optional[str] = None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.save_user_config" title="koapy.config.save_user_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_user_config</span></code></a>(filename: Optional[os.PathLike] = None, user_config: Optional[Config] = None, compact: bool = False, indent: int = 4, encoding: Optional[str] = None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.get_executable_from_conda_envname" title="koapy.config.get_executable_from_conda_envname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_executable_from_conda_envname</span></code></a>(envname: str) → str</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.get_executable_from_conda_envpath" title="koapy.config.get_executable_from_conda_envpath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_executable_from_conda_envpath</span></code></a>(envpath: str) → str</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.get_executable_from_executable_config" title="koapy.config.get_executable_from_executable_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_executable_from_executable_config</span></code></a>(executable_config: Config) → Optional[str]</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.get_32bit_executable" title="koapy.config.get_32bit_executable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_32bit_executable</span></code></a>() → Optional[str]</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.get_64bit_executable" title="koapy.config.get_64bit_executable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_64bit_executable</span></code></a>() → Optional[str]</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -159,184 +180,211 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.default_config_filename" title="koapy.config.default_config_filename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config_filename</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.Config" title="koapy.config.Config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Config</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.default_config_file_directory" title="koapy.config.default_config_file_directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config_file_directory</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.default_config_filename" title="koapy.config.default_config_filename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config_filename</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.default_config_filepath" title="koapy.config.default_config_filepath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config_filepath</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.default_config_file_directory" title="koapy.config.default_config_file_directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config_file_directory</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.default_config" title="koapy.config.default_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.default_config_filepath" title="koapy.config.default_config_filepath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config_filepath</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.empty_config" title="koapy.config.empty_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_config</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.current_working_directory" title="koapy.config.current_working_directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_working_directory</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.user_config" title="koapy.config.user_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">user_config</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.home_directory" title="koapy.config.home_directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">home_directory</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.home" title="koapy.config.home"><code class="xref py py-obj docutils literal notranslate"><span class="pre">home</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.default_user_config_filename" title="koapy.config.default_user_config_filename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_user_config_filename</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.cwd" title="koapy.config.cwd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cwd</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.user_config_filename_cadidates" title="koapy.config.user_config_filename_cadidates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">user_config_filename_cadidates</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.config_folder_candidates" title="koapy.config.config_folder_candidates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_folder_candidates</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.default_user_config_filepath" title="koapy.config.default_user_config_filepath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_user_config_filepath</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.config_filename_cadidates" title="koapy.config.config_filename_cadidates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_filename_cadidates</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.default_encoding" title="koapy.config.default_encoding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_encoding</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.default_user_config_path" title="koapy.config.default_user_config_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_user_config_path</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.default_config" title="koapy.config.default_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_config</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.config_path" title="koapy.config.config_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_path</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.empty_config" title="koapy.config.empty_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_config</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.config" title="koapy.config.config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.user_config" title="koapy.config.user_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">user_config</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.debug" title="koapy.config.debug"><code class="xref py py-obj docutils literal notranslate"><span class="pre">debug</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.config" title="koapy.config.config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.global_config" title="koapy.config.global_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">global_config</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#koapy.config.global_user_config" title="koapy.config.global_user_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">global_user_config</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.config.debug" title="koapy.config.debug"><code class="xref py py-obj docutils literal notranslate"><span class="pre">debug</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
-<dl class="py function">
-<dt class="sig sig-object py" id="koapy.config.read_config">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">read_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.config.read_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="koapy.config.config_from_dict">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">config_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dictionary</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.config.config_from_dict" title="Permalink to this definition">¶</a></dt>
+<dl class="py data">
+<dt class="sig sig-object py" id="koapy.config.Config">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><a class="reference internal" href="../../../_modules/koapy/config.html#Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.Config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="koapy.config.default_config_filename">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_config_filename</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">config.conf</span></em><a class="headerlink" href="#koapy.config.default_config_filename" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_config_filename</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">config.conf</span></em><a class="reference internal" href="../../../_modules/koapy/config.html#default_config_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.default_config_filename" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="koapy.config.default_config_file_directory">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_config_file_directory</span></span><a class="headerlink" href="#koapy.config.default_config_file_directory" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_config_file_directory</span></span><a class="reference internal" href="../../../_modules/koapy/config.html#default_config_file_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.default_config_file_directory" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="koapy.config.default_config_filepath">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_config_filepath</span></span><a class="headerlink" href="#koapy.config.default_config_filepath" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_config_filepath</span></span><a class="reference internal" href="../../../_modules/koapy/config.html#default_config_filepath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.default_config_filepath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="koapy.config.current_working_directory">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">current_working_directory</span></span><a class="reference internal" href="../../../_modules/koapy/config.html#current_working_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.current_working_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="koapy.config.home_directory">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">home_directory</span></span><a class="reference internal" href="../../../_modules/koapy/config.html#home_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.home_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="koapy.config.default_user_config_filename">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_user_config_filename</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">koapy.conf</span></em><a class="reference internal" href="../../../_modules/koapy/config.html#default_user_config_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.default_user_config_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="koapy.config.user_config_filename_cadidates">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">user_config_filename_cadidates</span></span><a class="reference internal" href="../../../_modules/koapy/config.html#user_config_filename_cadidates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.user_config_filename_cadidates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="koapy.config.default_user_config_filepath">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_user_config_filepath</span></span><a class="reference internal" href="../../../_modules/koapy/config.html#default_user_config_filepath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.default_user_config_filepath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="koapy.config.default_encoding">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_encoding</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">utf-8</span></em><a class="reference internal" href="../../../_modules/koapy/config.html#default_encoding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.default_encoding" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.config.read_config">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">read_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">os.PathLike</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Config</span></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#read_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.read_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.config.config_from_dict">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">config_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dictionary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Config</span></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#config_from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.config_from_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="koapy.config.default_config">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_config</span></span><a class="headerlink" href="#koapy.config.default_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_config</span></span><a class="reference internal" href="../../../_modules/koapy/config.html#default_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.default_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.config.find_user_config_file_in">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">find_user_config_file_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">searching_directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">os.PathLike</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#find_user_config_file_in"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.find_user_config_file_in" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.config.find_user_config_file_from">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">find_user_config_file_from</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">starting_directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">os.PathLike</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#find_user_config_file_from"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.find_user_config_file_from" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="koapy.config.empty_config">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">empty_config</span></span><a class="headerlink" href="#koapy.config.empty_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">empty_config</span></span><a class="reference internal" href="../../../_modules/koapy/config.html#empty_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.empty_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="koapy.config.user_config">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">user_config</span></span><a class="headerlink" href="#koapy.config.user_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="koapy.config.home">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">home</span></span><a class="headerlink" href="#koapy.config.home" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="koapy.config.cwd">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">cwd</span></span><a class="headerlink" href="#koapy.config.cwd" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="koapy.config.config_folder_candidates">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">config_folder_candidates</span></span><a class="headerlink" href="#koapy.config.config_folder_candidates" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="koapy.config.config_filename_cadidates">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">config_filename_cadidates</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">['koapy.conf',</span> <span class="pre">'.koapy.conf']</span></em><a class="headerlink" href="#koapy.config.config_filename_cadidates" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="koapy.config.default_user_config_path">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">default_user_config_path</span></span><a class="headerlink" href="#koapy.config.default_user_config_path" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="koapy.config.config_path">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">config_path</span></span><a class="headerlink" href="#koapy.config.config_path" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">user_config</span></span><a class="reference internal" href="../../../_modules/koapy/config.html#user_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.user_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="koapy.config.config">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#koapy.config.config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">config</span></span><a class="reference internal" href="../../../_modules/koapy/config.html#config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.config.set_user_config">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">set_user_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Config</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Config</span></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#set_user_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.set_user_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.config.initialize_config_from_given_path">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">initialize_config_from_given_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">os.PathLike</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#initialize_config_from_given_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.initialize_config_from_given_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.config.initialize_config_from_expected_paths">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">initialize_config_from_expected_paths</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#initialize_config_from_expected_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.initialize_config_from_expected_paths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.config.get_config">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Config</span></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#get_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.get_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.config.get_user_config">
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_user_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Config</span></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#get_user_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.get_user_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="koapy.config.debug">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">debug</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#koapy.config.debug" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="koapy.config.global_config">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">global_config</span></span><a class="headerlink" href="#koapy.config.global_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="koapy.config.global_user_config">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">global_user_config</span></span><a class="headerlink" href="#koapy.config.global_user_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">debug</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">False</span></em><a class="reference internal" href="../../../_modules/koapy/config.html#debug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.debug" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="koapy.config.dump_config">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">dump_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.config.dump_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">dump_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#dump_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.dump_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="koapy.config.save_config">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">save_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.config.save_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">save_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">os.PathLike</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Config</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/config.html#save_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.save_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="koapy.config.save_user_config">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">save_user_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.config.save_user_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">save_user_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">os.PathLike</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Config</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/koapy/config.html#save_user_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.save_user_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="koapy.config.get_executable_from_conda_envname">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_executable_from_conda_envname</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.config.get_executable_from_conda_envname" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_executable_from_conda_envname</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#get_executable_from_conda_envname"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.get_executable_from_conda_envname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="koapy.config.get_executable_from_conda_envpath">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_executable_from_conda_envpath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envpath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.config.get_executable_from_conda_envpath" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_executable_from_conda_envpath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envpath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#get_executable_from_conda_envpath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.get_executable_from_conda_envpath" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="koapy.config.get_executable_from_executable_config">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_executable_from_executable_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">executable_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#koapy.config.get_executable_from_executable_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_executable_from_executable_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">executable_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Config</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#get_executable_from_executable_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.get_executable_from_executable_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="koapy.config.get_32bit_executable">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_32bit_executable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#koapy.config.get_32bit_executable" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_32bit_executable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#get_32bit_executable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.get_32bit_executable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="koapy.config.get_64bit_executable">
-<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_64bit_executable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#koapy.config.get_64bit_executable" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">koapy.config.</span></span><span class="sig-name descname"><span class="pre">get_64bit_executable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/koapy/config.html#get_64bit_executable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.config.get_64bit_executable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>

@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer &#8212; KOAPY 0.6.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/style.css" />
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notebooks/index.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">queue</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="kn">import</span> <span class="nn">pythoncom</span>
+<span class="kn">import</span> <span class="nn">win32com.client</span>
+
+<span class="kn">from</span> <span class="nn">koapy.backend.daishin_cybos_plus.proxy</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CybosPlusProxyService_pb2</span><span class="p">,</span>
+    <span class="n">CybosPlusProxyService_pb2_grpc</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceMessageUtils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AssignPrimitive</span><span class="p">,</span>
+    <span class="n">ExtractPrimitive</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="CybosPlusEvent"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusEvent">[docs]</a><span class="k">class</span> <span class="nc">CybosPlusEvent</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterator</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iterator</span> <span class="o">=</span> <span class="n">iterator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_done</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done</span><span class="p">()</span>
+
+<div class="viewcode-block" id="CybosPlusEvent.done"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusEvent.done">[docs]</a>    <span class="k">def</span> <span class="nf">done</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_done</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iterator</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">task_done</span><span class="p">()</span>  <span class="c1"># pylint: disable=protected-access</span></div>
+
+<div class="viewcode-block" id="CybosPlusEvent.wait_for_done"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusEvent.wait_for_done">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for_done</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_done</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="CybosPlusEventIterator"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusEventIterator">[docs]</a><span class="k">class</span> <span class="nc">CybosPlusEventIterator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_handler</span> <span class="o">=</span> <span class="n">handler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_events</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sentinel</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_invalid</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handler</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handler</span><span class="o">.</span><span class="n">_iterators</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_invalid</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sentinel</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handler</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handler</span><span class="o">.</span><span class="n">_iterators</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_handler</span><span class="o">.</span><span class="n">_iterators</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CybosPlusEventIterator.notify"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusEventIterator.notify">[docs]</a>    <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_invalid</span><span class="p">:</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="n">CybosPlusEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">event</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span></div>
+
+    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_invalid</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">event</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sentinel</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="k">return</span> <span class="n">event</span></div>
+
+
+<div class="viewcode-block" id="CybosPlusEventHandler"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusEventHandler">[docs]</a><span class="k">class</span> <span class="nc">CybosPlusEventHandler</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iterators</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="CybosPlusEventHandler.OnRecieved"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusEventHandler.OnRecieved">[docs]</a>    <span class="k">def</span> <span class="nf">OnRecieved</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">events</span> <span class="o">=</span> <span class="p">[</span><span class="n">iterator</span><span class="o">.</span><span class="n">notify</span><span class="p">()</span> <span class="k">for</span> <span class="n">iterator</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iterators</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">wait_for_done</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">CybosPlusEventIterator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CybosPlusProxyServiceServicer"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusProxyServiceServicer">[docs]</a><span class="k">class</span> <span class="nc">CybosPlusProxyServiceServicer</span><span class="p">(</span>
+    <span class="n">CybosPlusProxyService_pb2_grpc</span><span class="o">.</span><span class="n">CybosPlusProxyServiceServicer</span>
+<span class="p">):</span>
+
+    <span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
+
+    <span class="n">_dispatches</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_handlers</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_EnsureDispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prog</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">prog</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dispatches</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">prog</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dispatches</span><span class="p">:</span>
+                    <span class="n">pythoncom</span><span class="o">.</span><span class="n">CoInitialize</span><span class="p">()</span>  <span class="c1"># pylint: disable=no-member</span>
+                    <span class="n">dispatch</span> <span class="o">=</span> <span class="n">win32com</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">gencache</span><span class="o">.</span><span class="n">EnsureDispatch</span><span class="p">(</span><span class="n">prog</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_dispatches</span><span class="p">[</span><span class="n">prog</span><span class="p">]</span> <span class="o">=</span> <span class="n">dispatch</span>
+                    <span class="k">if</span> <span class="kc">False</span><span class="p">:</span>  <span class="c1"># TODO: 이벤트 처리 관련해서 아직 개발하지 못함</span>
+                        <span class="n">handler</span> <span class="o">=</span> <span class="n">win32com</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">WithEvents</span><span class="p">(</span>
+                            <span class="n">dispatch</span><span class="p">,</span> <span class="n">CybosPlusEventHandler</span>
+                        <span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">[</span><span class="n">prog</span><span class="p">]</span> <span class="o">=</span> <span class="n">handler</span>
+        <span class="n">dispatch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dispatches</span><span class="p">[</span><span class="n">prog</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">dispatch</span>
+
+    <span class="k">def</span> <span class="nf">_GetHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prog</span><span class="p">):</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_EnsureDispatch</span><span class="p">(</span><span class="n">prog</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">prog</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">:</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">[</span><span class="n">prog</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">handler</span>
+
+<div class="viewcode-block" id="CybosPlusProxyServiceServicer.Dispatch"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusProxyServiceServicer.Dispatch">[docs]</a>    <span class="k">def</span> <span class="nf">Dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">prog</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">prog</span>
+        <span class="n">dispatch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_EnsureDispatch</span><span class="p">(</span><span class="n">prog</span><span class="p">)</span>
+        <span class="c1"># pylint: disable=protected-access</span>
+        <span class="n">properties</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">dispatch</span><span class="o">.</span><span class="n">_prop_map_get_</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+        <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">m</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">dispatch</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">m</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;CLSID&quot;</span><span class="p">,</span> <span class="s2">&quot;coclass_clsid&quot;</span><span class="p">]</span>
+        <span class="p">]</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">CybosPlusProxyService_pb2</span><span class="o">.</span><span class="n">DispatchResponse</span><span class="p">()</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">prog</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">methods</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">methods</span><span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="CybosPlusProxyServiceServicer.Property"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusProxyServiceServicer.Property">[docs]</a>    <span class="k">def</span> <span class="nf">Property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">prog</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">prog</span>
+        <span class="n">dispatch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_EnsureDispatch</span><span class="p">(</span><span class="n">prog</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">dispatch</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">CybosPlusProxyService_pb2</span><span class="o">.</span><span class="n">PropertyResponse</span><span class="p">()</span>
+        <span class="n">AssignPrimitive</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="CybosPlusProxyServiceServicer.Method"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusProxyServiceServicer.Method">[docs]</a>    <span class="k">def</span> <span class="nf">Method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">prog</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">prog</span>
+        <span class="n">dispatch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_EnsureDispatch</span><span class="p">(</span><span class="n">prog</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">dispatch</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">arguments</span> <span class="o">=</span> <span class="p">[</span><span class="n">ExtractPrimitive</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">arguments</span><span class="p">]</span>
+        <span class="n">return_value</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">CybosPlusProxyService_pb2</span><span class="o">.</span><span class="n">MethodResponse</span><span class="p">()</span>
+        <span class="n">AssignPrimitive</span><span class="p">(</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">return_value</span><span class="p">,</span> <span class="n">return_value</span>
+        <span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="CybosPlusProxyServiceServicer.Event"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/proxy/CybosPlusProxyServiceServicer/index.html#koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer.CybosPlusProxyServiceServicer.Event">[docs]</a>    <span class="k">def</span> <span class="nf">Event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request_iterator</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">start_request</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">request_iterator</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">start_request</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">)</span>
+        <span class="n">prog</span> <span class="o">=</span> <span class="n">start_request</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">prog</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_GetHandler</span><span class="p">(</span><span class="n">prog</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">CybosPlusProxyService_pb2</span><span class="o">.</span><span class="n">EventResponse</span><span class="p">()</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">started</span>  <span class="c1"># pylint: disable=no-member,pointless-statement</span>
+        <span class="k">yield</span> <span class="n">response</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">handler</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">CybosPlusProxyService_pb2</span><span class="o">.</span><span class="n">EventResponse</span><span class="p">()</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">fired</span>  <span class="c1"># pylint: disable=no-member,pointless-statement</span>
+            <span class="k">yield</span> <span class="n">response</span>
+            <span class="n">done_request</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">request_iterator</span><span class="p">)</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">done</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">done_request</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">):</span>
+                <span class="k">break</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

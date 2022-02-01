@@ -35,7 +35,7 @@ Classes
    .. py:method:: Call(self, name, *args)
 
 
-   .. py:method:: LoginCall(self, credential=None)
+   .. py:method:: LoginCall(self, credentials=None)
 
 
    .. py:method:: TransactionCall(self, rqname, trcode, scrno, inputs, stop_condition=None)

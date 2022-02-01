@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.utils.pywin32 &#8212; KOAPY 0.6.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/style.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/index.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.utils.pywin32</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeGuard</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeGuard</span>
+
+<span class="kn">import</span> <span class="nn">pythoncom</span>
+<span class="kn">import</span> <span class="nn">win32api</span>
+<span class="kn">import</span> <span class="nn">win32con</span>
+
+<span class="kn">from</span> <span class="nn">pywintypes</span> <span class="kn">import</span> <span class="n">IIDType</span>
+<span class="kn">from</span> <span class="nn">win32com.client.genpy</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DispatchItem</span><span class="p">,</span>
+    <span class="n">EnumerationItem</span><span class="p">,</span>
+    <span class="n">Generator</span><span class="p">,</span>
+    <span class="n">RecordItem</span><span class="p">,</span>
+    <span class="n">VTableItem</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">win32com.client.selecttlb</span> <span class="kn">import</span> <span class="n">EnumKeys</span><span class="p">,</span> <span class="n">TypelibSpec</span>
+
+<div class="viewcode-block" id="PyIID"><a class="viewcode-back" href="../../../autoapi/koapy/utils/pywin32/index.html#koapy.utils.pywin32.PyIID">[docs]</a><span class="n">PyIID</span> <span class="o">=</span> <span class="n">IIDType</span></div>
+<div class="viewcode-block" id="PyITypeLib"><a class="viewcode-back" href="../../../autoapi/koapy/utils/pywin32/index.html#koapy.utils.pywin32.PyITypeLib">[docs]</a><span class="n">PyITypeLib</span> <span class="o">=</span> <span class="s2">&quot;PyITypeLib&quot;</span></div>
+
+<div class="viewcode-block" id="PyIIDLike"><a class="viewcode-back" href="../../../autoapi/koapy/utils/pywin32/index.html#koapy.utils.pywin32.PyIIDLike">[docs]</a><span class="n">PyIIDLike</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">PyIID</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="IsPyIID"><a class="viewcode-back" href="../../../autoapi/koapy/utils/pywin32/index.html#koapy.utils.pywin32.IsPyIID">[docs]</a><span class="k">def</span> <span class="nf">IsPyIID</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="n">PyIID</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">IIDType</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="IsPyITypeLib"><a class="viewcode-back" href="../../../autoapi/koapy/utils/pywin32/index.html#koapy.utils.pywin32.IsPyITypeLib">[docs]</a><span class="k">def</span> <span class="nf">IsPyITypeLib</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="n">PyITypeLib</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">PyITypeLib</span></div>
+
+
+<div class="viewcode-block" id="IsPyIIDLike"><a class="viewcode-back" href="../../../autoapi/koapy/utils/pywin32/index.html#koapy.utils.pywin32.IsPyIIDLike">[docs]</a><span class="k">def</span> <span class="nf">IsPyIIDLike</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="n">PyIIDLike</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">IsPyIID</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetTypelibSpecs"><a class="viewcode-back" href="../../../autoapi/koapy/utils/pywin32/index.html#koapy.utils.pywin32.GetTypelibSpecs">[docs]</a><span class="k">def</span> <span class="nf">GetTypelibSpecs</span><span class="p">(</span><span class="n">iid</span><span class="p">:</span> <span class="n">PyIIDLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TypelibSpec</span><span class="p">]:</span>
+    <span class="n">specs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TypelibSpec</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">win32api</span><span class="o">.</span><span class="n">RegOpenKey</span><span class="p">(</span><span class="n">win32con</span><span class="o">.</span><span class="n">HKEY_CLASSES_ROOT</span><span class="p">,</span> <span class="s2">&quot;TypeLib&quot;</span><span class="p">)</span>
+    <span class="n">key2</span> <span class="o">=</span> <span class="n">win32api</span><span class="o">.</span><span class="n">RegOpenKey</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">iid</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">version</span><span class="p">,</span> <span class="n">tlbdesc</span> <span class="ow">in</span> <span class="n">EnumKeys</span><span class="p">(</span><span class="n">key2</span><span class="p">):</span>
+        <span class="n">major_minor</span> <span class="o">=</span> <span class="n">version</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">major_minor</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">major_minor</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+        <span class="n">major</span> <span class="o">=</span> <span class="n">major_minor</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">minor</span> <span class="o">=</span> <span class="n">major_minor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">key3</span> <span class="o">=</span> <span class="n">win32api</span><span class="o">.</span><span class="n">RegOpenKey</span><span class="p">(</span><span class="n">key2</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">version</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">flags</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">win32api</span><span class="o">.</span><span class="n">RegQueryValue</span><span class="p">(</span><span class="n">key3</span><span class="p">,</span> <span class="s2">&quot;FLAGS&quot;</span><span class="p">))</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">win32api</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">flags</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">lcid</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">EnumKeys</span><span class="p">(</span><span class="n">key3</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">lcid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lcid</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">key4</span> <span class="o">=</span> <span class="n">win32api</span><span class="o">.</span><span class="n">RegOpenKey</span><span class="p">(</span><span class="n">key3</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="se">\\</span><span class="s2">win32&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lcid</span><span class="p">))</span>
+            <span class="k">except</span> <span class="n">win32api</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">key4</span> <span class="o">=</span> <span class="n">win32api</span><span class="o">.</span><span class="n">RegOpenKey</span><span class="p">(</span><span class="n">key3</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="se">\\</span><span class="s2">win64&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lcid</span><span class="p">))</span>
+                <span class="k">except</span> <span class="n">win32api</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">dll</span><span class="p">,</span> <span class="n">typ</span> <span class="o">=</span> <span class="n">win32api</span><span class="o">.</span><span class="n">RegQueryValueEx</span><span class="p">(</span><span class="n">key4</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">win32con</span><span class="o">.</span><span class="n">REG_EXPAND_SZ</span><span class="p">:</span>
+                    <span class="n">dll</span> <span class="o">=</span> <span class="n">win32api</span><span class="o">.</span><span class="n">ExpandEnvironmentStrings</span><span class="p">(</span><span class="n">dll</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">win32api</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+                <span class="n">dll</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">spec</span> <span class="o">=</span> <span class="n">TypelibSpec</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">lcid</span><span class="p">,</span> <span class="n">major</span><span class="p">,</span> <span class="n">minor</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
+            <span class="n">spec</span><span class="o">.</span><span class="n">dll</span> <span class="o">=</span> <span class="n">dll</span>
+            <span class="n">spec</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="n">tlbdesc</span>
+            <span class="n">spec</span><span class="o">.</span><span class="n">ver_desc</span> <span class="o">=</span> <span class="n">tlbdesc</span> <span class="o">+</span> <span class="s2">&quot; (&quot;</span> <span class="o">+</span> <span class="n">version</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+            <span class="n">specs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">specs</span></div>
+
+
+<div class="viewcode-block" id="GetLatestTypelibSpec"><a class="viewcode-back" href="../../../autoapi/koapy/utils/pywin32/index.html#koapy.utils.pywin32.GetLatestTypelibSpec">[docs]</a><span class="k">def</span> <span class="nf">GetLatestTypelibSpec</span><span class="p">(</span>
+    <span class="n">specs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">TypelibSpec</span><span class="p">],</span> <span class="n">PyIIDLike</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TypelibSpec</span><span class="p">]:</span>
+    <span class="n">spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TypelibSpec</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">IsPyIIDLike</span><span class="p">(</span><span class="n">specs</span><span class="p">):</span>
+        <span class="n">specs</span> <span class="o">=</span> <span class="n">GetTypelibSpecs</span><span class="p">(</span><span class="n">specs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">specs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">specs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">specs</span><span class="p">)</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">specs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">spec</span></div>
+
+
+<div class="viewcode-block" id="LoadTypeLib"><a class="viewcode-back" href="../../../autoapi/koapy/utils/pywin32/index.html#koapy.utils.pywin32.LoadTypeLib">[docs]</a><span class="k">def</span> <span class="nf">LoadTypeLib</span><span class="p">(</span><span class="n">spec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">TypelibSpec</span><span class="p">,</span> <span class="n">PyIIDLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PyITypeLib</span><span class="p">]:</span>
+    <span class="n">tlb</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PyITypeLib</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">IsPyIIDLike</span><span class="p">(</span><span class="n">spec</span><span class="p">):</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">GetLatestTypelibSpec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">spec</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">dll</span><span class="p">:</span>
+            <span class="n">tlb</span> <span class="o">=</span> <span class="n">pythoncom</span><span class="o">.</span><span class="n">LoadTypeLib</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">dll</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tlb</span> <span class="o">=</span> <span class="n">pythoncom</span><span class="o">.</span><span class="n">LoadRegTypeLib</span><span class="p">(</span>
+                <span class="n">spec</span><span class="o">.</span><span class="n">clsid</span><span class="p">,</span>
+                <span class="n">spec</span><span class="o">.</span><span class="n">major</span><span class="p">,</span>
+                <span class="n">spec</span><span class="o">.</span><span class="n">minor</span><span class="p">,</span>
+                <span class="n">spec</span><span class="o">.</span><span class="n">lcid</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tlb</span></div>
+
+
+<div class="viewcode-block" id="BuildOleItems"><a class="viewcode-back" href="../../../autoapi/koapy/utils/pywin32/index.html#koapy.utils.pywin32.BuildOleItems">[docs]</a><span class="k">def</span> <span class="nf">BuildOleItems</span><span class="p">(</span>
+    <span class="n">spec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">TypelibSpec</span><span class="p">,</span> <span class="n">PyIIDLike</span><span class="p">],</span>
+    <span class="n">tlb</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PyITypeLib</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
+    <span class="n">Dict</span><span class="p">[</span><span class="n">PyIID</span><span class="p">,</span> <span class="n">DispatchItem</span><span class="p">],</span>
+    <span class="n">Dict</span><span class="p">[</span><span class="n">PyIID</span><span class="p">,</span> <span class="n">EnumerationItem</span><span class="p">],</span>
+    <span class="n">Dict</span><span class="p">[</span><span class="n">PyIID</span><span class="p">,</span> <span class="n">RecordItem</span><span class="p">],</span>
+    <span class="n">Dict</span><span class="p">[</span><span class="n">PyIID</span><span class="p">,</span> <span class="n">VTableItem</span><span class="p">],</span>
+<span class="p">]:</span>
+    <span class="n">oleItems</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">PyIID</span><span class="p">,</span> <span class="n">DispatchItem</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">enumItems</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">PyIID</span><span class="p">,</span> <span class="n">EnumerationItem</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">recordItems</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">PyIID</span><span class="p">,</span> <span class="n">RecordItem</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">vtableItems</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">PyIID</span><span class="p">,</span> <span class="n">VTableItem</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">IsPyIIDLike</span><span class="p">(</span><span class="n">spec</span><span class="p">):</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">GetLatestTypelibSpec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">spec</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tlb</span><span class="p">:</span>
+            <span class="n">tlb</span> <span class="o">=</span> <span class="n">LoadTypeLib</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">progressInstance</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">gen</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">(</span><span class="n">tlb</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">dll</span><span class="p">,</span> <span class="n">progressInstance</span><span class="p">,</span> <span class="n">bBuildHidden</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">oleItems</span><span class="p">,</span> <span class="n">enumItems</span><span class="p">,</span> <span class="n">recordItems</span><span class="p">,</span> <span class="n">vtableItems</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">BuildOleItemsFromType</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">oleItems</span><span class="p">,</span> <span class="n">enumItems</span><span class="p">,</span> <span class="n">recordItems</span><span class="p">,</span> <span class="n">vtableItems</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

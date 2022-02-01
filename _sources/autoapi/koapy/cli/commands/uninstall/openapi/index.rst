@@ -30,6 +30,6 @@ Attributes
 
    
 
-.. py:function:: openapi(reboot, cleanup, verbose)
+.. py:function:: openapi(reboot, cleanup)
 
 

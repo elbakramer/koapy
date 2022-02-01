@@ -15,6 +15,13 @@ Functions
 
    koapy.config.read_config
    koapy.config.config_from_dict
+   koapy.config.find_user_config_file_in
+   koapy.config.find_user_config_file_from
+   koapy.config.set_user_config
+   koapy.config.initialize_config_from_given_path
+   koapy.config.initialize_config_from_expected_paths
+   koapy.config.get_config
+   koapy.config.get_user_config
    koapy.config.dump_config
    koapy.config.save_config
    koapy.config.save_user_config
@@ -31,29 +38,27 @@ Attributes
 
 .. autoapisummary::
 
+   koapy.config.Config
    koapy.config.default_config_filename
    koapy.config.default_config_file_directory
    koapy.config.default_config_filepath
+   koapy.config.current_working_directory
+   koapy.config.home_directory
+   koapy.config.default_user_config_filename
+   koapy.config.user_config_filename_cadidates
+   koapy.config.default_user_config_filepath
+   koapy.config.default_encoding
    koapy.config.default_config
    koapy.config.empty_config
    koapy.config.user_config
-   koapy.config.home
-   koapy.config.cwd
-   koapy.config.config_folder_candidates
-   koapy.config.config_filename_cadidates
-   koapy.config.default_user_config_path
-   koapy.config.config_path
    koapy.config.config
    koapy.config.debug
-   koapy.config.global_config
-   koapy.config.global_user_config
 
 
-.. py:function:: read_config(filename)
+.. py:data:: Config
+   
 
-
-.. py:function:: config_from_dict(dictionary)
-
+   
 
 .. py:data:: default_config_filename
    :annotation: = config.conf
@@ -70,10 +75,52 @@ Attributes
 
    
 
+.. py:data:: current_working_directory
+   
+
+   
+
+.. py:data:: home_directory
+   
+
+   
+
+.. py:data:: default_user_config_filename
+   :annotation: = koapy.conf
+
+   
+
+.. py:data:: user_config_filename_cadidates
+   
+
+   
+
+.. py:data:: default_user_config_filepath
+   
+
+   
+
+.. py:data:: default_encoding
+   :annotation: = utf-8
+
+   
+
+.. py:function:: read_config(filename: Optional[os.PathLike] = None, encoding: Optional[str] = None) -> Config
+
+
+.. py:function:: config_from_dict(dictionary: Mapping[str, Any]) -> Config
+
+
 .. py:data:: default_config
    
 
    
+
+.. py:function:: find_user_config_file_in(searching_directory: Optional[os.PathLike] = None) -> Optional[pathlib.Path]
+
+
+.. py:function:: find_user_config_file_from(starting_directory: Optional[os.PathLike] = None) -> Optional[pathlib.Path]
+
 
 .. py:data:: empty_config
    
@@ -85,77 +132,52 @@ Attributes
 
    
 
-.. py:data:: home
-   
-
-   
-
-.. py:data:: cwd
-   
-
-   
-
-.. py:data:: config_folder_candidates
-   
-
-   
-
-.. py:data:: config_filename_cadidates
-   :annotation: = ['koapy.conf', '.koapy.conf']
-
-   
-
-.. py:data:: default_user_config_path
-   
-
-   
-
-.. py:data:: config_path
-   
-
-   
-
 .. py:data:: config
    
 
    
+
+.. py:function:: set_user_config(c: Config) -> Config
+
+
+.. py:function:: initialize_config_from_given_path(filename: Optional[os.PathLike] = None) -> bool
+
+
+.. py:function:: initialize_config_from_expected_paths() -> bool
+
+
+.. py:function:: get_config() -> Config
+
+
+.. py:function:: get_user_config() -> Config
+
 
 .. py:data:: debug
    :annotation: = False
 
    
 
-.. py:data:: global_config
-   
-
-   
-
-.. py:data:: global_user_config
-   
-
-   
-
-.. py:function:: dump_config(config, compact=False, indent=4)
+.. py:function:: dump_config(config: Config, compact: bool = False, indent: int = 4) -> str
 
 
-.. py:function:: save_config(filename, config=None, compact=False, indent=4)
+.. py:function:: save_config(filename: os.PathLike, config: Optional[Config] = None, compact: bool = False, indent: int = 4, encoding: Optional[str] = None)
 
 
-.. py:function:: save_user_config(filename=None, user_config=None)
+.. py:function:: save_user_config(filename: Optional[os.PathLike] = None, user_config: Optional[Config] = None, compact: bool = False, indent: int = 4, encoding: Optional[str] = None)
 
 
-.. py:function:: get_executable_from_conda_envname(envname)
+.. py:function:: get_executable_from_conda_envname(envname: str) -> str
 
 
-.. py:function:: get_executable_from_conda_envpath(envpath)
+.. py:function:: get_executable_from_conda_envpath(envpath: str) -> str
 
 
-.. py:function:: get_executable_from_executable_config(executable_config)
+.. py:function:: get_executable_from_executable_config(executable_config: Config) -> Optional[str]
 
 
-.. py:function:: get_32bit_executable()
+.. py:function:: get_32bit_executable() -> Optional[str]
 
 
-.. py:function:: get_64bit_executable()
+.. py:function:: get_64bit_executable() -> Optional[str]
 
 

@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions &#8212; KOAPY 0.6.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/style.css" />
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notebooks/index.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventFunctions"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventFunctions/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions.KiwoomOpenApiPlusEventFunctions">[docs]</a><span></span><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusEventFunctions</span><span class="p">:</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventFunctions.OnReceiveTrData"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventFunctions/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions.KiwoomOpenApiPlusEventFunctions.OnReceiveTrData">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveTrData</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">sScrNo</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">sRQName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">sTrCode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">sRecordName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">sPrevNext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">nDataLength</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">sErrorCode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">sMessage</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">sSplmMsg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        서버통신 후 데이터를 받은 시점을 알려준다.</span>
+
+<span class="sd">        요청했던 조회데이터를 수신했을때 발생됩니다.</span>
+<span class="sd">        수신된 데이터는 이 이벤트내부에서 GetCommData() 함수를 이용해서 얻어올 수 있습니다.</span>
+
+<span class="sd">        파라미터 매핑:</span>
+<span class="sd">            - sRQName = CommRqData() 의 sRQName과 매핑되는 이름이다.</span>
+<span class="sd">            - sTrCode = CommRqData() 의 sTrCode과 매핑되는 이름이다.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sScrNo (str): 화면번호</span>
+<span class="sd">            sRQName (str): 사용자 구분명</span>
+<span class="sd">            sTrCode (str): TR 코드</span>
+<span class="sd">            sRecordName (str): 레코드 명</span>
+<span class="sd">            sPrevNext (str): 연속조회 유무 (0:추가조회 데이터 없음, 2:추가조회 데이터 있음)</span>
+<span class="sd">            nDataLength (str): 사용안함</span>
+<span class="sd">            sErrorCode (str): 사용안함</span>
+<span class="sd">            sMessage (str): 사용안함</span>
+<span class="sd">            sSplmMsg (str): 사용안함</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventFunctions.OnReceiveRealData"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventFunctions/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions.KiwoomOpenApiPlusEventFunctions.OnReceiveRealData">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveRealData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sRealKey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sRealType</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sRealData</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        실시간데이터를 받은 시점을 알려준다.</span>
+
+<span class="sd">        실시간시세 데이터가 수신될때마다 종목단위로 발생됩니다.</span>
+<span class="sd">        SetRealReg() 함수로 등록한 실시간 데이터도 이 이벤트로 전달됩니다.</span>
+<span class="sd">        GetCommRealData() 함수를 이용해서 수신된 데이터를 얻을수 있습니다.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sRealKey (str): 종목코드</span>
+<span class="sd">            sRealType (str): 실시간 타입</span>
+<span class="sd">            sRealData (str): 실시간 데이터전문 (사용불가)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventFunctions.OnReceiveMsg"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventFunctions/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions.KiwoomOpenApiPlusEventFunctions.OnReceiveMsg">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveMsg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sScrNo</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sRQName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sTrCode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sMsg</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        서버통신 후 메시지를 받은 시점을 알려준다.</span>
+
+<span class="sd">        주문전송 또는 데이터 조회요청 후 서버 메시지가 수신됩니다.</span>
+<span class="sd">        ※ 메시지에 포함된 6자리 코드번호는 변경될 수 있으니, 여기에 수신된 코드번호를 특정 용도로 사용하지 마시기 바랍니다.</span>
+
+<span class="sd">        파라미터 매핑:</span>
+<span class="sd">            - sScrNo = CommRqData() 의 sScrNo와 매핑된다.</span>
+<span class="sd">            - sRQName = CommRqData() 의 sRQName 와 매핑된다.</span>
+<span class="sd">            - sTrCode = CommRqData() 의 sTrCode 와 매핑된다.</span>
+
+<span class="sd">        메시지 예시:</span>
+<span class="sd">            - &quot;조회가 완료되었습니다.&quot;</span>
+<span class="sd">            - &quot;증거금 부족으로 주문이 거부되었습니다.&quot;</span>
+<span class="sd">            - &quot;정정할 원주문 내역이 없습니다.&quot;</span>
+<span class="sd">            - &quot;비밀번호 입력을 확인해주시기 바랍니다.&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sScrNo: str, sRQName: str, sTrCode: str, sMsg: str</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventFunctions.OnReceiveChejanData"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventFunctions/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions.KiwoomOpenApiPlusEventFunctions.OnReceiveChejanData">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveChejanData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sGubun</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nItemCnt</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sFIdList</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        체결데이터를 받은 시점을 알려준다.</span>
+
+<span class="sd">        주문전송 후 주문접수, 체결통보, 잔고통보를 수신할 때 마다 발생됩니다.</span>
+<span class="sd">        GetChejanData() 함수를 이용해서 FID 항목별 값을 얻을수 있습니다.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sGubun (str): 체결구분 (0:주문체결통보, 1:국내주식 잔고통보, 4:파생상품 잔고통보)</span>
+<span class="sd">            nItemCnt (int): 아이템 개수</span>
+<span class="sd">            sFIdList (str): 데이터 리스트 (&#39;;&#39; 구분자)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventFunctions.OnEventConnect"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventFunctions/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions.KiwoomOpenApiPlusEventFunctions.OnEventConnect">[docs]</a>    <span class="k">def</span> <span class="nf">OnEventConnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nErrCode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        서버 접속 관련 이벤트.</span>
+
+<span class="sd">        로그인 처리 이벤트입니다. 성공이면 인자값 nErrCode가 0이며 에러는 다음과 같은 값이 전달됩니다.</span>
+
+<span class="sd">        에러코드 구분:</span>
+<span class="sd">            - OP_ERR_LOGIN(-100): 사용자 정보교환 실패</span>
+<span class="sd">            - OP_ERR_CONNECT(-101): 서버접속 실패</span>
+<span class="sd">            - OP_ERR_VERSION(-102): 버전처리 실패</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            nErrCode (int): 에러코드 (0:로그인 성공, 음수:실패)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventFunctions.OnReceiveInvestRealData"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventFunctions/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions.KiwoomOpenApiPlusEventFunctions.OnReceiveInvestRealData">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveInvestRealData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sRealKey</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        더 이상 지원하지 않는 함수.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventFunctions.OnReceiveRealCondition"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventFunctions/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions.KiwoomOpenApiPlusEventFunctions.OnReceiveRealCondition">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveRealCondition</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">sTrCode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">strType</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">strConditionName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">strConditionIndex</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        조건검색 실시간 편입,이탈 종목을 받을 시점을 알려준다.</span>
+
+<span class="sd">        실시간 조건검색 요청으로 신규종목이 편입되거나 기존 종목이 이탈될때 마다 발생됩니다.</span>
+<span class="sd">        ※ 편입되었다가 순간적으로 다시 이탈되는 종목에대한 신호는 조건검색 서버마다 차이가 발생할 수 있습니다.</span>
+
+<span class="sd">        strConditionName 에 해당하는 종목이 실시간으로 들어옴.</span>
+<span class="sd">        strType 으로 편입된 종목인지 이탈된 종목인지 구분한다.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sTrCode (str): 종목코드</span>
+<span class="sd">            strType (str): 편입/이탈 구분 (I:편입, D:이탈)</span>
+<span class="sd">            strConditionName (str): 조건식 이름</span>
+<span class="sd">            strConditionIndex (str): 조건식 인덱스</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventFunctions.OnReceiveTrCondition"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventFunctions/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions.KiwoomOpenApiPlusEventFunctions.OnReceiveTrCondition">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveTrCondition</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">sScrNo</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">strCodeList</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">strConditionName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">nIndex</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">nNext</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        조건검색 조회응답으로 종목리스트를 받는 시점.</span>
+
+<span class="sd">        조건검색 요청에대한 서버 응답 수신시 발생하는 이벤트입니다.</span>
+<span class="sd">        종목코드 리스트는 각 종목코드가 &#39;;&#39; 로 구분되서 전달됩니다.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sScrNo (str): 화면번호</span>
+<span class="sd">            strCodeList (str): 종목리스트 (&#39;;&#39; 구분자)</span>
+<span class="sd">            strConditionName (str): 조건식 이름</span>
+<span class="sd">            nIndex (int): 조건식 인덱스</span>
+<span class="sd">            nNext (int): 연속조회 여부 (2:연속조회, 0:연속조회 없음)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusEventFunctions.OnReceiveConditionVer"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEventFunctions/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventFunctions.KiwoomOpenApiPlusEventFunctions.OnReceiveConditionVer">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveConditionVer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lRet</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sMsg</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        로컬에 사용자 조건식 저장 성공 여부를 확인하는 시점.</span>
+
+<span class="sd">        저장된 사용자 조건식 불러오기 요청에 대한 응답 수신시 발생되는 이벤트입니다.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            lRet (int): 사용자 조건식 저장 성공여부 (1:성공, 나머지:실패)</span>
+<span class="sd">            sMsg (str): 호출결과 메시지</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

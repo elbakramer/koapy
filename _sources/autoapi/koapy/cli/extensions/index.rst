@@ -10,6 +10,8 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
+   functools/index.rst
+   parser/index.rst
    verbose_option/index.rst
 
 

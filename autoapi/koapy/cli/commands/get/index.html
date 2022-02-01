@@ -18,8 +18,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
-    <link rel="next" title="koapy.cli.commands.get.codelist" href="codelist/index.html" />
-    <link rel="prev" title="koapy.cli.commands" href="../index.html" />
+    <link rel="next" title="koapy.cli.commands.get.account_data" href="account_data/index.html" />
+    <link rel="prev" title="koapy.cli.commands.generate.openapi.python_stubs" href="../generate/openapi/python_stubs/index.html" />
     <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
 
   </head><body>
@@ -69,8 +69,8 @@
   <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy</span></code></a><ul>
   <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli</span></code></a><ul>
   <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands</span></code></a><ul>
-      <li>Previous: <a href="../index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands</span></code></a></li>
-      <li>Next: <a href="codelist/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.codelist</span></code></a></li>
+      <li>Previous: <a href="../generate/openapi/python_stubs/index.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.generate.openapi.python_stubs</span></code></a></li>
+      <li>Next: <a href="account_data/index.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.account_data</span></code></a></li>
   </ul></li>
   </ul></li>
   </ul></li>
@@ -114,14 +114,209 @@
             
   <section id="module-koapy.cli.commands.get">
 <span id="koapy-cli-commands-get"></span><h1><a class="reference internal" href="#module-koapy.cli.commands.get" title="koapy.cli.commands.get"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get</span></code></a><a class="headerlink" href="#module-koapy.cli.commands.get" title="Permalink to this headline">¶</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="codelist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.codelist</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="codelist_interactive/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.codelist_interactive</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="account_data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.account_data</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="account_data/deposit/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.account_data.deposit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="account_data/evaluation/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.account_data.evaluation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="account_data/orders/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.account_data.orders</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="account_data/userinfo/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.account_data.userinfo</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chart_data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.chart_data</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chart_data/daily/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.chart_data.daily</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="chart_data/minute/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.chart_data.minute</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="openapi_meta/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.openapi_meta</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="openapi_meta/errmsg/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.openapi_meta.errmsg</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="openapi_meta/modulepath/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.openapi_meta.modulepath</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="openapi_meta/realinfo/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.openapi_meta.realinfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="openapi_meta/trinfo/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.openapi_meta.trinfo</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stock_meta/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.stock_meta</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stock_meta/codelist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.stock_meta.codelist</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="stock_meta/codelist_interactive/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.stock_meta.codelist_interactive</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="stock_meta/stockcode/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.stock_meta.stockcode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="stock_meta/stockinfo/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.stock_meta.stockinfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="stock_meta/stockname/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.cli.commands.get.stock_meta.stockname</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.commands.get.deposit" title="koapy.cli.commands.get.deposit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deposit</span></code></a>(account, port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.commands.get.evaluation" title="koapy.cli.commands.get.evaluation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluation</span></code></a>(account, include_delisted, exclude_delisted, for_each, as_summary, port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.commands.get.orders" title="koapy.cli.commands.get.orders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">orders</span></code></a>(account, date, reverse, executed_only, not_executed_only, stock_only, bond_only, sell_only, buy_only, code, starting_order_no, port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.commands.get.userinfo" title="koapy.cli.commands.get.userinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">userinfo</span></code></a>(port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.commands.get.daily" title="koapy.cli.commands.get.daily"><code class="xref py py-obj docutils literal notranslate"><span class="pre">daily</span></code></a>(code, output, format, start_date, end_date, port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.commands.get.minute" title="koapy.cli.commands.get.minute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minute</span></code></a>(code, interval, output, format, start_date, end_date, port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.commands.get.errmsg" title="koapy.cli.commands.get.errmsg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">errmsg</span></code></a>(err_code)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.commands.get.modulepath" title="koapy.cli.commands.get.modulepath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modulepath</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.commands.get.realinfo" title="koapy.cli.commands.get.realinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">realinfo</span></code></a>(realtypes)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.commands.get.trinfo" title="koapy.cli.commands.get.trinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trinfo</span></code></a>(trcodes)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.commands.get.codelist" title="koapy.cli.commands.get.codelist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">codelist</span></code></a>(markets, port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.commands.get.stockcode" title="koapy.cli.commands.get.stockcode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stockcode</span></code></a>(names, markets, port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.commands.get.stockinfo" title="koapy.cli.commands.get.stockinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stockinfo</span></code></a>(code, output, format, port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#koapy.cli.commands.get.stockname" title="koapy.cli.commands.get.stockname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stockname</span></code></a>(codes, port)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#koapy.cli.commands.get.get" title="koapy.cli.commands.get.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.deposit">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">deposit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">account</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/account_data/deposit.html#deposit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.deposit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.evaluation">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">evaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">account</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_delisted</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_delisted</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_each</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_summary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/account_data/evaluation.html#evaluation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.evaluation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.orders">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">orders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">account</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executed_only</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_executed_only</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_only</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_only</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sell_only</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buy_only</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_order_no</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/account_data/orders.html#orders"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.orders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.userinfo">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">userinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/account_data/userinfo.html#userinfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.userinfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.daily">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">daily</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/chart_data/daily.html#daily"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.daily" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.minute">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">minute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/chart_data/minute.html#minute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.minute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.errmsg">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">errmsg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">err_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/openapi_meta/errmsg.html#errmsg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.errmsg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.modulepath">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">modulepath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/openapi_meta/modulepath.html#modulepath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.modulepath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.realinfo">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">realinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">realtypes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/openapi_meta/realinfo.html#realinfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.realinfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.trinfo">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">trinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trcodes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/openapi_meta/trinfo.html#trinfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.trinfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.codelist">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">codelist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">markets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/stock_meta/codelist.html#codelist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.codelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>
+Possible market codes are:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/cli/commands/get/index.rst</span>, line 80)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<div><p>0 : 장내
+10 : 코스닥
+3 : ELW
+8 : ETF
+50 : KONEX
+4 : 뮤추얼펀드
+5 : 신주인수권
+6 : 리츠
+9 : 하이얼펀드
+30 : K-OTC</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.stockcode">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">stockcode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/stock_meta/stockcode.html#stockcode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.stockcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>
+Possible market codes are:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<span class="docutils literal">/home/runner/work/koapy/koapy/docs/source/autoapi/koapy/cli/commands/get/index.rst</span>, line 96)</p>
+<p>Unexpected indentation.</p>
+</div>
+<blockquote>
+<div><p>0 : 장내
+10 : 코스닥
+3 : ELW
+8 : ETF
+50 : KONEX
+4 : 뮤추얼펀드
+5 : 신주인수권
+6 : 리츠
+9 : 하이얼펀드
+30 : K-OTC</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.stockinfo">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">stockinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/stock_meta/stockinfo.html#stockinfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.stockinfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.stockname">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">stockname</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get/stock_meta/stockname.html#stockname"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.stockname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="koapy.cli.commands.get.get">
+<span class="sig-prename descclassname"><span class="pre">koapy.cli.commands.get.</span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/koapy/cli/commands/get.html#get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#koapy.cli.commands.get.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
 </section>
 </section>
 

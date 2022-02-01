@@ -29,10 +29,10 @@ Functions
 
 
 
-.. py:function:: openapi(reboot, cleanup, verbose)
+.. py:function:: openapi(reboot, cleanup)
 
 
-.. py:function:: pywin32(verbose)
+.. py:function:: pywin32()
 
 
 .. py:function:: uninstall()

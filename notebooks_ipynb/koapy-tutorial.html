@@ -476,12 +476,12 @@ True
 </pre></div></div>
 </div>
 <p>자동 로그인 설정이 되어있는 경우 로그인이 자동으로 처리되며, 그렇지 않은 경우에는 수동으로 아이디, 비밀번호 등 로그인 정보를 입력해 처리해주어야 한다.</p>
-<p>만약에 함수 인자로 <code class="docutils literal notranslate"><span class="pre">credential</span></code> 정보를 주는 경우 <code class="docutils literal notranslate"><span class="pre">`pywinauto</span></code> &lt;<a class="reference external" href="https://github.com/pywinauto/pywinauto">https://github.com/pywinauto/pywinauto</a>&gt;`__ 를 활용하여 자동으로 로그인 처리를 진행한다. 앞서 언급한 키움증권에서 기본으로 제공하는 자동 로그인이 아니라 기존에 수동으로 처리하던 과정을 매크로 형태로 자동으로 처리하는 방식이다. 참고로 <code class="docutils literal notranslate"><span class="pre">`pywinauto</span></code> &lt;<a class="reference external" href="https://github.com/pywinauto/pywinauto">https://github.com/pywinauto/pywinauto</a>&gt;`__ 사용을 위해서는 <strong>관리자 권한</strong>이 필요하다.</p>
+<p>만약에 함수 인자로 <code class="docutils literal notranslate"><span class="pre">credentials</span></code> 정보를 주는 경우 <code class="docutils literal notranslate"><span class="pre">`pywinauto</span></code> &lt;<a class="reference external" href="https://github.com/pywinauto/pywinauto">https://github.com/pywinauto/pywinauto</a>&gt;`__ 를 활용하여 자동으로 로그인 처리를 진행한다. 앞서 언급한 키움증권에서 기본으로 제공하는 자동 로그인이 아니라 기존에 수동으로 처리하던 과정을 매크로 형태로 자동으로 처리하는 방식이다. 참고로 <code class="docutils literal notranslate"><span class="pre">`pywinauto</span></code> &lt;<a class="reference external" href="https://github.com/pywinauto/pywinauto">https://github.com/pywinauto/pywinauto</a>&gt;`__ 사용을 위해서는 <strong>관리자 권한</strong>이 필요하다.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">credential</span> <span class="o">=</span> <span class="p">{</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">credentials</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span>
     <span class="s1">&#39;user_password&#39;</span><span class="p">:</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span>
     <span class="s1">&#39;cert_password&#39;</span><span class="p">:</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span>
@@ -497,7 +497,7 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">(</span><span class="n">credentials</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

@@ -21,6 +21,8 @@ Functions
 
 .. autoapisummary::
 
+   koapy.cli.extensions.verbose_option.verbose_flag_option
+   koapy.cli.extensions.verbose_option.no_verbose_flag_option
    koapy.cli.extensions.verbose_option.verbose_option
 
 
@@ -77,6 +79,12 @@ Functions
 
 
 
-.. py:function:: verbose_option(dest=None, default=None, flag_value=None, expose_value=None, callback=None)
+.. py:function:: verbose_flag_option(default=0, flag_value=1, show_default=False, metavar='[0...5]', help='Set verbosity level.')
+
+
+.. py:function:: no_verbose_flag_option(help='Force zero verbosity.')
+
+
+.. py:function:: verbose_option(dest='verbose', default=0, flag_value=1, callback=None, expose_value=False, show_default=False)
 
 

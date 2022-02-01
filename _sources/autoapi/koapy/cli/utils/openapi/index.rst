@@ -26,10 +26,16 @@ Attributes
 .. autoapisummary::
 
    koapy.cli.utils.openapi.logger
+   koapy.cli.utils.openapi.iss_file_encoding
 
 
 .. py:data:: logger
    
+
+   
+
+.. py:data:: iss_file_encoding
+   :annotation: = euc-kr
 
    
 

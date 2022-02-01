@@ -30,7 +30,6 @@ Submodules
    KiwoomOpenApiPlusEventHandlerFunctions/index.rst
    KiwoomOpenApiPlusEventHandlerSignature/index.rst
    KiwoomOpenApiPlusLoggingEventHandler/index.rst
-   KiwoomOpenApiPlusOleItems/index.rst
    KiwoomOpenApiPlusQAxWidget/index.rst
    KiwoomOpenApiPlusQAxWidgetMixin/index.rst
    KiwoomOpenApiPlusRateLimiter/index.rst
@@ -39,6 +38,7 @@ Submodules
    KiwoomOpenApiPlusSignalConnector/index.rst
    KiwoomOpenApiPlusSignature/index.rst
    KiwoomOpenApiPlusTrInfo/index.rst
+   KiwoomOpenApiPlusTypeLib/index.rst
    KiwoomOpenApiPlusVersionUpdater/index.rst
 
 

@@ -17,13 +17,9 @@ Classes
 
 
 
-.. py:class:: KiwoomOpenApiPlusVersionUpdater(credential)
+.. py:class:: KiwoomOpenApiPlusVersionUpdater(credentials)
 
    Bases: :py:obj:`koapy.utils.logging.Logging.Logging`
-
-   .. py:method:: disable_autologin_impl(cls)
-      :classmethod:
-
 
    .. py:method:: disable_autologin(self)
 
@@ -50,7 +46,7 @@ Classes
       :classmethod:
 
 
-   .. py:method:: login_using_pywinauto(cls, credential)
+   .. py:method:: login_using_pywinauto(cls, credentials)
       :classmethod:
 
 

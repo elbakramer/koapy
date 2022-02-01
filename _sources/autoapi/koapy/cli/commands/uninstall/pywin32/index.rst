@@ -17,6 +17,6 @@ Functions
 
 
 
-.. py:function:: pywin32(verbose)
+.. py:function:: pywin32()
 
 

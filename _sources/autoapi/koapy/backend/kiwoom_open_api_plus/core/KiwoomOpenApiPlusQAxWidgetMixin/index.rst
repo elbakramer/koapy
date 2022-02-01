@@ -26,6 +26,9 @@ Classes
    .. py:method:: IsConnected(self)
 
 
+   .. py:method:: ShowAccountWindow(self)
+
+
    .. py:method:: GetServerGubun(self)
 
 
@@ -35,7 +38,53 @@ Classes
    .. py:method:: IsRealServer(self)
 
 
-   .. py:method:: ShowAccountWindow(self)
+   .. py:method:: GetMasterStockInfo(self, code)
+
+
+   .. py:method:: GetMasterStockInfoAsDict(self, code)
+
+
+   .. py:method:: SetConditionSearchFlag(self, flag)
+
+
+   .. py:method:: AddPriceToConditionSearchResult(self)
+
+
+   .. py:method:: DelPriceFromConditionSearchResult(self)
+
+
+   .. py:method:: GetUpjongCode(self, code)
+
+      두번째 인자로 사용할 수 있는 값은 0, 1, 2, 4, 7 입니다.
+      0:코스피, 1: 코스닥, 2:KOSPI200, 4:KOSPI100(KOSPI50), 7:KRX100
+
+
+   .. py:method:: GetUpjongCodeAsList(self, code)
+
+
+   .. py:method:: GetUpjongNameByCode(self, code)
+
+
+   .. py:method:: IsOrderWarningETF(self, code)
+
+      투자유의 종목인 경우 "1" 값이 리턴, 그렇지 않은 경우 "0" 값 리턴. (ETF가 아닌 종목을 입력시 "0" 값 리턴.)
+
+
+   .. py:method:: IsOrderWarningETFAsBoolean(self, code)
+
+
+   .. py:method:: IsOrderWarningStock(self, code)
+
+      리턴 값 - "0":해당없음, "2":정리매매, "3":단기과열, "4":투자위험, "5":투자경고
+
+
+   .. py:method:: IsOrderWarningStockAsBoolean(self, code)
+
+
+   .. py:method:: GetMasterListedStockCntEx(self, code)
+
+
+   .. py:method:: GetMasterListedStockCntExAsInt(self, code)
 
 
    .. py:method:: GetCodeListByMarketAsList(self, market: Optional[Union[str, int]] = None)
@@ -134,33 +183,33 @@ Classes
    .. py:method:: DisableAutoLogin(self)
 
 
-   .. py:method:: LoginUsingPywinauto_Impl(cls, credential: Optional[Mapping[str, Any]] = None)
+   .. py:method:: LoginUsingPywinauto_Impl(cls, credentials: Optional[Mapping[str, Any]] = None)
       :classmethod:
 
 
-   .. py:method:: LoginUsingPywinauto_RunScriptInSubprocess(cls, credential: Optional[Mapping[str, Any]] = None, wait: bool = False, timeout: bool = None, check: bool = False)
+   .. py:method:: LoginUsingPywinauto_RunScriptInSubprocess(cls, credentials: Optional[Mapping[str, Any]] = None, wait: bool = False, timeout: bool = None, check: bool = False)
       :classmethod:
 
 
-   .. py:method:: LoginUsingPywinauto(self, credential: Optional[Mapping[str, Any]] = None, wait: bool = True, timeout: bool = None, check: bool = True)
+   .. py:method:: LoginUsingPywinauto(self, credentials: Optional[Mapping[str, Any]] = None, wait: bool = True, timeout: bool = None, check: bool = True)
 
 
-   .. py:method:: CommConnectAndThen(self, credential: Mapping[str, Any], callback: Callable[[int], Any]) -> int
-               CommConnectAndThen(self, credential: Mapping[str, Any]) -> int
+   .. py:method:: CommConnectAndThen(self, credentials: Mapping[str, Any], callback: Callable[[int], Any]) -> int
+               CommConnectAndThen(self, credentials: Mapping[str, Any]) -> int
                CommConnectAndThen(self, callback: Callable[[int], Any]) -> int
                CommConnectAndThen(self) -> int
 
 
-   .. py:method:: Connect(self, credential: Optional[Mapping[str, Any]] = None) -> int
+   .. py:method:: Connect(self, credentials: Optional[Mapping[str, Any]] = None) -> int
 
 
-   .. py:method:: EnsureConnectedAndThen(self, credential: Mapping[str, Any], callback: Callable[[int], Any]) -> bool
-               EnsureConnectedAndThen(self, credential: Mapping[str, Any]) -> bool
+   .. py:method:: EnsureConnectedAndThen(self, credentials: Mapping[str, Any], callback: Callable[[int], Any]) -> bool
+               EnsureConnectedAndThen(self, credentials: Mapping[str, Any]) -> bool
                EnsureConnectedAndThen(self, callback: Callable[[int], Any]) -> bool
                EnsureConnectedAndThen(self) -> bool
 
 
-   .. py:method:: EnsureConnected(self, credential: Optional[Mapping[str, Any]] = None) -> bool
+   .. py:method:: EnsureConnected(self, credentials: Optional[Mapping[str, Any]] = None) -> bool
 
 
 

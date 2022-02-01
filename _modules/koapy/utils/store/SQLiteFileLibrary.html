@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.utils.store.SQLiteFileLibrary &#8212; KOAPY 0.6.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/style.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/index.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.utils.store.SQLiteFileLibrary</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
+
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">inspect</span><span class="p">,</span> <span class="n">select</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.schema</span> <span class="kn">import</span> <span class="n">DropTable</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">,</span> <span class="n">Table</span>
+
+<span class="kn">from</span> <span class="nn">.sqlalchemy.Timestamp</span> <span class="kn">import</span> <span class="n">Timestamp</span>
+
+
+<div class="viewcode-block" id="SQLiteFileLibrary"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/store/SQLiteFileLibrary/index.html#koapy.utils.store.SQLiteFileLibrary.SQLiteFileLibrary">[docs]</a><span class="k">class</span> <span class="nc">SQLiteFileLibrary</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s2">&quot;sqlite:///&quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inspector</span> <span class="o">=</span> <span class="n">inspect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SQLiteFileLibrary.list_symbols"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/store/SQLiteFileLibrary/index.html#koapy.utils.store.SQLiteFileLibrary.SQLiteFileLibrary.list_symbols">[docs]</a>    <span class="k">def</span> <span class="nf">list_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inspector</span><span class="o">.</span><span class="n">get_table_names</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SQLiteFileLibrary.has_symbol"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/store/SQLiteFileLibrary/index.html#koapy.utils.store.SQLiteFileLibrary.SQLiteFileLibrary.has_symbol">[docs]</a>    <span class="k">def</span> <span class="nf">has_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inspector</span><span class="o">.</span><span class="n">has_table</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SQLiteFileLibrary.write"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/store/SQLiteFileLibrary/index.html#koapy.utils.store.SQLiteFileLibrary.SQLiteFileLibrary.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">index_original_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span><span class="p">]</span>
+        <span class="n">index_table_names</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;index_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">i</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="n">datetime_columns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_datetime64_any_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">column_timezones</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">datetime_columns</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="s2">&quot;tz&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="n">index_label</span> <span class="o">=</span> <span class="n">index_table_names</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">name</span><span class="p">:</span> <span class="n">Timestamp</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="s2">&quot;tz&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">datetime_columns</span>
+        <span class="p">}</span>
+
+        <span class="n">index_col</span> <span class="o">=</span> <span class="n">index_table_names</span>
+        <span class="n">parse_dates</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">datetime_columns</span><span class="p">]</span>
+
+        <span class="n">pandas_metadata</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;read_sql_table&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;index_col&quot;</span><span class="p">:</span> <span class="n">index_col</span><span class="p">,</span>
+                <span class="s2">&quot;parse_dates&quot;</span><span class="p">:</span> <span class="n">parse_dates</span><span class="p">,</span>
+                <span class="s2">&quot;index_names&quot;</span><span class="p">:</span> <span class="n">index_original_names</span><span class="p">,</span>
+                <span class="s2">&quot;column_timezones&quot;</span><span class="p">:</span> <span class="n">column_timezones</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+
+        <span class="n">to_sql_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;index_label&quot;</span><span class="p">:</span> <span class="n">index_label</span><span class="p">,</span>
+            <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">,</span>
+            <span class="s2">&quot;if_exists&quot;</span><span class="p">:</span> <span class="s2">&quot;replace&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="p">,</span> <span class="o">**</span><span class="n">to_sql_kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="SQLiteFileLibrary.read_as_dataframe"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/store/SQLiteFileLibrary/index.html#koapy.utils.store.SQLiteFileLibrary.SQLiteFileLibrary.read_as_dataframe">[docs]</a>    <span class="k">def</span> <span class="nf">read_as_dataframe</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">time_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="n">index_col</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">]</span>
+        <span class="n">parse_dates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">]</span>
+        <span class="n">read_sql_table_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;index_col&quot;</span><span class="p">:</span> <span class="n">index_col</span><span class="p">,</span>
+            <span class="s2">&quot;parse_dates&quot;</span><span class="p">:</span> <span class="n">parse_dates</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_table</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="p">,</span> <span class="o">**</span><span class="n">read_sql_table_kwargs</span><span class="p">)</span>
+        <span class="n">index_names</span> <span class="o">=</span> <span class="n">index_col</span>
+        <span class="n">index_names</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">index_names</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">index_names</span> <span class="o">=</span> <span class="n">index_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index_names</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">column_timezones</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">column_name</span> <span class="ow">in</span> <span class="n">parse_dates</span><span class="p">:</span>
+            <span class="n">timezone</span> <span class="o">=</span> <span class="n">column_timezones</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">column_name</span><span class="p">,</span> <span class="n">Timestamp</span><span class="o">.</span><span class="n">local_timezone</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timezone</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">timezone</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">timezone</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="n">timezone</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">column_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">column_timezones</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="SQLiteFileLibrary.read_as_cursor"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/store/SQLiteFileLibrary/index.html#koapy.utils.store.SQLiteFileLibrary.SQLiteFileLibrary.read_as_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">read_as_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">time_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">(),</span> <span class="n">autoload_with</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="p">)</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">time_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">time_column</span> <span class="o">=</span> <span class="n">records</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span>
+                <span class="n">time_column</span>
+            <span class="p">]</span>  <span class="c1"># pylint: disable=unsubscriptable-object</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">time_column</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">time_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">time_column</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">time_column</span> <span class="o">=</span> <span class="n">records</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span>
+                    <span class="n">time_column</span>
+                <span class="p">]</span>  <span class="c1"># pylint: disable=unsubscriptable-object</span>
+                <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">time_column</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">Timestamp</span><span class="o">.</span><span class="n">is_naive</span><span class="p">(</span><span class="n">start_time</span><span class="p">):</span>
+                <span class="n">start_time</span> <span class="o">=</span> <span class="n">start_time</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">local_timezone</span><span class="p">)</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">start_time</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                <span class="n">time_column</span> <span class="o">&gt;=</span> <span class="n">start_time</span>
+            <span class="p">)</span>  <span class="c1"># pylint: disable=unsubscriptable-object</span>
+
+        <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">end_time</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">time_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">time_column</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">time_column</span> <span class="o">=</span> <span class="n">records</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span>
+                    <span class="n">time_column</span>
+                <span class="p">]</span>  <span class="c1"># pylint: disable=unsubscriptable-object</span>
+                <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">time_column</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">Timestamp</span><span class="o">.</span><span class="n">is_naive</span><span class="p">(</span><span class="n">end_time</span><span class="p">):</span>
+                <span class="n">end_time</span> <span class="o">=</span> <span class="n">end_time</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">local_timezone</span><span class="p">)</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="n">end_time</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                <span class="n">time_column</span> <span class="o">&lt;=</span> <span class="n">end_time</span>
+            <span class="p">)</span>  <span class="c1"># pylint: disable=unsubscriptable-object</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="SQLiteFileLibrary.read"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/store/SQLiteFileLibrary/index.html#koapy.utils.store.SQLiteFileLibrary.SQLiteFileLibrary.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_as_dataframe</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SQLiteFileLibrary.delete"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/store/SQLiteFileLibrary/index.html#koapy.utils.store.SQLiteFileLibrary.SQLiteFileLibrary.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">(),</span> <span class="n">autoload_with</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">DropTable</span><span class="p">(</span><span class="n">table</span><span class="p">),</span> <span class="n">if_exists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

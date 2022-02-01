@@ -10,6 +10,6 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
-   generate_python/index.rst
+   generate_python_stubs/index.rst
 
 

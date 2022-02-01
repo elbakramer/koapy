@@ -342,7 +342,7 @@ Module Contents
 
    
 
-.. py:data:: LoginCredential
+.. py:data:: LoginCredentials
    
 
    

@@ -29,10 +29,10 @@ Functions
 
 
 
-.. py:function:: openapi(target, cleanup, verbose)
+.. py:function:: openapi(target, cleanup)
 
 
-.. py:function:: pywin32(version, verbose)
+.. py:function:: pywin32(version)
 
 
 .. py:function:: install()

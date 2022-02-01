@@ -17,6 +17,6 @@ Functions
 
 
 
-.. py:function:: pywin32(version, verbose)
+.. py:function:: pywin32(version)
 
 
