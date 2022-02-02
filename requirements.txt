@@ -37,7 +37,7 @@ pytz-deprecation-shim==0.1.0.post0; python_version >= "3.6" and python_full_vers
 pytz==2021.3
 pywin32==303; sys_platform == "win32"
 pywinauto==0.6.8; sys_platform == "win32"
-qtpy==2.0.0; python_version >= "3.6"
+qtpy==2.0.1; python_version >= "3.6"
 requests==2.27.1; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.6.0")
 rx==3.2.0; python_full_version >= "3.6.0"
 schedule==1.1.0; python_version >= "3.6"
