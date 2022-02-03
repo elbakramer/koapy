@@ -25,6 +25,7 @@ requirements = [
     "openpyxl>=3.0.9",
     "pandas>=1.4.0",
     "protobuf>=3.19.4",
+    "psutil>=5.9.0",
     "pygtrie>=2.4.2",
     "pyhocon>=0.3.59",
     "PySide2>=5.15.2",

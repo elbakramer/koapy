@@ -44,7 +44,7 @@ def openapi(interactive):
     updater.update_version_if_necessary()
 
 
-@update.command(short_help="Update pb files by compile proto files.")
+@update.command(short_help="Update gRPC stub files by compiling proto files.")
 def proto():
     from koapy.backend.kiwoom_open_api_plus.grpc.tools.compile_proto import (
         compile_proto,

@@ -4,11 +4,13 @@ import os
 
 import click
 
-from koapy.cli.commands.configure import configure
+from koapy.cli.commands.disable import disable
+from koapy.cli.commands.enable import enable
 from koapy.cli.commands.generate import generate
 from koapy.cli.commands.get import get
 from koapy.cli.commands.install import install
 from koapy.cli.commands.serve import serve
+from koapy.cli.commands.show import show
 from koapy.cli.commands.uninstall import uninstall
 from koapy.cli.commands.update import update
 from koapy.cli.utils.credentials import get_credentials
@@ -31,11 +33,13 @@ def cli():
     pass
 
 
-cli.add_command(configure)
+cli.add_command(disable)
+cli.add_command(enable)
 cli.add_command(generate)
 cli.add_command(get)
 cli.add_command(install)
 cli.add_command(serve)
+cli.add_command(show)
 cli.add_command(uninstall)
 cli.add_command(update)
 

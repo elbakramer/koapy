@@ -420,7 +420,7 @@ class CybosPlusEntrypointMixin(Logging):
             )
             last_date = last_date.astimezone(tz)
 
-            if df.shape[0] > 0 and self.logger.getEffectiveLevel() <= logging.DEBUG:
+            if df.shape[0] > 0 and self.logger.isEnabledFor(logging.DEBUG):
                 from_date = datetime.datetime.strptime(
                     df.iloc[0]["날짜"].astype(int).astype(str), date_format_input
                 )

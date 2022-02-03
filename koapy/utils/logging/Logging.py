@@ -52,7 +52,6 @@ class LoggingMeta(type):
         logging.basicConfig()
         logging.config.dictConfig(logging_config_dict)
         LoggingMeta.__initialized = True
-        # logging.getLogger(__name__).debug("Initialized logging")
 
     def __new__(cls, clsname, bases, dct):
         return super().__new__(cls, clsname, bases, dct)
@@ -149,4 +148,4 @@ class LoggingMeta(type):
 class Logging(metaclass=LoggingMeta):
     @property
     def logger(self):
-        return self.__class__._logger()
+        return type(self)._logger()

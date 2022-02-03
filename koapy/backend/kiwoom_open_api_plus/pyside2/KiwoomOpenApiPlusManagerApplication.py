@@ -1,4 +1,5 @@
 import datetime
+import os
 import sys
 
 from argparse import Namespace
@@ -20,9 +21,6 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError import (
 )
 from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient import (
     KiwoomOpenApiPlusServiceClient,
-)
-from koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusDialogHandler import (
-    KiwoomOpenApiPlusDialogHandler,
 )
 from koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusServerApplication import (
     KiwoomOpenApiPlusServerApplication,
@@ -171,8 +169,13 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         UNKNOWN = 3
 
     class RestartType(Enum):
-        RESTART_ONLY = 1
-        RESTART_AND_CONNECT = 2
+        NO_RESTART = 1
+        RESTART_ONLY = 2
+        RESTART_AND_RESTORE = 3
+        RESTART_AND_CONNECT = 4
+        RESTART_WITH_UPDATE = 5
+        RESTART_WITH_UPDATE_AND_RESTORE = 6
+        RESTART_WITH_UPDATE_AND_CONNECT = 7
 
     shouldRestart = Signal(RestartType)
 
@@ -215,6 +218,10 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         self._signal_handler.signaled.connect(self._onSignal)
 
         # Capture dialogs from OpenAPI and handle them accordingly
+        from koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusDialogHandler import (
+            KiwoomOpenApiPlusDialogHandler,
+        )
+
         self._dialog_handler = KiwoomOpenApiPlusDialogHandler(self, self)
 
         # Attributes for gprc client (ThreadPoolExecutor)
@@ -363,12 +370,16 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
 
         # Section for actions related to connection and login
         menu.addSection("Connection")
-        connectAction = menu.addAction("Login and Connect")
-        connectAction.triggered.connect(self._onConnectButtonClicked)
-        showAccountWindowAction = menu.addAction("Show Account Window")
+        connectAction = menu.addAction("Login and connect")
+        connectAction.triggered.connect(self._onConnectActionTriggered)
+        showAccountWindowAction = menu.addAction("Show account window")
         showAccountWindowAction.triggered.connect(
-            self._onShowAccountWindowButtonClicked
+            self._onShowAccountWindowActionTriggered
         )
+        enableAutoLoginAction = menu.addAction("Enable auto login")
+        enableAutoLoginAction.triggered.connect(self._onEnableAutoLoginActionTriggered)
+        checkForUpdateAction = menu.addAction("Check for update")
+        checkForUpdateAction.triggered.connect(self._onCheckForUpdateActionTriggered)
 
         # Section for displaying current status, should be disabled
         menu.addSection("Status")
@@ -402,9 +413,9 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         # Section for exit and restart
         menu.addSection("Exit")
         restartAction = menu.addAction("Restart")
-        restartAction.triggered.connect(self._onRestartButtonClicked)
+        restartAction.triggered.connect(self._onRestartActionTriggered)
         exitAction = menu.addAction("Exit")
-        exitAction.triggered.connect(self._onExitButtonClicked)
+        exitAction.triggered.connect(self._onExitActionTriggered)
 
         return menu
 
@@ -461,17 +472,23 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
     def _onTrayIconActivated(self, reason):
         pass
 
-    def _onExitButtonClicked(self):
+    def _onExitActionTriggered(self):
         self.exit()
 
-    def _onRestartButtonClicked(self):
-        self._emitShouldRestart()
+    def _onRestartActionTriggered(self):
+        self._emitShouldRestart(self.RestartType.RESTART_AND_RESTORE)
 
-    def _onConnectButtonClicked(self):
+    def _onConnectActionTriggered(self):
         self._connect()
 
-    def _onShowAccountWindowButtonClicked(self):
+    def _onShowAccountWindowActionTriggered(self):
         self._showAccountWindow()
+
+    def _onEnableAutoLoginActionTriggered(self):
+        self._enableAutoLogin()
+
+    def _onCheckForUpdateActionTriggered(self):
+        self._emitShouldRestart(self.RestartType.RESTART_WITH_UPDATE_AND_RESTORE)
 
     def _openOpenApiHome(self):
         openApiHomeUrl = "https://www.kiwoom.com/h/customer/download/VOpenApiInfoView"
@@ -511,7 +528,12 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         self._ensureConnectedAndThen()
 
     def _showAccountWindow(self):
-        self._ensureConnectedAndThen(self._client.ShowAccountWindow)
+        self._ensureConnectedAndThen(lambda errcode: self._client.ShowAccountWindow())
+
+    def _enableAutoLogin(self):
+        self._ensureConnectedAndThen(
+            lambda errcode: self._client.EnsureAutoLoginEnabled()
+        )
 
     def _emitShouldRestart(self, restart_type: Optional[RestartType] = None):
         if restart_type is None:
@@ -646,15 +668,88 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         self.logger.debug("Exiting manager application")
         return self._app.exit(return_code)
 
+    def _isConnected(self):
+        return self._client.is_ready() and self._client.IsConnected()
+
+    def _getAPIModulePath(self):
+        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
+            API_MODULE_PATH,
+        )
+
+        module_path = API_MODULE_PATH
+        return module_path
+
+    def _getAutoLoginDatPath(self):
+        module_path = self._getAPIModulePath()
+        autologin_dat = module_path / "system" / "Autologin.dat"
+        return autologin_dat
+
+    def _isAutoLoginEnabled(self):
+        autologin_dat = self._getAutoLoginDatPath()
+        return autologin_dat.exists()
+
+    def _disableAutoLogin(self):
+        self.logger.info("Disabling auto login")
+        autologin_dat = self._getAutoLoginDatPath()
+        if autologin_dat.exists():
+            self.logger.info("Removing %s", autologin_dat)
+            os.remove(autologin_dat)
+            self.logger.info("Disabled auto login")
+            return True
+        else:
+            self.logger.info("Autologin is already disabled")
+            return False
+
     def _restart(self, restart_type: Optional[RestartType] = None):
         self.logger.debug("Restarting server application")
 
         if restart_type is None:
             restart_type = self.RestartType.RESTART_ONLY
 
-        self._reinitializeServerProcessAndGrpcClient()
+        is_connected = self._isConnected()
+        is_autologin_enabled = self._isAutoLoginEnabled()
 
-        if restart_type == self.RestartType.RESTART_AND_CONNECT:
+        should_connect_to_restore = (
+            restart_type
+            in [
+                self.RestartType.RESTART_AND_RESTORE,
+                self.RestartType.RESTART_WITH_UPDATE_AND_RESTORE,
+            ]
+            and is_connected
+        )
+        should_connect_anyway = restart_type in [
+            self.RestartType.RESTART_AND_CONNECT,
+            self.RestartType.RESTART_WITH_UPDATE_AND_CONNECT,
+        ]
+        should_connect = should_connect_to_restore or should_connect_anyway
+
+        should_update = restart_type in [
+            self.RestartType.RESTART_WITH_UPDATE,
+            self.RestartType.RESTART_WITH_UPDATE_AND_RESTORE,
+            self.RestartType.RESTART_WITH_UPDATE_AND_CONNECT,
+        ]
+
+        if should_update:
+            self._reinitializeServerProcessAndGrpcClient()
+            if is_autologin_enabled:
+                self._disableAutoLogin()
+            self._client.CommConnectAndThen()
+            is_updated = self._client.HandleVersionUpgradeUsingPywinauto(
+                self._server_process.processId()
+            )
+            if is_updated:
+                self._reinitializeServerProcessAndGrpcClient()
+            if is_autologin_enabled:
+                self.logger.info("Enabling auto login back")
+                self._enableAutoLogin()
+                if is_updated:
+                    self.logger.info("Done update, enabled auto login")
+                else:
+                    self.logger.info("There was no version update, enabled auto login")
+        else:
+            self._reinitializeServerProcessAndGrpcClient()
+
+        if should_connect:
             self.logger.debug("Re-establishing connection")
             self._connect()
 

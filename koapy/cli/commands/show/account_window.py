@@ -8,7 +8,7 @@ from koapy.cli.utils.verbose_option import verbose_option
     "-p", "--port", metavar="PORT", help="Port number of grpc server (optional)."
 )
 @verbose_option()
-def autologin(port):
+def account_window(port):
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint import (
         KiwoomOpenApiPlusEntrypoint,
     )

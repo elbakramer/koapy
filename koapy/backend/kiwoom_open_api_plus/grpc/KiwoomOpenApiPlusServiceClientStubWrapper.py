@@ -406,7 +406,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
                         should_compare_start = False
                 records.append(values.values)
 
-            if self.logger.getEffectiveLevel() <= logging.DEBUG:
+            if self.logger.isEnabledFor(logging.DEBUG):
                 nrows = len(response.multi_data.values)
                 if nrows > 0:
                     from_date = response.multi_data.values[0].values[date_column_index]
@@ -491,7 +491,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
                         should_compare_start = False
                 records.append(values.values)
 
-            if self.logger.getEffectiveLevel() <= logging.DEBUG:
+            if self.logger.isEnabledFor(logging.DEBUG):
                 nrows = len(response.multi_data.values)
                 if nrows > 0:
                     from_date = response.multi_data.values[0].values[date_column_index]
@@ -563,7 +563,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
             for values in response.multi_data.values:
                 records.append(values.values)
 
-            if self.logger.getEffectiveLevel() <= logging.DEBUG:
+            if self.logger.isEnabledFor(logging.DEBUG):
                 nrows = len(response.multi_data.values)
                 if nrows > 0:
                     from_date = response.multi_data.values[0].values[date_column_index]
@@ -636,7 +636,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
             for values in response.multi_data.values:
                 records.append(values.values)
 
-            if self.logger.getEffectiveLevel() <= logging.DEBUG:
+            if self.logger.isEnabledFor(logging.DEBUG):
                 nrows = len(response.multi_data.values)
                 if nrows > 0:
                     from_date = response.multi_data.values[0].values[date_column_index]
@@ -709,7 +709,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
             for values in response.multi_data.values:
                 records.append(values.values)
 
-            if self.logger.getEffectiveLevel() <= logging.DEBUG:
+            if self.logger.isEnabledFor(logging.DEBUG):
                 nrows = len(response.multi_data.values)
                 if nrows > 0:
                     from_date = response.multi_data.values[0].values[date_column_index]
@@ -782,7 +782,7 @@ class KiwoomOpenApiPlusServiceClientStubWrapper(
             for values in response.multi_data.values:
                 records.append(values.values)
 
-            if self.logger.getEffectiveLevel() <= logging.DEBUG:
+            if self.logger.isEnabledFor(logging.DEBUG):
                 nrows = len(response.multi_data.values)
                 if nrows > 0:
                     from_date = response.multi_data.values[0].values[date_column_index]

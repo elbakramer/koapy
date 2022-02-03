@@ -3,6 +3,8 @@ import os
 import queue
 import subprocess
 
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 from typing import Any, Callable, Dict, Mapping, Optional, Union, overload
 
 from wrapt import synchronized
@@ -21,9 +23,10 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter import
 from koapy.backend.kiwoom_open_api_plus.utils.list_conversion import string_to_list
 from koapy.config import config
 from koapy.utils.ctypes import is_admin
+from koapy.utils.logging import get_verbosity
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.rate_limiting.pyside2.QRateLimitedExecutor import QRateLimitedExecutor
-from koapy.utils.subprocess import function_to_subprocess_args
+from koapy.utils.subprocess import Popen, function_to_subprocess_args
 
 
 class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunctions):
@@ -274,10 +277,10 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
 
     def GetConditionFilePath(self):
         module_path = self.GetAPIModulePath()
+        module_path = Path(module_path)
         userid = self.GetUserId()
-        condition_filepath = os.path.join(
-            module_path, "system", "%s_NewSaveIndex.dat" % userid
-        )
+        condition_filepath = module_path / "system" / f"{userid}_NewSaveIndex.dat"
+        condition_filepath = str(condition_filepath)
         return condition_filepath
 
     def GetConditionNameListAsList(self):
@@ -290,7 +293,9 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
 
     def GetAutoLoginDatPath(self):
         module_path = self.GetAPIModulePath()
-        autologin_dat = os.path.join(module_path, "system", "Autologin.dat")
+        module_path = Path(module_path)
+        autologin_dat = module_path / "system" / "Autologin.dat"
+        autologin_dat = str(autologin_dat)
         return autologin_dat
 
     def IsAutoLoginEnabled(self):
@@ -303,6 +308,41 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
             os.remove(autologin_dat)
 
     # ======================================================================
+
+    @classmethod
+    def RunScriptInSubprocess_WithData(
+        cls,
+        main: Callable[..., Any],
+        data: Optional[Mapping[str, Any]] = None,
+        wait: bool = False,
+        timeout: bool = None,
+        check: bool = False,
+        stdin: Optional[int] = subprocess.PIPE,
+        stdout: Optional[int] = None,
+    ):
+        args = function_to_subprocess_args(main)
+        process = Popen(args, stdin=stdin, stdout=stdout, text=True)
+        json.dump(data, process.stdin)
+
+        if wait:
+            try:
+                stdout, stderr = process.communicate(timeout=timeout)
+            except subprocess.TimeoutExpired as exc:
+                process.kill()
+                exc.stdout, exc.stderr = process.communicate()
+                raise exc
+            except:
+                process.kill()
+                raise
+            retcode = process.poll()
+            completed = subprocess.CompletedProcess(
+                process.args, retcode, stdout, stderr
+            )
+            if check:
+                completed.check_returncode()
+            return completed
+
+        return process
 
     @classmethod
     def LoginUsingPywinauto_Impl(cls, credentials: Optional[Mapping[str, Any]] = None):
@@ -402,33 +442,27 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
             from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import (
                 KiwoomOpenApiPlusQAxWidgetMixin,
             )
+            from koapy.utils.logging import set_verbosity
 
-            credentials = json.load(sys.stdin)
+            data = json.load(sys.stdin)
+            credentials = data["credentials"]
+            verbosity = data["verbosity"]
+            set_verbosity(verbosity)
             KiwoomOpenApiPlusQAxWidgetMixin.LoginUsingPywinauto_Impl(credentials)
 
-        args = function_to_subprocess_args(main)
-        process = subprocess.Popen(args, stdin=subprocess.PIPE, text=True)
-        json.dump(credentials, process.stdin)
+        verbosity = get_verbosity()
+        data = {
+            "credentials": credentials,
+            "verbosity": verbosity,
+        }
 
-        if wait:
-            try:
-                stdout, stderr = process.communicate(timeout=timeout)
-            except subprocess.TimeoutExpired as exc:
-                process.kill()
-                exc.stdout, exc.stderr = process.communicate()
-                raise exc
-            except:
-                process.kill()
-                raise
-            retcode = process.poll()
-            completed = subprocess.CompletedProcess(
-                process.args, retcode, stdout, stderr
-            )
-            if check:
-                completed.check_returncode()
-            return completed
-
-        return process
+        return cls.RunScriptInSubprocess_WithData(
+            main,
+            data,
+            wait=wait,
+            timeout=timeout,
+            check=check,
+        )
 
     def LoginUsingPywinauto(
         self,
@@ -439,7 +473,10 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
     ):
         assert is_admin(), "Using pywinauto requires administrator permission"
         return self.LoginUsingPywinauto_RunScriptInSubprocess(
-            credentials, wait=wait, timeout=timeout, check=check
+            credentials,
+            wait=wait,
+            timeout=timeout,
+            check=check,
         )
 
     @overload
@@ -479,15 +516,23 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
             callback = credentials
             credentials = None
 
-        if credentials is not None:
+        can_use_pywinauto = is_admin()
+        should_use_pywinauto = credentials is not None
+
+        if should_use_pywinauto:
             assert (
-                is_admin()
-            ), "CommConnectAndThen() method requires to be run as administrator if credentials is given explicitly"
+                can_use_pywinauto
+            ), "CommConnectAndThen() method requires to be run as administrator if credentials argument was given explicitly"
+
+        if should_use_pywinauto:
             self.DisableAutoLogin()
-        elif not self.IsAutoLoginEnabled() and is_admin():
+
+        if credentials is None and not self.IsAutoLoginEnabled() and can_use_pywinauto:
             credentials = config.get(
-                "koapy.backend.kiwoom_open_api_plus.credentials", None
+                key="koapy.backend.kiwoom_open_api_plus.credentials",
+                default=None,
             )
+            should_use_pywinauto = credentials is not None
 
         def OnEventConnect(errcode):
             self.OnEventConnect.disconnect(OnEventConnect)
@@ -497,8 +542,8 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         self.OnEventConnect.connect(OnEventConnect)
         errcode = KiwoomOpenApiPlusError.try_or_raise(self.CommConnect())
 
-        if credentials is not None:
-            self.LoginUsingPywinauto(credentials, wait=False)
+        if should_use_pywinauto and not self.IsAutoLoginEnabled():
+            process = self.LoginUsingPywinauto(credentials, wait=False)
 
         return errcode
 
@@ -508,7 +553,7 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         def OnEventConnect(errcode):
             q.put(errcode)
 
-        self.CommConnectAndThen(credentials, OnEventConnect)
+        errcode = self.CommConnectAndThen(credentials, OnEventConnect)
         errcode = KiwoomOpenApiPlusError.try_or_raise(q.get())
 
         return errcode
@@ -534,7 +579,9 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         ...
 
     def EnsureConnectedAndThen(
-        self, credentials_or_callback=None, callback_or_none=None
+        self,
+        credentials_or_callback=None,
+        callback_or_none=None,
     ) -> bool:
         credentials = credentials_or_callback
         callback = callback_or_none
@@ -547,18 +594,22 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         ):
             callback = credentials
             credentials = None
+
         is_connected = self.IsConnected()
+
         if not is_connected:
 
             def OnEventConnect(errcode):
                 if errcode == 0:
                     if callable(callback):
-                        callback()
+                        callback(errcode)
 
-            self.CommConnectAndThen(credentials, OnEventConnect)
+            errcode = self.CommConnectAndThen(credentials, OnEventConnect)
         else:
             if callable(callback):
-                callback()
+                errcode = 0
+                callback(errcode)
+
         return is_connected
 
     def EnsureConnected(self, credentials: Optional[Mapping[str, Any]] = None) -> bool:
@@ -568,6 +619,292 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
             is_connected = self.IsConnected()
             assert is_connected, "Could not ensure connected"
         return is_connected
+
+    @classmethod
+    def EnableAutoLoginUsingPywinauto_Impl(
+        cls, account_passwords: Optional[Mapping[str, Any]] = None
+    ):
+        import pywinauto
+
+        if account_passwords is None:
+            credentials = config.get("koapy.backend.kiwoom_open_api_plus.credentials")
+            account_passwords = credentials.get("account_passwords")
+
+        is_in_development = False
+
+        desktop = pywinauto.Desktop(allow_magic_lookup=False)
+        account_window = desktop.window(title_re=r"계좌비밀번호 입력 \(버전: [0-9]+.+[0-9]+\)")
+
+        try:
+            cls.logger.info("Waiting for account window to show up")
+            timeout_account_window_ready = 15
+            account_window.wait("ready", timeout_account_window_ready)
+        except pywinauto.timings.TimeoutError:
+            cls.logger.info("Cannot find account window")
+            raise
+        else:
+            cls.logger.info("Account window found")
+            if is_in_development:
+                account_window.print_control_identifiers()
+
+            cls.logger.info("Enabling auto login")
+            account_window["CheckBox"].check()
+
+            account_combo = account_window["ComboBox"]
+            account_cnt = account_combo.item_count()
+
+            cls.logger.info("Putting account passwords")
+            for i in range(account_cnt):
+                account_combo.select(i)
+                account_no = account_combo.selected_text().split()[0]
+                if account_no in account_passwords:
+                    account_window["Edit"].set_text(account_passwords[account_no])
+                elif "0000000000" in account_passwords:
+                    account_window["Edit"].set_text(account_passwords["0000000000"])
+                account_window["등록"].click()
+
+            cls.logger.info("Closing account window")
+            account_window["닫기"].click()
+
+            try:
+                cls.logger.info("Waiting account window to be closed")
+                timeout_account_window_done = 5
+                account_window.wait_not("visible", timeout_account_window_done)
+            except pywinauto.timings.TimeoutError as e:
+                cls.logger.info("Cannot sure account window is closed")
+                raise RuntimeError("Cannot sure account window is closed") from e
+            else:
+                cls.logger.info("Account window closed")
+
+    @classmethod
+    def EnableAutoLoginUsingPywinauto_RunScriptInSubprocess(
+        cls,
+        account_passwords: Optional[Mapping[str, Any]] = None,
+        wait: bool = False,
+        timeout: bool = None,
+        check: bool = False,
+    ):
+        def main():
+            # pylint: disable=redefined-outer-name,reimported,import-self
+            import json
+            import sys
+
+            from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import (
+                KiwoomOpenApiPlusQAxWidgetMixin,
+            )
+            from koapy.utils.logging import set_verbosity
+
+            data = json.load(sys.stdin)
+            account_passwords = data["account_passwords"]
+            verbosity = data["verbosity"]
+            set_verbosity(verbosity)
+            KiwoomOpenApiPlusQAxWidgetMixin.EnableAutoLoginUsingPywinauto_Impl(
+                account_passwords
+            )
+
+        verbosity = get_verbosity()
+        data = {
+            "account_passwords": account_passwords,
+            "verbosity": verbosity,
+        }
+
+        return cls.RunScriptInSubprocess_WithData(
+            main,
+            data,
+            wait=wait,
+            timeout=timeout,
+            check=check,
+        )
+
+    def EnableAutoLoginUsingPywinauto(
+        self,
+        credentials: Optional[Mapping[str, Any]] = None,
+        wait: bool = True,
+        timeout: bool = None,
+        check: bool = True,
+    ):
+        assert is_admin(), "Using pywinauto requires administrator permission"
+        return self.EnableAutoLoginUsingPywinauto_RunScriptInSubprocess(
+            credentials,
+            wait=wait,
+            timeout=timeout,
+            check=check,
+        )
+
+    def EnableAutoLogin(self, credentials: Optional[Mapping[str, Any]] = None):
+        q = queue.Queue()
+
+        def callback(errcode):
+            with ThreadPoolExecutor(1) as executor:
+                future = executor.submit(self.ShowAccountWindow)
+                self.EnableAutoLoginUsingPywinauto(credentials)
+                future.result()
+                q.put(errcode)
+
+        self.EnsureConnectedAndThen(credentials, callback)
+        errcode = KiwoomOpenApiPlusError.try_or_raise(q.get())
+        is_enabled = self.IsAutoLoginEnabled()
+        return is_enabled
+
+    def EnsureAutoLoginEnabled(
+        self, credentials: Optional[Mapping[str, Any]] = None
+    ) -> bool:
+        is_enabled = self.IsAutoLoginEnabled()
+        if not is_enabled:
+            self.EnableAutoLogin(credentials)
+            is_enabled = self.IsAutoLoginEnabled()
+            assert is_enabled, "Could not ensure auto login enabled"
+        return is_enabled
+
+    @classmethod
+    def HandleVersionUpgradeUsingPywinauto_Impl(cls, pid):
+        import psutil
+        import pywinauto
+
+        desktop = pywinauto.Desktop(allow_magic_lookup=False)
+        login_window = desktop.window(title="Open API Login")
+
+        timeout_login_successful = 4
+        timeout_version_check = 1
+        timeout_per_trial = timeout_login_successful + timeout_version_check
+
+        trial_timeout = 180
+        trial_count = trial_timeout / timeout_per_trial
+
+        while trial_count > 0:
+            try:
+                cls.logger.info(
+                    "Login in progress ... timeout after %d sec",
+                    trial_count * timeout_per_trial,
+                )
+                trial_count -= 1
+                login_window.wait_not("exists", timeout_login_successful)
+                if login_window.exists():
+                    # make sure that login_window control does not exist.
+                    continue
+            except pywinauto.timings.TimeoutError as e:
+                version_window = desktop.window(title="opstarter")
+                try:
+                    version_window.wait("ready", timeout_version_check)
+                except pywinauto.timings.TimeoutError:
+                    continue
+                else:
+                    cls.logger.info("Version update required")
+
+                    cls.logger.info("Closing login app")
+                    login_window_proc = psutil.Process(pid)
+                    login_window_proc.kill()
+                    login_window_proc.wait()
+                    cls.logger.info("Killed login app process")
+                    timeout_login_screen_closed = 30
+                    login_window.close(timeout_login_screen_closed)
+                    try:
+                        login_window.wait_not("visible", timeout_login_screen_closed)
+                    except pywinauto.timings.TimeoutError as e:
+                        cls.logger.warning("Cannot close login window")
+                        raise RuntimeError("Cannot close login window") from e
+                    else:
+                        cls.logger.info("Closed login window")
+
+                        cls.logger.info("Starting to update version")
+                        version_window["Button"].click()
+
+                        versionup_window = desktop.window(title="opversionup")
+                        confirm_window = desktop.window(title="업그레이드 확인")
+
+                        try:
+                            cls.logger.info("Waiting for possible failure")
+                            timeout_confirm_update = 10
+                            versionup_window.wait("ready", timeout_confirm_update)
+                        except pywinauto.timings.TimeoutError:
+                            cls.logger.info("Cannot find failure confirmation popup")
+                        else:
+                            cls.logger.warning("Failed to update")
+                            raise RuntimeError("Failed to update") from e
+
+                        try:
+                            cls.logger.info(
+                                "Waiting for confirmation popup after update"
+                            )
+                            timeout_confirm_update = 10
+                            confirm_window.wait("ready", timeout_confirm_update)
+                        except pywinauto.timings.TimeoutError as e:
+                            cls.logger.warning("Cannot find confirmation popup")
+                            raise RuntimeError("Cannot find confirmation popup") from e
+                        else:
+                            cls.logger.info("Confirming update")
+                            confirm_window["Button"].click()
+
+                        cls.logger.info("Done update")
+                        return True
+            else:
+                cls.logger.info("Login ended successfully")
+                cls.logger.info("No version update required")
+                return False
+        return False
+
+    @classmethod
+    def HandleVersionUpgradeUsingPywinauto_RunScriptInSubprocess(
+        cls,
+        pid: int,
+        wait: bool = False,
+        timeout: bool = None,
+        check: bool = False,
+    ):
+        def main():
+            # pylint: disable=redefined-outer-name,reimported,import-self
+            import json
+            import sys
+
+            from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import (
+                KiwoomOpenApiPlusQAxWidgetMixin,
+            )
+            from koapy.utils.logging import set_verbosity
+
+            data = json.load(sys.stdin)
+            pid = data["pid"]
+            verbosity = data["verbosity"]
+            set_verbosity(verbosity)
+            is_updated = (
+                KiwoomOpenApiPlusQAxWidgetMixin.HandleVersionUpgradeUsingPywinauto_Impl(
+                    pid
+                )
+            )
+            result = {"is_updated": is_updated}
+            json.dump(result, sys.stdout)
+
+        verbosity = get_verbosity()
+        data = {
+            "pid": pid,
+            "verbosity": verbosity,
+        }
+
+        completed = cls.RunScriptInSubprocess_WithData(
+            main,
+            data,
+            wait=wait,
+            timeout=timeout,
+            check=check,
+            stdout=subprocess.PIPE,
+        )
+        result = json.loads(completed.stdout)
+        is_updated = result["is_updated"]
+        return is_updated
+
+    def HandleVersionUpgradeUsingPywinauto(
+        self,
+        pid: int,
+        wait: bool = True,
+        timeout: bool = None,
+        check: bool = True,
+    ):
+        assert is_admin(), "Using pywinauto requires administrator permission"
+        return self.HandleVersionUpgradeUsingPywinauto_RunScriptInSubprocess(
+            pid,
+            wait=wait,
+            timeout=timeout,
+            check=check,
+        )
 
 
 class KiwoomOpenApiPlusQAxWidgetServerSideMixin(
