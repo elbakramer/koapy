@@ -57,16 +57,16 @@ service KiwoomOpenApiPlusService {
   };
 
   // 4. rpcs for more complex use cases based on the previously categorized simple cases above
-  rpc OrderListen (ListenRequest) returns (stream ListenResponse) {
-    // server streaming rpc for just listening order events (without submiting any order request compared to the simple case)
-    // this is one-sided streaming rpc (server streaming rpc) like Listen() rpc
-    // so server would just send stream items with no consideration on coordination with its client
-  };
   rpc BidirectionalRealCall(stream BidirectionalRealRequest) returns (stream ListenResponse) {
     // bidirectional streaming rpc for listening realtime data events
     // with capability of managing observation pool (what stocks, what fields to listen to) online
     // those management requests would be sent over the client streaming line
     // and ordinary realtime data events would be sent over the server streaming line
+  };
+  rpc OrderListen (ListenRequest) returns (stream ListenResponse) {
+    // server streaming rpc for just listening order events (without submiting any order request compared to the simple case)
+    // this is one-sided streaming rpc (server streaming rpc) like Listen() rpc
+    // so server would just send stream items with no consideration on coordination with its client
   };
 
   // 5. rpcs for customized usage scenario (when there is no proper predefined interface to utilize)

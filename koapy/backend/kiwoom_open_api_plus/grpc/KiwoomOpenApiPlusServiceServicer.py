@@ -10,18 +10,32 @@ from koapy.backend.kiwoom_open_api_plus.grpc import (
     KiwoomOpenApiPlusService_pb2,
     KiwoomOpenApiPlusService_pb2_grpc,
 )
+from koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusConditionEventHandler import (
+    KiwoomOpenApiPlusConditionEventHandler,
+)
 from koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlers import (
     KiwoomOpenApiPlusAllEventHandler,
-    KiwoomOpenApiPlusAllOrderEventHandler,
-    KiwoomOpenApiPlusBidirectionalRealEventHandler,
-    KiwoomOpenApiPlusConditionEventHandler,
-    KiwoomOpenApiPlusKwTrEventHandler,
-    KiwoomOpenApiPlusLoadConditionEventHandler,
-    KiwoomOpenApiPlusLoginEventHandler,
-    KiwoomOpenApiPlusOrderEventHandler,
-    KiwoomOpenApiPlusRealEventHandler,
     KiwoomOpenApiPlusSomeBidirectionalEventHandler,
     KiwoomOpenApiPlusSomeEventHandler,
+)
+from koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusKwTrEventHandler import (
+    KiwoomOpenApiPlusKwTrEventHandler,
+)
+from koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusLoadConditionEventHandler import (
+    KiwoomOpenApiPlusLoadConditionEventHandler,
+)
+from koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusLoginEventHandler import (
+    KiwoomOpenApiPlusLoginEventHandler,
+)
+from koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusOrderEventHandler import (
+    KiwoomOpenApiPlusAllOrderEventHandler,
+    KiwoomOpenApiPlusOrderEventHandler,
+)
+from koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler import (
+    KiwoomOpenApiPlusBidirectionalRealEventHandler,
+    KiwoomOpenApiPlusRealEventHandler,
+)
+from koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusTrEventHandler import (
     KiwoomOpenApiPlusTrEventHandler,
 )
 from koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceMessageUtils import (
@@ -46,6 +60,8 @@ class KiwoomOpenApiPlusServiceServicer(
     def screen_manager(self):
         return self._screen_manager
 
+    # 1. rpcs for general function calls
+
     def Call(self, request, context):
         name = request.name
         arguments = convert_arguments_from_protobuf_to_python(request.arguments)
@@ -65,6 +81,8 @@ class KiwoomOpenApiPlusServiceServicer(
             )
         return response
 
+    # 2. rpcs for listening and handling events
+
     def Listen(self, request, context):
         with KiwoomOpenApiPlusSomeEventHandler(
             self.control, request, context
@@ -78,6 +96,75 @@ class KiwoomOpenApiPlusServiceServicer(
         ) as handler:
             for response in handler:
                 yield response
+
+    # 3. rpcs for simple use cases that can be categorized into serveral distinct usage patterns
+
+    def LoginCall(self, request, context):
+        with KiwoomOpenApiPlusLoginEventHandler(
+            self.control, request, context
+        ) as handler:
+            for response in handler:
+                yield response
+
+    def TransactionCall(self, request, context):
+        trcode = request.transaction_code.upper()
+
+        if trcode in ["OPTKWFID", "OPTFOFID"]:
+            handler = KiwoomOpenApiPlusKwTrEventHandler(
+                self.control, request, context, self.screen_manager
+            )
+        else:
+            handler = KiwoomOpenApiPlusTrEventHandler(
+                self.control, request, context, self.screen_manager
+            )
+
+        with handler:
+            for response in handler:
+                yield response
+
+    def OrderCall(self, request, context):
+        with KiwoomOpenApiPlusOrderEventHandler(
+            self.control, request, context, self.screen_manager
+        ) as handler:
+            for response in handler:
+                yield response
+
+    def RealCall(self, request, context):
+        with KiwoomOpenApiPlusRealEventHandler(
+            self.control, request, context, self.screen_manager
+        ) as handler:
+            for response in handler:
+                yield response
+
+    def LoadConditionCall(self, request, context):
+        with KiwoomOpenApiPlusLoadConditionEventHandler(
+            self.control, request, context
+        ) as handler:
+            for response in handler:
+                yield response
+
+    def ConditionCall(self, request, context):
+        with KiwoomOpenApiPlusConditionEventHandler(
+            self.control, request, context, self.screen_manager
+        ) as handler:
+            for response in handler:
+                yield response
+
+    # 4. rpcs for more complex use cases based on the previously categorized simple cases above
+
+    def BidirectionalRealCall(self, request_iterator, context):
+        with KiwoomOpenApiPlusBidirectionalRealEventHandler(
+            self.control, request_iterator, context, self.screen_manager
+        ) as handler:
+            for response in handler:
+                yield response
+
+    def OrderListen(self, request, context):
+        with KiwoomOpenApiPlusAllOrderEventHandler(self.control, context) as handler:
+            for response in handler:
+                yield response
+
+    # 5. rpcs for customized usage scenario (when there is no proper predefined interface to utilize)
 
     def CustomListen(self, request, context):
         code = request.code
@@ -136,68 +223,7 @@ class KiwoomOpenApiPlusServiceServicer(
                 response.listen_response = listen_response
                 yield response
 
-    def LoginCall(self, request, context):
-        with KiwoomOpenApiPlusLoginEventHandler(
-            self.control, request, context
-        ) as handler:
-            for response in handler:
-                yield response
-
-    def TransactionCall(self, request, context):
-        trcode = request.transaction_code.upper()
-
-        if trcode in ["OPTKWFID", "OPTFOFID"]:
-            handler = KiwoomOpenApiPlusKwTrEventHandler(
-                self.control, request, context, self.screen_manager
-            )
-        else:
-            handler = KiwoomOpenApiPlusTrEventHandler(
-                self.control, request, context, self.screen_manager
-            )
-
-        with handler:
-            for response in handler:
-                yield response
-
-    def OrderCall(self, request, context):
-        with KiwoomOpenApiPlusOrderEventHandler(
-            self.control, request, context, self.screen_manager
-        ) as handler:
-            for response in handler:
-                yield response
-
-    def RealCall(self, request, context):
-        with KiwoomOpenApiPlusRealEventHandler(
-            self.control, request, context, self.screen_manager
-        ) as handler:
-            for response in handler:
-                yield response
-
-    def LoadConditionCall(self, request, context):
-        with KiwoomOpenApiPlusLoadConditionEventHandler(
-            self.control, request, context
-        ) as handler:
-            for response in handler:
-                yield response
-
-    def ConditionCall(self, request, context):
-        with KiwoomOpenApiPlusConditionEventHandler(
-            self.control, request, context, self.screen_manager
-        ) as handler:
-            for response in handler:
-                yield response
-
-    def BidirectionalRealCall(self, request_iterator, context):
-        with KiwoomOpenApiPlusBidirectionalRealEventHandler(
-            self.control, request_iterator, context, self.screen_manager
-        ) as handler:
-            for response in handler:
-                yield response
-
-    def OrderListen(self, request, context):
-        with KiwoomOpenApiPlusAllOrderEventHandler(self.control, context) as handler:
-            for response in handler:
-                yield response
+    # 6. rpcs for other mics scenarios
 
     def SetLogLevel(self, request, context):
         level = request.level

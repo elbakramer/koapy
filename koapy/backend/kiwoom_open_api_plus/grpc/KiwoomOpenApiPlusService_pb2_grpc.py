@@ -29,16 +29,6 @@ class KiwoomOpenApiPlusServiceStub(object):
                 request_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.BidirectionalListenRequest.SerializeToString,
                 response_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.FromString,
                 )
-        self.CustomListen = channel.unary_stream(
-                '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomListen',
-                request_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenRequest.SerializeToString,
-                response_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.FromString,
-                )
-        self.CustomCallAndListen = channel.unary_stream(
-                '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomCallAndListen',
-                request_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenRequest.SerializeToString,
-                response_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenResponse.FromString,
-                )
         self.LoginCall = channel.unary_stream(
                 '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/LoginCall',
                 request_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.LoginRequest.SerializeToString,
@@ -79,6 +69,16 @@ class KiwoomOpenApiPlusServiceStub(object):
                 request_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenRequest.SerializeToString,
                 response_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.FromString,
                 )
+        self.CustomListen = channel.unary_stream(
+                '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomListen',
+                request_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenRequest.SerializeToString,
+                response_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.FromString,
+                )
+        self.CustomCallAndListen = channel.unary_stream(
+                '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomCallAndListen',
+                request_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenRequest.SerializeToString,
+                response_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenResponse.FromString,
+                )
         self.SetLogLevel = channel.unary_unary(
                 '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/SetLogLevel',
                 request_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.SetLogLevelRequest.SerializeToString,
@@ -90,85 +90,132 @@ class KiwoomOpenApiPlusServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Call(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """1. rpcs for general function calls
+        unary rpc for an arbitrary function call
+        can invoke arbitrary function on the server side by giving its name and arguments
+        currently only simple data types like str and int are supported for arguments and return values
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def Listen(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """2. rpcs for listening and handling events
+        server streaming rpc usually for listening events
+        server will simply send stream items to client whenever event that is being listened is triggered
+        client can handle those events solely on its own on client side but there is no guarantee that it will be synced with the server
+        which means that event handler on the server side will not wait for the client to finish handling each event
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def BidirectionalListen(self, request_iterator, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def CustomListen(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def CustomCallAndListen(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """bidirectional streaming rpc usually for listening and handling events with proper callbacks
+        server will send an stream item to client whenever an event is triggered and will wait for an client's ack
+        so that following callbacks from the client can actually be processed inside the server's event handler context
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def LoginCall(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """3. rpcs for simple use cases that can be categorized into serveral distinct usage patterns
+        server streaming rpc for login/connect scenario
+        would invoke Connect() and wait for OnEventConnect() event to test its success
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def TransactionCall(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """server streaming rpc for general transaction requests
+        would invoke CommRqData() with several SetInputValue()s for a transaction request
+        would wait for OnReceiveTrData() events
+        would handle those events to gather results by invoking GetRepeatCnt() and GetCommData() inside
+        might do additional CommRqData() and SetInputValue() inside event handler for possible consecutive lookups
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def OrderCall(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """server streaming rpc for making orders (buy/sell + update/cancel)
+        would invoke SendOrder() for submitting an order
+        would wait for OnReceiveTrData() and OnReceiveChejanData() events to track its progress
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def RealCall(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """server streaming rpc for listening realtime data events
+        certain transaction requests would also register some realtime data to be sent
+        but usually would just call SetRealReg() to register desired realtime data to listen explicitly
+        and would call SetRealRemove() to unregister them after done using
+        would wait for OnReceiveRealData() events
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def LoadConditionCall(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """server streaming rpc for loading condition settings for conditioned search
+        would call GetConditionLoad() and wait for OnReceiveConditionVer() event to test its success
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ConditionCall(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """server streaming rpc for conditioned search (serching stocks with serveral conditions)
+        would call SendCondition() and wait for OnReceiveTrCondition() or OnReceiveRealCondition() based on its requested type
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def BidirectionalRealCall(self, request_iterator, context):
-        """Missing associated documentation comment in .proto file."""
+        """4. rpcs for more complex use cases based on the previously categorized simple cases above
+        bidirectional streaming rpc for listening realtime data events
+        with capability of managing observation pool (what stocks, what fields to listen to) online
+        those management requests would be sent over the client streaming line
+        and ordinary realtime data events would be sent over the server streaming line
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def OrderListen(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """server streaming rpc for just listening order events (without submiting any order request compared to the simple case)
+        this is one-sided streaming rpc (server streaming rpc) like Listen() rpc
+        so server would just send stream items with no consideration on coordination with its client
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CustomListen(self, request, context):
+        """5. rpcs for customized usage scenario (when there is no proper predefined interface to utilize)
+        pretty much similar to server streaming Listen() rpc
+        but event handler would be instantiated dynamically based on the code given through the request
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CustomCallAndListen(self, request, context):
+        """pretty much similar to server streaming XXXCall() rpcs (or even Call() rpc)
+        but event handler would be instantiated dynamically based on the code given through the request
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def SetLogLevel(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """6. rpcs for other mics scenarios
+        would update log level of process that this grpc server lives
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -190,16 +237,6 @@ def add_KiwoomOpenApiPlusServiceServicer_to_server(servicer, server):
                     servicer.BidirectionalListen,
                     request_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.BidirectionalListenRequest.FromString,
                     response_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.SerializeToString,
-            ),
-            'CustomListen': grpc.unary_stream_rpc_method_handler(
-                    servicer.CustomListen,
-                    request_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenRequest.FromString,
-                    response_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.SerializeToString,
-            ),
-            'CustomCallAndListen': grpc.unary_stream_rpc_method_handler(
-                    servicer.CustomCallAndListen,
-                    request_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenRequest.FromString,
-                    response_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenResponse.SerializeToString,
             ),
             'LoginCall': grpc.unary_stream_rpc_method_handler(
                     servicer.LoginCall,
@@ -240,6 +277,16 @@ def add_KiwoomOpenApiPlusServiceServicer_to_server(servicer, server):
                     servicer.OrderListen,
                     request_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenRequest.FromString,
                     response_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.SerializeToString,
+            ),
+            'CustomListen': grpc.unary_stream_rpc_method_handler(
+                    servicer.CustomListen,
+                    request_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenRequest.FromString,
+                    response_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.SerializeToString,
+            ),
+            'CustomCallAndListen': grpc.unary_stream_rpc_method_handler(
+                    servicer.CustomCallAndListen,
+                    request_deserializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenRequest.FromString,
+                    response_serializer=koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenResponse.SerializeToString,
             ),
             'SetLogLevel': grpc.unary_unary_rpc_method_handler(
                     servicer.SetLogLevel,
@@ -304,40 +351,6 @@ class KiwoomOpenApiPlusService(object):
         return grpc.experimental.stream_stream(request_iterator, target, '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/BidirectionalListen',
             koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.BidirectionalListenRequest.SerializeToString,
             koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def CustomListen(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomListen',
-            koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenRequest.SerializeToString,
-            koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def CustomCallAndListen(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomCallAndListen',
-            koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenRequest.SerializeToString,
-            koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -474,6 +487,40 @@ class KiwoomOpenApiPlusService(object):
         return grpc.experimental.unary_stream(request, target, '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/OrderListen',
             koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenRequest.SerializeToString,
             koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CustomListen(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomListen',
+            koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenRequest.SerializeToString,
+            koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.ListenResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CustomCallAndListen(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomCallAndListen',
+            koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenRequest.SerializeToString,
+            koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2.CallAndListenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
