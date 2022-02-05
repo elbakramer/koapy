@@ -225,6 +225,12 @@ class KiwoomOpenApiPlusServiceClientStubCoreWrapper(
     def LoadCondition(self):
         return self._LoadConditionUsingCall()
 
+    def _IsConditionLoadedUsingCall(self):
+        return self.Call("IsConditionLoaded")
+
+    def IsConditionLoaded(self):
+        return self._IsConditionLoadedUsingCall()
+
     def _EnsureConditionLoadedUsingCall(self, force=False):
         return self.Call("EnsureConditionLoaded", force)
 

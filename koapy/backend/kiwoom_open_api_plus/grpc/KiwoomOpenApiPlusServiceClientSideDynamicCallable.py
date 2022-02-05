@@ -22,10 +22,10 @@ class KiwoomOpenApiPlusServiceClientSideDynamicCallable:
     def _unpack_response(cls, response):
         if response.return_value.HasField("string_value"):
             return response.return_value.string_value
-        elif response.return_value.HasField("long_value"):
-            return response.return_value.long_value
         elif response.return_value.HasField("bool_value"):
             return response.return_value.bool_value
+        elif response.return_value.HasField("long_value"):
+            return response.return_value.long_value
         else:
             return None
 

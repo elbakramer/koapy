@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import contextlib
 import json
-import os
 
+from os import PathLike
+from pathlib import Path
 from typing import BinaryIO, Dict, List, Optional, TextIO, Union
 
 import pandas as pd
@@ -18,9 +19,9 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
 
         __outer_class__ = None
 
-        FID_DUMP_FILEDIR = os.path.join(os.path.dirname(__file__), "../data/metadata")
+        FID_DUMP_FILEDIR = Path(__file__).parent.parent / "data/metadata"
         FID_DUMP_FILENAME = "fid.xlsx"
-        FID_DUMP_FILEPATH = os.path.join(FID_DUMP_FILEDIR, FID_DUMP_FILENAME)
+        FID_DUMP_FILEPATH = FID_DUMP_FILEDIR / FID_DUMP_FILENAME
 
         FID_BY_FID: Dict[int, KiwoomOpenApiPlusRealType.Fid] = {}
         FID_BY_NAME: Dict[str, KiwoomOpenApiPlusRealType.Fid] = {}
@@ -45,7 +46,9 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
             return False
 
         @classmethod
-        def fids_from_dump_file(cls, dump_file: Optional[str] = None) -> Dict[int, str]:
+        def fids_from_dump_file(
+            cls, dump_file: Optional[Union[str, PathLike]] = None
+        ) -> Dict[int, str]:
             if dump_file is None:
                 dump_file = cls.FID_DUMP_FILEPATH
             df = pd.read_excel(dump_file)
@@ -53,7 +56,7 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
             return fids
 
         @classmethod
-        def load_from_dump_file(cls, dump_file: Optional[str] = None):
+        def load_from_dump_file(cls, dump_file: Optional[Union[str, PathLike]] = None):
             fids = cls.fids_from_dump_file(dump_file)
             cls.FID_BY_FID = {fid.fid: fid for fid in fids}
             cls.FID_BY_NAME = {fid.name: fid for fid in fids}
@@ -78,12 +81,10 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
             fid = cls.from_fid(fid)
             return fid.name if fid else default
 
-    REALTYPE_BY_DESC_DUMP_FILEDIR = os.path.join(
-        os.path.dirname(__file__), "../data/metadata"
-    )
+    REALTYPE_BY_DESC_DUMP_FILEDIR = Path(__file__).parent.parent / "data/metadata"
     REALTYPE_BY_DESC_DUMP_FILENAME = "realtype_by_desc.json"
-    REALTYPE_BY_DESC_DUMP_FILEPATH = os.path.join(
-        REALTYPE_BY_DESC_DUMP_FILEDIR, REALTYPE_BY_DESC_DUMP_FILENAME
+    REALTYPE_BY_DESC_DUMP_FILEPATH = (
+        REALTYPE_BY_DESC_DUMP_FILEDIR / REALTYPE_BY_DESC_DUMP_FILENAME
     )
 
     REALTYPE_BY_DESC: Dict[str, KiwoomOpenApiPlusRealType] = {}
@@ -120,42 +121,62 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
         return False
 
     @classmethod
-    def get_realtype_info_by_realtype_name(
-        cls, realtype: str
+    def get_realtype_name_list(cls):
+        return list(cls.REALTYPE_BY_DESC.keys())
+
+    @classmethod
+    def get_realtype_info_list(cls):
+        return list(cls.REALTYPE_BY_DESC.values())
+
+    @classmethod
+    def get_realtype_info_by_desc(
+        cls, desc: str
     ) -> Optional[KiwoomOpenApiPlusRealType]:
-        return cls.REALTYPE_BY_DESC.get(realtype)
+        return cls.REALTYPE_BY_DESC.get(desc)
+
+    @classmethod
+    def get_realtype_info_by_name(
+        cls, name: str
+    ) -> Optional[KiwoomOpenApiPlusRealType]:
+        return cls.get_realtype_info_by_desc(name)
+
+    @classmethod
+    def get_realtype_info_by_realtype_name(
+        cls, name: str
+    ) -> Optional[KiwoomOpenApiPlusRealType]:
+        return cls.get_realtype_info_by_name(name)
 
     @classmethod
     def from_name(cls, name: str) -> Optional[KiwoomOpenApiPlusRealType]:
-        return cls.get_realtype_info_by_realtype_name(name)
+        return cls.get_realtype_info_by_name(name)
 
     @classmethod
-    def get_fids_by_realtype_name(cls, realtype: str) -> Optional[List[int]]:
-        result = cls.get_realtype_info_by_realtype_name(realtype)
+    def get_fids_by_realtype_name(cls, name: str) -> Optional[List[int]]:
+        result = cls.get_realtype_info_by_realtype_name(name)
         if result is not None:
             return result.fids
         return None
 
     @classmethod
-    def get_fids_by_realtype_name_as_string(cls, realtype: str) -> Optional[str]:
-        fids = cls.get_fids_by_realtype_name(realtype)
+    def get_fids_by_realtype_name_as_string(cls, name: str) -> Optional[str]:
+        fids = cls.get_fids_by_realtype_name(name)
         if fids is not None:
             fids = [str(fid) for fid in fids]
             fids = ";".join(fids)
         return fids
 
     @classmethod
-    def get_field_names_by_realtype_name(cls, realtype: str) -> Optional[List[str]]:
-        fids = cls.get_fids_by_realtype_name(realtype)
+    def get_field_names_by_realtype_name(cls, name: str) -> Optional[List[str]]:
+        fids = cls.get_fids_by_realtype_name(name)
+        names = None
         if fids is not None:
             names = [cls.Fid.get_name_by_fid(fid, str(fid)) for fid in fids]
-            return names
-        return None
+        return names
 
     @classmethod
     def realtypes_from_datfile(
         cls,
-        dat_file: Optional[Union[str, BinaryIO]] = None,
+        dat_file: Optional[Union[str, PathLike, BinaryIO]] = None,
         encoding: Optional[str] = None,
         module_path: Optional[str] = None,
     ) -> List[KiwoomOpenApiPlusRealType]:
@@ -166,7 +187,10 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
                 )
 
                 module_path = API_MODULE_PATH
-            dat_file = os.path.join(module_path, "data", "nkrealtime.dat")
+            dat_file = module_path / "data" / "nkrealtime.dat"
+
+        if isinstance(dat_file, str):
+            dat_file = Path(dat_file)
 
         if encoding is None:
             encoding = "euc-kr"
@@ -177,7 +201,7 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
         fid_width = 5
 
         with contextlib.ExitStack() as stack:
-            if isinstance(dat_file, str):
+            if isinstance(dat_file, Path):
                 if debug:
                     cls.logger.debug("Reading file %s", dat_file)
                 dat_file = open(dat_file, "rb")
@@ -212,7 +236,7 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
 
     @classmethod
     def realtype_by_desc_from_datfile(
-        cls, dat_file: Optional[Union[str, BinaryIO]] = None
+        cls, dat_file: Optional[Union[str, PathLike, BinaryIO]] = None
     ) -> Dict[str, KiwoomOpenApiPlusRealType]:
         realtypes = cls.realtypes_from_datfile(dat_file)
         result = {realtype.desc: realtype for realtype in realtypes}
@@ -221,14 +245,16 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
     @classmethod
     def dump_realtype_by_desc(
         cls,
-        dump_file: Optional[Union[str, TextIO]] = None,
-        dat_file: Optional[Union[str, BinaryIO]] = None,
+        dump_file: Optional[Union[str, PathLike, TextIO]] = None,
+        dat_file: Optional[Union[str, PathLike, BinaryIO]] = None,
         encoding: Optional[str] = None,
     ):
         if dump_file is None:
             dump_file = cls.REALTYPE_BY_DESC_DUMP_FILEPATH
+        if isinstance(dump_file, str):
+            dump_file = Path(dump_file)
         with contextlib.ExitStack() as stack:
-            if isinstance(dump_file, str):
+            if isinstance(dump_file, PathLike):
                 dump_filename = dump_file
                 if encoding is None:
                     encoding = default_encoding
@@ -252,14 +278,16 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
     @classmethod
     def realtype_by_desc_from_dump_file(
         cls,
-        dump_file: Optional[Union[str, TextIO]] = None,
+        dump_file: Optional[Union[str, PathLike, TextIO]] = None,
         encoding: Optional[str] = None,
     ) -> Dict[str, KiwoomOpenApiPlusRealType]:
         if dump_file is None:
             dump_file = cls.REALTYPE_BY_DESC_DUMP_FILEPATH
+        if isinstance(dump_file, str):
+            dump_file = Path(dump_file)
         with contextlib.ExitStack() as stack:
-            if isinstance(dump_file, str):
-                if os.path.exists(dump_file) and os.path.getsize(dump_file) > 0:
+            if isinstance(dump_file, PathLike):
+                if dump_file.exists() and dump_file.stat().st_size > 0:
                     if encoding is None:
                         encoding = default_encoding
                     dump_file = open(dump_file, "r", encoding=encoding)
@@ -272,12 +300,16 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
         return result
 
     @classmethod
-    def load_from_dump_file(cls, dump_file: Optional[Union[str, TextIO]] = None):
+    def load_from_dump_file(
+        cls, dump_file: Optional[Union[str, PathLike, TextIO]] = None
+    ):
         cls.REALTYPE_BY_DESC = cls.realtype_by_desc_from_dump_file(dump_file)
         cls.Fid.load_from_dump_file()
 
     @classmethod
-    def load_from_datfile(cls, dat_file: Optional[Union[str, BinaryIO]] = None):
+    def load_from_datfile(
+        cls, dat_file: Optional[Union[str, PathLike, BinaryIO]] = None
+    ):
         cls.REALTYPE_BY_DESC = cls.realtype_by_desc_from_datfile(dat_file)
         cls.Fid.load_from_dump_file()
 

@@ -1,10 +1,9 @@
-import os
 import subprocess
 import sys
 
 from os import PathLike
 from pathlib import Path
-from typing import Any, Mapping, Optional
+from typing import Any, Mapping, Optional, Union
 
 from pyhocon import ConfigFactory
 from pyhocon.config_tree import ConfigTree
@@ -19,16 +18,14 @@ Config = ConfigTree
 # Paths related to default config file
 # bundled with this package for fallback
 default_config_filename = "config.conf"
-default_config_file_directory = os.path.dirname(os.path.realpath(__file__))
-default_config_filepath = os.path.join(
-    default_config_file_directory, default_config_filename
-)
+default_config_file_directory = Path(__file__).parent
+default_config_filepath = default_config_file_directory / default_config_filename
 
 
 # Paths related to user config file
 # for use customization
-current_working_directory = os.getcwd()
-home_directory = os.path.expanduser("~")
+current_working_directory = Path.cwd()
+home_directory = Path.home()
 
 default_user_config_filename = "koapy.conf"
 
@@ -37,10 +34,7 @@ user_config_filename_cadidates = [
     "." + default_user_config_filename,
 ]
 
-default_user_config_filepath = os.path.join(
-    home_directory,
-    default_user_config_filename,
-)
+default_user_config_filepath = home_directory / default_user_config_filename
 
 
 # Default encoding for all file read/writes across this package
@@ -49,11 +43,13 @@ default_encoding = "utf-8"
 
 # Function for reading configs
 def read_config(
-    filename: Optional[PathLike] = None,
+    filename: Optional[Union[PathLike, str]] = None,
     encoding: Optional[str] = None,
 ) -> Config:
     if filename is None:
         filename = default_user_config_filepath
+    if isinstance(filename, str):
+        filename = Path(filename)
     if encoding is None:
         encoding = default_encoding
     # pylint: disable=redefined-outer-name
@@ -80,11 +76,11 @@ default_config = read_config(default_config_filepath)
 
 # Search for a user config file in a given directory
 def find_user_config_file_in(
-    searching_directory: Optional[PathLike] = None,
+    searching_directory: Optional[Union[PathLike, str]] = None,
 ) -> Optional[Path]:
     if searching_directory is None:
         # pylint: disable=redefined-outer-name
-        current_working_directory = os.getcwd()
+        current_working_directory = Path.cwd()
         searching_directory = current_working_directory
     searching_directory_path = Path(searching_directory).resolve()
     for config_filename in user_config_filename_cadidates:
@@ -95,11 +91,11 @@ def find_user_config_file_in(
 
 # Search for a user config file from a given directory to the root directory
 def find_user_config_file_from(
-    starting_directory: Optional[PathLike] = None,
+    starting_directory: Optional[Union[PathLike, str]] = None,
 ) -> Optional[Path]:
     if starting_directory is None:
         # pylint: disable=redefined-outer-name
-        current_working_directory = os.getcwd()
+        current_working_directory = Path.cwd()
         starting_directory = current_working_directory
     searching_directory_path = Path(starting_directory).resolve()
     should_stop = False
@@ -136,7 +132,9 @@ def set_user_config(c: Config) -> Config:
 
 
 # Function for config initialization
-def initialize_config_from_given_path(filename: Optional[PathLike] = None) -> bool:
+def initialize_config_from_given_path(
+    filename: Optional[Union[PathLike, str]] = None
+) -> bool:
     user_config_filepath: Optional[PathLike] = None
     initialized = False
 
@@ -211,7 +209,7 @@ def dump_config(
 
 # Save config to file
 def save_config(
-    filename: PathLike,
+    filename: Union[PathLike, str],
     config: Optional[Config] = None,
     compact: bool = False,
     indent: int = 4,
@@ -229,7 +227,7 @@ def save_config(
 
 # Save user config to file (without default fallbacks)
 def save_user_config(
-    filename: Optional[PathLike] = None,
+    filename: Optional[Union[PathLike, str]] = None,
     user_config: Optional[Config] = None,
     compact: bool = False,
     indent: int = 4,

@@ -69,9 +69,11 @@ class KiwoomOpenApiPlusServiceServicer(
         result = function(*arguments)
         response = KiwoomOpenApiPlusService_pb2.CallResponse()
         if isinstance(result, str):
-            response.return_value.string_value = result  # pylint: disable=no-member
+            response.return_value.string_value = result
+        elif isinstance(result, bool):
+            response.return_value.bool_value = result
         elif isinstance(result, int):
-            response.return_value.long_value = result  # pylint: disable=no-member
+            response.return_value.long_value = result
         elif result is None:
             pass
         else:

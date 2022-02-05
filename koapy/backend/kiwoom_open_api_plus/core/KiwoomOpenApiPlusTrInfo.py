@@ -3,9 +3,10 @@ from __future__ import annotations
 import contextlib
 import io
 import json
-import os
 import zipfile
 
+from os import PathLike
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, TextIO, Union
 
 from koapy.config import debug, default_encoding
@@ -15,12 +16,10 @@ from koapy.utils.serialization import JsonSerializable
 
 class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
 
-    TRINFO_BY_CODE_DUMP_FILEDIR = os.path.join(
-        os.path.dirname(__file__), "../data/metadata"
-    )
+    TRINFO_BY_CODE_DUMP_FILEDIR = Path(__file__).parent.parent / "data/metadata"
     TRINFO_BY_CODE_DUMP_FILENAME = "trinfo_by_code.json"
-    TRINFO_BY_CODE_DUMP_FILEPATH = os.path.join(
-        TRINFO_BY_CODE_DUMP_FILEDIR, TRINFO_BY_CODE_DUMP_FILENAME
+    TRINFO_BY_CODE_DUMP_FILEPATH = (
+        TRINFO_BY_CODE_DUMP_FILEDIR / TRINFO_BY_CODE_DUMP_FILENAME
     )
 
     TRINFO_BY_CODE: Dict[str, KiwoomOpenApiPlusTrInfo] = {}
@@ -149,6 +148,14 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         return [output.name for output in self.multi_outputs]
 
     @classmethod
+    def get_trcode_list(cls) -> List[str]:
+        return list(cls.TRINFO_BY_CODE.keys())
+
+    @classmethod
+    def get_trinfo_list(cls) -> List[KiwoomOpenApiPlusTrInfo]:
+        return list(cls.TRINFO_BY_CODE.values())
+
+    @classmethod
     def get_trinfo_by_code(cls, trcode: str) -> Optional[KiwoomOpenApiPlusTrInfo]:
         return cls.TRINFO_BY_CODE.get(trcode.lower())
 
@@ -159,18 +166,20 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     @classmethod
     def from_encfile(
         cls,
-        f: Union[str, TextIO],
+        f: Union[str, PathLike, TextIO],
         tr_code: Optional[str] = None,
         encoding: Optional[str] = None,
     ) -> KiwoomOpenApiPlusTrInfo:
         with contextlib.ExitStack() as stack:
             if isinstance(f, str):
+                f = Path(f)
+            if isinstance(f, PathLike):
                 filename = f
                 if encoding is None:
                     encoding = "euc-kr"
                 f = open(filename, "r", encoding=encoding)
                 f = stack.enter_context(f)
-                tr_code = os.path.splitext(filename.lower())[0]
+                tr_code = filename.stem.lower()
             elif tr_code is None:
                 raise ValueError("Argument tr_code should be given.")
 
@@ -264,7 +273,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     @classmethod
     def infos_from_data_dir(
         cls,
-        data_dir: Optional[str] = None,
+        data_dir: Optional[Union[str, PathLike]] = None,
         encoding: Optional[str] = None,
         module_path: Optional[str] = None,
     ) -> List[KiwoomOpenApiPlusTrInfo]:
@@ -275,12 +284,18 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                 )
 
                 module_path = API_MODULE_PATH
-            data_dir = os.path.join(module_path, "data")
+            data_dir = module_path / "data"
+
+        if isinstance(data_dir, str):
+            data_dir = Path(data_dir)
+
         if encoding is None:
             encoding = "euc-kr"
+
         if debug:
             cls.logger.debug("Reading files under %s", data_dir)
-        enc_filenames = [filename.lower() for filename in os.listdir(data_dir)]
+
+        enc_filenames = [filename.name.lower() for filename in data_dir.iterdir()]
         enc_filenames = [
             filename
             for filename in enc_filenames
@@ -288,11 +303,11 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         ]
         results = []
         for filename in enc_filenames:
-            full_filename = os.path.join(data_dir, filename)
+            full_filename = data_dir / filename
             with zipfile.ZipFile(full_filename) as z:
                 for info in z.infolist():
                     inner_filename = info.filename
-                    tr_code = os.path.splitext(inner_filename.lower())[0]
+                    tr_code = Path(inner_filename).stem.lower()
                     if debug:
                         cls.logger.debug(
                             "Reading file %s inside %s", inner_filename, full_filename
@@ -327,7 +342,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
 
     @classmethod
     def trinfo_by_code_from_data_dir(
-        cls, data_dir: Optional[str] = None, post_process: bool = True
+        cls, data_dir: Optional[Union[str, PathLike]] = None, post_process: bool = True
     ) -> Dict[str, KiwoomOpenApiPlusTrInfo]:
         infos = cls.infos_from_data_dir(data_dir)
         result = {info.tr_code: info for info in infos}
@@ -342,7 +357,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     @classmethod
     def dump_trinfo_by_code(
         cls,
-        dump_file: Optional[Union[str, TextIO]] = None,
+        dump_file: Optional[Union[str, PathLike, TextIO]] = None,
         data_dir: Optional[str] = None,
         encoding: Optional[str] = None,
     ):
@@ -350,6 +365,8 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             dump_file = cls.TRINFO_BY_CODE_DUMP_FILEPATH
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
+                dump_file = Path(dump_file)
+            if isinstance(dump_file, PathLike):
                 dump_filename = dump_file
                 if encoding is None:
                     encoding = default_encoding
@@ -373,14 +390,16 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     @classmethod
     def trinfo_by_code_from_dump_file(
         cls,
-        dump_file: Optional[Union[str, TextIO]] = None,
+        dump_file: Optional[Union[str, PathLike, TextIO]] = None,
         encoding: Optional[str] = None,
     ) -> Dict[str, KiwoomOpenApiPlusTrInfo]:
         if dump_file is None:
             dump_file = cls.TRINFO_BY_CODE_DUMP_FILEPATH
         with contextlib.ExitStack() as stack:
             if isinstance(dump_file, str):
-                if os.path.exists(dump_file) and os.path.getsize(dump_file) > 0:
+                dump_file = Path(dump_file)
+            if isinstance(dump_file, PathLike):
+                if dump_file.exists() and dump_file.stat().st_size > 0:
                     if encoding is None:
                         encoding = default_encoding
                     dump_file = open(dump_file, "r", encoding=encoding)
@@ -394,11 +413,13 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         return result
 
     @classmethod
-    def load_from_dump_file(cls, dump_file: Optional[Union[str, TextIO]] = None):
+    def load_from_dump_file(
+        cls, dump_file: Optional[Union[str, PathLike, TextIO]] = None
+    ):
         cls.TRINFO_BY_CODE = cls.trinfo_by_code_from_dump_file(dump_file)
 
     @classmethod
-    def load_from_data_dir(cls, data_dir: Optional[str] = None):
+    def load_from_data_dir(cls, data_dir: Optional[Union[str, PathLike]] = None):
         cls.TRINFO_BY_CODE = cls.trinfo_by_code_from_data_dir(data_dir)
 
     @classmethod
