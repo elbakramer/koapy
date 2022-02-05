@@ -87,14 +87,13 @@ class KiwoomOpenApiPlusConditionEventHandler(
             self.observer.on_next(response)  # pylint: disable=no-member
 
             if self._with_info:
-                if ";" in codelist:
+                if "^" in codelist:
                     items = string_to_list(codelist, sep=";")
                     items = [string_to_list(item, sep="^") for item in items]
                     items = [tuple(item) for item in items]
                     codes = [item[0] for item in items]
-                    prices = [item[1] for item in items]
                 else:
-                    codes = string_to_list(codelist, sep="^")
+                    codes = string_to_list(codelist, sep=";")
                 KiwoomOpenApiPlusError.try_or_raise(
                     self.control.RateLimitedCommKwRqData.async_call(
                         codelist,
