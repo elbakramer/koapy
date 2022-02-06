@@ -10,11 +10,13 @@ Subpackages
    :titlesonly:
    :maxdepth: 3
 
-   configure/index.rst
+   disable/index.rst
+   enable/index.rst
    generate/index.rst
    get/index.rst
    install/index.rst
    serve/index.rst
+   show/index.rst
    uninstall/index.rst
    update/index.rst
 

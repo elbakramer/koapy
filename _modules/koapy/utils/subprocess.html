@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.utils.subprocess &#8212; KOAPY 0.6.2 documentation</title>
+    <title>koapy.utils.subprocess &#8212; KOAPY 0.7.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
@@ -202,31 +202,55 @@
     <span class="k">return</span> <span class="n">rc</span></div>
 
 
+<div class="viewcode-block" id="create_job_object_for_cleanup"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.create_job_object_for_cleanup">[docs]</a><span class="k">def</span> <span class="nf">create_job_object_for_cleanup</span><span class="p">():</span>
+    <span class="c1"># https://stackoverflow.com/questions/23434842/python-how-to-kill-child-processes-when-parent-dies/23587108#23587108s</span>
+    <span class="kn">import</span> <span class="nn">win32job</span>
+
+    <span class="n">jobAttributes</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">jobName</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">hJob</span> <span class="o">=</span> <span class="n">win32job</span><span class="o">.</span><span class="n">CreateJobObject</span><span class="p">(</span><span class="n">jobAttributes</span><span class="p">,</span> <span class="n">jobName</span><span class="p">)</span>
+    <span class="n">extendedInfo</span> <span class="o">=</span> <span class="n">win32job</span><span class="o">.</span><span class="n">QueryInformationJobObject</span><span class="p">(</span>
+        <span class="n">hJob</span><span class="p">,</span> <span class="n">win32job</span><span class="o">.</span><span class="n">JobObjectExtendedLimitInformation</span>
+    <span class="p">)</span>
+    <span class="n">basicLimitInformation</span> <span class="o">=</span> <span class="n">extendedInfo</span><span class="p">[</span><span class="s2">&quot;BasicLimitInformation&quot;</span><span class="p">]</span>
+    <span class="n">basicLimitInformation</span><span class="p">[</span><span class="s2">&quot;LimitFlags&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">win32job</span><span class="o">.</span><span class="n">JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE</span>
+    <span class="n">win32job</span><span class="o">.</span><span class="n">SetInformationJobObject</span><span class="p">(</span>
+        <span class="n">hJob</span><span class="p">,</span>
+        <span class="n">win32job</span><span class="o">.</span><span class="n">JobObjectExtendedLimitInformation</span><span class="p">,</span>
+        <span class="n">extendedInfo</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">hJob</span></div>
+
+
+<div class="viewcode-block" id="job_handle"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.job_handle">[docs]</a><span class="n">job_handle</span> <span class="o">=</span> <span class="n">create_job_object_for_cleanup</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="make_process_die_when_parent_dies"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.make_process_die_when_parent_dies">[docs]</a><span class="k">def</span> <span class="nf">make_process_die_when_parent_dies</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">pid</span> <span class="o">!=</span> <span class="mi">0</span>
+
+    <span class="c1"># https://stackoverflow.com/questions/23434842/python-how-to-kill-child-processes-when-parent-dies/23587108#23587108s</span>
+    <span class="kn">import</span> <span class="nn">win32api</span>
+    <span class="kn">import</span> <span class="nn">win32con</span>
+    <span class="kn">import</span> <span class="nn">win32job</span>
+
+    <span class="n">desiredAccess</span> <span class="o">=</span> <span class="n">win32con</span><span class="o">.</span><span class="n">PROCESS_TERMINATE</span> <span class="o">|</span> <span class="n">win32con</span><span class="o">.</span><span class="n">PROCESS_SET_QUOTA</span>
+    <span class="n">inheritHandle</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">hProcess</span> <span class="o">=</span> <span class="n">win32api</span><span class="o">.</span><span class="n">OpenProcess</span><span class="p">(</span>
+        <span class="n">desiredAccess</span><span class="p">,</span>
+        <span class="n">inheritHandle</span><span class="p">,</span>
+        <span class="n">pid</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># process will be terminated when job is destroyed</span>
+    <span class="c1"># job will be destroyed when its last handle is closed</span>
+    <span class="c1"># job handle will be closed when it loses its reference, hJob in this case</span>
+    <span class="n">hJob</span> <span class="o">=</span> <span class="n">job_handle</span>
+    <span class="n">win32job</span><span class="o">.</span><span class="n">AssignProcessToJobObject</span><span class="p">(</span><span class="n">hJob</span><span class="p">,</span> <span class="n">hProcess</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="Popen"><a class="viewcode-back" href="../../../autoapi/koapy/utils/subprocess/index.html#koapy.utils.subprocess.Popen">[docs]</a><span class="k">class</span> <span class="nc">Popen</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="c1"># https://stackoverflow.com/questions/23434842/python-how-to-kill-child-processes-when-parent-dies/23587108#23587108s</span>
-        <span class="kn">import</span> <span class="nn">win32api</span>
-        <span class="kn">import</span> <span class="nn">win32con</span>
-        <span class="kn">import</span> <span class="nn">win32job</span>
-
-        <span class="n">hJob</span> <span class="o">=</span> <span class="n">win32job</span><span class="o">.</span><span class="n">CreateJobObject</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">extendedInfo</span> <span class="o">=</span> <span class="n">win32job</span><span class="o">.</span><span class="n">QueryInformationJobObject</span><span class="p">(</span>
-            <span class="n">hJob</span><span class="p">,</span> <span class="n">win32job</span><span class="o">.</span><span class="n">JobObjectExtendedLimitInformation</span>
-        <span class="p">)</span>
-        <span class="n">extendedInfo</span><span class="p">[</span><span class="s2">&quot;BasicLimitInformation&quot;</span><span class="p">][</span>
-            <span class="s2">&quot;LimitFlags&quot;</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="n">win32job</span><span class="o">.</span><span class="n">JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE</span>
-        <span class="n">win32job</span><span class="o">.</span><span class="n">SetInformationJobObject</span><span class="p">(</span>
-            <span class="n">hJob</span><span class="p">,</span> <span class="n">win32job</span><span class="o">.</span><span class="n">JobObjectExtendedLimitInformation</span><span class="p">,</span> <span class="n">extendedInfo</span>
-        <span class="p">)</span>
-        <span class="n">perms</span> <span class="o">=</span> <span class="n">win32con</span><span class="o">.</span><span class="n">PROCESS_TERMINATE</span> <span class="o">|</span> <span class="n">win32con</span><span class="o">.</span><span class="n">PROCESS_SET_QUOTA</span>
-        <span class="n">hProcess</span> <span class="o">=</span> <span class="n">win32api</span><span class="o">.</span><span class="n">OpenProcess</span><span class="p">(</span><span class="n">perms</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span>
-        <span class="n">win32job</span><span class="o">.</span><span class="n">AssignProcessToJobObject</span><span class="p">(</span><span class="n">hJob</span><span class="p">,</span> <span class="n">hProcess</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hJob</span> <span class="o">=</span> <span class="n">hJob</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hProcess</span> <span class="o">=</span> <span class="n">hProcess</span></div>
+        <span class="n">make_process_die_when_parent_dies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span></div>
 </pre></div>
 
           </div>

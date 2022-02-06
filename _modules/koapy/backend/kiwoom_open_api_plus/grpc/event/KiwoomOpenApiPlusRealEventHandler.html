@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler &#8212; KOAPY 0.7.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/style.css" />
+    <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../_static/jquery.js"></script>
+    <script src="../../../../../../_static/underscore.js"></script>
+    <script src="../../../../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+    <meta name="google-site-verification" content="DIMzk5-2xmV7MoAYJYUGi1PGowNXA7NB8dome7s1e5k" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../index.html">KOAPY</a></h1>
+
+
+
+<p class="blurb">Kiwoom Open Api Plus Python</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=elbakramer&repo=koapy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">KOAPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../notebooks/index.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://toon.at/donate/637521884081401532">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">queue</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="kn">import</span> <span class="nn">grpc</span>
+
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">KiwoomOpenApiPlusError</span><span class="p">,</span>
+    <span class="n">KiwoomOpenApiPlusNegativeReturnCodeError</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">KiwoomOpenApiPlusRealType</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.grpc</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusService_pb2</span>
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlerForGrpc</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">KiwoomOpenApiPlusEventHandlerForGrpc</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.utils.queue.QueueBasedBufferedIterator</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QueueBasedBufferedIterator</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">koapy.utils.itertools</span> <span class="kn">import</span> <span class="n">chunk</span>
+<span class="kn">from</span> <span class="nn">koapy.utils.logging.Logging</span> <span class="kn">import</span> <span class="n">Logging</span>
+
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusRealEventHandler"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusRealEventHandler">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusRealEventHandler</span><span class="p">(</span><span class="n">KiwoomOpenApiPlusEventHandlerForGrpc</span><span class="p">,</span> <span class="n">Logging</span><span class="p">):</span>
+
+    <span class="n">_num_codes_per_screen</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">_default_opt_type</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">screen_manager</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="n">request</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_screen_manager</span> <span class="o">=</span> <span class="n">screen_manager</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_screen_no</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">screen_no</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_code_list</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">code_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">fid_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opt_type</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">opt_type</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infer_fids</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">infer_fids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_readable_names</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">readable_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fast_parse</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">fast_parse</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_code_lists</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">codes</span> <span class="k">for</span> <span class="n">codes</span> <span class="ow">in</span> <span class="n">chunk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_code_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_codes_per_screen</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_screen_no</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_screen_nos</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_code_lists</span><span class="p">))]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_screen_no</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_code_lists</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Given screen nos are not sufficient.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_screen_nos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_screen_no</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
+                <span class="kc">None</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_code_lists</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_screen_no</span><span class="p">))</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_screen_nos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen_no</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list_joined</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opt_type_final</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt_type</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_opt_type</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusRealEventHandler.on_enter"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusRealEventHandler.on_enter">[docs]</a>    <span class="k">def</span> <span class="nf">on_enter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">code_list</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_screen_nos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code_lists</span><span class="p">):</span>
+            <span class="n">code_list_joined</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code_list</span><span class="p">)</span>
+            <span class="n">screen_no</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen_manager</span><span class="o">.</span><span class="n">borrow_screen</span><span class="p">(</span><span class="n">screen_no</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_screen_manager</span><span class="o">.</span><span class="n">return_screen</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">code_list</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_callback</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">SetRealRemove</span><span class="o">.</span><span class="n">async_call</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">code</span>
+                <span class="p">)</span>
+            <span class="n">KiwoomOpenApiPlusError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">SetRealReg</span><span class="p">(</span>
+                    <span class="n">screen_no</span><span class="p">,</span>
+                    <span class="n">code_list_joined</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list_joined</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_opt_type_final</span><span class="p">,</span></div>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusRealEventHandler.OnReceiveRealData"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusRealEventHandler.OnReceiveRealData">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveRealData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">realtype</span><span class="p">,</span> <span class="n">realdata</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code_list</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusService_pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="p">()</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;OnReceiveRealData&quot;</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">add</span><span class="p">()</span><span class="o">.</span><span class="n">string_value</span> <span class="o">=</span> <span class="n">code</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">add</span><span class="p">()</span><span class="o">.</span><span class="n">string_value</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">realtype</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">add</span><span class="p">()</span><span class="o">.</span><span class="n">string_value</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">realdata</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infer_fids</span><span class="p">:</span>
+                <span class="n">fids</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_fids_by_realtype_name</span><span class="p">(</span><span class="n">realtype</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_readable_names</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">Fid</span><span class="o">.</span><span class="n">get_name_by_fid</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fid</span><span class="p">))</span>
+                    <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">fids</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">fids</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infer_fids</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fast_parse</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">realdata</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">GetCommRealData</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">fid</span><span class="p">)</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">fids</span><span class="p">]</span>
+
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+            <span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusRealEventHandler.OnEventConnect"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusRealEventHandler.OnEventConnect">[docs]</a>    <span class="k">def</span> <span class="nf">OnEventConnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errcode</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">errcode</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusNegativeReturnCodeError</span><span class="p">(</span><span class="n">errcode</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="o">.</span><span class="n">on_error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <span class="k">return</span></div></div>
+
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusBidirectionalRealEventHandler</span><span class="p">(</span>
+    <span class="n">KiwoomOpenApiPlusRealEventHandler</span><span class="p">,</span> <span class="n">Logging</span>
+<span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">,</span> <span class="n">request_iterator</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">screen_manager</span><span class="p">):</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusService_pb2</span><span class="o">.</span><span class="n">RealRequest</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">screen_manager</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator</span> <span class="o">=</span> <span class="n">request_iterator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffered_request_iterator</span> <span class="o">=</span> <span class="n">QueueBasedBufferedIterator</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list_joined</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_screen_by_code</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_code_list_by_screen</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_code_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer_should_stop</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer_timeout</span> <span class="o">=</span> <span class="mf">2.0</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.register_code"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.register_code">[docs]</a>    <span class="k">def</span> <span class="nf">register_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">fid_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen_by_code</span><span class="p">:</span>
+            <span class="n">screen_no</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen_by_code</span><span class="p">[</span><span class="n">code</span><span class="p">]</span>
+            <span class="n">opt_type</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">screen_no</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">opt_type</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+            <span class="k">for</span> <span class="p">(</span>
+                <span class="n">existing_screen_no</span><span class="p">,</span>
+                <span class="n">screen_code_list</span><span class="p">,</span>
+            <span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code_list_by_screen</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">screen_code_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_codes_per_screen</span><span class="p">:</span>
+                    <span class="n">screen_no</span> <span class="o">=</span> <span class="n">existing_screen_no</span>
+                    <span class="n">opt_type</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">screen_no</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">screen_no</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen_manager</span><span class="o">.</span><span class="n">borrow_screen</span><span class="p">()</span>
+                <span class="n">opt_type</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_screen_by_code</span><span class="p">[</span><span class="n">code</span><span class="p">]</span> <span class="o">=</span> <span class="n">screen_no</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_code_list_by_screen</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_code_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fid_list</span><span class="p">:</span>
+            <span class="n">fid_list_joined</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">fid_list</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fid_list_joined</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list_joined</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;Registering code </span><span class="si">%s</span><span class="s2"> to screen </span><span class="si">%s</span><span class="s2"> with type </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">opt_type</span>
+        <span class="p">)</span>
+        <span class="n">KiwoomOpenApiPlusError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">SetRealReg</span><span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">fid_list_joined</span><span class="p">,</span> <span class="n">opt_type</span><span class="p">)</span></div>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.remove_code"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.remove_code">[docs]</a>    <span class="k">def</span> <span class="nf">remove_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen_by_code</span><span class="p">:</span>
+            <span class="n">screen_no</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen_by_code</span><span class="p">[</span><span class="n">code</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Removing code </span><span class="si">%s</span><span class="s2"> from screen </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">SetRealRemove</span><span class="o">.</span><span class="n">async_call</span><span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_screen_by_code</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_code_list_by_screen</span><span class="p">[</span><span class="n">screen_no</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_code_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Given code </span><span class="si">%s</span><span class="s2"> is not in managed code list and cannot be removed&quot;</span><span class="p">,</span> <span class="n">code</span></div>
+            <span class="p">)</span>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.remove_all_codes"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.remove_all_codes">[docs]</a>    <span class="k">def</span> <span class="nf">remove_all_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">code_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_code_list</span>
+        <span class="p">)</span>  <span class="c1"># copy in order to prevent &quot;modification while iteration&quot;</span>
+        <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">code_list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_code</span><span class="p">(</span><span class="n">code</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.remove_all_screens"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.remove_all_screens">[docs]</a>    <span class="k">def</span> <span class="nf">remove_all_screens</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_all_codes</span><span class="p">()</span>
+        <span class="n">screen_nos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_code_list_by_screen</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">screen_no</span> <span class="ow">in</span> <span class="n">screen_nos</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">DisconnectRealData</span><span class="p">(</span>
+                <span class="n">screen_no</span>
+            <span class="p">)</span>  <span class="c1"># ensure although already removed in remove_all_codes()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_screen_manager</span><span class="o">.</span><span class="n">return_screen</span><span class="p">(</span><span class="n">screen_no</span><span class="p">)</span>
+            <span class="n">code_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code_list_by_screen</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">screen_no</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">code_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.consume_request_iterator"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.consume_request_iterator">[docs]</a>    <span class="k">def</span> <span class="nf">consume_request_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer_should_stop</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffered_request_iterator</span><span class="o">.</span><span class="n">next</span><span class="p">(</span>
+                    <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer_timeout</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">except</span> <span class="n">grpc</span><span class="o">.</span><span class="n">RpcError</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;register_request&quot;</span><span class="p">):</span>
+                    <span class="n">code_list</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">register_request</span><span class="o">.</span><span class="n">code_list</span>
+                    <span class="n">fid_list</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">register_request</span><span class="o">.</span><span class="n">fid_list</span>
+                    <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">code_list</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">register_code</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">fid_list</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;remove_request&quot;</span><span class="p">):</span>
+                    <span class="n">code_list</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">remove_request</span><span class="o">.</span><span class="n">code_list</span>
+                    <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">code_list</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">remove_code</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;stop_request&quot;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;initialize_request&quot;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">initialize_request</span><span class="o">.</span><span class="n">fid_list</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list_joined</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_infer_fids</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">initialize_request</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">infer_fids</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_infer_fids</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_readable_names</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">request</span><span class="o">.</span><span class="n">initialize_request</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">readable_names</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_fast_parse</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">initialize_request</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">fast_parse</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">remove_all_codes</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">KiwoomOpenApiPlusError</span><span class="p">(</span><span class="s2">&quot;Unexpected request&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.stop_request_iterator_consumer"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.stop_request_iterator_consumer">[docs]</a>    <span class="k">def</span> <span class="nf">stop_request_iterator_consumer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer_should_stop</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.start_request_iterator_consumer"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.start_request_iterator_consumer">[docs]</a>    <span class="k">def</span> <span class="nf">start_request_iterator_consumer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_request_iterator_consumer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer_should_stop</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">consume_request_iterator</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request_iterator_consumer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.on_enter"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.on_enter">[docs]</a>    <span class="k">def</span> <span class="nf">on_enter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_request_iterator_consumer</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.on_exit"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.on_exit">[docs]</a>    <span class="k">def</span> <span class="nf">on_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exc_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">traceback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_request_iterator_consumer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_all_screens</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.OnReceiveRealData"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.OnReceiveRealData">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveRealData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">realtype</span><span class="p">,</span> <span class="n">realdata</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code_list</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusService_pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="p">()</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;OnReceiveRealData&quot;</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">add</span><span class="p">()</span><span class="o">.</span><span class="n">string_value</span> <span class="o">=</span> <span class="n">code</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">add</span><span class="p">()</span><span class="o">.</span><span class="n">string_value</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">realtype</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">add</span><span class="p">()</span><span class="o">.</span><span class="n">string_value</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">realdata</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infer_fids</span><span class="p">:</span>
+                <span class="n">fids</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_fids_by_realtype_name</span><span class="p">(</span><span class="n">realtype</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_readable_names</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">Fid</span><span class="o">.</span><span class="n">get_name_by_fid</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fid</span><span class="p">))</span>
+                    <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">fids</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">fids</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infer_fids</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fast_parse</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">realdata</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">GetCommRealData</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">fid</span><span class="p">)</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="n">fids</span><span class="p">]</span>
+
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+            <span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Yunseong Hwang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/elbakramer/koapy" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-179490468-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

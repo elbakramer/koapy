@@ -58,11 +58,11 @@ Functions
 
          
 
-      .. py:method:: fids_from_dump_file(cls, dump_file: Optional[str] = None) -> Dict[int, str]
+      .. py:method:: fids_from_dump_file(cls, dump_file: Optional[Union[str, os.PathLike]] = None) -> Dict[int, str]
          :classmethod:
 
 
-      .. py:method:: load_from_dump_file(cls, dump_file: Optional[str] = None)
+      .. py:method:: load_from_dump_file(cls, dump_file: Optional[Union[str, os.PathLike]] = None)
          :classmethod:
 
 
@@ -99,7 +99,23 @@ Functions
 
       
 
-   .. py:method:: get_realtype_info_by_realtype_name(cls, realtype: str) -> Optional[KiwoomOpenApiPlusRealType]
+   .. py:method:: get_realtype_name_list(cls)
+      :classmethod:
+
+
+   .. py:method:: get_realtype_info_list(cls)
+      :classmethod:
+
+
+   .. py:method:: get_realtype_info_by_desc(cls, desc: str) -> Optional[KiwoomOpenApiPlusRealType]
+      :classmethod:
+
+
+   .. py:method:: get_realtype_info_by_name(cls, name: str) -> Optional[KiwoomOpenApiPlusRealType]
+      :classmethod:
+
+
+   .. py:method:: get_realtype_info_by_realtype_name(cls, name: str) -> Optional[KiwoomOpenApiPlusRealType]
       :classmethod:
 
 
@@ -107,39 +123,39 @@ Functions
       :classmethod:
 
 
-   .. py:method:: get_fids_by_realtype_name(cls, realtype: str) -> Optional[List[int]]
+   .. py:method:: get_fids_by_realtype_name(cls, name: str) -> Optional[List[int]]
       :classmethod:
 
 
-   .. py:method:: get_fids_by_realtype_name_as_string(cls, realtype: str) -> Optional[str]
+   .. py:method:: get_fids_by_realtype_name_as_string(cls, name: str) -> Optional[str]
       :classmethod:
 
 
-   .. py:method:: get_field_names_by_realtype_name(cls, realtype: str) -> Optional[List[str]]
+   .. py:method:: get_field_names_by_realtype_name(cls, name: str) -> Optional[List[str]]
       :classmethod:
 
 
-   .. py:method:: realtypes_from_datfile(cls, dat_file: Optional[Union[str, BinaryIO]] = None, encoding: Optional[str] = None, module_path: Optional[str] = None) -> List[KiwoomOpenApiPlusRealType]
+   .. py:method:: realtypes_from_datfile(cls, dat_file: Optional[Union[str, os.PathLike, BinaryIO]] = None, encoding: Optional[str] = None, module_path: Optional[str] = None) -> List[KiwoomOpenApiPlusRealType]
       :classmethod:
 
 
-   .. py:method:: realtype_by_desc_from_datfile(cls, dat_file: Optional[Union[str, BinaryIO]] = None) -> Dict[str, KiwoomOpenApiPlusRealType]
+   .. py:method:: realtype_by_desc_from_datfile(cls, dat_file: Optional[Union[str, os.PathLike, BinaryIO]] = None) -> Dict[str, KiwoomOpenApiPlusRealType]
       :classmethod:
 
 
-   .. py:method:: dump_realtype_by_desc(cls, dump_file: Optional[Union[str, TextIO]] = None, dat_file: Optional[Union[str, BinaryIO]] = None, encoding: Optional[str] = None)
+   .. py:method:: dump_realtype_by_desc(cls, dump_file: Optional[Union[str, os.PathLike, TextIO]] = None, dat_file: Optional[Union[str, os.PathLike, BinaryIO]] = None, encoding: Optional[str] = None)
       :classmethod:
 
 
-   .. py:method:: realtype_by_desc_from_dump_file(cls, dump_file: Optional[Union[str, TextIO]] = None, encoding: Optional[str] = None) -> Dict[str, KiwoomOpenApiPlusRealType]
+   .. py:method:: realtype_by_desc_from_dump_file(cls, dump_file: Optional[Union[str, os.PathLike, TextIO]] = None, encoding: Optional[str] = None) -> Dict[str, KiwoomOpenApiPlusRealType]
       :classmethod:
 
 
-   .. py:method:: load_from_dump_file(cls, dump_file: Optional[Union[str, TextIO]] = None)
+   .. py:method:: load_from_dump_file(cls, dump_file: Optional[Union[str, os.PathLike, TextIO]] = None)
       :classmethod:
 
 
-   .. py:method:: load_from_datfile(cls, dat_file: Optional[Union[str, BinaryIO]] = None)
+   .. py:method:: load_from_datfile(cls, dat_file: Optional[Union[str, os.PathLike, BinaryIO]] = None)
       :classmethod:
 
 

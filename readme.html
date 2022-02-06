@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>KOAPY &#8212; KOAPY 0.6.2 documentation</title>
+    <title>KOAPY &#8212; KOAPY 0.7.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -49,11 +49,12 @@
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">KOAPY</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#showcase">Showcase</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#licensing">Licensing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#credits">Credits</a></li>
 </ul>
 </li>
@@ -134,272 +135,539 @@
 <li><p>Free software: <a class="reference external" href="https://github.com/elbakramer/koapy/blob/master/LICENSE.MIT">MIT</a> OR <a class="reference external" href="https://github.com/elbakramer/koapy/blob/master/LICENSE.APACHE-2.0">Apache-2.0</a> OR <a class="reference external" href="https://github.com/elbakramer/koapy/blob/master/LICENSE.GPL-3.0-OR-LATER">GPL-3.0-or-later</a></p></li>
 <li><p>Documentation: <a class="reference external" href="https://koapy.readthedocs.io">https://koapy.readthedocs.io</a>.</p></li>
 </ul>
-<section id="features">
-<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
-<p>KOAPY 는 <a class="reference external" href="https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000">키움증권의 OpenAPI+</a> 를 Python 에서 쉽게 사용할 수 있도록 만든 라이브러리 패키지 및 툴입니다.</p>
-<p>키움에서 제공하는 OpenAPI+ 를 활용하는데 필요한 아래와 같은 지식들을 알지 못해도,
-기본적인 Python 에 대한 지식만 어느 정도 있다면 쉽게 사용할 수 있도록 하는 것에 초점을 두었습니다.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>KOAPY 는 <a class="reference external" href="https://www3.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000">키움증권의 OpenAPI+</a> 를 <a class="reference external" href="https://www.python.org/">Python</a> 에서 쉽게 사용할 수 있도록 만든
+라이브러리 패키지 및 툴입니다.</p>
+<p>키움에서 제공하는 OpenAPI+ 를 활용하는데 필요한 구체적인 지식들을 전혀 알지 못해도,
+기본적인 <a class="reference external" href="https://www.python.org/">Python</a> 에 대한 지식만 어느 정도 있다면 쉽게 사용할 수 있도록 하는 것에
+초점을 두었습니다.</p>
+<p>예를 들어 <a class="reference external" href="https://www.python.org/">Python</a> 기준으로 아래와 같은 내용들을 잘 모르더라도 충분히 모든 기능을
+사용할 수 있음을 의미합니다.</p>
 <ul class="simple">
 <li><p>키움에서 제공하는 OpenAPI+ 의 OCX 라이브러리 구조</p></li>
-<li><p>OCX 를 Python 에서 구동하기 위한 <a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/">PyQt5</a>/<a class="reference external" href="https://doc.qt.io/qtforpython/index.html">PySide2</a> 와 <a class="reference external" href="https://doc.qt.io/qt-5/qaxwidget.html"><code class="docutils literal notranslate"><span class="pre">QAxWidget</span></code></a> 생성</p></li>
-<li><p>컨트롤에서 함수 호출을 위한 <a class="reference external" href="https://doc.qt.io/qt-5/qaxbase.html#dynamicCall"><code class="docutils literal notranslate"><span class="pre">dynamicCall</span></code></a> 함수 사용</p></li>
-<li><p>이벤트 처리를 위해 적절한 <a class="reference external" href="https://doc.qt.io/qt-5/signalsandslots.html#signals"><code class="docutils literal notranslate"><span class="pre">signal</span></code></a>/<a class="reference external" href="https://doc.qt.io/qt-5/signalsandslots.html#slots"><code class="docutils literal notranslate"><span class="pre">slot</span></code></a> 설정 및 처리</p></li>
+<li><p>OCX 를 <a class="reference external" href="https://www.python.org/">Python</a> 에서 구동하기 위해 <a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/">PyQt5</a>/<a class="reference external" href="https://doc.qt.io/qtforpython/index.html">PySide2</a> 라이브러리의 <a class="reference external" href="https://doc.qt.io/qt-5/qaxwidget.html"><code class="docutils literal notranslate"><span class="pre">QAxWidget</span></code></a> 생성</p></li>
+<li><p>컨트롤에서 함수 호출을 위해 <a class="reference external" href="https://doc.qt.io/qt-5/qaxbase.html#dynamicCall"><code class="docutils literal notranslate"><span class="pre">dynamicCall</span></code></a> 함수 사용</p></li>
+<li><p>이벤트 처리를 위해 적절한 <a class="reference external" href="https://doc.qt.io/qt-5/signalsandslots.html#signals"><code class="docutils literal notranslate"><span class="pre">signal</span></code></a>/<a class="reference external" href="https://doc.qt.io/qt-5/signalsandslots.html#slots"><code class="docutils literal notranslate"><span class="pre">slot</span></code></a> 설정 및 이벤트 처리</p></li>
 </ul>
-<p>KOAPY 는 아래와 같은 기능을 제공합니다.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/">PyQt5</a>/<a class="reference external" href="https://doc.qt.io/qtforpython/index.html">PySide2</a> 를 기반한 GUI 환경에 얽매일 필요 없이 일반적인 라이브러리처럼 가져다 활용할 수 있습니다.
-CLI 형태로 쓸 수도 있고 이외에 다양한 곳에서도 쉽게 활용이 가능합니다.</p></li>
-<li><p>컨트롤 함수 호출 시 명세에 적혀있는 형태 그대로 Python 함수였던 것처럼 호출이 가능합니다.
-이후는 KOAPY 가 유연하게 처리합니다.
-매번 명세에 맞게 <a class="reference external" href="https://doc.qt.io/qt-5/qaxbase.html#dynamicCall"><code class="docutils literal notranslate"><span class="pre">dynamicCall</span></code></a> 의 인자를 적어 넣거나, 모든 존재하는 함수에 대해 미리 래퍼 함수를 손 아프게 만들어놓을 필요가 없습니다.</p></li>
-<li><p>이벤트 처리 및 비동기 프로그래밍에 익숙하지 않더라도 그보다 비교적 쉬운 인터페이스를 통해 관련 기능들을 활용할 수 있습니다.
-가장 간단한 로그인 처리부터 TR/실시간 데이터 처리, 그리고 주문처리까지 다양한 시나리오에 대한 기본 이벤트 처리 로직을 제공합니다.</p></li>
-<li><p>주식 기본정보 요청부터 일봉/분봉 등 시세 데이터 확인 그리고 예수금/잔고 확인까지 일반적으로 자주 사용되는 기능들에 대해서
-미리 구현된 함수를 제공합니다. 함수 호출 결과 중 테이블성 정보들은 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html"><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> 타입으로 제공해 이후 분석 및 처리가 유용하게끔 했습니다.</p></li>
-<li><p>TR 의 입력/출력 데이터 구조, 실시간 데이터별 FID 목록, 에러코드에 대한 설명문 등,
-개발하는 과정에서 필요한 여러 메타정보들을 언어 내 라이브러리에서 바로 조회 및 활용이 가능합니다.
-매번 <a class="reference external" href="https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf">매뉴얼</a> 이나 <a class="reference external" href="https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=7">KOAStudio</a> 를 열어서 참고하고 이후 일일이 하나씩 하드코딩할 필요가 없습니다.</p></li>
-<li><p>로컬 네트워크에서 <a class="reference external" href="https://grpc.io/">gRPC</a> 를 통한 서버-클라이언트 형태의 구성이 가능합니다.
-이를 통해 “라이브러리 호환성으로 인해 32bit 환경에서만 작업되어야 한다” 는 제약을 벗어나 클라이언트는 Python 64bit 를 사용할 수도 있습니다.
-더 나아가서는 <a class="reference external" href="https://grpc.io/">gRPC</a> 에서 지원하는 모든 다양한 언어를 클라이언트로 작성해 사용하는 방식으로도 확장 가능합니다.</p></li>
-<li><p>이외에 메시징/알람 기능, 휴장일 확인, TR 호출 시 호출 횟수 제한 회피 등 개발 및 활용에 필요한 다양한 부가기능들을 추가로 제공합니다.</p></li>
-<li><p>굳이 Python 코드를 작성하지 않더라도 기본적인 기능들을 활용해볼 수 있도록 여러 커맨드를 포함하는 CLI 를 제공합니다.
-CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인, 일봉/분봉 데이터 확인 및 저장, 실시간 데이터 구독 등
-다양한 기능들을 코드 구현 없이 사용할 수 있습니다. 서버도 CLI 커맨드로 쉽게 띄울 수 있습니다.</p></li>
-</ul>
-<p>아래는 KOAPY 를 활용하는 예시 스크립트 입니다:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 로깅 설정</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
-    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> [</span><span class="si">%(levelname)s</span><span class="s1">] </span><span class="si">%(message)s</span><span class="s1"> - </span><span class="si">%(filename)s</span><span class="s1">:</span><span class="si">%(lineno)d</span><span class="s1">&#39;</span><span class="p">,</span>
-    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
-
-<span class="c1"># KOAPY 임포트</span>
-<span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
-
-<span class="c1"># 1. 엔트리포인트 객체 생성</span>
-<span class="n">entrypoint</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">()</span>
-
-<span class="c1"># 모듈 경로 확인 (기본 함수 사용 예시)</span>
-<span class="n">module_path</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetAPIModulePath</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">module_path</span><span class="p">)</span>
-
-<span class="c1"># 2. 로그인 예시</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Logging in...&#39;</span><span class="p">)</span>
-<span class="n">entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">()</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Logged in.&#39;</span><span class="p">)</span>
-
-<span class="c1"># 3. 기본 함수 실행 예시</span>
-
-<span class="c1"># 접속 상태 확인 (기본 함수 호출 예시)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Checking connection status...&#39;</span><span class="p">)</span>
-<span class="n">status</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetConnectState</span><span class="p">()</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Connection status: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
-
-<span class="c1"># 종목 리스트 확인 (기본 함수 호출 예시)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Getting stock codes and names...&#39;</span><span class="p">)</span>
-<span class="n">codes</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetCodeListByMarketAsList</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
-<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">entrypoint</span><span class="o">.</span><span class="n">GetMasterCodeName</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">codes</span><span class="p">]</span>
-
-<span class="c1"># 위에서 가져온 정보로 삼성전자의 code 확인</span>
-<span class="n">codes_by_name</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">codes</span><span class="p">))</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Checking stock code of Samsung...&#39;</span><span class="p">)</span>
-<span class="n">code</span> <span class="o">=</span> <span class="n">samsung_code</span> <span class="o">=</span> <span class="n">codes_by_name</span><span class="p">[</span><span class="s1">&#39;삼성전자&#39;</span><span class="p">]</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Code of Samsung: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
-
-<span class="c1"># 4. TR 요청 예시</span>
-
-<span class="c1"># 상위 함수를 활용한 TR 요청 예시 (opt10001)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Getting basic info of Samsung...&#39;</span><span class="p">)</span>
-<span class="n">info</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetStockBasicInfoAsDict</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Got basic info data (using GetStockBasicInfoAsDict):&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-
-<span class="c1"># 상위 함수를 활용한 TR 요청 예시 (opt10081)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Getting daily stock data of Samsung...&#39;</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Got daily stock data:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-<span class="c1"># 하위 함수를 사용한 TR 요청 예시 (opt10001)</span>
-<span class="n">rqname</span> <span class="o">=</span> <span class="s1">&#39;주식기본정보요청&#39;</span>
-<span class="n">trcode</span> <span class="o">=</span> <span class="s1">&#39;opt10001&#39;</span>
-<span class="n">screen_no</span> <span class="o">=</span> <span class="s1">&#39;0001&#39;</span>  <span class="c1"># 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당</span>
-<span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;종목코드&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">}</span>
-
-<span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
-
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Requesting data for request name: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">rqname</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Got event for request: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">rqname</span><span class="p">)</span>
-    <span class="n">names</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span>
-    <span class="n">values</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span>
-    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-        <span class="n">output</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Got basic info data (using TransactionCall):&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-
-<span class="c1"># (디버깅을 위한) 이벤트 메시지 출력 함수</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">PrettyPrinter</span>
-<span class="kn">from</span> <span class="nn">google.protobuf.json_format</span> <span class="kn">import</span> <span class="n">MessageToDict</span>
-
-<span class="n">pp</span> <span class="o">=</span> <span class="n">PrettyPrinter</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">pprint_event</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-    <span class="n">pp</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">MessageToDict</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">preserving_proto_field_name</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Last event message was:&#39;</span><span class="p">)</span>
-<span class="n">pprint_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-
-<span class="c1"># TR 관련 메타정보 확인</span>
-<span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusTrInfo</span>
-
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Checking TR info of opt10001&#39;</span><span class="p">)</span>
-<span class="n">tr_info</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusTrInfo</span><span class="o">.</span><span class="n">get_trinfo_by_code</span><span class="p">(</span><span class="s1">&#39;opt10001&#39;</span><span class="p">)</span>
-
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Inputs of opt10001:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">tr_info</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Single outputs of opt10001:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">tr_info</span><span class="o">.</span><span class="n">single_outputs</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Multi outputs of opt10001:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">tr_info</span><span class="o">.</span><span class="n">multi_outputs</span><span class="p">)</span>
-
-<span class="c1"># 5. 조건검색 예시</span>
-
-<span class="c1"># 조건검색 설정 불러오기</span>
-<span class="n">entrypoint</span><span class="o">.</span><span class="n">EnsureConditionLoaded</span><span class="p">()</span>
-
-<span class="c1"># 일반 조건검색 예시</span>
-<span class="n">condition_name</span> <span class="o">=</span> <span class="s1">&#39;대형 저평가 우량주&#39;</span>
-
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Getting stock codes with condition: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">condition_name</span><span class="p">)</span>
-<span class="n">codes</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetCodeListByCondition</span><span class="p">(</span><span class="n">condition_name</span><span class="p">,</span> <span class="n">with_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-
-<span class="c1"># 실시간 조건검색 예시</span>
-<span class="n">condition_name</span> <span class="o">=</span> <span class="s1">&#39;중소형 저평가주&#39;</span>
-
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Start listening realtime condition stream...&#39;</span><span class="p">)</span>
-<span class="n">stream</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetCodeListByConditionAsStream</span><span class="p">(</span><span class="n">condition_name</span><span class="p">)</span>
-
-<span class="c1"># 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용</span>
-<span class="kn">import</span> <span class="nn">threading</span>
-
-<span class="k">def</span> <span class="nf">stop_listening_cond</span><span class="p">():</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Stop listening realtime events...&#39;</span><span class="p">)</span>
-    <span class="n">stream</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
-
-<span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">stop_listening_cond</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="c1"># 10초 이후에 gRPC 커넥션 종료하도록 설정</span>
-
-<span class="c1"># 이벤트 불러와서 출력처리</span>
-<span class="kn">import</span> <span class="nn">grpc</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
-        <span class="n">pprint_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-<span class="k">except</span> <span class="n">grpc</span><span class="o">.</span><span class="n">RpcError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="c1"># 6.주문처리 예시</span>
-
-<span class="c1"># 현재 시장이 열려 있는지 (주문이 가능한지) 확인하는 함수</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Timestamp</span>
-<span class="kn">from</span> <span class="nn">exchange_calendars</span> <span class="kn">import</span> <span class="n">get_calendar</span>
-
-<span class="n">krx_calendar</span> <span class="o">=</span> <span class="n">get_calendar</span><span class="p">(</span><span class="s1">&#39;XKRX&#39;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">is_currently_in_session</span><span class="p">():</span>
-    <span class="n">now</span> <span class="o">=</span> <span class="n">Timestamp</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">krx_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
-    <span class="n">previous_open</span> <span class="o">=</span> <span class="n">krx_calendar</span><span class="o">.</span><span class="n">previous_open</span><span class="p">(</span><span class="n">now</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">krx_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
-    <span class="n">next_close</span> <span class="o">=</span> <span class="n">krx_calendar</span><span class="o">.</span><span class="n">next_close</span><span class="p">(</span><span class="n">previous_open</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">krx_calendar</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">previous_open</span> <span class="o">&lt;=</span> <span class="n">now</span> <span class="o">&lt;=</span> <span class="n">next_close</span>
-
-<span class="c1"># 주문처리 파라미터 설정</span>
-<span class="n">first_account_no</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetFirstAvailableAccount</span><span class="p">()</span>
-
-<span class="n">request_name</span> <span class="o">=</span> <span class="s2">&quot;삼성전자 1주 시장가 신규 매수&quot;</span>  <span class="c1"># 사용자 구분명, 구분가능한 임의의 문자열</span>
-<span class="n">screen_no</span> <span class="o">=</span> <span class="s2">&quot;0001&quot;</span>  <span class="c1"># 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당</span>
-<span class="n">account_no</span> <span class="o">=</span> <span class="n">first_account_no</span>  <span class="c1"># 계좌번호 10자리, 여기서는 계좌번호 목록에서 첫번째로 발견한 계좌번호로 매수처리</span>
-<span class="n">order_type</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 주문유형, 1 : 신규매수</span>
-<span class="n">code</span> <span class="o">=</span> <span class="n">samsung_code</span>  <span class="c1"># 종목코드, 앞의 삼성전자 종목코드</span>
-<span class="n">quantity</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 주문수량, 1주 매수</span>
-<span class="n">price</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 주문가격, 시장가 매수는 가격설정 의미없음</span>
-<span class="n">quote_type</span> <span class="o">=</span> <span class="s2">&quot;03&quot;</span>  <span class="c1"># 거래구분, 03 : 시장가</span>
-<span class="n">original_order_no</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># 원주문번호, 주문 정정/취소 등에서 사용</span>
-
-<span class="c1"># 현재는 기본적으로 주문수량이 모두 소진되기 전까지 이벤트를 듣도록 되어있음 (단순 호출 예시)</span>
-<span class="k">if</span> <span class="n">is_currently_in_session</span><span class="p">():</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Sending order to buy </span><span class="si">%s</span><span class="s1">, quantity of 1 stock, at market price...&#39;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">OrderCall</span><span class="p">(</span><span class="n">request_name</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">order_type</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">quantity</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">quote_type</span><span class="p">,</span> <span class="n">original_order_no</span><span class="p">):</span>
-        <span class="n">pprint_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Cannot send an order while market is not open, skipping...&#39;</span><span class="p">)</span>
-
-<span class="c1"># 7. 실시간 데이터 처리 예시</span>
-<span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusRealType</span>
-
-<span class="n">code_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">code</span><span class="p">]</span>
-<span class="n">fid_list</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_fids_by_realtype_name</span><span class="p">(</span><span class="s1">&#39;주식시세&#39;</span><span class="p">)</span>
-<span class="n">opt_type</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="c1"># 기존 화면에 추가가 아니라 신규 생성</span>
-
-<span class="c1"># 현재는 기본적으로 실시간 이벤트를 무한정 가져옴 (커넥션 컨트롤 가능한 예시)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Starting to get realtime stock data for code: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
-<span class="n">stream</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetRealDataForCodesAsStream</span><span class="p">(</span>
-    <span class="n">code_list</span><span class="p">,</span>
-    <span class="n">fid_list</span><span class="p">,</span>
-    <span class="n">opt_type</span><span class="p">,</span>
-    <span class="n">screen_no</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당</span>
-    <span class="n">infer_fids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># True 로 설정 시 주어진 fid_list 를 고집하지 말고 이벤트 처리 함수의 인자로 전달받는 실시간데이터 이름에 따라 유연하게 fid_list 를 추론</span>
-    <span class="n">readable_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># True 로 설정 시 각 fid 마다 숫자 대신 읽을 수 있는 이름으로 변환하여 반환</span>
-    <span class="n">fast_parse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># True 로 설정 시 이벤트 처리 함수내에서 데이터 값 읽기 시 GetCommRealData() 함수 호출 대신, 이벤트 처리 함수의 인자로 넘어오는 데이터를 직접 활용, infer_fids 가 True 로 설정된 경우만 유의미함</span>
-<span class="p">)</span>
-
-<span class="c1"># 이벤트 스트림을 도중에 멈추기 위해서 threading.Timer 활용</span>
-<span class="kn">import</span> <span class="nn">threading</span>
-
-<span class="k">def</span> <span class="nf">stop_listening_real</span><span class="p">():</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Stop listening realtime events...&#39;</span><span class="p">)</span>
-    <span class="n">stream</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
-
-<span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">stop_listening_real</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="c1"># 10초 이후에 gRPC 커넥션 종료하도록 설정</span>
-
-<span class="c1"># 이벤트 불러와서 출력처리</span>
-<span class="kn">import</span> <span class="nn">grpc</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
-        <span class="n">pprint_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-<span class="k">except</span> <span class="n">grpc</span><span class="o">.</span><span class="n">RpcError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-
-<span class="c1"># 예시 스크립트 끝</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;End of example&#39;</span><span class="p">)</span>
-
-<span class="c1"># 리소스 해제</span>
-<span class="n">entrypoint</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</section>
+<section id="showcase">
+<h2>Showcase<a class="headerlink" href="#showcase" title="Permalink to this headline">¶</a></h2>
+<section id="pandas">
+<h3>테이블 데이터 처리를 위한 pandas 임포트<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 </div>
 </section>
+<section id="id1">
+<h3>엔트리포인트 객체 생성<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entrypoint</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>키움증권 서버와의 연결 확인 및 로그인 처리<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entrypoint</span><span class="o">.</span><span class="n">IsConnected</span><span class="p">()</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entrypoint</span><span class="o">.</span><span class="n">IsConnected</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>종목 리스트 및 종목 코드와 이름 확인<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">code_list</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetCodeListByMarKetAsList</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">code_list</span>
+<span class="go">[&#39;000020&#39;, &#39;000040&#39;, &#39;000050&#39;, &#39;000060&#39;, &#39;000070&#39;, ...]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">name_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">entrypoint</span><span class="o">.</span><span class="n">GetMasterCodeName</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">code_list</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">name_list</span>
+<span class="go">[&#39;동화약품&#39;, &#39;KR모터스&#39;, &#39;경방&#39;, &#39;메리츠화재&#39;, &#39;삼양홀딩스&#39;, ...]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">code_by_name</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">code</span> <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">code_list</span><span class="p">,</span> <span class="n">name_list</span><span class="p">)}</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;삼성전자&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">code</span> <span class="o">=</span> <span class="n">code_by_name</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">code</span>
+<span class="go">&#39;005930&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>단일 종목의 기본정보 확인<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetStockBasicInfoAsDict</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span>
+<span class="go">{&#39;종목코드&#39;: &#39;005930&#39;, &#39;종목명&#39;: &#39;삼성전자&#39;, &#39;결산월&#39;: &#39;12&#39;, &#39;액면가&#39;: &#39;100&#39;, &#39;자본금&#39;: &#39;7780&#39;, &#39;상장주식&#39;: &#39;5969783&#39;, &#39;신용비율&#39;: &#39;+0.12&#39;, &#39;연중최고&#39;: &#39;+79800&#39;, &#39;연중최저&#39;: &#39;-71200&#39;, &#39;시가총액&#39;: &#39;4417639&#39;, &#39;시가총액비중&#39;: &#39;&#39;, &#39;외인소진률&#39;: &#39;+52.09&#39;, &#39;대용가&#39;: &#39;57170&#39;, &#39;PER&#39;: &#39;19.27&#39;, &#39;EPS&#39;: &#39;3841&#39;, &#39;ROE&#39;: &#39;10.0&#39;, &#39;PBR&#39;: &#39;1.88&#39;, &#39;EV&#39;: &#39;5.09&#39;, &#39;BPS&#39;: &#39;39406&#39;, &#39;매출액&#39;: &#39;2368070&#39;, &#39;영업이익&#39;: &#39;359939&#39;, &#39;당기순이익&#39;: &#39;264078&#39;, &#39;250최고&#39;: &#39;+86400&#39;, &#39;250최저&#39;: &#39;-68300&#39;, &#39;시가&#39;: &#39;+74300&#39;, &#39;고가&#39;: &#39;+74600&#39;, &#39;저가&#39;: &#39;+73400&#39;, &#39;상한가&#39;: &#39;+95200&#39;, &#39;하한가&#39;: &#39;-51400&#39;, &#39;기준가&#39;: &#39;73300&#39;, &#39;예상체결가&#39;: &#39;-0&#39;, &#39;예상체결수량&#39;: &#39;0&#39;, &#39;250최고가일&#39;: &#39;20210202&#39;, &#39;250최고가대비율&#39;: &#39;-14.35&#39;, &#39;250최저가일&#39;: &#39;20211013&#39;, &#39;250최저가대비율&#39;: &#39;+8.35&#39;, &#39;현재가&#39;: &#39;+74000&#39;, &#39;대비기호&#39;: &#39;2&#39;, &#39;전일대비&#39;: &#39;+700&#39;, &#39;등락율&#39;: &#39;+0.95&#39;, &#39;거래량&#39;: &#39;12730034&#39;, &#39;거래대비&#39;: &#39;-71.74&#39;, &#39;액면가단위&#39;: &#39;원&#39;, &#39;유통주식&#39;: &#39;4459119&#39;, &#39;유통비율&#39;: &#39;74.7&#39;}</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>복수 종목의 기본정보 확인<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">code_list_info</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetStockQuoteInfoAsDataFrame</span><span class="p">(</span><span class="n">code_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">code_list_info</span>
+<span class="go">        종목코드                      종목명     현재가    기준가   전일대비 전일대비기호    등락율  \</span>
+<span class="go">0     000020                     동화약품  +12450  12300   +150      2  +1.22</span>
+<span class="go">1     000040                    KR모터스    +810    790    +20      2  +2.53</span>
+<span class="go">2     000050                       경방  +14450  14200   +250      2  +1.76</span>
+<span class="go">3     000060                    메리츠화재   49450  49450      0      3   0.00</span>
+<span class="go">4     000070                    삼양홀딩스  +90700  88400  +2300      2  +2.60</span>
+<span class="gp">... </span>     <span class="o">...</span>                      <span class="o">...</span>     <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>
+<span class="go">1744  580031  KB 인버스 KOSDAQ150 선물 ETN  -10930  10960    -30      5  -0.27</span>
+<span class="go">1745  580032     KB 레버리지 구리 선물 ETN(H)  -20515  20560    -45      5  -0.22</span>
+<span class="go">1746  580033   KB 인버스 2X 구리 선물 ETN(H)  +18350  18280    +70      2  +0.38</span>
+<span class="go">1747  580010         KB Wise 분할매매 ETN  +10820  10770    +50      2  +0.46</span>
+<span class="go">1748  590018       미래에셋 중국 심천 100 ETN  +18810  18645   +165      2  +0.88</span>
+
+<span class="go">        거래량   거래대금   체결량  ...    ELW만기일 미결제약정 미결제전일대비 이론가 내재변동성 델타 감마 쎄타 베가  \</span>
+<span class="go">0     135513   1670  +500  ...  00000000</span>
+<span class="go">1     230165    186   -10  ...  00000000</span>
+<span class="go">2       6214     89    97  ...  00000000</span>
+<span class="go">3     411584  20423    -4  ...  00000000</span>
+<span class="go">4       9052    813    +5  ...  00000000</span>
+<span class="gp">... </span>     <span class="o">...</span>    <span class="o">...</span>   <span class="o">...</span>  <span class="o">...</span>       <span class="o">...</span>   <span class="o">...</span>     <span class="o">...</span>  <span class="o">..</span>   <span class="o">...</span> <span class="o">..</span> <span class="o">..</span> <span class="o">..</span> <span class="o">..</span>
+<span class="go">1744       2      0    -1  ...  00000000</span>
+<span class="go">1745       0      0        ...  00000000</span>
+<span class="go">1746      17      0   +10  ...  00000000</span>
+<span class="go">1747       0      0        ...  00000000</span>
+<span class="go">1748       1      0    +1  ...  00000000</span>
+
+<span class="go">    로</span>
+<span class="go">0</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+<span class="go">4</span>
+<span class="gp">... </span> <span class="o">..</span>
+<span class="go">1744</span>
+<span class="go">1745</span>
+<span class="go">1746</span>
+<span class="go">1747</span>
+<span class="go">1748</span>
+
+<span class="go">[1749 rows x 63 columns]</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>특정 종목의 차트 데이터 확인<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">chart_data</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chart_data</span>
+<span class="go">        종목코드    현재가       거래량     거래대금        일자     시가     고가     저가 수정주가구분  \</span>
+<span class="go">0     005930  74000  12730034   941413  20220204  74300  74600  73400</span>
+<span class="go">1             73300  17744721  1314506  20220203  74900  74900  73300</span>
+<span class="go">2             73300  21367447  1552586  20220128  71300  73700  71200</span>
+<span class="go">3             71300  22274777  1603685  20220127  73800  74000  71300</span>
+<span class="go">4             73300  12976730   955547  20220126  73900  74400  73100</span>
+<span class="gp">... </span>     <span class="o">...</span>    <span class="o">...</span>       <span class="o">...</span>      <span class="o">...</span>       <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>
+<span class="go">9797           8010      4970        1  19850109   8240   8240   7950</span>
+<span class="go">9798           8300     12930        4  19850108   8400   8400   8300</span>
+<span class="go">9799           8410     11810        3  19850107   8400   8500   8390</span>
+<span class="go">9800           8390      1660        0  19850105   8400   8440   8390</span>
+<span class="go">9801           8450      1710        0  19850104   8500   8500   8450</span>
+
+<span class="go">    수정비율 대업종구분 소업종구분 종목정보 수정주가이벤트 전일종가</span>
+<span class="go">0</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+<span class="go">4</span>
+<span class="gp">... </span>  <span class="o">...</span>   <span class="o">...</span>   <span class="o">...</span>  <span class="o">...</span>     <span class="o">...</span>  <span class="o">...</span>
+<span class="go">9797</span>
+<span class="go">9798</span>
+<span class="go">9799</span>
+<span class="go">9800</span>
+<span class="go">9801</span>
+
+<span class="go">[9802 rows x 15 columns]</span>
+</pre></div>
+</div>
+</section>
+<section id="tr">
+<h3>키움증권의 TR 메타 정보 확인<a class="headerlink" href="#tr" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusTrInfo</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tr_info_list</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusTrInfo</span><span class="o">.</span><span class="n">get_trinfo_list</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">([(</span><span class="n">info</span><span class="o">.</span><span class="n">tr_code</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">tr_info_list</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tr_code&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">      tr_code             name</span>
+<span class="go">0    opt10001         주식기본정보요청</span>
+<span class="go">1    opt10059      종목별투자자기관별요청</span>
+<span class="go">2    opt10087         시간외단일가요청</span>
+<span class="go">3    opt50037       코스피200지수요청</span>
+<span class="go">4    opt90005       프로그램매매추이요청</span>
+<span class="go">..        ...              ...</span>
+<span class="go">220  opw20013  계좌미결제청산가능수량조회요청</span>
+<span class="go">221  opw20014     선옵실시간증거금산출요청</span>
+<span class="go">222  opw20015    옵션매도주문증거금현황요청</span>
+<span class="go">223  opw20016      신용융자 가능종목요청</span>
+<span class="go">224  opw20017        신용융자 가능문의</span>
+
+<span class="go">[225 rows x 2 columns]</span>
+</pre></div>
+</div>
+</section>
+<section id="opt10001-tr">
+<h3>OPT10001 TR 요청 전송 및 응답 처리 (싱글데이터)<a class="headerlink" href="#opt10001-tr" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">opt10001_info</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusTrInfo</span><span class="o">.</span><span class="n">get_trinfo_by_code</span><span class="p">(</span><span class="s2">&quot;opt10001&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt10001_info</span>
+<span class="go">KiwoomOpenApiPlusTrInfo(&#39;opt10001&#39;, &#39;주식기본정보요청&#39;, &#39;STOCK&#39;, &#39;&#39;, &#39;1&#39;, &#39;&#39;, [KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 6, 9001)], &#39;주식기본정보&#39;, [KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 20, 389), KiwoomOpenApiPlusTrInfo.Field(&#39;종목명&#39;, 20, 50, 302), KiwoomOpenApiPlusTrInfo.Field(&#39;결산월&#39;, 40, 20, 315), KiwoomOpenApiPlusTrInfo.Field(&#39;액면가&#39;, 60, 20, 310), KiwoomOpenApiPlusTrInfo.Field(&#39;자본금&#39;, 80, 20, 309), KiwoomOpenApiPlusTrInfo.Field(&#39;상장주식&#39;, 100, 20, 312), KiwoomOpenApiPlusTrInfo.Field(&#39;신용비율&#39;, 120, 20, 329), KiwoomOpenApiPlusTrInfo.Field(&#39;연중최고&#39;, 140, 20, 1006), KiwoomOpenApiPlusTrInfo.Field(&#39;연중최저&#39;, 160, 20, 1009), KiwoomOpenApiPlusTrInfo.Field(&#39;시가총액&#39;, 180, 20, 311), KiwoomOpenApiPlusTrInfo.Field(&#39;시가총액비중&#39;, 200, 20, 336), KiwoomOpenApiPlusTrInfo.Field(&#39;외인소진률&#39;, 220, 20, 314), KiwoomOpenApiPlusTrInfo.Field(&#39;대용가&#39;, 240, 20, 308), KiwoomOpenApiPlusTrInfo.Field(&#39;PER&#39;, 260, 20, 1600), KiwoomOpenApiPlusTrInfo.Field(&#39;EPS&#39;, 280, 20, 1604), KiwoomOpenApiPlusTrInfo.Field(&#39;ROE&#39;, 300, 20, 1630), KiwoomOpenApiPlusTrInfo.Field(&#39;PBR&#39;, 320, 20, 1601), KiwoomOpenApiPlusTrInfo.Field(&#39;EV&#39;, 340, 20, 1608), KiwoomOpenApiPlusTrInfo.Field(&#39;BPS&#39;, 360, 20, 1605), KiwoomOpenApiPlusTrInfo.Field(&#39;매출액&#39;, 380, 20, 1610), KiwoomOpenApiPlusTrInfo.Field(&#39;영업이익&#39;, 400, 20, 1611), KiwoomOpenApiPlusTrInfo.Field(&#39;당기순이익&#39;, 420, 20, 1614), KiwoomOpenApiPlusTrInfo.Field(&#39;250최고&#39;, 440, 20, 1000), KiwoomOpenApiPlusTrInfo.Field(&#39;250최저&#39;, 460, 20, 1003), KiwoomOpenApiPlusTrInfo.Field(&#39;시가&#39;, 480, 20, 16), KiwoomOpenApiPlusTrInfo.Field(&#39;고가&#39;, 500, 20, 17), KiwoomOpenApiPlusTrInfo.Field(&#39;저가&#39;, 520, 20, 18), KiwoomOpenApiPlusTrInfo.Field(&#39;상한가&#39;, 540, 20, 305), KiwoomOpenApiPlusTrInfo.Field(&#39;하한가&#39;, 560, 20, 306), KiwoomOpenApiPlusTrInfo.Field(&#39;기준가&#39;, 580, 20, 307), KiwoomOpenApiPlusTrInfo.Field(&#39;예상체결가&#39;, 600, 20, 10023), KiwoomOpenApiPlusTrInfo.Field(&#39;예상체결수량&#39;, 620, 20, 10024), KiwoomOpenApiPlusTrInfo.Field(&#39;250최고가일&#39;, 640, 20, 1001), KiwoomOpenApiPlusTrInfo.Field(&#39;250최고가대비율&#39;, 660, 20, 1002), KiwoomOpenApiPlusTrInfo.Field(&#39;250최저가일&#39;, 680, 20, 1004), KiwoomOpenApiPlusTrInfo.Field(&#39;250최저가대비율&#39;, 700, 20, 1005), KiwoomOpenApiPlusTrInfo.Field(&#39;현재가&#39;, 720, 20, 10), KiwoomOpenApiPlusTrInfo.Field(&#39;대비기호&#39;, 740, 20, 25), KiwoomOpenApiPlusTrInfo.Field(&#39;전일대비&#39;, 760, 20, 11), KiwoomOpenApiPlusTrInfo.Field(&#39;등락율&#39;, 780, 20, 12), KiwoomOpenApiPlusTrInfo.Field(&#39;거래량&#39;, 800, 20, 13), KiwoomOpenApiPlusTrInfo.Field(&#39;거래대비&#39;, 820, 20, 30), KiwoomOpenApiPlusTrInfo.Field(&#39;액면가단위&#39;, 840, 20, 796), KiwoomOpenApiPlusTrInfo.Field(&#39;유통주식&#39;, 840, 20, 1683), KiwoomOpenApiPlusTrInfo.Field(&#39;유통비율&#39;, 840, 20, 1684)], &#39;&#39;, [])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt10001_info</span><span class="o">.</span><span class="n">inputs</span>
+<span class="go">[KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 6, 9001)]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt10001_info</span><span class="o">.</span><span class="n">single_outputs</span>
+<span class="go">[KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 20, 389), KiwoomOpenApiPlusTrInfo.Field(&#39;종목명&#39;, 20, 50, 302), KiwoomOpenApiPlusTrInfo.Field(&#39;결산월&#39;, 40, 20, 315), KiwoomOpenApiPlusTrInfo.Field(&#39;액면가&#39;, 60, 20, 310), KiwoomOpenApiPlusTrInfo.Field(&#39;자본금&#39;, 80, 20, 309), KiwoomOpenApiPlusTrInfo.Field(&#39;상장주식&#39;, 100, 20, 312), KiwoomOpenApiPlusTrInfo.Field(&#39;신용비율&#39;, 120, 20, 329), KiwoomOpenApiPlusTrInfo.Field(&#39;연중최고&#39;, 140, 20, 1006), KiwoomOpenApiPlusTrInfo.Field(&#39;연중최저&#39;, 160, 20, 1009), KiwoomOpenApiPlusTrInfo.Field(&#39;시가총액&#39;, 180, 20, 311), KiwoomOpenApiPlusTrInfo.Field(&#39;시가총액비중&#39;, 200, 20, 336), KiwoomOpenApiPlusTrInfo.Field(&#39;외인소진률&#39;, 220, 20, 314), KiwoomOpenApiPlusTrInfo.Field(&#39;대용가&#39;, 240, 20, 308), KiwoomOpenApiPlusTrInfo.Field(&#39;PER&#39;, 260, 20, 1600), KiwoomOpenApiPlusTrInfo.Field(&#39;EPS&#39;, 280, 20, 1604), KiwoomOpenApiPlusTrInfo.Field(&#39;ROE&#39;, 300, 20, 1630), KiwoomOpenApiPlusTrInfo.Field(&#39;PBR&#39;, 320, 20, 1601), KiwoomOpenApiPlusTrInfo.Field(&#39;EV&#39;, 340, 20, 1608), KiwoomOpenApiPlusTrInfo.Field(&#39;BPS&#39;, 360, 20, 1605), KiwoomOpenApiPlusTrInfo.Field(&#39;매출액&#39;, 380, 20, 1610), KiwoomOpenApiPlusTrInfo.Field(&#39;영업이익&#39;, 400, 20, 1611), KiwoomOpenApiPlusTrInfo.Field(&#39;당기순이익&#39;, 420, 20, 1614), KiwoomOpenApiPlusTrInfo.Field(&#39;250최고&#39;, 440, 20, 1000), KiwoomOpenApiPlusTrInfo.Field(&#39;250최저&#39;, 460, 20, 1003), KiwoomOpenApiPlusTrInfo.Field(&#39;시가&#39;, 480, 20, 16), KiwoomOpenApiPlusTrInfo.Field(&#39;고가&#39;, 500, 20, 17), KiwoomOpenApiPlusTrInfo.Field(&#39;저가&#39;, 520, 20, 18), KiwoomOpenApiPlusTrInfo.Field(&#39;상한가&#39;, 540, 20, 305), KiwoomOpenApiPlusTrInfo.Field(&#39;하한가&#39;, 560, 20, 306), KiwoomOpenApiPlusTrInfo.Field(&#39;기준가&#39;, 580, 20, 307), KiwoomOpenApiPlusTrInfo.Field(&#39;예상체결가&#39;, 600, 20, 10023), KiwoomOpenApiPlusTrInfo.Field(&#39;예상체결수량&#39;, 620, 20, 10024), KiwoomOpenApiPlusTrInfo.Field(&#39;250최고가일&#39;, 640, 20, 1001), KiwoomOpenApiPlusTrInfo.Field(&#39;250최고가대비율&#39;, 660, 20, 1002), KiwoomOpenApiPlusTrInfo.Field(&#39;250최저가일&#39;, 680, 20, 1004), KiwoomOpenApiPlusTrInfo.Field(&#39;250최저가대비율&#39;, 700, 20, 1005), KiwoomOpenApiPlusTrInfo.Field(&#39;현재가&#39;, 720, 20, 10), KiwoomOpenApiPlusTrInfo.Field(&#39;대비기호&#39;, 740, 20, 25), KiwoomOpenApiPlusTrInfo.Field(&#39;전일대비&#39;, 760, 20, 11), KiwoomOpenApiPlusTrInfo.Field(&#39;등락율&#39;, 780, 20, 12), KiwoomOpenApiPlusTrInfo.Field(&#39;거래량&#39;, 800, 20, 13), KiwoomOpenApiPlusTrInfo.Field(&#39;거래대비&#39;, 820, 20, 30), KiwoomOpenApiPlusTrInfo.Field(&#39;액면가단위&#39;, 840, 20, 796), KiwoomOpenApiPlusTrInfo.Field(&#39;유통주식&#39;, 840, 20, 1683), KiwoomOpenApiPlusTrInfo.Field(&#39;유통비율&#39;, 840, 20, 1684)]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt10001_info</span><span class="o">.</span><span class="n">multi_outputs</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request_name</span> <span class="o">=</span> <span class="s2">&quot;주식기본정보요청&quot;</span>  <span class="c1"># 사용자 구분명, 구분가능한 임의의 문자열</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr_code</span> <span class="o">=</span> <span class="s2">&quot;opt10001&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">screen_no</span> <span class="o">=</span> <span class="s2">&quot;0001&quot;</span>  <span class="c1"># 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>   <span class="s2">&quot;종목코드&quot;</span><span class="p">:</span> <span class="s2">&quot;005930&quot;</span><span class="p">,</span>  <span class="c1"># 삼성전자 종목코드</span>
+<span class="gp">... </span><span class="p">}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">request_name</span><span class="p">,</span> <span class="n">tr_code</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">names</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span>
+<span class="gp">... </span>    <span class="n">values</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">output</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span>
+<span class="go">{&#39;종목코드&#39;: &#39;005930&#39;, &#39;종목명&#39;: &#39;삼성전자&#39;, &#39;결산월&#39;: &#39;12&#39;, &#39;액면가&#39;: &#39;100&#39;, &#39;자본금&#39;: &#39;7780&#39;, &#39;상장주식&#39;: &#39;5969783&#39;, &#39;신용비율&#39;: &#39;+0.12&#39;, &#39;연중최고&#39;: &#39;+79800&#39;, &#39;연중최저&#39;: &#39;-71200&#39;, &#39;시가총액&#39;: &#39;4417639&#39;, &#39;시가총액비중&#39;: &#39;&#39;, &#39;외인소진률&#39;: &#39;+52.09&#39;, &#39;대용가&#39;: &#39;57170&#39;, &#39;PER&#39;: &#39;19.27&#39;, &#39;EPS&#39;: &#39;3841&#39;, &#39;ROE&#39;: &#39;10.0&#39;, &#39;PBR&#39;: &#39;1.88&#39;, &#39;EV&#39;: &#39;5.09&#39;, &#39;BPS&#39;: &#39;39406&#39;, &#39;매출액&#39;: &#39;2368070&#39;, &#39;영업이익&#39;: &#39;359939&#39;, &#39;당기순이익&#39;: &#39;264078&#39;, &#39;250최고&#39;: &#39;+86400&#39;, &#39;250최저&#39;: &#39;-68300&#39;, &#39;시가&#39;: &#39;+74300&#39;, &#39;고가&#39;: &#39;+74600&#39;, &#39;저가&#39;: &#39;+73400&#39;, &#39;상한가&#39;: &#39;+95200&#39;, &#39;하한가&#39;: &#39;-51400&#39;, &#39;기준가&#39;: &#39;73300&#39;, &#39;예상체결가&#39;: &#39;-0&#39;, &#39;예상체결수량&#39;: &#39;0&#39;, &#39;250최고가일&#39;: &#39;20210202&#39;, &#39;250최고가대비율&#39;: &#39;-14.35&#39;, &#39;250최저가일&#39;: &#39;20211013&#39;, &#39;250최저가대비율&#39;: &#39;+8.35&#39;, &#39;현재가&#39;: &#39;+74000&#39;, &#39;대비기호&#39;: &#39;2&#39;, &#39;전일대비&#39;: &#39;+700&#39;, &#39;등락율&#39;: &#39;+0.95&#39;, &#39;거래량&#39;: &#39;12730034&#39;, &#39;거래대비&#39;: &#39;-71.74&#39;, &#39;액면가단위&#39;: &#39;원&#39;, &#39;유통주식&#39;: &#39;4459119&#39;, &#39;유통비율&#39;: &#39;74.7&#39;}</span>
+</pre></div>
+</div>
+</section>
+<section id="opt10081-tr">
+<h3>OPT10081 TR 요청 전송 및 응답 처리 (멀티데이터)<a class="headerlink" href="#opt10081-tr" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">opt10081_info</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusTrInfo</span><span class="o">.</span><span class="n">get_trinfo_by_code</span><span class="p">(</span><span class="s2">&quot;opt10081&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt10081_info</span>
+<span class="go">KiwoomOpenApiPlusTrInfo(&#39;opt10081&#39;, &#39;주식일봉차트조회요청&#39;, &#39;SCHART&#39;, &#39;&#39;, &#39;1&#39;, &#39;3003&#39;, [KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 20, 9001), KiwoomOpenApiPlusTrInfo.Field(&#39;기준일자&#39;, 20, 20, 9004), KiwoomOpenApiPlusTrInfo.Field(&#39;수정주가구분&#39;, 40, 20, 9055)], &#39;주식일봉차트&#39;, [KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 20, 9001)], &#39;주식일봉차트조회&#39;, [KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 20, 9001), KiwoomOpenApiPlusTrInfo.Field(&#39;현재가&#39;, 0, 20, 10), KiwoomOpenApiPlusTrInfo.Field(&#39;거래량&#39;, 40, 20, 13), KiwoomOpenApiPlusTrInfo.Field(&#39;거래대금&#39;, 60, 20, 14), KiwoomOpenApiPlusTrInfo.Field(&#39;일자&#39;, 80, 20, 22), KiwoomOpenApiPlusTrInfo.Field(&#39;시가&#39;, 100, 20, 16), KiwoomOpenApiPlusTrInfo.Field(&#39;고가&#39;, 120, 20, 17), KiwoomOpenApiPlusTrInfo.Field(&#39;저가&#39;, 140, 20, 18), KiwoomOpenApiPlusTrInfo.Field(&#39;수정주가구분&#39;, 160, 20, 3502), KiwoomOpenApiPlusTrInfo.Field(&#39;수정비율&#39;, 180, 20, 3503), KiwoomOpenApiPlusTrInfo.Field(&#39;대업종구분&#39;, 200, 20, 317), KiwoomOpenApiPlusTrInfo.Field(&#39;소업종구분&#39;, 220, 20, 318), KiwoomOpenApiPlusTrInfo.Field(&#39;종목정보&#39;, 240, 20, 370), KiwoomOpenApiPlusTrInfo.Field(&#39;수정주가이벤트&#39;, 260, 20, 3501), KiwoomOpenApiPlusTrInfo.Field(&#39;전일종가&#39;, 280, 20, 346)])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt10081_info</span><span class="o">.</span><span class="n">inputs</span>
+<span class="go">[KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 20, 9001), KiwoomOpenApiPlusTrInfo.Field(&#39;기준일자&#39;, 20, 20, 9004), KiwoomOpenApiPlusTrInfo.Field(&#39;수정주가구분&#39;, 40, 20, 9055)]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt10081_info</span><span class="o">.</span><span class="n">single_outputs</span>
+<span class="go">[KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 20, 9001)]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt10081_info</span><span class="o">.</span><span class="n">multi_outputs</span>
+<span class="go">[KiwoomOpenApiPlusTrInfo.Field(&#39;종목코드&#39;, 0, 20, 9001), KiwoomOpenApiPlusTrInfo.Field(&#39;현재가&#39;, 0, 20, 10), KiwoomOpenApiPlusTrInfo.Field(&#39;거래량&#39;, 40, 20, 13), KiwoomOpenApiPlusTrInfo.Field(&#39;거래대금&#39;, 60, 20, 14), KiwoomOpenApiPlusTrInfo.Field(&#39;일자&#39;, 80, 20, 22), KiwoomOpenApiPlusTrInfo.Field(&#39;시가&#39;, 100, 20, 16), KiwoomOpenApiPlusTrInfo.Field(&#39;고가&#39;, 120, 20, 17), KiwoomOpenApiPlusTrInfo.Field(&#39;저가&#39;, 140, 20, 18), KiwoomOpenApiPlusTrInfo.Field(&#39;수정주가구분&#39;, 160, 20, 3502), KiwoomOpenApiPlusTrInfo.Field(&#39;수정비율&#39;, 180, 20, 3503), KiwoomOpenApiPlusTrInfo.Field(&#39;대업종구분&#39;, 200, 20, 317), KiwoomOpenApiPlusTrInfo.Field(&#39;소업종구분&#39;, 220, 20, 318), KiwoomOpenApiPlusTrInfo.Field(&#39;종목정보&#39;, 240, 20, 370), KiwoomOpenApiPlusTrInfo.Field(&#39;수정주가이벤트&#39;, 260, 20, 3501), KiwoomOpenApiPlusTrInfo.Field(&#39;전일종가&#39;, 280, 20, 346)]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">date</span>
+<span class="go">&#39;20220206&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request_name</span> <span class="o">=</span> <span class="s2">&quot;주식일봉차트조회요청&quot;</span>  <span class="c1"># 사용자 구분명, 구분가능한 임의의 문자열</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr_code</span> <span class="o">=</span> <span class="s2">&quot;opt10081&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">screen_no</span> <span class="o">=</span> <span class="s2">&quot;0001&quot;</span>  <span class="c1"># 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s2">&quot;종목코드&quot;</span><span class="p">:</span> <span class="s2">&quot;005930&quot;</span><span class="p">,</span>  <span class="c1"># 삼성전자 종목코드</span>
+<span class="gp">... </span>    <span class="s2">&quot;기준일자&quot;</span><span class="p">:</span> <span class="s2">&quot;20220206&quot;</span><span class="p">,</span>  <span class="c1"># 가장 최근 날짜의 YYYYMMDD 포맷</span>
+<span class="gp">... </span>    <span class="s2">&quot;수정주가구분&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>  <span class="c1"># 0:일반주가, 1:수정주가</span>
+<span class="gp">... </span><span class="p">}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">request_name</span><span class="p">,</span> <span class="n">tr_code</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">columns</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">names</span>
+<span class="gp">... </span>    <span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">values</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">data_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">        종목코드    현재가       거래량     거래대금        일자     시가     고가     저가 수정주가구분  \</span>
+<span class="go">0     005930  74000  12730034   941413  20220204  74300  74600  73400</span>
+<span class="go">1             73300  17744721  1314506  20220203  74900  74900  73300</span>
+<span class="go">2             73300  21367447  1552586  20220128  71300  73700  71200</span>
+<span class="go">3             71300  22274777  1603685  20220127  73800  74000  71300</span>
+<span class="go">4             73300  12976730   955547  20220126  73900  74400  73100</span>
+<span class="gp">... </span>     <span class="o">...</span>    <span class="o">...</span>       <span class="o">...</span>      <span class="o">...</span>       <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>
+<span class="go">9797           8010      4970        1  19850109   8240   8240   7950</span>
+<span class="go">9798           8300     12930        4  19850108   8400   8400   8300</span>
+<span class="go">9799           8410     11810        3  19850107   8400   8500   8390</span>
+<span class="go">9800           8390      1660        0  19850105   8400   8440   8390</span>
+<span class="go">9801           8450      1710        0  19850104   8500   8500   8450</span>
+
+<span class="go">    수정비율 대업종구분 소업종구분 종목정보 수정주가이벤트 전일종가</span>
+<span class="go">0</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+<span class="go">4</span>
+<span class="gp">... </span>  <span class="o">...</span>   <span class="o">...</span>   <span class="o">...</span>  <span class="o">...</span>     <span class="o">...</span>  <span class="o">...</span>
+<span class="go">9797</span>
+<span class="go">9798</span>
+<span class="go">9799</span>
+<span class="go">9800</span>
+<span class="go">9801</span>
+
+<span class="go">[9802 rows x 15 columns]</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>조건검색 조건식 설정 불러오기<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entrypoint</span><span class="o">.</span><span class="n">IsConditionLoaded</span><span class="p">()</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entrypoint</span><span class="o">.</span><span class="n">EnsureConditionLoaded</span><span class="p">()</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entrypoint</span><span class="o">.</span><span class="n">IsConditionLoaded</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3>불러온 조건식 목록 확인<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">condition_name_list</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetConditionNameListAsList</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">condition_name_list</span>
+<span class="go">[(0, &#39;대형 저평가 우량주&#39;), (1, &#39;중소형 저평가주&#39;)]</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>조건식 단순 검색<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">condition_name</span> <span class="o">=</span> <span class="s2">&quot;대형 저평가 우량주&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">condition_met_code_list</span><span class="p">,</span> <span class="n">condition_met_code_list_info</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetCodeListByCondition</span><span class="p">(</span><span class="n">condition_name</span><span class="p">,</span> <span class="n">with_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">condition_met_code_list</span>
+<span class="go">[&#39;000240&#39;, &#39;001800&#39;, &#39;001880&#39;, &#39;003230&#39;, &#39;003550&#39;, &#39;004000&#39;, &#39;006040&#39;, &#39;006390&#39;, &#39;006650&#39;, &#39;007700&#39;, &#39;009970&#39;, &#39;011780&#39;, &#39;014830&#39;, &#39;020000&#39;, &#39;021240&#39;, &#39;025540&#39;, &#39;030520&#39;, &#39;033290&#39;, &#39;033780&#39;, &#39;036830&#39;, &#39;042420&#39;, &#39;056190&#39;, &#39;057050&#39;, &#39;060150&#39;, &#39;064960&#39;, &#39;069080&#39;, &#39;081660&#39;, &#39;095660&#39;, &#39;096530&#39;, &#39;110790&#39;, &#39;111770&#39;, &#39;137310&#39;, &#39;161390&#39;, &#39;161890&#39;, &#39;185750&#39;, &#39;192080&#39;, &#39;192400&#39;, &#39;200130&#39;, &#39;243070&#39;, &#39;271560&#39;, &#39;284740&#39;, &#39;285130&#39;, &#39;294870&#39;, &#39;300720&#39;, &#39;950130&#39;]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">condition_met_code_list_info</span>  <span class="c1"># same as entrypoint.GetStockQuoteInfoAsDataFrame(condition_met_code_list)</span>
+<span class="go">      종목코드        종목명      현재가     기준가   전일대비 전일대비기호     등락율      거래량    거래대금  \</span>
+<span class="go">0   000240     한국앤컴퍼니   +13500   13400   +100      2   +0.75    56484     760</span>
+<span class="go">1   001800     오리온홀딩스   +14600   14250   +350      2   +2.46    69827    1008</span>
+<span class="go">2   001880       DL건설   -27950   28050   -100      5   -0.36    20925     583</span>
+<span class="go">3   003230       삼양식품   +91300   90000  +1300      2   +1.44    58660    5289</span>
+<span class="go">4   003550         LG   +76300   74600  +1700      2   +2.28   249415   18925</span>
+<span class="go">..     ...        ...      ...     ...    ...    ...     ...      ...     ...</span>
+<span class="go">40  284740      쿠쿠홈시스   +36700   35900   +800      2   +2.23    30134    1102</span>
+<span class="go">41  285130      SK케미칼  +130500  129500  +1000      2   +0.77    58032    7544</span>
+<span class="go">42  294870  HDC현대산업개발   +15600   14600  +1000      2   +6.85  3145356   49106</span>
+<span class="go">43  300720      한일시멘트   +19250   18750   +500      2   +2.67   159419    3021</span>
+<span class="go">44  950130     엑세스바이오   -18400   22400  -4000      5  -17.86  5877689  119649</span>
+
+<span class="go">    체결량  ...    ELW만기일 미결제약정 미결제전일대비 이론가 내재변동성 델타 감마 쎄타 베가 로</span>
+<span class="go">0   5549  ...  00000000</span>
+<span class="go">1     +1  ...  00000000</span>
+<span class="go">2    369  ...  00000000</span>
+<span class="go">3     +2  ...  00000000</span>
+<span class="go">4   +100  ...  00000000</span>
+<span class="go">..   ...  ...       ...   ...     ...  ..   ... .. .. .. .. ..</span>
+<span class="go">40    -3  ...  00000000</span>
+<span class="go">41    -1  ...  00000000</span>
+<span class="go">42   -25  ...  00000000</span>
+<span class="go">43    -4  ...  00000000</span>
+<span class="go">44   -36  ...  00000000</span>
+
+<span class="go">[45 rows x 63 columns]</span>
+</pre></div>
+</div>
+</section>
+<section id="grpc">
+<h3>GRPC 스트림 처리 관련 유틸리티 함수 (데모 목적)<a class="headerlink" href="#grpc" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">threading</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">grpc</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">warn_on_rpc_error_context</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">yield</span>
+<span class="gp">... </span>    <span class="k">except</span> <span class="n">grpc</span><span class="o">.</span><span class="n">RpcError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">warn_on_rpc_error</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">with</span> <span class="n">warn_on_rpc_error_context</span><span class="p">():</span>
+<span class="gp">... </span>        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">yield</span> <span class="n">event</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cancel_after</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">after</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">timer</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="n">after</span><span class="p">,</span> <span class="n">stream</span><span class="o">.</span><span class="n">cancel</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">warn_on_rpc_error</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>조건식 실시간 검색<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">condition_name</span> <span class="o">=</span> <span class="s2">&quot;중소형 저평가주&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stream</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetCodeListByConditionAsStream</span><span class="p">(</span><span class="n">condition_name</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">condition_met_code_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">cancel_after</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;OnReceiveTrCondition&quot;</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">initially_included_code_list</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">string_value</span>
+<span class="gp">... </span>        <span class="n">initially_included_code_list</span> <span class="o">=</span> <span class="n">initially_included_code_list</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">initially_included_code_list</span> <span class="k">else</span> <span class="p">[]</span>
+<span class="gp">... </span>        <span class="n">condition_met_code_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">initially_included_code_list</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;OnReceiveRealCondition&quot;</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">code</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">string_value</span>
+<span class="gp">... </span>        <span class="n">condition_type</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">string_value</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">condition_type</span> <span class="o">==</span> <span class="s2">&quot;I&quot;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">code_inserted</span> <span class="o">=</span> <span class="n">code</span>
+<span class="gp">... </span>            <span class="n">condition_met_code_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">code_inserted</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">elif</span> <span class="n">condition_type</span> <span class="o">==</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">code_deleted</span> <span class="o">=</span> <span class="n">code</span>
+<span class="gp">... </span>            <span class="n">condition_met_code_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">code_deleted</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;OnReceiveTrData&quot;</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">columns</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">names</span>
+<span class="gp">... </span>        <span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">values</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">multi_data</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="gp">... </span>        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">data_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">condition_met_code_list</span>
+<span class="go">[&#39;900290&#39;, &#39;900310&#39;, &#39;900340&#39;, &#39;002170&#39;, &#39;017890&#39;, &#39;023600&#39;, &#39;036190&#39;, &#39;037710&#39;, &#39;049430&#39;, &#39;073560&#39;, &#39;140910&#39;, &#39;187870&#39;, &#39;192440&#39;, &#39;210540&#39;, &#39;225220&#39;, &#39;263690&#39;, &#39;352700&#39;, &#39;950190&#39;, &#39;900280&#39;, &#39;900250&#39;]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3>계좌정보 확인<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">account_list</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetAccountList</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">account_list</span>
+<span class="go">[&#39;8014526011&#39;]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_account_no</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetFirstAvailableAccount</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_account_no</span>
+<span class="go">&#39;8014526011&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="id12">
+<h3>주문 요청 (삼성전자 시장가 매수)<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request_name</span> <span class="o">=</span> <span class="s2">&quot;삼성전자 1주 시장가 신규 매수&quot;</span>  <span class="c1"># 사용자 구분명, 구분가능한 임의의 문자열</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">screen_no</span> <span class="o">=</span> <span class="s2">&quot;0001&quot;</span>  <span class="c1"># 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">account_no</span> <span class="o">=</span> <span class="s2">&quot;8014526011&quot;</span>  <span class="c1"># 계좌번호 10자리, 여기서는 계좌번호 목록에서 첫번째로 발견한 계좌번호로 매수처리</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">order_type</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 주문유형, 1:신규매수</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;005930&quot;</span>  <span class="c1"># 종목코드, 앞의 삼성전자 종목코드</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">quantity</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 주문수량, 1주 매수</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">price</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 주문가격, 시장가 매수는 가격 설정 의미 없으므로 기본값 0 으로 설정</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">quote_type</span> <span class="o">=</span> <span class="s2">&quot;03&quot;</span>  <span class="c1"># 거래구분, 03:시장가</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">original_order_no</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># 원주문번호, 주문 정정/취소 등에서 사용</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stream</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">OrderCall</span><span class="p">(</span><span class="n">request_name</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">order_type</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">quantity</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">quote_type</span><span class="p">,</span> <span class="n">original_order_no</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">warn_on_rpc_error</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;OnReceiveTrData&quot;</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">order_no</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;OnReceiveChejanData&quot;</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">gubun</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">string_value</span>
+<span class="gp">... </span>        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">gubun</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">status</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;주문상태&quot;</span><span class="p">]</span>
+<span class="gp">... </span>            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;접수&quot;</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="k">pass</span>
+<span class="gp">... </span>            <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;체결&quot;</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="n">orders_filled</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;체결량&quot;</span><span class="p">]</span>
+<span class="gp">... </span>                <span class="n">orders_left</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;미체결수량&quot;</span><span class="p">]</span>
+<span class="gp">... </span>            <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;확인&quot;</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="n">org_order_no</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;원주문번호&quot;</span><span class="p">]</span>
+<span class="gp">... </span>                <span class="k">assert</span> <span class="n">original_order_no</span> <span class="o">==</span> <span class="n">org_order_no</span>
+<span class="gp">... </span>        <span class="k">elif</span> <span class="n">gubun</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">]:</span>
+<span class="gp">... </span>            <span class="n">stocks</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;보유수량&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id13">
+<h3>키움증권의 실시간 데이터 메타 정보 확인<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusRealType</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">realtype_list</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_realtype_info_list</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">realtype_descs</span> <span class="o">=</span> <span class="p">[</span><span class="n">realtype</span><span class="o">.</span><span class="n">desc</span> <span class="k">for</span> <span class="n">realtype</span> <span class="ow">in</span> <span class="n">realtype_list</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">realtype_descs</span>
+<span class="go">[&#39;주식시세&#39;, &#39;주식체결&#39;, &#39;주식상하한&#39;, &#39;주식우선호가&#39;, &#39;주식호가잔량&#39;, &#39;주식시간외호가&#39;, &#39;주식당일거래원&#39;, &#39;ETF NAV&#39;, &#39;ELW 지표&#39;, &#39;ELW 이론가&#39;, &#39;주식예상체결&#39;, &#39;주식종목정보&#39;, &#39;임의연장정보&#39;, &#39;ECN주식시세&#39;, &#39;ECN주식체결&#39;, &#39;ECN주식우선호가&#39;, &#39;ECN주식호가잔량&#39;, &#39;ECN주식시간외호가&#39;, &#39;ECN주식당일거래원&#39;, &#39;시간외종목정보&#39;, &#39;주식거래원&#39;, &#39;주식거래원(1LINE)&#39;, &#39;종목별프로그램매매&#39;, &#39;VI정적예상가&#39;, &#39;VI발동/해제-종목별&#39;, &#39;종목별프로그램매매2&#39;, &#39;종목투자자(잠정)&#39;, &#39;종목투자자(거래소)&#39;, &#39;대주가능수량&#39;, &#39;선물옵션우선호가&#39;, &#39;선물시세&#39;, &#39;선물호가잔량&#39;, &#39;선물이론가&#39;, &#39;선물기초자산시세&#39;, &#39;실시간상하한가&#39;, &#39;옵션시세&#39;, &#39;옵션호가잔량&#39;, &#39;옵션이론가&#39;, &#39;주식옵션시세&#39;, &#39;주식옵션호가잔량&#39;, &#39;주식옵션이론가&#39;, &#39;업종지수&#39;, &#39;업종등락&#39;, &#39;자체업종지수&#39;, &#39;예상업종지수&#39;, &#39;시황/뉴스&#39;, &#39;환률&#39;, &#39;장시작시간&#39;, &#39;투자자ticker&#39;, &#39;상하한가폭변경&#39;, &#39;VI발동/해제&#39;, &#39;투자자별매매&#39;, &#39;프로그램매매&#39;, &#39;해외시세&#39;, &#39;주문체결&#39;, &#39;파생잔고&#39;, &#39;현물잔고&#39;, &#39;예수금&#39;, &#39;해외주문체결&#39;, &#39;해외잔고&#39;, &#39;순간체결량&#39;, &#39;주문체결서버상태&#39;, &#39;증거금&#39;, &#39;CFD주문&#39;, &#39;CFD체결&#39;, &#39;CFD마진콜경고&#39;, &#39;CFD입출고&#39;, &#39;자유포멧&#39;, &#39;조건검색&#39;, &#39;일반신호&#39;, &#39;리얼잔고&#39;, &#39;해외리얼잔고&#39;, &#39;리얼잔고총합&#39;, &#39;해외잔고총합&#39;, &#39;스톱로스&#39;, &#39;선물옵션합계&#39;, &#39;스톱주문&#39;, &#39;CFD주문체결&#39;, &#39;CFD리얼잔고&#39;, &#39;CFD리얼잔고총합&#39;, &#39;모니터링 실시간LOG&#39;, &#39;주식선물호가잔량&#39;, &#39;실시간증거금&#39;, &#39;X-Ray순간체결량&#39;, &#39;매입인도체결&#39;, &#39;매입인도호가&#39;, &#39;코넥스경매매체결&#39;, &#39;데이터셋실시간&#39;, &#39;홍콩체결&#39;, &#39;홍콩시세&#39;, &#39;홍콩호가잔량&#39;, &#39;홍콩단일가시세&#39;, &#39;홍콩업종지수&#39;, &#39;홍콩실시간상하한가&#39;, &#39;수동자동주문&#39;, &#39;자동주문결과&#39;, &#39;TS고저변경&#39;, &#39;잔고편입&#39;, &#39;기준가변경&#39;, &#39;멀티차단&#39;, &#39;잔고청산삭제&#39;, &#39;후강퉁체결&#39;, &#39;후강퉁시세&#39;, &#39;후강퉁호가잔량&#39;, &#39;후강퉁단일가시세&#39;, &#39;후강퉁업종지수&#39;, &#39;미체결통보시스템&#39;, &#39;채널K실시간티커&#39;, &#39;빅데이터종목1분&#39;, &#39;빅데이터종목10분&#39;, &#39;빅데이터종목1시간&#39;, &#39;빅데이터종목당일&#39;, &#39;빅데이터뉴스&#39;, &#39;신호관리자투자정보&#39;, &#39;빅데이터급상승&#39;, &#39;빅데이터종목30초&#39;, &#39;알-종목포착이탈&#39;, &#39;알-매도감시시작&#39;, &#39;알-매도감시포착&#39;, &#39;알-주문결과&#39;, &#39;알-청산시작&#39;, &#39;알-청산완료&#39;, &#39;알-감시시작&#39;, &#39;알-내조건식수정&#39;, &#39;알-주문조건수정&#39;, &#39;알-제한여부&#39;, &#39;알-멀티차단&#39;, &#39;알-TS변경&#39;, &#39;알-모의주문체결&#39;, &#39;알-모의현물잔고&#39;, &#39;알-모의 주문체결&#39;, &#39;알-모의 리얼잔고&#39;, &#39;알-모의리얼잔고총합&#39;, &#39;채권체결&#39;, &#39;채권호가잔량&#39;, &#39;소액채권체결&#39;, &#39;소액채권호가잔량&#39;, &#39;CME시세&#39;, &#39;CME미결제약정&#39;, &#39;CME호가잔량&#39;, &#39;EUF시세&#39;, &#39;EUF호가잔량&#39;, &#39;EUREX시세&#39;, &#39;EUREX호가&#39;, &#39;배치데이터갱신&#39;, &#39;종목마스터갱신&#39;, &#39;해외주식주문&#39;, &#39;해외주식체결&#39;, &#39;해외실시간잔고조회&#39;, &#39;미국입출고&#39;, &#39;미국종목변경&#39;, &#39;CME/EUREX주문&#39;, &#39;CME/EUREX체결&#39;, &#39;CME배치&#39;, &#39;EUREX배치&#39;, &#39;CME미체결&#39;, &#39;CME실시간잔고&#39;, &#39;CME잔고합&#39;, &#39;분할반복주문&#39;]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">realtype_info</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_realtype_info_by_name</span><span class="p">(</span><span class="s2">&quot;주식시세&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">realtype_info</span>
+<span class="go">KiwoomOpenApiPlusRealType(&#39;0A&#39;, &#39;주식시세&#39;, 21, [10, 11, 12, 27, 28, 13, 14, 16, 17, 18, 25, 26, 29, 30, 31, 32, 311, 822, 567, 568, 732])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fid_list</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_fids_by_realtype_name</span><span class="p">(</span><span class="s2">&quot;주식시세&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fid_list</span>
+<span class="go">[10, 11, 12, 27, 28, 13, 14, 16, 17, 18, 25, 26, 29, 30, 31, 32, 311, 822, 567, 568, 732]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">Fid</span><span class="o">.</span><span class="n">get_name_by_fid</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">&#39;현재가&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fid_names</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_field_names_by_realtype_name</span><span class="p">(</span><span class="s2">&quot;주식시세&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fid_names</span>
+<span class="go">[&#39;현재가&#39;, &#39;전일대비&#39;, &#39;등락율&#39;, &#39;매도호가&#39;, &#39;매수호가&#39;, &#39;누적거래량&#39;, &#39;누적거래대금&#39;, &#39;시가&#39;, &#39;고가&#39;, &#39;저가&#39;, &#39;전일대비기호&#39;, &#39;거래량전일대비&#39;, &#39;거래대금증감&#39;, &#39;전일거래량대비율&#39;, &#39;거래회전율&#39;, &#39;거래비용&#39;, &#39;시가총액&#39;, &#39;822&#39;, &#39;567&#39;, &#39;568&#39;, &#39;732&#39;]</span>
+</pre></div>
+</div>
+</section>
+<section id="id14">
+<h3>실시간 데이터 요청 (삼성전자 주식시세 실시간 데이터 요청)<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">code_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;005930&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fid_list</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_fids_by_realtype_name</span><span class="p">(</span><span class="s2">&quot;주식시세&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt_type</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>  <span class="c1"># 기존 화면에 추가가 아니라 신규 생성</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stream</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetRealDataForCodesAsStream</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">code_list</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">fid_list</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">opt_type</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">screen_no</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># 화면번호, 0000 을 제외한 4자리 숫자 임의로 지정, None 의 경우 내부적으로 화면번호 자동할당</span>
+<span class="gp">... </span>    <span class="n">infer_fids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># True 로 설정 시 주어진 fid_list 를 고집하지 말고 이벤트 처리 함수의 인자로 전달받는 실시간데이터 이름에 따라 유연하게 fid_list 를 추론</span>
+<span class="gp">... </span>    <span class="n">readable_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># True 로 설정 시 각 fid 마다 숫자 대신 읽을 수 있는 이름으로 변환하여 반환</span>
+<span class="gp">... </span>    <span class="n">fast_parse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># True 로 설정 시 이벤트 처리 함수내에서 데이터 값 읽기 시 GetCommRealData() 함수 호출 대신, 이벤트 처리 함수의 인자로 넘어오는 데이터를 직접 활용, infer_fids 가 True 로 설정된 경우만 유의미함</span>
+<span class="gp">... </span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">cancel_after</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;OnReceiveRealData&quot;</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="s2">&quot;현재가&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">current_price</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;현재가&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id15">
+<h3>사용 종료 후 엔트리포인트 객체 리소스 해제 (연결 해제 및 서버 어플리케이션 종료)<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>직접 <code class="docutils literal notranslate"><span class="pre">close()</span></code> 메소드 호출:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entrypoint</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>혹은 처음부터 컨텍스트 매니저 형태로 리소스 관리:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">()</span> <span class="k">as</span> <span class="n">entrypoint</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>해당 라이브러리는 <a class="reference external" href="https://pypi.org/project/koapy/">PyPI</a> 를 통해서 설치 가능합니다:</p>
+<p>대표적으로 아래와 같이 <a class="reference external" href="https://pypi.org/project/koapy/">PyPI</a> 를 통해서 설치가 가능합니다:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install koapy
 </pre></div>
 </div>
-<p>만약에 기본 기능 이외에 추가적인 기능들을 사용하고자 하는 경우, 아래처럼 추가적인 의존성까지 같이 설치해주셔야 합니다.</p>
-<p>예를 들어 <a class="reference external" href="https://github.com/mementum/backtrader">backtrader</a> 관련 기능들이 구현된 <a class="reference external" href="https://github.com/elbakramer/koapy/tree/master/koapy/backtrader"><code class="docutils literal notranslate"><span class="pre">koapy.backtrader</span></code></a> 모듈 하위의 기능들을 사용하고자 하는 경우,
-관련 의존성을 포함해 설치하기 위해서는 아래와 같이 설치합니다:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install koapy<span class="o">[</span>backtrader<span class="o">]</span>
-</pre></div>
-</div>
-<p>별개로 <a class="reference external" href="https://github.com/mementum/backtrader">backtrader</a> 와 관련해서는 <a class="reference internal" href="#licensing">Licensing</a> 옵션과 관련해서 주의가 필요합니다.
-구체적인 내용은 좀 더 아래쪽에 있는 <a class="reference internal" href="#licensing">Licensing</a> 항목의 내용을 참고하세요.</p>
-<p>만약에 개발환경을 구축하고자 하는 경우에는 아래처럼 <a class="reference external" href="https://python-poetry.org/"><code class="docutils literal notranslate"><span class="pre">poetry</span></code></a> 를 활용해 구성합니다.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="c1"># Install poetry using pipx</span>
+<p>만약에 개발 환경을 구축하고자 하는 경우에는 <a class="reference external" href="https://python-poetry.org/"><code class="docutils literal notranslate"><span class="pre">poetry</span></code></a> 를 활용해 구성합니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="c1"># Install poetry (here using pipx)</span>
 <span class="gp">$ </span>python -m pip install pipx
 <span class="gp">$ </span>python -m pipx ensurepath
 <span class="gp">$ </span>pipx install poetry
@@ -415,15 +683,297 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인,
 </div>
 <p>이외에 자세한 설치방법과 관련해서는 <a class="reference external" href="https://koapy.readthedocs.io/en/latest/installation.html">Installation</a> 문서를 참고하세요.</p>
 </section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<p>KOAPY 는 아래와 같은 방향성을 가지고 개발되었습니다.</p>
+<section id="gui">
+<h3>GUI 어플리케이션만으로 제한되지 않는 다양한 사용성<a class="headerlink" href="#gui" title="Permalink to this headline">¶</a></h3>
+<p>일반적으로 인터넷 등지에서 접하기 쉬운 관련 예시들을 처음으로 따라가다 보면, 자기도
+모르는 사이에 Qt 기반 어플리케이션을 하나 만들고, 버튼을 하나 추가하고, 이후 모든
+기능들을 죄다 해당 버튼을 클릭 시 작동하는 콜백 함수 하나에 쑤셔 넣고 있는.. 자신을
+발견하게 되더군요.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># https://wikidocs.net/4240</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QAxContainer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">MyWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;PyStock&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">kiwoom</span> <span class="o">=</span> <span class="n">QAxWidget</span><span class="p">(</span><span class="s2">&quot;KHOPENAPI.KHOpenAPICtrl.1&quot;</span><span class="p">)</span>
+
+        <span class="n">btn1</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Login&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">btn1</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="n">btn1</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">btn1_clicked</span><span class="p">)</span>
+
+        <span class="n">btn2</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Check state&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">btn2</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+        <span class="n">btn2</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">btn2_clicked</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">btn1_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kiwoom</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s2">&quot;CommConnect()&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">btn2_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kiwoom</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s2">&quot;GetConnectState()&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="s2">&quot;Not connected&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="s2">&quot;Connected&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">myWindow</span> <span class="o">=</span> <span class="n">MyWindow</span><span class="p">()</span>
+    <span class="n">myWindow</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>사실 기반 라이브러리가 애초에 OCX 형태로서 제공되는 것도 있고, 다른 여러 가지 이유들로
+인해 이처럼 GUI 어플리케이션 형태로 개발을 하는 것이 자연스러운 흐름이고 절대
+잘못되었다고 생각되진 않습니다.</p>
+<p>다만 이러한 GUI 환경이 일반적으로 Python 에서 REPL 혹은 Jupyter Notebook 등을 통해서
+인터랙티브하게 결과 값들을 확인해가면서 조금씩 개발해 나가던 것과는 거리가 멀어지면서
+결론적으로 생산성이 떨어지게 되는 건 아닌가 하는 생각이 들었고, 그로 인해 KOAPY 의
+기본적인 인터페이스는 기반이 되는 Qt 환경을 개발자가 직접적으로 고려하진 않으면서도
+기능은 쉽게 사용해 볼 수 있게 끔 하는 게 좋겠다고 생각했습니다.</p>
+<p>따라서 KOAPY 의 기본적인 디자인은 우선 외적으로 봤을 때 이게 내부적으로는 Qt 같은
+환경하에서 돌아간다는 것을 바로 알아챌 순 없게 끔 되어 있습니다. 그리고 기본적인
+기능들을 이용하는 데에 있어서도 버튼 클릭 등의 이벤트에 기반한 호출보단 일반적인 함수
+호출과 같은 명령형 프로그래밍이 가능하도록 디자인 하였으며, 문서에서도 해당 사용
+시나리오들을 중점적으로 먼저 소개하고 있습니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span>
+
+<span class="k">with</span> <span class="n">KiwoomOpenApiPlusEntrypoint</span><span class="p">()</span> <span class="k">as</span> <span class="n">entrypoint</span><span class="p">:</span>
+    <span class="n">entrypoint</span><span class="o">.</span><span class="n">EnsureConnected</span><span class="p">()</span>
+    <span class="n">is_connected</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">IsConnected</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">is_connected</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>결론적으로 <a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/">PyQt5</a> 혹은 <a class="reference external" href="https://doc.qt.io/qtforpython/index.html">PySide2</a> 를 기반한 GUI 환경에 얽매일 필요 없이 일반적인
+라이브러리처럼 가져다 활용할 수 있으며, 여전히 GUI 기반 어플리케이션 개발이 필요하다면
+내부적으로 사용되는 요소들을 통해 직접 GUI 방향으로 개발을 할 수도 있습니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">koapy.compat.pyside2.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QMainWindow</span>
+<span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusQAxWidget</span>
+
+<span class="k">class</span> <span class="nc">MyWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">kiwoom</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusQAxWidget</span><span class="p">()</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="id17">
+<h3>함수 호출등의 과정에서 일반적인 Python 의 관습을 크게 해치지 않는 매끄러운 인터페이스 구성<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>Qt 를 통해서 COM/OLE/OCX 객체의 메서드를 호출하려면 <a class="reference external" href="https://doc.qt.io/qt-5/qaxbase.html#dynamicCall"><code class="docutils literal notranslate"><span class="pre">dynamicCall</span></code></a> 함수를 활용해야 합니다.</p>
+<p>해당 <a class="reference external" href="https://doc.qt.io/qt-5/qaxbase.html#dynamicCall"><code class="docutils literal notranslate"><span class="pre">dynamicCall</span></code></a> 함수는 호출하고자 하는 메서드의 프로토타입을 문자열 형태 인자로서
+입력하도록 되어있는데, 단순하게는 매번 메서드를 호출하고자 할 때마다 해당 메서드의
+프로토타입이 어떻게 생겼는지를 문서 등을 참고하고 일일이 적어 넣어줘야 할 수 있습니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">control</span> <span class="o">=</span> <span class="n">QAxWidget</span><span class="p">(</span><span class="s2">&quot;KHOPENAPI.KHOpenAPICtrl.1&quot;</span><span class="p">)</span>
+<span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s2">&quot;SetInputValue(const QString&amp;, const QString&amp;)&quot;</span><span class="p">,</span> <span class="s2">&quot;종목코드&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>그 다음으로 보다 나은 방식으로는 이러한 프로토타입을 모든 함수들에 대해서 확인해서
+간단한 래퍼 함수들을 만들어두고 활용하는 게 있겠죠.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">SetInputValue</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s2">&quot;SetInputValue(const QString&amp;, const QString&amp;)&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>일반적으로는 이런 방식들로도 충분히 사용하는데 무리가 없으리라 생각됩니다만
+개인적으로는 위와 같은 접근 방식에서 몇 가지 우려되는 점들이 신경이 쓰였습니다.</p>
+<ul class="simple">
+<li><p>프로토타입을 입력하거나 래퍼 함수들을 만들어 넣는 과정에서 발생할 수 있는 휴먼에러</p></li>
+<li><p>래퍼 함수들을 만들어 놓았더라도 추후 함수의 목록 혹은 특정 함수의 프로토타입에서
+변경이 발생하는 경우 매번 직접적인 대응이 필요함</p></li>
+</ul>
+<p>따라서 KOAPY 에서는 이러한 지원 함수 목록 및 함수별 프로토타입 정보 확인, 그리고
+이것들을 활용해 특정 메서드를 호출하는 과정까지를 어떻게 프로그래밍적으로 대응할 수
+없을까를 고민했고, 현재는 OpenAPI+ OCX 의 TypeLib 정보를 읽어와 메서드들을 동적으로
+생성하도록 구현해 위에서 우려했던 점들을 해결했습니다.</p>
+<p>최종적으론 컨트롤 함수 호출 시 매뉴얼의 명세에 적혀있는 형태 그대로 Python 함수였던
+것처럼 호출이 가능하며, 이후는 KOAPY 가 유연하게 처리합니다. 매번 명세에 맞게
+<a class="reference external" href="https://doc.qt.io/qt-5/qaxbase.html#dynamicCall"><code class="docutils literal notranslate"><span class="pre">dynamicCall</span></code></a> 함수의 인자를 적어 넣거나, 모든 존재하는 함수에 대해 미리 래퍼 함수를
+손 아프게 만들어놓을 필요가 없습니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">control</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusQAxWidget</span><span class="p">()</span>
+<span class="n">control</span><span class="o">.</span><span class="n">SetInputValue</span><span class="p">(</span><span class="s2">&quot;종목코드&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id18">
+<h3>이벤트 처리 및 비동기 프로그래밍 관련 복잡하지 않은 인터페이스 제공<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>비동기 프로그래밍은 일반적으로 어렵습니다. 특히 OpenAPI+ 및 KOAPY 의 경우를 예로
+들어보면 아래와 같은 고민해 볼 만한 부분들이 있습니다.</p>
+<ul class="simple">
+<li><p>여러 요청에 대한 응답 결과들을 이벤트 타입별 하나씩의 통로로 처리하기 때문에 그들
+간의 교통정리부터 필요합니다.</p></li>
+<li><p>콜백 함수 내에서 OpenAPI+ 가 기대하는 혹은 가이드하는 방식에 맞춰서 처리해 주어야
+하는 특정 단계 혹은 프로세스가 존재하며 이를 적절히 대응해 주어야 합니다.</p></li>
+<li><p>콜백 함수에서 받은 결과를 최종적으로 해당 결과가 필요한 곳으로 (일반적으론 요청한
+대상에게로) 잘 전달해 주어야 합니다.</p></li>
+</ul>
+<p>KOAPY 에서는 위의 문제들을 나름의 방식대로 고민하였고 문제들을 해결하여 더 쉽고 나은
+인터페이스를 사용자에게 제공하고 있습니다.</p>
+<p>구체적으로 예를 하나 들자면, 일반적인 요청-응답 과정에서 내부적으로 gRPC
+클라이언트-서버 관계를 만들어 요청자가 gRPC 를 통해 특정 요청을 전달하면, 이후 gRPC
+서버에서는 해당 요청에 대한 응답들만 추려서 결과를 요청자측에 스트림 형태로 전달하도록
+디자인되어 있는데요. 여기서 교통정리 및 결과 전달 문제가 자연스럽게 해결되며 부수적으로
+사용자 입장에서는 직접 콜백 함수를 다루기보다는 간접적으로 스트림을
+(<code class="docutils literal notranslate"><span class="pre">for</span></code> 문을 활용하여) 다룸으로써 더 쉽게 비동기 프로그래밍이 필요한 기능들을 사용할
+수 있는 이점이 있습니다.</p>
+<p>PySide2 를 통한 직접적인 방식:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 컨트롤 객체</span>
+<span class="n">control</span> <span class="o">=</span> <span class="n">QAxWidget</span><span class="p">(</span><span class="s2">&quot;KHOPENAPI.KHOpenAPICtrl.1&quot;</span><span class="p">)</span>
+
+<span class="c1"># 이벤트 시그널</span>
+<span class="n">on_receive_tr_data_signal</span> <span class="o">=</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="s2">&quot;OnReceiveTrData(const QString&amp;, const QString&amp;, const QString&amp;, const QString&amp;, const QString&amp;, int, const QString&amp;, const QString&amp;, const QString&amp;)&quot;</span><span class="p">)</span>
+
+<span class="c1"># 이벤트 콜백 함수</span>
+<span class="k">def</span> <span class="nf">on_receive_tr_data</span><span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="n">request_name</span><span class="p">,</span> <span class="n">tr_code</span><span class="p">,</span> <span class="n">record_name</span><span class="p">,</span> <span class="n">prev_next</span><span class="p">,</span> <span class="n">data_length</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">splmmsg</span><span class="p">):</span>
+    <span class="n">handle_event</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+    <span class="c1"># 이벤트 처리 후 필요하다면 등록된 콜백 함수 제거</span>
+    <span class="k">if</span> <span class="n">should_disconnect</span><span class="p">:</span>
+        <span class="n">control</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">on_receive_tr_data_signal</span><span class="p">,</span> <span class="n">on_receive_tr_data</span><span class="p">)</span>
+
+<span class="c1"># 이벤트 시그널에 콜백 함수 연결</span>
+<span class="n">control</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">on_receive_tr_data_signal</span><span class="p">,</span> <span class="n">on_receive_tr_data</span><span class="p">)</span>
+
+<span class="c1"># TR 입력값 설정</span>
+<span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span><span class="s2">&quot;SetInputValue(const QString&amp;, const QString&amp;)&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="o">...</span>
+
+<span class="c1"># TR 요청</span>
+<span class="n">err_code</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">dynamicCall</span><span class="p">(</span>
+    <span class="s2">&quot;CommRqData(const QString&amp;, const QString&amp;, int, const QString&amp;)&quot;</span><span class="p">,</span>
+    <span class="n">request_name</span><span class="p">,</span>
+    <span class="n">tr_code</span><span class="p">,</span>
+    <span class="n">prev_next</span><span class="p">,</span>
+    <span class="n">screen_no</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>KOAPY 방식:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># TR 요청 후 이벤트가 스트림 형태로 반환</span>
+<span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">request_name</span><span class="p">,</span> <span class="n">tr_code</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+    <span class="n">handle_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>결론적으로는 사용자가 이벤트 처리 및 비동기 프로그래밍에 익숙하지 않더라도 그보다
+비교적 쉬운 인터페이스를 통해 관련 기능들을 활용할 수 있습니다.</p>
+<p>더 나아가서는 가장 간단한 로그인 처리부터 TR/실시간 데이터 처리, 그리고 주문처리까지
+다양한 시나리오에 대한 기본 이벤트 처리 로직을 구현해 제공해 사용자들이 비동기
+프로그래밍이 필요한 기능 중 주로 사용되는 기능들에 쉽게 접근할 수 있도록 했습니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stream</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">LoginCall</span><span class="p">()</span>
+<span class="n">stream</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">TransactionCall</span><span class="p">(</span><span class="n">request_name</span><span class="p">,</span> <span class="n">tr_code</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+<span class="n">stream</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">RealCall</span><span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> <span class="n">fids</span><span class="p">,</span> <span class="n">opt_type</span><span class="p">)</span>
+<span class="n">stream</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">OrderCall</span><span class="p">(</span><span class="n">request_name</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">account_no</span><span class="p">,</span> <span class="n">order_type</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">quantity</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">quote_type</span><span class="p">,</span> <span class="n">original_order_no</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id19">
+<h3>여러 일반적인 시나리오들에 대한 다양한 기본 구현체들을 제공<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>KOAPY 에서는 일반적으로 자주 사용되는 기능들에 대해서 사용자들이 쉽게 접근할 수 있도록,
+예를 들어 주식 기본정보 요청부터 일봉/분봉 등 시세 데이터 확인 그리고 예수금/잔고 확인 등등에 대해 미리 구현된 함수를 제공합니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stock_info</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetStockBasicInfoAsDict</span><span class="p">(</span><span class="n">stock_code</span><span class="p">)</span>
+<span class="n">stock_chart_data</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetDailyStockDataAsDataFrame</span><span class="p">(</span><span class="n">stock_code</span><span class="p">)</span>
+
+<span class="n">account_deposit</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetDepositInfo</span><span class="p">(</span><span class="n">account_no</span><span class="p">)</span>
+<span class="n">account_evaluation</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">account_evaluation_summary</span><span class="p">,</span>
+    <span class="n">account_evaluation_per_stock</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">=</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">GetAccountEvaluationStatusAsSeriesAndDataFrame</span><span class="p">(</span><span class="n">account_no</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>이 중에 함수 호출 결과 중 테이블성 정보들은 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html"><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> 타입으로 제공해 이후 분석 및 처리가 유용하게끔 했습니다.</p>
+</section>
+<section id="id20">
+<h3>개발과정에서 라이브러리 밖을 드나들 필요가 없도록 자주 확인이 필요한 여러가지 메타 정보들을 함께 제공<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p>일반적으로 인터넷 등지에서 접하기 쉬운 관련 대부분 예시들은 사용자가 OpenAPI+ 에 대한
+여러 가지 메타정보들을 이미 다 알고 있다는 걸 가정하고, 아니면 적어도 외부 참고자료를
+확인하는 것을 가정하고 작성되어 있는 경우가 많습니다.</p>
+<p>예를 들어 TR 의 입력과 출력 데이터 구조, 실시간 데이터별 FID 목록, 에러코드에 대한
+설명문 등이 이러한 메타정보들에 해당되는데요. 앞서 함수 호출 방식에서의 이슈와 비슷하게,
+이러한 정보들을 매번 참고 자료를 확인하고 그에 맞춰 개발하는 방식에는 어느 정도 한계가
+있습니다.</p>
+<p>따라서 KOAPY 에서는 이러한 정보들을 개발하는 과정에서 언어 내 라이브러리에서 바로 조회
+및 활용이 가능하도록 포함시켜 제공합니다. 이로 인해 일차적으로 사용자 입장에서는 매번
+<a class="reference external" href="https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf">매뉴얼</a> 이나 <a class="reference external" href="https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=7">KOAStudio</a> 를 열어서 참고하고 이후 일일이 하나씩 하드코딩할 필요가
+없어졌습니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusTrInfo</span>
+<span class="n">tr_info</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusTrInfo</span><span class="o">.</span><span class="n">get_trinfo_by_code</span><span class="p">(</span><span class="s2">&quot;opt10001&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusRealType</span>
+<span class="n">realtype_info</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">get_realtype_info_by_name</span><span class="p">(</span><span class="s2">&quot;주식시세&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">koapy</span> <span class="kn">import</span> <span class="n">KiwoomOpenApiPlusError</span>
+<span class="n">error_message</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusError</span><span class="o">.</span><span class="n">get_error_message_by_code</span><span class="p">(</span><span class="o">-</span><span class="mi">101</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>덧붙여서 TR 관련 정보나 실시간 데이터 관련 정보들은 OpenAPI+ 가 설치되어 있는 경우
+해당 경로의 데이터를 참고해 동적으로 생성하도록 되어있는데요. 이로 인해 직접 하드코딩
+등을 했을 때 발생할 수 있는 이슈 없이, 매번 업데이트 시 변경된 내용이 바로바로 적용될
+수 있는 이점 또한 가지고 있습니다.</p>
+</section>
+<section id="id22">
+<h3>라이브러리 호환성으로 인해 특정 환경이 강제되는 것을 우회할 수 있도록 시스템 구성<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<p>키움증권의 OpenAPI+ 는 32bit 환경만 제공하고 있기 때문에 이를 사용하는 쪽도 자연스럽게
+32bit 기반이 되어야 합니다.</p>
+<p>여기서는 <a class="reference external" href="https://www.python.org/">Python</a> 을 32bit 로 사용해야 하는 조건이 붙게 되는 것인데요. 몇몇 외부
+서드파티들에서는 더 이상 32bit 를 지원하지 않는 경우도 많아 다양한 서드파티 기능들과
+접목시키기에는 32bit 제약이 번거로운 점이 많습니다.</p>
+<p>KOAPY 에서는 이를 해소하기 위해 <a class="reference external" href="https://grpc.io/">gRPC</a> 서버-클라이언트 형태의 구성을 잡아 서버에서는
+32bit 기반으로 OpenAPI+ 의 핵심 기능만 제공하도록 하고, 클라이언트에서는 이런 32bit
+제약 없이 결과들을 받아서 이후 여러 서드파티 기능들과 함께 활용할 수 있도록 했습니다.</p>
+<p>앞에서는 주로 32bit 제약을 가지고 이야기했지만 더 나아가서는 <a class="reference external" href="https://grpc.io/">gRPC</a> 의 많은 언어들에
+대한 확장성을 활용하여 Python 이외에 <a class="reference external" href="https://grpc.io/">gRPC</a> 에서 지원하는 다른 언어들로 클라이언트를
+작성해 사용하는 방식으로도 확장이 가능합니다.</p>
+<p>또한 <a class="reference external" href="https://www.python.org/">Python</a> 에서 <a class="reference external" href="https://www.qt.io/">Qt</a> 를 사용하기 위해서는 <a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/">PyQt5</a> 혹은 <a class="reference external" href="https://doc.qt.io/qtforpython/index.html">PySide2</a> 를 사용해야 하는데요.
+KOAPY 에서는 라이선스등을 고려해서 기본값으로 <a class="reference external" href="https://doc.qt.io/qtforpython/index.html">PySide2</a> 를 사용하도록 되어있지만,
+사용자의 필요성에따라 <a class="reference external" href="https://doc.qt.io/qtforpython/index.html">PySide2</a> 대신 <a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/">PyQt5</a> 를 사용하려 할때 쉽게 변경할 수 있도록
+<a class="reference external" href="https://github.com/spyder-ide/qtpy"><code class="docutils literal notranslate"><span class="pre">qtpy</span></code></a> 를 통해서 지원하고 있습니다.</p>
+</section>
+<section id="id27">
+<h3>키움증권의 OpenAPI+ 기능 자체 이외에 부수적으로 필요할만한 다양한 기능들을 추가로 제공<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<p>KOAPY 는 키움증권의 OpenAPI+ 핵심 기능 이외에 전체적인 개발 및 활용에 필요한 다양한
+부가기능들을 추가로 제공합니다.</p>
+<ul class="simple">
+<li><p>TR 호출 시 호출 횟수 제한 회피</p></li>
+<li><p>KRX 거래소 휴장일 확인 (<a class="reference external" href="https://github.com/gerrymanoim/exchange_calendars"><code class="docutils literal notranslate"><span class="pre">exchange_calendars</span></code></a> API 활용)</p></li>
+<li><p>알람 및 메시지 기능 (<a class="reference external" href="https://discordpy.readthedocs.io/en/stable/"><code class="docutils literal notranslate"><span class="pre">discord.py</span></code></a> API 활용)</p></li>
+</ul>
+</section>
+<section id="cli">
+<h3>라이브러리 뿐만 아니라 관련 기능들을 추가적인 코드 구현없이 쉽게 사용해볼 수 있도록 (+ 개념 증명 목적으로서) CLI 제공<a class="headerlink" href="#cli" title="Permalink to this headline">¶</a></h3>
+<p>굳이 Python 코드를 작성하지 않더라도 기본적인 기능들을 활용해 볼 수 있도록 여러
+커맨드를 포함하는 CLI 를 제공합니다.</p>
+<p>CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본 정보 확인, 일봉/분봉 데이터 확인 및
+저장, 실시간 데이터 구독 등 다양한 기능들을 코드 구현 없이 사용할 수 있습니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy get stockcode --market<span class="o">=</span><span class="m">0</span>
+<span class="gp">$ </span>koapy get stockinfo --code<span class="o">=</span><span class="m">005930</span>
+<span class="gp">$ </span>koapy get daily --code<span class="o">=</span><span class="m">005930</span> --output<span class="o">=</span><span class="m">005930</span>.xlsx
+<span class="gp">$ </span>koapy watch --code<span class="o">=</span><span class="m">005930</span> --realtype<span class="o">=</span><span class="s2">&quot;주식시세&quot;</span>
+</pre></div>
+</div>
+<p>서버도 CLI 커맨드로 쉽게 띄울 수 있습니다.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy serve
+</pre></div>
+</div>
+</section>
+</section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>설치 이후 일반적인 사용법에 대해서는 <a class="reference external" href="https://koapy.readthedocs.io/en/latest/usage.html">Usage</a> 를 참고하세요.</p>
 <p>추가적으로 사용법과 관련된 다양한 예시들은 <a class="reference external" href="https://github.com/elbakramer/koapy/tree/master/koapy/examples">examples</a> 폴더 및 <a class="reference external" href="https://github.com/elbakramer/koapy/tree/master/docs/source/notebooks_ipynb">notebooks_ipynb</a> 폴더에서도 확인 가능합니다.
 혹시나 <a class="reference external" href="https://github.com/elbakramer/koapy/tree/master/docs/source/notebooks_ipynb">notebooks_ipynb</a> 폴더의 <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> 파일들을 Github 을 통해서 보는데 문제가 있는 경우,
-해당 노트북 주소를 <a class="reference external" href="https://nbviewer.jupyter.org/">nbviewer</a> 에 입력하여 확인해보세요.</p>
+해당 노트북 주소를 <a class="reference external" href="https://nbviewer.jupyter.org/">nbviewer</a> 에 입력하여 확인해 보세요.</p>
 <p>현재 알파 단계이기 때문에 많은 기능들이 실제로 문제없이 동작하는지 충분히 테스트되지 않았습니다.
-만약에 실전 트레이딩에 사용하려는 경우 자체적으로 충분한 테스트를 거친 후 사용하시기 바랍니다.
-개발자는 라이브러리 사용으로 인해 발생하는 손실에 대해 어떠한 책임도 지지 않습니다.</p>
+만약에 실전 트레이딩에 사용하려는 경우 자체적으로 충분한 테스트를 거친 후 사용하시기 바랍니다.</p>
+<p>개발자는 라이브러리 사용으로 인해 발생하는 손실에 대해 어떠한 책임도 지지 않습니다.</p>
 <p>또한 알파 단계에서 개발이 진행되면서 라이브러리의 구조가 계속 급격하게 변경될 수 있으니 참고 바랍니다.</p>
 </section>
 <section id="licensing">
@@ -455,12 +1005,7 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인,
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.fsf.org/">FSF</a>/<a class="reference external" href="https://www.gnu.org/licenses/licenses.html#GPL">GPL</a> 이 추구하는 <a class="reference external" href="https://www.gnu.org/licenses/copyleft.html">Copyleft</a> 의 가치를 따르신다면 선택 가능한 옵션중 하나입니다.</p></li>
 <li><p>이외에 <a class="reference external" href="https://github.com/mementum/backtrader">backtrader</a> 관련 기능들을 활용하시는 경우, KOAPY 는 <strong>반드시</strong> GPLv3+ 로만 배포되어야 합니다.</p></li>
-<li><p>구체적으로 아래와 같은 경우들에 하나라도 포함된다면 GPLv3+ 배포 조건에 해당됩니다.</p>
-<ul>
-<li><p>설치시 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">koapy[backtrader]</span></code> 명령으로 설치</p></li>
-<li><p>사용시 <a class="reference external" href="https://github.com/elbakramer/koapy/tree/master/koapy/backtrader"><code class="docutils literal notranslate"><span class="pre">koapy.backtrader</span></code></a> 모듈 하위의 기능들을 사용</p></li>
-</ul>
-</li>
+<li><p>구체적으로 <a class="reference external" href="https://github.com/elbakramer/koapy/tree/master/koapy/backtrader"><code class="docutils literal notranslate"><span class="pre">koapy.backtrader</span></code></a> 모듈 하위의 기능들을 사용한다면 GPLv3+ 배포 조건에 해당됩니다.</p></li>
 <li><p>이것은 <a class="reference external" href="https://github.com/mementum/backtrader">backtrader</a> 가 GPLv3+ 로 배포되고 있으며,
 해당 라이선스의 요구사항에 따라 그것을 사용하는 소프트웨어 또한 GPLv3+ 로 배포되어야 하기 때문입니다.</p></li>
 </ul>
@@ -468,19 +1013,9 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본정보 확인,
 <p>다만 위의 내용이 법률적 조언은 아닌 점 참고 바랍니다.</p>
 </section>
 </section>
-<section id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<p>개발과정에 있어서 참고하거나 전체적인 투자과정에서 같이 보면 좋을 것 같아 보이는 자료들을 모아봤습니다.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://wikidocs.net/book/110">파이썬으로 배우는 알고리즘 트레이딩</a></p></li>
-<li><p><a class="reference external" href="https://wikidocs.net/book/1173">퀀트투자를 위한 키움증권 API (파이썬 버전)</a></p></li>
-<li><p><a class="reference external" href="https://igotit.tistory.com/840">시스템 트레이딩</a></p></li>
-<li><p><a class="reference external" href="https://stock79.tistory.com/">systrader79의 왕초보를 위한 주식투자</a></p></li>
-</ul>
-</section>
 <section id="credits">
 <h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
-<p>This package was created with <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> and the <a class="reference external" href="https://github.com/elbakramer/cookiecutter-poetry">elbakramer/cookiecutter-poetry</a> project template.</p>
+<p>이 패키지는 <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> 와 <a class="reference external" href="https://github.com/elbakramer/cookiecutter-poetry">elbakramer/cookiecutter-poetry</a> 프로젝트 탬플릿을 사용하여 생성되었습니다.</p>
 </section>
 </section>
 

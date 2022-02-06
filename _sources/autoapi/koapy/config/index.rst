@@ -105,7 +105,7 @@ Attributes
 
    
 
-.. py:function:: read_config(filename: Optional[os.PathLike] = None, encoding: Optional[str] = None) -> Config
+.. py:function:: read_config(filename: Optional[Union[os.PathLike, str]] = None, encoding: Optional[str] = None) -> Config
 
 
 .. py:function:: config_from_dict(dictionary: Mapping[str, Any]) -> Config
@@ -116,10 +116,10 @@ Attributes
 
    
 
-.. py:function:: find_user_config_file_in(searching_directory: Optional[os.PathLike] = None) -> Optional[pathlib.Path]
+.. py:function:: find_user_config_file_in(searching_directory: Optional[Union[os.PathLike, str]] = None) -> Optional[pathlib.Path]
 
 
-.. py:function:: find_user_config_file_from(starting_directory: Optional[os.PathLike] = None) -> Optional[pathlib.Path]
+.. py:function:: find_user_config_file_from(starting_directory: Optional[Union[os.PathLike, str]] = None) -> Optional[pathlib.Path]
 
 
 .. py:data:: empty_config
@@ -140,7 +140,7 @@ Attributes
 .. py:function:: set_user_config(c: Config) -> Config
 
 
-.. py:function:: initialize_config_from_given_path(filename: Optional[os.PathLike] = None) -> bool
+.. py:function:: initialize_config_from_given_path(filename: Optional[Union[os.PathLike, str]] = None) -> bool
 
 
 .. py:function:: initialize_config_from_expected_paths() -> bool
@@ -160,10 +160,10 @@ Attributes
 .. py:function:: dump_config(config: Config, compact: bool = False, indent: int = 4) -> str
 
 
-.. py:function:: save_config(filename: os.PathLike, config: Optional[Config] = None, compact: bool = False, indent: int = 4, encoding: Optional[str] = None)
+.. py:function:: save_config(filename: Union[os.PathLike, str], config: Optional[Config] = None, compact: bool = False, indent: int = 4, encoding: Optional[str] = None)
 
 
-.. py:function:: save_user_config(filename: Optional[os.PathLike] = None, user_config: Optional[Config] = None, compact: bool = False, indent: int = 4, encoding: Optional[str] = None)
+.. py:function:: save_user_config(filename: Optional[Union[os.PathLike, str]] = None, user_config: Optional[Config] = None, compact: bool = False, indent: int = 4, encoding: Optional[str] = None)
 
 
 .. py:function:: get_executable_from_conda_envname(envname: str) -> str

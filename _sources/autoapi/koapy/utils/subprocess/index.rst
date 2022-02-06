@@ -28,6 +28,8 @@ Functions
    koapy.utils.subprocess.run_function
    koapy.utils.subprocess.quote
    koapy.utils.subprocess.run_as_admin
+   koapy.utils.subprocess.create_job_object_for_cleanup
+   koapy.utils.subprocess.make_process_die_when_parent_dies
 
 
 
@@ -37,6 +39,7 @@ Attributes
 .. autoapisummary::
 
    koapy.utils.subprocess.logger
+   koapy.utils.subprocess.job_handle
 
 
 .. py:data:: logger
@@ -63,6 +66,17 @@ Attributes
 
 
 .. py:function:: run_as_admin(cmd, cwd=None, check=True, wait=True)
+
+
+.. py:function:: create_job_object_for_cleanup()
+
+
+.. py:data:: job_handle
+   
+
+   
+
+.. py:function:: make_process_die_when_parent_dies(pid)
 
 
 .. py:class:: Popen(*args, **kwargs)

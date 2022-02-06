@@ -21,6 +21,9 @@ Classes
 
    Bases: :py:obj:`koapy.utils.logging.pyside2.QWidgetLogging.QWidgetLogging`, :py:obj:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin.KiwoomOpenApiPlusQAxWidgetMixin`
 
+   KiwoomOpenApiPlusQAxWidgetUniversalMixin, KiwoomOpenApiPlusQAxWidgetServerSideMixin 구현이 포함된
+   KiwoomOpenApiPlusQAxWidget 객체를 위한 Mixin 입니다.
+
    .. py:attribute:: CLSID
       :annotation: = {A1574A0D-6BFA-4BD7-9020-DED88711818D}
 

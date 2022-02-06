@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Installation &#8212; KOAPY 0.6.2 documentation</title>
+    <title>Installation &#8212; KOAPY 0.7.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -110,30 +110,25 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <section id="stable-release">
 <h2>Stable release<a class="headerlink" href="#stable-release" title="Permalink to this headline">¶</a></h2>
-<p>To install KOAPY, run this command in your terminal:</p>
+<p>KOAPY 를 설치하기 위해서는 아래 커맨드를 터미널에서 실행합니다:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install koapy
 </pre></div>
 </div>
-<p>This is the preferred method to install KOAPY, as it will always install the most recent stable release.</p>
-<p>Optionally, in order to install KOAPY with additional <a class="reference external" href="https://github.com/mementum/backtrader">backtrader</a> support, run this command in your terminal:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install koapy<span class="o">[</span>backtrader<span class="o">]</span>
-</pre></div>
-</div>
-<p>If you don’t have <a class="reference external" href="https://pip.pypa.io">pip</a> installed, this <a class="reference external" href="http://docs.python-guide.org/en/latest/starting/installation/">Python installation guide</a> can guide
-you through the process.</p>
+<p>이 방법은 가장 최신의 안정적인 릴리즈 버전을 설치하기 때문에 추천하는 설치 방법 중 하나입니다.</p>
+<p>만약에 <a class="reference external" href="https://pip.pypa.io">pip</a> 가 설치되어 있지 않다면, <a class="reference external" href="http://docs.python-guide.org/en/latest/starting/installation/">Python installation guide</a> 를 참고하세요.</p>
 </section>
 <section id="from-sources">
 <h2>From sources<a class="headerlink" href="#from-sources" title="Permalink to this headline">¶</a></h2>
-<p>The sources for KOAPY can be downloaded from the <a class="reference external" href="https://github.com/elbakramer/koapy">Github repo</a>.</p>
-<p>You can either clone the public repository:</p>
+<p>KOAPY 의 소스코드는 <a class="reference external" href="https://github.com/elbakramer/koapy">Github repo</a> 에서 다운로드 받을 수 있습니다.</p>
+<p>일반적으로 레포지토리를 클론하거나:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git clone git://github.com/elbakramer/koapy
 </pre></div>
 </div>
-<p>Or download the <a class="reference external" href="https://github.com/elbakramer/koapy/tarball/master">tarball</a>:</p>
+<p>아니면 <a class="reference external" href="https://github.com/elbakramer/koapy/tarball/master">tarball</a> 을 다운로드 받으세요:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl -OJL https://github.com/elbakramer/koapy/tarball/master
 </pre></div>
 </div>
-<p>Once you have a copy of the source, you can install it with:</p>
+<p>소스코드 사본을 확보했다면, 아래 명령어를 통해 설치할 수 있습니다:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install .
 </pre></div>
 </div>
@@ -219,11 +214,6 @@ you through the process.</p>
 </pre></div>
 </div>
 <p>맨 위의 <a class="reference internal" href="#stable-release"><span class="std std-ref">Stable release</span></a> 의 내용과 동일한 내용입니다.</p>
-<p>만약에 <a class="reference external" href="https://github.com/mementum/backtrader">backtrader</a> 관련 기능들이 구현된 <code class="docutils literal notranslate"><span class="pre">koapy.backtrader</span></code> 모듈 하위의 기능들을 사용하고자 하는 경우,
-관련 의존성을 포함해 설치하기 위해서는 아래 명령을 실행합니다:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install koapy<span class="o">[</span>backtrader<span class="o">]</span>
-</pre></div>
-</div>
 <p>OpenAPI 와의 통신을 위해서 32-Bit 환경에는 필수로 설치되어야 합니다.
 OpenAPI 의 OCX 라이브러리가 32-Bit 환경만 지원하기 때문입니다.</p>
 <p>64-Bit 환경에서의 설치는 선택사항입니다.

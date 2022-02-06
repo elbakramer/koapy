@@ -29,11 +29,13 @@ Functions
 
 .. autoapisummary::
 
-   koapy.cli.configure
+   koapy.cli.disable
+   koapy.cli.enable
    koapy.cli.generate
    koapy.cli.get
    koapy.cli.install
    koapy.cli.serve
+   koapy.cli.show
    koapy.cli.uninstall
    koapy.cli.update
    koapy.cli.get_credentials
@@ -61,7 +63,10 @@ Attributes
    koapy.cli.quote_types
 
 
-.. py:function:: configure()
+.. py:function:: disable()
+
+
+.. py:function:: enable()
 
 
 .. py:function:: generate()
@@ -74,6 +79,9 @@ Attributes
 
 
 .. py:function:: serve(ctx, verbose, **kwargs)
+
+
+.. py:function:: show()
 
 
 .. py:function:: uninstall()

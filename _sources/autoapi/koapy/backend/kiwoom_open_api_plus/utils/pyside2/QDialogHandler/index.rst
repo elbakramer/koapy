@@ -17,7 +17,7 @@ Classes
 
 
 
-.. py:class:: QDialogHandler(titles=None, parent=None)
+.. py:class:: QDialogHandler(specifications: Optional[Sequence[koapy.compat.pywinauto.WindowSpecification]] = None, parent: Optional[koapy.compat.pyside2.QtCore.QObject] = None)
 
    Bases: :py:obj:`koapy.utils.logging.pyside2.QThreadLogging.QThreadLogging`
 
@@ -30,6 +30,13 @@ Classes
       
 
       
+
+   .. py:method:: from_titles(cls, titles: Sequence[str], allow_magic_lookup: bool = False)
+      :classmethod:
+
+
+   .. py:method:: get_text_of_dialog(self, dialog: koapy.compat.pywinauto.WindowSpecification, default: Optional[str] = None)
+
 
    .. py:method:: run(self)
 

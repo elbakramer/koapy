@@ -106,13 +106,38 @@ Classes
 
       Derive from this class to define new enumerations.
 
-      .. py:attribute:: RESTART_ONLY
+      .. py:attribute:: NO_RESTART
          :annotation: = 1
 
          
 
-      .. py:attribute:: RESTART_AND_CONNECT
+      .. py:attribute:: RESTART_ONLY
          :annotation: = 2
+
+         
+
+      .. py:attribute:: RESTART_AND_RESTORE
+         :annotation: = 3
+
+         
+
+      .. py:attribute:: RESTART_AND_CONNECT
+         :annotation: = 4
+
+         
+
+      .. py:attribute:: RESTART_WITH_UPDATE
+         :annotation: = 5
+
+         
+
+      .. py:attribute:: RESTART_WITH_UPDATE_AND_RESTORE
+         :annotation: = 6
+
+         
+
+      .. py:attribute:: RESTART_WITH_UPDATE_AND_CONNECT
+         :annotation: = 7
 
          
 

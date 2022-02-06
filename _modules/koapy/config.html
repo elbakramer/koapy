@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.config &#8212; KOAPY 0.6.2 documentation</title>
+    <title>koapy.config &#8212; KOAPY 0.7.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -99,13 +99,12 @@
           <div class="body" role="main">
             
   <h1>Source code for koapy.config</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
+<span></span><span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">PathLike</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">pyhocon</span> <span class="kn">import</span> <span class="n">ConfigFactory</span>
 <span class="kn">from</span> <span class="nn">pyhocon.config_tree</span> <span class="kn">import</span> <span class="n">ConfigTree</span>
@@ -120,16 +119,14 @@
 <span class="c1"># Paths related to default config file</span>
 <span class="c1"># bundled with this package for fallback</span>
 <div class="viewcode-block" id="default_config_filename"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_config_filename">[docs]</a><span class="n">default_config_filename</span> <span class="o">=</span> <span class="s2">&quot;config.conf&quot;</span></div>
-<div class="viewcode-block" id="default_config_file_directory"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_config_file_directory">[docs]</a><span class="n">default_config_file_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span></div>
-<div class="viewcode-block" id="default_config_filepath"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_config_filepath">[docs]</a><span class="n">default_config_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-    <span class="n">default_config_file_directory</span><span class="p">,</span> <span class="n">default_config_filename</span></div>
-<span class="p">)</span>
+<div class="viewcode-block" id="default_config_file_directory"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_config_file_directory">[docs]</a><span class="n">default_config_file_directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span></div>
+<div class="viewcode-block" id="default_config_filepath"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_config_filepath">[docs]</a><span class="n">default_config_filepath</span> <span class="o">=</span> <span class="n">default_config_file_directory</span> <span class="o">/</span> <span class="n">default_config_filename</span></div>
 
 
 <span class="c1"># Paths related to user config file</span>
 <span class="c1"># for use customization</span>
-<div class="viewcode-block" id="current_working_directory"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.current_working_directory">[docs]</a><span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span></div>
-<div class="viewcode-block" id="home_directory"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.home_directory">[docs]</a><span class="n">home_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="current_working_directory"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.current_working_directory">[docs]</a><span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span></div>
+<div class="viewcode-block" id="home_directory"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.home_directory">[docs]</a><span class="n">home_directory</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="default_user_config_filename"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_user_config_filename">[docs]</a><span class="n">default_user_config_filename</span> <span class="o">=</span> <span class="s2">&quot;koapy.conf&quot;</span></div>
 
@@ -138,10 +135,7 @@
     <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">default_user_config_filename</span><span class="p">,</span></div>
 <span class="p">]</span>
 
-<div class="viewcode-block" id="default_user_config_filepath"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_user_config_filepath">[docs]</a><span class="n">default_user_config_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-    <span class="n">home_directory</span><span class="p">,</span>
-    <span class="n">default_user_config_filename</span><span class="p">,</span></div>
-<span class="p">)</span>
+<div class="viewcode-block" id="default_user_config_filepath"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.default_user_config_filepath">[docs]</a><span class="n">default_user_config_filepath</span> <span class="o">=</span> <span class="n">home_directory</span> <span class="o">/</span> <span class="n">default_user_config_filename</span></div>
 
 
 <span class="c1"># Default encoding for all file read/writes across this package</span>
@@ -150,11 +144,13 @@
 
 <span class="c1"># Function for reading configs</span>
 <div class="viewcode-block" id="read_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.read_config">[docs]</a><span class="k">def</span> <span class="nf">read_config</span><span class="p">(</span>
-    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">encoding</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Config</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">default_user_config_filepath</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">encoding</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">encoding</span> <span class="o">=</span> <span class="n">default_encoding</span>
     <span class="c1"># pylint: disable=redefined-outer-name</span>
@@ -181,11 +177,11 @@
 
 <span class="c1"># Search for a user config file in a given directory</span>
 <div class="viewcode-block" id="find_user_config_file_in"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.find_user_config_file_in">[docs]</a><span class="k">def</span> <span class="nf">find_user_config_file_in</span><span class="p">(</span>
-    <span class="n">searching_directory</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">searching_directory</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">searching_directory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># pylint: disable=redefined-outer-name</span>
-        <span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
         <span class="n">searching_directory</span> <span class="o">=</span> <span class="n">current_working_directory</span>
     <span class="n">searching_directory_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">searching_directory</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">config_filename</span> <span class="ow">in</span> <span class="n">user_config_filename_cadidates</span><span class="p">:</span>
@@ -196,11 +192,11 @@
 
 <span class="c1"># Search for a user config file from a given directory to the root directory</span>
 <div class="viewcode-block" id="find_user_config_file_from"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.find_user_config_file_from">[docs]</a><span class="k">def</span> <span class="nf">find_user_config_file_from</span><span class="p">(</span>
-    <span class="n">starting_directory</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">starting_directory</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">starting_directory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># pylint: disable=redefined-outer-name</span>
-        <span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
         <span class="n">starting_directory</span> <span class="o">=</span> <span class="n">current_working_directory</span>
     <span class="n">searching_directory_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">starting_directory</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
     <span class="n">should_stop</span> <span class="o">=</span> <span class="kc">False</span>
@@ -237,7 +233,9 @@
 
 
 <span class="c1"># Function for config initialization</span>
-<div class="viewcode-block" id="initialize_config_from_given_path"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.initialize_config_from_given_path">[docs]</a><span class="k">def</span> <span class="nf">initialize_config_from_given_path</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="initialize_config_from_given_path"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.initialize_config_from_given_path">[docs]</a><span class="k">def</span> <span class="nf">initialize_config_from_given_path</span><span class="p">(</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="n">user_config_filepath</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">initialized</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -312,7 +310,7 @@
 
 <span class="c1"># Save config to file</span>
 <div class="viewcode-block" id="save_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.save_config">[docs]</a><span class="k">def</span> <span class="nf">save_config</span><span class="p">(</span>
-    <span class="n">filename</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Config</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">compact</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">indent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
@@ -330,7 +328,7 @@
 
 <span class="c1"># Save user config to file (without default fallbacks)</span>
 <div class="viewcode-block" id="save_user_config"><a class="viewcode-back" href="../../autoapi/koapy/config/index.html#koapy.cli.save_user_config">[docs]</a><span class="k">def</span> <span class="nf">save_user_config</span><span class="p">(</span>
-    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">user_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Config</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">compact</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">indent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>

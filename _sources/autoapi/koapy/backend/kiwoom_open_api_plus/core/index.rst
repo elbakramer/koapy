@@ -19,6 +19,7 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
+   KiwoomOpenApiPlusCondition/index.rst
    KiwoomOpenApiPlusDispatchFunctions/index.rst
    KiwoomOpenApiPlusDispatchSignature/index.rst
    KiwoomOpenApiPlusDynamicCallable/index.rst

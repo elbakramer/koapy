@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication &#8212; KOAPY 0.6.2 documentation</title>
+    <title>koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication &#8212; KOAPY 0.7.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
@@ -100,6 +100,7 @@
             
   <h1>Source code for koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">Namespace</span>
@@ -121,9 +122,6 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">KiwoomOpenApiPlusServiceClient</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusDialogHandler</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">KiwoomOpenApiPlusDialogHandler</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusServerApplication</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">KiwoomOpenApiPlusServerApplication</span><span class="p">,</span>
@@ -272,8 +270,13 @@
 <div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.ServerType.UNKNOWN"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.ServerType.UNKNOWN">[docs]</a>        <span class="n">UNKNOWN</span> <span class="o">=</span> <span class="mi">3</span></div></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.RestartType"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.RestartType">[docs]</a>    <span class="k">class</span> <span class="nc">RestartType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-<div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_ONLY"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_ONLY">[docs]</a>        <span class="n">RESTART_ONLY</span> <span class="o">=</span> <span class="mi">1</span></div>
-<div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_AND_CONNECT"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_AND_CONNECT">[docs]</a>        <span class="n">RESTART_AND_CONNECT</span> <span class="o">=</span> <span class="mi">2</span></div></div>
+<div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.RestartType.NO_RESTART"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.RestartType.NO_RESTART">[docs]</a>        <span class="n">NO_RESTART</span> <span class="o">=</span> <span class="mi">1</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_ONLY"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_ONLY">[docs]</a>        <span class="n">RESTART_ONLY</span> <span class="o">=</span> <span class="mi">2</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_AND_RESTORE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_AND_RESTORE">[docs]</a>        <span class="n">RESTART_AND_RESTORE</span> <span class="o">=</span> <span class="mi">3</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_AND_CONNECT"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_AND_CONNECT">[docs]</a>        <span class="n">RESTART_AND_CONNECT</span> <span class="o">=</span> <span class="mi">4</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_WITH_UPDATE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_WITH_UPDATE">[docs]</a>        <span class="n">RESTART_WITH_UPDATE</span> <span class="o">=</span> <span class="mi">5</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_WITH_UPDATE_AND_RESTORE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_WITH_UPDATE_AND_RESTORE">[docs]</a>        <span class="n">RESTART_WITH_UPDATE_AND_RESTORE</span> <span class="o">=</span> <span class="mi">6</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_WITH_UPDATE_AND_CONNECT"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.RestartType.RESTART_WITH_UPDATE_AND_CONNECT">[docs]</a>        <span class="n">RESTART_WITH_UPDATE_AND_CONNECT</span> <span class="o">=</span> <span class="mi">7</span></div></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusManagerApplication.shouldRestart"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/pyside2/KiwoomOpenApiPlusManagerApplication/index.html#koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusManagerApplication.KiwoomOpenApiPlusManagerApplication.shouldRestart">[docs]</a>    <span class="n">shouldRestart</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">RestartType</span><span class="p">)</span></div>
 
@@ -316,6 +319,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_signal_handler</span><span class="o">.</span><span class="n">signaled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onSignal</span><span class="p">)</span>
 
         <span class="c1"># Capture dialogs from OpenAPI and handle them accordingly</span>
+        <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.pyside2.KiwoomOpenApiPlusDialogHandler</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">KiwoomOpenApiPlusDialogHandler</span><span class="p">,</span>
+        <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_dialog_handler</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusDialogHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># Attributes for gprc client (ThreadPoolExecutor)</span>
@@ -464,12 +471,16 @@
 
         <span class="c1"># Section for actions related to connection and login</span>
         <span class="n">menu</span><span class="o">.</span><span class="n">addSection</span><span class="p">(</span><span class="s2">&quot;Connection&quot;</span><span class="p">)</span>
-        <span class="n">connectAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Login and Connect&quot;</span><span class="p">)</span>
-        <span class="n">connectAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onConnectButtonClicked</span><span class="p">)</span>
-        <span class="n">showAccountWindowAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Show Account Window&quot;</span><span class="p">)</span>
+        <span class="n">connectAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Login and connect&quot;</span><span class="p">)</span>
+        <span class="n">connectAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onConnectActionTriggered</span><span class="p">)</span>
+        <span class="n">showAccountWindowAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Show account window&quot;</span><span class="p">)</span>
         <span class="n">showAccountWindowAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_onShowAccountWindowButtonClicked</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_onShowAccountWindowActionTriggered</span>
         <span class="p">)</span>
+        <span class="n">enableAutoLoginAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Enable auto login&quot;</span><span class="p">)</span>
+        <span class="n">enableAutoLoginAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onEnableAutoLoginActionTriggered</span><span class="p">)</span>
+        <span class="n">checkForUpdateAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Check for update&quot;</span><span class="p">)</span>
+        <span class="n">checkForUpdateAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onCheckForUpdateActionTriggered</span><span class="p">)</span>
 
         <span class="c1"># Section for displaying current status, should be disabled</span>
         <span class="n">menu</span><span class="o">.</span><span class="n">addSection</span><span class="p">(</span><span class="s2">&quot;Status&quot;</span><span class="p">)</span>
@@ -503,9 +514,9 @@
         <span class="c1"># Section for exit and restart</span>
         <span class="n">menu</span><span class="o">.</span><span class="n">addSection</span><span class="p">(</span><span class="s2">&quot;Exit&quot;</span><span class="p">)</span>
         <span class="n">restartAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Restart&quot;</span><span class="p">)</span>
-        <span class="n">restartAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onRestartButtonClicked</span><span class="p">)</span>
+        <span class="n">restartAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onRestartActionTriggered</span><span class="p">)</span>
         <span class="n">exitAction</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Exit&quot;</span><span class="p">)</span>
-        <span class="n">exitAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onExitButtonClicked</span><span class="p">)</span>
+        <span class="n">exitAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_onExitActionTriggered</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">menu</span>
 
@@ -562,17 +573,23 @@
     <span class="k">def</span> <span class="nf">_onTrayIconActivated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
         <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="nf">_onExitButtonClicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_onExitActionTriggered</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_onRestartButtonClicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_emitShouldRestart</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_onRestartActionTriggered</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_emitShouldRestart</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RestartType</span><span class="o">.</span><span class="n">RESTART_AND_RESTORE</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_onConnectButtonClicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_onConnectActionTriggered</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_onShowAccountWindowButtonClicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_onShowAccountWindowActionTriggered</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_showAccountWindow</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_onEnableAutoLoginActionTriggered</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_enableAutoLogin</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_onCheckForUpdateActionTriggered</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_emitShouldRestart</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RestartType</span><span class="o">.</span><span class="n">RESTART_WITH_UPDATE_AND_RESTORE</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_openOpenApiHome</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">openApiHomeUrl</span> <span class="o">=</span> <span class="s2">&quot;https://www.kiwoom.com/h/customer/download/VOpenApiInfoView&quot;</span>
@@ -612,7 +629,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_ensureConnectedAndThen</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_showAccountWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ensureConnectedAndThen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">ShowAccountWindow</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensureConnectedAndThen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">errcode</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">ShowAccountWindow</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">_enableAutoLogin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensureConnectedAndThen</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">errcode</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">EnsureAutoLoginEnabled</span><span class="p">()</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_emitShouldRestart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">restart_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RestartType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">restart_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -747,15 +769,88 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Exiting manager application&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">return_code</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_isConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">is_ready</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">IsConnected</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_getAPIModulePath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">API_MODULE_PATH</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">module_path</span> <span class="o">=</span> <span class="n">API_MODULE_PATH</span>
+        <span class="k">return</span> <span class="n">module_path</span>
+
+    <span class="k">def</span> <span class="nf">_getAutoLoginDatPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">module_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getAPIModulePath</span><span class="p">()</span>
+        <span class="n">autologin_dat</span> <span class="o">=</span> <span class="n">module_path</span> <span class="o">/</span> <span class="s2">&quot;system&quot;</span> <span class="o">/</span> <span class="s2">&quot;Autologin.dat&quot;</span>
+        <span class="k">return</span> <span class="n">autologin_dat</span>
+
+    <span class="k">def</span> <span class="nf">_isAutoLoginEnabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">autologin_dat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getAutoLoginDatPath</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">autologin_dat</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_disableAutoLogin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Disabling auto login&quot;</span><span class="p">)</span>
+        <span class="n">autologin_dat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getAutoLoginDatPath</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">autologin_dat</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Removing </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">autologin_dat</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">autologin_dat</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Disabled auto login&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Autologin is already disabled&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
     <span class="k">def</span> <span class="nf">_restart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">restart_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RestartType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Restarting server application&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">restart_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">restart_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RestartType</span><span class="o">.</span><span class="n">RESTART_ONLY</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_reinitializeServerProcessAndGrpcClient</span><span class="p">()</span>
+        <span class="n">is_connected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isConnected</span><span class="p">()</span>
+        <span class="n">is_autologin_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isAutoLoginEnabled</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">restart_type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">RestartType</span><span class="o">.</span><span class="n">RESTART_AND_CONNECT</span><span class="p">:</span>
+        <span class="n">should_connect_to_restore</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">restart_type</span>
+            <span class="ow">in</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">RestartType</span><span class="o">.</span><span class="n">RESTART_AND_RESTORE</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">RestartType</span><span class="o">.</span><span class="n">RESTART_WITH_UPDATE_AND_RESTORE</span><span class="p">,</span>
+            <span class="p">]</span>
+            <span class="ow">and</span> <span class="n">is_connected</span>
+        <span class="p">)</span>
+        <span class="n">should_connect_anyway</span> <span class="o">=</span> <span class="n">restart_type</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">RestartType</span><span class="o">.</span><span class="n">RESTART_AND_CONNECT</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">RestartType</span><span class="o">.</span><span class="n">RESTART_WITH_UPDATE_AND_CONNECT</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">should_connect</span> <span class="o">=</span> <span class="n">should_connect_to_restore</span> <span class="ow">or</span> <span class="n">should_connect_anyway</span>
+
+        <span class="n">should_update</span> <span class="o">=</span> <span class="n">restart_type</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">RestartType</span><span class="o">.</span><span class="n">RESTART_WITH_UPDATE</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">RestartType</span><span class="o">.</span><span class="n">RESTART_WITH_UPDATE_AND_RESTORE</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">RestartType</span><span class="o">.</span><span class="n">RESTART_WITH_UPDATE_AND_CONNECT</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">should_update</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reinitializeServerProcessAndGrpcClient</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">is_autologin_enabled</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_disableAutoLogin</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">CommConnectAndThen</span><span class="p">()</span>
+            <span class="n">is_updated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">HandleVersionUpgradeUsingPywinauto</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_server_process</span><span class="o">.</span><span class="n">processId</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">is_updated</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_reinitializeServerProcessAndGrpcClient</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">is_autologin_enabled</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Enabling auto login back&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_enableAutoLogin</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">is_updated</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Done update, enabled auto login&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;There was no version update, enabled auto login&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reinitializeServerProcessAndGrpcClient</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">should_connect</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Re-establishing connection&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
 

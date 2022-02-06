@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc &#8212; KOAPY 0.6.2 documentation</title>
+    <title>koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc &#8212; KOAPY 0.7.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
@@ -130,16 +130,6 @@
                 <span class="n">request_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">BidirectionalListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
                 <span class="n">response_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
                 <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">CustomListen</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">unary_stream</span><span class="p">(</span>
-                <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomListen&#39;</span><span class="p">,</span>
-                <span class="n">request_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
-                <span class="n">response_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
-                <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">CustomCallAndListen</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">unary_stream</span><span class="p">(</span>
-                <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomCallAndListen&#39;</span><span class="p">,</span>
-                <span class="n">request_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
-                <span class="n">response_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
-                <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">LoginCall</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">unary_stream</span><span class="p">(</span>
                 <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/LoginCall&#39;</span><span class="p">,</span>
                 <span class="n">request_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">LoginRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
@@ -180,6 +170,16 @@
                 <span class="n">request_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
                 <span class="n">response_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
                 <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">CustomListen</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">unary_stream</span><span class="p">(</span>
+                <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomListen&#39;</span><span class="p">,</span>
+                <span class="n">request_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
+                <span class="n">response_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
+                <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">CustomCallAndListen</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">unary_stream</span><span class="p">(</span>
+                <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomCallAndListen&#39;</span><span class="p">,</span>
+                <span class="n">request_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
+                <span class="n">response_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
+                <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">SetLogLevel</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">unary_unary</span><span class="p">(</span>
                 <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/SetLogLevel&#39;</span><span class="p">,</span>
                 <span class="n">request_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">SetLogLevelRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
@@ -191,85 +191,138 @@
     <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.Call"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.Call">[docs]</a>    <span class="k">def</span> <span class="nf">Call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;1. rpcs for general function calls</span>
+
+<span class="sd">        unary rpc for an arbitrary function call,</span>
+<span class="sd">        can invoke arbitrary function on the server side by giving its name and arguments,</span>
+<span class="sd">        currently only simple data types like str and int are supported for arguments and return values</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.Listen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.Listen">[docs]</a>    <span class="k">def</span> <span class="nf">Listen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;2. rpcs for listening and handling events</span>
+
+<span class="sd">        server streaming rpc usually for listening events,</span>
+<span class="sd">        server will simply send stream items to client whenever event that is being listened is triggered,</span>
+<span class="sd">        client can handle those events solely on its own on client side but there is no guarantee that it will be synced with the server,</span>
+<span class="sd">        which means that event handler on the server side will not wait for the client to finish handling each event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.BidirectionalListen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.BidirectionalListen">[docs]</a>    <span class="k">def</span> <span class="nf">BidirectionalListen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request_iterator</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
-        <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
-        <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.CustomListen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.CustomListen">[docs]</a>    <span class="k">def</span> <span class="nf">CustomListen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
-        <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
-        <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.CustomCallAndListen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.CustomCallAndListen">[docs]</a>    <span class="k">def</span> <span class="nf">CustomCallAndListen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;bidirectional streaming rpc usually for listening and handling events with proper callbacks,</span>
+<span class="sd">        server will send an stream item to client whenever an event is triggered and will wait for an client&#39;s ack,</span>
+<span class="sd">        so that following callbacks from the client can actually be processed inside the server&#39;s event handler context</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.LoginCall"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.LoginCall">[docs]</a>    <span class="k">def</span> <span class="nf">LoginCall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;3. rpcs for simple use cases that can be categorized into serveral distinct usage patterns</span>
+
+<span class="sd">        server streaming rpc for login/connect scenario,</span>
+<span class="sd">        would invoke Connect() and wait for OnEventConnect() event to test its success</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.TransactionCall"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.TransactionCall">[docs]</a>    <span class="k">def</span> <span class="nf">TransactionCall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;server streaming rpc for general transaction requests,</span>
+<span class="sd">        would invoke CommRqData() with several SetInputValue()s for a transaction request,</span>
+<span class="sd">        would wait for OnReceiveTrData() events,</span>
+<span class="sd">        would handle those events to gather results by invoking GetRepeatCnt() and GetCommData() inside,</span>
+<span class="sd">        might do additional CommRqData() and SetInputValue() inside event handler for possible consecutive lookups</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.OrderCall"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.OrderCall">[docs]</a>    <span class="k">def</span> <span class="nf">OrderCall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;server streaming rpc for making orders (buy/sell + update/cancel),</span>
+<span class="sd">        would invoke SendOrder() for submitting an order,</span>
+<span class="sd">        would wait for OnReceiveTrData() and OnReceiveChejanData() events to track its progress</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.RealCall"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.RealCall">[docs]</a>    <span class="k">def</span> <span class="nf">RealCall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;server streaming rpc for listening realtime data events,</span>
+<span class="sd">        certain transaction requests would also register some realtime data to be sent,</span>
+<span class="sd">        but usually would just call SetRealReg() to register desired realtime data to listen explicitly,</span>
+<span class="sd">        and would call SetRealRemove() to unregister them after done using,</span>
+<span class="sd">        would wait for OnReceiveRealData() events</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.LoadConditionCall"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.LoadConditionCall">[docs]</a>    <span class="k">def</span> <span class="nf">LoadConditionCall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;server streaming rpc for loading condition settings for conditioned search,</span>
+<span class="sd">        would call GetConditionLoad() and wait for OnReceiveConditionVer() event to test its success</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.ConditionCall"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.ConditionCall">[docs]</a>    <span class="k">def</span> <span class="nf">ConditionCall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;server streaming rpc for conditioned search (serching stocks with serveral conditions),</span>
+<span class="sd">        would call SendCondition() and wait for OnReceiveTrCondition() or OnReceiveRealCondition() based on its requested type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.BidirectionalRealCall"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.BidirectionalRealCall">[docs]</a>    <span class="k">def</span> <span class="nf">BidirectionalRealCall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request_iterator</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;4. rpcs for more complex use cases based on the previously categorized simple cases above</span>
+
+<span class="sd">        bidirectional streaming rpc for listening realtime data events,</span>
+<span class="sd">        with capability of managing observation pool (what stocks, what fields to listen to) online,</span>
+<span class="sd">        those management requests would be sent over the client streaming line,</span>
+<span class="sd">        and ordinary realtime data events would be sent over the server streaming line</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.OrderListen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.OrderListen">[docs]</a>    <span class="k">def</span> <span class="nf">OrderListen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;server streaming rpc for just listening order events (without submiting any order request compared to the simple case),</span>
+<span class="sd">        this is one-sided streaming rpc (server streaming rpc) like Listen() rpc,</span>
+<span class="sd">        so server would just send stream items with no consideration on coordination with its client</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.CustomListen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.CustomListen">[docs]</a>    <span class="k">def</span> <span class="nf">CustomListen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;5. rpcs for customized usage scenario (when there is no proper predefined interface to utilize)</span>
+
+<span class="sd">        pretty much similar to server streaming Listen() rpc,</span>
+<span class="sd">        but event handler would be instantiated dynamically based on the code given through the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.CustomCallAndListen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.CustomCallAndListen">[docs]</a>    <span class="k">def</span> <span class="nf">CustomCallAndListen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;pretty much similar to server streaming XXXCall() rpcs (or even Call() rpc),</span>
+<span class="sd">        but event handler would be instantiated dynamically based on the code given through the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusServiceServicer.SetLogLevel"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusServiceServicer.SetLogLevel">[docs]</a>    <span class="k">def</span> <span class="nf">SetLogLevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Missing associated documentation comment in .proto file.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;6. rpcs for other mics scenarios</span>
+
+<span class="sd">        would update log level of process that this grpc server lives</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_code</span><span class="p">(</span><span class="n">grpc</span><span class="o">.</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">UNIMPLEMENTED</span><span class="p">)</span>
         <span class="n">context</span><span class="o">.</span><span class="n">set_details</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Method not implemented!&#39;</span><span class="p">)</span></div></div>
@@ -291,16 +344,6 @@
                     <span class="n">servicer</span><span class="o">.</span><span class="n">BidirectionalListen</span><span class="p">,</span>
                     <span class="n">request_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">BidirectionalListenRequest</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
                     <span class="n">response_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="s1">&#39;CustomListen&#39;</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">unary_stream_rpc_method_handler</span><span class="p">(</span>
-                    <span class="n">servicer</span><span class="o">.</span><span class="n">CustomListen</span><span class="p">,</span>
-                    <span class="n">request_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenRequest</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
-                    <span class="n">response_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="s1">&#39;CustomCallAndListen&#39;</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">unary_stream_rpc_method_handler</span><span class="p">(</span>
-                    <span class="n">servicer</span><span class="o">.</span><span class="n">CustomCallAndListen</span><span class="p">,</span>
-                    <span class="n">request_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenRequest</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
-                    <span class="n">response_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenResponse</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="s1">&#39;LoginCall&#39;</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">unary_stream_rpc_method_handler</span><span class="p">(</span>
                     <span class="n">servicer</span><span class="o">.</span><span class="n">LoginCall</span><span class="p">,</span>
@@ -341,6 +384,16 @@
                     <span class="n">servicer</span><span class="o">.</span><span class="n">OrderListen</span><span class="p">,</span>
                     <span class="n">request_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenRequest</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
                     <span class="n">response_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="s1">&#39;CustomListen&#39;</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">unary_stream_rpc_method_handler</span><span class="p">(</span>
+                    <span class="n">servicer</span><span class="o">.</span><span class="n">CustomListen</span><span class="p">,</span>
+                    <span class="n">request_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenRequest</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
+                    <span class="n">response_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="s1">&#39;CustomCallAndListen&#39;</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">unary_stream_rpc_method_handler</span><span class="p">(</span>
+                    <span class="n">servicer</span><span class="o">.</span><span class="n">CustomCallAndListen</span><span class="p">,</span>
+                    <span class="n">request_deserializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenRequest</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
+                    <span class="n">response_serializer</span><span class="o">=</span><span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenResponse</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="s1">&#39;SetLogLevel&#39;</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">unary_unary_rpc_method_handler</span><span class="p">(</span>
                     <span class="n">servicer</span><span class="o">.</span><span class="n">SetLogLevel</span><span class="p">,</span>
@@ -405,40 +458,6 @@
         <span class="k">return</span> <span class="n">grpc</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">stream_stream</span><span class="p">(</span><span class="n">request_iterator</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/BidirectionalListen&#39;</span><span class="p">,</span>
             <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">BidirectionalListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
             <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
-            <span class="n">options</span><span class="p">,</span> <span class="n">channel_credentials</span><span class="p">,</span>
-            <span class="n">insecure</span><span class="p">,</span> <span class="n">call_credentials</span><span class="p">,</span> <span class="n">compression</span><span class="p">,</span> <span class="n">wait_for_ready</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">metadata</span><span class="p">)</span></div>
-
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="KiwoomOpenApiPlusService.CustomListen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusService.CustomListen">[docs]</a>    <span class="k">def</span> <span class="nf">CustomListen</span><span class="p">(</span><span class="n">request</span><span class="p">,</span>
-            <span class="n">target</span><span class="p">,</span>
-            <span class="n">options</span><span class="o">=</span><span class="p">(),</span>
-            <span class="n">channel_credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">call_credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">insecure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">compression</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">wait_for_ready</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">grpc</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">unary_stream</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomListen&#39;</span><span class="p">,</span>
-            <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
-            <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
-            <span class="n">options</span><span class="p">,</span> <span class="n">channel_credentials</span><span class="p">,</span>
-            <span class="n">insecure</span><span class="p">,</span> <span class="n">call_credentials</span><span class="p">,</span> <span class="n">compression</span><span class="p">,</span> <span class="n">wait_for_ready</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">metadata</span><span class="p">)</span></div>
-
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="KiwoomOpenApiPlusService.CustomCallAndListen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusService.CustomCallAndListen">[docs]</a>    <span class="k">def</span> <span class="nf">CustomCallAndListen</span><span class="p">(</span><span class="n">request</span><span class="p">,</span>
-            <span class="n">target</span><span class="p">,</span>
-            <span class="n">options</span><span class="o">=</span><span class="p">(),</span>
-            <span class="n">channel_credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">call_credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">insecure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">compression</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">wait_for_ready</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">grpc</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">unary_stream</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomCallAndListen&#39;</span><span class="p">,</span>
-            <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
-            <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
             <span class="n">options</span><span class="p">,</span> <span class="n">channel_credentials</span><span class="p">,</span>
             <span class="n">insecure</span><span class="p">,</span> <span class="n">call_credentials</span><span class="p">,</span> <span class="n">compression</span><span class="p">,</span> <span class="n">wait_for_ready</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">metadata</span><span class="p">)</span></div>
 
@@ -575,6 +594,40 @@
         <span class="k">return</span> <span class="n">grpc</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">unary_stream</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/OrderListen&#39;</span><span class="p">,</span>
             <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
             <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
+            <span class="n">options</span><span class="p">,</span> <span class="n">channel_credentials</span><span class="p">,</span>
+            <span class="n">insecure</span><span class="p">,</span> <span class="n">call_credentials</span><span class="p">,</span> <span class="n">compression</span><span class="p">,</span> <span class="n">wait_for_ready</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">metadata</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusService.CustomListen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusService.CustomListen">[docs]</a>    <span class="k">def</span> <span class="nf">CustomListen</span><span class="p">(</span><span class="n">request</span><span class="p">,</span>
+            <span class="n">target</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">(),</span>
+            <span class="n">channel_credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">call_credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">insecure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">compression</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">wait_for_ready</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">grpc</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">unary_stream</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomListen&#39;</span><span class="p">,</span>
+            <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
+            <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">ListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
+            <span class="n">options</span><span class="p">,</span> <span class="n">channel_credentials</span><span class="p">,</span>
+            <span class="n">insecure</span><span class="p">,</span> <span class="n">call_credentials</span><span class="p">,</span> <span class="n">compression</span><span class="p">,</span> <span class="n">wait_for_ready</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">metadata</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="KiwoomOpenApiPlusService.CustomCallAndListen"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService_pb2_grpc/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService_pb2_grpc.KiwoomOpenApiPlusService.CustomCallAndListen">[docs]</a>    <span class="k">def</span> <span class="nf">CustomCallAndListen</span><span class="p">(</span><span class="n">request</span><span class="p">,</span>
+            <span class="n">target</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">(),</span>
+            <span class="n">channel_credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">call_credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">insecure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">compression</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">wait_for_ready</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">grpc</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">unary_stream</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="s1">&#39;/koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusService/CustomCallAndListen&#39;</span><span class="p">,</span>
+            <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenRequest</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">,</span>
+            <span class="n">koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2</span><span class="o">.</span><span class="n">CallAndListenResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">,</span>
             <span class="n">options</span><span class="p">,</span> <span class="n">channel_credentials</span><span class="p">,</span>
             <span class="n">insecure</span><span class="p">,</span> <span class="n">call_credentials</span><span class="p">,</span> <span class="n">compression</span><span class="p">,</span> <span class="n">wait_for_ready</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">metadata</span><span class="p">)</span></div>
 

@@ -27,6 +27,7 @@ Submodules
    ctypes/index.rst
    datetime/index.rst
    exchange_calendars/index.rst
+   grpc/index.rst
    itertools/index.rst
    networking/index.rst
    notimplemented/index.rst

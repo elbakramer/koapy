@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Usage &#8212; KOAPY 0.6.2 documentation</title>
+    <title>Usage &#8212; KOAPY 0.7.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -114,29 +114,34 @@
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <section id="python">
 <h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
-<p>To use KOAPY in a project:</p>
+<p>파이썬 프로젝트에서 KOAPY 를 사용하기 위해서는:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">koapy</span>
 </pre></div>
 </div>
 </section>
 <section id="cli">
 <h2>CLI<a class="headerlink" href="#cli" title="Permalink to this headline">¶</a></h2>
-<p>To use KOAPY in a command line:</p>
+<p>커맨드 라인에서 KOAPY 를 사용하기 위해서는:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>koapy
 <span class="go">Usage: koapy [OPTIONS] COMMAND [ARGS]...</span>
 
 <span class="go">Options:</span>
-<span class="go">  -V, --version  Show the version and exit.</span>
-<span class="go">  -h, --help     Show this message and exit.</span>
+<span class="go">  --version   Show the version and exit.</span>
+<span class="go">  -h, --help  Show this message and exit.</span>
 
 <span class="go">Commands:</span>
-<span class="go">  config  Configure many things.</span>
-<span class="go">  get     Get various types of data.</span>
-<span class="go">  login   Ensure logged in when server is up.</span>
-<span class="go">  order   Place an order.</span>
-<span class="go">  serve   Start grpc server with tray application.</span>
-<span class="go">  update  Update openapi metadata.</span>
-<span class="go">  watch   Watch realtime data.</span>
+<span class="go">  disable    Disable many things.</span>
+<span class="go">  enable     Show many things.</span>
+<span class="go">  generate   Generate files.</span>
+<span class="go">  get        Get various types of data.</span>
+<span class="go">  install    Install openapi module and others.</span>
+<span class="go">  login      Ensure logged in when server is up.</span>
+<span class="go">  order      Place an order.</span>
+<span class="go">  serve      Start grpc server with tray application.</span>
+<span class="go">  show       Show many things.</span>
+<span class="go">  uninstall  Uninstall openapi module and others.</span>
+<span class="go">  update     Update openapi module and metadata.</span>
+<span class="go">  watch      Watch realtime data.</span>
 </pre></div>
 </div>
 </section>
@@ -315,7 +320,7 @@
 <p>단순 함수콜에 비해서 추가된 점들을 짚어보면,
 이벤트 처리를 위하여 <a class="reference external" href="https://doc.qt.io/qt-5/qeventloop.html"><code class="docutils literal notranslate"><span class="pre">QEventLoop</span></code></a> 를 생성하여 이벤트가 들어올 구간에 맞게 <a class="reference external" href="https://doc.qt.io/qt-5/qeventloop.html#exec"><code class="docutils literal notranslate"><span class="pre">exec</span></code></a>/<a class="reference external" href="https://doc.qt.io/qt-5/qeventloop.html#exit"><code class="docutils literal notranslate"><span class="pre">exit</span></code></a> 를 시키고 있으며,
 이벤트를 직접적으로 처리할 콜백 함수들도 알맞게 구현후 적절한 타이밍에 <a class="reference external" href="https://doc.qt.io/qt-5/qobject.html#connect"><code class="docutils literal notranslate"><span class="pre">connect</span></code></a>/<a class="reference external" href="https://doc.qt.io/qt-5/qobject.html#disconnect"><code class="docutils literal notranslate"><span class="pre">disconnect</span></code></a> 하고 있습니다.</p>
-<p>반면에 KOAPY 를 사용하면 동일한 작업을 아래와 같이 제공된 메서드 (<a class="reference internal" href="autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetStockBasicInfoAsDict" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubWrapper.GetStockBasicInfoAsDict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">GetStockBasicInfoAsDict</span></code></a>) 를 사용해 간단하게 처리가 가능합니다.
+<p>반면에 KOAPY 를 사용하면 동일한 작업을 아래와 같이 제공된 메서드 (<code class="xref py py-meth docutils literal notranslate"><span class="pre">GetStockBasicInfoAsDict</span></code>) 를 사용해 간단하게 처리가 가능합니다.
 좀 더 세부적인 컨트롤이 필요할 경우에는 요청할 TR 에 대한 정보를 직접 설정하고 중간단계의 API (<a class="reference internal" href="autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.TransactionCall" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper.KiwoomOpenApiPlusServiceClientStubCoreWrapper.TransactionCall"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TransactionCall</span></code></a>) 를 통해 호출한 뒤에
 반환되는 스트림을 순차적으로 처리하는 식으로 구현이 가능합니다.
 앞선 이벤트루프/콜백함수 기반 구현과 비교했을 때 이 방식이 좀 더 직관적입니다.</p>
@@ -356,11 +361,15 @@
 </pre></div>
 </div>
 <p><a class="reference internal" href="autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEntrypoint/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint.KiwoomOpenApiPlusEntrypoint" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint.KiwoomOpenApiPlusEntrypoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusEntrypoint</span></code></a> 객체를 통해 사용 가능한 메서드 목록은 기본적으로 OpenAPI 에서 제공하는 모든 메서드들을 기반으로 합니다.
-해당 메서드 목록은 <a class="reference external" href="https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=12">키움 OpenAPI+ 개발 가이드 문서</a> 에서 확인 가능합니다.</p>
+해당 메서드 목록은 <a class="reference external" href="https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=12">키움 OpenAPI+ 개발 가이드 문서</a> 에서, 혹은 아래 모듈에서 확인 가능합니다.</p>
+<p>키움 OpenAPI+ 빌트인 함수 목록:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusDispatchFunctions/index.html#module-koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchFunctions" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchFunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchFunctions</span></code></a></p></li>
+</ul>
 <p>이후 그런 기본 메서드들을 활용하는 상위 함수들이 구현된 여러 래퍼 클래스들이 단계적으로 적용되면서
 최종적으로 모든 메서드들이 <a class="reference internal" href="autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusEntrypoint/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint.KiwoomOpenApiPlusEntrypoint" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint.KiwoomOpenApiPlusEntrypoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusEntrypoint</span></code></a> 객체로 합쳐지는 구조입니다.
 따라서 해당 메서드들이 어떤 것들이 있는지 확인하기 위해서는 관련 래퍼 클래스들에 구현된 함수들을 참고하시는 게 좋습니다.</p>
-<p>주요 래퍼 클래스들을 포함하는 모듈들은 다음과 같습니다.</p>
+<p>주요 래퍼 클래스들을 포함하는 모듈들은 다음과 같습니다:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusQAxWidgetMixin/index.html#module-koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin" title="koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin</span></code></a></p></li>
 <li><p><a class="reference internal" href="autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceClientStubWrapper/index.html#module-koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper</span></code></a></p></li>
@@ -369,10 +378,10 @@
 미리 구현해놓은 이벤트 처리 로직들이 서버 사이드에서 동작하도록 구성되어 있습니다.</p>
 <p>혹시나 추후에 이런 메서드들이 다루지 못하는 새로운 사용 패턴이 생기는 경우에
 <a class="reference external" href="https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService.proto"><code class="docutils literal notranslate"><span class="pre">KiwoomOpenApiPlusService.proto</span></code></a> 파일을 수정해 신규 gRPC 메서드를 추가하는 방식으로도 확장이 가능합니다.</p>
-<p>서버 사이드의 이벤트 처리와 관련해서 참고할만한 모듈들입니다.</p>
+<p>서버 사이드의 이벤트 처리와 관련해서 참고할만한 모듈들입니다:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="autoapi/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusServiceServicer/index.html#module-koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer" title="koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer</span></code></a></p></li>
-<li><p><a class="reference internal" href="autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusEventHandlers/index.html#module-koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlers" title="koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlers</span></code></a></p></li>
+<li><p><a class="reference internal" href="autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/index.html#module-koapy.backend.kiwoom_open_api_plus.grpc.event" title="koapy.backend.kiwoom_open_api_plus.grpc.event"><code class="xref py py-mod docutils literal notranslate"><span class="pre">koapy.backend.kiwoom_open_api_plus.grpc.event</span></code></a></p></li>
 </ul>
 </section>
 <section id="cli-more">

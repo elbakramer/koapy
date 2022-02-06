@@ -76,6 +76,14 @@ Functions
    .. py:method:: get_multi_output_names(self) -> List[str]
 
 
+   .. py:method:: get_trcode_list(cls) -> List[str]
+      :classmethod:
+
+
+   .. py:method:: get_trinfo_list(cls) -> List[KiwoomOpenApiPlusTrInfo]
+      :classmethod:
+
+
    .. py:method:: get_trinfo_by_code(cls, trcode: str) -> Optional[KiwoomOpenApiPlusTrInfo]
       :classmethod:
 
@@ -84,11 +92,11 @@ Functions
       :classmethod:
 
 
-   .. py:method:: from_encfile(cls, f: Union[str, TextIO], tr_code: Optional[str] = None, encoding: Optional[str] = None) -> KiwoomOpenApiPlusTrInfo
+   .. py:method:: from_encfile(cls, f: Union[str, os.PathLike, TextIO], tr_code: Optional[str] = None, encoding: Optional[str] = None) -> KiwoomOpenApiPlusTrInfo
       :classmethod:
 
 
-   .. py:method:: infos_from_data_dir(cls, data_dir: Optional[str] = None, encoding: Optional[str] = None, module_path: Optional[str] = None) -> List[KiwoomOpenApiPlusTrInfo]
+   .. py:method:: infos_from_data_dir(cls, data_dir: Optional[Union[str, os.PathLike]] = None, encoding: Optional[str] = None, module_path: Optional[str] = None) -> List[KiwoomOpenApiPlusTrInfo]
       :classmethod:
 
 
@@ -96,23 +104,23 @@ Functions
       :classmethod:
 
 
-   .. py:method:: trinfo_by_code_from_data_dir(cls, data_dir: Optional[str] = None, post_process: bool = True) -> Dict[str, KiwoomOpenApiPlusTrInfo]
+   .. py:method:: trinfo_by_code_from_data_dir(cls, data_dir: Optional[Union[str, os.PathLike]] = None, post_process: bool = True) -> Dict[str, KiwoomOpenApiPlusTrInfo]
       :classmethod:
 
 
-   .. py:method:: dump_trinfo_by_code(cls, dump_file: Optional[Union[str, TextIO]] = None, data_dir: Optional[str] = None, encoding: Optional[str] = None)
+   .. py:method:: dump_trinfo_by_code(cls, dump_file: Optional[Union[str, os.PathLike, TextIO]] = None, data_dir: Optional[str] = None, encoding: Optional[str] = None)
       :classmethod:
 
 
-   .. py:method:: trinfo_by_code_from_dump_file(cls, dump_file: Optional[Union[str, TextIO]] = None, encoding: Optional[str] = None) -> Dict[str, KiwoomOpenApiPlusTrInfo]
+   .. py:method:: trinfo_by_code_from_dump_file(cls, dump_file: Optional[Union[str, os.PathLike, TextIO]] = None, encoding: Optional[str] = None) -> Dict[str, KiwoomOpenApiPlusTrInfo]
       :classmethod:
 
 
-   .. py:method:: load_from_dump_file(cls, dump_file: Optional[Union[str, TextIO]] = None)
+   .. py:method:: load_from_dump_file(cls, dump_file: Optional[Union[str, os.PathLike, TextIO]] = None)
       :classmethod:
 
 
-   .. py:method:: load_from_data_dir(cls, data_dir: Optional[str] = None)
+   .. py:method:: load_from_data_dir(cls, data_dir: Optional[Union[str, os.PathLike]] = None)
       :classmethod:
 
 
