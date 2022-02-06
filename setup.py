@@ -111,6 +111,6 @@ setup(
     include_package_data=True,
     test_suite="tests",
     url="https://github.com/elbakramer/koapy",
-    version="0.7.0",
+    version="0.8.0",
     zip_safe=False,
 )
