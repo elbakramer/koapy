@@ -5,7 +5,7 @@ Usage
 Python
 ------
 
-To use KOAPY in a project:
+파이썬 프로젝트에서 KOAPY 를 사용하기 위해서는:
 
 .. code-block:: python
 
@@ -14,7 +14,7 @@ To use KOAPY in a project:
 CLI
 ---
 
-To use KOAPY in a command line:
+커맨드 라인에서 KOAPY 를 사용하기 위해서는:
 
 .. code-block:: console
 
@@ -22,17 +22,22 @@ To use KOAPY in a command line:
     Usage: koapy [OPTIONS] COMMAND [ARGS]...
 
     Options:
-      -V, --version  Show the version and exit.
-      -h, --help     Show this message and exit.
+      --version   Show the version and exit.
+      -h, --help  Show this message and exit.
 
     Commands:
-      config  Configure many things.
-      get     Get various types of data.
-      login   Ensure logged in when server is up.
-      order   Place an order.
-      serve   Start grpc server with tray application.
-      update  Update openapi metadata.
-      watch   Watch realtime data.
+      disable    Disable many things.
+      enable     Show many things.
+      generate   Generate files.
+      get        Get various types of data.
+      install    Install openapi module and others.
+      login      Ensure logged in when server is up.
+      order      Place an order.
+      serve      Start grpc server with tray application.
+      show       Show many things.
+      uninstall  Uninstall openapi module and others.
+      update     Update openapi module and metadata.
+      watch      Watch realtime data.
 
 Python (More)
 -------------
@@ -87,7 +92,11 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
     :language: python
 
 :py:class:`~.koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint.KiwoomOpenApiPlusEntrypoint` 객체를 통해 사용 가능한 메서드 목록은 기본적으로 OpenAPI 에서 제공하는 모든 메서드들을 기반으로 합니다.
-해당 메서드 목록은 `키움 OpenAPI+ 개발 가이드 문서`_ 에서 확인 가능합니다.
+해당 메서드 목록은 `키움 OpenAPI+ 개발 가이드 문서`_ 에서, 혹은 아래 모듈에서 확인 가능합니다.
+
+키움 OpenAPI+ 빌트인 함수 목록:
+
+* :py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchFunctions`
 
 .. _`키움 OpenAPI+ 개발 가이드 문서`: https://download.kiwoom.com/web/openapi/kiwoom_openapi_plus_devguide_ver_1.5.pdf#page=12
 
@@ -95,7 +104,7 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 최종적으로 모든 메서드들이 :py:class:`~.koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEntrypoint.KiwoomOpenApiPlusEntrypoint` 객체로 합쳐지는 구조입니다.
 따라서 해당 메서드들이 어떤 것들이 있는지 확인하기 위해서는 관련 래퍼 클래스들에 구현된 함수들을 참고하시는 게 좋습니다.
 
-주요 래퍼 클래스들을 포함하는 모듈들은 다음과 같습니다.
+주요 래퍼 클래스들을 포함하는 모듈들은 다음과 같습니다:
 
 * :py:mod:`koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin`
 * :py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClientStubWrapper`
@@ -109,10 +118,10 @@ KOAPY 를 사용하지 않고 작성한 가장 미니멀한 코드 예시가 다
 .. |KiwoomOpenApiPlusService.proto| replace:: ``KiwoomOpenApiPlusService.proto``
 .. _`KiwoomOpenApiPlusService.proto`: https://github.com/elbakramer/koapy/blob/master/koapy/backend/kiwoom_open_api_plus/grpc/KiwoomOpenApiPlusService.proto
 
-서버 사이드의 이벤트 처리와 관련해서 참고할만한 모듈들입니다.
+서버 사이드의 이벤트 처리와 관련해서 참고할만한 모듈들입니다:
 
 * :py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceServicer`
-* :py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusEventHandlers`
+* :py:mod:`koapy.backend.kiwoom_open_api_plus.grpc.event`
 
 
 CLI (More)

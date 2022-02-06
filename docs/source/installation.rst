@@ -6,24 +6,15 @@ Installation
 Stable release
 --------------
 
-To install KOAPY, run this command in your terminal:
+KOAPY 를 설치하기 위해서는 아래 커맨드를 터미널에서 실행합니다:
 
 .. code-block:: console
 
     $ pip install koapy
 
-This is the preferred method to install KOAPY, as it will always install the most recent stable release.
+이 방법은 가장 최신의 안정적인 릴리즈 버전을 설치하기 때문에 추천하는 설치 방법 중 하나입니다.
 
-Optionally, in order to install KOAPY with additional backtrader_ support, run this command in your terminal:
-
-.. code-block:: console
-
-    $ pip install koapy[backtrader]
-
-.. _backtrader: https://github.com/mementum/backtrader
-
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
+만약에 `pip`_ 가 설치되어 있지 않다면, `Python installation guide`_ 를 참고하세요.
 
 .. _pip: https://pip.pypa.io
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
@@ -32,21 +23,21 @@ you through the process.
 From sources
 ------------
 
-The sources for KOAPY can be downloaded from the `Github repo`_.
+KOAPY 의 소스코드는 `Github repo`_ 에서 다운로드 받을 수 있습니다.
 
-You can either clone the public repository:
+일반적으로 레포지토리를 클론하거나:
 
 .. code-block:: console
 
     $ git clone git://github.com/elbakramer/koapy
 
-Or download the `tarball`_:
+아니면 `tarball`_ 을 다운로드 받으세요:
 
 .. code-block:: console
 
     $ curl -OJL https://github.com/elbakramer/koapy/tarball/master
 
-Once you have a copy of the source, you can install it with:
+소스코드 사본을 확보했다면, 아래 명령어를 통해 설치할 수 있습니다:
 
 .. code-block:: console
 
@@ -174,16 +165,6 @@ KOAPY
 .. _pip: https://pip.pypa.io
 
 맨 위의 :ref:`Stable release` 의 내용과 동일한 내용입니다.
-
-만약에 backtrader_ 관련 기능들이 구현된 ``koapy.backtrader`` 모듈 하위의 기능들을 사용하고자 하는 경우,
-관련 의존성을 포함해 설치하기 위해서는 아래 명령을 실행합니다:
-
-.. code-block:: console
-
-    $ pip install koapy[backtrader]
-
-.. _backtrader: https://github.com/mementum/backtrader
-
 
 OpenAPI 와의 통신을 위해서 32-Bit 환경에는 필수로 설치되어야 합니다.
 OpenAPI 의 OCX 라이브러리가 32-Bit 환경만 지원하기 때문입니다.

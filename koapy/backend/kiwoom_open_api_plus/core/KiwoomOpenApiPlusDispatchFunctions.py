@@ -125,6 +125,14 @@ class KiwoomOpenApiPlusDispatchFunctions:
                 - 16:00 ~ 18:00.	거래구분 62:시간외단일가.  가격 입력
                 - ※ 10분 단위로 체결, 당일 종가대비 +-10% 가격으로 거래
 
+        주문 유형:
+            - 1: 신규매수
+            - 2: 신규매도
+            - 3: 매수취소
+            - 4: 매도취소
+            - 5: 매수정정
+            - 6: 매도정정
+
         Args:
             sRQName (str): 사용자 구분 요청명
             sScreenNo (str): 화면번호 (4자리)
@@ -188,7 +196,6 @@ class KiwoomOpenApiPlusDispatchFunctions:
 
         Returns:
             int: 에러코드, 성공하면 0 을, 실패하면 음수를 반환
-
         """
         ...
 

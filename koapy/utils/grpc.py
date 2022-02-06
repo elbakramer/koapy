@@ -2,7 +2,11 @@ import contextlib
 import threading
 import warnings
 
+from pprint import PrettyPrinter
+
 import grpc
+
+from google.protobuf.json_format import MessageToDict
 
 
 @contextlib.contextmanager
@@ -23,3 +27,8 @@ def cancel_after(stream, after):
     timer = threading.Timer(after, stream.cancel)
     timer.start()
     return warn_on_rpc_error(stream)
+
+
+def pprint_message(message):
+    pp = PrettyPrinter()
+    pp.pprint(MessageToDict(message, preserving_proto_field_name=True))

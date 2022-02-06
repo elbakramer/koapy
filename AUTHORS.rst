@@ -5,9 +5,17 @@ Credits
 Development Lead
 ----------------
 
-* Yunseong Hwang <kika1492@gmail.com>
+* Yunseong Hwang as `elbakramer`_ <kika1492@gmail.com>
+
+.. _`elbakramer`: https://github.com/elbakramer
 
 Contributors
 ------------
 
-None yet. Why not be the first?
+* Dongyoon Han as `dani-han`_
+* `resoliwan`_
+* Taehoon Lee as `taehoon1`_
+
+.. _`dani-han`: https://github.com/dani-han
+.. _`resoliwan`: https://github.com/resoliwan
+.. _`taehoon1`: https://github.com/taehoon1
