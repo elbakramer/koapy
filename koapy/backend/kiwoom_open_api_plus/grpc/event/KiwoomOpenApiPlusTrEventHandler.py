@@ -75,7 +75,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
             self.control.RateLimitedCommRqData.async_call(
                 self._rqname, self._trcode, 0, self._scrnno, self._inputs
             ),
-            except_callback=lambda e: self.observer.on_error(e)
+            except_callback=self.observer.on_error
         )
 
     def OnReceiveTrData(
@@ -154,7 +154,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                     self.control.RateLimitedCommRqData.async_call(
                         rqname, trcode, int(prevnext), scrnno, self._inputs
                     ),
-                    except_callback=lambda e: self.observer.on_error(e)
+                    except_callback=self.observer.on_error
                 )
 
     def OnEventConnect(self, errcode):

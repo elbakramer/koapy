@@ -60,7 +60,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                 self._search_type,
             ),
             "Failed to send condition",
-            except_callback=lambda e: self.observer.on_error(e)
+            except_callback=self.observer.on_error
         )
 
     def OnReceiveTrCondition(
@@ -104,7 +104,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                         self._request_name,
                         self._screen_no,
                     ),
-                    except_callback=lambda e: self.observer.on_error(e)
+                    except_callback=self.observer.on_error
                 )
 
             should_continue = str(prevnext) not in ["", "0"]
@@ -163,7 +163,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                         self._request_name,
                         self._screen_no,
                     ),
-                    except_callback=lambda e: self.observer.on_error(e)
+                    except_callback=self.observer.on_error
                 )
 
     def OnReceiveTrData(
@@ -252,7 +252,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                             self._request_name,
                             self._screen_no,
                         ),
-                        except_callback=lambda e: self.observer.on_error(e)
+                        except_callback=self.observer.on_error
                     )  # pylint: disable=unreachable
                 except KiwoomOpenApiPlusError as e:
                     self.observer.on_error(e)
