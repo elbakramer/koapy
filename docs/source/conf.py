@@ -232,7 +232,9 @@ if "inherited-members" in autoapi_options and "sphinx.ext.viewcode" in extension
 
 # -- Nbsphinx configuration --------------------------------------------------
 
-if not on_rtd:
+use_nbsphinx = False
+
+if not on_rtd and use_nbsphinx:
     extensions.append("nbsphinx")
 
 html_sourcelink_suffix = ""

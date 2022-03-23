@@ -330,7 +330,7 @@ Auto login
 
 .. code-block:: console
 
-    $ koapy configure autologin
+    $ koapy show account-window
 
 위의 명령어 실행시 키움 Open API 로그인 창이 나옵니다.
 

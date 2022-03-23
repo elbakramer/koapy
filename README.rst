@@ -39,10 +39,9 @@ KOAPY
             :alt: Codecov Coverage
     .. .. image:: https://codecov.io/gh/elbakramer/koapy/branch/master/graph/badge.svg
 
-    .. image:: https://img.shields.io/requires/github/elbakramer/koapy/master.svg
+    .. image:: https://requires.io/github/elbakramer/koapy/requirements.svg?branch=master
             :target: https://requires.io/github/elbakramer/koapy/requirements/?branch=master
             :alt: Requires.io Requirements Status
-    .. .. image:: https://requires.io/github/elbakramer/koapy/requirements.svg?branch=master
 
     .. badges from below are commendted out
 
@@ -706,6 +705,28 @@ Installation
 .. _Installation: https://koapy.readthedocs.io/en/latest/installation.html
 
 
+Usage
+-----
+
+설치 이후 일반적인 사용법에 대해서는 Usage_ 를 참고하세요.
+
+추가적으로 사용법과 관련된 다양한 예시들은 examples_ 폴더 및 notebooks_ipynb_ 폴더에서도 확인 가능합니다.
+혹시나 notebooks_ipynb_ 폴더의 ``.ipynb`` 파일들을 Github 을 통해서 보는데 문제가 있는 경우,
+해당 노트북 주소를 nbviewer_ 에 입력하여 확인해 보세요.
+
+현재 알파 단계이기 때문에 많은 기능들이 실제로 문제없이 동작하는지 충분히 테스트되지 않았습니다.
+만약에 실전 트레이딩에 사용하려는 경우 자체적으로 충분한 테스트를 거친 후 사용하시기 바랍니다.
+
+개발자는 라이브러리 사용으로 인해 발생하는 손실에 대해 어떠한 책임도 지지 않습니다.
+
+또한 알파 단계에서 개발이 진행되면서 라이브러리의 구조가 계속 급격하게 변경될 수 있으니 참고 바랍니다.
+
+.. _Usage: https://koapy.readthedocs.io/en/latest/usage.html
+.. _examples: https://github.com/elbakramer/koapy/tree/master/koapy/examples
+.. _notebooks_ipynb: https://github.com/elbakramer/koapy/tree/master/docs/source/notebooks_ipynb
+.. _nbviewer: https://nbviewer.jupyter.org/
+
+
 Features
 --------
 
@@ -1055,28 +1076,6 @@ CLI 를 활용하면 마켓별 코드 목록 확인, 주식 기본 정보 확인
 .. code-block:: console
 
     $ koapy serve
-
-
-Usage
------
-
-설치 이후 일반적인 사용법에 대해서는 Usage_ 를 참고하세요.
-
-추가적으로 사용법과 관련된 다양한 예시들은 examples_ 폴더 및 notebooks_ipynb_ 폴더에서도 확인 가능합니다.
-혹시나 notebooks_ipynb_ 폴더의 ``.ipynb`` 파일들을 Github 을 통해서 보는데 문제가 있는 경우,
-해당 노트북 주소를 nbviewer_ 에 입력하여 확인해 보세요.
-
-현재 알파 단계이기 때문에 많은 기능들이 실제로 문제없이 동작하는지 충분히 테스트되지 않았습니다.
-만약에 실전 트레이딩에 사용하려는 경우 자체적으로 충분한 테스트를 거친 후 사용하시기 바랍니다.
-
-개발자는 라이브러리 사용으로 인해 발생하는 손실에 대해 어떠한 책임도 지지 않습니다.
-
-또한 알파 단계에서 개발이 진행되면서 라이브러리의 구조가 계속 급격하게 변경될 수 있으니 참고 바랍니다.
-
-.. _Usage: https://koapy.readthedocs.io/en/latest/usage.html
-.. _examples: https://github.com/elbakramer/koapy/tree/master/koapy/examples
-.. _notebooks_ipynb: https://github.com/elbakramer/koapy/tree/master/docs/source/notebooks_ipynb
-.. _nbviewer: https://nbviewer.jupyter.org/
 
 
 Licensing
