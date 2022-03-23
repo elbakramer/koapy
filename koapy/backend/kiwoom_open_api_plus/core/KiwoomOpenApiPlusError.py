@@ -51,16 +51,18 @@ class KiwoomOpenApiPlusError(Exception):
         cls,
         arg: IntCompatible,
         message: Optional[str] = None,
+        except_callback: Optional[Callable] = None
     ) -> IntCompatible:
-        return KiwoomOpenApiPlusNegativeReturnCodeError.try_or_raise(arg, message)
+        return KiwoomOpenApiPlusNegativeReturnCodeError.try_or_raise(arg, message, except_callback)
 
     @classmethod
     def try_or_raise_boolean(
         cls,
         arg: BoolCompatible,
         message: str,
+        except_callback: Optional[Callable] = None
     ) -> BoolCompatible:
-        return KiwoomOpenApiPlusBooleanReturnCodeError.try_or_raise(arg, message)
+        return KiwoomOpenApiPlusBooleanReturnCodeError.try_or_raise(arg, message, except_callback)
 
     @classmethod
     def get_error_message_by_code(cls, code: int, default: Optional[str] = None):
@@ -203,17 +205,26 @@ class KiwoomOpenApiPlusNegativeReturnCodeError(KiwoomOpenApiPlusError):
 
     @classmethod
     def try_or_raise(
-        cls, arg: IntCompatible, message: Optional[str] = None
+        cls, arg: IntCompatible, message: Optional[str] = None, except_callback: Optional[Callable] = None
     ) -> IntCompatible:
         if isinstance(arg, Future):
 
             def callback(future):
                 exc = future.exception()
                 if exc:
-                    raise exc
+                    if except_callback:
+                        except_callback(exc)
+                    else:
+                        raise exc
                 result = future.result()
-                cls.try_or_raise(result, message)
-
+                try:
+                    cls.try_or_raise(result, message)
+                except cls as e:
+                    if except_callback:
+                        except_callback(e)
+                    else:
+                        raise
+                                    
             arg.add_done_callback(callback)
             return arg
         elif isinstance(arg, int):
@@ -275,15 +286,25 @@ class KiwoomOpenApiPlusBooleanReturnCodeError(KiwoomOpenApiPlusError):
         cls,
         arg: BoolCompatible,
         message: Optional[str] = None,
+        except_callback: Optional[Callable] = None
     ) -> BoolCompatible:
         if isinstance(arg, Future):
 
             def callback(future):
                 exc = future.exception()
                 if exc:
-                    raise exc
+                    if except_callback:
+                        except_callback(exc)
+                    else:
+                        raise exc
                 result = future.result()
-                cls.try_or_raise(result, message)
+                try:
+                    cls.try_or_raise(result, message)
+                except cls as e:
+                    if except_callback:
+                        except_callback(e)
+                    else:
+                        raise
 
             arg.add_done_callback(callback)
             return arg

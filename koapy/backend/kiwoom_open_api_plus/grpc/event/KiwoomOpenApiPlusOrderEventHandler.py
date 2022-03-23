@@ -217,7 +217,8 @@ class KiwoomOpenApiPlusOrderEventHandler(
                 self._price,
                 self._hogagb,
                 self._orgorderno,
-            )
+            ),
+            except_callback=self.observer.on_error
         )
 
     def OnReceiveMsg(self, scrnno, rqname, trcode, msg):
