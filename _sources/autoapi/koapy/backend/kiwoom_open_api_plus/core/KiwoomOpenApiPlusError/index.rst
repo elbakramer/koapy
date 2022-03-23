@@ -42,11 +42,11 @@ Module Contents
       :property:
 
 
-   .. py:method:: try_or_raise(cls, arg: IntCompatible, message: Optional[str] = None) -> IntCompatible
+   .. py:method:: try_or_raise(cls, arg: IntCompatible, message: Optional[str] = None, except_callback: Optional[Callable] = None) -> IntCompatible
       :classmethod:
 
 
-   .. py:method:: try_or_raise_boolean(cls, arg: BoolCompatible, message: str) -> BoolCompatible
+   .. py:method:: try_or_raise_boolean(cls, arg: BoolCompatible, message: str, except_callback: Optional[Callable] = None) -> BoolCompatible
       :classmethod:
 
 
@@ -428,7 +428,7 @@ Module Contents
       :classmethod:
 
 
-   .. py:method:: try_or_raise(cls, arg: IntCompatible, message: Optional[str] = None) -> IntCompatible
+   .. py:method:: try_or_raise(cls, arg: IntCompatible, message: Optional[str] = None, except_callback: Optional[Callable] = None) -> IntCompatible
       :classmethod:
 
 
@@ -461,7 +461,7 @@ Module Contents
       :classmethod:
 
 
-   .. py:method:: try_or_raise(cls, arg: BoolCompatible, message: Optional[str] = None) -> BoolCompatible
+   .. py:method:: try_or_raise(cls, arg: BoolCompatible, message: Optional[str] = None, except_callback: Optional[Callable] = None) -> BoolCompatible
       :classmethod:
 
 
