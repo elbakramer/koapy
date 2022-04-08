@@ -37,17 +37,17 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
         self._multi_names = self._trinfo.get_multi_output_names()
 
         stop_condition = request.stop_condition
-        stop_condition_is_valid = all(
-            [
-                stop_condition is not None,
-                stop_condition.name is not None,
-                len(stop_condition.name) > 0,
-                stop_condition.name in self._multi_names,
-            ]
+        stop_condition_is_valid = (
+            stop_condition is not None and
+            stop_condition.name is not None and
+            len(stop_condition.name) > 0 and 
+            (
+                stop_condition.name in self._multi_names or
+                stop_condition.name in self._single_names
+            )
         )
 
         if stop_condition_is_valid:
-            column_index_to_check = self._multi_names.index(stop_condition.name)
             comparator = {
                 KiwoomOpenApiPlusService_pb2.TransactionStopConditionCompartor.LESS_THAN_OR_EQUAL_TO: operator.le,
                 KiwoomOpenApiPlusService_pb2.TransactionStopConditionCompartor.LESS_THAN: operator.lt,
@@ -57,11 +57,17 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                 KiwoomOpenApiPlusService_pb2.TransactionStopConditionCompartor.NOT_EQUAL_TO: operator.ne,
             }.get(stop_condition.comparator, operator.le)
 
+            if stop_condition.name in self._multi_names:
+                column_index_to_check = self._multi_names.index(stop_condition.name)
+            else:
+                # if it does not have multi_names, it may use single_names instead.
+                column_index_to_check = self._single_names.index(stop_condition.name)                
+            
             def is_stop_condition(row):
                 return comparator(row[column_index_to_check], stop_condition.value)
-
+            
         else:
-
+                
             def is_stop_condition(_):
                 return False
 
@@ -111,9 +117,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                     self.logger.warning(
                         "Repeat count greater than 0, but no multi data names available, fallback to sigle data names"
                     )
-                    multi_names = self._multi_names
-                    self._multi_names = self._single_names
-                    self._single_name = multi_names
+                    self._single_names, self._multi_names = self._multi_names, self._single_names
                 if len(self._multi_names) > 0:
                     rows = [
                         [
