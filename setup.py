@@ -13,7 +13,7 @@ with open("HISTORY.rst", encoding="utf-8") as history_file:
     history = history_file.read()
 
 requirements = [
-    "click>=8.0.4",
+    "click>=8.1.2",
     "cryptography>=36.0.2",
     "deprecated>=1.2.13",
     "discord.py>=1.7.3",
@@ -23,8 +23,8 @@ requirements = [
     "lxml>=4.8.0",
     "numpy>=1.22.3",
     "openpyxl>=3.0.9",
-    "pandas>=1.4.1",
-    "protobuf>=3.19.4",
+    "pandas>=1.4.2",
+    "protobuf>=3.20.0",
     "psutil>=5.9.0",
     "pygtrie>=2.4.2",
     "pyhocon>=0.3.59",
@@ -35,11 +35,11 @@ requirements = [
     "Rx>=3.2.0",
     "schedule>=1.1.0",
     "Send2Trash>=1.8.0",
-    "SQLAlchemy>=1.4.32",
+    "SQLAlchemy>=1.4.35",
     "tabulate>=0.8.9",
-    "tqdm>=4.63.0",
-    "tzlocal>=4.1",
-    "wrapt>=1.13.3",
+    "tqdm>=4.64.0",
+    "tzlocal>=4.2",
+    "wrapt>=1.14.0",
     "pywin32>=303;sys_platform=='win32'",
     "pywinauto>=0.6.8;sys_platform=='win32'",
     "windows-curses>=2.3.0;sys_platform=='win32'",
@@ -48,30 +48,30 @@ requirements = [
 
 requirements_dev = [
     "actions-toolkit>=0.1.13",
-    "black>=22.1.0",
+    "black>=22.3.0",
     "bump2version>=1.0.1",
     "codecov>=2.1.12",
     "coverage>=6.3.2",
-    "dunamai>=1.11.0",
+    "dunamai>=1.11.1",
     "flake8>=4.0.1",
     "isort>=5.10.1",
-    "mypy>=0.941",
-    "pip-tools>=6.4.0",
-    "pre-commit>=2.17.0",
-    "pylint>=2.12.2",
+    "mypy>=0.942",
+    "pip-tools>=6.6.0",
+    "pre-commit>=2.18.1",
+    "pylint>=2.13.5",
     "pytest>=7.1.1",
     "pytest-cov>=3.0.0",
     "pytest-xdist>=2.5.0",
-    "pyupgrade>=2.31.0",
+    "pyupgrade>=2.32.0",
     "astunparse>=1.6.3;python_version<'3.9'",
 ]
 
 requirements_doc = [
-    "Sphinx>=4.4.0",
+    "Sphinx>=4.5.0",
     "sphinx-autoapi>=1.8.4",
-    "nbconvert>=6.4.1",
+    "nbconvert>=6.5.0",
     "nbsphinx>=0.8.8",
-    "ipython>=8.1.1",
+    "ipython>=8.2.0",
 ]
 
 requirements_dev += requirements_doc
