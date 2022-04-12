@@ -99,7 +99,7 @@ class KiwoomOpenApiPlusPriceEventChannel(Logging):
         tm = datetime.datetime.strptime(fid20, "%H%M%S").time()
         dt = datetime.datetime.combine(dt, tm)
         dt = self._krx_timezone.localize(dt)
-        return dt.timestamp() * (10 ** 6)
+        return dt.timestamp() * (10**6)
 
     def event_to_dict(self, response):
         single_data = dict(zip(response.single_data.names, response.single_data.values))

@@ -38,12 +38,12 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
 
         stop_condition = request.stop_condition
         stop_condition_is_valid = (
-            stop_condition is not None and
-            stop_condition.name is not None and
-            len(stop_condition.name) > 0 and 
-            (
-                stop_condition.name in self._multi_names or
-                stop_condition.name in self._single_names
+            stop_condition is not None
+            and stop_condition.name is not None
+            and len(stop_condition.name) > 0
+            and (
+                stop_condition.name in self._multi_names
+                or stop_condition.name in self._single_names
             )
         )
 
@@ -61,13 +61,13 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                 column_index_to_check = self._multi_names.index(stop_condition.name)
             else:
                 # if it does not have multi_names, it may use single_names instead.
-                column_index_to_check = self._single_names.index(stop_condition.name)                
-            
+                column_index_to_check = self._single_names.index(stop_condition.name)
+
             def is_stop_condition(row):
                 return comparator(row[column_index_to_check], stop_condition.value)
-            
+
         else:
-                
+
             def is_stop_condition(_):
                 return False
 
@@ -81,7 +81,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
             self.control.RateLimitedCommRqData.async_call(
                 self._rqname, self._trcode, 0, self._scrnno, self._inputs
             ),
-            except_callback=self.observer.on_error
+            except_callback=self.observer.on_error,
         )
 
     def OnReceiveTrData(
@@ -117,7 +117,10 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                     self.logger.warning(
                         "Repeat count greater than 0, but no multi data names available, fallback to sigle data names"
                     )
-                    self._single_names, self._multi_names = self._multi_names, self._single_names
+                    self._single_names, self._multi_names = (
+                        self._multi_names,
+                        self._single_names,
+                    )
                 if len(self._multi_names) > 0:
                     rows = [
                         [
@@ -158,7 +161,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                     self.control.RateLimitedCommRqData.async_call(
                         rqname, trcode, int(prevnext), scrnno, self._inputs
                     ),
-                    except_callback=self.observer.on_error
+                    except_callback=self.observer.on_error,
                 )
 
     def OnEventConnect(self, errcode):

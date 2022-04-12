@@ -61,7 +61,9 @@ class CybosPlusRequestError(CybosPlusError):
         return self._message
 
     def __repr__(self):
-        return "%s(%r, %r)" % (self.__class__.__name__, self._code, self._message)
+        return "{}({!r}, {!r})".format(
+            self.__class__.__name__, self._code, self._message
+        )
 
     @property
     def code(self):

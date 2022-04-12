@@ -264,7 +264,7 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
                 else:
                     dtbegin = None
 
-                dtend = self.fromtimestamp(int(msg["time"]) / 10 ** 6)
+                dtend = self.fromtimestamp(int(msg["time"]) / 10**6)
 
                 self.qhist = self.k.candles(
                     self.p.dataname,
@@ -324,7 +324,7 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
                     return False
 
     def _load_tick(self, msg):
-        dtobj = self.fromtimestamp(int(msg["time"]) / 10 ** 6)
+        dtobj = self.fromtimestamp(int(msg["time"]) / 10**6)
         dt = self.date2num(dtobj)
         if dt <= self.lines.datetime[-1]:
             return False  # time already seen
@@ -346,7 +346,7 @@ class KiwoomOpenApiPlusData(DataBase, Logging, metaclass=MetaKiwoomOpenApiPlusDa
         return True
 
     def _load_history(self, msg):
-        dtobj = self.fromtimestamp(int(msg["time"]) / 10 ** 6)
+        dtobj = self.fromtimestamp(int(msg["time"]) / 10**6)
         dt = self.date2num(dtobj)
         if dt <= self.lines.datetime[-1]:
             return False  # time already seen

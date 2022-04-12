@@ -64,11 +64,11 @@ class HistoricalPriceRecord(
         if "일자" in tup._fields:
             dt = datetime.datetime.strptime(tup.일자, "%Y%m%d")
             dt = cls._krx_timezone.localize(dt)
-            time = dt.timestamp() * (10 ** 6)  # pylint: disable=redefined-outer-name
+            time = dt.timestamp() * (10**6)  # pylint: disable=redefined-outer-name
         elif "체결시간" in tup._fields:
             dt = datetime.datetime.strptime(tup.체결시간, "%Y%m%d%H%M%S")
             dt = cls._krx_timezone.localize(dt)
-            time = dt.timestamp() * (10 ** 6)
+            time = dt.timestamp() * (10**6)
         else:
             raise KiwoomOpenApiPlusError("Cannot specify time")
         open = abs(float(tup.시가))  # pylint: disable=redefined-builtin
@@ -263,7 +263,7 @@ class API:
         dt = pd.to_datetime(
             df["일자"].str.cat(df["체결시간"]), format="%Y%m%d%H%M%S"
         ).dt.tz_localize(self._krx_timezone)
-        dt = dt.astype(np.int64) // 10 ** 3
+        dt = dt.astype(np.int64) // 10**3
         df = pd.DataFrame(
             {
                 "dataname": df["종목코드"],
