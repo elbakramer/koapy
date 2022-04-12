@@ -582,7 +582,7 @@ GRPC 스트림 처리 관련 유틸리티 함수 (데모 목적)
     ...         order_no = event.single_data.values[0]
     ...     elif event.name == "OnReceiveChejanData":
     ...         gubun = event.arguments[0].string_value
-    ...         data = dict(event.single_data.names, event.single_data.values)
+    ...         data = dict(zip(event.single_data.names, event.single_data.values))
     ...         if gubun == "0":
     ...             status = data["주문상태"]
     ...             if status == "접수":
@@ -649,7 +649,7 @@ GRPC 스트림 처리 관련 유틸리티 함수 (데모 목적)
 
     >>> for event in cancel_after(stream, 10):
     ...     if event.name == "OnReceiveRealData":
-    ...         data = dict(event.single_data.names, event.single_data.values)
+    ...         data = dict(zip(event.single_data.names, event.single_data.values))
     ...         if "현재가" in data:
     ...             current_price = data["현재가"]
 
