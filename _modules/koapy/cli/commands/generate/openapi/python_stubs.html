@@ -111,11 +111,11 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">koapy.config</span> <span class="kn">import</span> <span class="n">default_encoding</span>
 
-<div class="viewcode-block" id="default_dispatch_class_name"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/generate/openapi/python_stubs/index.html#koapy.cli.commands.generate.openapi.default_dispatch_class_name">[docs]</a><span class="n">default_dispatch_class_name</span> <span class="o">=</span> <span class="s2">&quot;KiwoomOpenApiPlusDispatchFunctionsGenerated&quot;</span></div>
-<div class="viewcode-block" id="default_dispatch_file_path"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/generate/openapi/python_stubs/index.html#koapy.cli.commands.generate.openapi.default_dispatch_file_path">[docs]</a><span class="n">default_dispatch_file_path</span> <span class="o">=</span> <span class="n">default_dispatch_class_name</span> <span class="o">+</span> <span class="s2">&quot;.py&quot;</span></div>
+<div class="viewcode-block" id="default_dispatch_class_name"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/generate/openapi/python_stubs/index.html#koapy.cli.commands.generate.openapi.python_stubs.default_dispatch_class_name">[docs]</a><span class="n">default_dispatch_class_name</span> <span class="o">=</span> <span class="s2">&quot;KiwoomOpenApiPlusDispatchFunctionsGenerated&quot;</span></div>
+<div class="viewcode-block" id="default_dispatch_file_path"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/generate/openapi/python_stubs/index.html#koapy.cli.commands.generate.openapi.python_stubs.default_dispatch_file_path">[docs]</a><span class="n">default_dispatch_file_path</span> <span class="o">=</span> <span class="n">default_dispatch_class_name</span> <span class="o">+</span> <span class="s2">&quot;.py&quot;</span></div>
 
-<div class="viewcode-block" id="default_event_class_name"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/generate/openapi/python_stubs/index.html#koapy.cli.commands.generate.openapi.default_event_class_name">[docs]</a><span class="n">default_event_class_name</span> <span class="o">=</span> <span class="s2">&quot;KiwoomOpenApiPlusEventFunctionsGenerated&quot;</span></div>
-<div class="viewcode-block" id="default_event_file_path"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/generate/openapi/python_stubs/index.html#koapy.cli.commands.generate.openapi.default_event_file_path">[docs]</a><span class="n">default_event_file_path</span> <span class="o">=</span> <span class="n">default_event_class_name</span> <span class="o">+</span> <span class="s2">&quot;.py&quot;</span></div>
+<div class="viewcode-block" id="default_event_class_name"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/generate/openapi/python_stubs/index.html#koapy.cli.commands.generate.openapi.python_stubs.default_event_class_name">[docs]</a><span class="n">default_event_class_name</span> <span class="o">=</span> <span class="s2">&quot;KiwoomOpenApiPlusEventFunctionsGenerated&quot;</span></div>
+<div class="viewcode-block" id="default_event_file_path"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/generate/openapi/python_stubs/index.html#koapy.cli.commands.generate.openapi.python_stubs.default_event_file_path">[docs]</a><span class="n">default_event_file_path</span> <span class="o">=</span> <span class="n">default_event_class_name</span> <span class="o">+</span> <span class="s2">&quot;.py&quot;</span></div>
 
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
@@ -155,14 +155,14 @@
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Encoding for stub files.&quot;</span><span class="p">,</span>
     <span class="n">default</span><span class="o">=</span><span class="n">default_encoding</span><span class="p">,</span>
     <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<div class="viewcode-block" id="python_stubs"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/generate/openapi/python_stubs/index.html#koapy.cli.commands.generate.openapi.python_stubs">[docs]</a><span class="p">)</span>
+<span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--force-overwrite&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Force overwrite even if target file already exists.&quot;</span><span class="p">,</span>
     <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">def</span> <span class="nf">python_stubs</span><span class="p">(</span>
+<div class="viewcode-block" id="python_stubs"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/generate/openapi/python_stubs/index.html#koapy.cli.commands.generate.openapi.python_stubs.python_stubs">[docs]</a><span class="k">def</span> <span class="nf">python_stubs</span><span class="p">(</span>
     <span class="n">dispatch_class_name</span><span class="p">,</span>
     <span class="n">dispatch_file_path</span><span class="p">,</span>
     <span class="n">event_class_name</span><span class="p">,</span>
@@ -176,8 +176,8 @@
         <span class="n">event_class_name</span><span class="o">=</span><span class="n">event_class_name</span><span class="p">,</span>
         <span class="n">event_file_path</span><span class="o">=</span><span class="n">event_file_path</span><span class="p">,</span>
         <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
-        <span class="n">force_overwrite</span><span class="o">=</span><span class="n">force_overwrite</span><span class="p">,</span></div>
-    <span class="p">)</span>
+        <span class="n">force_overwrite</span><span class="o">=</span><span class="n">force_overwrite</span><span class="p">,</span>
+    <span class="p">)</span></div>
 </pre></div>
 
           </div>
@@ -190,7 +190,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

@@ -172,8 +172,8 @@
         <span class="n">OP_ERR_ORD_WRONG_ACCPWD</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_WRONG_ACCPWD</span><span class="p">,</span>
         <span class="n">OP_ERR_ORD_WRONG_ACCNO</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_WRONG_ACCNO</span><span class="p">,</span>
         <span class="n">OP_ERR_ORD_WRONG_QTY200</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_WRONG_QTY200</span><span class="p">,</span>
-        <span class="n">OP_ERR_ORD_WRONG_QTY400</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_WRONG_QTY400</span><span class="p">,</span></div>
-    <span class="p">}</span>
+        <span class="n">OP_ERR_ORD_WRONG_QTY400</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_WRONG_QTY400</span><span class="p">,</span>
+    <span class="p">}</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.get_error_message_by_code"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.get_error_message_by_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_error_message_by_code</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -215,7 +215,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">(</span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="KiwoomOpenApiWNegativeReturnCodeError.code"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWNegativeReturnCodeError.code">[docs]</a>    <span class="k">def</span> <span class="nf">code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -249,8 +251,8 @@
             <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">wrap_to_check_code_or_raise</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="s2">&quot;Expected &#39;int&#39;, &#39;bool&#39; or &#39;callable&#39; but </span><span class="si">%s</span><span class="s2"> found&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span></div>
-            <span class="p">)</span>
+                <span class="s2">&quot;Expected &#39;int&#39;, &#39;bool&#39; or &#39;callable&#39; but </span><span class="si">%s</span><span class="s2"> found&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+            <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -265,7 +267,9 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">(</span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="KiwoomOpenApiWBooleanReturnCodeError.code"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWError/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWError.KiwoomOpenApiWBooleanReturnCodeError.code">[docs]</a>    <span class="k">def</span> <span class="nf">code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -282,7 +286,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

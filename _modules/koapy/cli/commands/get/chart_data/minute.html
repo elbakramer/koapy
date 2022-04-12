@@ -118,8 +118,8 @@
     <span class="s2">&quot;15&quot;</span><span class="p">,</span>
     <span class="s2">&quot;30&quot;</span><span class="p">,</span>
     <span class="s2">&quot;45&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;60&quot;</span><span class="p">,</span></div>
-<span class="p">]</span>
+    <span class="s2">&quot;60&quot;</span><span class="p">,</span>
+<span class="p">]</span></div>
 
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">short_help</span><span class="o">=</span><span class="s2">&quot;Get minute OHLCV of stocks.&quot;</span><span class="p">)</span>
@@ -162,13 +162,13 @@
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">DateTime</span><span class="p">(</span>
         <span class="n">formats</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S&quot;</span><span class="p">,</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">%H%M%S&quot;</span><span class="p">]</span>
     <span class="p">),</span>
-<div class="viewcode-block" id="minute"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/get/index.html#koapy.cli.commands.get.chart_data.minute.minute">[docs]</a>    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Stops if reached, not included (optional).&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Stops if reached, not included (optional).&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of grpc server (optional).&quot;</span>
 <span class="p">)</span>
 <span class="nd">@verbose_option</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">minute</span><span class="p">(</span>
+<div class="viewcode-block" id="minute"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/get/index.html#koapy.cli.commands.get.chart_data.minute.minute">[docs]</a><span class="k">def</span> <span class="nf">minute</span><span class="p">(</span>
     <span class="n">code</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">port</span>
 <span class="p">):</span>  <span class="c1"># pylint: disable=redefined-builtin</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
@@ -210,7 +210,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

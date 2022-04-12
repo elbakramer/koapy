@@ -39,11 +39,16 @@ Functions
          
 
       .. py:attribute:: FID_DUMP_FILENAME
-         :annotation: = fid.xlsx
+         :annotation: = fid.csv
 
          
 
       .. py:attribute:: FID_DUMP_FILEPATH
+         
+
+         
+
+      .. py:attribute:: FID_DUMP_PROCESSOR
          
 
          

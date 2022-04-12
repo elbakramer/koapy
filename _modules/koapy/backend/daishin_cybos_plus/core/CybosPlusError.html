@@ -118,8 +118,8 @@
         <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;통신요청 실패&quot;</span><span class="p">,</span>
         <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;주문확인창에서 취소&quot;</span><span class="p">,</span>
         <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;그외의 내부 오류&quot;</span><span class="p">,</span>
-        <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;주문요청 제한 개수 초과&quot;</span><span class="p">,</span></div>
-    <span class="p">}</span>
+        <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;주문요청 제한 개수 초과&quot;</span><span class="p">,</span>
+    <span class="p">}</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="CybosPlusRequestError.get_error_message_by_code"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusError/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusError.CybosPlusRequestError.get_error_message_by_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_error_message_by_code</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -161,7 +161,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">(</span><span class="si">{!r}</span><span class="s2">, </span><span class="si">{!r}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="CybosPlusRequestError.code"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusError/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusError.CybosPlusRequestError.code">[docs]</a>    <span class="k">def</span> <span class="nf">code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -182,7 +184,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

@@ -143,8 +143,8 @@
 
 <div class="viewcode-block" id="KiwoomOpenApiWSignature.PYTHONTYPE_TO_QTTYPE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.PYTHONTYPE_TO_QTTYPE">[docs]</a>    <span class="n">PYTHONTYPE_TO_QTTYPE</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nb">int</span><span class="p">:</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span>
-        <span class="nb">str</span><span class="p">:</span> <span class="s2">&quot;const QString&amp;&quot;</span><span class="p">,</span></div>
-    <span class="p">}</span>
+        <span class="nb">str</span><span class="p">:</span> <span class="s2">&quot;const QString&amp;&quot;</span><span class="p">,</span>
+    <span class="p">}</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiWSignature.COMTYPE_TO_PYTHONTYPE"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWSignature.COMTYPE_TO_PYTHONTYPE">[docs]</a>    <span class="n">COMTYPE_TO_PYTHONTYPE</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">pythoncom</span><span class="o">.</span><span class="n">VT_I4</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -152,8 +152,8 @@
         <span class="n">pythoncom</span><span class="o">.</span><span class="n">VT_VARIANT</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span>
             <span class="kc">None</span>
         <span class="p">),</span>  <span class="c1"># QVariant does not exist in PySide2 (Currently PyQt5 only)</span>
-        <span class="n">pythoncom</span><span class="o">.</span><span class="n">VT_VOID</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span></div>
-    <span class="p">}</span>
+        <span class="n">pythoncom</span><span class="o">.</span><span class="n">VT_VOID</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span>
+    <span class="p">}</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_annotation</span><span class="o">=</span><span class="n">Signature</span><span class="o">.</span><span class="n">empty</span><span class="p">,</span> <span class="n">entry</span><span class="o">=</span><span class="kc">None</span>
@@ -247,8 +247,8 @@
 
 
 <div class="viewcode-block" id="DISPATCH_SIGNATURES_BY_NAME"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.DISPATCH_SIGNATURES_BY_NAME">[docs]</a><span class="n">KiwoomOpenApiWDispatchSignature</span><span class="o">.</span><span class="n">DISPATCH_SIGNATURES_BY_NAME</span> <span class="o">=</span> <span class="n">LoadDispatchSignatures</span><span class="p">(</span>
-    <span class="n">KiwoomOpenApiWSignature</span><span class="o">.</span><span class="n">OLE_ITEMS</span><span class="p">,</span> <span class="n">KiwoomOpenApiWSignature</span><span class="o">.</span><span class="n">DISPATCH_CLSID</span></div>
-<span class="p">)</span>
+    <span class="n">KiwoomOpenApiWSignature</span><span class="o">.</span><span class="n">OLE_ITEMS</span><span class="p">,</span> <span class="n">KiwoomOpenApiWSignature</span><span class="o">.</span><span class="n">DISPATCH_CLSID</span>
+<span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="KiwoomOpenApiWEventHandlerSignature"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.KiwoomOpenApiWEventHandlerSignature">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiWEventHandlerSignature</span><span class="p">(</span><span class="n">KiwoomOpenApiWSignature</span><span class="p">):</span>
@@ -280,9 +280,9 @@
 
 <div class="viewcode-block" id="EVENT_HANDLER_SIGNATURES_BY_NAME"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_w/core/KiwoomOpenApiWSignature/index.html#koapy.backend.kiwoom_open_api_w.core.KiwoomOpenApiWSignature.EVENT_HANDLER_SIGNATURES_BY_NAME">[docs]</a><span class="n">KiwoomOpenApiWEventHandlerSignature</span><span class="o">.</span><span class="n">EVENT_HANDLER_SIGNATURES_BY_NAME</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">LoadEventHandlerSignatures</span><span class="p">(</span>
-        <span class="n">KiwoomOpenApiWSignature</span><span class="o">.</span><span class="n">OLE_ITEMS</span><span class="p">,</span> <span class="n">KiwoomOpenApiWSignature</span><span class="o">.</span><span class="n">EVENT_CLSID</span></div>
+        <span class="n">KiwoomOpenApiWSignature</span><span class="o">.</span><span class="n">OLE_ITEMS</span><span class="p">,</span> <span class="n">KiwoomOpenApiWSignature</span><span class="o">.</span><span class="n">EVENT_CLSID</span>
     <span class="p">)</span>
-<span class="p">)</span>
+<span class="p">)</span></div>
 </pre></div>
 
           </div>
@@ -295,7 +295,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

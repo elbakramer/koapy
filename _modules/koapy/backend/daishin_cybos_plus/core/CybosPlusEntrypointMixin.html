@@ -312,8 +312,8 @@
 
         <span class="n">args</span> <span class="o">=</span> <span class="n">function_to_subprocess_args</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-            <span class="n">args</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">credentials</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span></div>
-        <span class="p">)</span>
+            <span class="n">args</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">credentials</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="CybosPlusEntrypointMixin.ConnectUsingPywinauto"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypointMixin/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin.ConnectUsingPywinauto">[docs]</a>    <span class="k">def</span> <span class="nf">ConnectUsingPywinauto</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ConnectUsingPywinauto_RunScriptInSubprocess</span><span class="p">(</span><span class="n">credentials</span><span class="p">)</span></div>
@@ -584,20 +584,20 @@
         <span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">adjusted_price</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetStockDataAsDataFrame</span><span class="p">(</span>
-            <span class="n">code</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">adjusted_price</span><span class="o">=</span><span class="n">adjusted_price</span></div>
-        <span class="p">)</span>
+            <span class="n">code</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">adjusted_price</span><span class="o">=</span><span class="n">adjusted_price</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="CybosPlusEntrypointMixin.GetMinuteStockDataAsDataFrame"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypointMixin/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin.GetMinuteStockDataAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">GetMinuteStockDataAsDataFrame</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">adjusted_price</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetStockDataAsDataFrame</span><span class="p">(</span>
-            <span class="n">code</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">adjusted_price</span><span class="o">=</span><span class="n">adjusted_price</span></div>
-        <span class="p">)</span>
+            <span class="n">code</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">adjusted_price</span><span class="o">=</span><span class="n">adjusted_price</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="CybosPlusEntrypointMixin.GetDailyAdjustmentRatioAsDataFrame"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypointMixin/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin.GetDailyAdjustmentRatioAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">GetDailyAdjustmentRatioAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetStockDataAsDataFrame</span><span class="p">(</span>
-            <span class="n">code</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">adjustement_only</span><span class="o">=</span><span class="kc">True</span></div>
-        <span class="p">)</span>
+            <span class="n">code</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">adjustement_only</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="CybosPlusEntrypointMixin.GetCurrentStockDataAsDataFrame"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/daishin_cybos_plus/core/CybosPlusEntrypointMixin/index.html#koapy.backend.daishin_cybos_plus.core.CybosPlusEntrypointMixin.CybosPlusEntrypointMixin.GetCurrentStockDataAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">GetCurrentStockDataAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">codes</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -668,7 +668,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

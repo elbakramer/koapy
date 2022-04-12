@@ -199,7 +199,7 @@
         <span class="n">tm</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">fid20</span><span class="p">,</span> <span class="s2">&quot;%H%M%S&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">tm</span><span class="p">)</span>
         <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_krx_timezone</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusPriceEventChannel.event_to_dict"><a class="viewcode-back" href="../../../autoapi/koapy/backtrader/KiwoomOpenApiPlusEventStreamer/index.html#koapy.backtrader.KiwoomOpenApiPlusEventStreamer.KiwoomOpenApiPlusPriceEventChannel.event_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">event_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
         <span class="n">single_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
@@ -432,7 +432,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

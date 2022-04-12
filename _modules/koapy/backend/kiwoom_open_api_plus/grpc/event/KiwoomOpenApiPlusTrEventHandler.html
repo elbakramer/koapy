@@ -137,17 +137,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_multi_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trinfo</span><span class="o">.</span><span class="n">get_multi_output_names</span><span class="p">()</span>
 
         <span class="n">stop_condition</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">stop_condition</span>
-        <span class="n">stop_condition_is_valid</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span>
-            <span class="p">[</span>
-                <span class="n">stop_condition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="nb">len</span><span class="p">(</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
-                <span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multi_names</span><span class="p">,</span>
-            <span class="p">]</span>
+        <span class="n">stop_condition_is_valid</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">stop_condition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="ow">and</span> <span class="p">(</span>
+                <span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multi_names</span>
+                <span class="ow">or</span> <span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_single_names</span>
+            <span class="p">)</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">stop_condition_is_valid</span><span class="p">:</span>
-            <span class="n">column_index_to_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multi_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="n">comparator</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="n">KiwoomOpenApiPlusService_pb2</span><span class="o">.</span><span class="n">TransactionStopConditionCompartor</span><span class="o">.</span><span class="n">LESS_THAN_OR_EQUAL_TO</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">le</span><span class="p">,</span>
                 <span class="n">KiwoomOpenApiPlusService_pb2</span><span class="o">.</span><span class="n">TransactionStopConditionCompartor</span><span class="o">.</span><span class="n">LESS_THAN</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">lt</span><span class="p">,</span>
@@ -156,6 +156,12 @@
                 <span class="n">KiwoomOpenApiPlusService_pb2</span><span class="o">.</span><span class="n">TransactionStopConditionCompartor</span><span class="o">.</span><span class="n">EQUAL_TO</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span>
                 <span class="n">KiwoomOpenApiPlusService_pb2</span><span class="o">.</span><span class="n">TransactionStopConditionCompartor</span><span class="o">.</span><span class="n">NOT_EQUAL_TO</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">ne</span><span class="p">,</span>
             <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">comparator</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">le</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multi_names</span><span class="p">:</span>
+                <span class="n">column_index_to_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multi_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># if it does not have multi_names, it may use single_names instead.</span>
+                <span class="n">column_index_to_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_single_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
             <span class="k">def</span> <span class="nf">is_stop_condition</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">comparator</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">column_index_to_check</span><span class="p">],</span> <span class="n">stop_condition</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
@@ -175,8 +181,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">RateLimitedCommRqData</span><span class="o">.</span><span class="n">async_call</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_rqname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trcode</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scrnno</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span>
             <span class="p">),</span>
-            <span class="n">except_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="o">.</span><span class="n">on_error</span></div>
-        <span class="p">)</span>
+            <span class="n">except_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="o">.</span><span class="n">on_error</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusTrEventHandler.OnReceiveTrData"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusTrEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusTrEventHandler.KiwoomOpenApiPlusTrEventHandler.OnReceiveTrData">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveTrData</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -211,9 +217,10 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                         <span class="s2">&quot;Repeat count greater than 0, but no multi data names available, fallback to sigle data names&quot;</span>
                     <span class="p">)</span>
-                    <span class="n">multi_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multi_names</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_multi_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_single_names</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_single_name</span> <span class="o">=</span> <span class="n">multi_names</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_single_names</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multi_names</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_multi_names</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_single_names</span><span class="p">,</span>
+                    <span class="p">)</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_multi_names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
                         <span class="p">[</span>
@@ -254,8 +261,8 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">RateLimitedCommRqData</span><span class="o">.</span><span class="n">async_call</span><span class="p">(</span>
                         <span class="n">rqname</span><span class="p">,</span> <span class="n">trcode</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">prevnext</span><span class="p">),</span> <span class="n">scrnno</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span>
                     <span class="p">),</span>
-                    <span class="n">except_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="o">.</span><span class="n">on_error</span></div>
-                <span class="p">)</span>
+                    <span class="n">except_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="o">.</span><span class="n">on_error</span><span class="p">,</span>
+                <span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusTrEventHandler.OnEventConnect"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusTrEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusTrEventHandler.KiwoomOpenApiPlusTrEventHandler.OnEventConnect">[docs]</a>    <span class="k">def</span> <span class="nf">OnEventConnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errcode</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">errcode</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -285,7 +292,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

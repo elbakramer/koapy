@@ -113,8 +113,8 @@
 <div class="viewcode-block" id="default_server_bind_address"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.default_server_bind_address">[docs]</a><span class="n">default_server_bind_address</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">grpc_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;server.bind_address&quot;</span><span class="p">)</span>
     <span class="ow">or</span> <span class="n">grpc_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;server.host&quot;</span><span class="p">)</span>
-    <span class="ow">or</span> <span class="n">grpc_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;host&quot;</span><span class="p">)</span></div>
-<span class="p">)</span>
+    <span class="ow">or</span> <span class="n">grpc_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;host&quot;</span><span class="p">)</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="default_server_host"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.default_server_host">[docs]</a><span class="n">default_server_host</span> <span class="o">=</span> <span class="n">default_server_bind_address</span></div>
 <div class="viewcode-block" id="default_server_port"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.default_server_port">[docs]</a><span class="n">default_server_port</span> <span class="o">=</span> <span class="n">grpc_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;server.port&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">grpc_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;port&quot;</span><span class="p">)</span></div>
 
@@ -125,8 +125,8 @@
 <div class="viewcode-block" id="default_common_port"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.default_common_port">[docs]</a><span class="n">default_common_port</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">grpc_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;port&quot;</span><span class="p">)</span>
     <span class="ow">or</span> <span class="n">grpc_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;server.port&quot;</span><span class="p">)</span>
-    <span class="ow">or</span> <span class="n">grpc_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;client.port&quot;</span><span class="p">)</span></div>
-<span class="p">)</span>
+    <span class="ow">or</span> <span class="n">grpc_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;client.port&quot;</span><span class="p">)</span>
+<span class="p">)</span></div>
 
 
 <span class="c1"># server specific options</span>
@@ -136,45 +136,45 @@
     <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;ADDRESS&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Host address of gRPC server to bind.&quot;</span><span class="p">,</span>
     <span class="n">default</span><span class="o">=</span><span class="n">default_server_bind_address</span><span class="p">,</span>
-    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_port_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_port_option">[docs]</a><span class="n">server_port_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--port&quot;</span><span class="p">,</span>
     <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of gRPC server to bind.&quot;</span><span class="p">,</span>
     <span class="n">default</span><span class="o">=</span><span class="n">default_server_port</span><span class="p">,</span>
-    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_key_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_key_file_option">[docs]</a><span class="n">server_key_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--key-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded private key file for server SSL/TLS.&quot;</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded private key file for server SSL/TLS.&quot;</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_cert_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_cert_file_option">[docs]</a><span class="n">server_cert_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--cert-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded certificate chain file for server SSL/TLS.&quot;</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded certificate chain file for server SSL/TLS.&quot;</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_root_certs_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_root_certs_file_option">[docs]</a><span class="n">server_root_certs_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--root-certs-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span></div>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    PEM encoded client root certificates file for client authentication.</span>
 <span class="s2">    Assumes --require-client-auth flag is set if this option is given,</span>
 <span class="s2">    unless --no-require-client-auth flag is set explicitly.</span>
 <span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_require_client_auth_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_require_client_auth_option">[docs]</a><span class="n">server_require_client_auth_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--require-client-auth&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Require clients to be authenticated, root certificates are required.&quot;</span><span class="p">,</span>
-    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_no_require_client_auth_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_no_require_client_auth_option">[docs]</a><span class="n">server_no_require_client_auth_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--no-require-client-auth&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Force not to require clients to be authenticated, even if root certificates are given.&quot;</span><span class="p">,</span>
-    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 
 <div class="viewcode-block" id="server_options"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_options">[docs]</a><span class="n">server_options</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">server_bind_address_option</span><span class="p">,</span>
@@ -183,8 +183,8 @@
     <span class="n">server_cert_file_option</span><span class="p">,</span>
     <span class="n">server_root_certs_file_option</span><span class="p">,</span>
     <span class="n">server_require_client_auth_option</span><span class="p">,</span>
-    <span class="n">server_no_require_client_auth_option</span><span class="p">,</span></div>
-<span class="p">]</span>
+    <span class="n">server_no_require_client_auth_option</span><span class="p">,</span>
+<span class="p">]</span></div>
 
 
 <span class="c1"># client specific options</span>
@@ -193,16 +193,16 @@
     <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;ADDRESS&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Host address of gRPC server to connect.&quot;</span><span class="p">,</span>
     <span class="n">default</span><span class="o">=</span><span class="n">default_client_host</span><span class="p">,</span>
-    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="client_port_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.client_port_option">[docs]</a><span class="n">client_port_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--port&quot;</span><span class="p">,</span>
     <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of gRPC server to connect.&quot;</span><span class="p">,</span>
     <span class="n">default</span><span class="o">=</span><span class="n">default_client_port</span><span class="p">,</span>
-    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="client_enable_ssl_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.client_enable_ssl_option">[docs]</a><span class="n">client_enable_ssl_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--enable-ssl&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
@@ -210,23 +210,23 @@
 <span class="s2">    If --root-certs-file option is not given,</span>
 <span class="s2">    will retrieve them from a default location chosen by gRPC runtime.</span>
 <span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>
-    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="client_root_certs_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.client_root_certs_file_option">[docs]</a><span class="n">client_root_certs_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--root-certs-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded root certificates file for SSL/TLS.&quot;</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded root certificates file for SSL/TLS.&quot;</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="client_key_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.client_key_file_option">[docs]</a><span class="n">client_key_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--key-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded private key file for client authentication.&quot;</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded private key file for client authentication.&quot;</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="client_cert_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.client_cert_file_option">[docs]</a><span class="n">client_cert_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--cert-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded certificate chain file for client authentication.&quot;</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded certificate chain file for client authentication.&quot;</span><span class="p">,</span>
+<span class="p">)</span></div>
 
 <div class="viewcode-block" id="client_options"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.client_options">[docs]</a><span class="n">client_options</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">client_host_option</span><span class="p">,</span>
@@ -234,8 +234,8 @@
     <span class="n">client_enable_ssl_option</span><span class="p">,</span>
     <span class="n">client_root_certs_file_option</span><span class="p">,</span>
     <span class="n">client_key_file_option</span><span class="p">,</span>
-    <span class="n">client_cert_file_option</span><span class="p">,</span></div>
-<span class="p">]</span>
+    <span class="n">client_cert_file_option</span><span class="p">,</span>
+<span class="p">]</span></div>
 
 
 <span class="c1"># server and client options (resolving option conflicts)</span>
@@ -245,24 +245,24 @@
     <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;ADDRESS&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Host address of gRPC server to bind.&quot;</span><span class="p">,</span>
     <span class="n">default</span><span class="o">=</span><span class="n">default_server_bind_address</span><span class="p">,</span>
-    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_and_client_host_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_host_option">[docs]</a><span class="n">server_and_client_host_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--host&quot;</span><span class="p">,</span>
     <span class="s2">&quot;--client-host&quot;</span><span class="p">,</span>
     <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;ADDRESS&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Host address of gRPC server to connect.&quot;</span><span class="p">,</span>
     <span class="n">default</span><span class="o">=</span><span class="n">default_client_host</span><span class="p">,</span>
-    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_and_client_port_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_port_option">[docs]</a><span class="n">server_and_client_port_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--port&quot;</span><span class="p">,</span>
     <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of gRPC server to bind and connect.&quot;</span><span class="p">,</span>
     <span class="n">default</span><span class="o">=</span><span class="n">default_common_port</span><span class="p">,</span>
-    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_and_client_enable_ssl_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_enable_ssl_option">[docs]</a><span class="n">server_and_client_enable_ssl_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--enable-ssl&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
@@ -271,52 +271,52 @@
 <span class="s2">    will retrieve them from a default location chosen by gRPC runtime.</span>
 <span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>
     <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_and_client_server_key_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_server_key_file_option">[docs]</a><span class="n">server_and_client_server_key_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--server-key-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded private key file for server SSL/TLS.&quot;</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded private key file for server SSL/TLS.&quot;</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_and_client_server_cert_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_server_cert_file_option">[docs]</a><span class="n">server_and_client_server_cert_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--server-cert-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded certificate chain file for server SSL/TLS.&quot;</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded certificate chain file for server SSL/TLS.&quot;</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_and_client_server_root_certs_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_server_root_certs_file_option">[docs]</a><span class="n">server_and_client_server_root_certs_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--server-root-certs-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span></div>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    PEM encoded client root certificates file for client authentication.</span>
 <span class="s2">    Assumes --require-client-auth flag is set if this option is given,</span>
 <span class="s2">    unless --no-require-client-auth flag is set explicitly.</span>
 <span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_and_client_require_client_auth_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_require_client_auth_option">[docs]</a><span class="n">server_and_client_require_client_auth_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--require-client-auth&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Require clients to be authenticated, root certificates are required.&quot;</span><span class="p">,</span>
-    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_and_client_no_require_client_auth_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_no_require_client_auth_option">[docs]</a><span class="n">server_and_client_no_require_client_auth_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--no-require-client-auth&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Foce not to require clients to be authenticated, even if root certificates are given.&quot;</span><span class="p">,</span>
-    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_and_client_client_root_certs_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_client_root_certs_file_option">[docs]</a><span class="n">server_and_client_client_root_certs_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--client-root-certs-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded root certificates file for SSL/TLS.&quot;</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded root certificates file for SSL/TLS.&quot;</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_and_client_client_key_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_client_key_file_option">[docs]</a><span class="n">server_and_client_client_key_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--client-key-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded private key file for client authentication.&quot;</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded private key file for client authentication.&quot;</span><span class="p">,</span>
+<span class="p">)</span></div>
 <div class="viewcode-block" id="server_and_client_client_cert_file_option"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_client_cert_file_option">[docs]</a><span class="n">server_and_client_client_cert_file_option</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;--client-cert-file&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(),</span>
-    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded certificate chain file for client authentication.&quot;</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;PEM encoded certificate chain file for client authentication.&quot;</span><span class="p">,</span>
+<span class="p">)</span></div>
 
 <div class="viewcode-block" id="server_and_client_options"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_options">[docs]</a><span class="n">server_and_client_options</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">server_and_client_bind_address_option</span><span class="p">,</span>
@@ -330,8 +330,8 @@
     <span class="n">server_and_client_no_require_client_auth_option</span><span class="p">,</span>
     <span class="n">server_and_client_client_root_certs_file_option</span><span class="p">,</span>
     <span class="n">server_and_client_client_key_file_option</span><span class="p">,</span>
-    <span class="n">server_and_client_client_cert_file_option</span><span class="p">,</span></div>
-<span class="p">]</span>
+    <span class="n">server_and_client_client_cert_file_option</span><span class="p">,</span>
+<span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="grpc_server_options"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.grpc_server_options">[docs]</a><span class="k">def</span> <span class="nf">grpc_server_options</span><span class="p">():</span>
@@ -482,8 +482,8 @@
 <div class="viewcode-block" id="client_argument_parser"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.client_argument_parser">[docs]</a><span class="n">client_argument_parser</span> <span class="o">=</span> <span class="n">ClickArgumentParser</span><span class="p">(</span><span class="n">client_options</span> <span class="o">+</span> <span class="p">[</span><span class="n">full_verbose_option</span><span class="p">()])</span></div>
 
 <div class="viewcode-block" id="server_and_client_argument_parser"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/grpc_options/index.html#koapy.cli.commands.serve.server_and_client_argument_parser">[docs]</a><span class="n">server_and_client_argument_parser</span> <span class="o">=</span> <span class="n">ClickArgumentParser</span><span class="p">(</span>
-    <span class="n">server_and_client_options</span> <span class="o">+</span> <span class="p">[</span><span class="n">full_verbose_option</span><span class="p">()]</span></div>
-<span class="p">)</span>
+    <span class="n">server_and_client_options</span> <span class="o">+</span> <span class="p">[</span><span class="n">full_verbose_option</span><span class="p">()]</span>
+<span class="p">)</span></div>
 </pre></div>
 
           </div>
@@ -496,7 +496,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

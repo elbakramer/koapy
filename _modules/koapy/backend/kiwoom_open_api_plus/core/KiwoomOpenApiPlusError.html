@@ -107,21 +107,21 @@
 <div class="viewcode-block" id="IntOrBool"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.IntOrBool">[docs]</a><span class="n">IntOrBool</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span>
     <span class="s2">&quot;IntOrBool&quot;</span><span class="p">,</span>
     <span class="nb">int</span><span class="p">,</span>
-    <span class="nb">bool</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="nb">bool</span><span class="p">,</span>
+<span class="p">)</span></div>
 
 <div class="viewcode-block" id="CallableReturnsIntOrBool"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.CallableReturnsIntOrBool">[docs]</a><span class="n">CallableReturnsIntOrBool</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span>
     <span class="s2">&quot;CallableReturnsIntOrBool&quot;</span><span class="p">,</span>
     <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
-    <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span></div>
-<span class="p">)</span>
+    <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span>
+<span class="p">)</span></div>
 
 <div class="viewcode-block" id="IntCompatible"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.IntCompatible">[docs]</a><span class="n">IntCompatible</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span>
     <span class="s2">&quot;IntCompatible&quot;</span><span class="p">,</span>
     <span class="nb">int</span><span class="p">,</span>
     <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
-    <span class="n">Future</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">Future</span><span class="p">,</span>
+<span class="p">)</span></div>
 
 <div class="viewcode-block" id="BoolCompatible"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.BoolCompatible">[docs]</a><span class="n">BoolCompatible</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span>
     <span class="s2">&quot;BoolCompatible&quot;</span><span class="p">,</span>
@@ -129,8 +129,8 @@
     <span class="nb">bool</span><span class="p">,</span>
     <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
     <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span>
-    <span class="n">Future</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">Future</span><span class="p">,</span>
+<span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusError"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
@@ -151,24 +151,28 @@
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">arg</span><span class="p">:</span> <span class="n">IntCompatible</span><span class="p">,</span>
         <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">except_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">except_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IntCompatible</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">KiwoomOpenApiPlusNegativeReturnCodeError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">except_callback</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">KiwoomOpenApiPlusNegativeReturnCodeError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span>
+            <span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">except_callback</span>
+        <span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="KiwoomOpenApiPlusError.try_or_raise_boolean"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError.try_or_raise_boolean">[docs]</a>    <span class="k">def</span> <span class="nf">try_or_raise_boolean</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">arg</span><span class="p">:</span> <span class="n">BoolCompatible</span><span class="p">,</span>
         <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">except_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">except_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BoolCompatible</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">KiwoomOpenApiPlusBooleanReturnCodeError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">except_callback</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">KiwoomOpenApiPlusBooleanReturnCodeError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span>
+            <span class="n">arg</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">except_callback</span>
+        <span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="KiwoomOpenApiPlusError.get_error_message_by_code"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusError.get_error_message_by_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_error_message_by_code</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">KiwoomOpenApiPlusNegativeReturnCodeError</span><span class="o">.</span><span class="n">get_error_message_by_code</span><span class="p">(</span>
-            <span class="n">code</span><span class="p">,</span> <span class="n">default</span></div></div>
-        <span class="p">)</span>
+            <span class="n">code</span><span class="p">,</span> <span class="n">default</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusNegativeReturnCodeError"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError">[docs]</a><span class="k">class</span> <span class="nc">KiwoomOpenApiPlusNegativeReturnCodeError</span><span class="p">(</span><span class="n">KiwoomOpenApiPlusError</span><span class="p">):</span>
@@ -280,8 +284,8 @@
         <span class="n">OP_ERR_MIS_300CNT_EXC</span><span class="p">:</span> <span class="n">MSG_ERR_MIS_300CNT_EXC</span><span class="p">,</span>
         <span class="n">OP_ERR_MIS_500CNT_EXC</span><span class="p">:</span> <span class="n">MSG_ERR_MIS_500CNT_EXC</span><span class="p">,</span>
         <span class="n">OP_ERR_ORD_WRONG_ACCTINFO</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_WRONG_ACCTINFO</span><span class="p">,</span>
-        <span class="n">OP_ERR_ORD_SYMCODE_EMPTY</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_SYMCODE_EMPTY</span><span class="p">,</span></div>
-    <span class="p">}</span>
+        <span class="n">OP_ERR_ORD_SYMCODE_EMPTY</span><span class="p">:</span> <span class="n">MSG_ERR_ORD_SYMCODE_EMPTY</span><span class="p">,</span>
+    <span class="p">}</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="KiwoomOpenApiPlusNegativeReturnCodeError.get_error_message_by_code"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.get_error_message_by_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_error_message_by_code</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -305,7 +309,10 @@
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="KiwoomOpenApiPlusNegativeReturnCodeError.try_or_raise"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusError/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusError.KiwoomOpenApiPlusNegativeReturnCodeError.try_or_raise">[docs]</a>    <span class="k">def</span> <span class="nf">try_or_raise</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span> <span class="n">arg</span><span class="p">:</span> <span class="n">IntCompatible</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">except_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">arg</span><span class="p">:</span> <span class="n">IntCompatible</span><span class="p">,</span>
+        <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">except_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IntCompatible</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">Future</span><span class="p">):</span>
 
@@ -324,7 +331,7 @@
                         <span class="n">except_callback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">raise</span>
-                                    
+
             <span class="n">arg</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">arg</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
@@ -333,8 +340,8 @@
             <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">wrap_to_check_code_or_raise</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="s2">&quot;Expected &#39;int&#39;, &#39;callable&#39; or &#39;Future&#39; but </span><span class="si">%s</span><span class="s2"> found&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span></div>
-            <span class="p">)</span>
+                <span class="s2">&quot;Expected &#39;int&#39;, &#39;callable&#39; or &#39;Future&#39; but </span><span class="si">%s</span><span class="s2"> found&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+            <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -386,7 +393,7 @@
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">arg</span><span class="p">:</span> <span class="n">BoolCompatible</span><span class="p">,</span>
         <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">except_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">except_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BoolCompatible</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">Future</span><span class="p">):</span>
 
@@ -415,8 +422,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="s2">&quot;Expected &#39;int&#39;, &#39;bool&#39;, &#39;callable&#39; or &#39;Future&#39; but </span><span class="si">%s</span><span class="s2"> found&quot;</span>
-                <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span></div>
-            <span class="p">)</span>
+                <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+            <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -450,7 +457,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

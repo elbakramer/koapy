@@ -134,8 +134,8 @@
             <span class="s2">&quot;tzinput&quot;</span><span class="p">,</span>
             <span class="kc">None</span><span class="p">,</span>
         <span class="p">),</span>  <span class="c1"># this should be none (utc) since we are already putting datetimes converted to utc</span>
-        <span class="p">(</span><span class="s2">&quot;calendar&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span></div>
-    <span class="p">)</span>
+        <span class="p">(</span><span class="s2">&quot;calendar&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="p">)</span></div>
 
     <span class="n">_store</span> <span class="o">=</span> <span class="n">KiwoomOpenApiPlusStore</span>
 
@@ -364,7 +364,7 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">dtbegin</span> <span class="o">=</span> <span class="kc">None</span>
 
-                <span class="n">dtend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span>
+                <span class="n">dtend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">qhist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">candles</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">dataname</span><span class="p">,</span>
@@ -424,7 +424,7 @@
                     <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_load_tick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
-        <span class="n">dtobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="n">dtobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
         <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">dtobj</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">dt</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">datetime</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># time already seen</span>
@@ -446,7 +446,7 @@
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_load_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
-        <span class="n">dtobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="n">dtobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
         <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">dtobj</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">dt</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">datetime</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># time already seen</span>
@@ -475,7 +475,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

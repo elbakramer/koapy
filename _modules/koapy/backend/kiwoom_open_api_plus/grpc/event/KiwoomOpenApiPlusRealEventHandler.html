@@ -171,9 +171,9 @@
                     <span class="n">screen_no</span><span class="p">,</span>
                     <span class="n">code_list_joined</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_fid_list_joined</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_opt_type_final</span><span class="p">,</span></div>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_opt_type_final</span><span class="p">,</span>
                 <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealEventHandler.OnReceiveRealData"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusRealEventHandler.OnReceiveRealData">[docs]</a>    <span class="k">def</span> <span class="nf">OnReceiveRealData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">realtype</span><span class="p">,</span> <span class="n">realdata</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code_list</span><span class="p">:</span>
@@ -271,8 +271,8 @@
             <span class="s2">&quot;Registering code </span><span class="si">%s</span><span class="s2"> to screen </span><span class="si">%s</span><span class="s2"> with type </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">screen_no</span><span class="p">,</span> <span class="n">opt_type</span>
         <span class="p">)</span>
         <span class="n">KiwoomOpenApiPlusError</span><span class="o">.</span><span class="n">try_or_raise</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">SetRealReg</span><span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">fid_list_joined</span><span class="p">,</span> <span class="n">opt_type</span><span class="p">)</span></div>
-        <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">SetRealReg</span><span class="p">(</span><span class="n">screen_no</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">fid_list_joined</span><span class="p">,</span> <span class="n">opt_type</span><span class="p">)</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.remove_code"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.remove_code">[docs]</a>    <span class="k">def</span> <span class="nf">remove_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen_by_code</span><span class="p">:</span>
@@ -284,8 +284,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_code_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="s2">&quot;Given code </span><span class="si">%s</span><span class="s2"> is not in managed code list and cannot be removed&quot;</span><span class="p">,</span> <span class="n">code</span></div>
-            <span class="p">)</span>
+                <span class="s2">&quot;Given code </span><span class="si">%s</span><span class="s2"> is not in managed code list and cannot be removed&quot;</span><span class="p">,</span> <span class="n">code</span>
+            <span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusBidirectionalRealEventHandler.remove_all_codes"><a class="viewcode-back" href="../../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/grpc/event/KiwoomOpenApiPlusRealEventHandler/index.html#koapy.backend.kiwoom_open_api_plus.grpc.event.KiwoomOpenApiPlusRealEventHandler.KiwoomOpenApiPlusBidirectionalRealEventHandler.remove_all_codes">[docs]</a>    <span class="k">def</span> <span class="nf">remove_all_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">code_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
@@ -412,7 +412,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

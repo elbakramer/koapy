@@ -107,7 +107,7 @@
 <span class="kn">from</span> <span class="nn">.KrxHistoricalDailyPriceDataDownloader</span> <span class="kn">import</span> <span class="n">KrxHistoricalDailyPriceDataDownloader</span>
 
 
-<div class="viewcode-block" id="KrxHistoricalDailyPriceDataLoader"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataLoader.KrxHistoricalDailyPriceDataLoader">[docs]</a><span class="k">class</span> <span class="nc">KrxHistoricalDailyPriceDataLoader</span><span class="p">:</span>
+<div class="viewcode-block" id="KrxHistoricalDailyPriceDataLoader"><a class="viewcode-back" href="../../../../autoapi/koapy/utils/data/KrxHistoricalDailyPriceDataLoader/index.html#koapy.utils.data.KrxHistoricalDailyPriceDataLoader.KrxHistoricalDailyPriceDataLoader">[docs]</a><span class="k">class</span> <span class="nc">KrxHistoricalDailyPriceDataLoader</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">library_delisted</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_downloader</span> <span class="o">=</span> <span class="n">KrxHistoricalDailyPriceDataDownloader</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_store</span> <span class="o">=</span> <span class="n">SQLiteStore</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
@@ -217,8 +217,8 @@
         <span class="k">for</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">is_delisted</span> <span class="ow">in</span> <span class="n">progress</span><span class="p">:</span>
             <span class="n">progress</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="s2">&quot;Updating Symbol [</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="n">symbol</span><span class="p">)</span>
             <span class="n">_versioned_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_or_download</span><span class="p">(</span>
-                <span class="n">symbol</span><span class="p">,</span> <span class="n">is_delisted</span><span class="o">=</span><span class="n">is_delisted</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span></div></div>
-            <span class="p">)</span>
+                <span class="n">symbol</span><span class="p">,</span> <span class="n">is_delisted</span><span class="o">=</span><span class="n">is_delisted</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span>
+            <span class="p">)</span></div></div>
 </pre></div>
 
           </div>
@@ -231,7 +231,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

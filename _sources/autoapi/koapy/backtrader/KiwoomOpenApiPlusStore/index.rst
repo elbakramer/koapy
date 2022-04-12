@@ -42,7 +42,12 @@ Classes
 
    Bases: :py:obj:`collections.namedtuple`\ (\ :py:obj:`'HistoricalPriceRecord'`\ , [\ :py:obj:`'time'`\ , :py:obj:`'open'`\ , :py:obj:`'high'`\ , :py:obj:`'low'`\ , :py:obj:`'close'`\ , :py:obj:`'volume'`\ ]\ )
 
-   docstring
+   Built-in immutable sequence.
+
+   If no argument is given, the constructor returns an empty tuple.
+   If iterable is specified the tuple is initialized from iterable's items.
+
+   If the argument is a tuple, the return value is the same object.
 
    .. py:method:: from_tuple(cls, tup)
       :classmethod:

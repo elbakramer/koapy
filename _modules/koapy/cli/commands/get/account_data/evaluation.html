@@ -121,10 +121,10 @@
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-E&quot;</span><span class="p">,</span> <span class="s2">&quot;--as-summary&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Show summarized evaluation.&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-<div class="viewcode-block" id="evaluation"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/get/index.html#koapy.cli.commands.get.account_data.evaluation.evaluation">[docs]</a>    <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of grpc server (optional).&quot;</span>
+    <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of grpc server (optional).&quot;</span>
 <span class="p">)</span>
 <span class="nd">@verbose_option</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">evaluation</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">include_delisted</span><span class="p">,</span> <span class="n">exclude_delisted</span><span class="p">,</span> <span class="n">for_each</span><span class="p">,</span> <span class="n">as_summary</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+<div class="viewcode-block" id="evaluation"><a class="viewcode-back" href="../../../../../../autoapi/koapy/cli/commands/get/index.html#koapy.cli.commands.get.account_data.evaluation.evaluation">[docs]</a><span class="k">def</span> <span class="nf">evaluation</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">include_delisted</span><span class="p">,</span> <span class="n">exclude_delisted</span><span class="p">,</span> <span class="n">for_each</span><span class="p">,</span> <span class="n">as_summary</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">account</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Account not given. Using first account available.&quot;</span><span class="p">)</span>
 
@@ -177,7 +177,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

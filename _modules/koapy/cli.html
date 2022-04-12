@@ -123,8 +123,8 @@
 
 <div class="viewcode-block" id="help_option_names"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.help_option_names">[docs]</a><span class="n">help_option_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-h&quot;</span><span class="p">,</span> <span class="s2">&quot;--help&quot;</span><span class="p">]</span></div>
 <div class="viewcode-block" id="context_settings"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.context_settings">[docs]</a><span class="n">context_settings</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-    <span class="n">help_option_names</span><span class="o">=</span><span class="n">help_option_names</span><span class="p">,</span></div>
-<span class="p">)</span>
+    <span class="n">help_option_names</span><span class="o">=</span><span class="n">help_option_names</span><span class="p">,</span>
+<span class="p">)</span></div>
 
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">context_settings</span><span class="o">=</span><span class="n">context_settings</span><span class="p">)</span>
@@ -158,10 +158,10 @@
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Disable auto login and use credentials given explicitly from config file.&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
-<div class="viewcode-block" id="login"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.login">[docs]</a>    <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of grpc server (optional).&quot;</span>
+    <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of grpc server (optional).&quot;</span>
 <span class="p">)</span>
 <span class="nd">@verbose_option</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">interactive</span><span class="p">,</span> <span class="n">disable_auto_login</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+<div class="viewcode-block" id="login"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.login">[docs]</a><span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">interactive</span><span class="p">,</span> <span class="n">disable_auto_login</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
     <span class="n">credentials</span> <span class="o">=</span> <span class="n">get_credentials</span><span class="p">(</span><span class="n">interactive</span><span class="p">)</span>
 
     <span class="kn">from</span> <span class="nn">koapy.backend.kiwoom_open_api_plus.grpc.KiwoomOpenApiPlusServiceClient</span> <span class="kn">import</span> <span class="p">(</span>
@@ -225,14 +225,14 @@
     <span class="s2">&quot;--format&quot;</span><span class="p">,</span>
     <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;FORMAT&quot;</span><span class="p">,</span>
     <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="s2">&quot;md&quot;</span><span class="p">],</span> <span class="n">case_sensitive</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-<div class="viewcode-block" id="watch"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.watch">[docs]</a>    <span class="n">default</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output format [json|md].&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of grpc server (optional).&quot;</span>
 <span class="p">)</span>
 <span class="nd">@verbose_option</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">fids</span><span class="p">,</span> <span class="n">realtype</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+<div class="viewcode-block" id="watch"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.watch">[docs]</a><span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">fids</span><span class="p">,</span> <span class="n">realtype</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
     <span class="c1"># pylint: disable=redefined-builtin</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">fids</span><span class="p">,</span> <span class="n">realtype</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(),</span> <span class="nb">tuple</span><span class="p">(),</span> <span class="kc">None</span><span class="p">):</span>
@@ -332,8 +332,8 @@
     <span class="s2">&quot;3&quot;</span><span class="p">,</span>
     <span class="s2">&quot;4&quot;</span><span class="p">,</span>
     <span class="s2">&quot;5&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;6&quot;</span><span class="p">,</span></div>
-<span class="p">]</span>
+    <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+<span class="p">]</span></div>
 
 <div class="viewcode-block" id="quote_types"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.quote_types">[docs]</a><span class="n">quote_types</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;00&quot;</span><span class="p">,</span>
@@ -349,8 +349,8 @@
     <span class="s2">&quot;26&quot;</span><span class="p">,</span>
     <span class="s2">&quot;61&quot;</span><span class="p">,</span>
     <span class="s2">&quot;62&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;81&quot;</span><span class="p">,</span></div>
-<span class="p">]</span>
+    <span class="s2">&quot;81&quot;</span><span class="p">,</span>
+<span class="p">]</span></div>
 
 
 <span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">short_help</span><span class="o">=</span><span class="s2">&quot;Place an order.&quot;</span><span class="p">)</span>
@@ -371,9 +371,9 @@
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
     <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port number of grpc server (optional).&quot;</span>
-<div class="viewcode-block" id="order"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.order">[docs]</a><span class="p">)</span>
+<span class="p">)</span>
 <span class="nd">@verbose_option</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">order</span><span class="p">(</span>
+<div class="viewcode-block" id="order"><a class="viewcode-back" href="../../autoapi/koapy/cli/index.html#koapy.cli.order">[docs]</a><span class="k">def</span> <span class="nf">order</span><span class="p">(</span>
     <span class="n">request_name</span><span class="p">,</span>
     <span class="n">screen_no</span><span class="p">,</span>
     <span class="n">account_no</span><span class="p">,</span>
@@ -505,7 +505,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

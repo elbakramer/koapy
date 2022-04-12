@@ -576,7 +576,7 @@
 <span class="gp">... </span>        <span class="n">order_no</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;OnReceiveChejanData&quot;</span><span class="p">:</span>
 <span class="gp">... </span>        <span class="n">gubun</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">string_value</span>
-<span class="gp">... </span>        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
 <span class="gp">... </span>        <span class="k">if</span> <span class="n">gubun</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
 <span class="gp">... </span>            <span class="n">status</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;주문상태&quot;</span><span class="p">]</span>
 <span class="gp">... </span>            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;접수&quot;</span><span class="p">:</span>
@@ -639,7 +639,7 @@
 
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">cancel_after</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;OnReceiveRealData&quot;</span><span class="p">:</span>
-<span class="gp">... </span>        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">single_data</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
 <span class="gp">... </span>        <span class="k">if</span> <span class="s2">&quot;현재가&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
 <span class="gp">... </span>            <span class="n">current_price</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;현재가&quot;</span><span class="p">]</span>
 </pre></div>
@@ -1029,7 +1029,7 @@ KOAPY 에서는 라이선스 등을 고려해서 기본값으로 <a class="refer
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

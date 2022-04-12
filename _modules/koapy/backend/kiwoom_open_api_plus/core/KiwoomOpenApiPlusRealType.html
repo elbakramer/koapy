@@ -120,8 +120,9 @@
         <span class="n">__outer_class__</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.Fid.FID_DUMP_FILEDIR"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.Fid.FID_DUMP_FILEDIR">[docs]</a>        <span class="n">FID_DUMP_FILEDIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;data/metadata&quot;</span></div>
-<div class="viewcode-block" id="KiwoomOpenApiPlusRealType.Fid.FID_DUMP_FILENAME"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.Fid.FID_DUMP_FILENAME">[docs]</a>        <span class="n">FID_DUMP_FILENAME</span> <span class="o">=</span> <span class="s2">&quot;fid.xlsx&quot;</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiPlusRealType.Fid.FID_DUMP_FILENAME"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.Fid.FID_DUMP_FILENAME">[docs]</a>        <span class="n">FID_DUMP_FILENAME</span> <span class="o">=</span> <span class="s2">&quot;fid.csv&quot;</span></div>
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.Fid.FID_DUMP_FILEPATH"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.Fid.FID_DUMP_FILEPATH">[docs]</a>        <span class="n">FID_DUMP_FILEPATH</span> <span class="o">=</span> <span class="n">FID_DUMP_FILEDIR</span> <span class="o">/</span> <span class="n">FID_DUMP_FILENAME</span></div>
+<div class="viewcode-block" id="KiwoomOpenApiPlusRealType.Fid.FID_DUMP_PROCESSOR"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.Fid.FID_DUMP_PROCESSOR">[docs]</a>        <span class="n">FID_DUMP_PROCESSOR</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.Fid.FID_BY_FID"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.Fid.FID_BY_FID">[docs]</a>        <span class="n">FID_BY_FID</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">Fid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></div>
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.Fid.FID_BY_NAME"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.Fid.FID_BY_NAME">[docs]</a>        <span class="n">FID_BY_NAME</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="o">.</span><span class="n">Fid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></div>
@@ -151,7 +152,7 @@
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">dump_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">dump_file</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">FID_DUMP_FILEPATH</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">FID_DUMP_PROCESSOR</span><span class="p">(</span><span class="n">dump_file</span><span class="p">)</span>
             <span class="n">fids</span> <span class="o">=</span> <span class="p">[</span><span class="bp">cls</span><span class="p">(</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;fid&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])]</span>
             <span class="k">return</span> <span class="n">fids</span></div>
 
@@ -184,8 +185,8 @@
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.REALTYPE_BY_DESC_DUMP_FILEDIR"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.REALTYPE_BY_DESC_DUMP_FILEDIR">[docs]</a>    <span class="n">REALTYPE_BY_DESC_DUMP_FILEDIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;data/metadata&quot;</span></div>
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.REALTYPE_BY_DESC_DUMP_FILENAME"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.REALTYPE_BY_DESC_DUMP_FILENAME">[docs]</a>    <span class="n">REALTYPE_BY_DESC_DUMP_FILENAME</span> <span class="o">=</span> <span class="s2">&quot;realtype_by_desc.json&quot;</span></div>
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.REALTYPE_BY_DESC_DUMP_FILEPATH"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.REALTYPE_BY_DESC_DUMP_FILEPATH">[docs]</a>    <span class="n">REALTYPE_BY_DESC_DUMP_FILEPATH</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">REALTYPE_BY_DESC_DUMP_FILEDIR</span> <span class="o">/</span> <span class="n">REALTYPE_BY_DESC_DUMP_FILENAME</span></div>
-    <span class="p">)</span>
+        <span class="n">REALTYPE_BY_DESC_DUMP_FILEDIR</span> <span class="o">/</span> <span class="n">REALTYPE_BY_DESC_DUMP_FILENAME</span>
+    <span class="p">)</span></div>
 
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.REALTYPE_BY_DESC"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.REALTYPE_BY_DESC">[docs]</a>    <span class="n">REALTYPE_BY_DESC</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">KiwoomOpenApiPlusRealType</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></div>
 
@@ -372,8 +373,8 @@
                 <span class="n">dump_file</span><span class="p">,</span>
                 <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
                 <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span></div>
-            <span class="p">)</span>
+                <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="KiwoomOpenApiPlusRealType.realtype_by_desc_from_dump_file"><a class="viewcode-back" href="../../../../../autoapi/koapy/backend/kiwoom_open_api_plus/core/KiwoomOpenApiPlusRealType/index.html#koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRealType.KiwoomOpenApiPlusRealType.realtype_by_desc_from_dump_file">[docs]</a>    <span class="k">def</span> <span class="nf">realtype_by_desc_from_dump_file</span><span class="p">(</span>
@@ -443,7 +444,7 @@
       &copy;2021, Yunseong Hwang.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
