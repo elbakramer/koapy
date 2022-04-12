@@ -20,8 +20,9 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
         __outer_class__ = None
 
         FID_DUMP_FILEDIR = Path(__file__).parent.parent / "data/metadata"
-        FID_DUMP_FILENAME = "fid.xlsx"
+        FID_DUMP_FILENAME = "fid.csv"
         FID_DUMP_FILEPATH = FID_DUMP_FILEDIR / FID_DUMP_FILENAME
+        FID_DUMP_PROCESSOR = pd.read_csv
 
         FID_BY_FID: Dict[int, KiwoomOpenApiPlusRealType.Fid] = {}
         FID_BY_NAME: Dict[str, KiwoomOpenApiPlusRealType.Fid] = {}
@@ -51,7 +52,7 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
         ) -> Dict[int, str]:
             if dump_file is None:
                 dump_file = cls.FID_DUMP_FILEPATH
-            df = pd.read_excel(dump_file)
+            df = cls.FID_DUMP_PROCESSOR(dump_file)
             fids = [cls(pair[0], pair[1]) for pair in zip(df["fid"], df["name"])]
             return fids
 
