@@ -6,8 +6,8 @@ certifi==2021.10.8; python_version >= "2.7" and python_full_version < "3.0.0" or
 cffi==1.15.0; python_version >= "3.6"
 chardet==4.0.0; python_version >= "3.6" and python_full_version >= "3.5.3"
 charset-normalizer==2.0.12; python_full_version >= "3.6.0" and python_version >= "3"
-click==8.0.4; python_version >= "3.6"
-colorama==0.4.4; python_version >= "3.6" and python_full_version < "3.0.0" and platform_system == "Windows" or platform_system == "Windows" and python_version >= "3.6" and python_full_version >= "3.5.0"
+click==8.1.2; python_version >= "3.7"
+colorama==0.4.4; python_version >= "3.7" and python_full_version < "3.0.0" and platform_system == "Windows" or platform_system == "Windows" and python_version >= "3.7" and python_full_version >= "3.5.0"
 comtypes==1.1.11; sys_platform == "win32"
 cryptography==36.0.2; python_version >= "3.6"
 deprecated==1.2.13; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
@@ -15,8 +15,8 @@ discord.py==1.7.3; python_full_version >= "3.5.3"
 et-xmlfile==1.1.0; python_version >= "3.6"
 exchange-calendars==3.6.1; python_version >= "3.7"
 greenlet==1.1.2; python_version >= "3" and python_full_version < "3.0.0" and (platform_machine == "aarch64" or platform_machine == "ppc64le" or platform_machine == "x86_64" or platform_machine == "amd64" or platform_machine == "AMD64" or platform_machine == "win32" or platform_machine == "WIN32") and (python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0") or python_version >= "3" and (platform_machine == "aarch64" or platform_machine == "ppc64le" or platform_machine == "x86_64" or platform_machine == "amd64" or platform_machine == "AMD64" or platform_machine == "win32" or platform_machine == "WIN32") and (python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0") and python_full_version >= "3.5.0"
-grpcio-tools==1.44.0; python_version >= "3.6"
-grpcio==1.44.0; python_version >= "3.6"
+grpcio-tools==1.45.0; python_version >= "3.6"
+grpcio==1.45.0; python_version >= "3.6"
 idna==3.3; python_full_version >= "3.6.0" and python_version >= "3.6"
 korean-lunar-calendar==0.2.1; python_version >= "3.7"
 lxml==4.8.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
@@ -24,13 +24,13 @@ multidict==6.0.2; python_version >= "3.7" and python_full_version >= "3.5.3"
 numpy==1.22.3; python_version >= "3.8"
 openpyxl==3.0.9; python_version >= "3.6"
 packaging==21.3; python_version >= "3.6"
-pandas==1.4.1; python_version >= "3.8"
-protobuf==3.19.4; python_version >= "3.5"
+pandas==1.4.2; python_version >= "3.8"
+protobuf==3.20.0; python_version >= "3.7"
 psutil==5.9.0; (python_version >= "2.6" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
 pycparser==2.21; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
 pygtrie==2.4.2
 pyhocon==0.3.59
-pyluach==1.4.0; python_version >= "3.7"
+pyluach==1.4.1; python_version >= "3.7"
 pyparsing==2.4.7; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.3.0" and python_version >= "3.6"
 pyside2==5.15.2.1; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0" and python_version < "3.11")
 python-dateutil==2.8.2; python_version >= "3.8" and python_full_version < "3.0.0" or python_full_version >= "3.3.0" and python_version >= "3.8"
@@ -45,14 +45,14 @@ schedule==1.1.0; python_version >= "3.6"
 send2trash==1.8.0
 shiboken2==5.15.2.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "3.11"
 six==1.16.0; python_version >= "3.8" and python_full_version < "3.0.0" and sys_platform == "win32" or python_full_version >= "3.3.0" and python_version >= "3.8" and sys_platform == "win32"
-sqlalchemy==1.4.32; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.6.0")
+sqlalchemy==1.4.35; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.6.0")
 tabulate==0.8.9
 toolz==0.11.2; python_version >= "3.7"
-tqdm==4.63.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
+tqdm==4.64.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
 typing-extensions==4.1.1; python_version >= "3.6" and python_full_version >= "3.5.3" or python_version < "3.10"
 tzdata==2022.1; platform_system == "Windows" and python_version >= "3.6" and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.6")
-tzlocal==4.1; python_version >= "3.6"
+tzlocal==4.2; python_version >= "3.6"
 urllib3==1.26.9; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4"
 windows-curses==2.3.0; sys_platform == "win32"
-wrapt==1.13.3; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
+wrapt==1.14.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
 yarl==1.7.2; python_version >= "3.6" and python_full_version >= "3.5.3"

@@ -8,7 +8,7 @@ class VersionedItem:
         self.metadata = metadata
 
     def __repr__(self):
-        return "<VersionedItem(library=%r, symbol=%r, version=%r, timestamp='%s', data=<%s.%s at %s>, metadata=%r)>" % (
+        return "<VersionedItem(library={!r}, symbol={!r}, version={!r}, timestamp='{}', data=<{}.{} at {}>, metadata={!r})>".format(
             self.library,
             self.symbol,
             self.version,

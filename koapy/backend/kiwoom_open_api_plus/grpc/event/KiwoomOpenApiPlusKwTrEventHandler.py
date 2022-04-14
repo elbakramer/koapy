@@ -100,7 +100,7 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
                     self._rqname,
                     scrnno,
                 ),
-                except_callback=self.observer.on_error
+                except_callback=self.observer.on_error,
             )
 
     def OnReceiveTrData(

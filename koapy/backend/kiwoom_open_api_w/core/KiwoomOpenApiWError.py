@@ -115,7 +115,9 @@ class KiwoomOpenApiWNegativeReturnCodeError(KiwoomOpenApiWError):
         return self._message
 
     def __repr__(self):
-        return "%s(%r, %r)" % (self.__class__.__name__, self._code, self._message)
+        return "{}({!r}, {!r})".format(
+            self.__class__.__name__, self._code, self._message
+        )
 
     @property
     def code(self):
@@ -165,7 +167,9 @@ class KiwoomOpenApiWBooleanReturnCodeError(KiwoomOpenApiWError):
             return self.__repr__()
 
     def __repr__(self):
-        return "%s(%r, %r)" % (self.__class__.__name__, self._code, self._message)
+        return "{}({!r}, {!r})".format(
+            self.__class__.__name__, self._code, self._message
+        )
 
     @property
     def code(self):

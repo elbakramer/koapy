@@ -37,7 +37,7 @@ class OrclStrategy(bt.Strategy):
     def log(self, fmt, *args, doprint=False, **kwargs):
         if self.params.printlog or doprint:  # pylint: disable=no-member
             dt = self.datas[0].datetime.datetime(0, naive=False)
-            fmt = "%s, %s" % (dt, fmt)
+            fmt = "{}, {}".format(dt, fmt)
             logging.info(fmt, *args, **kwargs)
 
     def notify_order(self, order):
