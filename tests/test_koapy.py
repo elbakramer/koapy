@@ -6,7 +6,7 @@ import pytest
 
 from pandas.testing import assert_series_equal
 
-from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLibSpec import (
     API_MODULE_PATH,
 )
 from koapy.utils.exchange_calendars import is_currently_in_session

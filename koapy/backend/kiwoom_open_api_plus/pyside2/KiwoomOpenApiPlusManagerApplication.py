@@ -672,7 +672,7 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
         return self._client.is_ready() and self._client.IsConnected()
 
     def _getAPIModulePath(self):
-        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
+        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLibSpec import (
             API_MODULE_PATH,
         )
 

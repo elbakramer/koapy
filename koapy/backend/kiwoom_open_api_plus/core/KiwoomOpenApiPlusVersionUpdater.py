@@ -16,7 +16,7 @@ class KiwoomOpenApiPlusVersionUpdater(Logging):
         self._credentials = credentials
 
     def get_api_module_path(self):
-        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
+        from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLibSpec import (
             API_MODULE_PATH,
         )
 

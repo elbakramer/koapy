@@ -17,7 +17,7 @@ def disable_auto_login_without_login():
     from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import (
         KiwoomOpenApiPlusQAxWidgetUniversalMixin,
     )
-    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLibSpec import (
         API_MODULE_PATH,
     )
 
