@@ -4,10 +4,6 @@ from pathlib import Path
 
 import pythoncom
 
-from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
-    DISPATCH_OLE_ITEM,
-    EVENT_OLE_ITEM,
-)
 from koapy.config import default_encoding
 
 try:
@@ -37,6 +33,10 @@ def generate_python_stubs(
     if encoding is None:
         encoding = default_encoding
 
+    from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
+        DISPATCH_OLE_ITEM,
+        EVENT_OLE_ITEM,
+    )
     dispatch_item = DISPATCH_OLE_ITEM
     event_item = EVENT_OLE_ITEM
 

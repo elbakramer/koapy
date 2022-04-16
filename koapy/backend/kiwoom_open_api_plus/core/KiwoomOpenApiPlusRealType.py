@@ -183,7 +183,7 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
     ) -> List[KiwoomOpenApiPlusRealType]:
         if dat_file is None:
             if module_path is None:
-                from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
+                from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLibSpec import (
                     API_MODULE_PATH,
                 )
 

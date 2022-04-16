@@ -279,7 +279,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     ) -> List[KiwoomOpenApiPlusTrInfo]:
         if data_dir is None:
             if module_path is None:
-                from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLib import (
+                from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLibSpec import (
                     API_MODULE_PATH,
                 )
 
