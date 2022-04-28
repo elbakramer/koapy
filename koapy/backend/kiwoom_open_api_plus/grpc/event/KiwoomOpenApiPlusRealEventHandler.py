@@ -1,5 +1,6 @@
 import queue
 import threading
+
 from time import sleep
 
 import grpc
@@ -68,12 +69,12 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
                     self.control.SetRealRemove.async_call, screen_no, code
                 )
             KiwoomOpenApiPlusError.try_or_raise(
-                self.control.SetRealReg(
+                self.control.SetRealReg.async_call(
                     screen_no,
                     code_list_joined,
                     self._fid_list_joined,
                     self._opt_type_final,
-                )
+                ).result()
             )
 
     def OnReceiveRealData(self, code, realtype, realdata):
@@ -150,6 +151,7 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(
         else:
             screen_no = None
             opt_type = "0"
+
             for (
                 existing_screen_no,
                 screen_code_list,
@@ -158,49 +160,60 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(
                     screen_no = existing_screen_no
                     opt_type = "1"
                     break
+
             if screen_no is None:
                 screen_no = self._screen_manager.borrow_screen()
                 opt_type = "0"
+
             self._screen_by_code[code] = screen_no
             self._code_list_by_screen.setdefault(screen_no, []).append(code)
             self._code_list.append(code)
+
         if fid_list:
             fid_list_joined = ";".join(str(fid) for fid in fid_list)
         else:
             fid_list_joined = self._fid_list_joined
-        
+
         self.logger.debug(
             "Registering code %s to screen %s with type %s", code, screen_no, opt_type
         )
-        
+
         def try_to_register(retry=2, timeout=3.0):
             retry_count = 0
-            
+
             def call():
                 KiwoomOpenApiPlusError.try_or_raise(
-                    self.control.SetRealReg.async_call(screen_no, code, fid_list_joined, opt_type),
-                    except_callback=on_error
+                    self.control.SetRealReg.async_call(
+                        screen_no, code, fid_list_joined, opt_type
+                    ),
+                    except_callback=on_error,
                 )
-                
+
             def on_error(e):
                 nonlocal retry_count
                 if isinstance(e, KiwoomOpenApiPlusError):
-                    error_message = f"Failed to register {code=}. Reason: {e} ({e.code})."
+                    error_message = (
+                        f"Failed to register {code=}. Reason: {e} ({e.code})."
+                    )
                 else:
                     error_message = f"Failed to register {code=}. Reason: {e}."
                 if retry_count < retry:
                     retry_count += 1
-                    self.logger.warning(f"{error_message} Retrying ({retry_count}/{retry}) in {timeout} ...")
+                    self.logger.warning(
+                        f"{error_message} Retrying ({retry_count}/{retry}) in {timeout} ..."
+                    )
                 else:
-                    self.logger.warning(f"{error_message} Kiwoom server does not allow register.")
+                    self.logger.warning(
+                        f"{error_message} Kiwoom server does not allow register."
+                    )
                     return
                 sleep(timeout)
                 call()
-                
-            call()            
-            
+
+            call()
+
         try_to_register()
-        
+
     def remove_code(self, code):
         if code in self._screen_by_code:
             screen_no = self._screen_by_code[code]
