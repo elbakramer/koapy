@@ -74,7 +74,7 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
                     code_list_joined,
                     self._fid_list_joined,
                     self._opt_type_final,
-                ).result()
+                )
             )
 
     def OnReceiveRealData(self, code, realtype, realdata):
