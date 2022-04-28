@@ -9,7 +9,7 @@ charset-normalizer==2.0.12; python_full_version >= "3.6.0" and python_version >=
 click==8.1.2; python_version >= "3.7"
 colorama==0.4.4; python_version >= "3.7" and python_full_version < "3.0.0" and platform_system == "Windows" or platform_system == "Windows" and python_version >= "3.7" and python_full_version >= "3.5.0"
 comtypes==1.1.11; sys_platform == "win32"
-cryptography==36.0.2; python_version >= "3.6"
+cryptography==37.0.1; python_version >= "3.6"
 deprecated==1.2.13; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
 discord.py==1.7.3; python_full_version >= "3.5.3"
 et-xmlfile==1.1.0; python_version >= "3.6"
@@ -25,7 +25,7 @@ numpy==1.22.3; python_version >= "3.8"
 openpyxl==3.0.9; python_version >= "3.6"
 packaging==21.3; python_version >= "3.6"
 pandas==1.4.2; python_version >= "3.8"
-protobuf==3.20.0; python_version >= "3.7"
+protobuf==3.20.1; python_version >= "3.7"
 psutil==5.9.0; (python_version >= "2.6" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
 pycparser==2.21; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
 pygtrie==2.4.2
@@ -45,11 +45,11 @@ schedule==1.1.0; python_version >= "3.6"
 send2trash==1.8.0
 shiboken2==5.15.2.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "3.11"
 six==1.16.0; python_version >= "3.8" and python_full_version < "3.0.0" and sys_platform == "win32" or python_full_version >= "3.3.0" and python_version >= "3.8" and sys_platform == "win32"
-sqlalchemy==1.4.35; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.6.0")
+sqlalchemy==1.4.36; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.6.0")
 tabulate==0.8.9
 toolz==0.11.2; python_version >= "3.7"
 tqdm==4.64.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
-typing-extensions==4.1.1; python_version >= "3.6" and python_full_version >= "3.5.3" or python_version < "3.10"
+typing-extensions==4.2.0; python_version >= "3.7" and python_full_version >= "3.5.3" or python_version < "3.10"
 tzdata==2022.1; platform_system == "Windows" and python_version >= "3.6" and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.6")
 tzlocal==4.2; python_version >= "3.6"
 urllib3==1.26.9; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4"

@@ -14,7 +14,7 @@ with open("HISTORY.rst", encoding="utf-8") as history_file:
 
 requirements = [
     "click>=8.1.2",
-    "cryptography>=36.0.2",
+    "cryptography>=37.0.1",
     "deprecated>=1.2.13",
     "discord.py>=1.7.3",
     "exchange-calendars>=3.6.1",
@@ -24,7 +24,7 @@ requirements = [
     "numpy>=1.22.3",
     "openpyxl>=3.0.9",
     "pandas>=1.4.2",
-    "protobuf>=3.20.0",
+    "protobuf>=3.20.1",
     "psutil>=5.9.0",
     "pygtrie>=2.4.2",
     "pyhocon>=0.3.59",
@@ -35,7 +35,7 @@ requirements = [
     "Rx>=3.2.0",
     "schedule>=1.1.0",
     "Send2Trash>=1.8.0",
-    "SQLAlchemy>=1.4.35",
+    "SQLAlchemy>=1.4.36",
     "tabulate>=0.8.9",
     "tqdm>=4.64.0",
     "tzlocal>=4.2",
@@ -43,7 +43,7 @@ requirements = [
     "pywin32>=303;sys_platform=='win32'",
     "pywinauto>=0.6.8;sys_platform=='win32'",
     "windows-curses>=2.3.0;sys_platform=='win32'",
-    "typing-extensions>=4.1.1;python_version<'3.10'",
+    "typing-extensions>=4.2.0;python_version<'3.10'",
 ]
 
 requirements_dev = [
@@ -55,11 +55,11 @@ requirements_dev = [
     "dunamai>=1.11.1",
     "flake8>=4.0.1",
     "isort>=5.10.1",
-    "mypy>=0.942",
+    "mypy>=0.950",
     "pip-tools>=6.6.0",
     "pre-commit>=2.18.1",
     "pylint>=2.13.5",
-    "pytest>=7.1.1",
+    "pytest>=7.1.2",
     "pytest-cov>=3.0.0",
     "pytest-xdist>=2.5.0",
     "pyupgrade>=2.32.0",
