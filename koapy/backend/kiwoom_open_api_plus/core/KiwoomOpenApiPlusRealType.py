@@ -48,11 +48,15 @@ class KiwoomOpenApiPlusRealType(JsonSerializable, Logging):
 
         @classmethod
         def fids_from_dump_file(
-            cls, dump_file: Optional[Union[str, PathLike]] = None
+            cls,
+            dump_file: Optional[Union[str, PathLike]] = None,
+            encoding: Optional[str] = None,
         ) -> Dict[int, str]:
             if dump_file is None:
                 dump_file = cls.FID_DUMP_FILEPATH
-            df = cls.FID_DUMP_PROCESSOR(dump_file)
+            if encoding is None:
+                encoding = "utf-8"
+            df = cls.FID_DUMP_PROCESSOR(dump_file, encoding=encoding)
             fids = [cls(pair[0], pair[1]) for pair in zip(df["fid"], df["name"])]
             return fids
 
