@@ -3,7 +3,7 @@ import click
 from .account_window import account_window
 
 
-@click.group(short_help="Show many things.")
+@click.group(short_help="Show some configuration windows.")
 def show():
     pass
 

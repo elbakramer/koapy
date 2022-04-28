@@ -4,7 +4,7 @@ from .grpc import grpc
 from .openapi import openapi
 
 
-@click.group(short_help="Generate files.")
+@click.group(short_help="Generate files related to grpc, openapi.")
 def generate():
     pass
 

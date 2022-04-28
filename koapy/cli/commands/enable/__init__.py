@@ -3,7 +3,7 @@ import click
 from .auto_login import auto_login
 
 
-@click.group(short_help="Show many things.")
+@click.group(short_help="Enable things, including auto login.")
 def enable():
     pass
 
