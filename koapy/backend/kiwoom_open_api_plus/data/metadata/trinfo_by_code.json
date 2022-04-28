@@ -29902,26 +29902,26 @@
             {
                 "fid": -1,
                 "name": "평균가격",
-                "offset": 9,
+                "offset": 15,
                 "start": 16
             },
             {
                 "fid": -1,
                 "name": "전일종가",
-                "offset": 9,
-                "start": 25
+                "offset": 15,
+                "start": 31
             },
             {
                 "fid": -1,
                 "name": "평가손익",
                 "offset": 15,
-                "start": 34
+                "start": 46
             },
             {
                 "fid": -1,
                 "name": "종목명",
                 "offset": 40,
-                "start": 49
+                "start": 61
             }
         ],
         "multi_outputs_name": "선옵종목별기간손익조회",
@@ -30122,38 +30122,38 @@
             {
                 "fid": -1,
                 "name": "주문가격",
-                "offset": 9,
+                "offset": 15,
                 "start": 97
             },
             {
                 "fid": -1,
                 "name": "체결가격",
-                "offset": 9,
-                "start": 106
+                "offset": 15,
+                "start": 112
             },
             {
                 "fid": -1,
                 "name": "체결번호",
                 "offset": 7,
-                "start": 115
+                "start": 127
             },
             {
                 "fid": -1,
                 "name": "약정시간",
                 "offset": 8,
-                "start": 122
+                "start": 134
             },
             {
                 "fid": -1,
                 "name": "접수시간",
                 "offset": 8,
-                "start": 130
+                "start": 142
             },
             {
                 "fid": -1,
                 "name": "매체",
                 "offset": 20,
-                "start": 138
+                "start": 150
             }
         ],
         "multi_outputs_name": "선옵주문체결내역상세",
@@ -30300,38 +30300,38 @@
             {
                 "fid": -1,
                 "name": "주문가격",
-                "offset": 9,
+                "offset": 15,
                 "start": 107
             },
             {
                 "fid": -1,
                 "name": "체결가",
-                "offset": 9,
-                "start": 116
+                "offset": 15,
+                "start": 122
             },
             {
                 "fid": -1,
                 "name": "체결번호",
                 "offset": 7,
-                "start": 125
+                "start": 137
             },
             {
                 "fid": -1,
                 "name": "약정시간",
                 "offset": 8,
-                "start": 132
+                "start": 144
             },
             {
                 "fid": -1,
                 "name": "접수시간",
                 "offset": 8,
-                "start": 140
+                "start": 152
             },
             {
                 "fid": -1,
                 "name": "매체",
                 "offset": 20,
-                "start": 148
+                "start": 160
             }
         ],
         "multi_outputs_name": "선옵주문체결내역상세평균가",
@@ -30412,38 +30412,38 @@
             {
                 "fid": -1,
                 "name": "매입단가",
-                "offset": 9,
+                "offset": 15,
                 "start": 75
             },
             {
                 "fid": -1,
                 "name": "매매금액",
                 "offset": 15,
-                "start": 84
+                "start": 90
             },
             {
                 "fid": -1,
                 "name": "현재가",
-                "offset": 9,
-                "start": 99
+                "offset": 15,
+                "start": 115
             },
             {
                 "fid": -1,
                 "name": "평가손익",
                 "offset": 15,
-                "start": 108
+                "start": 130
             },
             {
                 "fid": -1,
                 "name": "손익율",
                 "offset": 15,
-                "start": 123
+                "start": 145
             },
             {
                 "fid": -1,
                 "name": "평가금액",
                 "offset": 15,
-                "start": 123
+                "start": 160
             }
         ],
         "multi_outputs_name": "선옵잔고상세현황",
@@ -30596,38 +30596,38 @@
             {
                 "fid": -1,
                 "name": "매입단가",
-                "offset": 12,
+                "offset": 15,
                 "start": 45
             },
             {
                 "fid": -1,
                 "name": "현재가",
-                "offset": 12,
-                "start": 57
+                "offset": 15,
+                "start": 60
             },
             {
                 "fid": -1,
                 "name": "평가손익",
                 "offset": 12,
-                "start": 69
+                "start": 75
             },
             {
                 "fid": -1,
                 "name": "청산가능수량",
                 "offset": 12,
-                "start": 81
+                "start": 87
             },
             {
                 "fid": -1,
                 "name": "약정금액",
                 "offset": 15,
-                "start": 93
+                "start": 99
             },
             {
                 "fid": -1,
                 "name": "평가금액",
                 "offset": 15,
-                "start": 108
+                "start": 114
             }
         ],
         "multi_outputs_name": "선옵잔고현황정산가기준",
@@ -30889,14 +30889,14 @@
             {
                 "fid": -1,
                 "name": "주문가격",
-                "offset": 9,
+                "offset": 15,
                 "start": 84
             },
             {
                 "fid": -1,
                 "name": "비밀번호입력매체구분",
                 "offset": 2,
-                "start": 93
+                "start": 99
             }
         ],
         "multi_outputs": [],
@@ -30956,6 +30956,12 @@
                 "name": "총가능수량",
                 "offset": 12,
                 "start": 114
+            },
+            {
+                "fid": -1,
+                "name": "주문가능총액",
+                "offset": 15,
+                "start": 126
             },
             {
                 "fid": -1,
@@ -31982,7 +31988,7 @@
             {
                 "fid": -1,
                 "name": "주문가격",
-                "offset": 9,
+                "offset": 15,
                 "start": 82
             }
         ],
@@ -32083,26 +32089,26 @@
             {
                 "fid": -1,
                 "name": "현재가",
-                "offset": 9,
+                "offset": 15,
                 "start": 16
             },
             {
                 "fid": -1,
                 "name": "내재변동성",
                 "offset": 10,
-                "start": 25
+                "start": 31
             },
             {
                 "fid": -1,
                 "name": "이론지수",
                 "offset": 15,
-                "start": 35
+                "start": 41
             },
             {
                 "fid": -1,
                 "name": "잔존일수",
                 "offset": 3,
-                "start": 50
+                "start": 56
             }
         ],
         "multi_outputs_name": "선옵내재변동성",
