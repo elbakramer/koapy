@@ -2,12 +2,7 @@ from pathlib import Path
 
 from pywintypes import IID
 
-from koapy.utils.pywin32 import (
-    BuildOleItems,
-    GetLatestTypelibSpec,
-    GetTypelibSpecs,
-    LoadTypeLib,
-)
+from koapy.utils.pywin32 import GetLatestTypelibSpec, GetTypelibSpecs
 
 CONTROL_PROGID = "KHOPENAPI.KHOpenApiCtrl.1"
 

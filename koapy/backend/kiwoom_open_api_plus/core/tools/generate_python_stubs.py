@@ -37,6 +37,7 @@ def generate_python_stubs(
         DISPATCH_OLE_ITEM,
         EVENT_OLE_ITEM,
     )
+
     dispatch_item = DISPATCH_OLE_ITEM
     event_item = EVENT_OLE_ITEM
 

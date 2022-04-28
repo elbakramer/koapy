@@ -1,13 +1,9 @@
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTypeLibSpec import (
-    DISPATCH_CLSID, 
-    TYPELIB_SPEC,
+    DISPATCH_CLSID,
     EVENT_CLSID,
+    TYPELIB_SPEC,
 )
-from koapy.utils.pywin32 import (
-    BuildOleItems, 
-    LoadTypeLib
-)
-
+from koapy.utils.pywin32 import BuildOleItems, LoadTypeLib
 
 TYPELIB = LoadTypeLib(TYPELIB_SPEC)
 
