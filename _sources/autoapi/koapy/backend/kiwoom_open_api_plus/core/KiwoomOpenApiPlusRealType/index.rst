@@ -63,7 +63,7 @@ Functions
 
          
 
-      .. py:method:: fids_from_dump_file(cls, dump_file: Optional[Union[str, os.PathLike]] = None) -> Dict[int, str]
+      .. py:method:: fids_from_dump_file(cls, dump_file: Optional[Union[str, os.PathLike]] = None, encoding: Optional[str] = None) -> Dict[int, str]
          :classmethod:
 
 

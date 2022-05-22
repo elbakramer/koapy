@@ -40,6 +40,7 @@ Submodules
    KiwoomOpenApiPlusSignature/index.rst
    KiwoomOpenApiPlusTrInfo/index.rst
    KiwoomOpenApiPlusTypeLib/index.rst
+   KiwoomOpenApiPlusTypeLibSpec/index.rst
    KiwoomOpenApiPlusVersionUpdater/index.rst
 
 
