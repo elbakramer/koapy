@@ -165,7 +165,7 @@ Showcase
 
 .. code-block:: python
 
-    >>> code_list = entrypoint.GetCodeListByMarKetAsList("0")
+    >>> code_list = entrypoint.GetCodeListByMarketAsList("0")
     >>> code_list
     ['000020', '000040', '000050', '000060', '000070', ...]
 
