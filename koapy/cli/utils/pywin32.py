@@ -21,7 +21,7 @@ def get_pywin32_postinstall_script(filepath):
 
 def install_pywin32(version=None):
     if version is None:
-        version = "303"
+        version = "304"
     cmd = ["pip", "install", "pywin32>={}".format(version)]
     logger.info("Running command: %s", subprocess.list2cmdline(cmd))
     subprocess.check_call(cmd)

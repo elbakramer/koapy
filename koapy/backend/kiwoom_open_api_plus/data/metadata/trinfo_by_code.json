@@ -11832,6 +11832,177 @@
         "tr_names_svr": "",
         "tr_type": "1"
     },
+    "opt10131": {
+        "gfid": "2079",
+        "inputs": [
+            {
+                "fid": 9305,
+                "name": "기간",
+                "offset": 3,
+                "start": 0
+            },
+            {
+                "fid": 9004,
+                "name": "시작일자",
+                "offset": 8,
+                "start": 3
+            },
+            {
+                "fid": 9005,
+                "name": "종료일자",
+                "offset": 8,
+                "start": 11
+            },
+            {
+                "fid": 9008,
+                "name": "장구분",
+                "offset": 3,
+                "start": 19
+            },
+            {
+                "fid": 9032,
+                "name": "순매도수구분",
+                "offset": 1,
+                "start": 22
+            },
+            {
+                "fid": 9057,
+                "name": "종목업종구분",
+                "offset": 1,
+                "start": 23
+            },
+            {
+                "fid": 9036,
+                "name": "금액수량구분",
+                "offset": 1,
+                "start": 24
+            }
+        ],
+        "multi_outputs": [],
+        "multi_outputs_name": "",
+        "name": "기관외국인연속매매현황요청",
+        "single_outputs": [
+            {
+                "fid": 401,
+                "name": "순위",
+                "offset": 10,
+                "start": 0
+            },
+            {
+                "fid": 9001,
+                "name": "종목코드",
+                "offset": 12,
+                "start": 10
+            },
+            {
+                "fid": 302,
+                "name": "종목명",
+                "offset": 120,
+                "start": 22
+            },
+            {
+                "fid": 1112,
+                "name": "기간중주가등락률",
+                "offset": 20,
+                "start": 142
+            },
+            {
+                "fid": 1135,
+                "name": "기관순매매금액",
+                "offset": 20,
+                "start": 162
+            },
+            {
+                "fid": 1134,
+                "name": "기관순매매량",
+                "offset": 20,
+                "start": 182
+            },
+            {
+                "fid": 877,
+                "name": "기관계연속순매수일수",
+                "offset": 20,
+                "start": 202
+            },
+            {
+                "fid": 878,
+                "name": "기관계연속순매수량",
+                "offset": 20,
+                "start": 222
+            },
+            {
+                "fid": 879,
+                "name": "기관계연속순매수금액",
+                "offset": 20,
+                "start": 242
+            },
+            {
+                "fid": 1414,
+                "name": "외국인순매매량",
+                "offset": 20,
+                "start": 262
+            },
+            {
+                "fid": 1415,
+                "name": "외국인순매매액",
+                "offset": 20,
+                "start": 282
+            },
+            {
+                "fid": 880,
+                "name": "외국인연속순매수일수",
+                "offset": 20,
+                "start": 302
+            },
+            {
+                "fid": 881,
+                "name": "외국인연속순매수량",
+                "offset": 20,
+                "start": 322
+            },
+            {
+                "fid": 882,
+                "name": "외국인연속순매수금액",
+                "offset": 20,
+                "start": 342
+            },
+            {
+                "fid": 1140,
+                "name": "순매매량",
+                "offset": 20,
+                "start": 362
+            },
+            {
+                "fid": 1141,
+                "name": "순매매액",
+                "offset": 20,
+                "start": 382
+            },
+            {
+                "fid": 883,
+                "name": "합계연속순매수일수",
+                "offset": 20,
+                "start": 402
+            },
+            {
+                "fid": 884,
+                "name": "합계연속순매매수량",
+                "offset": 20,
+                "start": 422
+            },
+            {
+                "fid": 885,
+                "name": "합계연속순매수금액",
+                "offset": 20,
+                "start": 442
+            }
+        ],
+        "single_outputs_name": "기관외국인연속매매현황",
+        "tr_code": "opt10131",
+        "tr_name": "STOCKG",
+        "tr_names_svr": "",
+        "tr_type": "1"
+    },
     "opt10170": {
         "gfid": "8516",
         "inputs": [
@@ -21070,61 +21241,61 @@
                 "fid": 326,
                 "name": "ATM구분",
                 "offset": 20,
-                "start": 180
+                "start": 200
             },
             {
                 "fid": 0,
                 "name": "대칭구분",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 9001,
                 "name": "풋_종목코드",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 10,
                 "name": "풋_현재가",
                 "offset": 20,
-                "start": 120
+                "start": 240
             },
             {
                 "fid": 11,
-                "name": "풋_대비기호",
+                "name": "풋_전일대비",
                 "offset": 20,
-                "start": 80
+                "start": 260
             },
             {
                 "fid": 25,
-                "name": "풋_전일대비",
+                "name": "풋_대비기호",
                 "offset": 20,
-                "start": 100
+                "start": 280
             },
             {
                 "fid": 195,
                 "name": "풋_미결제약정",
                 "offset": 20,
-                "start": 60
+                "start": 300
             },
             {
                 "fid": 210,
                 "name": "풋_투자자별순매수수량",
                 "offset": 20,
-                "start": 40
+                "start": 320
             },
             {
                 "fid": 931,
                 "name": "풋_매입단가",
                 "offset": 20,
-                "start": 20
+                "start": 340
             },
             {
                 "fid": 13000,
                 "name": "풋_평가손익",
                 "offset": 20,
-                "start": 0
+                "start": 360
             }
         ],
         "single_outputs_name": "투자자별만기손익차트",
