@@ -509,7 +509,7 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
             credentials = config.get("koapy.backend.kiwoom_open_api_plus.credentials")
 
         is_in_development = False
-        use_set_text = False
+        emulate_keyboard_input = True
 
         userid = credentials.get("user_id")
         password = credentials.get("user_password")
@@ -535,20 +535,20 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
 
             if userid:
                 cls.logger.info("Putting userid")
-                if use_set_text:
-                    login_window["Edit1"].set_text(userid)
-                else:
+                if emulate_keyboard_input:
                     login_window["Edit1"].set_focus()
                     pywinauto.keyboard.send_keys(userid)
                     pywinauto.keyboard.send_keys("{TAB}")
+                else:
+                    login_window["Edit1"].set_text(userid)
             if password:
                 cls.logger.info("Putting password")
-                if use_set_text:
-                    login_window["Edit2"].set_text(password)
-                else:
+                if emulate_keyboard_input:
                     login_window["Edit2"].set_focus()
                     pywinauto.keyboard.send_keys(password)
                     pywinauto.keyboard.send_keys("{TAB}")
+                else:
+                    login_window["Edit2"].set_text(password)
             else:
                 raise RuntimeError("'user_password' not set, please check credentials")
 
@@ -562,15 +562,20 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
             if not is_simulation:
                 if not login_window["Edit3"].is_enabled():
                     cls.logger.info("Unchecking to use simulation server")
-                    login_window["Button5"].uncheck_by_click()
+                    if emulate_keyboard_input:
+                        login_window["Button5"].set_focus()
+                        pywinauto.keyboard.send_keys("{SPACE}")
+                    else:
+                        login_window["Button5"].uncheck_by_click()
+
                 if cert:
                     cls.logger.info("Putting cert password")
-                    if use_set_text:
-                        login_window["Edit3"].set_text(cert)
-                    else:
+                    if emulate_keyboard_input:
                         login_window["Edit3"].set_focus()
                         pywinauto.keyboard.send_keys(cert)
                         pywinauto.keyboard.send_keys("{TAB}")
+                    else:
+                        login_window["Edit3"].set_text(cert)
                 else:
                     raise RuntimeError(
                         "'cert_password' not set, please check credentials"
@@ -578,7 +583,11 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
             else:
                 if login_window["Edit3"].is_enabled():
                     cls.logger.info("Checking to use simulation server")
-                    login_window["Button5"].check_by_click()
+                    if emulate_keyboard_input:
+                        login_window["Button5"].set_focus()
+                        pywinauto.keyboard.send_keys("{SPACE}")
+                    else:
+                        login_window["Button5"].check_by_click()
 
             cls.logger.info("Logging in")
             login_window["Button1"].click()
@@ -807,7 +816,8 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         if account_passwords is None:
             credentials = config.get("koapy.backend.kiwoom_open_api_plus.credentials")
             account_passwords = credentials.get("account_passwords")
-
+        account_passwords = dict(account_passwords)
+        
         is_in_development = False
 
         desktop = pywinauto.Desktop(allow_magic_lookup=False)
@@ -835,12 +845,10 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
             for i in range(account_cnt):
                 account_combo.select(i)
                 account_no = account_combo.selected_text().split()[0]
-                if account_no in account_passwords:
-                    account_window["Edit"].set_text(account_passwords[account_no])
-                elif "0000000000" in account_passwords:
-                    account_window["Edit"].set_text(account_passwords["0000000000"])
-                account_window["등록"].click()
-
+                if account_pw := account_passwords.get(account_no) or account_passwords.get("0000000000"):
+                    account_window["Edit"].set_text(account_pw)
+                    account_window["등록"].click()
+                
             cls.logger.info("Closing account window")
             account_window["닫기"].click()
 

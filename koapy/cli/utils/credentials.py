@@ -43,17 +43,20 @@ def prompt_credentials():
             default=default_cert_password,
             show_default=False,
         )
-    account_count = click.prompt("Account Count", type=int, default=1)
+        
     account_passwords = {}
-    for _ in range(account_count):
-        account_number = click.prompt("Account Number", default="0000000000")
-        account_password = click.prompt(
-            "Account Password",
-            hide_input=True,
-            default="0000",
-            show_default=False,
-        )
-        account_passwords[account_number] = account_password
+    if is_simulation:
+        account_passwords['0000000000'] = '0000'
+    else:
+        account_count = click.prompt("Account Count", type=int, default=1)
+        for _ in range(account_count):
+            account_number = click.prompt("Account Number", default="0000000000")
+            account_password = click.prompt(
+                "Account Password",
+                hide_input=True,
+                show_default=False,
+            )
+            account_passwords[account_number] = account_password
 
     credentials = {
         "user_id": user_id,
