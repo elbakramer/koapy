@@ -123,7 +123,7 @@
 
 <div class="viewcode-block" id="install_pywin32"><a class="viewcode-back" href="../../../../autoapi/koapy/cli/utils/pywin32/index.html#koapy.cli.utils.pywin32.install_pywin32">[docs]</a><span class="k">def</span> <span class="nf">install_pywin32</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;303&quot;</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;304&quot;</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;pywin32&gt;=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">version</span><span class="p">)]</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running command: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">list2cmdline</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
     <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
