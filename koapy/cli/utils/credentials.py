@@ -43,10 +43,10 @@ def prompt_credentials():
             default=default_cert_password,
             show_default=False,
         )
-        
+
     account_passwords = {}
     if is_simulation:
-        account_passwords['0000000000'] = '0000'
+        account_passwords["0000000000"] = "0000"
     else:
         account_count = click.prompt("Account Count", type=int, default=1)
         for _ in range(account_count):

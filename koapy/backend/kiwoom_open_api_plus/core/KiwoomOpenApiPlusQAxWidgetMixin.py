@@ -816,8 +816,9 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         if account_passwords is None:
             credentials = config.get("koapy.backend.kiwoom_open_api_plus.credentials")
             account_passwords = credentials.get("account_passwords")
+
         account_passwords = dict(account_passwords)
-        
+
         is_in_development = False
 
         desktop = pywinauto.Desktop(allow_magic_lookup=False)
@@ -845,10 +846,12 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
             for i in range(account_cnt):
                 account_combo.select(i)
                 account_no = account_combo.selected_text().split()[0]
-                if account_pw := account_passwords.get(account_no) or account_passwords.get("0000000000"):
+                if account_pw := account_passwords.get(
+                    account_no
+                ) or account_passwords.get("0000000000"):
                     account_window["Edit"].set_text(account_pw)
                     account_window["등록"].click()
-                
+
             cls.logger.info("Closing account window")
             account_window["닫기"].click()
 
