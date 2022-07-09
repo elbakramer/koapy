@@ -80,14 +80,10 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
     def OnReceiveRealData(self, code, realtype, realdata):
         if code in self._code_list:
             response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-            response.name = "OnReceiveRealData"  # pylint: disable=no-member
-            response.arguments.add().string_value = code  # pylint: disable=no-member
-            response.arguments.add().string_value = (
-                realtype  # pylint: disable=no-member
-            )
-            response.arguments.add().string_value = (
-                realdata  # pylint: disable=no-member
-            )
+            response.name = "OnReceiveRealData"
+            response.arguments.add().string_value = code
+            response.arguments.add().string_value = realtype
+            response.arguments.add().string_value = realdata
 
             if self._infer_fids:
                 fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name(realtype)
@@ -109,10 +105,10 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
 
             assert len(names) == len(values)
 
-            response.single_data.names.extend(names)  # pylint: disable=no-member
-            response.single_data.values.extend(values)  # pylint: disable=no-member
+            response.single_data.names.extend(names)
+            response.single_data.values.extend(values)
 
-            self.observer.on_next(response)  # pylint: disable=no-member
+            self.observer.on_next(response)
 
     def OnEventConnect(self, errcode):
         if errcode < 0:
@@ -307,14 +303,10 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(
     def OnReceiveRealData(self, code, realtype, realdata):
         if code in self._code_list:
             response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-            response.name = "OnReceiveRealData"  # pylint: disable=no-member
-            response.arguments.add().string_value = code  # pylint: disable=no-member
-            response.arguments.add().string_value = (
-                realtype  # pylint: disable=no-member
-            )
-            response.arguments.add().string_value = (
-                realdata  # pylint: disable=no-member
-            )
+            response.name = "OnReceiveRealData"
+            response.arguments.add().string_value = code
+            response.arguments.add().string_value = realtype
+            response.arguments.add().string_value = realdata
 
             if self._infer_fids:
                 fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name(realtype)
@@ -336,7 +328,7 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(
 
             assert len(names) == len(values)
 
-            response.single_data.names.extend(names)  # pylint: disable=no-member
-            response.single_data.values.extend(values)  # pylint: disable=no-member
+            response.single_data.names.extend(names)
+            response.single_data.values.extend(values)
 
-            self.observer.on_next(response)  # pylint: disable=no-member
+            self.observer.on_next(response)

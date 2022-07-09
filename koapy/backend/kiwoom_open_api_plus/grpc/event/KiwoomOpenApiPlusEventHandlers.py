@@ -31,83 +31,73 @@ class KiwoomOpenApiPlusLazyAllEventHandler(
         _splmmsg,
     ):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveTrData"  # pylint: disable=no-member
-        response.arguments.add().string_value = scrnno  # pylint: disable=no-member
-        response.arguments.add().string_value = rqname  # pylint: disable=no-member
-        response.arguments.add().string_value = trcode  # pylint: disable=no-member
-        response.arguments.add().string_value = recordname  # pylint: disable=no-member
-        response.arguments.add().string_value = prevnext  # pylint: disable=no-member
+        response.name = "OnReceiveTrData"
+        response.arguments.add().string_value = scrnno
+        response.arguments.add().string_value = rqname
+        response.arguments.add().string_value = trcode
+        response.arguments.add().string_value = recordname
+        response.arguments.add().string_value = prevnext
         self.observer.on_next(response)
 
     def OnReceiveRealData(self, code, realtype, realdata):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveRealData"  # pylint: disable=no-member
-        response.arguments.add().string_value = code  # pylint: disable=no-member
-        response.arguments.add().string_value = realtype  # pylint: disable=no-member
-        response.arguments.add().string_value = realdata  # pylint: disable=no-member
+        response.name = "OnReceiveRealData"
+        response.arguments.add().string_value = code
+        response.arguments.add().string_value = realtype
+        response.arguments.add().string_value = realdata
         self.observer.on_next(response)
 
     def OnReceiveMsg(self, scrnno, rqname, trcode, msg):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveMsg"  # pylint: disable=no-member
-        response.arguments.add().string_value = scrnno  # pylint: disable=no-member
-        response.arguments.add().string_value = rqname  # pylint: disable=no-member
-        response.arguments.add().string_value = trcode  # pylint: disable=no-member
-        response.arguments.add().string_value = msg  # pylint: disable=no-member
+        response.name = "OnReceiveMsg"
+        response.arguments.add().string_value = scrnno
+        response.arguments.add().string_value = rqname
+        response.arguments.add().string_value = trcode
+        response.arguments.add().string_value = msg
         self.observer.on_next(response)
 
     def OnReceiveChejanData(self, gubun, itemcnt, fidlist):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveChejanData"  # pylint: disable=no-member
-        response.arguments.add().string_value = gubun  # pylint: disable=no-member
-        response.arguments.add().long_value = itemcnt  # pylint: disable=no-member
-        response.arguments.add().string_value = fidlist  # pylint: disable=no-member
+        response.name = "OnReceiveChejanData"
+        response.arguments.add().string_value = gubun
+        response.arguments.add().long_value = itemcnt
+        response.arguments.add().string_value = fidlist
         self.observer.on_next(response)
 
     def OnEventConnect(self, errcode):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnEventConnect"  # pylint: disable=no-member
-        response.arguments.add().long_value = errcode  # pylint: disable=no-member
+        response.name = "OnEventConnect"
+        response.arguments.add().long_value = errcode
         self.observer.on_next(response)
 
     def OnReceiveRealCondition(
         self, code, condition_type, condition_name, condition_index
     ):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveRealCondition"  # pylint: disable=no-member
-        response.arguments.add().string_value = code  # pylint: disable=no-member
-        response.arguments.add().string_value = (
-            condition_type  # pylint: disable=no-member
-        )
-        response.arguments.add().string_value = (
-            condition_name  # pylint: disable=no-member
-        )
-        response.arguments.add().string_value = (
-            condition_index  # pylint: disable=no-member
-        )
+        response.name = "OnReceiveRealCondition"
+        response.arguments.add().string_value = code
+        response.arguments.add().string_value = condition_type
+        response.arguments.add().string_value = condition_name
+        response.arguments.add().string_value = condition_index
         self.observer.on_next(response)
 
     def OnReceiveTrCondition(
         self, scrnno, codelist, condition_name, condition_index, prevnext
     ):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveTrCondition"  # pylint: disable=no-member
-        response.arguments.add().string_value = scrnno  # pylint: disable=no-member
-        response.arguments.add().string_value = codelist  # pylint: disable=no-member
-        response.arguments.add().string_value = (
-            condition_name  # pylint: disable=no-member
-        )
-        response.arguments.add().long_value = (
-            condition_index  # pylint: disable=no-member
-        )
-        response.arguments.add().long_value = prevnext  # pylint: disable=no-member
+        response.name = "OnReceiveTrCondition"
+        response.arguments.add().string_value = scrnno
+        response.arguments.add().string_value = codelist
+        response.arguments.add().string_value = condition_name
+        response.arguments.add().long_value = condition_index
+        response.arguments.add().long_value = prevnext
         self.observer.on_next(response)
 
     def OnReceiveConditionVer(self, ret, msg):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveConditionVer"  # pylint: disable=no-member
-        response.arguments.add().long_value = ret  # pylint: disable=no-member
-        response.arguments.add().string_value = msg  # pylint: disable=no-member
+        response.name = "OnReceiveConditionVer"
+        response.arguments.add().long_value = ret
+        response.arguments.add().string_value = msg
         self.observer.on_next(response)
 
 
@@ -127,12 +117,12 @@ class KiwoomOpenApiPlusEagerAllEventHandler(
         _splmmsg,
     ):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveTrData"  # pylint: disable=no-member
-        response.arguments.add().string_value = scrnno  # pylint: disable=no-member
-        response.arguments.add().string_value = rqname  # pylint: disable=no-member
-        response.arguments.add().string_value = trcode  # pylint: disable=no-member
-        response.arguments.add().string_value = recordname  # pylint: disable=no-member
-        response.arguments.add().string_value = prevnext  # pylint: disable=no-member
+        response.name = "OnReceiveTrData"
+        response.arguments.add().string_value = scrnno
+        response.arguments.add().string_value = rqname
+        response.arguments.add().string_value = trcode
+        response.arguments.add().string_value = recordname
+        response.arguments.add().string_value = prevnext
 
         repeat_cnt = self.control.GetRepeatCnt(trcode, recordname)
 
@@ -149,8 +139,8 @@ class KiwoomOpenApiPlusEagerAllEventHandler(
                 self.control.GetCommData(trcode, recordname, 0, name).strip()
                 for name in single_names
             ]
-            response.single_data.names.extend(single_names)  # pylint: disable=no-member
-            response.single_data.values.extend(values)  # pylint: disable=no-member
+            response.single_data.names.extend(single_names)
+            response.single_data.values.extend(values)
 
         if repeat_cnt > 0 and len(multi_names) > 0:
             rows = [
@@ -160,20 +150,18 @@ class KiwoomOpenApiPlusEagerAllEventHandler(
                 ]
                 for i in range(repeat_cnt)
             ]
-            response.multi_data.names.extend(multi_names)  # pylint: disable=no-member
+            response.multi_data.names.extend(multi_names)
             for row in rows:
-                response.multi_data.values.add().values.extend(
-                    row
-                )  # pylint: disable=no-member
+                response.multi_data.values.add().values.extend(row)
 
         self.observer.on_next(response)
 
     def OnReceiveRealData(self, code, realtype, realdata):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveRealData"  # pylint: disable=no-member
-        response.arguments.add().string_value = code  # pylint: disable=no-member
-        response.arguments.add().string_value = realtype  # pylint: disable=no-member
-        response.arguments.add().string_value = realdata  # pylint: disable=no-member
+        response.name = "OnReceiveRealData"
+        response.arguments.add().string_value = code
+        response.arguments.add().string_value = realtype
+        response.arguments.add().string_value = realdata
 
         fids = KiwoomOpenApiPlusRealType.get_fids_by_realtype_name(realtype)
 
@@ -187,26 +175,26 @@ class KiwoomOpenApiPlusEagerAllEventHandler(
 
         assert len(names) == len(values)
 
-        response.single_data.names.extend(names)  # pylint: disable=no-member
-        response.single_data.values.extend(values)  # pylint: disable=no-member
+        response.single_data.names.extend(names)
+        response.single_data.values.extend(values)
 
         self.observer.on_next(response)
 
     def OnReceiveMsg(self, scrnno, rqname, trcode, msg):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveMsg"  # pylint: disable=no-member
-        response.arguments.add().string_value = scrnno  # pylint: disable=no-member
-        response.arguments.add().string_value = rqname  # pylint: disable=no-member
-        response.arguments.add().string_value = trcode  # pylint: disable=no-member
-        response.arguments.add().string_value = msg  # pylint: disable=no-member
+        response.name = "OnReceiveMsg"
+        response.arguments.add().string_value = scrnno
+        response.arguments.add().string_value = rqname
+        response.arguments.add().string_value = trcode
+        response.arguments.add().string_value = msg
         self.observer.on_next(response)
 
     def OnReceiveChejanData(self, gubun, itemcnt, fidlist):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveChejanData"  # pylint: disable=no-member
-        response.arguments.add().string_value = gubun  # pylint: disable=no-member
-        response.arguments.add().long_value = itemcnt  # pylint: disable=no-member
-        response.arguments.add().string_value = fidlist  # pylint: disable=no-member
+        response.name = "OnReceiveChejanData"
+        response.arguments.add().string_value = gubun
+        response.arguments.add().long_value = itemcnt
+        response.arguments.add().string_value = fidlist
 
         fids = fidlist.rstrip(";")
         fids = fids.split(";") if fids else []
@@ -219,55 +207,45 @@ class KiwoomOpenApiPlusEagerAllEventHandler(
         ]
         values = [self.control.GetChejanData(fid).strip() for fid in fids]
 
-        response.single_data.names.extend(names)  # pylint: disable=no-member
-        response.single_data.values.extend(values)  # pylint: disable=no-member
+        response.single_data.names.extend(names)
+        response.single_data.values.extend(values)
 
         self.observer.on_next(response)
 
     def OnEventConnect(self, errcode):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnEventConnect"  # pylint: disable=no-member
-        response.arguments.add().long_value = errcode  # pylint: disable=no-member
+        response.name = "OnEventConnect"
+        response.arguments.add().long_value = errcode
         self.observer.on_next(response)
 
     def OnReceiveRealCondition(
         self, code, condition_type, condition_name, condition_index
     ):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveRealCondition"  # pylint: disable=no-member
-        response.arguments.add().string_value = code  # pylint: disable=no-member
-        response.arguments.add().string_value = (
-            condition_type  # pylint: disable=no-member
-        )
-        response.arguments.add().string_value = (
-            condition_name  # pylint: disable=no-member
-        )
-        response.arguments.add().string_value = (
-            condition_index  # pylint: disable=no-member
-        )
+        response.name = "OnReceiveRealCondition"
+        response.arguments.add().string_value = code
+        response.arguments.add().string_value = condition_type
+        response.arguments.add().string_value = condition_name
+        response.arguments.add().string_value = condition_index
         self.observer.on_next(response)
 
     def OnReceiveTrCondition(
         self, scrnno, codelist, condition_name, condition_index, prevnext
     ):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveTrCondition"  # pylint: disable=no-member
-        response.arguments.add().string_value = scrnno  # pylint: disable=no-member
-        response.arguments.add().string_value = codelist  # pylint: disable=no-member
-        response.arguments.add().string_value = (
-            condition_name  # pylint: disable=no-member
-        )
-        response.arguments.add().long_value = (
-            condition_index  # pylint: disable=no-member
-        )
-        response.arguments.add().long_value = prevnext  # pylint: disable=no-member
+        response.name = "OnReceiveTrCondition"
+        response.arguments.add().string_value = scrnno
+        response.arguments.add().string_value = codelist
+        response.arguments.add().string_value = condition_name
+        response.arguments.add().long_value = condition_index
+        response.arguments.add().long_value = prevnext
         self.observer.on_next(response)
 
     def OnReceiveConditionVer(self, ret, msg):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveConditionVer"  # pylint: disable=no-member
-        response.arguments.add().long_value = ret  # pylint: disable=no-member
-        response.arguments.add().string_value = msg  # pylint: disable=no-member
+        response.name = "OnReceiveConditionVer"
+        response.arguments.add().long_value = ret
+        response.arguments.add().string_value = msg
         self.observer.on_next(response)
 
 

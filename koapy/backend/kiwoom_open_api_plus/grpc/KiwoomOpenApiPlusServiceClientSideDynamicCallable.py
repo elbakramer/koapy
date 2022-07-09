@@ -13,9 +13,7 @@ class KiwoomOpenApiPlusServiceClientSideDynamicCallable:
     def _create_call_request(cls, name, args):
         request = KiwoomOpenApiPlusService_pb2.CallRequest()
         request.name = name
-        convert_arguments_from_python_to_protobuf(
-            args, request.arguments
-        )  # pylint: disable=no-member
+        convert_arguments_from_python_to_protobuf(args, request.arguments)
         return request
 
     @classmethod

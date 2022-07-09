@@ -98,16 +98,12 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
     ):
         if (rqname, trcode, scrnno) == (self._rqname, self._trcode, self._scrnno):
             response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-            response.name = "OnReceiveTrData"  # pylint: disable=no-member
-            response.arguments.add().string_value = scrnno  # pylint: disable=no-member
-            response.arguments.add().string_value = rqname  # pylint: disable=no-member
-            response.arguments.add().string_value = trcode  # pylint: disable=no-member
-            response.arguments.add().string_value = (
-                recordname  # pylint: disable=no-member
-            )
-            response.arguments.add().string_value = (
-                prevnext  # pylint: disable=no-member
-            )
+            response.name = "OnReceiveTrData"
+            response.arguments.add().string_value = scrnno
+            response.arguments.add().string_value = rqname
+            response.arguments.add().string_value = trcode
+            response.arguments.add().string_value = recordname
+            response.arguments.add().string_value = prevnext
 
             should_stop = prevnext in ["", "0"]
             repeat_cnt = self.control.GetRepeatCnt(trcode, recordname)
@@ -131,26 +127,20 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                         ]
                         for i in range(repeat_cnt)
                     ]
-                    response.multi_data.names.extend(
-                        self._multi_names
-                    )  # pylint: disable=no-member
+                    response.multi_data.names.extend(self._multi_names)
                     for row in rows:
                         if self._is_stop_condition(row):
                             should_stop = True
                             break
-                        response.multi_data.values.add().values.extend(
-                            row
-                        )  # pylint: disable=no-member
+                        response.multi_data.values.add().values.extend(row)
 
             if len(self._single_names) > 0:
                 values = [
                     self.control.GetCommData(trcode, recordname, 0, name).strip()
                     for name in self._single_names
                 ]
-                response.single_data.names.extend(
-                    self._single_names
-                )  # pylint: disable=no-member
-                response.single_data.values.extend(values)  # pylint: disable=no-member
+                response.single_data.names.extend(self._single_names)
+                response.single_data.values.extend(values)
 
             self.observer.on_next(response)
 

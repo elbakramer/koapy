@@ -46,9 +46,7 @@ class CybosPlusEntrypointMixin(Logging):
         account_passwords = credentials.get("account_passwords")
 
         cls.logger.info("Starting CYBOS Starter application")
-        _app = pywinauto.Application().start(
-            r"C:\DAISHIN\STARTER\ncStarter.exe /prj:cp"
-        )  # pylint: disable=unused-variable
+        pywinauto.Application().start(r"C:\DAISHIN\STARTER\ncStarter.exe /prj:cp")
         desktop = pywinauto.Desktop(allow_magic_lookup=False)
 
         try:
@@ -199,7 +197,6 @@ class CybosPlusEntrypointMixin(Logging):
     @classmethod
     def ConnectUsingPywinauto_RunScriptInSubprocess(cls, credentials=None):
         def main():
-            # pylint: disable=redefined-outer-name,reimported,import-self
             import json
             import sys
 

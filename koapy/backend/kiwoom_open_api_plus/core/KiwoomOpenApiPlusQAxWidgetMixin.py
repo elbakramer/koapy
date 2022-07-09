@@ -715,7 +715,7 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         errcode = KiwoomOpenApiPlusError.try_or_raise(self.CommConnect())
 
         if should_use_pywinauto and not self.IsAutoLoginEnabled():
-            process = self.LoginUsingPywinauto(credentials, wait=False)
+            self.LoginUsingPywinauto(credentials, wait=False)
 
         return errcode
 

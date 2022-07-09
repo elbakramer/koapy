@@ -24,7 +24,7 @@ class CybosPlusEvent:
 
     def done(self):
         self._done.set()
-        self._iterator._events.task_done()  # pylint: disable=protected-access
+        self._iterator._events.task_done()
 
     def wait_for_done(self):
         self._done.wait()
@@ -91,7 +91,7 @@ class CybosPlusProxyServiceServicer(
         if prog not in self._dispatches:
             with self._lock:
                 if prog not in self._dispatches:
-                    pythoncom.CoInitialize()  # pylint: disable=no-member
+                    pythoncom.CoInitialize()
                     dispatch = win32com.client.gencache.EnsureDispatch(prog)
                     self._dispatches[prog] = dispatch
                     if False:  # TODO: 이벤트 처리 관련해서 아직 개발하지 못함
@@ -112,7 +112,6 @@ class CybosPlusProxyServiceServicer(
     def Dispatch(self, request, context):
         prog = request.prog
         dispatch = self._EnsureDispatch(prog)
-        # pylint: disable=protected-access
         properties = [p for p in dispatch._prop_map_get_.keys()]
         methods = [
             m
@@ -121,8 +120,8 @@ class CybosPlusProxyServiceServicer(
         ]
         response = CybosPlusProxyService_pb2.DispatchResponse()
         response.prog = prog
-        response.properties.extend(properties)  # pylint: disable=no-member
-        response.methods.extend(methods)  # pylint: disable=no-member
+        response.properties.extend(properties)
+        response.methods.extend(methods)
         return response
 
     def Property(self, request, context):
@@ -131,7 +130,7 @@ class CybosPlusProxyServiceServicer(
         name = request.name
         value = getattr(dispatch, name)
         response = CybosPlusProxyService_pb2.PropertyResponse()
-        AssignPrimitive(response.value, value)  # pylint: disable=no-member
+        AssignPrimitive(response.value, value)
         return response
 
     def Method(self, request, context):
@@ -142,9 +141,7 @@ class CybosPlusProxyServiceServicer(
         arguments = [ExtractPrimitive(arg.value) for arg in request.arguments]
         return_value = method(*arguments)
         response = CybosPlusProxyService_pb2.MethodResponse()
-        AssignPrimitive(
-            response.return_value, return_value
-        )  # pylint: disable=no-member
+        AssignPrimitive(response.return_value, return_value)
         return response
 
     def Event(self, request_iterator, context):
@@ -153,11 +150,11 @@ class CybosPlusProxyServiceServicer(
         prog = start_request.start.prog
         handler = self._GetHandler(prog)
         response = CybosPlusProxyService_pb2.EventResponse()
-        response.started  # pylint: disable=no-member,pointless-statement
+        response.started
         yield response
         for event in handler:
             response = CybosPlusProxyService_pb2.EventResponse()
-            response.fired  # pylint: disable=no-member,pointless-statement
+            response.fired
             yield response
             done_request = next(request_iterator)
             event.done()

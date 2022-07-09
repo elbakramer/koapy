@@ -28,11 +28,11 @@ class KiwoomOpenApiPlusBaseOrderEventHandler(
 
     def ResponseForOnReceiveMsg(self, scrnno, rqname, trcode, msg):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveMsg"  # pylint: disable=no-member
-        response.arguments.add().string_value = scrnno  # pylint: disable=no-member
-        response.arguments.add().string_value = rqname  # pylint: disable=no-member
-        response.arguments.add().string_value = trcode  # pylint: disable=no-member
-        response.arguments.add().string_value = msg  # pylint: disable=no-member
+        response.name = "OnReceiveMsg"
+        response.arguments.add().string_value = scrnno
+        response.arguments.add().string_value = rqname
+        response.arguments.add().string_value = trcode
+        response.arguments.add().string_value = msg
 
         return response
 
@@ -69,12 +69,12 @@ class KiwoomOpenApiPlusBaseOrderEventHandler(
         splmmsg,
     ):
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveTrData"  # pylint: disable=no-member
-        response.arguments.add().string_value = scrnno  # pylint: disable=no-member
-        response.arguments.add().string_value = rqname  # pylint: disable=no-member
-        response.arguments.add().string_value = trcode  # pylint: disable=no-member
-        response.arguments.add().string_value = recordname  # pylint: disable=no-member
-        response.arguments.add().string_value = prevnext  # pylint: disable=no-member
+        response.name = "OnReceiveTrData"
+        response.arguments.add().string_value = scrnno
+        response.arguments.add().string_value = rqname
+        response.arguments.add().string_value = trcode
+        response.arguments.add().string_value = recordname
+        response.arguments.add().string_value = prevnext
 
         should_stop = prevnext in ["", "0"]  # pylint: disable=unused-variable
         repeat_cnt = self.control.GetRepeatCnt(trcode, recordname)
@@ -84,10 +84,8 @@ class KiwoomOpenApiPlusBaseOrderEventHandler(
                 self.control.GetCommData(trcode, recordname, 0, name).strip()
                 for name in self._single_names
             ]
-            response.single_data.names.extend(
-                self._single_names
-            )  # pylint: disable=no-member
-            response.single_data.values.extend(values)  # pylint: disable=no-member
+            response.single_data.names.extend(self._single_names)
+            response.single_data.values.extend(values)
 
         if repeat_cnt > 0 and len(self._multi_names) > 0:
             rows = [
@@ -97,16 +95,12 @@ class KiwoomOpenApiPlusBaseOrderEventHandler(
                 ]
                 for i in range(repeat_cnt)
             ]
-            response.multi_data.names.extend(
-                self._multi_names
-            )  # pylint: disable=no-member
+            response.multi_data.names.extend(self._multi_names)
             for row in rows:
                 if self._is_stop_condition(row):
                     should_stop = True
                     break
-                response.multi_data.values.add().values.extend(
-                    row
-                )  # pylint: disable=no-member
+                response.multi_data.values.add().values.extend(row)
 
         return response
 
@@ -154,13 +148,13 @@ class KiwoomOpenApiPlusBaseOrderEventHandler(
         values = [self.control.GetChejanData(fid).strip() for fid in fids]
 
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveChejanData"  # pylint: disable=no-member
-        response.arguments.add().string_value = gubun  # pylint: disable=no-member
-        response.arguments.add().long_value = itemcnt  # pylint: disable=no-member
-        response.arguments.add().string_value = fidlist  # pylint: disable=no-member
+        response.name = "OnReceiveChejanData"
+        response.arguments.add().string_value = gubun
+        response.arguments.add().long_value = itemcnt
+        response.arguments.add().string_value = fidlist
 
-        response.single_data.names.extend(names)  # pylint: disable=no-member
-        response.single_data.values.extend(values)  # pylint: disable=no-member
+        response.single_data.names.extend(names)
+        response.single_data.values.extend(values)
 
         return response
 

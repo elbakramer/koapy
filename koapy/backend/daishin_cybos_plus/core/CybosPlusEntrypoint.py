@@ -76,7 +76,7 @@ class CybosPlusIncompleteProgID:
                     progid = "{}.{}".format(self._prefix, name)
                     try:
                         dispatch = CybosPlusDispatch(self._entrypoint, progid)
-                    except pywintypes.com_error as e:  # pylint: disable=no-member
+                    except pywintypes.com_error as e:
                         raise AttributeError(
                             "'{}' object has no attribute '{}'".format(type(self), name)
                         ) from e

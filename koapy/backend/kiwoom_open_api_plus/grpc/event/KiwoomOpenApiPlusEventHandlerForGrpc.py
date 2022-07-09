@@ -3,9 +3,7 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusEventHandler impor
 )
 
 
-class KiwoomOpenApiPlusEventHandlerForGrpc(
-    KiwoomOpenApiPlusEventHandler
-):  # pylint: disable=abstract-method
+class KiwoomOpenApiPlusEventHandlerForGrpc(KiwoomOpenApiPlusEventHandler):
     def __init__(self, control, context):
         super().__init__(control)
 

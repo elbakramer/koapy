@@ -72,20 +72,14 @@ class KiwoomOpenApiPlusConditionEventHandler(
             self._condition_index,
         ):
             response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-            response.name = "OnReceiveTrCondition"  # pylint: disable=no-member
-            response.arguments.add().string_value = scrnno  # pylint: disable=no-member
-            response.arguments.add().string_value = (
-                codelist  # pylint: disable=no-member
-            )
-            response.arguments.add().string_value = (
-                condition_name  # pylint: disable=no-member
-            )
-            response.arguments.add().long_value = (
-                condition_index  # pylint: disable=no-member
-            )
-            response.arguments.add().long_value = prevnext  # pylint: disable=no-member
+            response.name = "OnReceiveTrCondition"
+            response.arguments.add().string_value = scrnno
+            response.arguments.add().string_value = codelist
+            response.arguments.add().string_value = condition_name
+            response.arguments.add().long_value = condition_index
+            response.arguments.add().long_value = prevnext
 
-            self.observer.on_next(response)  # pylint: disable=no-member
+            self.observer.on_next(response)
 
             if self._with_info:
                 if "^" in codelist:
@@ -119,12 +113,13 @@ class KiwoomOpenApiPlusConditionEventHandler(
             elif should_continue:
                 try:
                     raise KiwoomOpenApiPlusError("Should not reach here")
+                    # pylint: disable=unreachable
                     self.control.RateLimitedSendCondition.async_call(
                         self._screen_no,
                         self._condition_name,
                         self._condition_index,
                         int(prevnext),
-                    )  # pylint: disable=unreachable
+                    )
                 except KiwoomOpenApiPlusError as e:
                     self.observer.on_error(e)
                     return
@@ -137,19 +132,13 @@ class KiwoomOpenApiPlusConditionEventHandler(
             self._condition_index,
         ):
             response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-            response.name = "OnReceiveRealCondition"  # pylint: disable=no-member
-            response.arguments.add().string_value = code  # pylint: disable=no-member
-            response.arguments.add().string_value = (
-                condition_type  # pylint: disable=no-member
-            )
-            response.arguments.add().string_value = (
-                condition_name  # pylint: disable=no-member
-            )
-            response.arguments.add().string_value = (
-                condition_index  # pylint: disable=no-member
-            )
+            response.name = "OnReceiveRealCondition"
+            response.arguments.add().string_value = code
+            response.arguments.add().string_value = condition_type
+            response.arguments.add().string_value = condition_name
+            response.arguments.add().string_value = condition_index
 
-            self.observer.on_next(response)  # pylint: disable=no-member
+            self.observer.on_next(response)
 
             if self._with_info:
                 codelist = code
@@ -180,16 +169,12 @@ class KiwoomOpenApiPlusConditionEventHandler(
     ):
         if (scrnno, rqname) == (self._screen_no, self._request_name):
             response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-            response.name = "OnReceiveTrData"  # pylint: disable=no-member
-            response.arguments.add().string_value = scrnno  # pylint: disable=no-member
-            response.arguments.add().string_value = rqname  # pylint: disable=no-member
-            response.arguments.add().string_value = trcode  # pylint: disable=no-member
-            response.arguments.add().string_value = (
-                recordname  # pylint: disable=no-member
-            )
-            response.arguments.add().string_value = (
-                prevnext  # pylint: disable=no-member
-            )
+            response.name = "OnReceiveTrData"
+            response.arguments.add().string_value = scrnno
+            response.arguments.add().string_value = rqname
+            response.arguments.add().string_value = trcode
+            response.arguments.add().string_value = recordname
+            response.arguments.add().string_value = prevnext
 
             should_continue = str(prevnext) not in ["", "0"]
             should_not_complete = self._search_type == 1 or should_continue
@@ -206,7 +191,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                     )
                     multi_names = self._multi_names
                     self._multi_names = self._single_names
-                    self._single_name = multi_names
+                    self._single_names = multi_names
                 if len(self._multi_names) > 0:
                     rows = [
                         [
@@ -217,25 +202,19 @@ class KiwoomOpenApiPlusConditionEventHandler(
                         ]
                         for i in range(repeat_cnt)
                     ]
-                    response.multi_data.names.extend(
-                        self._multi_names
-                    )  # pylint: disable=no-member
+                    response.multi_data.names.extend(self._multi_names)
                     for row in rows:
-                        response.multi_data.values.add().values.extend(
-                            row
-                        )  # pylint: disable=no-member
+                        response.multi_data.values.add().values.extend(row)
 
             if len(self._single_names) > 0:
                 values = [
                     self.control.GetCommData(trcode, recordname, 0, name).strip()
                     for name in self._single_names
                 ]
-                response.single_data.names.extend(
-                    self._single_names
-                )  # pylint: disable=no-member
-                response.single_data.values.extend(values)  # pylint: disable=no-member
+                response.single_data.names.extend(self._single_names)
+                response.single_data.values.extend(values)
 
-            self.observer.on_next(response)  # pylint: disable=no-member
+            self.observer.on_next(response)
 
             if should_complete:
                 self.observer.on_completed()
@@ -243,6 +222,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
             elif should_continue:
                 try:
                     raise KiwoomOpenApiPlusError("Should not reach here")
+                    # pylint: disable=unreachable
                     KiwoomOpenApiPlusError.try_or_raise(
                         self.control.RateLimitedCommKwRqData.async_call(
                             self._codelist,
@@ -253,7 +233,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                             self._screen_no,
                         ),
                         except_callback=self.observer.on_error,
-                    )  # pylint: disable=unreachable
+                    )
                 except KiwoomOpenApiPlusError as e:
                     self.observer.on_error(e)
                     return

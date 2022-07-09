@@ -36,7 +36,7 @@ class KiwoomOpenApiPlusLoginEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc):
             error = KiwoomOpenApiPlusNegativeReturnCodeError(errcode)
             self.observer.on_error(error)
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnEventConnect"  # pylint: disable=no-member
-        response.arguments.add().long_value = errcode  # pylint: disable=no-member
+        response.name = "OnEventConnect"
+        response.arguments.add().long_value = errcode
         self.observer.on_next(response)
         self.observer.on_completed()

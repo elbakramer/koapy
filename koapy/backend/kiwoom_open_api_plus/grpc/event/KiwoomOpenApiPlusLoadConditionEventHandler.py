@@ -22,8 +22,8 @@ class KiwoomOpenApiPlusLoadConditionEventHandler(KiwoomOpenApiPlusEventHandlerFo
             error = KiwoomOpenApiPlusError(msg)
             self.observer.on_error(error)
         response = KiwoomOpenApiPlusService_pb2.ListenResponse()
-        response.name = "OnReceiveConditionVer"  # pylint: disable=no-member
-        response.arguments.add().long_value = ret  # pylint: disable=no-member
-        response.arguments.add().string_value = msg  # pylint: disable=no-member
-        self.observer.on_next(response)  # pylint: disable=no-member
+        response.name = "OnReceiveConditionVer"
+        response.arguments.add().long_value = ret
+        response.arguments.add().string_value = msg
+        self.observer.on_next(response)
         self.observer.on_completed()
