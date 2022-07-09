@@ -24,9 +24,7 @@ class KrxHistoricalDailyPriceDataDownloader:
         self._isuCd = ""
 
         self._calendar = get_calendar("XKRX")
-        self._start_date = self._calendar.first_session.astimezone(
-            self._calendar.tz
-        ).normalize()
+        self._start_date = self._calendar.first_session
 
     def get_stocks(self):
         data = {
