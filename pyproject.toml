@@ -100,7 +100,7 @@ astunparse = { version = "^1.6.3", markers = "python_version < '3.9'" }
 # documentation dependencies
 Sphinx = "^5.0.2"
 sphinx-autoapi = "^1.8.4"
-nbconvert = "^6.5.0"
+nbconvert = "^6.5.1"
 nbsphinx = "^0.8.9"
 ipython = "^8.4.0"
 
