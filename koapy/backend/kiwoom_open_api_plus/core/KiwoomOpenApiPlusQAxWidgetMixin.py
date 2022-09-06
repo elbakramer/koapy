@@ -104,6 +104,17 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         """
         return self.SetConditionSearchFlag("DelPrice")
 
+    def GetStockMarketKind(self, code):
+        """
+        종목코드 입력으로 해당 종목이 어느 시장에 포함되어 있는지 구하는 기능입니다.
+        서버와의 통신없이 메모리에 상주하는 값을 사용하므로 횟수제한 등은 없습니다. 사용법은 아래와 같습니다.
+
+        리턴값은 문자형으로 아래와 같습니다.
+        "0":코스피, "10":코스닥, "3":ELW, "8":ETF, "4"/"14":뮤추얼펀드, "6"/"16":리츠, "9"/"19":하이일드펀드, "30":제3시장, "60":ETN
+        """
+        code = str(code)
+        return self.KOA_Functions("GetStockMarketKind", code)
+
     def GetUpjongCode(self, code):
         """
         업종코드 목록을 반환합니다.
