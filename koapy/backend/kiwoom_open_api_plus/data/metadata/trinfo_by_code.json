@@ -287,7 +287,7 @@
         "single_outputs_name": "주식기본정보",
         "tr_code": "opt10001",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10002": {
@@ -313,224 +313,224 @@
             {
                 "fid": 302,
                 "name": "종목명",
-                "offset": 20,
+                "offset": 120,
                 "start": 20
             },
             {
                 "fid": 10,
                 "name": "현재가",
                 "offset": 20,
-                "start": 40
+                "start": 140
             },
             {
                 "fid": 25,
                 "name": "등락부호",
                 "offset": 20,
-                "start": 60
+                "start": 160
             },
             {
                 "fid": 307,
                 "name": "기준가",
                 "offset": 20,
-                "start": 80
+                "start": 180
             },
             {
                 "fid": 11,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 100
+                "start": 200
             },
             {
                 "fid": 12,
                 "name": "등락율",
                 "offset": 20,
-                "start": 120
+                "start": 220
             },
             {
                 "fid": 141,
                 "name": "매도거래원명1",
                 "offset": 20,
-                "start": 140
+                "start": 240
             },
             {
                 "fid": 146,
                 "name": "매도거래원1",
                 "offset": 20,
-                "start": 160
+                "start": 260
             },
             {
                 "fid": 161,
                 "name": "매도거래량1",
                 "offset": 20,
-                "start": 180
+                "start": 280
             },
             {
                 "fid": 151,
                 "name": "매수거래원명1",
                 "offset": 20,
-                "start": 200
+                "start": 300
             },
             {
                 "fid": 156,
                 "name": "매수거래원1",
                 "offset": 20,
-                "start": 220
+                "start": 320
             },
             {
                 "fid": 171,
                 "name": "매수거래량1",
                 "offset": 20,
-                "start": 240
+                "start": 340
             },
             {
                 "fid": 142,
                 "name": "매도거래원명2",
                 "offset": 20,
-                "start": 260
+                "start": 360
             },
             {
                 "fid": 147,
                 "name": "매도거래원2",
                 "offset": 20,
-                "start": 280
+                "start": 380
             },
             {
                 "fid": 162,
                 "name": "매도거래량2",
                 "offset": 20,
-                "start": 300
+                "start": 400
             },
             {
                 "fid": 152,
                 "name": "매수거래원명2",
                 "offset": 20,
-                "start": 320
+                "start": 420
             },
             {
                 "fid": 157,
                 "name": "매수거래원2",
                 "offset": 20,
-                "start": 340
+                "start": 440
             },
             {
                 "fid": 172,
                 "name": "매수거래량2",
                 "offset": 20,
-                "start": 360
+                "start": 460
             },
             {
                 "fid": 143,
                 "name": "매도거래원명3",
                 "offset": 20,
-                "start": 380
+                "start": 480
             },
             {
                 "fid": 148,
                 "name": "매도거래원3",
                 "offset": 20,
-                "start": 400
+                "start": 500
             },
             {
                 "fid": 163,
                 "name": "매도거래량3",
                 "offset": 20,
-                "start": 420
+                "start": 520
             },
             {
                 "fid": 153,
                 "name": "매수거래원명3",
                 "offset": 20,
-                "start": 440
+                "start": 540
             },
             {
                 "fid": 158,
                 "name": "매수거래원3",
                 "offset": 20,
-                "start": 460
+                "start": 560
             },
             {
                 "fid": 173,
                 "name": "매수거래량3",
                 "offset": 20,
-                "start": 480
+                "start": 580
             },
             {
                 "fid": 144,
                 "name": "매도거래원명4",
                 "offset": 20,
-                "start": 500
+                "start": 600
             },
             {
                 "fid": 149,
                 "name": "매도거래원4",
                 "offset": 20,
-                "start": 520
+                "start": 620
             },
             {
                 "fid": 164,
                 "name": "매도거래량4",
                 "offset": 20,
-                "start": 540
+                "start": 640
             },
             {
                 "fid": 154,
                 "name": "매수거래원명4",
                 "offset": 20,
-                "start": 560
+                "start": 660
             },
             {
                 "fid": 159,
                 "name": "매수거래원4",
                 "offset": 20,
-                "start": 580
+                "start": 680
             },
             {
                 "fid": 174,
                 "name": "매수거래량4",
                 "offset": 20,
-                "start": 600
+                "start": 700
             },
             {
                 "fid": 145,
                 "name": "매도거래원명5",
                 "offset": 20,
-                "start": 620
+                "start": 720
             },
             {
                 "fid": 150,
                 "name": "매도거래원5",
                 "offset": 20,
-                "start": 640
+                "start": 740
             },
             {
                 "fid": 165,
                 "name": "매도거래량5",
                 "offset": 20,
-                "start": 660
+                "start": 760
             },
             {
                 "fid": 155,
                 "name": "매수거래원명5",
                 "offset": 20,
-                "start": 680
+                "start": 780
             },
             {
                 "fid": 160,
                 "name": "매수거래원5",
                 "offset": 20,
-                "start": 700
+                "start": 800
             },
             {
                 "fid": 175,
                 "name": "매수거래량5",
                 "offset": 20,
-                "start": 720
+                "start": 820
             }
         ],
         "single_outputs_name": "주식거래원",
         "tr_code": "opt10002",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10003": {
@@ -617,7 +617,7 @@
         "single_outputs_name": "체결정보",
         "tr_code": "opt10003",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10004": {
@@ -1052,7 +1052,7 @@
         "single_outputs_name": "주식호가",
         "tr_code": "opt10004",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10005": {
@@ -1181,7 +1181,7 @@
         "single_outputs_name": "주식일주월시분",
         "tr_code": "opt10005",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10006": {
@@ -1262,7 +1262,7 @@
         "single_outputs_name": "주식시분",
         "tr_code": "opt10006",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10007": {
@@ -1275,10 +1275,7 @@
                 "start": 0
             }
         ],
-        "multi_outputs": [],
-        "multi_outputs_name": "",
-        "name": "시세표성정보요청",
-        "single_outputs": [
+        "multi_outputs": [
             {
                 "fid": 302,
                 "name": "종목명",
@@ -2024,10 +2021,13 @@
                 "start": 2460
             }
         ],
-        "single_outputs_name": "시세표성정보",
+        "multi_outputs_name": "시세표성정보",
+        "name": "시세표성정보요청",
+        "single_outputs": [],
+        "single_outputs_name": "",
         "tr_code": "opt10007",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10008": {
@@ -2114,7 +2114,7 @@
         "single_outputs_name": "주식외국인",
         "tr_code": "opt10008",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10009": {
@@ -2177,7 +2177,7 @@
         "single_outputs_name": "주식기관",
         "tr_code": "opt10009",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10010": {
@@ -2306,7 +2306,7 @@
         "single_outputs_name": "업종프로그램",
         "tr_code": "opt10010",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10011": {
@@ -2399,7 +2399,7 @@
         "single_outputs_name": "신주인수권시세",
         "tr_code": "opt10011",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10012": {
@@ -2786,7 +2786,7 @@
         "single_outputs_name": "주문체결",
         "tr_code": "opt10012",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10013": {
@@ -2891,7 +2891,7 @@
         "single_outputs_name": "신용매매동향",
         "tr_code": "opt10013",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10014": {
@@ -2990,7 +2990,7 @@
         "single_outputs_name": "공매도추이",
         "tr_code": "opt10014",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10015": {
@@ -3197,7 +3197,7 @@
         "single_outputs_name": "일별거래상세",
         "tr_code": "opt10015",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10016": {
@@ -3332,7 +3332,7 @@
         "single_outputs_name": "신고저가",
         "tr_code": "opt10016",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10017": {
@@ -3473,7 +3473,7 @@
         "single_outputs_name": "상하한가",
         "tr_code": "opt10017",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10018": {
@@ -3590,7 +3590,7 @@
         "single_outputs_name": "고저가근접",
         "tr_code": "opt10018",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10019": {
@@ -3725,7 +3725,7 @@
         "single_outputs_name": "가격급등락",
         "tr_code": "opt10019",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10020": {
@@ -3830,7 +3830,7 @@
         "single_outputs_name": "호가잔량상위",
         "tr_code": "opt10020",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10021": {
@@ -3941,7 +3941,7 @@
         "single_outputs_name": "호가잔량급증",
         "tr_code": "opt10021",
         "tr_name": "PIHOFNWS",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10022": {
@@ -4046,7 +4046,7 @@
         "single_outputs_name": "잔량율급증",
         "tr_code": "opt10022",
         "tr_name": "PIHOFNWS",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10023": {
@@ -4163,7 +4163,7 @@
         "single_outputs_name": "거래량급증",
         "tr_code": "opt10023",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10024": {
@@ -4256,7 +4256,7 @@
         "single_outputs_name": "거래량갱신",
         "tr_code": "opt10024",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10025": {
@@ -4367,17 +4367,23 @@
         "single_outputs_name": "매물대집중",
         "tr_code": "opt10025",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10026": {
         "gfid": "2015",
         "inputs": [
             {
+                "fid": 9008,
+                "name": "시장구분",
+                "offset": 1,
+                "start": 0
+            },
+            {
                 "fid": 9047,
                 "name": "PER구분",
                 "offset": 1,
-                "start": 0
+                "start": 1
             }
         ],
         "multi_outputs": [],
@@ -4393,56 +4399,56 @@
             {
                 "fid": 302,
                 "name": "종목명",
-                "offset": 100,
+                "offset": 140,
                 "start": 20
             },
             {
                 "fid": 316,
                 "name": "PER",
                 "offset": 20,
-                "start": 120
+                "start": 160
             },
             {
                 "fid": 10,
                 "name": "현재가",
                 "offset": 20,
-                "start": 140
+                "start": 180
             },
             {
                 "fid": 25,
                 "name": "전일대비기호",
                 "offset": 20,
-                "start": 160
+                "start": 200
             },
             {
                 "fid": 11,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 12,
                 "name": "등락률",
                 "offset": 20,
-                "start": 200
+                "start": 240
             },
             {
                 "fid": 13,
                 "name": "현재거래량",
                 "offset": 20,
-                "start": 220
+                "start": 260
             },
             {
                 "fid": 27,
                 "name": "매도호가",
                 "offset": 20,
-                "start": 240
+                "start": 280
             }
         ],
         "single_outputs_name": "고저PER",
         "tr_code": "opt10026",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10027": {
@@ -4463,38 +4469,38 @@
             {
                 "fid": 9022,
                 "name": "거래량조건",
-                "offset": 4,
+                "offset": 5,
                 "start": 4
             },
             {
                 "fid": 9060,
                 "name": "종목조건",
-                "offset": 1,
-                "start": 8
+                "offset": 2,
+                "start": 9
             },
             {
                 "fid": 9062,
                 "name": "신용조건",
                 "offset": 1,
-                "start": 9
+                "start": 11
             },
             {
                 "fid": 9076,
                 "name": "상하한포함",
-                "offset": 1,
-                "start": 10
+                "offset": 2,
+                "start": 12
             },
             {
                 "fid": 9077,
                 "name": "가격조건",
-                "offset": 1,
-                "start": 11
+                "offset": 2,
+                "start": 14
             },
             {
                 "fid": 9080,
                 "name": "거래대금조건",
                 "offset": 4,
-                "start": 12
+                "start": 16
             }
         ],
         "multi_outputs": [],
@@ -4516,68 +4522,68 @@
             {
                 "fid": 302,
                 "name": "종목명",
-                "offset": 100,
+                "offset": 140,
                 "start": 40
             },
             {
                 "fid": 10,
                 "name": "현재가",
                 "offset": 20,
-                "start": 140
+                "start": 180
             },
             {
                 "fid": 25,
                 "name": "전일대비기호",
                 "offset": 20,
-                "start": 160
+                "start": 200
             },
             {
                 "fid": 11,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 12,
                 "name": "등락률",
                 "offset": 20,
-                "start": 200
+                "start": 240
             },
             {
                 "fid": 121,
                 "name": "매도잔량",
                 "offset": 20,
-                "start": 220
+                "start": 260
             },
             {
                 "fid": 125,
                 "name": "매수잔량",
                 "offset": 20,
-                "start": 240
+                "start": 280
             },
             {
                 "fid": 13,
                 "name": "현재거래량",
                 "offset": 20,
-                "start": 260
+                "start": 300
             },
             {
                 "fid": 228,
                 "name": "체결강도",
                 "offset": 20,
-                "start": 280
+                "start": 320
             },
             {
                 "fid": 333,
                 "name": "횟수",
                 "offset": 20,
-                "start": 300
+                "start": 340
             }
         ],
         "single_outputs_name": "전일대비등락률상위",
         "tr_code": "opt10027",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10028": {
@@ -4610,26 +4616,26 @@
             {
                 "fid": 9060,
                 "name": "종목조건",
-                "offset": 1,
+                "offset": 2,
                 "start": 9
             },
             {
                 "fid": 9062,
                 "name": "신용조건",
                 "offset": 1,
-                "start": 10
+                "start": 11
             },
             {
                 "fid": 9080,
                 "name": "거래대금조건",
-                "offset": 1,
+                "offset": 4,
                 "start": 11
             },
             {
                 "fid": 9017,
                 "name": "등락조건",
                 "offset": 1,
-                "start": 12
+                "start": 15
             }
         ],
         "multi_outputs": [],
@@ -4645,74 +4651,74 @@
             {
                 "fid": 302,
                 "name": "종목명",
-                "offset": 100,
+                "offset": 140,
                 "start": 20
             },
             {
                 "fid": 10,
                 "name": "현재가",
                 "offset": 20,
-                "start": 120
+                "start": 160
             },
             {
                 "fid": 25,
                 "name": "전일대비기호",
                 "offset": 20,
-                "start": 140
+                "start": 180
             },
             {
                 "fid": 11,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 160
+                "start": 200
             },
             {
                 "fid": 12,
                 "name": "등락률",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 16,
                 "name": "시가",
                 "offset": 20,
-                "start": 200
+                "start": 240
             },
             {
                 "fid": 17,
                 "name": "고가",
                 "offset": 20,
-                "start": 220
+                "start": 260
             },
             {
                 "fid": 18,
                 "name": "저가",
                 "offset": 20,
-                "start": 240
+                "start": 280
             },
             {
                 "fid": 1040,
                 "name": "시가대비",
                 "offset": 20,
-                "start": 260
+                "start": 300
             },
             {
                 "fid": 13,
                 "name": "현재거래량",
                 "offset": 20,
-                "start": 280
+                "start": 320
             },
             {
                 "fid": 228,
                 "name": "체결강도",
                 "offset": 20,
-                "start": 300
+                "start": 340
             }
         ],
         "single_outputs_name": "시가대비등락률",
         "tr_code": "opt10028",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10029": {
@@ -4733,26 +4739,26 @@
             {
                 "fid": 9022,
                 "name": "거래량조건",
-                "offset": 1,
+                "offset": 5,
                 "start": 4
             },
             {
                 "fid": 9060,
                 "name": "종목조건",
-                "offset": 1,
-                "start": 5
+                "offset": 2,
+                "start": 9
             },
             {
                 "fid": 9062,
                 "name": "신용조건",
                 "offset": 1,
-                "start": 6
+                "start": 11
             },
             {
                 "fid": 9077,
                 "name": "가격조건",
-                "offset": 1,
-                "start": 7
+                "offset": 2,
+                "start": 12
             }
         ],
         "multi_outputs": [],
@@ -4768,74 +4774,74 @@
             {
                 "fid": 302,
                 "name": "종목명",
-                "offset": 100,
+                "offset": 140,
                 "start": 20
             },
             {
                 "fid": 23,
                 "name": "예상체결가",
                 "offset": 20,
-                "start": 120
+                "start": 160
             },
             {
                 "fid": 346,
                 "name": "기준가",
                 "offset": 20,
-                "start": 140
+                "start": 180
             },
             {
                 "fid": 1067,
                 "name": "전일대비기호",
                 "offset": 20,
-                "start": 160
+                "start": 200
             },
             {
                 "fid": 1055,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 1056,
                 "name": "등락률",
                 "offset": 20,
-                "start": 200
+                "start": 240
             },
             {
                 "fid": 24,
                 "name": "예상체결량",
                 "offset": 20,
-                "start": 220
+                "start": 260
             },
             {
                 "fid": 61,
                 "name": "매도잔량",
                 "offset": 20,
-                "start": 240
+                "start": 280
             },
             {
                 "fid": 27,
                 "name": "매도호가",
                 "offset": 20,
-                "start": 260
+                "start": 300
             },
             {
                 "fid": 28,
                 "name": "매수호가",
                 "offset": 20,
-                "start": 280
+                "start": 320
             },
             {
                 "fid": 71,
                 "name": "매수잔량",
                 "offset": 20,
-                "start": 300
+                "start": 340
             }
         ],
         "single_outputs_name": "예상체결등락률상위",
         "tr_code": "opt10029",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10030": {
@@ -4958,7 +4964,7 @@
         "single_outputs_name": "당일거래량상위",
         "tr_code": "opt10030",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10031": {
@@ -5033,7 +5039,7 @@
         "single_outputs_name": "전일거래량상위",
         "tr_code": "opt10031",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10032": {
@@ -5138,7 +5144,7 @@
         "single_outputs_name": "거래대금상위",
         "tr_code": "opt10032",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10033": {
@@ -5249,7 +5255,7 @@
         "single_outputs_name": "신용비율상위",
         "tr_code": "opt10033",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10034": {
@@ -5348,7 +5354,7 @@
         "single_outputs_name": "외인기간별매매상위",
         "tr_code": "opt10034",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10035": {
@@ -5459,7 +5465,7 @@
         "single_outputs_name": "외인연속순매매상위",
         "tr_code": "opt10035",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10036": {
@@ -5558,7 +5564,7 @@
         "single_outputs_name": "외인한도소진율증가상위",
         "tr_code": "opt10036",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10037": {
@@ -5681,7 +5687,7 @@
         "single_outputs_name": "외국계창구매매상위",
         "tr_code": "opt10037",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10038": {
@@ -5781,7 +5787,7 @@
         "single_outputs_name": "종목별증권사순위",
         "tr_code": "opt10038",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10039": {
@@ -5874,7 +5880,7 @@
         "single_outputs_name": "증권사별매매상위",
         "tr_code": "opt10039",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10040": {
@@ -6208,7 +6214,7 @@
         "single_outputs_name": "당일주요거래원싱글",
         "tr_code": "opt10040",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10041": {
@@ -6247,7 +6253,7 @@
         "single_outputs_name": "조기종료통화단위",
         "tr_code": "opt10041",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10042": {
@@ -6322,7 +6328,7 @@
         "single_outputs_name": "순매수거래원순위",
         "tr_code": "opt10042",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10043": {
@@ -6439,7 +6445,7 @@
         "single_outputs_name": "거래원매물대분석",
         "tr_code": "opt10043",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10044": {
@@ -6526,7 +6532,7 @@
         "single_outputs_name": "일별기관매매종목",
         "tr_code": "opt10044",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10045": {
@@ -6662,7 +6668,7 @@
         "single_outputs_name": "기관추정평균가",
         "tr_code": "opt10045",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10046": {
@@ -6767,7 +6773,7 @@
         "single_outputs_name": "체결강도시간별",
         "tr_code": "opt10046",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10047": {
@@ -6872,7 +6878,7 @@
         "single_outputs_name": "체결강도일별",
         "tr_code": "opt10047",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10048": {
@@ -6941,7 +6947,7 @@
         "single_outputs_name": "ELW일별민감도지표",
         "tr_code": "opt10048",
         "tr_name": "STOCKM",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "3"
     },
     "opt10049": {
@@ -7029,7 +7035,7 @@
         "single_outputs_name": "ELW투자지표",
         "tr_code": "opt10049",
         "tr_name": "STOCKM",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "3"
     },
     "opt10050": {
@@ -7110,7 +7116,7 @@
         "single_outputs_name": "ELW민감도지표배열",
         "tr_code": "opt10050",
         "tr_name": "PIHOFNWS",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10051": {
@@ -7263,7 +7269,7 @@
         "single_outputs_name": "업종별순매수",
         "tr_code": "opt10051",
         "tr_name": "STOCKM",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10052": {
@@ -7313,68 +7319,68 @@
             {
                 "fid": 9001,
                 "name": "종목코드",
-                "offset": 100,
+                "offset": 20,
                 "start": 20
             },
             {
                 "fid": 302,
                 "name": "종목명",
-                "offset": 20,
-                "start": 120
+                "offset": 140,
+                "start": 40
             },
             {
                 "fid": 334,
                 "name": "거래원명",
                 "offset": 20,
-                "start": 140
+                "start": 180
             },
             {
                 "fid": 260,
                 "name": "구분",
                 "offset": 20,
-                "start": 160
+                "start": 200
             },
             {
                 "fid": 211,
                 "name": "순간거래량",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 210,
                 "name": "누적순매수",
                 "offset": 20,
-                "start": 200
+                "start": 240
             },
             {
                 "fid": 10,
                 "name": "현재가",
                 "offset": 20,
-                "start": 220
+                "start": 260
             },
             {
                 "fid": 25,
                 "name": "전일대비기호",
                 "offset": 20,
-                "start": 240
+                "start": 280
             },
             {
                 "fid": 11,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 240
+                "start": 300
             },
             {
                 "fid": 12,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 240
+                "start": 320
             }
         ],
         "single_outputs_name": "거래원순간거래량",
         "tr_code": "opt10052",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10053": {
@@ -7443,7 +7449,7 @@
         "single_outputs_name": "당일상위이탈원",
         "tr_code": "opt10053",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10054": {
@@ -7608,7 +7614,7 @@
         "single_outputs_name": "발동종목",
         "tr_code": "opt10054",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10055": {
@@ -7683,7 +7689,7 @@
         "single_outputs_name": "당일전일체결대량",
         "tr_code": "opt10055",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10058": {
@@ -7794,7 +7800,7 @@
         "single_outputs_name": "투자자별일별매매종목",
         "tr_code": "opt10058",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10059": {
@@ -7959,7 +7965,7 @@
         "single_outputs_name": "종목별투자자기관별",
         "tr_code": "opt10059",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10060": {
@@ -8106,7 +8112,7 @@
         "single_outputs_name": "종목별투자자기관별차트",
         "tr_code": "opt10060",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10061": {
@@ -8235,7 +8241,7 @@
         "single_outputs_name": "종목별투자자기관별합계",
         "tr_code": "opt10061",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10062": {
@@ -8382,7 +8388,7 @@
         "single_outputs_name": "동일순매매순위",
         "tr_code": "opt10062",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10063": {
@@ -8391,32 +8397,32 @@
             {
                 "fid": 9008,
                 "name": "시장구분",
-                "offset": 20,
+                "offset": 3,
                 "start": 0
             },
             {
                 "fid": 9036,
                 "name": "금액수량구분",
-                "offset": 20,
-                "start": 20
+                "offset": 1,
+                "start": 3
             },
             {
                 "fid": 9073,
                 "name": "투자자별",
                 "offset": 20,
-                "start": 40
+                "start": 4
             },
             {
-                "fid": 9076,
+                "fid": 9112,
                 "name": "외국계전체",
-                "offset": 20,
-                "start": 60
+                "offset": 1,
+                "start": 24
             },
             {
-                "fid": 9077,
+                "fid": 9177,
                 "name": "동시순매수구분",
-                "offset": 20,
-                "start": 80
+                "offset": 1,
+                "start": 25
             }
         ],
         "multi_outputs": [],
@@ -8424,88 +8430,136 @@
         "name": "장중투자자별매매요청",
         "single_outputs": [
             {
+                "fid": 9001,
+                "name": "종목코드",
+                "offset": 12,
+                "start": 0
+            },
+            {
                 "fid": 302,
                 "name": "종목명",
                 "offset": 100,
-                "start": 20
+                "start": 12
             },
             {
                 "fid": 10,
                 "name": "현재가",
                 "offset": 20,
-                "start": 120
+                "start": 112
             },
             {
                 "fid": 25,
                 "name": "대비기호",
                 "offset": 20,
-                "start": 140
+                "start": 132
             },
             {
                 "fid": 11,
                 "name": "전일대비",
                 "offset": 20,
-                "start": 160
+                "start": 152
             },
             {
                 "fid": 12,
                 "name": "등락율",
                 "offset": 20,
-                "start": 180
+                "start": 172
             },
             {
                 "fid": 13,
                 "name": "누적거래량",
                 "offset": 20,
-                "start": 200
+                "start": 192
+            },
+            {
+                "fid": 212,
+                "name": "순매수금액",
+                "offset": 20,
+                "start": 212
+            },
+            {
+                "fid": 736,
+                "name": "이전순매수금액",
+                "offset": 20,
+                "start": 232
+            },
+            {
+                "fid": 213,
+                "name": "순매수금액증감",
+                "offset": 20,
+                "start": 252
+            },
+            {
+                "fid": 208,
+                "name": "매수금액",
+                "offset": 20,
+                "start": 272
+            },
+            {
+                "fid": 209,
+                "name": "매수금액증감",
+                "offset": 20,
+                "start": 292
+            },
+            {
+                "fid": 204,
+                "name": "매도금액",
+                "offset": 20,
+                "start": 312
+            },
+            {
+                "fid": 205,
+                "name": "매도금액증감",
+                "offset": 20,
+                "start": 332
             },
             {
                 "fid": 210,
                 "name": "순매수수량",
                 "offset": 20,
-                "start": 220
+                "start": 352
             },
             {
                 "fid": 217,
                 "name": "이점시전순매수수량",
                 "offset": 20,
-                "start": 240
+                "start": 372
             },
             {
                 "fid": 218,
                 "name": "순매수증감",
                 "offset": 20,
-                "start": 260
+                "start": 392
             },
             {
                 "fid": 206,
                 "name": "매수수량",
                 "offset": 20,
-                "start": 280
+                "start": 412
             },
             {
                 "fid": 207,
                 "name": "매수수량증감",
                 "offset": 20,
-                "start": 300
+                "start": 432
             },
             {
                 "fid": 202,
                 "name": "매도수량",
                 "offset": 20,
-                "start": 320
+                "start": 452
             },
             {
                 "fid": 203,
                 "name": "매도수량증감",
                 "offset": 20,
-                "start": 340
+                "start": 472
             }
         ],
         "single_outputs_name": "장중투자자별매매",
         "tr_code": "opt10063",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10064": {
@@ -8598,7 +8652,7 @@
         "single_outputs_name": "장중투자자별매매차트",
         "tr_code": "opt10064",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10065": {
@@ -8661,7 +8715,7 @@
         "single_outputs_name": "장중투자자별매매상위",
         "tr_code": "opt10065",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10066": {
@@ -8814,7 +8868,7 @@
         "single_outputs_name": "장중투자자별매매차트",
         "tr_code": "opt10066",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10067": {
@@ -8877,7 +8931,7 @@
         "single_outputs_name": "대차거래내역",
         "tr_code": "opt10067",
         "tr_name": "PIHOFNWS",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10068": {
@@ -8952,7 +9006,7 @@
         "single_outputs_name": "대차거래추이",
         "tr_code": "opt10068",
         "tr_name": "PIHOFNWS",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10069": {
@@ -9070,7 +9124,7 @@
         "single_outputs_name": "대차거래상위10종목합계",
         "tr_code": "opt10069",
         "tr_name": "PIHOFNWS",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10070": {
@@ -9349,7 +9403,7 @@
         "single_outputs_name": "당일주요거래원",
         "tr_code": "opt10070",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10071": {
@@ -9430,7 +9484,7 @@
         "single_outputs_name": "시간대별전일비거래비중",
         "tr_code": "opt10071",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10072": {
@@ -9559,7 +9613,7 @@
         "single_outputs_name": "",
         "tr_code": "opt10072",
         "tr_name": "SRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10073": {
@@ -9682,7 +9736,7 @@
         "single_outputs_name": "",
         "tr_code": "opt10073",
         "tr_name": "SRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10074": {
@@ -9782,7 +9836,7 @@
         "single_outputs_name": "일자별실현손익단일",
         "tr_code": "opt10074",
         "tr_name": "SRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10075": {
@@ -9983,7 +10037,7 @@
         "single_outputs_name": "",
         "tr_code": "opt10075",
         "tr_name": "SRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10076": {
@@ -10130,7 +10184,7 @@
         "single_outputs_name": "",
         "tr_code": "opt10076",
         "tr_name": "SRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10077": {
@@ -10224,7 +10278,7 @@
         "single_outputs_name": "당일실현손익",
         "tr_code": "opt10077",
         "tr_name": "SRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10078": {
@@ -10317,7 +10371,7 @@
         "single_outputs_name": "증권사별종목매매동향",
         "tr_code": "opt10078",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10079": {
@@ -10441,7 +10495,7 @@
         "single_outputs_name": "주식틱차트",
         "tr_code": "opt10079",
         "tr_name": "SCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10080": {
@@ -10559,7 +10613,7 @@
         "single_outputs_name": "주식분차트",
         "tr_code": "opt10080",
         "tr_name": "SCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10081": {
@@ -10689,7 +10743,7 @@
         "single_outputs_name": "주식일봉차트",
         "tr_code": "opt10081",
         "tr_name": "SCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10082": {
@@ -10819,7 +10873,7 @@
         "single_outputs_name": "주식주봉차트",
         "tr_code": "opt10082",
         "tr_name": "SCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10083": {
@@ -10949,7 +11003,7 @@
         "single_outputs_name": "주식월봉차트",
         "tr_code": "opt10083",
         "tr_name": "SCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10084": {
@@ -11054,7 +11108,7 @@
         "single_outputs_name": "당일전일체결",
         "tr_code": "opt10084",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10085": {
@@ -11177,7 +11231,7 @@
         "single_outputs_name": "",
         "tr_code": "opt10085",
         "tr_name": "SRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10086": {
@@ -11348,7 +11402,7 @@
         "single_outputs_name": "일별주가",
         "tr_code": "opt10086",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10087": {
@@ -11645,7 +11699,7 @@
         "single_outputs_name": "시간외단일가",
         "tr_code": "opt10087",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10094": {
@@ -11775,7 +11829,136 @@
         "single_outputs_name": "주식년봉차트",
         "tr_code": "opt10094",
         "tr_name": "SCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
+        "tr_type": "1"
+    },
+    "opt10098": {
+        "gfid": "2032",
+        "inputs": [
+            {
+                "fid": 9008,
+                "name": "시장구분",
+                "offset": 20,
+                "start": 0
+            },
+            {
+                "fid": 9009,
+                "name": "정렬기준",
+                "offset": 20,
+                "start": 20
+            },
+            {
+                "fid": 9060,
+                "name": "종목조건",
+                "offset": 20,
+                "start": 40
+            },
+            {
+                "fid": 9022,
+                "name": "거래량조건",
+                "offset": 20,
+                "start": 60
+            },
+            {
+                "fid": 9062,
+                "name": "신용조건",
+                "offset": 20,
+                "start": 80
+            },
+            {
+                "fid": 9080,
+                "name": "거래대금",
+                "offset": 20,
+                "start": 100
+            }
+        ],
+        "multi_outputs": [],
+        "multi_outputs_name": "",
+        "name": "시간외단일가등락율순위요청",
+        "single_outputs": [
+            {
+                "fid": 401,
+                "name": "순위",
+                "offset": 20,
+                "start": 0
+            },
+            {
+                "fid": 9001,
+                "name": "종목코드",
+                "offset": 20,
+                "start": 20
+            },
+            {
+                "fid": 302,
+                "name": "종목명",
+                "offset": 140,
+                "start": 40
+            },
+            {
+                "fid": 10010,
+                "name": "현재가",
+                "offset": 20,
+                "start": 180
+            },
+            {
+                "fid": 10025,
+                "name": "전일대비기호",
+                "offset": 20,
+                "start": 200
+            },
+            {
+                "fid": 10011,
+                "name": "전일대비",
+                "offset": 20,
+                "start": 220
+            },
+            {
+                "fid": 10012,
+                "name": "등락률",
+                "offset": 20,
+                "start": 240
+            },
+            {
+                "fid": 10121,
+                "name": "매도총잔량",
+                "offset": 20,
+                "start": 260
+            },
+            {
+                "fid": 10125,
+                "name": "매수총잔량",
+                "offset": 20,
+                "start": 280
+            },
+            {
+                "fid": 10013,
+                "name": "누적거래량",
+                "offset": 20,
+                "start": 300
+            },
+            {
+                "fid": 10014,
+                "name": "누적거래대금",
+                "offset": 20,
+                "start": 320
+            },
+            {
+                "fid": 10,
+                "name": "당일종가",
+                "offset": 20,
+                "start": 340
+            },
+            {
+                "fid": 12,
+                "name": "당일종가등락률",
+                "offset": 20,
+                "start": 360
+            }
+        ],
+        "single_outputs_name": "시간외단일가등락율순위",
+        "tr_code": "opt10098",
+        "tr_name": "STOCKG",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10131": {
@@ -11946,7 +12129,7 @@
         "single_outputs_name": "기관외국인연속매매현황",
         "tr_code": "opt10131",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt10170": {
@@ -12094,7 +12277,7 @@
         "single_outputs_name": "당일매매일지단일",
         "tr_code": "opt10170",
         "tr_name": "SRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt20001": {
@@ -12296,7 +12479,7 @@
         "single_outputs_name": "업종현재가",
         "tr_code": "opt20001",
         "tr_name": "UPJONG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt20002": {
@@ -12395,7 +12578,7 @@
         "single_outputs_name": "업종별주가",
         "tr_code": "opt20002",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt20003": {
@@ -12506,7 +12689,7 @@
         "single_outputs_name": "전업종지수",
         "tr_code": "opt20003",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt20004": {
@@ -12600,7 +12783,7 @@
         "single_outputs_name": "업종틱차트",
         "tr_code": "opt20004",
         "tr_name": "UPCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt20005": {
@@ -12694,7 +12877,7 @@
         "single_outputs_name": "업종분봉차트",
         "tr_code": "opt20005",
         "tr_name": "UPCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt20006": {
@@ -12794,7 +12977,7 @@
         "single_outputs_name": "업종일봉차트",
         "tr_code": "opt20006",
         "tr_name": "UPCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt20007": {
@@ -12894,7 +13077,7 @@
         "single_outputs_name": "업종주봉차트",
         "tr_code": "opt20007",
         "tr_name": "UPCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt20008": {
@@ -12994,7 +13177,7 @@
         "single_outputs_name": "업종월봉차트",
         "tr_code": "opt20008",
         "tr_name": "UPCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt20009": {
@@ -13190,7 +13373,7 @@
         "single_outputs_name": "업종현재가일별",
         "tr_code": "opt20009",
         "tr_name": "UPJONG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt20019": {
@@ -13290,7 +13473,7 @@
         "single_outputs_name": "업종년봉차트",
         "tr_code": "opt20019",
         "tr_name": "UPCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt20068": {
@@ -13365,7 +13548,7 @@
         "single_outputs_name": "대차거래추이",
         "tr_code": "opt20068",
         "tr_name": "PIHOFNWS",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30001": {
@@ -13501,7 +13684,7 @@
         "single_outputs_name": "기준가시간",
         "tr_code": "opt30001",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30002": {
@@ -13594,7 +13777,7 @@
         "single_outputs_name": "거래원별ELW순매매상위",
         "tr_code": "opt30002",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30003": {
@@ -13681,7 +13864,7 @@
         "single_outputs_name": "ELWLP보유일별추이",
         "tr_code": "opt30003",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30004": {
@@ -13816,7 +13999,7 @@
         "single_outputs_name": "ELW괴리율",
         "tr_code": "opt30004",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30005": {
@@ -14095,7 +14278,7 @@
         "single_outputs_name": "ELW조건검색",
         "tr_code": "opt30005",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30006": {
@@ -14303,7 +14486,7 @@
         "single_outputs_name": "ELW종목상세1",
         "tr_code": "opt30006",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30007": {
@@ -14540,7 +14723,7 @@
         "single_outputs_name": "ELW종목상세",
         "tr_code": "opt30007",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30008": {
@@ -14609,7 +14792,7 @@
         "single_outputs_name": "ELW민감도지표",
         "tr_code": "opt30008",
         "tr_name": "PIHOFNWS",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30009": {
@@ -14708,7 +14891,7 @@
         "single_outputs_name": "ELW등락율순위",
         "tr_code": "opt30009",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30010": {
@@ -14813,7 +14996,7 @@
         "single_outputs_name": "ELW잔량순위",
         "tr_code": "opt30010",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30011": {
@@ -14882,7 +15065,7 @@
         "single_outputs_name": "ELW근접율",
         "tr_code": "opt30011",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt30012": {
@@ -15293,7 +15476,7 @@
         "single_outputs_name": "ELW종목상세정보",
         "tr_code": "opt30012",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt40001": {
@@ -15350,7 +15533,7 @@
         "single_outputs_name": "ETF수익율",
         "tr_code": "opt40001",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt40002": {
@@ -15401,7 +15584,7 @@
         "single_outputs_name": "ETF종목정보",
         "tr_code": "opt40002",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt40003": {
@@ -15506,7 +15689,7 @@
         "single_outputs_name": "ETF일별추이",
         "tr_code": "opt40003",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt40004": {
@@ -15659,7 +15842,7 @@
         "single_outputs_name": "ETF전체시세",
         "tr_code": "opt40004",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt40005": {
@@ -15764,7 +15947,7 @@
         "single_outputs_name": "ETF일별추이",
         "tr_code": "opt40005",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt40006": {
@@ -15900,7 +16083,7 @@
         "single_outputs_name": "ETF종목정보",
         "tr_code": "opt40006",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt40007": {
@@ -15988,7 +16171,7 @@
         "single_outputs_name": "ETF시간대별체결",
         "tr_code": "opt40007",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt40008": {
@@ -16082,7 +16265,7 @@
         "single_outputs_name": "ETF일자별체결",
         "tr_code": "opt40008",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt40009": {
@@ -16181,7 +16364,7 @@
         "single_outputs_name": "ETFNAV배열",
         "tr_code": "opt40009",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt40010": {
@@ -16232,7 +16415,7 @@
         "single_outputs_name": "ETF시간대별추이",
         "tr_code": "opt40010",
         "tr_name": "STOCK",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50001": {
@@ -16884,7 +17067,7 @@
         "single_outputs_name": "선옵현재가정보",
         "tr_code": "opt50001",
         "tr_name": "FOCODTR",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50002": {
@@ -17026,7 +17209,7 @@
         "single_outputs_name": "선옵종목명",
         "tr_code": "opt50002",
         "tr_name": "FOCODTR",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50003": {
@@ -17167,7 +17350,7 @@
         "single_outputs_name": "선옵시고저가",
         "tr_code": "opt50003",
         "tr_name": "FOCODTR",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50004": {
@@ -17206,7 +17389,7 @@
         "single_outputs_name": "콜옵션행사가",
         "tr_code": "opt50004",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50005": {
@@ -17251,7 +17434,7 @@
         "single_outputs_name": "선옵시간별거래량",
         "tr_code": "opt50005",
         "tr_name": "FOCODTR",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50006": {
@@ -17345,7 +17528,7 @@
         "single_outputs_name": "선옵종목명",
         "tr_code": "opt50006",
         "tr_name": "FOCODTR",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50007": {
@@ -17547,7 +17730,7 @@
         "single_outputs_name": "선물현재가정보",
         "tr_code": "opt50007",
         "tr_name": "FUTURE",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50008": {
@@ -17598,7 +17781,7 @@
         "single_outputs_name": "투자자별매도수금액",
         "tr_code": "opt50008",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50009": {
@@ -17668,7 +17851,7 @@
         "single_outputs_name": "선옵시고저가",
         "tr_code": "opt50009",
         "tr_name": "FUTURE",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50010": {
@@ -17768,11 +17951,11 @@
         "single_outputs_name": "선옵시고저가",
         "tr_code": "opt50010",
         "tr_name": "FUTURE",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50011": {
-        "gfid": "2001",
+        "gfid": "1504",
         "inputs": [
             {
                 "fid": 9001,
@@ -17854,8 +18037,8 @@
         ],
         "single_outputs_name": "선옵호가잔량추이",
         "tr_code": "opt50011",
-        "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name": "FOCODTR",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50012": {
@@ -17894,7 +18077,7 @@
         "single_outputs_name": "선옵타임스프레드차트",
         "tr_code": "opt50012",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50013": {
@@ -17938,8 +18121,8 @@
         ],
         "single_outputs_name": "선물가격대별비중차트",
         "tr_code": "opt50013",
-        "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name": "FUTURE",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50014": {
@@ -18045,7 +18228,7 @@
         "single_outputs_name": "선물현재가정보",
         "tr_code": "opt50014",
         "tr_name": "PIHOFNWS",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50015": {
@@ -18151,7 +18334,7 @@
         "single_outputs_name": "선물현재가정보",
         "tr_code": "opt50015",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50016": {
@@ -18244,8 +18427,8 @@
         ],
         "single_outputs_name": "전일종가",
         "tr_code": "opt50016",
-        "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name": "FUTURE",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50017": {
@@ -18319,8 +18502,8 @@
         ],
         "single_outputs_name": "베이시스추이차트",
         "tr_code": "opt50017",
-        "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name": "FUTURE",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50018": {
@@ -18358,8 +18541,8 @@
         ],
         "single_outputs_name": "풋콜옵션비율차트",
         "tr_code": "opt50018",
-        "tr_name": "OCHART",
-        "tr_names_svr": "",
+        "tr_name": "STOCKG",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50019": {
@@ -18518,7 +18701,7 @@
         "single_outputs_name": "선물옵션현재가정보",
         "tr_code": "opt50019",
         "tr_name": "FOCODTR",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50020": {
@@ -18953,7 +19136,7 @@
         "single_outputs_name": "복수종목결제월별시세",
         "tr_code": "opt50020",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50021": {
@@ -19184,7 +19367,7 @@
         "single_outputs_name": "콜종목결제월별시세",
         "tr_code": "opt50021",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50022": {
@@ -19415,7 +19598,7 @@
         "single_outputs_name": "풋종목결제월별시세",
         "tr_code": "opt50022",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50023": {
@@ -19677,7 +19860,7 @@
         "single_outputs_name": "민감도지표추이단일",
         "tr_code": "opt50023",
         "tr_name": "FUTURE",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50024": {
@@ -19800,7 +19983,7 @@
         "single_outputs_name": "일별변동성분석그래프",
         "tr_code": "opt50024",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50025": {
@@ -19917,7 +20100,7 @@
         "single_outputs_name": "시간별변동성분석그래프",
         "tr_code": "opt50025",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50026": {
@@ -20046,7 +20229,7 @@
         "single_outputs_name": "선옵주문체결",
         "tr_code": "opt50026",
         "tr_name": "FRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50027": {
@@ -20331,7 +20514,7 @@
         "single_outputs_name": "선옵잔고",
         "tr_code": "opt50027",
         "tr_name": "FRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50028": {
@@ -20413,7 +20596,7 @@
         "single_outputs_name": "선물틱차트",
         "tr_code": "opt50028",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50029": {
@@ -20488,7 +20671,7 @@
         "single_outputs_name": "선물옵션분차트",
         "tr_code": "opt50029",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50030": {
@@ -20563,7 +20746,7 @@
         "single_outputs_name": "선물옵션일차트",
         "tr_code": "opt50030",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50031": {
@@ -20662,7 +20845,7 @@
         "single_outputs_name": "선옵잔고손익",
         "tr_code": "opt50031",
         "tr_name": "FRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50032": {
@@ -20743,7 +20926,7 @@
         "single_outputs_name": "선옵당일실현손익",
         "tr_code": "opt50032",
         "tr_name": "FRJANGO",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50033": {
@@ -20860,7 +21043,7 @@
         "single_outputs_name": "선옵잔존일조회",
         "tr_code": "opt50033",
         "tr_name": "FOCODTR",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50034": {
@@ -20899,7 +21082,7 @@
         "single_outputs_name": "선옵전일가격",
         "tr_code": "opt50034",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50035": {
@@ -20992,7 +21175,7 @@
         "single_outputs_name": "지수변동성차트",
         "tr_code": "opt50035",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50036": {
@@ -21049,7 +21232,7 @@
         "single_outputs_name": "주요지수변동성차트",
         "tr_code": "opt50036",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50037": {
@@ -21088,7 +21271,7 @@
         "single_outputs_name": "코스피200지수",
         "tr_code": "opt50037",
         "tr_name": "FUTURE",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50038": {
@@ -21187,67 +21370,67 @@
                 "fid": 326,
                 "name": "ATM구분",
                 "offset": 20,
-                "start": 180
+                "start": 200
             },
             {
                 "fid": 0,
                 "name": "대칭구분",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 9001,
                 "name": "풋_종목코드",
                 "offset": 20,
-                "start": 180
+                "start": 220
             },
             {
                 "fid": 10,
                 "name": "풋_현재가",
                 "offset": 20,
-                "start": 120
+                "start": 240
             },
             {
                 "fid": 11,
-                "name": "풋_대비기호",
+                "name": "풋_전일대비",
                 "offset": 20,
-                "start": 80
+                "start": 260
             },
             {
                 "fid": 25,
-                "name": "풋_전일대비",
+                "name": "풋_대비기호",
                 "offset": 20,
-                "start": 100
+                "start": 280
             },
             {
                 "fid": 195,
                 "name": "풋_미결제약정",
                 "offset": 20,
-                "start": 60
+                "start": 300
             },
             {
                 "fid": 210,
                 "name": "풋_투자자별순매수수량",
                 "offset": 20,
-                "start": 40
+                "start": 320
             },
             {
                 "fid": 931,
                 "name": "풋_매입단가",
                 "offset": 20,
-                "start": 20
+                "start": 340
             },
             {
                 "fid": 13000,
                 "name": "풋_평가손익",
                 "offset": 20,
-                "start": 0
+                "start": 360
             }
         ],
         "single_outputs_name": "투자자별만기손익차트",
         "tr_code": "opt50038",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50039": {
@@ -21526,7 +21709,7 @@
         "single_outputs_name": "투자자별포지션종합",
         "tr_code": "opt50039",
         "tr_name": "PIBOFIDF",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50040": {
@@ -21667,7 +21850,7 @@
         "single_outputs_name": "선옵시고저가",
         "tr_code": "opt50040",
         "tr_name": "FOCODTR",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50043": {
@@ -21736,7 +21919,7 @@
         "single_outputs_name": "주식선물거래량상위종목",
         "tr_code": "opt50043",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50044": {
@@ -21872,7 +22055,7 @@
         "single_outputs_name": "거래량합계",
         "tr_code": "opt50044",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50062": {
@@ -21978,7 +22161,7 @@
         "single_outputs_name": "선물현재가정보",
         "tr_code": "opt50062",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50063": {
@@ -22084,7 +22267,7 @@
         "single_outputs_name": "옵션현재가정보",
         "tr_code": "opt50063",
         "tr_name": "OCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50064": {
@@ -22190,7 +22373,7 @@
         "single_outputs_name": "옵션현재가정보",
         "tr_code": "opt50064",
         "tr_name": "OCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50065": {
@@ -22229,7 +22412,7 @@
         "single_outputs_name": "풋옵션행사가",
         "tr_code": "opt50065",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50066": {
@@ -22311,7 +22494,7 @@
         "single_outputs_name": "옵션틱차트",
         "tr_code": "opt50066",
         "tr_name": "OCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50067": {
@@ -22380,7 +22563,7 @@
         "single_outputs_name": "옵션분차트",
         "tr_code": "opt50067",
         "tr_name": "OCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50068": {
@@ -22449,7 +22632,7 @@
         "single_outputs_name": "옵션일차트",
         "tr_code": "opt50068",
         "tr_name": "OCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50071": {
@@ -22518,7 +22701,7 @@
         "single_outputs_name": "선물주차트",
         "tr_code": "opt50071",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50072": {
@@ -22587,7 +22770,7 @@
         "single_outputs_name": "선물월차트",
         "tr_code": "opt50072",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt50073": {
@@ -22656,7 +22839,7 @@
         "single_outputs_name": "선물년차트",
         "tr_code": "opt50073",
         "tr_name": "FCHART",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90001": {
@@ -22755,7 +22938,7 @@
         "single_outputs_name": "테마그룹별",
         "tr_code": "opt90001",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90002": {
@@ -22867,7 +23050,7 @@
         "single_outputs_name": "테마구성종목단일",
         "tr_code": "opt90002",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90003": {
@@ -22966,7 +23149,7 @@
         "single_outputs_name": "프로그램순매수상위50",
         "tr_code": "opt90003",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90004": {
@@ -23096,7 +23279,7 @@
         "single_outputs_name": "종목별프로그램매매합계",
         "tr_code": "opt90004",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90005": {
@@ -23249,7 +23432,7 @@
         "single_outputs_name": "프로그램매매추이",
         "tr_code": "opt90005",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90006": {
@@ -23312,7 +23495,7 @@
         "single_outputs_name": "프로그램매매차익잔고추이",
         "tr_code": "opt90006",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90007": {
@@ -23399,7 +23582,7 @@
         "single_outputs_name": "프로그램매매누적추이",
         "tr_code": "opt90007",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90008": {
@@ -23540,7 +23723,7 @@
         "single_outputs_name": "종목시간별프로그램매매추이",
         "tr_code": "opt90008",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90009": {
@@ -23693,7 +23876,7 @@
         "single_outputs_name": "외국인기관매매상위",
         "tr_code": "opt90009",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90010": {
@@ -24027,7 +24210,7 @@
         "single_outputs_name": "기준일자",
         "tr_code": "opt90010",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90011": {
@@ -24361,7 +24544,7 @@
         "single_outputs_name": "기준일자",
         "tr_code": "opt90011",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90012": {
@@ -24424,7 +24607,7 @@
         "single_outputs_name": "대차거래내역",
         "tr_code": "opt90012",
         "tr_name": "PIHOFNWS",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt90013": {
@@ -24565,7 +24748,7 @@
         "single_outputs_name": "종목일별프로그램매매추이",
         "tr_code": "opt90013",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opt99999": {
@@ -24646,7 +24829,7 @@
         "single_outputs_name": "대차거래상위10종목합계",
         "tr_code": "opt99999",
         "tr_name": "PIHOFNWS",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "optfofid": {
@@ -24847,7 +25030,7 @@
         "single_outputs_name": "선물전체시세",
         "tr_code": "optfofid",
         "tr_name": "FUTURE",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "optkwfid": {
@@ -25246,7 +25429,7 @@
         "single_outputs_name": "",
         "tr_code": "optkwfid",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "optkwinv": {
@@ -25309,7 +25492,7 @@
         "single_outputs_name": "",
         "tr_code": "optkwinv",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "optkwpro": {
@@ -25444,7 +25627,7 @@
         "single_outputs_name": "",
         "tr_code": "optkwpro",
         "tr_name": "STOCKG",
-        "tr_names_svr": "",
+        "tr_name_svr": "",
         "tr_type": "1"
     },
     "opw00001": {
@@ -25970,7 +26153,7 @@
         "single_outputs_name": "예수금상세현황",
         "tr_code": "opw00001",
         "tr_name": "TTC2512_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00002": {
@@ -26064,7 +26247,7 @@
         "single_outputs_name": "출력건수",
         "tr_code": "opw00002",
         "tr_name": "TME2005_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00003": {
@@ -26103,7 +26286,7 @@
         "single_outputs_name": "추정자산조회",
         "tr_code": "opw00003",
         "tr_name": "TME2001_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00004": {
@@ -26347,7 +26530,7 @@
         "single_outputs_name": "계좌평가현황",
         "tr_code": "opw00004",
         "tr_name": "TME2002_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00005": {
@@ -26645,7 +26828,7 @@
         "single_outputs_name": "체결잔고",
         "tr_code": "opw00005",
         "tr_name": "TDA2601_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00006": {
@@ -26787,7 +26970,7 @@
         "single_outputs_name": "출력건수",
         "tr_code": "opw00006",
         "tr_name": "TDA2902_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00007": {
@@ -26983,7 +27166,7 @@
         "single_outputs_name": "출력건수",
         "tr_code": "opw00007",
         "tr_name": "TDA2931_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00008": {
@@ -27143,7 +27326,7 @@
         "single_outputs_name": "계좌별익일결제예정내역",
         "tr_code": "opw00008",
         "tr_name": "TDA3117_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00009": {
@@ -27363,7 +27546,7 @@
         "single_outputs_name": "계좌별주문체결현황",
         "tr_code": "opw00009",
         "tr_name": "TDA2917_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00010": {
@@ -27600,7 +27783,7 @@
         "single_outputs_name": "주문인출가능금액",
         "tr_code": "opw00010",
         "tr_name": "TDA2808_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00011": {
@@ -27861,7 +28044,7 @@
         "single_outputs_name": "증거금율별주문가능수량조회",
         "tr_code": "opw00011",
         "tr_name": "TDA2806_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00012": {
@@ -28068,7 +28251,7 @@
         "single_outputs_name": "신용보증금율별주문가능수량조회",
         "tr_code": "opw00012",
         "tr_name": "TDA2810_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00013": {
@@ -28383,7 +28566,7 @@
         "single_outputs_name": "증거금세부내역조회",
         "tr_code": "opw00013",
         "tr_name": "TDA2303_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00014": {
@@ -28422,7 +28605,7 @@
         "single_outputs_name": "비밀번호일치여부",
         "tr_code": "opw00014",
         "tr_name": "TCA4551_Q64",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00015": {
@@ -28637,7 +28820,7 @@
             {
                 "fid": -1,
                 "name": "거래수량/좌수",
-                "offset": 15,
+                "offset": 30,
                 "start": 379
             },
             {
@@ -28667,7 +28850,7 @@
             {
                 "fid": -1,
                 "name": "유가금잔",
-                "offset": 15,
+                "offset": 30,
                 "start": 454
             },
             {
@@ -28715,7 +28898,7 @@
             {
                 "fid": -1,
                 "name": "미수(원/주)",
-                "offset": 15,
+                "offset": 30,
                 "start": 665
             },
             {
@@ -28781,7 +28964,7 @@
             {
                 "fid": -1,
                 "name": "변제합(외)",
-                "offset": 15,
+                "offset": 30,
                 "start": 863
             },
             {
@@ -28816,7 +28999,7 @@
         "single_outputs_name": "위탁종합거래내역",
         "tr_code": "opw00015",
         "tr_name": "TTC5020_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00016": {
@@ -29095,7 +29278,7 @@
         "single_outputs_name": "일별계좌수익률상세현황",
         "tr_code": "opw00016",
         "tr_name": "TME3001_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00017": {
@@ -29278,7 +29461,7 @@
         "single_outputs_name": "계좌별당일현황",
         "tr_code": "opw00017",
         "tr_name": "TDA2507_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw00018": {
@@ -29510,7 +29693,7 @@
         "single_outputs_name": "계좌평가결과",
         "tr_code": "opw00018",
         "tr_name": "TDA2602_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw20001": {
@@ -29603,7 +29786,7 @@
         "single_outputs_name": "선옵위탁증거금가계산",
         "tr_code": "opw20001",
         "tr_name": "TDB1005_Q06",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20002": {
@@ -29954,7 +30137,7 @@
         "single_outputs_name": "선옵당일매매변동현황",
         "tr_code": "opw20002",
         "tr_name": "TDB3005_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20003": {
@@ -30019,26 +30202,26 @@
             {
                 "fid": -1,
                 "name": "평균가격",
-                "offset": 9,
+                "offset": 15,
                 "start": 16
             },
             {
                 "fid": -1,
                 "name": "전일종가",
-                "offset": 9,
-                "start": 25
+                "offset": 15,
+                "start": 31
             },
             {
                 "fid": -1,
                 "name": "평가손익",
                 "offset": 15,
-                "start": 34
+                "start": 46
             },
             {
                 "fid": -1,
                 "name": "종목명",
                 "offset": 40,
-                "start": 49
+                "start": 61
             }
         ],
         "multi_outputs_name": "선옵종목별기간손익조회",
@@ -30108,7 +30291,7 @@
         "single_outputs_name": "선옵기간손익조회",
         "tr_code": "opw20003",
         "tr_name": "TDB3010_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20004": {
@@ -30239,38 +30422,38 @@
             {
                 "fid": -1,
                 "name": "주문가격",
-                "offset": 9,
+                "offset": 15,
                 "start": 97
             },
             {
                 "fid": -1,
                 "name": "체결가격",
-                "offset": 9,
-                "start": 106
+                "offset": 15,
+                "start": 112
             },
             {
                 "fid": -1,
                 "name": "체결번호",
                 "offset": 7,
-                "start": 115
+                "start": 127
             },
             {
                 "fid": -1,
                 "name": "약정시간",
                 "offset": 8,
-                "start": 122
+                "start": 134
             },
             {
                 "fid": -1,
                 "name": "접수시간",
                 "offset": 8,
-                "start": 130
+                "start": 142
             },
             {
                 "fid": -1,
                 "name": "매체",
                 "offset": 20,
-                "start": 138
+                "start": 150
             }
         ],
         "multi_outputs_name": "선옵주문체결내역상세",
@@ -30286,7 +30469,7 @@
         "single_outputs_name": "출력건수",
         "tr_code": "opw20004",
         "tr_name": "TDB3040_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20005": {
@@ -30417,38 +30600,38 @@
             {
                 "fid": -1,
                 "name": "주문가격",
-                "offset": 9,
+                "offset": 15,
                 "start": 107
             },
             {
                 "fid": -1,
                 "name": "체결가",
-                "offset": 9,
-                "start": 116
+                "offset": 15,
+                "start": 122
             },
             {
                 "fid": -1,
                 "name": "체결번호",
                 "offset": 7,
-                "start": 125
+                "start": 137
             },
             {
                 "fid": -1,
                 "name": "약정시간",
                 "offset": 8,
-                "start": 132
+                "start": 144
             },
             {
                 "fid": -1,
                 "name": "접수시간",
                 "offset": 8,
-                "start": 140
+                "start": 152
             },
             {
                 "fid": -1,
                 "name": "매체",
                 "offset": 20,
-                "start": 148
+                "start": 160
             }
         ],
         "multi_outputs_name": "선옵주문체결내역상세평균가",
@@ -30464,7 +30647,7 @@
         "single_outputs_name": "출력건수",
         "tr_code": "opw20005",
         "tr_name": "TDB3040_Q02",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20006": {
@@ -30529,38 +30712,38 @@
             {
                 "fid": -1,
                 "name": "매입단가",
-                "offset": 9,
+                "offset": 15,
                 "start": 75
             },
             {
                 "fid": -1,
                 "name": "매매금액",
                 "offset": 15,
-                "start": 84
+                "start": 90
             },
             {
                 "fid": -1,
                 "name": "현재가",
-                "offset": 9,
-                "start": 99
+                "offset": 15,
+                "start": 115
             },
             {
                 "fid": -1,
                 "name": "평가손익",
                 "offset": 15,
-                "start": 108
+                "start": 130
             },
             {
                 "fid": -1,
                 "name": "손익율",
                 "offset": 15,
-                "start": 123
+                "start": 145
             },
             {
                 "fid": -1,
                 "name": "평가금액",
                 "offset": 15,
-                "start": 123
+                "start": 160
             }
         ],
         "multi_outputs_name": "선옵잔고상세현황",
@@ -30660,7 +30843,7 @@
         "single_outputs_name": "선옵잔고상세현황합계",
         "tr_code": "opw20006",
         "tr_name": "TDB3065_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20007": {
@@ -30713,38 +30896,38 @@
             {
                 "fid": -1,
                 "name": "매입단가",
-                "offset": 12,
+                "offset": 15,
                 "start": 45
             },
             {
                 "fid": -1,
                 "name": "현재가",
-                "offset": 12,
-                "start": 57
+                "offset": 15,
+                "start": 60
             },
             {
                 "fid": -1,
                 "name": "평가손익",
                 "offset": 12,
-                "start": 69
+                "start": 75
             },
             {
                 "fid": -1,
                 "name": "청산가능수량",
                 "offset": 12,
-                "start": 81
+                "start": 87
             },
             {
                 "fid": -1,
                 "name": "약정금액",
                 "offset": 15,
-                "start": 93
+                "start": 99
             },
             {
                 "fid": -1,
                 "name": "평가금액",
                 "offset": 15,
-                "start": 108
+                "start": 114
             }
         ],
         "multi_outputs_name": "선옵잔고현황정산가기준",
@@ -30772,7 +30955,7 @@
         "single_outputs_name": "선옵잔고현황정산가기준합계",
         "tr_code": "opw20007",
         "tr_name": "TDB3070_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20008": {
@@ -30967,7 +31150,7 @@
         "single_outputs_name": "계좌별결제예상내역조회",
         "tr_code": "opw20008",
         "tr_name": "TDB3125_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20009": {
@@ -31006,14 +31189,14 @@
             {
                 "fid": -1,
                 "name": "주문가격",
-                "offset": 9,
+                "offset": 15,
                 "start": 84
             },
             {
                 "fid": -1,
                 "name": "비밀번호입력매체구분",
                 "offset": 2,
-                "start": 93
+                "start": 99
             }
         ],
         "multi_outputs": [],
@@ -31076,6 +31259,12 @@
             },
             {
                 "fid": -1,
+                "name": "주문가능총액",
+                "offset": 15,
+                "start": 126
+            },
+            {
+                "fid": -1,
                 "name": "필요증거금총액",
                 "offset": 15,
                 "start": 141
@@ -31126,7 +31315,7 @@
         "single_outputs_name": "선옵계좌별주문가능수량",
         "tr_code": "opw20009",
         "tr_name": "TDB3165_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20010": {
@@ -31333,7 +31522,7 @@
         "single_outputs_name": "선옵예탁금및증거금조회",
         "tr_code": "opw20010",
         "tr_name": "TDB3190_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20011": {
@@ -31769,7 +31958,7 @@
         "single_outputs_name": "출력건수",
         "tr_code": "opw20011",
         "tr_name": "TDB3195_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20012": {
@@ -32072,7 +32261,7 @@
         "single_outputs_name": "선옵증거금상세내역",
         "tr_code": "opw20012",
         "tr_name": "TDB3205_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20013": {
@@ -32099,7 +32288,7 @@
             {
                 "fid": -1,
                 "name": "주문가격",
-                "offset": 9,
+                "offset": 15,
                 "start": 82
             }
         ],
@@ -32147,7 +32336,7 @@
         "single_outputs_name": "계좌미결제청산가능수량조회",
         "tr_code": "opw20013",
         "tr_name": "TDB3210_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20014": {
@@ -32200,26 +32389,26 @@
             {
                 "fid": -1,
                 "name": "현재가",
-                "offset": 9,
+                "offset": 15,
                 "start": 16
             },
             {
                 "fid": -1,
                 "name": "내재변동성",
                 "offset": 10,
-                "start": 25
+                "start": 31
             },
             {
                 "fid": -1,
                 "name": "이론지수",
                 "offset": 15,
-                "start": 35
+                "start": 41
             },
             {
                 "fid": -1,
                 "name": "잔존일수",
                 "offset": 3,
-                "start": 50
+                "start": 56
             }
         ],
         "multi_outputs_name": "선옵내재변동성",
@@ -32415,7 +32604,7 @@
         "single_outputs_name": "선옵실시간증거금산출",
         "tr_code": "opw20014",
         "tr_name": "TDB3215_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20015": {
@@ -32521,7 +32710,7 @@
         "single_outputs_name": "옵션행사가",
         "tr_code": "opw20015",
         "tr_name": "TDB3220_Q01",
-        "tr_names_svr": "WINGSF",
+        "tr_name_svr": "WINGSF",
         "tr_type": "2"
     },
     "opw20016": {
@@ -32609,7 +32798,7 @@
         "single_outputs_name": "신용융자가능여부",
         "tr_code": "opw20016",
         "tr_name": "TTA4016_Q01",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     },
     "opw20017": {
@@ -32636,7 +32825,7 @@
         "single_outputs_name": "신용융자가능여부",
         "tr_code": "opw20017",
         "tr_name": "TTA4016_Q02",
-        "tr_names_svr": "WINGSJ",
+        "tr_name_svr": "WINGSJ",
         "tr_type": "2"
     }
 }

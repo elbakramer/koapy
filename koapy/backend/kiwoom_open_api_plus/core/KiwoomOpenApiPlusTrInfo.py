@@ -65,7 +65,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         tr_code: Optional[str] = None,
         name: Optional[str] = None,
         tr_name: Optional[str] = None,
-        tr_names_svr: Optional[str] = None,
+        tr_name_svr: Optional[str] = None,
         tr_type: Optional[str] = None,
         gfid: Optional[str] = None,
         inputs: Optional[Sequence[Field]] = None,
@@ -77,7 +77,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         self.tr_code = tr_code
         self.name = name
         self.tr_name = tr_name
-        self.tr_names_svr = tr_names_svr
+        self.tr_name_svr = tr_name_svr
         self.tr_type = tr_type
         self.gfid = gfid
         self.inputs = inputs
@@ -92,7 +92,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             self.tr_code,
             self.name,
             self.tr_name,
-            self.tr_names_svr,
+            self.tr_name_svr,
             self.tr_type,
             self.gfid,
             self.inputs,
@@ -108,7 +108,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                 self.tr_code.lower() == other.tr_code.lower()
                 and self.name == other.name
                 and self.tr_name == other.tr_name
-                and self.tr_names_svr == other.tr_names_svr
+                and self.tr_name_svr == other.tr_name_svr
                 and self.tr_type == other.tr_type
                 and self.gfid == other.gfid
                 and self.inputs == other.inputs
@@ -192,7 +192,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             multi_outputs_name = ""
             multi_outputs = []
 
-            tr_names_svr = ""
+            tr_name_svr = ""
             gfid = ""
 
             line = next(lines)
@@ -202,7 +202,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             tr_name = line.split("=", 2)[1]
             line = next(lines)
             if line.startswith("TRNameSVR="):
-                tr_names_svr = line.split("=", 2)[1]
+                tr_name_svr = line.split("=", 2)[1]
                 line = next(lines)
             assert line.startswith("TRType=")
             tr_type = line.split("=", 2)[1]
@@ -260,7 +260,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                 tr_code,
                 tr_name_readable,
                 tr_name,
-                tr_names_svr,
+                tr_name_svr,
                 tr_type,
                 gfid,
                 inputs,
@@ -318,6 +318,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         return results
 
     SINGLE_TO_MULTI_TRCODES = [
+        "opt10007",
         "opt10072",
         "opt10073",
         "opt10075",
