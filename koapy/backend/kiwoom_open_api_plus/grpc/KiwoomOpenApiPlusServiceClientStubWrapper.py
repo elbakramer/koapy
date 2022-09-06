@@ -1232,7 +1232,8 @@ class KiwoomOpenApiPlusServiceClientStubExtendedWrapper(
             "종목코드": code,
         }
         responses = self.TransactionCall(rqname, trcode, scrno, inputs)
-        single, _multi = self._ParseTransactionCallResponses(responses)
+        _single, multi = self._ParseTransactionCallResponses(responses)
+        single = multi.iloc[0]
         return single
 
     def GetRealDataForCodesAsStream(
