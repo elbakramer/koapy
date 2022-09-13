@@ -110,6 +110,6 @@ setup(
     include_package_data=True,
     test_suite="tests",
     url="https://github.com/elbakramer/koapy",
-    version="0.8.4",
+    version="0.9.0",
     zip_safe=False,
 )

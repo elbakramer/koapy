@@ -2,7 +2,7 @@
 
 __author__ = """Yunseong Hwang"""
 __email__ = "kika1492@gmail.com"
-__version__ = "0.8.4"
+__version__ = "0.9.0"
 
 from typing import TYPE_CHECKING
 
