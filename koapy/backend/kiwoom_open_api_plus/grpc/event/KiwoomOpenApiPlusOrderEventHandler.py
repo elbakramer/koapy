@@ -201,7 +201,7 @@ class KiwoomOpenApiPlusOrderEventHandler(
         self.add_callback(self._screen_manager.return_screen, self._scrnno)
         self.add_callback(self.control.DisconnectRealData, self._scrnno)
         KiwoomOpenApiPlusError.try_or_raise(
-            self.control.RateLimitedSendOrder.async_call(
+            self.control.RateLimitedSendOrder.queuedCall(
                 self._rqname,
                 self._scrnno,
                 self._accno,

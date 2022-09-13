@@ -1,63 +1,29 @@
 from __future__ import annotations
 
-from concurrent.futures import Future
 from inspect import Signature
-from typing import Any, Callable, Generic, List, Optional, Sequence, TypeVar
+from typing import Any, Callable, List, Sequence
 
 try:
-    from typing import ParamSpec
+    from typing import ParamSpec, TypeVar
 except ImportError:
     from typing_extensions import ParamSpec
+    from typing import TypeVar
 
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchSignature import (
     KiwoomOpenApiPlusDispatchSignature,
 )
 from koapy.compat.pyside2.QtAxContainer import QAxWidget
-from koapy.compat.pyside2.QtCore import QObject, Qt, Signal
 
 P = ParamSpec("P")
 R = TypeVar("R")
 
 
-class KiwoomOpenApiPlusDynamicCallableRunnable:
-    def __init__(
-        self,
-        future: Future,
-        fn: Callable[..., Any],
-        args: Sequence[Any],
-    ):
-        self._future = future
-        self._fn = fn
-        self._args = args
-
-    def run(self):
-        if not self._future.set_running_or_notify_cancel():
-            return
-        try:
-            result = self._fn(self._args)
-        except BaseException as exc:  # pylint: disable=broad-except
-            self._future.set_exception(exc)
-            # break a reference cycle with the exception 'exc'
-            self = None  # pylint: disable=self-cls-assignment
-        else:
-            self._future.set_result(result)
-
-    def cancel(self):
-        return self._future.cancel()
-
-
-class KiwoomOpenApiPlusDynamicCallable(QObject, Generic[P, R]):
-
-    ready_runnable = Signal(KiwoomOpenApiPlusDynamicCallableRunnable)
-
+class KiwoomOpenApiPlusDynamicCallable(Callable[P, R]):
     def __init__(
         self,
         control: QAxWidget,
         name: str,
-        parent: Optional[QObject] = None,
     ):
-        super().__init__(parent)
-
         self._control = control
         self._name = name
 
@@ -66,8 +32,6 @@ class KiwoomOpenApiPlusDynamicCallable(QObject, Generic[P, R]):
         self._has_return_value = (
             self._signature.return_annotation is not Signature.empty
         )
-
-        self.ready_runnable.connect(self.on_ready_runnable, Qt.QueuedConnection)
 
         self.__name__ = self._name
         self.__signature__ = self._signature
@@ -114,18 +78,6 @@ class KiwoomOpenApiPlusDynamicCallable(QObject, Generic[P, R]):
         args = self.bind_dynamic_call_args(*args, **kwargs)
         result = self.dynamic_call_and_check(args)
         return result
-
-    def async_call(self, *args: P.args, **kwargs: P.kwargs) -> Future:
-        args = self.bind_dynamic_call_args(*args, **kwargs)
-        future = Future()
-        runnable = KiwoomOpenApiPlusDynamicCallableRunnable(
-            future, self.dynamic_call_and_check, args
-        )
-        self.ready_runnable.emit(runnable)
-        return future
-
-    def on_ready_runnable(self, runnable: KiwoomOpenApiPlusDynamicCallableRunnable):
-        runnable.run()
 
     def __call__(self, *args: P.args, **kwargs: P.kwargs) -> R:
         return self.call(*args, **kwargs)

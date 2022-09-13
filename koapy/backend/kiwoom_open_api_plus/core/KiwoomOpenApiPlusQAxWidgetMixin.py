@@ -7,8 +7,6 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any, Callable, Dict, Mapping, Optional, Union, overload
 
-from wrapt import synchronized
-
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusDispatchFunctions import (
     KiwoomOpenApiPlusDispatchFunctions,
 )
@@ -20,12 +18,17 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusRateLimiter import
     KiwoomOpenApiPlusSendConditionRateLimiter,
     KiwoomOpenApiPlusSendOrderRateLimiter,
 )
+from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusTrInfo import (
+    KiwoomOpenApiPlusTrInfo,
+)
 from koapy.backend.kiwoom_open_api_plus.utils.list_conversion import string_to_list
+from koapy.backend.kiwoom_open_api_plus.utils.pyside2.QRateLimitedExecutor import (
+    QRateLimitedExecutor,
+)
 from koapy.config import config
 from koapy.utils.ctypes import is_admin
 from koapy.utils.logging import get_verbosity
 from koapy.utils.logging.Logging import Logging
-from koapy.utils.rate_limiting.pyside2.QRateLimitedExecutor import QRateLimitedExecutor
 from koapy.utils.subprocess import Popen, function_to_subprocess_args
 
 
@@ -474,6 +477,38 @@ class KiwoomOpenApiPlusQAxWidgetUniversalMixin(KiwoomOpenApiPlusDispatchFunction
         autologin_dat = self.GetAutoLoginDatPath()
         if os.path.exists(autologin_dat):
             os.remove(autologin_dat)
+
+    def CommRqDataWithInputs(
+        self,
+        rqname: str,
+        trcode: str,
+        prevnext: int,
+        scrnno: str,
+        inputs: Optional[Dict[str, str]] = None,
+    ) -> int:
+        """
+        CommRqData() 호출 이전에 주어진 입력값들로 SetInputValue() 호출을 통한 입력값 설정을 진행합니다.
+        이후 CommRqData() 를 호출합니다.
+        """
+        # lookup tr_info for the given code
+        tr_info = KiwoomOpenApiPlusTrInfo.of(trcode)
+        # if found,
+        if tr_info:
+            # set in order because input order matters here
+            # will incur OnReceiveMsg('', '', '', 'Fail to parse Request TR') if it goes wrong
+            for tr_input in tr_info.inputs:
+                input_name = tr_input.name
+                input_value = inputs[input_name]
+                self.SetInputValue(input_name, input_value)
+        # if not found but inputs are given,
+        elif inputs:
+            # fallback to default behavior if tr_info is not found
+            for input_name, input_value in inputs.items():
+                self.SetInputValue(input_name, input_value)
+        # ensure prevnext is int
+        prevnext = int(prevnext)
+        code = self.CommRqData(rqname, trcode, prevnext, scrnno)
+        return code
 
     # ======================================================================
 
@@ -1141,7 +1176,7 @@ class KiwoomOpenApiPlusQAxWidgetServerSideMixin(
 
         """
         [OpenAPI 게시판]
-          https://bbn.kiwoom.com/bbn.openAPIQnaBbsList.do
+          https://www.kiwoom.com/h/common/bbs/VBbsBoardBWOAZView
 
         [조회횟수 제한 관련 가이드]
           - 1초당 5회 조회를 1번 발생시킨 경우 : 17초대기
@@ -1175,16 +1210,16 @@ class KiwoomOpenApiPlusQAxWidgetServerSideMixin(
             self._order_rate_limiter, self
         )
 
-        self.RateLimitedCommRqData = self._comm_rate_limited_executor.wrap(
+        self.RateLimitedCommRqData = self._comm_rate_limited_executor.wrapCallable(
             self.CommRqDataWithInputs
         )
-        self.RateLimitedCommKwRqData = self._comm_rate_limited_executor.wrap(
+        self.RateLimitedCommKwRqData = self._comm_rate_limited_executor.wrapCallable(
             self.CommKwRqData
         )
-        self.RateLimitedSendCondition = self._cond_rate_limited_executor.wrap(
+        self.RateLimitedSendCondition = self._cond_rate_limited_executor.wrapCallable(
             self.SendCondition
         )
-        self.RateLimitedSendOrder = self._order_rate_limited_executor.wrap(
+        self.RateLimitedSendOrder = self._order_rate_limited_executor.wrapCallable(
             self.SendOrder
         )
 
@@ -1234,10 +1269,6 @@ class KiwoomOpenApiPlusQAxWidgetServerSideMixin(
         # the original implementation of this function was like the following:
         #   condition_filepath = self.GetConditionFilePath()
         #   return os.path.exists(condition_filepath)
-        # this implementation was based on the description of `GetConditionLoad()` function in the official documentation
-        # which was like, "the temporary condition file would be deleted on after OCX program exits".
-        # but actually it turned out that existence of this file could not guarantee that the condition is actually loaded or not
-        # so here we are using entrypoint-wide member variable to remember once the condition is loaded
         return self._is_condition_loaded
 
     def EnsureConditionLoaded(self, force: bool = False) -> int:
@@ -1255,39 +1286,6 @@ class KiwoomOpenApiPlusQAxWidgetServerSideMixin(
             return_code = 1
         assert return_code == 1, "Could not ensure condition loaded"
         return return_code
-
-    def CommRqDataWithInputs(
-        self,
-        rqname: str,
-        trcode: str,
-        prevnext: Union[str, int],
-        scrnno: str,
-        inputs: Optional[Dict[str, str]] = None,
-    ) -> int:
-        """
-        CommRqData() 호출 이전에 주어진 입력값을로 SetInputValue() 호출을 통한 입력값 설정을 진행합니다.
-        이후 CommRqData() 를 호출합니다.
-        """
-        if inputs:
-            for k, v in inputs.items():
-                self.SetInputValue(k, v)
-        prevnext = int(prevnext)  # ensure prevnext is int
-        code = self.CommRqData(rqname, trcode, prevnext, scrnno)
-        return code
-
-    @synchronized
-    def AtomicCommRqData(
-        self,
-        rqname: str,
-        trcode: str,
-        prevnext: Union[str, int],
-        scrnno: str,
-        inputs: Optional[Dict[str, str]] = None,
-    ) -> int:
-        """
-        SetInputValue() 호출을 통한 입력값 설정 및 CommRqData() 호출을 하나의 단위로 처리할 수 있도록 Lock 을 걸고 처리합니다.
-        """
-        return self.CommRqDataWithInputs(rqname, trcode, prevnext, scrnno, inputs)
 
 
 class KiwoomOpenApiPlusQAxWidgetMixin(

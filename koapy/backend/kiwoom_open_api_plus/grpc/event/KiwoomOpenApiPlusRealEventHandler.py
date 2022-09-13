@@ -66,10 +66,10 @@ class KiwoomOpenApiPlusRealEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
             self.add_callback(self._screen_manager.return_screen, screen_no)
             for code in code_list:
                 self.add_callback(
-                    self.control.SetRealRemove.async_call, screen_no, code
+                    self.control.SetRealRemove.queuedCall, screen_no, code
                 )
             KiwoomOpenApiPlusError.try_or_raise(
-                self.control.SetRealReg.async_call(
+                self.control.SetRealReg.queuedCall(
                     screen_no,
                     code_list_joined,
                     self._fid_list_joined,
@@ -179,7 +179,7 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(
 
             def call():
                 KiwoomOpenApiPlusError.try_or_raise(
-                    self.control.SetRealReg.async_call(
+                    self.control.SetRealReg.queuedCall(
                         screen_no, code, fid_list_joined, opt_type
                     ),
                     except_callback=on_error,
@@ -214,7 +214,7 @@ class KiwoomOpenApiPlusBidirectionalRealEventHandler(
         if code in self._screen_by_code:
             screen_no = self._screen_by_code[code]
             self.logger.debug("Removing code %s from screen %s", code, screen_no)
-            self.control.SetRealRemove.async_call(screen_no, code)
+            self.control.SetRealRemove.queuedCall(screen_no, code)
             self._screen_by_code.pop(code)
             self._code_list_by_screen[screen_no].remove(code)
             self._code_list.remove(code)

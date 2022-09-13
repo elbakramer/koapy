@@ -13,10 +13,14 @@ from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusLoggingEventHandle
     KiwoomOpenApiPlusLoggingEventHandler,
 )
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusQAxWidgetMixin import (
-    KiwoomOpenApiPlusQAxWidgetMixin,
+    KiwoomOpenApiPlusQAxWidgetServerSideMixin,
+    KiwoomOpenApiPlusQAxWidgetUniversalMixin,
 )
 from koapy.backend.kiwoom_open_api_plus.core.KiwoomOpenApiPlusSignalConnector import (
     KiwoomOpenApiPlusSignalConnector,
+)
+from koapy.backend.kiwoom_open_api_plus.utils.pyside2.QSlotLikeExecutor import (
+    QSlotLikeExecutor,
 )
 from koapy.compat.pyside2.QtAxContainer import QAxWidget
 from koapy.compat.pyside2.QtCore import QEvent, Qt
@@ -27,7 +31,8 @@ from koapy.utils.platform import is_32bit
 
 class KiwoomOpenApiPlusQAxWidget(
     QWidgetLogging,
-    KiwoomOpenApiPlusQAxWidgetMixin,
+    KiwoomOpenApiPlusQAxWidgetUniversalMixin,
+    KiwoomOpenApiPlusQAxWidgetServerSideMixin,
 ):
 
     CLSID = "{A1574A0D-6BFA-4BD7-9020-DED88711818D}"
@@ -101,11 +106,13 @@ class KiwoomOpenApiPlusQAxWidget(
                 "Requested control {} could not be instantiated".format(self._control)
             )
 
+        # Initialize slot-like executor (for ensuring thread safety)
+        self._slot_like_executor = QSlotLikeExecutor(self)
+
         # Set methods as attributes
         for method_name in self.METHOD_NAMES:
-            dynamic_callable = KiwoomOpenApiPlusDynamicCallable(
-                self._ax, method_name, parent=self
-            )
+            dynamic_callable = KiwoomOpenApiPlusDynamicCallable(self._ax, method_name)
+            dynamic_callable = self._slot_like_executor.wrapCallable(dynamic_callable)
             setattr(self, method_name, dynamic_callable)
 
         # Set signals as attributes
@@ -115,7 +122,15 @@ class KiwoomOpenApiPlusQAxWidget(
             setattr(self, event_name, signal_connector)
 
         # Call mixin init here, after method attributes are set
-        KiwoomOpenApiPlusQAxWidgetMixin.__init__(self)
+        KiwoomOpenApiPlusQAxWidgetUniversalMixin.__init__(self)
+
+        # Wrap additional mixin functions
+        self.CommRqDataWithInputs = self._slot_like_executor.wrapCallable(
+            self.CommRqDataWithInputs
+        )
+
+        # Call mixin init here, after method attributes are set
+        KiwoomOpenApiPlusQAxWidgetServerSideMixin.__init__(self)
 
         # Enable logging for QAxWidget exceptions
         self._ax.exception.connect(self._onException)  # pylint: disable=no-member

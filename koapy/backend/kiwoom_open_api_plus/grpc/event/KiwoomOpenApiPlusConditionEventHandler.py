@@ -53,7 +53,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
             self._condition_index,
         )
         KiwoomOpenApiPlusError.try_or_raise_boolean(
-            self.control.RateLimitedSendCondition.async_call(
+            self.control.RateLimitedSendCondition.queuedCall(
                 self._screen_no,
                 self._condition_name,
                 self._condition_index,
@@ -90,7 +90,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                 else:
                     codes = string_to_list(codelist, sep=";")
                 KiwoomOpenApiPlusError.try_or_raise(
-                    self.control.RateLimitedCommKwRqData.async_call(
+                    self.control.RateLimitedCommKwRqData.queuedCall(
                         codelist,
                         0,
                         len(codes),
@@ -114,7 +114,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                 try:
                     raise KiwoomOpenApiPlusError("Should not reach here")
                     # pylint: disable=unreachable
-                    self.control.RateLimitedSendCondition.async_call(
+                    self.control.RateLimitedSendCondition.queuedCall(
                         self._screen_no,
                         self._condition_name,
                         self._condition_index,
@@ -144,7 +144,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                 codelist = code
                 codes = [code]
                 KiwoomOpenApiPlusError.try_or_raise(
-                    self.control.RateLimitedCommKwRqData.async_call(
+                    self.control.RateLimitedCommKwRqData.queuedCall(
                         codelist,
                         0,
                         len(codes),
@@ -224,7 +224,7 @@ class KiwoomOpenApiPlusConditionEventHandler(
                     raise KiwoomOpenApiPlusError("Should not reach here")
                     # pylint: disable=unreachable
                     KiwoomOpenApiPlusError.try_or_raise(
-                        self.control.RateLimitedCommKwRqData.async_call(
+                        self.control.RateLimitedCommKwRqData.queuedCall(
                             self._codelist,
                             int(prevnext),
                             len(self._codes),

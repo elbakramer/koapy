@@ -92,7 +92,7 @@ class KiwoomOpenApiPlusKwTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Lo
             self.add_callback(self._screen_manager.return_screen, scrnno)
             self.add_callback(self.control.DisconnectRealData, scrnno)
             KiwoomOpenApiPlusError.try_or_raise(
-                self.control.RateLimitedCommKwRqData.async_call(
+                self.control.RateLimitedCommKwRqData.queuedCall(
                     ";".join(codes),
                     0,
                     len(codes),

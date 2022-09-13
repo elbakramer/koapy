@@ -78,7 +78,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
         self.add_callback(self._screen_manager.return_screen, self._scrnno)
         self.add_callback(self.control.DisconnectRealData, self._scrnno)
         KiwoomOpenApiPlusError.try_or_raise(
-            self.control.RateLimitedCommRqData.async_call(
+            self.control.RateLimitedCommRqData.queuedCall(
                 self._rqname, self._trcode, 0, self._scrnno, self._inputs
             ),
             except_callback=self.observer.on_error,
@@ -148,7 +148,7 @@ class KiwoomOpenApiPlusTrEventHandler(KiwoomOpenApiPlusEventHandlerForGrpc, Logg
                 self.observer.on_completed()
             else:
                 KiwoomOpenApiPlusError.try_or_raise(
-                    self.control.RateLimitedCommRqData.async_call(
+                    self.control.RateLimitedCommRqData.queuedCall(
                         rqname, trcode, int(prevnext), scrnno, self._inputs
                     ),
                     except_callback=self.observer.on_error,

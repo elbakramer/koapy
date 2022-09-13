@@ -2,7 +2,6 @@ import collections
 import threading
 import time
 
-from functools import wraps
 from typing import List
 
 from koapy.utils.logging.Logging import Logging
@@ -19,18 +18,6 @@ class RateLimiter:
         sleep_seconds = self.check_sleep_seconds(*args, **kwargs)
         if sleep_seconds > 0:
             time.sleep(sleep_seconds)
-
-    def wrap(self, func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            self.sleep_if_necessary(func, *args, **kwargs)
-            self.add_call_history(func, *args, **kwargs)
-            return func(*args, **kwargs)
-
-        return wrapper
-
-    def __call__(self, func):
-        return self.wrap(func)
 
 
 class TimeWindowRateLimiter(RateLimiter, Logging):
