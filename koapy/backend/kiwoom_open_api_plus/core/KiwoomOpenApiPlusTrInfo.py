@@ -25,9 +25,6 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     TRINFO_BY_CODE: Dict[str, KiwoomOpenApiPlusTrInfo] = {}
 
     class Field(JsonSerializable):
-
-        __outer_class__ = None
-
         def __init__(
             self,
             name: Optional[str] = None,
@@ -41,8 +38,7 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             self.fid = fid
 
         def __repr__(self):
-            return "{}.{}({!r}, {!r}, {!r}, {!r})".format(
-                self.__outer_class__.__name__,
+            return "{}({!r}, {!r}, {!r}, {!r})".format(
                 self.__class__.__name__,
                 self.name,
                 self.start,
@@ -60,45 +56,87 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                 )
             return False
 
+    class OutputsParams(JsonSerializable):
+        def __init__(
+            self,
+            max_repeat_count: Optional[str] = None,
+            four_if_multi: Optional[str] = None,
+            repeat_count_desc: Optional[str] = None,
+        ):
+            self.max_repeat_count = max_repeat_count
+            self.four_if_multi = four_if_multi
+            self.repeat_count_desc = repeat_count_desc
+
+        def __repr__(self):
+            return "{}({!r}, {!r}, {!r})".format(
+                self.__class__.__name__,
+                self.max_repeat_count,
+                self.four_if_multi,
+                self.repeat_count_desc,
+            )
+
+        def __eq__(self, other):
+            if isinstance(other, type(self)):
+                return (
+                    self.max_repeat_count == other.max_repeat_count
+                    and self.four_if_multi == other.four_if_multi
+                    and self.repeat_count_desc == other.repeat_count_desc
+                )
+            return False
+
     def __init__(
         self,
         tr_code: Optional[str] = None,
-        name: Optional[str] = None,
         tr_name: Optional[str] = None,
         tr_name_svr: Optional[str] = None,
         tr_type: Optional[str] = None,
         gfid: Optional[str] = None,
+        inputs_name: Optional[str] = None,
         inputs: Optional[Sequence[Field]] = None,
         single_outputs_name: Optional[str] = None,
+        single_outputs_params: Optional[OutputsParams] = None,
         single_outputs: Optional[Sequence[Field]] = None,
         multi_outputs_name: Optional[str] = None,
+        multi_outputs_params: Optional[OutputsParams] = None,
         multi_outputs: Optional[Sequence[Field]] = None,
     ):
         self.tr_code = tr_code
-        self.name = name
         self.tr_name = tr_name
         self.tr_name_svr = tr_name_svr
         self.tr_type = tr_type
         self.gfid = gfid
+        self.inputs_name = inputs_name
         self.inputs = inputs
         self.single_outputs_name = single_outputs_name
+        self.single_outputs_params = single_outputs_params
         self.single_outputs = single_outputs
         self.multi_outputs_name = multi_outputs_name
+        self.multi_outputs_params = multi_outputs_params
         self.multi_outputs = multi_outputs
 
+    @property
+    def name(self):
+        return self.inputs_name
+
+    @property
+    def code(self):
+        return self.tr_code
+
     def __repr__(self):
-        return "{}({!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r})".format(
+        return "{}({!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r}, {!r})".format(
             self.__class__.__name__,
             self.tr_code,
-            self.name,
             self.tr_name,
             self.tr_name_svr,
             self.tr_type,
             self.gfid,
+            self.inputs_name,
             self.inputs,
             self.single_outputs_name,
+            self.single_outputs_params,
             self.single_outputs,
             self.multi_outputs_name,
+            self.multi_outputs_params,
             self.multi_outputs,
         )
 
@@ -106,24 +144,31 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
         if isinstance(other, type(self)):
             return (
                 self.tr_code.lower() == other.tr_code.lower()
-                and self.name == other.name
                 and self.tr_name == other.tr_name
                 and self.tr_name_svr == other.tr_name_svr
                 and self.tr_type == other.tr_type
                 and self.gfid == other.gfid
+                and self.inputs_name == other.inputs_name
                 and self.inputs == other.inputs
                 and self.single_outputs_name == other.single_outputs_name
+                and self.single_outputs_params == other.single_outputs_params
                 and self.single_outputs == other.single_outputs
                 and self.multi_outputs_name == other.multi_outputs_name
+                and self.multi_outputs_params == other.multi_outputs_params
                 and self.multi_outputs == other.multi_outputs
             )
         return False
 
     def to_dict(self) -> Dict[str, Any]:
         dic = dict(self.__dict__)
-        for attr in dic:
-            if isinstance(dic[attr], list):
-                dic[attr] = [field.to_dict() for field in dic[attr]]
+        for attr, value in dic.items():
+            if isinstance(value, list):
+                dic[attr] = [
+                    field.to_dict() if isinstance(field, JsonSerializable) else field
+                    for field in value
+                ]
+            elif isinstance(value, JsonSerializable):
+                dic[attr] = value.to_dict()
         return dic
 
     @classmethod
@@ -134,6 +179,9 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             if isinstance(value, list):
                 fields = [cls.Field.from_dict(d) for d in value]
                 setattr(output, name, fields)
+            elif isinstance(value, dict):
+                outputs_params = cls.OutputsParams(**value)
+                setattr(output, name, outputs_params)
             else:
                 setattr(output, name, value)
         return output
@@ -158,6 +206,10 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
     @classmethod
     def get_trinfo_by_code(cls, trcode: str) -> Optional[KiwoomOpenApiPlusTrInfo]:
         return cls.TRINFO_BY_CODE.get(trcode.lower())
+
+    @classmethod
+    def of(cls, trcode: str) -> Optional[KiwoomOpenApiPlusTrInfo]:
+        return cls.get_trinfo_by_code(trcode)
 
     @classmethod
     def from_code(cls, trcode: str) -> Optional[KiwoomOpenApiPlusTrInfo]:
@@ -187,56 +239,67 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             lines = map(lambda line: line.rstrip("\n"), lines)
             lines = filter(lambda line: len(line.strip()) > 0, lines)
 
-            single_outputs_name = ""
-            single_outputs = []
-            multi_outputs_name = ""
-            multi_outputs = []
-
-            tr_name_svr = ""
-            gfid = ""
-
             line = next(lines)
             assert line == "[TRINFO]"
             line = next(lines)
             assert line.startswith("TRName=")
-            tr_name = line.split("=", 2)[1]
+            tr_name = line.split("=", 1)[1]
             line = next(lines)
+            tr_name_svr = ""
             if line.startswith("TRNameSVR="):
-                tr_name_svr = line.split("=", 2)[1]
+                tr_name_svr = line.split("=", 1)[1]
                 line = next(lines)
             assert line.startswith("TRType=")
-            tr_type = line.split("=", 2)[1]
+            tr_type = line.split("=", 1)[1]
             line = next(lines)
+            gfid = ""
             if line.startswith("GFID="):
-                gfid = line.split("=", 2)[1]
+                gfid = line.split("=", 1)[1]
                 line = next(lines)
             assert line == "[INPUT]"
             line = next(lines)
             assert line.startswith("@START_")
-            tr_name_readable = line.split("_", 2)[1].split("=", 2)[0]
+            inputs_name = line.split("_", 1)[1].split("=", 1)[0]
             line = next(lines)
             inputs = []
             while not line.startswith("@END_"):
                 input_name, triple = [
-                    item.strip() for item in line.strip().split("=", 2)
+                    item.strip() for item in line.strip().split("=", 1)
                 ]
                 triple = [item.strip() for item in triple.split(",")]
                 start, offset, fid = [int(item) for item in triple]
                 inputs.append(cls.Field(input_name, start, offset, fid))
                 line = next(lines)
             line = next(lines)
+            single_outputs_name = ""
+            single_outputs_params = cls.OutputsParams()
+            single_outputs = []
+            multi_outputs_name = ""
+            multi_outputs_params = cls.OutputsParams()
+            multi_outputs = []
             assert line == "[OUTPUT]"
             line = next(lines)
             assert line.startswith("@START_")
-            single_outputs_name = line.split("_", 2)[1].split("=", 2)[0]
+            outputs_name, outputs_params = line.split("_", 1)[1].split("=", 1)
+            outputs_params = outputs_params.split(",")
+            outputs_params = tuple(outputs_params)
+            outputs = []
+            if outputs_params == ("*", "*", "*"):
+                single_outputs_name = outputs_name
+                single_outputs_params = cls.OutputsParams(*outputs_params)
+                single_outputs = outputs
+            else:
+                multi_outputs_name = outputs_name
+                multi_outputs_params = cls.OutputsParams(*outputs_params)
+                multi_outputs = outputs
             line = next(lines)
             while not line.startswith("@END_"):
                 output_name, triple = [
-                    item.strip() for item in line.strip().split("=", 2)
+                    item.strip() for item in line.strip().split("=", 1)
                 ]
                 triple = [item.strip() for item in triple.split(",")]
                 start, offset, fid = [int(item) if item else 0 for item in triple]
-                single_outputs.append(cls.Field(output_name, start, offset, fid))
+                outputs.append(cls.Field(output_name, start, offset, fid))
                 line = next(lines)
             try:
                 line = next(lines)
@@ -244,29 +307,42 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                 pass
             else:
                 if line.startswith("@START_"):
-                    multi_outputs_name = line.split("_", 2)[1].split("=", 2)[0]
+                    outputs_name, outputs_params = line.split("_", 1)[1].split("=", 1)
+                    outputs_params = outputs_params.split(",")
+                    outputs_params = tuple(outputs_params)
+                    outputs = []
+                    if outputs_params == ("*", "*", "*"):
+                        single_outputs_name = outputs_name
+                        single_outputs_params = cls.OutputsParams(*outputs_params)
+                        single_outputs = outputs
+                    else:
+                        multi_outputs_name = outputs_name
+                        multi_outputs_params = cls.OutputsParams(*outputs_params)
+                        multi_outputs = outputs
                     line = next(lines)
                     while not line.startswith("@END_"):
                         output_name, triple = [
-                            item.strip() for item in line.strip().split("=", 2)
+                            item.strip() for item in line.strip().split("=", 1)
                         ]
                         triple = [item.strip() for item in triple.split(",")]
                         start, offset, fid = [
                             int(item) if item else 0 for item in triple
                         ]
-                        multi_outputs.append(cls.Field(output_name, start, offset, fid))
+                        outputs.append(cls.Field(output_name, start, offset, fid))
                         line = next(lines)
             return cls(
                 tr_code,
-                tr_name_readable,
                 tr_name,
                 tr_name_svr,
                 tr_type,
                 gfid,
+                inputs_name,
                 inputs,
                 single_outputs_name,
+                single_outputs_params,
                 single_outputs,
                 multi_outputs_name,
+                multi_outputs_params,
                 multi_outputs,
             )
 
@@ -317,42 +393,12 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
                             results.append(cls.from_encfile(f, tr_code))
         return results
 
-    SINGLE_TO_MULTI_TRCODES = [
-        "opt10007",
-        "opt10072",
-        "opt10073",
-        "opt10075",
-        "opt10076",
-        "opt10085",
-        "optkwfid",
-        "optkwinv",
-        "optkwpro",
-    ]
-
-    @classmethod
-    def swap_output_types(
-        cls, item: KiwoomOpenApiPlusTrInfo
-    ) -> KiwoomOpenApiPlusTrInfo:
-        multi_outputs_name = item.multi_outputs_name
-        multi_outputs = item.multi_outputs
-        item.multi_outputs_name = item.single_outputs_name
-        item.multi_outputs = item.single_outputs
-        item.single_outputs_name = multi_outputs_name
-        item.single_outputs = multi_outputs
-        return item
-
     @classmethod
     def trinfo_by_code_from_data_dir(
-        cls, data_dir: Optional[Union[str, PathLike]] = None, post_process: bool = True
+        cls, data_dir: Optional[Union[str, PathLike]] = None
     ) -> Dict[str, KiwoomOpenApiPlusTrInfo]:
         infos = cls.infos_from_data_dir(data_dir)
         result = {info.tr_code: info for info in infos}
-        if post_process:
-            for tr_code in result:
-                if tr_code in cls.SINGLE_TO_MULTI_TRCODES:
-                    item = result[tr_code]
-                    item = cls.swap_output_types(item)
-                    result[tr_code] = item
         return result
 
     @classmethod
@@ -431,7 +477,6 @@ class KiwoomOpenApiPlusTrInfo(JsonSerializable, Logging):
             cls.load_from_dump_file()
 
 
-KiwoomOpenApiPlusTrInfo.Field.__outer_class__ = KiwoomOpenApiPlusTrInfo
 KiwoomOpenApiPlusTrInfo.load()
 
 
