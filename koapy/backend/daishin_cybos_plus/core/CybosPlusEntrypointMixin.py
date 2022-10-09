@@ -7,6 +7,7 @@ import pandas as pd
 
 from koapy.backend.daishin_cybos_plus.core.CybosPlusTypeLibSpec import INSTALLATION_PATH
 from koapy.backend.daishin_cybos_plus.stub import CpSysDib, CpUtil, DsCbo1
+from koapy.config import get_32bit_executable
 from koapy.utils.ctypes import is_admin
 from koapy.utils.itertools import chunk
 from koapy.utils.logging.Logging import Logging
@@ -234,9 +235,13 @@ class CybosPlusEntrypointMixin(Logging):
             credentials = json.load(sys.stdin)
             CybosPlusEntrypoint.ConnectUsingPywinauto_Impl(credentials)
 
-        args = function_to_subprocess_args(main)
+        executable = get_32bit_executable()
+        args = function_to_subprocess_args(main, executable=executable)
         return subprocess.run(
-            args, input=json.dumps(credentials), text=True, check=True
+            args,
+            input=json.dumps(credentials),
+            text=True,
+            check=True,
         )
 
     def ConnectUsingPywinauto(self, credentials=None):

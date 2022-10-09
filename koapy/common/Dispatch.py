@@ -1,5 +1,6 @@
 import types
 
+from threading import RLock
 from typing import Union
 
 from pythoncom import ProgIDFromCLSID
@@ -11,7 +12,7 @@ from win32com.client.gencache import EnsureDispatch
 from koapy.common.EventInstance import EventInstance
 
 
-class Dispatch:
+class DispatchInstance:
     def __init__(self, clsid: Union[IID, str]):
         if isinstance(clsid, str):
             clsid = IID(clsid)
@@ -89,3 +90,28 @@ class Dispatch:
         class_name = self.__class__.__name__
         progid = ProgIDFromCLSID(self._clsid)
         return f"{class_name}({progid!r})"
+
+
+class DispatchMeta(type):
+    def __new__(cls, name, bases, namespace):
+        return super().__new__(cls, name, bases, namespace)
+
+    def __init__(cls, name, bases, namespace):
+        super().__init__(name, bases, namespace)
+
+        cls.INSTANCES = {}
+        cls.LOCK = RLock()
+
+    def __call__(cls, clsid: Union[IID, str]):
+        if isinstance(clsid, str):
+            clsid = IID(clsid)
+        if clsid not in cls.INSTANCES:
+            with cls.LOCK:
+                if clsid not in cls.INSTANCES:
+                    cls.INSTANCES[clsid] = super().__call__(clsid)
+        instance = cls.INSTANCES[clsid]
+        return instance
+
+
+class Dispatch(DispatchInstance, metaclass=DispatchMeta):
+    pass

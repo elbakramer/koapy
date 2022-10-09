@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+service DispatchProxyService {
+    rpc GetDispatch(GetDispatchRequest) returns (GetDispatchResponse) {};
+    rpc GetAttr(GetAttrRequest) returns (GetAttrResponse) {};
+    rpc SetAttr(SetAttrRequest) returns (SetAttrResponse) {};
+    rpc CallMethod(CallMethodRequest) returns (CallMethodResponse) {};
+    rpc ConnectEvent(stream ConnectEventRequest) returns (stream ConnectEventResponse) {};
+}
+
+message GetDispatchRequest {
+    string iid = 1;
+}
+
+message GetDispatchResponse {
+    string iid = 1;
+}
+
+message Value {
+    oneof value {
+        string string_value = 1;
+        int32 short_value = 2;
+        int32 int_value = 3;
+        int64 long_value = 4;
+        bool bool_value = 5;
+        double double_value = 6;
+        ValueArray list_value = 7;
+        ValueArray tuple_value = 8;
+    }
+}
+
+message ValueArray {
+    repeated Value values = 1;
+}
+
+message GetAttrRequest {
+    string iid = 1;
+    string name = 2;
+}
+
+message GetAttrResponse {
+    Value value = 1;
+}
+
+message SetAttrRequest {
+    string iid = 1;
+    string name = 2;
+    Value value = 3;
+}
+
+message SetAttrResponse {
+}
+
+message Argument {
+    Value value = 1;
+}
+
+message CallMethodRequest {
+    string iid = 1;
+    string name = 2;
+    repeated Argument arguments = 3;
+}
+
+message CallMethodResponse {
+    Value return_value = 1;
+}
+
+message ConnectEventEstablishRequest {
+    string iid = 1;
+    string name = 2;
+}
+
+message ConnectEventAckRequest {
+}
+
+message ConnectEventRequest {
+    oneof request {
+        ConnectEventEstablishRequest establish_request = 1;
+        ConnectEventAckRequest ack_request = 2;
+    }
+}
+
+message ConnectEventResponse {
+    string iid = 1;
+    string name = 2;
+    repeated Argument arguments = 3;
+}

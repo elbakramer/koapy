@@ -2,13 +2,15 @@ from concurrent.futures import ThreadPoolExecutor
 
 import grpc
 
-from koapy.backend.daishin_cybos_plus.proxy import CybosPlusProxyService_pb2_grpc
-from koapy.backend.daishin_cybos_plus.proxy.CybosPlusProxyServiceServicer import (
-    CybosPlusProxyServiceServicer,
+from pythoncom import CoInitialize
+
+from koapy.backend.daishin_cybos_plus.proxy.CybosPlusDispatchProxyServiceServicer import (
+    CybosPlusDispatchProxyServiceServicer,
 )
+from koapy.common import DispatchProxyService_pb2_grpc
 
 
-class CybosPlusProxyService:
+class CybosPlusDispatchProxyService:
     def __init__(self, host=None, port=None, max_workers=None):
         if host is None:
             host = "localhost"
@@ -23,11 +25,14 @@ class CybosPlusProxyService:
         self._max_workers = max_workers
 
         self._address = self._host + ":" + str(self._port)
-        self._servicer = CybosPlusProxyServiceServicer()
-        self._executor = ThreadPoolExecutor(max_workers=self._max_workers)
+        self._servicer = CybosPlusDispatchProxyServiceServicer()
+        self._executor = ThreadPoolExecutor(
+            max_workers=self._max_workers,
+            initializer=CoInitialize,
+        )
 
         self._server = grpc.server(self._executor)
-        CybosPlusProxyService_pb2_grpc.add_CybosPlusProxyServiceServicer_to_server(
+        DispatchProxyService_pb2_grpc.add_DispatchProxyServiceServicer_to_server(
             self._servicer, self._server
         )
         self._server.add_insecure_port(self._address)
@@ -37,7 +42,7 @@ class CybosPlusProxyService:
 
 
 def main():
-    service = CybosPlusProxyService()
+    service = CybosPlusDispatchProxyService()
     service.start()
     service.wait_for_termination()
 
