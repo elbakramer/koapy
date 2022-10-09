@@ -20,6 +20,7 @@ from koapy.backend.daishin_cybos_plus.stub import (
 from koapy.common import DispatchProxyService_pb2, DispatchProxyService_pb2_grpc
 from koapy.common.DispatchProxyServiceMessageUtils import AssignValue, ExtractValue
 from koapy.common.EventInstance import EventInstance
+from koapy.utils.logging.Logging import Logging
 
 P = ParamSpec("P")
 
@@ -52,12 +53,14 @@ class CybosPlusDispatchProxyEventInstance(EventInstance[P]):
         super().__init__()
         self._proxy = proxy
         self._name = name
+
         self._future = None
 
     def connect(self, slot: Callable[P, Any]):
         with self._lock:
             if slot not in self._slots:
                 self._slots.append(slot)
+
             if len(self._slots) > 0 and self._future is None:
                 self._future, _ = self._proxy._ConnectEvent(self._name)
 
@@ -65,7 +68,7 @@ class CybosPlusDispatchProxyEventInstance(EventInstance[P]):
         super().disconnect(slot)
 
 
-class CybosPlusDispatchProxy:
+class CybosPlusDispatchProxy(Logging):
     def __init__(
         self,
         iid: str,
@@ -118,11 +121,12 @@ class CybosPlusDispatchProxy:
         request.name = name
         should_stop = False
         while not should_stop:
-            response_future = self._stub.GetAttr.future(request, timeout=self._timeout)
             try:
-                response = response_future.result()
-            except grpc.RpcError:
-                if response_future.code() == grpc.StatusCode.DEADLINE_EXCEEDED:
+                response = self._stub.GetAttr(request, timeout=self._timeout)
+            except grpc.RpcError as error:
+                # error = typing.cast(grpc.Call, error)
+                # pylint: disable=no-member
+                if error.code() == grpc.StatusCode.DEADLINE_EXCEEDED:
                     self.logger.warning(
                         "getattr(self, %r) timed out, retrying...", name
                     )
@@ -140,11 +144,12 @@ class CybosPlusDispatchProxy:
         request.value = value
         should_stop = False
         while not should_stop:
-            response_future = self._stub.SetAttr.future(request, timeout=self._timeout)
             try:
-                _response = response_future.result()
-            except grpc.RpcError:
-                if response_future.code() == grpc.StatusCode.DEADLINE_EXCEEDED:
+                response = self._stub.SetAttr(request, timeout=self._timeout)
+            except grpc.RpcError as error:
+                # error = typing.cast(grpc.Call, error)
+                # pylint: disable=no-member
+                if error.code() == grpc.StatusCode.DEADLINE_EXCEEDED:
                     self.logger.warning(
                         "setattr(self, %r, %r) timed out, retrying...", name, value
                     )
@@ -152,6 +157,7 @@ class CybosPlusDispatchProxy:
                     raise
             else:
                 should_stop = True
+        return response and None
 
     def _CallMethod(self, name, args):
         request = DispatchProxyService_pb2.CallMethodRequest()
@@ -161,13 +167,12 @@ class CybosPlusDispatchProxy:
             AssignValue(request.arguments.add().value, arg)
         should_stop = False
         while not should_stop:
-            response_future = self._stub.CallMethod.future(
-                request, timeout=self._timeout
-            )
             try:
-                response = response_future.result()
-            except grpc.RpcError:
-                if response_future.code() == grpc.StatusCode.DEADLINE_EXCEEDED:
+                response = self._stub.CallMethod(request, timeout=self._timeout)
+            except grpc.RpcError as error:
+                # error = typing.cast(grpc.Call, error)
+                # pylint: disable=no-member
+                if error.code() == grpc.StatusCode.DEADLINE_EXCEEDED:
                     self.logger.warning(
                         "Method call %s(%s) timed out, retrying...",
                         name,
