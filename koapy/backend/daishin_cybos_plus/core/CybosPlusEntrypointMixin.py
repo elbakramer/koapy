@@ -1,16 +1,13 @@
 import datetime
-import json
 import logging
-import math
 import subprocess
+import time
 
 import pandas as pd
-import pytz
 
-from exchange_calendars import get_calendar
-
+from koapy.backend.daishin_cybos_plus.core.CybosPlusTypeLibSpec import INSTALLATION_PATH
+from koapy.backend.daishin_cybos_plus.stub import CpSysDib, CpUtil, DsCbo1
 from koapy.utils.ctypes import is_admin
-from koapy.utils.exchange_calendars import get_last_session_date
 from koapy.utils.itertools import chunk
 from koapy.utils.logging.Logging import Logging
 from koapy.utils.subprocess import function_to_subprocess_args
@@ -18,11 +15,13 @@ from koapy.utils.subprocess import function_to_subprocess_args
 
 class CybosPlusEntrypointMixin(Logging):
     def GetConnectState(self):
-        return self.CpUtil.CpCybos.IsConnect
+        cybos: CpUtil.CpCybos = self["CpUtil.CpCybos"]
+        return cybos.IsConnect
 
     @classmethod
     def ConnectUsingPywinauto_Impl(cls, credentials=None):
         """
+        아래 구현을 참고해 작성함
         https://github.com/ippoeyeslhw/cppy/blob/master/cp_luncher.py
         """
 
@@ -46,44 +45,70 @@ class CybosPlusEntrypointMixin(Logging):
         account_passwords = credentials.get("account_passwords")
 
         cls.logger.info("Starting CYBOS Starter application")
-        pywinauto.Application().start(r"C:\DAISHIN\STARTER\ncStarter.exe /prj:cp")
+
+        app = pywinauto.Application(allow_magic_lookup=False)
         desktop = pywinauto.Desktop(allow_magic_lookup=False)
 
-        try:
-            cls.logger.info(
-                "Waiting for possible popup which asks for shutting down existing program"
-            )
-            ask_stop = desktop.window(title="ncStarter")
-            ask_stop.wait("ready", timeout=10)
-        except pywinauto.timings.TimeoutError:
-            cls.logger.info("No existing program found to be shutdown")
-        else:
-            cls.logger.info("Existing program found, shutting down")
-            if is_in_development:
-                ask_stop.print_control_identifiers()
-            if ask_stop["Static2"].window_text().endswith("종료하시겠습니까?"):
-                ask_stop["Button1"].click()
-                try:
-                    cls.logger.info("Wating for possible failure message on shutdown")
-                    ask_stop = desktop.window(title="ncStarter")
-                    ask_stop.wait("ready", timeout=10)
-                except pywinauto.timings.TimeoutError:
-                    cls.logger.info("Successfully shutdown existing program")
-                else:
-                    cls.logger.error("Failed to shutdown existing program")
-                    if is_in_development:
-                        ask_stop.print_control_identifiers()
-                    if ask_stop["Static2"].window_text().endswith("종료할 수 없습니다."):
-                        ask_stop["Button"].click()
-                        raise RuntimeError("Cannot stop existing program")
+        starter_path = INSTALLATION_PATH / "STARTER" / "ncStarter.exe"
+        starter_command = f"{starter_path} /prj:cp"
 
+        app.start(starter_command)
+
+        from koapy.utils.pywinauto import wait_any
+
+        ask_stop = desktop.window(title="ncStarter")
+        starter = desktop.window(title="CYBOS Starter")
+
+        def wait_ask_stop_ready():
+            ask_stop.wait("ready", timeout=1)
+            return 0
+
+        def wait_starter_ready():
+            starter.wait("ready", timeout=1)
+            return 1
+
+        cls.logger.info("Waiting for CYBOS Starter login screen")
         try:
-            cls.logger.info("Waiting for CYBOS Starter login screen")
-            starter = desktop.window(title="CYBOS Starter")
-            starter.wait("ready", timeout=30)
+            index = wait_any(
+                [
+                    wait_ask_stop_ready,
+                    wait_starter_ready,
+                ],
+                timeout=30,
+            )
         except pywinauto.timings.TimeoutError:
             cls.logger.exception("Failed to find login screen")
             raise
+        else:
+            if index == 0:
+                cls.logger.info("Existing program found, shutting down")
+                if is_in_development:
+                    ask_stop.print_control_identifiers()
+                if ask_stop["Static2"].window_text().endswith("종료하시겠습니까?"):
+                    ask_stop["Button1"].click()
+                    try:
+                        cls.logger.info(
+                            "Wating for possible failure message on shutdown"
+                        )
+                        ask_stop.wait_not("ready", timeout=10)
+                    except pywinauto.timings.TimeoutError as err:
+                        cls.logger.error("Failed to shutdown existing program")
+                        if is_in_development:
+                            ask_stop.print_control_identifiers()
+                        if ask_stop["Static2"].window_text().endswith("종료할 수 없습니다."):
+                            ask_stop["Button"].click()
+                            raise RuntimeError("Cannot stop existing program") from err
+                    else:
+                        cls.logger.info("Successfully shutdown existing program")
+                        try:
+                            starter.wait("ready", timeout=30)
+                        except pywinauto.timings.TimeoutError:
+                            cls.logger.exception("Failed to find login screen")
+                            raise
+                        else:
+                            cls.logger.info("CYBOS Starter login screen found")
+            elif index == 1:
+                cls.logger.info("CYBOS Starter login screen found")
 
         if is_in_development:
             starter.print_control_identifiers()
@@ -196,6 +221,8 @@ class CybosPlusEntrypointMixin(Logging):
 
     @classmethod
     def ConnectUsingPywinauto_RunScriptInSubprocess(cls, credentials=None):
+        import json
+
         def main():
             import json
             import sys
@@ -246,7 +273,8 @@ class CybosPlusEntrypointMixin(Logging):
         3: 프리보드
         4: KRX
         """
-        codes = self.CpUtil.CpCodeMgr.GetStockListByMarket(market)
+        codemgr: CpUtil.CpCodeMgr = self["CpUtil.CpCodeMgr"]
+        codes = codemgr.GetStockListByMarket(market)
         codes = list(codes)
         return codes
 
@@ -269,7 +297,7 @@ class CybosPlusEntrypointMixin(Logging):
     ):
 
         codes = self.GetCodeListByMarketAsList(1)
-        codemgr = self.CpUtil.CpCodeMgr
+        codemgr: CpUtil.CpCodeMgr = self["CpUtil.CpCodeMgr"]
 
         if not include_preferred_stock:
             codes = [code for code in codes if code.endswith("0")]
@@ -310,10 +338,8 @@ class CybosPlusEntrypointMixin(Logging):
         """
         http://cybosplus.github.io/cpsysdib_rtf_1_/stockchart.htm
         """
-        chart = self.CpSysDib.StockChart
-
-        calendar = get_calendar("XKRX")
-        tz = calendar.tz or pytz.timezone("Asia/Seoul")
+        chart: CpSysDib.StockChart = self["CpSysDib.StockChart"]
+        cybos: CpUtil.CpCybos = self["CpUtil.CpCybos"]
 
         needs_time = chart_type in ["m", "T"]
 
@@ -334,33 +360,35 @@ class CybosPlusEntrypointMixin(Logging):
         if adjusted_price and chart_type == "D":
             fids += [18, 19]
 
-        num_fids = len(fids)
         sorted_fids = sorted(fids)
         field_indexes = [sorted_fids.index(i) for i in fids]
 
+        """
         maximum_value_count = 20000
+        num_fis = len(fids)
         expected_count = math.floor(maximum_value_count / num_fids) - 1
         request_count = expected_count + 1
+        """
 
         date_format_arg = "%Y%m%d%H%M%S"
         date_format_input = "%Y%m%d"
 
-        if start_date is None:
-            start_date = get_last_session_date().astimezone(tz).to_pydatetime()
-        if isinstance(start_date, str):
-            start_date_len = len(start_date)
-            if start_date_len == 14:
-                start_date = datetime.datetime.strptime(start_date, date_format_arg)
-            elif start_date_len == 8:
-                start_date = datetime.datetime.strptime(start_date, date_format_input)
-            else:
+        if start_date is not None:
+            if isinstance(start_date, str):
+                start_date_len = len(start_date)
+                if start_date_len == 14:
+                    start_date = datetime.datetime.strptime(start_date, date_format_arg)
+                elif start_date_len == 8:
+                    start_date = datetime.datetime.strptime(
+                        start_date, date_format_input
+                    )
+                else:
+                    raise ValueError
+            if not isinstance(start_date, datetime.datetime):
                 raise ValueError
-        if not isinstance(start_date, datetime.datetime):
-            raise ValueError
-
-        start_date = start_date.astimezone(tz)
-
-        internal_start_date = start_date
+            start_date = int(start_date.strftime(date_format_input))
+        else:
+            start_date = 0
 
         if end_date is not None:
             if isinstance(end_date, str):
@@ -373,102 +401,66 @@ class CybosPlusEntrypointMixin(Logging):
                     raise ValueError
             if not isinstance(end_date, datetime.datetime):
                 raise ValueError
+        else:
+            end_date = datetime.datetime.min
 
-            end_date = end_date.astimezone(tz)
+        end_date = int(end_date.strftime(date_format_input))
 
-        should_stop = False
+        chart.SetInputValue(0, code)
+        chart.SetInputValue(1, ord("1"))
+        chart.SetInputValue(2, start_date)
+        chart.SetInputValue(3, end_date)
+        chart.SetInputValue(5, fids)
+        chart.SetInputValue(6, ord(chart_type))
+        chart.SetInputValue(7, int(interval))
+        chart.SetInputValue(9, ord("1") if adjusted_price else ord("0"))
+
         dataframes = []
+        should_stop = False
 
         while not should_stop:
-            chart.SetInputValue(0, code)
-            chart.SetInputValue(1, ord("2"))
-            chart.SetInputValue(2, int(internal_start_date.strftime(date_format_input)))
-            chart.SetInputValue(4, request_count)
-            chart.SetInputValue(5, fids)
-            chart.SetInputValue(6, ord(chart_type))
-            chart.SetInputValue(7, int(interval))
-            chart.SetInputValue(
-                9, ord("1") if adjusted_price else ord("0")
-            )  # 기본으로 수정주가 적용하지 않음
+            limit_remain_count = cybos.GetLimitRemainCount(1)
+            if limit_remain_count == 0:
+                limit_remain_time_millis = cybos.GetLimitRemainTime(1)
+                if limit_remain_time_millis > 0:
+                    limit_remain_time_seconds = limit_remain_time_millis / 1000
+                    self.logger.debug(
+                        "Sleeping for %f seconds", limit_remain_time_seconds
+                    )
+                    time.sleep(limit_remain_time_seconds)
 
-            self.logger.debug("Requesting from %s", internal_start_date)
-            chart.RateLimitedBlockRequest()
-
-            received_count = chart.GetHeaderValue(3)
-            self.logger.debug(
-                "Requested %d, received %d records", request_count, received_count
-            )
-
-            num_fields = chart.GetHeaderValue(1)
-            assert num_fields == num_fids
-
-            names = chart.GetHeaderValue(2)
-            names = [names[i] for i in field_indexes]
+            chart.BlockRequest()
 
             records = []
+            received_count = chart.GetHeaderValue(3)
+
             for i in range(received_count):
                 record = [chart.GetDataValue(j, i) for j in field_indexes]
                 records.append(record)
 
+            names = chart.GetHeaderValue(2)
+            names = [names[i] for i in field_indexes]
+
             df = pd.DataFrame.from_records(records, columns=names)
 
-            last_date = datetime.datetime.strptime(
-                df.iloc[-1]["날짜"].astype(int).astype(str), date_format_input
-            )
-            last_date = last_date.astimezone(tz)
-
             if df.shape[0] > 0 and self.logger.isEnabledFor(logging.DEBUG):
-                from_date = datetime.datetime.strptime(
-                    df.iloc[0]["날짜"].astype(int).astype(str), date_format_input
-                )
-                from_date = from_date.astimezone(tz)
+                if needs_time:
+                    dates = df["날짜"].astype(int).astype(str)
+                    times = df["시간"].astype(int).astype(str).str.rjust(4, "0")
+                    datetimes = dates.str.cat(times)
+                    datetimes = pd.to_datetime(datetimes, format="%Y%m%d%H%M")
+                else:
+                    dates = df["날짜"].astype(int).astype(str)
+                    datetimes = dates
+                    datetimes = pd.to_datetime(datetimes, format="%Y%m%d")
                 self.logger.debug(
                     "Received data from %s to %s for code %s",
-                    from_date,
-                    last_date,
+                    datetimes.iloc[0],
+                    datetimes.iloc[-1],
                     code,
                 )
 
-            should_stop = received_count < expected_count
-
-            if not should_stop and end_date is not None:
-                should_stop = last_date <= end_date
-
-            if not should_stop:
-                self.logger.debug("More data to request remains")
-                internal_start_date = last_date
-                nrows_before_truncate = df.shape[0]
-                datetimes = pd.to_datetime(
-                    df["날짜"].astype(int).astype(str), format="%Y%m%d"
-                )
-                datetimes = datetimes.dt.tz_localize(tz)
-                condition = datetimes > last_date
-                df = df.loc[condition]
-                nrows_after_truncate = df.shape[0]
-                self.logger.debug(
-                    "Trailing rows truncated: %d",
-                    nrows_before_truncate - nrows_after_truncate,
-                )
-            else:
-                self.logger.debug("No more data to request")
-                if end_date is not None:
-                    nrows_before_truncate = df.shape[0]
-                    dates = df["날짜"].astype(int).astype(str)
-                    if needs_time:
-                        times = df["시간"].astype(int).astype(str).str.ljust(6, "0")
-                        datetimes = dates.str.cat(times)
-                        datetimes = pd.to_datetime(datetimes, format="%Y%m%d%H%M%S")
-                    else:
-                        datetimes = dates
-                        datetimes = pd.to_datetime(datetimes, format="%Y%m%d")
-                    datetimes = datetimes.dt.tz_localize(tz)
-                    condition = datetimes > end_date
-                    df = df.loc[condition]
-                    nrows_after_truncate = df.shape[0]
-                    self.logger.debug(
-                        "Trailing rows truncated: %d",
-                        nrows_before_truncate - nrows_after_truncate,
-                    )
+            should_stop = not chart.Continue
 
             dataframes.append(df)
 
@@ -500,7 +492,8 @@ class CybosPlusEntrypointMixin(Logging):
         """
         http://cybosplus.github.io/cpdib_rtf_1_/stockmst2.htm
         """
-        stock = self.DsCbo1.StockMst2
+        stock: DsCbo1.StockMst2 = self["DsCbo1.StockMst2"]
+        cybos: CpUtil.CpCybos = self["CpUtil.CpCybos"]
 
         names = [
             "종목코드",
@@ -539,7 +532,19 @@ class CybosPlusEntrypointMixin(Logging):
         dataframes = []
         for code_chunk in chunk(codes, 110):
             stock.SetInputValue(0, ",".join(code_chunk))
-            stock.RateLimitedBlockRequest()
+
+            limit_remain_count = cybos.GetLimitRemainCount(1)
+            if limit_remain_count == 0:
+                limit_remain_time_millis = cybos.GetLimitRemainTime(1)
+                if limit_remain_time_millis > 0:
+                    limit_remain_time_seconds = limit_remain_time_millis / 1000
+                    self.logger.debug(
+                        "Sleeping for %f seconds", limit_remain_time_seconds
+                    )
+                    time.sleep(limit_remain_time_seconds)
+
+            stock.BlockRequest()
+
             received_count = stock.GetHeaderValue(0)
             records = []
             for i in range(received_count):

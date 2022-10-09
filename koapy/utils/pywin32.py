@@ -5,11 +5,16 @@ try:
 except ImportError:
     from typing_extensions import TypeGuard
 
-import pythoncom
-import win32api
-import win32con
-
+from pythoncom import LoadRegTypeLib
+from pythoncom import LoadTypeLib as LoadTypeLibFromDLL
 from pywintypes import IIDType
+from win32api import (
+    ExpandEnvironmentStrings,
+    RegOpenKey,
+    RegQueryValue,
+    RegQueryValueEx,
+)
+from win32api import error as Win32ApiError
 from win32com.client.genpy import (
     DispatchItem,
     EnumerationItem,
@@ -18,6 +23,7 @@ from win32com.client.genpy import (
     VTableItem,
 )
 from win32com.client.selecttlb import EnumKeys, TypelibSpec
+from win32con import HKEY_CLASSES_ROOT, REG_EXPAND_SZ
 
 PyIID = IIDType
 PyITypeLib = "PyITypeLib"
@@ -41,9 +47,9 @@ def GetTypelibSpecs(iid: PyIIDLike) -> List[TypelibSpec]:
     specs: List[TypelibSpec] = []
 
     try:
-        key = win32api.RegOpenKey(win32con.HKEY_CLASSES_ROOT, "TypeLib")
-        key2 = win32api.RegOpenKey(key, str(iid))
-    except win32api.error:
+        key = RegOpenKey(HKEY_CLASSES_ROOT, "TypeLib")
+        key2 = RegOpenKey(key, str(iid))
+    except Win32ApiError:
         enum_keys = []
     else:
         enum_keys = EnumKeys(key2)
@@ -54,10 +60,10 @@ def GetTypelibSpecs(iid: PyIIDLike) -> List[TypelibSpec]:
             major_minor.append("0")
         major = major_minor[0]
         minor = major_minor[1]
-        key3 = win32api.RegOpenKey(key2, str(version))
+        key3 = RegOpenKey(key2, str(version))
         try:
-            flags = int(win32api.RegQueryValue(key3, "FLAGS"))
-        except (win32api.error, ValueError):
+            flags = int(RegQueryValue(key3, "FLAGS"))
+        except (Win32ApiError, ValueError):
             flags = 0
         for lcid, _ in EnumKeys(key3):
             try:
@@ -65,17 +71,17 @@ def GetTypelibSpecs(iid: PyIIDLike) -> List[TypelibSpec]:
             except ValueError:
                 continue
             try:
-                key4 = win32api.RegOpenKey(key3, "{}\\win32".format(lcid))
-            except win32api.error:
+                key4 = RegOpenKey(key3, f"{lcid}\\win32")
+            except Win32ApiError:
                 try:
-                    key4 = win32api.RegOpenKey(key3, "{}\\win64".format(lcid))
-                except win32api.error:
+                    key4 = RegOpenKey(key3, f"{lcid}\\win64")
+                except Win32ApiError:
                     continue
             try:
-                dll, typ = win32api.RegQueryValueEx(key4, None)
-                if typ == win32con.REG_EXPAND_SZ:
-                    dll = win32api.ExpandEnvironmentStrings(dll)
-            except win32api.error:
+                dll, typ = RegQueryValueEx(key4, None)
+                if typ == REG_EXPAND_SZ:
+                    dll = ExpandEnvironmentStrings(dll)
+            except Win32ApiError:
                 dll = None
             spec = TypelibSpec(iid, lcid, major, minor, flags)
             spec.dll = dll
@@ -109,9 +115,9 @@ def LoadTypeLib(spec: Union[TypelibSpec, PyIIDLike]) -> Optional[PyITypeLib]:
 
     if spec:
         if spec.dll:
-            tlb = pythoncom.LoadTypeLib(spec.dll)
+            tlb = LoadTypeLibFromDLL(spec.dll)
         else:
-            tlb = pythoncom.LoadRegTypeLib(
+            tlb = LoadRegTypeLib(
                 spec.clsid,
                 spec.major,
                 spec.minor,
@@ -130,10 +136,10 @@ def BuildOleItems(
     Dict[PyIID, RecordItem],
     Dict[PyIID, VTableItem],
 ]:
-    oleItems: Dict[PyIID, DispatchItem] = {}
-    enumItems: Dict[PyIID, EnumerationItem] = {}
-    recordItems: Dict[PyIID, RecordItem] = {}
-    vtableItems: Dict[PyIID, VTableItem] = {}
+    ole_items: Dict[PyIID, DispatchItem] = {}
+    enum_items: Dict[PyIID, EnumerationItem] = {}
+    record_items: Dict[PyIID, RecordItem] = {}
+    vtable_items: Dict[PyIID, VTableItem] = {}
 
     if IsPyIIDLike(spec):
         spec = GetLatestTypelibSpec(spec)
@@ -141,8 +147,8 @@ def BuildOleItems(
     if spec:
         if not tlb:
             tlb = LoadTypeLib(spec)
-        progressInstance = None
-        gen = Generator(tlb, spec.dll, progressInstance, bBuildHidden=1)
-        oleItems, enumItems, recordItems, vtableItems = gen.BuildOleItemsFromType()
+        progress_instance = None
+        gen = Generator(tlb, spec.dll, progress_instance, bBuildHidden=1)
+        ole_items, enum_items, record_items, vtable_items = gen.BuildOleItemsFromType()
 
-    return oleItems, enumItems, recordItems, vtableItems
+    return ole_items, enum_items, record_items, vtable_items
