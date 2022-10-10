@@ -44,25 +44,25 @@ click = "^8.1.3"
 cryptography = "^38.0.1"
 deprecated = "^1.2.13"
 "discord.py" = "^2.0.1"
-exchange-calendars = "^4.2"
-grpcio = "^1.48.1"
-grpcio-tools = "^1.48.1"
+exchange-calendars = "^4.2.3"
+grpcio = "==1.48.2"  # app crashes on 1.49.1 (possibly related: https://github.com/grpc/grpc/issues/31240)
+grpcio-tools = "==1.48.2"
 lxml = "^4.9.1"
 numpy = "^1.23.3"
 openpyxl = "^3.0.10"
-pandas = "^1.4.4"
+pandas = "^1.5.0"
 psutil = "^5.9.0"
 pygtrie = "^2.5.0"
 pyhocon = "^0.3.59"
 PySide2 = "^5.15.2.1"
-pytz = "^2022.2.1"
-QtPy = "^2.2.0"
+pytz = "^2022.4"
+QtPy = "^2.2.1"
 requests = "^2.28.1"
 Rx = "^3.2.0"
 schedule = "^1.1.0"
 Send2Trash = "^1.8.0"
 SQLAlchemy = "^1.4.41"
-tabulate = "^0.8.10"
+tabulate = "^0.9.0"
 tqdm = "^4.64.1"
 tzlocal = "^4.2"
 wrapt = "^1.14.1"
@@ -73,34 +73,34 @@ pywinauto = { version = "^0.6.8", markers = "sys_platform == 'win32'" }
 windows-curses = { version = "^2.3.0", markers = "sys_platform == 'win32'" }
 
 # python compatibility backports for runtime
-typing-extensions = { version = "^4.3.0", markers = "python_version < '3.10'" }
+typing-extensions = { version = "^4.4.0", markers = "python_version < '3.10'" }
 
 [tool.poetry.dev-dependencies]
 # development dependencies
 actions-toolkit = "^0.1.13"
-black = "^22.8.0"
+black = "^22.10.0"
 bump2version = "^1.0.1"
 codecov = "^2.1.12"
-coverage = "^6.4.4"
-dunamai = "^1.13.0"
+coverage = "^6.5.0"
+dunamai = "^1.13.1"
 flake8 = "^5.0.4"
 isort = "^5.10.1"
-mypy = "^0.971"
+mypy = "^0.982"
 pip-tools = "^6.6.0"
 pre-commit = "^2.20.0"
-pylint = "^2.15.2"
+pylint = "^2.15.3"
 pytest = "^7.1.3"
-pytest-cov = "^3.0.0"
+pytest-cov = "^4.0.0"
 pytest-xdist = "^2.5.0"
-pyupgrade = "^2.37.3"
+pyupgrade = "^3.0.0"
 
 # python compatibility backports for development
 astunparse = { version = "^1.6.3", markers = "python_version < '3.9'" }
 
 # documentation dependencies
-Sphinx = "^5.1.1"
-sphinx-autoapi = "^1.9.0"
-nbconvert = "^7.0.0"
+Sphinx = "^5.2.3"
+sphinx-autoapi = "^2.0.0"
+nbconvert = "^7.2.1"
 nbsphinx = "^0.8.9"
 ipython = "^8.5.0"
 

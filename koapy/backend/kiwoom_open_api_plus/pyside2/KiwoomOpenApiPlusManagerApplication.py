@@ -631,8 +631,8 @@ class KiwoomOpenApiPlusManagerApplication(QObjectLogging):
     # ================================
 
     def _close(self):
-        self._closeClient()
-        self._closeServerProcess()
+        self._closeClientIfExists()
+        self._closeServerProcessIfExists()
 
     def close(self):
         return self._close()

@@ -5,7 +5,7 @@ import grpc
 from koapy.backend.kiwoom_open_api_plus.grpc import KiwoomOpenApiPlusService_pb2 as koapy_dot_backend_dot_kiwoom__open__api__plus_dot_grpc_dot_KiwoomOpenApiPlusService__pb2
 
 
-class KiwoomOpenApiPlusServiceStub(object):
+class KiwoomOpenApiPlusServiceStub:
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -86,7 +86,7 @@ class KiwoomOpenApiPlusServiceStub(object):
                 )
 
 
-class KiwoomOpenApiPlusServiceServicer(object):
+class KiwoomOpenApiPlusServiceServicer:
     """Missing associated documentation comment in .proto file."""
 
     def Call(self, request, context):
@@ -125,7 +125,7 @@ class KiwoomOpenApiPlusServiceServicer(object):
         """3. rpcs for simple use cases that can be categorized into serveral distinct usage patterns
 
         server streaming rpc for login/connect scenario,
-        would invoke Connect() and wait for OnEventConnect() event to test its success
+        would invoke CommConnect() and wait for OnEventConnect() event to test its success
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -306,7 +306,7 @@ def add_KiwoomOpenApiPlusServiceServicer_to_server(servicer, server):
 
 
  # This class is part of an EXPERIMENTAL API.
-class KiwoomOpenApiPlusService(object):
+class KiwoomOpenApiPlusService:
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
