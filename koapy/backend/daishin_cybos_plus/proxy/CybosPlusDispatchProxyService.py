@@ -1,8 +1,9 @@
+import sys
+
 from concurrent.futures import ThreadPoolExecutor
 
 import grpc
-
-from pythoncom import CoInitialize
+import pythoncom
 
 from koapy.backend.daishin_cybos_plus.proxy.CybosPlusDispatchProxyServiceServicer import (
     CybosPlusDispatchProxyServiceServicer,
@@ -26,9 +27,14 @@ class CybosPlusDispatchProxyService:
 
         self._address = self._host + ":" + str(self._port)
         self._servicer = CybosPlusDispatchProxyServiceServicer()
+
+        def initializer():
+            flags = getattr(sys, "coinit_flags", pythoncom.COINIT_MULTITHREADED)
+            pythoncom.CoInitializeEx(flags)
+
         self._executor = ThreadPoolExecutor(
             max_workers=self._max_workers,
-            initializer=CoInitialize,
+            initializer=initializer,
         )
 
         self._server = grpc.server(self._executor)
