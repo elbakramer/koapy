@@ -1,3 +1,4 @@
+import shutil
 import subprocess
 import sys
 
@@ -282,7 +283,7 @@ def get_executable_from_executable_config(executable_config: Config) -> Optional
     if isinstance(executable_config, dict):
         if "path" in executable_config:
             return executable_config["path"]
-        if "conda" in executable_config:
+        if "conda" in executable_config and shutil.which("conda") is not None:
             conda_config = executable_config["conda"]
             if isinstance(conda_config, str):
                 envname = conda_config

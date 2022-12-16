@@ -46,6 +46,8 @@ class KiwoomOpenApiPlusEntrypoint(KiwoomOpenApiPlusEntrypointMixin, Logging):
         if not self._client.is_ready(self._client_check_timeout):
             self.logger.debug("Client is not ready")
             self.logger.debug("Creating a new server...")
+            if self._server_executable is None:
+                raise FileNotFoundError("Cannot find 32bit python executable")
             self._server_proc = Popen(self._server_proc_args)
             assert self._client.is_ready(
                 self._server_proc_start_timeout
